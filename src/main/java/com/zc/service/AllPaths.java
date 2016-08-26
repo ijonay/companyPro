@@ -16,12 +16,13 @@ import java.util.*;
  */
 public class AllPaths {
     private final float SIMILARITY_THRESHOLD = 0.46f;
-    private final int TOPNSIZE = 5;
+    private final int TOPNSIZE = 10;
     private final float MINSCORE = 0.41f;
-    private final int MAX_PATHLENGTH = 5;
+    private final int MAX_PATHLENGTH = 8;
     private final float DISSIMILARITY_THRESHOLD = 0.4f; // 不相似阈值
     private List<Stack<String>> pathList;
     private String modelName;
+    private boolean isFirst = true;
 
     private Stack<String> path = new Stack<>();
     private Set<String> onPath = new HashSet<>();
@@ -80,23 +81,30 @@ public class AllPaths {
                 System.out.println(temp);
                 System.out.println("------------------------");
                 this.pathList.add(temp);
-            } else {
-                Set<WordEntry> neighbors =
-                        WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE, this.modelName);
-                if (neighbors != null) {
-                    LinkedList<WordEntry> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
-                    for (WordEntry w : tempNeighbors) {
-                        if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w.name)) {
-//                        if (!StringUtils.isEmpty(w.name) && !onPath.contains(w.name)) {
-                            generatePath(w.name, targetVector);
-                        }
-                    }
+                if (isFirst) {
+                    isFirst = false;
+                    runRecursion(start, targetVector);
                 }
+            } else {
+                runRecursion(start, targetVector);
             }
         }
 
         path.pop();
         onPath.remove(start);
+    }
+
+    private void runRecursion(String start, float[] targetVector) {
+        Set<WordEntry> neighbors =
+                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE, this.modelName);
+        if (neighbors != null) {
+            LinkedList<WordEntry> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
+            for (WordEntry w : tempNeighbors) {
+                if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w.name)) {
+                    generatePath(w.name, targetVector);
+                }
+            }
+        }
     }
 
     private boolean isDisSimilarity(String start, String target) {

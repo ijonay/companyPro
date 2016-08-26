@@ -64,7 +64,9 @@
                     li += '<li>' + content + '</li>';
                 }
                 console.log(li);
-                $('#pathList').append(li);
+                $('#pathList').html('').append(li);
+            } else if (res.statusCode == 2004) {
+                $('#pathList').html('没有数据');
             }
         });
     }
