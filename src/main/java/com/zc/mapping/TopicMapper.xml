@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicDao">
+    <resultMap id="BaseResultMap" type="com.zc.bean.Topic">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
+        <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    </resultMap>
+    <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
+    <sql id="tableName">topic</sql>
+    <sql id="Base_Column_List">
+        id, title, coordinate,keywords
+    </sql>
+    <sql id="checkColumnNull">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="title != null">
+            title,
+        </if>
+        <if test="coordinate != null">
+            coordinate
+        </if>
+        <if test="keywords != null">
+            keywords
+        </if>
+    </sql>
+    <sql id="checkPropertyNull">
+        <if test="id != null">
+            #{id,jdbcType=INTEGER},
+        </if>
+        <if test="title != null">
+            #{title,jdbcType=VARCHAR},
+        </if>
+        <if test="coordinate != null">
+            #{coordinate,jdbcType=VARCHAR}
+        </if>
+        <if test="keywords != null">
+            #{keywords,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <insert id="add" useGeneratedKeys="true" keyProperty="id"
+        parameterType="com.zc.bean.Topic">
+        insert into
+        <include refid="tableName" />
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="checkColumnNull" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="checkPropertyNull" />
+        </trim>
+    </insert>
+
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+        <include refid="tableName" />
+        where
+        <include refid="uniqueQuery" />
+    </select>
+    <select id="getItemCount" resultType="java.lang.Integer">
+        select count(1) from
+        <include refid="tableName"></include>
+    </select>
+    <select id="getList" resultMap="BaseResultMap">
+        Select * from
+        <include refid="tableName"></include>
+        order by id
+        LIMIT
+        #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from
+        <include refid="tableName" />
+        where
+        <include refid="uniqueQuery" />
+    </delete>
+    <update id="update" parameterType="com.zc.bean.Topic">
+        update
+        <include refid="tableName" />
+        <set>
+            <include refid="checkPropertyNull" />
+        </set>
+        <include refid="uniqueQuery" />
+    </update>
+    <update id="batchUpdate">
+        <foreach collection="list" item="item" index="index"
+            separator=";">
+            update
+            <include refid="tableName" />
+            <set>
+                coordinate='${item.coordinate}'
+            </set>
+            where id =${item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        <include refid="tableName" />
+        (
+        <include refid="Base_Column_List" />
+        )
+        values
+        <foreach collection="list" item="item" index="i"
+            separator=",">
+            (
+            <choose>
+                <when test="item.id==null">null
+                </when>
+                <when test="item.id!=null">'${item.id}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.title==null">null
+                </when>
+                <when test="item.title!=null">'${item.title}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.coordinate==null">null
+                </when>
+                <when test="item.coordinate!=null">'${item.coordinate}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.keywords==null">null
+                </when>
+                <when test="item.keywords!=null">'${item.keywords}'
+                </when>
+            </choose>
+            )
+        </foreach>
+    </insert>
+</mapper>

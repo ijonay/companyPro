@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.tempdao.CleanContentDao">
+    <resultMap id="BaseResultMap" type="com.zc.tempbean.CleanContent">
+        <id column="topic_id" jdbcType="INTEGER" property="topic_id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="weibo_content_cleansed" jdbcType="VARCHAR"
+            property="weibo_content_cleansed" />
+        <result column="comment_content_cleansed" jdbcType="VARCHAR"
+            property="comment_content_cleansed" />
+    </resultMap>
+    <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
+    <sql id="tableName">CleanContent</sql>
+    <sql id="Base_Column_List">
+        topic_id,title,
+        weibo_content_cleansed,comment_content_cleansed
+    </sql>
+    <sql id="checkColumnNull">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="title != null">
+            title,
+        </if>
+        <if test="coordinate != null">
+            coordinate
+        </if>
+    </sql>
+    <sql id="checkPropertyNull">
+        <if test="id != null">
+            #{id,jdbcType=INTEGER},
+        </if>
+        <if test="title != null">
+            #{title,jdbcType=VARCHAR},
+        </if>
+        <if test="coordinate != null">
+            #{coordinate,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <select id="getItemCount" resultType="java.lang.Integer">
+        select count(1) from 
+        <include refid="tableName"></include>
+        where topic_id=#{topic_id,jdbcType=INTEGER}
+    </select>
+    <select id="getList" resultMap="BaseResultMap">
+        Select * from
+        <include refid="tableName"></include>
+        where topic_id=#{topic_id,jdbcType=INTEGER}
+        order by topic_id
+        offset(#{pageSize,jdbcType=INTEGER}*(#{currentPage,jdbcType=INTEGER}-1))
+        row
+        fetch next #{pageSize,jdbcType=INTEGER} rows only
+    </select>
+
+</mapper>

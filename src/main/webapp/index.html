@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>话题热度分析</title>
+</head>
+<body>
+	<div>
+		<input id="searchInput" placeholder="请输入关键词" />
+		<button id="searchBtn">搜索</button>
+	</div>
+	<div id="topicList"></div>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+		var globalVar = {
+			topicUrl : 'api/words/topic',
+			queryWord : null,
+			pathUrl : 'api/paths/'
+		};
+		$(function() {
+			$('#searchBtn').click(search);
+		});
+
+		function search() {
+			var query = $('#searchInput').val();
+			if (!query) {
+				alert('搜索词不能为空!');
+			}
+			globalVar.queryWord = query;
+			$.get(globalVar.topicUrl, {
+				'clueWord' : query
+			}, function(res) {
+				if (!res || res.statusCode) {
+					alert(res.statusCode);
+					return;
+				}
+				showTopics(res.data);
+			});
+
+		}
+
+		function showTopics(topics) {
+			var str = '';
+			for (var i = 0; i < topics.length; i++) {
+				var a = topics[i];
+				//            str += '<li><a href="javascript:void(0);" onclick="getPaths(' + 1 + ')">' + a + '</a></li>';
+				str += '<li><a href="connect?topicId=' + a['id'] + '&query='
+						+ globalVar.queryWord + '">' + a['title'] + '</a></li>';
+			}
+			$('#topicList').html('').append(str);
+		}
+
+		function getPaths(topicId) {
+			var url = globalVar.pathUrl + topicId;
+			$.get(url, {
+				query : globalVar.queryWord
+			}, function(res) {
+				console.log(res);
+			});
+		}
+	</script>
+</body>
+</html>

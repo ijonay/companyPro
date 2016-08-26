@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Word Vector</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+    body {
+        font-family: helvetica;
+        font-size: 14px;
+    }
+    
+    #graph-container {
+        margin: 100px;
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 999;
+    }
+    
+    h1 {
+        opacity: 0.5;
+        font-size: 1em;
+    }
+    
+    #container {
+        margin-top: 70px;
+        margin-left: 30px;
+    }
+    
+    #filter {
+        top: 0;
+        left: 0;
+        height: 150px;
+        position: absolute;
+        background-color: #999;
+        padding: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/cytoscape/cytoscape.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">热度分析</a>
+            </div>
+        </div>
+    </nav>
+    <div id="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="model">模型</label>
+                        <select id="model" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="clueWord">关键词</label>
+                        <input type="text" class="form-control" id="clueWord" placeholder="关键词">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="relevancy">相关度</label>
+                        <input type="text" class="form-control" id="relevancy" placeholder="相关度" value="0.55">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="topN">结点数量</label>
+                        <input type="text" class="form-control" id="topN" placeholder="数量" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="length">层级</label>
+                        <select id="length" class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                    <button id="analysisBtn" class="btn btn-primary">分析</button>
+                    <!-- <button id="refreshBtn" class="btn btn-primary">刷新</button> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="graph-container"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/vendor.js"></script>
+</body>
+
+</html>

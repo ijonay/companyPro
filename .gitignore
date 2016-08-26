@@ -1,0 +1,10 @@
+.*
+target/
+*.iml
+!.gitignore
+src/main/webapp/node_modules/
+src/main/resources/dataset/
+src/main/resources/keyword/
+src/main/resources/parsed/
+src/main/resources/topicword/
+/bin/
