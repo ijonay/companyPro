@@ -96,7 +96,7 @@ public class AllPaths {
 
     private void runRecursion(String start, float[] targetVector) {
         Set<WordEntry> neighbors =
-                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE, this.modelName);
+                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE);
         if (neighbors != null) {
             LinkedList<WordEntry> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
             for (WordEntry w : tempNeighbors) {

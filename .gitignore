@@ -8,3 +8,4 @@ src/main/resources/keyword/
 src/main/resources/parsed/
 src/main/resources/topicword/
 /bin/
+logs/
