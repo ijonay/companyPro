@@ -1,11 +1,13 @@
 package com.zc.service;
 
 import com.zc.model.WordEntry;
+import com.zc.model.WordRedisModel;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,18 +17,26 @@ import java.util.*;
  * Created by 张镇强 on 2016/7/14 16:18.
  */
 public class AllPaths {
-    private final float SIMILARITY_THRESHOLD = 0.46f;
+    private final float SIMILARITY_THRESHOLD = 0.5f;
     private final int TOPNSIZE = 10;
-    private final float MINSCORE = 0.41f;
-    private final int MAX_PATHLENGTH = 8;
-    private final float DISSIMILARITY_THRESHOLD = 0.4f; // 不相似阈值
+    //    private final float MINSCORE = 0.40f;
+    private final float DISSIMILARITY_THRESHOLD = 0.5f; // 不相似阈值
     private List<Stack<String>> pathList;
     private String modelName;
     private boolean isFirst = true;
+    private int MAX_PATHLENGTH = 5;
 
     private Stack<String> path = new Stack<>();
     private Set<String> onPath = new HashSet<>();
     private Map<String, float[]> wordMap;
+    private final String WORDREDISKEY = "topicanalysis:word:";
+
+
+    private RedisTemplate<String, WordRedisModel> redisTemplate;
+
+    public AllPaths() {
+
+    }
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
@@ -51,9 +61,10 @@ public class AllPaths {
         System.out.println("运行时间:" + (endTime - startTime) + " ns");
     }
 
-    public AllPaths() {
+    public AllPaths(RedisTemplate<String, WordRedisModel> redisTemplate) {
         try {
             this.modelName = "doubanweibo1";
+            this.redisTemplate = redisTemplate;
             this.wordMap = WordVectorHelper.loadModel(ResourceDict.MODEL_DICT.get(modelName).getModelPath());
         } catch (IOException e) {
             // TODO: 2016/8/23  处理异常
@@ -63,8 +74,12 @@ public class AllPaths {
 
 
     public List<Stack<String>> getAllPath(String start, float[] targetVector) {
-        generatePath(start, targetVector);
+//        while (this.pathList.size() == 0 && this.MAX_PATHLENGTH <= 8) {
+//            generatePath(start, targetVector);
+//            this.MAX_PATHLENGTH += 1;
+//        }
 
+        generatePath(start, targetVector);
         return this.pathList;
     }
 
@@ -95,11 +110,12 @@ public class AllPaths {
     }
 
     private void runRecursion(String start, float[] targetVector) {
-        Set<WordEntry> neighbors =
-                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE, this.modelName);
+//        Set<WordEntry> neighbors =
+//                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE);
+        Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(WORDREDISKEY + start).range(0, 9);
         if (neighbors != null) {
-            LinkedList<WordEntry> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
-            for (WordEntry w : tempNeighbors) {
+            LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
+            for (WordRedisModel w : tempNeighbors) {
                 if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w.name)) {
                     generatePath(w.name, targetVector);
                 }
@@ -122,8 +138,8 @@ public class AllPaths {
         return similarity;
     }
 
-    private LinkedList<WordEntry> getSortedWordEntryList(Set<WordEntry> neighbors, float[] targetVector) {
-        LinkedList<WordEntry> list = new LinkedList(neighbors);
+    private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector) {
+        LinkedList<WordRedisModel> list = new LinkedList(neighbors);
         HashMap<String, Float> t = new HashMap<>();
 
         Collections.sort(list, (left, right) ->
