@@ -118,8 +118,7 @@ public final class WordVectorHelper {
      * @return
      */
     public static Set<WordEntry> getDistance(String word,
-                                             Map<String, float[]> wordMap, int topNSize, float score,
-                                             String modelName) {
+                                             Map<String, float[]> wordMap, int topNSize, float score) {
         float[] wordVector = getWordVector(wordMap, word);
         if (wordVector == null) {
             return null;
@@ -185,7 +184,7 @@ public final class WordVectorHelper {
                 break;
 
             Set<WordEntry> words = getDistance(vertex.getValue(), modelMap,
-                    topNSize, score, modelName);
+                    topNSize, score);
             if (words == null)
                 break;
 
