@@ -2,15 +2,12 @@ package com.zc.service;
 
 import com.zc.model.WordEntry;
 import com.zc.model.WordRedisModel;
-import com.zc.model.WordRedisModelList;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,27 +39,27 @@ public class RedisServiceImpl implements RedisService {
             int count = 1;
             long start = System.currentTimeMillis();
             for (Map.Entry<String, float[]> entry : wordSet) {
-                String name = entry.getKey();
-                if (StringUtils.isEmpty(name)) {
-                    continue;
-                }
-                Set<WordEntry> neighbors =
-                        WordVectorHelper.getDistance(name, wordMap, 25, 0.4f);
-
-                if (neighbors.size() == 0) {
-                    continue;
-                }
-
-                neighbors.forEach(n -> {
-                    WordRedisModel w = new WordRedisModel(n.name, n.score);
-//                    listOps.rightPush(WORDREDISKEY + name, w);
-                    redisTemplate.boundZSetOps(WORDREDISKEY + name).add(w, n.score);
-                });
-
-
-                if (count++ % 100 == 0) {
-                    System.out.println("-----------:" + count + "||" + (System.currentTimeMillis() - start));
-                }
+//                String name = entry.getKey();
+//                if (StringUtils.isEmpty(name)) {
+//                    continue;
+//                }
+//                Set<WordEntry> neighbors =
+//                        WordVectorHelper.getDistance(name, wordMap, 25, 0.4f);
+//
+//                if (neighbors.size() == 0) {
+//                    continue;
+//                }
+//
+//                neighbors.forEach(n -> {
+//                    WordRedisModel w = new WordRedisModel(n.name, n.score);
+////                    listOps.rightPush(WORDREDISKEY + name, w);
+////                    redisTemplate.boundZSetOps(WORDREDISKEY + name).add(w, n.score);
+//                });
+//
+//
+//                if (count++ % 100 == 0) {
+//                    System.out.println("-----------:" + count + "||" + (System.currentTimeMillis() - start));
+//                }
             }
 
             System.out.println("耗时:" + (System.currentTimeMillis() - start));
