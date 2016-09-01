@@ -44,7 +44,7 @@
 			for (var i = 0; i < topics.length; i++) {
 				var a = topics[i];
 				//            str += '<li><a href="javascript:void(0);" onclick="getPaths(' + 1 + ')">' + a + '</a></li>';
-				str += '<li><a href="connect?topicId=' + a['id'] + '&query='
+				str += '<li><a target="_blank" href="connect?topicId=' + a['id'] + '&query='
 						+ globalVar.queryWord + '">' + a['title'] + '</a></li>';
 			}
 			$('#topicList').html('').append(str);

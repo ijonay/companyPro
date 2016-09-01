@@ -204,6 +204,8 @@
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.cbow0</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>

@@ -3,6 +3,7 @@ package com.zc.service;
 import com.zc.model.WordEntry;
 import com.zc.model.WordRedisModel;
 import com.zc.utility.CommonHelper;
+import com.zc.utility.PropertyHelper;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -17,14 +18,14 @@ import java.util.*;
  * Created by 张镇强 on 2016/7/14 16:18.
  */
 public class AllPaths {
-    private final float SIMILARITY_THRESHOLD = 0.5f;
-    private final int TOPNSIZE = 10;
+    private final float SIMILARITY_THRESHOLD = Float.parseFloat(PropertyHelper.getValue("config.properties", "SIMILARITY_THRESHOLD"));
+    private final int TOPNSIZE = Integer.parseInt(PropertyHelper.getValue("config.properties", "TOPNSIZE"));
+    private final float DISSIMILARITY_THRESHOLD = Float.parseFloat(PropertyHelper.getValue("config.properties", "DISSIMILARITY_THRESHOLD")); // 不相似阈值
+    private int MAX_PATHLENGTH = Integer.parseInt(PropertyHelper.getValue("config.properties", "MAX_PATHLENGTH"));
     //    private final float MINSCORE = 0.40f;
-    private final float DISSIMILARITY_THRESHOLD = 0.2f; // 不相似阈值
     private List<Stack<String>> pathList;
     private String modelName;
     private boolean isFirst = true;
-    private int MAX_PATHLENGTH = 10;
 
     private Stack<String> path = new Stack<>();
     private Set<String> onPath = new HashSet<>();
@@ -63,6 +64,8 @@ public class AllPaths {
 
     public AllPaths(RedisTemplate<String, WordRedisModel> redisTemplate) {
         try {
+            System.out.println("configs_" + "SIMILARITY_THRESHOLD:" +
+                    SIMILARITY_THRESHOLD + "_DISSIMILARITY_THRESHOLD:" + DISSIMILARITY_THRESHOLD + "_TOPNSIZE:" + TOPNSIZE + "_MAX_PATHLENGTH:" + MAX_PATHLENGTH);
             this.modelName = "doubanweibo1";
             this.redisTemplate = redisTemplate;
             this.wordMap = WordVectorHelper.loadModel(ResourceDict.MODEL_DICT.get(modelName).getModelPath());
@@ -112,7 +115,7 @@ public class AllPaths {
     private void runRecursion(String start, float[] targetVector) {
 //        Set<WordEntry> neighbors =
 //                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE);
-        Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(WORDREDISKEY + start).range(0, 9);
+        Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(WORDREDISKEY + start).range(0, TOPNSIZE - 1);
         if (neighbors != null) {
             LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
             for (WordRedisModel w : tempNeighbors) {
