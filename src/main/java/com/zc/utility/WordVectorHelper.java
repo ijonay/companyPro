@@ -153,6 +153,8 @@ public final class WordVectorHelper {
      * @return
      */
     public static float getSimilarity(float[] sourceVector, float[] targetVector) {
+        if (sourceVector == null || targetVector == null) return 0;
+
         float dist = 0;
         for (int i = 0; i < sourceVector.length; i++) {
             dist += sourceVector[i] * targetVector[i];

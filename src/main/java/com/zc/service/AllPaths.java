@@ -20,11 +20,11 @@ public class AllPaths {
     private final float SIMILARITY_THRESHOLD = 0.5f;
     private final int TOPNSIZE = 10;
     //    private final float MINSCORE = 0.40f;
-    private final float DISSIMILARITY_THRESHOLD = 0.5f; // 不相似阈值
+    private final float DISSIMILARITY_THRESHOLD = 0.2f; // 不相似阈值
     private List<Stack<String>> pathList;
     private String modelName;
     private boolean isFirst = true;
-    private int MAX_PATHLENGTH = 5;
+    private int MAX_PATHLENGTH = 10;
 
     private Stack<String> path = new Stack<>();
     private Set<String> onPath = new HashSet<>();
@@ -140,18 +140,26 @@ public class AllPaths {
 
     private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector) {
         LinkedList<WordRedisModel> list = new LinkedList(neighbors);
-        HashMap<String, Float> t = new HashMap<>();
+        try {
+            Collections.sort(list, (left, right) -> {
+                        return CommonHelper.compare(
+                                WordVectorHelper.getSimilarity(this.wordMap.get(right.name), targetVector),
+                                WordVectorHelper.getSimilarity(this.wordMap.get(left.name), targetVector)
+                        );
+                    }
+            );
+        } catch (Exception ex) {
+            System.out.println(this.wordMap);
+            System.out.println();
+            System.out.println("***************************" + ex.toString());
+            throw new RuntimeException(ex);
+        }
 
-        Collections.sort(list, (left, right) ->
-                CommonHelper.compare(
-                        WordVectorHelper.getSimilarity(this.wordMap.get(right.name), targetVector),
-                        WordVectorHelper.getSimilarity(this.wordMap.get(left.name), targetVector)
-                )
-        );
 
-        list.forEach(l -> {
-            t.put(l.name, WordVectorHelper.getSimilarity(this.wordMap.get(l.name), targetVector));
-        });
+//        HashMap<String, Float> t = new HashMap<>();
+//        list.forEach(l -> {
+//            t.put(l.name, WordVectorHelper.getSimilarity(this.wordMap.get(l.name), targetVector));
+//        });
 
         return list;
     }
