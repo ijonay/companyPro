@@ -14,4 +14,6 @@ public interface WordService {
                              int topN, float relevancy, int length) throws IOException;
     
     List<TopicModel> getTopicSimilarity(String sourceWord);
+    
+    float[] getWordVector(String word);
 }

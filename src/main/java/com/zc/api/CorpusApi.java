@@ -7,22 +7,12 @@
  */
 package com.zc.api;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import com.zc.utility.WordSeg;
 
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.NlpAnalysis;
@@ -39,13 +29,12 @@ import com.zc.tempbean.CleanContent;
 import com.zc.tempbean.TopicInfo;
 import com.zc.tempservice.CleanContentService;
 import com.zc.tempservice.TopicInfoService;
-import com.zc.utility.ZCFile;
-import com.zc.utility.ZC_SFTPClient;
+
+
 
 @RestController
 @RequestMapping("/api/")
 public class CorpusApi {
-
     @Autowired
     private CleanContentService cleanContentService;
     @Autowired
