@@ -10,14 +10,19 @@ package com.zc.api;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.NlpAnalysis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mysql.cj.core.util.StringUtils;
@@ -29,8 +34,8 @@ import com.zc.tempbean.CleanContent;
 import com.zc.tempbean.TopicInfo;
 import com.zc.tempservice.CleanContentService;
 import com.zc.tempservice.TopicInfoService;
-
-
+import com.zc.utility.ResourceDict;
+import com.zc.utility.WordVectorHelper;
 
 @RestController
 @RequestMapping("/api/")
@@ -57,9 +62,10 @@ public class CorpusApi {
         insertTopic(list);
         for (TopicInfo item : list) {
             List<String> contents = generateSingleTopicText(item.getId(), 1000);
-            String relativePath =resourceRootPath+ corpusDir + "/" + item.getId()+".txt";
-            File file=new File(relativePath);
-            writeCorpus(contents,file);
+            String relativePath = resourceRootPath + corpusDir + "/"
+                    + item.getId() + ".txt";
+            File file = new File(relativePath);
+            writeCorpus(contents, file);
         }
         return new ApiResultModel(null);
     }
@@ -114,19 +120,84 @@ public class CorpusApi {
         return results;
     }
 
-    private void writeCorpus(List<String>topicContents,File fileOut) throws Exception{
-        if(topicContents==null||topicContents.size()==0) return;
+    private void writeCorpus(List<String> topicContents, File fileOut)
+            throws Exception {
+        if (topicContents == null || topicContents.size() == 0)
+            return;
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(fileOut), "UTF-8"));
-        for(String content:topicContents){
-            StringBuilder sb=new StringBuilder();
+        for (String content : topicContents) {
+            StringBuilder sb = new StringBuilder();
             List<Term> terms = NlpAnalysis.parse(content).getTerms();
             for (Term term : terms) {
                 sb.append(term.getName() + " ");
             }
-            sb=sb.append("\n");
+            sb = sb.append("\n");
             bw.write(sb.toString());
         }
         bw.close();
+    }
+
+    @RequestMapping("kmeans")
+    public ApiResultModel generateKMeans(
+            @RequestParam(value = "topicid") Integer topicid) throws Exception {
+        List<String> contents = generateSingleTopicText(topicid, 1000);
+        if (contents != null && contents.size() > 0) {
+            String relativePath = "C:\\Users\\huyulinhome\\Desktop\\document_arff\\"
+                    + topicid + ".arff";
+            File file = new File(relativePath);
+            if (!file.exists())
+                file.createNewFile();
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "UTF-8"));
+            
+            writeHeader(bw);
+            Map<String, float[]> maps=loadMap();
+            Map<String,Boolean>corpusExist=new LinkedHashMap<String,Boolean>();
+            for (String content : contents) {
+                List<Term> terms = NlpAnalysis.parse(content).getTerms();
+                for(Term term:terms){
+                    String word=term.getName();
+                    if(!corpusExist.containsKey(word)&&maps.containsKey(word)){
+                        corpusExist.put(word, true);
+                        float[]vector=maps.get(word);
+                    }
+                }
+            }
+        }
+        return new ApiResultModel(null);
+    }
+    
+    private void writeHeader(BufferedWriter bw) throws IOException{
+        bw.write("@relation contact-lenses\n");
+        bw.write("\n");
+        for (int i = 0; i < 200; i++) {
+            bw.write("@attribute "+i+" numeric\n");  
+        }
+        bw.write("\n");
+        bw.write("@data\n");
+    }
+    private Map<String, float[]> loadMap() throws Exception{
+        Map<String, float[]> wordMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict.get("cbow0"));
+        return wordMap;
+    }
+    
+    private String join(float[] vector,String separator){
+        if(vector==null||vector.length==0)return "";
+        StringBuilder sb=new StringBuilder();
+        for(float val:vector){
+            sb.append(val);
+            sb.append(separator);
+        }
+        return sb.toString().trim();
+    }
+    private String trim(String sourceString,String[]trimString){
+        if(trimString==null||trimString.length==0)return sourceString;
+        for(String ts:trimString){
+            if(sourceString.indexOf(ts)==0){
+                
+            }
+        }
+        return "";
     }
 }
