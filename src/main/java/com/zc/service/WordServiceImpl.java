@@ -1,6 +1,8 @@
 package com.zc.service;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,6 +15,12 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import weka.clusterers.SimpleKMeans;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.ManhattanDistance;
+import weka.core.converters.ArffLoader;
 
 import com.alibaba.fastjson.JSON;
 import com.zc.bean.KeyWord;
@@ -180,5 +188,44 @@ public class WordServiceImpl implements WordService {
         newModel.setTitle(model.getTitle());
         newModel.setScore(model.getScore());
         return newModel;
+    }
+
+    @Override
+    public float[] getWordVector(String word) {
+        float[]result=new float[200];
+        if(modelMap.containsKey(word))
+            result=modelMap.get(word);
+        return result;
+    }
+    public void writeArff(File file) throws IOException{
+        BufferedWriter writer=new BufferedWriter(new FileWriter(file));
+        
+        
+    }
+    public void test(File file) throws Exception{
+        ArffLoader loader = new ArffLoader();  
+        loader.setFile(file);  
+        Instances ins = loader.getDataSet();
+        
+        ManhattanDistance manhattan = new ManhattanDistance();
+        
+        SimpleKMeans km=new SimpleKMeans();
+        km.setNumClusters(10);
+        km.setPreserveInstancesOrder(true);
+        km.setDistanceFunction(manhattan);
+        km.buildClusterer(ins);
+        
+        Instances centers=km.getClusterCentroids();
+        for ( int i = 0; i < centers.numInstances(); i++ ) {
+            // for each cluster center
+            Instance inst = centers.instance( i );
+            // as you mentioned, you only had 1 attribute
+            // but you can iterate through the different attributes
+            double value = inst.value( 0 );
+            System.out.println( "Value for centroid " + i + ": " + value );
+        }
+        
+        km.getSquaredError();
+        km.getClusterStandardDevs();
     }
 }

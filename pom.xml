@@ -153,12 +153,14 @@
             <version>0.1.53</version>
         </dependency>
 
+
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
             <version>4.3.2.RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
@@ -176,6 +178,14 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+
+        
+        <dependency>
+            <groupId>nz.ac.waikato.cms.weka</groupId>
+            <artifactId>weka-stable</artifactId>
+            <version>3.6.11</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>zhicang</finalName>
