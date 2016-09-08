@@ -16,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import weka.clusterers.ClusterEvaluation;
+import weka.clusterers.EM;
 import weka.clusterers.SimpleKMeans;
+import weka.core.EuclideanDistance;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.ManhattanDistance;
@@ -25,6 +28,7 @@ import weka.core.converters.ArffLoader;
 import com.alibaba.fastjson.JSON;
 import com.zc.bean.KeyWord;
 import com.zc.bean.Topic;
+import com.zc.model.ClusterModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
 import com.zc.utility.ResourceDict;
@@ -173,16 +177,17 @@ public class WordServiceImpl implements WordService {
             float score = WordVectorHelper.getSimilarity(model.getCoordinate(),
                     sourceVectors);
             model.setScore(score);
-            TopicModel newModel =getNewModel(id,model);
+            TopicModel newModel = getNewModel(id, model);
             result.add(newModel);
         }
-        result=result.stream().sorted(
-                (object1, object2) -> object2.getScore().compareTo(
+        result = result
+                .stream()
+                .sorted((object1, object2) -> object2.getScore().compareTo(
                         object1.getScore())).collect(Collectors.toList());
         return result;
     }
 
-    private TopicModel getNewModel(Long id,TopicModel model) {
+    private TopicModel getNewModel(Long id, TopicModel model) {
         TopicModel newModel = new TopicModel();
         newModel.setId(id);
         newModel.setTitle(model.getTitle());
@@ -192,40 +197,92 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public float[] getWordVector(String word) {
-        float[]result=new float[200];
-        if(modelMap.containsKey(word))
-            result=modelMap.get(word);
+        float[] result = new float[200];
+        if (modelMap.containsKey(word))
+            result = modelMap.get(word);
         return result;
     }
-    public void writeArff(File file) throws IOException{
-        BufferedWriter writer=new BufferedWriter(new FileWriter(file));
-        
-        
+
+    public void writeArff(File file) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
     }
-    public void test(File file) throws Exception{
-        ArffLoader loader = new ArffLoader();  
-        loader.setFile(file);  
+
+    public List<List<ClusterModel>>  KMeans(File arfffile, File outFile, List<String> listWords)
+            throws Exception {
+        ArffLoader loader = new ArffLoader();
+        loader.setFile(arfffile);
         Instances ins = loader.getDataSet();
-        
-        ManhattanDistance manhattan = new ManhattanDistance();
-        
-        SimpleKMeans km=new SimpleKMeans();
+
+        EuclideanDistance distance = new EuclideanDistance();
+
+        SimpleKMeans km = new SimpleKMeans();
         km.setNumClusters(10);
         km.setPreserveInstancesOrder(true);
-        km.setDistanceFunction(manhattan);
+        km.setDistanceFunction(distance);
         km.buildClusterer(ins);
-        
-        Instances centers=km.getClusterCentroids();
-        for ( int i = 0; i < centers.numInstances(); i++ ) {
-            // for each cluster center
-            Instance inst = centers.instance( i );
-            // as you mentioned, you only had 1 attribute
-            // but you can iterate through the different attributes
-            double value = inst.value( 0 );
-            System.out.println( "Value for centroid " + i + ": " + value );
+
+        Instances centers = km.getClusterCentroids();
+        List<List<ClusterModel>> result = new LinkedList<List<ClusterModel>>();
+        for (int i = 0; i < centers.numInstances(); i++) {
+            List<ClusterModel> singleClusterList = new LinkedList<ClusterModel>();
+            Instance centerinst = centers.instance(i);
+            for (int j = 0; j < ins.numInstances(); j++) {
+                Instance sampleinst = ins.instance(j);
+                double score = distance.distance(sampleinst, centerinst);
+                ClusterModel model=new ClusterModel();
+                model.setClusterId(i);
+                model.setDistance(score);
+                model.setWord(listWords.get(j));
+                singleClusterList.add(model);
+            }
+            singleClusterList=singleClusterList.stream().sorted((object1, object2) -> object1.getDistance().compareTo(
+                        object2.getDistance())).collect(Collectors.toList()).subList(0, 10);
+            result.add(singleClusterList);
         }
-        
-        km.getSquaredError();
-        km.getClusterStandardDevs();
+        return result;
     }
+    
+    
+    public List<List<ClusterModel>>  EM(File arfffile, File outFile, List<String> listWords)
+            throws Exception {
+        ArffLoader loader = new ArffLoader();
+        loader.setFile(arfffile);
+        Instances ins = loader.getDataSet();
+
+        EuclideanDistance distance = new EuclideanDistance();
+
+        EM em = new EM();
+        em.setNumClusters(10);
+        em.buildClusterer(ins);
+
+        ClusterEvaluation eval = new ClusterEvaluation();
+        eval.setClusterer(em);
+        eval.evaluateClusterer(ins);
+        
+        eval.clusterResultsToString();
+        // Instances centers = em.get
+        // List<List<ClusterModel>> result = new
+        // LinkedList<List<ClusterModel>>();
+        // for (int i = 0; i < centers.numInstances(); i++) {
+        // List<ClusterModel> singleClusterList = new
+        // LinkedList<ClusterModel>();
+        // Instance centerinst = centers.instance(i);
+        // for (int j = 0; j < ins.numInstances(); j++) {
+        // Instance sampleinst = ins.instance(j);
+        // double score = distance.distance(sampleinst, centerinst);
+        // ClusterModel model=new ClusterModel();
+        // model.setClusterId(i);
+        // model.setDistance(score);
+        // model.setWord(listWords.get(j));
+        // singleClusterList.add(model);
+        // }
+        // singleClusterList=singleClusterList.stream().sorted((object1,
+        // object2) -> object2.getDistance().compareTo(
+        // object1.getDistance())).collect(Collectors.toList()).subList(0, 10);
+        // result.add(singleClusterList);
+        // }
+        return null;
+    }
+    
 }

@@ -22,6 +22,7 @@ public class Test {
         km.setDistanceFunction(manhattan);
         km.buildClusterer(ins);
         
+       
         Instances centers=km.getClusterCentroids();
         for ( int i = 0; i < centers.numInstances(); i++ ) {
             // for each cluster center
@@ -33,7 +34,7 @@ public class Test {
         }
         
         km.getSquaredError();
-        km.getClusterStandardDevs();
+        
     }
     
     public static void main(String[] args) throws Exception{
