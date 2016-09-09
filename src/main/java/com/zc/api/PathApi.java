@@ -2,6 +2,7 @@ package com.zc.api;
 
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.ApiResultModel;
+import com.zc.model.path.PathNode;
 import com.zc.service.PathService;
 import com.zc.utility.ValidateHelper;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -31,7 +33,7 @@ public class PathApi {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
 
-        List<Stack<String>> paths = pathService.getPaths(topicId, pathParamWrapper.query);
+        List<LinkedList<PathNode>> paths = pathService.getPaths(topicId, pathParamWrapper.query);
         ApiResultModel resultModel = new ApiResultModel();
         if (paths.size() < 1) {
             resultModel.setStatusCode(StatusCodeEnum.NOCONTENT);

@@ -1,13 +1,12 @@
 package com.zc.service;
 
-import com.zc.model.WordEntry;
 import com.zc.model.WordRedisModel;
+import com.zc.model.path.PathNode;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.PropertyHelper;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.IOException;
@@ -23,11 +22,12 @@ public class AllPaths {
     private final float DISSIMILARITY_THRESHOLD = Float.parseFloat(PropertyHelper.getValue("config.properties", "DISSIMILARITY_THRESHOLD")); // 不相似阈值
     private int MAX_PATHLENGTH = Integer.parseInt(PropertyHelper.getValue("config.properties", "MAX_PATHLENGTH"));
     //    private final float MINSCORE = 0.40f;
-    private List<Stack<String>> pathList;
+//    private List<Stack<String>> pathList;
+    private List<LinkedList<PathNode>> pathList;
     private String modelName;
     private boolean isFirst = true;
 
-    private Stack<String> path = new Stack<>();
+    private Stack<PathNode> path = new Stack<>();
     private Set<String> onPath = new HashSet<>();
     private Map<String, float[]> wordMap;
     private final String WORDREDISKEY = "topicanalysis:word:";
@@ -52,7 +52,7 @@ public class AllPaths {
             targetVector[i] = (float) targetVectorD[i];
         }
 
-        List<Stack<String>> allPaths = paths.getAllPath("霍建华", targetVector);
+        List<LinkedList<PathNode>> allPaths = paths.getAllPath("霍建华", targetVector);
         allPaths.forEach(p -> {
             System.out.println(p);
         });
@@ -72,63 +72,57 @@ public class AllPaths {
         } catch (IOException e) {
             // TODO: 2016/8/23  处理异常
         }
+
         this.pathList = new ArrayList<>();
     }
 
 
-    public List<Stack<String>> getAllPath(String start, float[] targetVector) {
-//        while (this.pathList.size() == 0 && this.MAX_PATHLENGTH <= 8) {
-//            generatePath(start, targetVector);
-//            this.MAX_PATHLENGTH += 1;
-//        }
-
-        generatePath(start, targetVector);
+    public List<LinkedList<PathNode>> getAllPath(String start, float[] targetVector) {
+        generatePath(new PathNode(start, 1), targetVector);
         return this.pathList;
     }
 
 
-    private void generatePath(String start, float[] targetVector) {
+    private void generatePath(PathNode start, float[] targetVector) {
         path.push(start);
-        onPath.add(start);
+        onPath.add(start.getName());
 
 
         if (path.size() <= MAX_PATHLENGTH) {
-            if (isSatisfied(start, targetVector)) {
-                Stack<String> temp = new Stack<>();
+            if (isSatisfied(start.getName(), targetVector)) {
+                LinkedList<PathNode> temp = new LinkedList<>();
                 temp.addAll(path);
                 System.out.println(temp);
                 System.out.println("------------------------");
                 this.pathList.add(temp);
                 if (isFirst) {
                     isFirst = false;
-                    runRecursion(start, targetVector);
+                    runRecursion(start.getName(), targetVector);
                 }
             } else {
-                runRecursion(start, targetVector);
+                runRecursion(start.getName(), targetVector);
             }
         }
 
         path.pop();
-        onPath.remove(start);
+        onPath.remove(start.getName());
     }
 
     private void runRecursion(String start, float[] targetVector) {
-//        Set<WordEntry> neighbors =
-//                WordVectorHelper.getDistance(start, this.wordMap, TOPNSIZE, MINSCORE);
         Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(WORDREDISKEY + start).range(0, TOPNSIZE - 1);
         if (neighbors != null) {
             LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
             for (WordRedisModel w : tempNeighbors) {
+                float similarity = getSimilarity(start, w.getName());
                 if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w.name)) {
-                    generatePath(w.name, targetVector);
+                    generatePath(new PathNode(w.name, similarity), targetVector);
                 }
             }
         }
     }
 
     private boolean isDisSimilarity(String start, String target) {
-        float[] targetVector = this.wordMap.get(target);
-        return getSimilarity(start, targetVector) <= DISSIMILARITY_THRESHOLD;
+        return getSimilarity(start, target) <= DISSIMILARITY_THRESHOLD;
     }
 
     private boolean isSatisfied(String start, float[] targetVector) {
@@ -141,15 +135,21 @@ public class AllPaths {
         return similarity;
     }
 
+    private float getSimilarity(String start, String target) {
+        float[] startVector = this.wordMap.get(start);
+        float[] targetVector = this.wordMap.get(target);
+        float similarity = WordVectorHelper.getSimilarity(startVector, targetVector);
+
+        return similarity;
+    }
+
     private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector) {
         LinkedList<WordRedisModel> list = new LinkedList(neighbors);
         try {
-            Collections.sort(list, (left, right) -> {
-                        return CommonHelper.compare(
-                                WordVectorHelper.getSimilarity(this.wordMap.get(right.name), targetVector),
-                                WordVectorHelper.getSimilarity(this.wordMap.get(left.name), targetVector)
-                        );
-                    }
+            Collections.sort(list, (left, right) -> CommonHelper.compare(
+                    WordVectorHelper.getSimilarity(this.wordMap.get(right.name), targetVector),
+                    WordVectorHelper.getSimilarity(this.wordMap.get(left.name), targetVector)
+                    )
             );
         } catch (Exception ex) {
             System.out.println(this.wordMap);
