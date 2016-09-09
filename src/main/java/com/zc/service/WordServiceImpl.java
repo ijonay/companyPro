@@ -64,8 +64,7 @@ public class WordServiceImpl implements WordService {
                 else
                     topic_vectors = new float[200];
 
-                TopicModel model = new TopicModel();
-                model.setTitle(topic.getTitle());
+                TopicModel model =topic.getModel();
                 model.setCoordinate(topic_vectors);
                 topicMap.put(topic.getId(), model);
             }
@@ -208,7 +207,7 @@ public class WordServiceImpl implements WordService {
 
     }
 
-    public List<List<ClusterModel>>  KMeans(File arfffile, File outFile, List<String> listWords)
+    public List<List<ClusterModel>>  KMeans(File arfffile, File outFile,Integer clusterNum, List<String> listWords)
             throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
@@ -217,7 +216,7 @@ public class WordServiceImpl implements WordService {
         EuclideanDistance distance = new EuclideanDistance();
 
         SimpleKMeans km = new SimpleKMeans();
-        km.setNumClusters(10);
+        km.setNumClusters(clusterNum);
         km.setPreserveInstancesOrder(true);
         km.setDistanceFunction(distance);
         km.buildClusterer(ins);

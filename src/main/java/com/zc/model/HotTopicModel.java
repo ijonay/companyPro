@@ -1,17 +1,9 @@
-/** 
- * @title TopicModel.java
- * @author huyulinhome/huyl@heptax.com
- * @date：2016年8月25日 下午8:42:45 
- * Copyright 2016 知藏. All right reserved.
- * 类说明
- */
 package com.zc.model;
 
-public class TopicModel {
+public class HotTopicModel {
     private Long id;
     private String title;
     private Float score;
-    private float[] coordinate;
     private String logoUrl;
     private Long readNum;
     /**
@@ -65,20 +57,6 @@ public class TopicModel {
      */
     public void setScore(Float score) {
         this.score = score;
-    }
-
-    /**
-     * @return the coordinate
-     */
-    public float[] getCoordinate() {
-        return coordinate;
-    }
-
-    /**
-     * @param coordinate the coordinate to set
-     */
-    public void setCoordinate(float[] coordinate) {
-        this.coordinate = coordinate;
     }
 
     public String getLogoUrl() {

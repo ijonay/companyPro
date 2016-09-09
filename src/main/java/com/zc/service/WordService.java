@@ -20,6 +20,6 @@ public interface WordService {
     
     float[] getWordVector(String word);
     
-    List<List<ClusterModel>> KMeans(File arfffile, File outFile,
+    List<List<ClusterModel>> KMeans(File arfffile, File outFile,Integer clusterNum,
             List<String> listWords) throws Exception;
 }

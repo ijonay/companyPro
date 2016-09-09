@@ -1,16 +1,8 @@
-/** 
- * @title Topic.java
- * @author huyulinhome/huyl@heptax.com
- * @date：2016年8月17日 下午12:14:51 
- * Copyright 2016 知藏. All right reserved.
- * 类说明
- */
 package com.zc.bean;
 
-import com.zc.model.TopicModel;
+import com.zc.model.HotTopicModel;
 
-public class Topic {
-
+public class HotTopic {
     private Long id;
 
     private String title;
@@ -20,28 +12,26 @@ public class Topic {
     private String keywords;
 
     private String logoUrl;
-    
+
     private Long readNum;
-    
-    
+
     /**
      * 阅读量增长趋势 -1:下降,0:不变,1:上升
      */
     private Short readNumTrendGrowth;
-    
+
     private String relationDesc;
-    
+
     private String topicUrl;
-    
+
     private String topicType;
-    
-    public TopicModel getModel(){
-        TopicModel model=new TopicModel();
+
+    public HotTopicModel getModel(){
+        HotTopicModel model=new HotTopicModel();
         model.setId(id);
-        model.setTitle(title);
         model.setLogoUrl(logoUrl);
         model.setReadNum(readNum);
-        model.setReadNumTrendGrowth(getReadNumTrendGrowth());
+        model.setReadNumTrendGrowth(readNumTrendGrowth);
         model.setRelationDesc(relationDesc);
         model.setTitle(title);
         model.setTopicType(topicType);
@@ -124,7 +114,13 @@ public class Topic {
         this.readNum = readNum;
     }
 
-    
+    public Short getReadNumTrendGrowth() {
+        return readNumTrendGrowth;
+    }
+
+    public void setReadNumTrendGrowth(Short readNumTrendGrowth) {
+        this.readNumTrendGrowth = readNumTrendGrowth;
+    }
 
     public String getTopicUrl() {
         return topicUrl;
@@ -148,11 +144,5 @@ public class Topic {
 
     public void setRelationDesc(String relationDesc) {
         this.relationDesc = relationDesc;
-    }
-    public Short getReadNumTrendGrowth() {
-        return readNumTrendGrowth;
-    }
-    public void setReadNumTrendGrowth(Short readNumTrendGrowth) {
-        this.readNumTrendGrowth = readNumTrendGrowth;
     }
 }

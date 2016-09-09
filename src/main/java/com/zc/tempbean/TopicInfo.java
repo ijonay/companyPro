@@ -10,6 +10,7 @@ package com.zc.tempbean;
 public class TopicInfo {
     private Integer id;
     private String title;
+   
     /**
      * @return the id
      */

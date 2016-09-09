@@ -143,7 +143,10 @@ public class CorpusApi {
 
     @RequestMapping("kmeans")
     public ApiResultModel generateKMeans(
-            @RequestParam(value = "topicid") Integer topicid) throws Exception {
+            @RequestParam(value = "topicid",required=true) int topicid,
+            @RequestParam(value = "clusterNum",required=false,defaultValue="10") int clusterNum) throws Exception {
+        if(topicid<=0||clusterNum<=0)
+            return new ApiResultModel(null);
         List<List<ClusterModel>> result=null;
         List<String> contents = generateSingleTopicText(topicid, 1000);
         if (contents != null && contents.size() > 0) {
@@ -166,7 +169,7 @@ public class CorpusApi {
             
             bw.flush();
             bw.close();
-            result=wordService.KMeans(file, null, listWords);
+            result=wordService.KMeans(file, null,clusterNum ,listWords);
             
         }
         return new ApiResultModel(result);
