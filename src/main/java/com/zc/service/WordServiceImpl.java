@@ -22,7 +22,6 @@ import weka.clusterers.SimpleKMeans;
 import weka.core.EuclideanDistance;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.ManhattanDistance;
 import weka.core.converters.ArffLoader;
 
 import com.alibaba.fastjson.JSON;
@@ -44,14 +43,28 @@ public class WordServiceImpl implements WordService {
     @Autowired
     private TopicService topicServicetemp;
     private static TopicService topicService;
-    private static Map<String, float[]> modelMap = new HashMap<String, float[]>();
+    private static Map<String, float[]> modelMap = null;
     private static Map<Long, TopicModel> topicMap = new HashMap<Long, TopicModel>();
 
     @PostConstruct
     public void init() {
         topicService = topicServicetemp;
-        loadMaps();
+//        loadMaps();
         loadTopicMap();
+    }
+
+
+    public Map<String, float[]> getModelMap() {
+        if (modelMap == null) {
+            try {
+                modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
+                        .get("cbow0"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return modelMap;
     }
 
     private static void loadTopicMap() {
@@ -64,20 +77,11 @@ public class WordServiceImpl implements WordService {
                 else
                     topic_vectors = new float[200];
 
-                TopicModel model =topic.getModel();
+                TopicModel model = topic.getModel();
                 model.setCoordinate(topic_vectors);
                 topicMap.put(topic.getId(), model);
             }
             // topicService.batchUpdate(list);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadMaps() {
-        try {
-            modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
-                    .get("cbow0"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,7 +155,7 @@ public class WordServiceImpl implements WordService {
     }
 
     public VertexEdgeModel getWords(String modelName, String clueWord,
-            int topN, float relevancy, int length) throws IOException {
+                                    int topN, float relevancy, int length) throws IOException {
 
         Map<String, float[]> modelMap = WordVectorHelper
                 .loadModel(ResourceDict.MODEL_DICT.get(modelName)
@@ -207,7 +211,7 @@ public class WordServiceImpl implements WordService {
 
     }
 
-    public List<List<ClusterModel>>  KMeans(File arfffile, File outFile,Integer clusterNum, List<String> listWords)
+    public List<List<ClusterModel>> KMeans(File arfffile, File outFile, Integer clusterNum, List<String> listWords)
             throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
@@ -229,21 +233,21 @@ public class WordServiceImpl implements WordService {
             for (int j = 0; j < ins.numInstances(); j++) {
                 Instance sampleinst = ins.instance(j);
                 double score = distance.distance(sampleinst, centerinst);
-                ClusterModel model=new ClusterModel();
+                ClusterModel model = new ClusterModel();
                 model.setClusterId(i);
                 model.setDistance(score);
                 model.setWord(listWords.get(j));
                 singleClusterList.add(model);
             }
-            singleClusterList=singleClusterList.stream().sorted((object1, object2) -> object1.getDistance().compareTo(
-                        object2.getDistance())).collect(Collectors.toList()).subList(0, 10);
+            singleClusterList = singleClusterList.stream().sorted((object1, object2) -> object1.getDistance().compareTo(
+                    object2.getDistance())).collect(Collectors.toList()).subList(0, 10);
             result.add(singleClusterList);
         }
         return result;
     }
-    
-    
-    public List<List<ClusterModel>>  EM(File arfffile, File outFile, List<String> listWords)
+
+
+    public List<List<ClusterModel>> EM(File arfffile, File outFile, List<String> listWords)
             throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
@@ -258,7 +262,7 @@ public class WordServiceImpl implements WordService {
         ClusterEvaluation eval = new ClusterEvaluation();
         eval.setClusterer(em);
         eval.evaluateClusterer(ins);
-        
+
         eval.clusterResultsToString();
         // Instances centers = em.get
         // List<List<ClusterModel>> result = new
@@ -283,5 +287,5 @@ public class WordServiceImpl implements WordService {
         // }
         return null;
     }
-    
+
 }

@@ -15,11 +15,13 @@ import com.zc.model.VertexEdgeModel;
 public interface WordService {
     VertexEdgeModel getWords(String modelPath, String clueWord,
                              int topN, float relevancy, int length) throws IOException;
-    
+
     List<TopicModel> getTopicSimilarity(String sourceWord);
-    
+
     float[] getWordVector(String word);
-    
-    List<List<ClusterModel>> KMeans(File arfffile, File outFile,Integer clusterNum,
-            List<String> listWords) throws Exception;
+
+    List<List<ClusterModel>> KMeans(File arfffile, File outFile, Integer clusterNum,
+                                    List<String> listWords) throws Exception;
+
+    Map<String, float[]> getModelMap();
 }
