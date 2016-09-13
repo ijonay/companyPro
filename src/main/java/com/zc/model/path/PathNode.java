@@ -5,11 +5,13 @@ package com.zc.model.path;
  */
 public class PathNode {
     private String name;
-    private float similarity; // 路径中的点和之前一个词的相似度
+    private String prevName;
+    private float similarity;
 
-    public PathNode(String name, float similarity) {
-        this.setName(name);
-        this.setSimilarity(similarity);
+    public PathNode(String name, String prevName, float similarity) {
+        this.name = name;
+        this.prevName = prevName;
+        this.similarity = similarity;
     }
 
     public String getName() {
@@ -20,6 +22,14 @@ public class PathNode {
         this.name = name;
     }
 
+    public String getPrevName() {
+        return prevName;
+    }
+
+    public void setPrevName(String prevName) {
+        this.prevName = prevName;
+    }
+
     public float getSimilarity() {
         return similarity;
     }
@@ -27,5 +37,4 @@ public class PathNode {
     public void setSimilarity(float similarity) {
         this.similarity = similarity;
     }
-
 }

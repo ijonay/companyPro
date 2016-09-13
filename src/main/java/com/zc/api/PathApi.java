@@ -2,6 +2,7 @@ package com.zc.api;
 
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.ApiResultModel;
+import com.zc.model.path.PathModel;
 import com.zc.model.path.PathNode;
 import com.zc.service.PathService;
 import com.zc.utility.ValidateHelper;
@@ -33,7 +34,7 @@ public class PathApi {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
 
-        List<LinkedList<PathNode>> paths = pathService.getPaths(topicId, pathParamWrapper.query);
+        List<PathModel> paths = pathService.getPaths(topicId, pathParamWrapper.query);
         ApiResultModel resultModel = new ApiResultModel();
         if (paths.size() < 1) {
             resultModel.setStatusCode(StatusCodeEnum.NOCONTENT);

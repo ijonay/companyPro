@@ -6,7 +6,7 @@ package com.zc.utility;
 public interface Constant {
     String CONFIG_PROPERTIES = "config.properties";
     String SIMILARITY_THRESHOLD = "SIMILARITY_THRESHOLD";
-    String TOP_NSIZE = "TOPNSIZE ";
+    String TOP_NSIZE = "TOPNSIZE";
     String DISSIMILARITY_THRESHOLD = "DISSIMILARITY_THRESHOLD";
     String MAX_PATHLENGTH = "MAX_PATHLENGTH";
     String WORDR_EDISKEY_PREFIX = "topicanalysis:word:";
