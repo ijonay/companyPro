@@ -16,7 +16,7 @@
         <result column="topictype" jdbcType="VARCHAR" property="topicType" />
     </resultMap>
     <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
-    <sql id="tableName">topic</sql>
+    <sql id="tableName">hottopic</sql>
     <sql id="Base_Column_List">
         id, title,
         coordinate,keywords,logourl,readnum,readnumtrendgrowth,relationdesc,topicurl,topictype
