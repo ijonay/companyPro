@@ -49,22 +49,26 @@ public class WordServiceImpl implements WordService {
     @PostConstruct
     public void init() {
         topicService = topicServicetemp;
-//        loadMaps();
+        loadMaps();
         loadTopicMap();
     }
 
 
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
-            try {
-                modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
-                        .get("cbow0"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadMaps();
         }
 
         return modelMap;
+    }
+
+    private void loadMaps() {
+        try {
+            modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
+                    .get("cbow0"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void loadTopicMap() {
