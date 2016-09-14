@@ -10,15 +10,12 @@ package com.zc.api;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.NlpAnalysis;
@@ -29,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zc.bean.Topic;
-import com.zc.model.ApiResultModel;
+import com.zc.utility.response.ApiResultModel;
 import com.zc.model.ClusterModel;
 import com.zc.service.TopicService;
 import com.zc.service.WordService;

@@ -80,8 +80,8 @@
     </bean>
 
     <bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-        <property name="hostName" value="${redishost}"></property>
-        <property name="password" value="${redispwd}"></property>
+        <!--<property name="hostName" value="${redishost}"></property>-->
+        <!--<property name="password" value="${redispwd}"></property>-->
     </bean>
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
           p:connection-factory-ref="jedisConnFactory">
