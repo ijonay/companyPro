@@ -22,7 +22,7 @@ public enum StatusCodeEnum {
     private final int value;
     private final String desc;
 
-    private StatusCodeEnum(int value, String desc) {
+    StatusCodeEnum(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }

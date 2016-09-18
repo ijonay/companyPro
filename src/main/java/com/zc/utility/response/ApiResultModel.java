@@ -53,7 +53,7 @@ public class ApiResultModel {
 //    }
 
     public void setStatusCode(StatusCodeEnum statusCode) {
-        this.error.setStatusCode(statusCode);
+        this.error.setCode(statusCode);
         this.setMessage(statusCode.getDesc());
     }
 
