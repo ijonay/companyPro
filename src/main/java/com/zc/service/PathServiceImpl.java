@@ -2,10 +2,7 @@ package com.zc.service;
 
 import com.zc.bean.Topic;
 import com.zc.model.WordRedisModel;
-import com.zc.model.path.Edge;
-import com.zc.model.path.Node;
-import com.zc.model.path.PathModel;
-import com.zc.model.path.PathNode;
+import com.zc.model.path.*;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.Constant;
 import com.zc.utility.PropertyHelper;
@@ -22,13 +19,16 @@ import java.util.*;
  */
 @Service
 public class PathServiceImpl implements PathService {
+    //region autowired
     @Autowired
     private TopicService topicService;
     @Autowired
     private RedisTemplate<String, WordRedisModel> redisTemplate;
     @Autowired
     private WordService wordService;
+    //endregion
 
+    //region fields
     private final float SIMILARITY_THRESHOLD =
             Float.parseFloat(PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.SIMILARITY_THRESHOLD));
     private final int TOPNSIZE =
@@ -41,6 +41,7 @@ public class PathServiceImpl implements PathService {
     private Stack<PathNode> path = new Stack<>();
     private Set<String> onPath = new HashSet<>();
     private float[] targetVector;
+    //endregion
 
     public List<PathModel> getPaths(Integer topicId, String query) {
         this.pathList = new ArrayList<>();
@@ -54,6 +55,13 @@ public class PathServiceImpl implements PathService {
         return paths;
     }
 
+    @Override
+    public NodeRelations getRelations(String startNode, String endNode) {
+
+        return null;
+    }
+
+    //region helper method
     private List<PathModel> getAllPath(String start, float[] targetVector) {
         this.targetVector = targetVector;
         generatePath(new PathNode(start, null, 0));
@@ -76,7 +84,6 @@ public class PathServiceImpl implements PathService {
 
         return result;
     }
-
 
     private void generatePath(PathNode start) {
         path.push(start);
@@ -137,17 +144,13 @@ public class PathServiceImpl implements PathService {
 
     private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector) {
         LinkedList<WordRedisModel> list = new LinkedList(neighbors);
-        try {
-            Collections.sort(list, (left, right) -> CommonHelper.compare(
-                    WordVectorHelper.getSimilarity(wordService.getModelMap().get(right.name), targetVector),
-                    WordVectorHelper.getSimilarity(wordService.getModelMap().get(left.name), targetVector)
-                    )
-            );
-        } catch (Exception ex) {
-            System.out.println("***************************" + ex.toString());
-            throw new RuntimeException(ex);
-        }
+        Collections.sort(list, (left, right) -> CommonHelper.compare(
+                WordVectorHelper.getSimilarity(wordService.getModelMap().get(right.name), targetVector),
+                WordVectorHelper.getSimilarity(wordService.getModelMap().get(left.name), targetVector)
+                )
+        );
 
         return list;
     }
+    //endregion
 }
