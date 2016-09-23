@@ -44,8 +44,8 @@ public class TestMain extends BaseTest {
         HttpSolrServer server = new HttpSolrServer(url);
         server.setRequestWriter(new BinaryRequestWriter());
         SolrQuery query = new SolrQuery();
-        query.setQuery("李易峰")
-                .addFilterQuery("赵丽颖")
+        query.setQuery("王宝强")
+                .addFilterQuery("唐人")
                 .setStart(0)
                 .setRows(3);
         try {

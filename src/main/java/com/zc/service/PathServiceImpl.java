@@ -70,12 +70,12 @@ public class PathServiceImpl implements PathService {
     @Override
     public NodeRelations getRelations(String startNode, String endNode) {
         NodeRelations result = new NodeRelations();
-        String url = "http://192.168.1.101/solr/topic_analysis";
+        String url = PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.SOLR_URL);
         HttpSolrServer server = new HttpSolrServer(url);
         server.setRequestWriter(new BinaryRequestWriter());
         SolrQuery query = new SolrQuery();
-        query.setQuery(startNode)
-                .addFilterQuery(endNode)
+        query.setQuery(String.format("weibo_content:\"%s\"", startNode))
+                .addFilterQuery(String.format("weibo_content:\"%s\"", endNode))
                 .setStart(0)
                 .setRows(3);
         try {
@@ -83,8 +83,6 @@ public class PathServiceImpl implements PathService {
             System.out.println(response.getResults().getNumFound());
             List<WeiboItemModel> weiboItemModels = new ArrayList<>();
             for (SolrDocument r : response.getResults()) {
-                System.out.println("id:" + r.getFieldValue("id"));
-                System.out.println("weibo_content:" + r.getFieldValue("weibo_content"));
                 WeiboItemModel weiboItemModel = new WeiboItemModel();
                 weiboItemModel.setId(Integer.parseInt(r.getFieldValue("id").toString()));
                 weiboItemModel.setWeiboContent(r.getFieldValue("weibo_content").toString());
