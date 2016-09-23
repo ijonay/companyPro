@@ -11,9 +11,13 @@ public class WeiboItemModel {
     private String weiboContent;
     private String keywords;
     private String coordinate;
-    private Long readNum;
+    private String readNum;
     private byte readNumTrendGrowth;
     private String weiboUrl;
+
+    public WeiboItemModel(Weibo entity) {
+        this.fromEntity(entity);
+    }
 
     public WeiboItemModel fromEntity(Weibo entity) {
         this.setId(entity.getId());
@@ -83,11 +87,11 @@ public class WeiboItemModel {
         this.coordinate = coordinate;
     }
 
-    public Long getReadNum() {
+    public String getReadNum() {
         return readNum;
     }
 
-    public void setReadNum(Long readNum) {
+    public void setReadNum(String readNum) {
         this.readNum = readNum;
     }
 

@@ -1,8 +1,11 @@
 package com.zc.service;
 
 import com.zc.bean.Topic;
+import com.zc.bean.Weibo;
+import com.zc.dao.WeiboDao;
 import com.zc.model.WordRedisModel;
 import com.zc.model.path.*;
+import com.zc.model.weibo.WeiboCollection;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.Constant;
 import com.zc.utility.PropertyHelper;
@@ -26,6 +29,8 @@ public class PathServiceImpl implements PathService {
     private RedisTemplate<String, WordRedisModel> redisTemplate;
     @Autowired
     private WordService wordService;
+    @Autowired
+    private WeiboDao weiboDao;
     //endregion
 
     //region fields
@@ -49,7 +54,7 @@ public class PathServiceImpl implements PathService {
         onPath = new HashSet<>();
 
         Topic topic = topicService.get(topicId);
-        float[] topicVector = CommonHelper.stringToFloat(topic.getCoordinate());
+        float[] topicVector = CommonHelper.stringToFloatArray(topic.getCoordinate());
         List<PathModel> paths = getAllPath(query, topicVector);
 
         return paths;
@@ -57,8 +62,17 @@ public class PathServiceImpl implements PathService {
 
     @Override
     public NodeRelations getRelations(String startNode, String endNode) {
+        List<Weibo> weiboList = weiboDao.getAll();
 
-        return null;
+        long start = System.currentTimeMillis();
+
+        Collection<Weibo> relatedWeibos = getRelatedWeibo(startNode, endNode, weiboList);
+        NodeRelations nodeRelations = new NodeRelations();
+        nodeRelations.setWeiboItemModels(new WeiboCollection(relatedWeibos));
+
+        long span = System.currentTimeMillis() - start;
+        System.out.println(span);
+        return nodeRelations;
     }
 
     //region helper method
@@ -128,17 +142,14 @@ public class PathServiceImpl implements PathService {
         return getSimilarity(start, targetVector) >= SIMILARITY_THRESHOLD;
     }
 
+    private float getSimilarity(String start, String target) {
+        float[] tVector = wordService.getModelMap().get(target);
+        return getSimilarity(start, tVector);
+    }
+
     private float getSimilarity(String start, float[] targetVector) {
         float[] startVector = wordService.getModelMap().get(start);
         float similarity = WordVectorHelper.getSimilarity(startVector, targetVector);
-        return similarity;
-    }
-
-    private float getSimilarity(String start, String target) {
-        float[] startVector = wordService.getModelMap().get(start);
-        float[] tVector = wordService.getModelMap().get(target);
-        float similarity = WordVectorHelper.getSimilarity(startVector, tVector);
-
         return similarity;
     }
 
@@ -151,6 +162,35 @@ public class PathServiceImpl implements PathService {
         );
 
         return list;
+    }
+
+    private Collection<Weibo> getRelatedWeibo(String startNode, String endNode, List<Weibo> weiboList) {
+        int resultSize = 3;
+        SortedMap<Float, Weibo> resultWeibos = new TreeMap<>();
+        float[] sVector = wordService.getModelMap().get(startNode);
+        float[] eVector = wordService.getModelMap().get(endNode);
+        for (Weibo w : weiboList) {
+            float[] weiboVector = CommonHelper.stringToFloatArray(w.getCoordinate());
+            float sSimilarity = WordVectorHelper.getSimilarity(sVector, weiboVector);
+            float eSimilarity = WordVectorHelper.getSimilarity(eVector, weiboVector);
+            float weiboSimilarity = sSimilarity + eSimilarity;
+            if (resultWeibos.size() <= 3) {
+                resultWeibos.put(weiboSimilarity, w);
+                continue;
+            }
+
+            if (resultWeibos.firstKey() >= weiboSimilarity) {
+                continue;
+            }
+
+            if (resultWeibos.size() >= resultSize) {
+                resultWeibos.remove(resultWeibos.firstKey());
+            }
+
+            resultWeibos.put(weiboSimilarity, w);
+        }
+
+        return resultWeibos.values();
     }
     //endregion
 }

@@ -27,6 +27,8 @@ public class RedisServiceImpl implements RedisService {
     private RedisTemplate<String, WordRedisModel> redisTemplate;
     @Resource(name = "redisTemplate")
     private ListOperations<String, WordRedisModel> listOps;
+    @Resource(name = "redisTemplate")
+    private ListOperations<String, String> testListOps;
     private final String WORDREDISKEY = "topicanalysis:word:";
 
     public void add() {
@@ -82,5 +84,14 @@ public class RedisServiceImpl implements RedisService {
             long span = System.currentTimeMillis() - s;
             System.out.println(span);
         }
+    }
+
+    public void testadd() {
+//        listOps.leftPush(key, word);
+        int count = 1;
+        long start = System.currentTimeMillis();
+        testListOps.rightPush("test1", "张镇强");
+
+        System.out.println("耗时:" + (System.currentTimeMillis() - start));
     }
 }

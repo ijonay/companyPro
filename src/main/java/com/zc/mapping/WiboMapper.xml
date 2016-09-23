@@ -7,8 +7,8 @@
         <result column="weibo_content" jdbcType="VARCHAR" property="weiboContent"/>
         <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
         <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
-        <result column="readnum" jdbcType="BIGINT" property="readNum"/>
-        <result column="readnumtrendgrowth" jdbcType="VARCHAR"
+        <result column="readnum" jdbcType="VARCHAR" property="readNum"/>
+        <result column="readnumtrendgrowth" jdbcType="SMALLINT"
                 property="readNumTrendGrowth"/>
         <result column="weibourl" jdbcType="VARCHAR" property="weiboUrl"/>
     </resultMap>
@@ -58,7 +58,7 @@
             coordinate = #{coordinate, jdbcType=VARCHAR},
         </if>
         <if test="readNum != null">
-            readNum = #{readNum, jdbcType=BIGINT},
+            readNum = #{readNum, jdbcType=VARCHAR},
         </if>
         <if test="readNumTrendGrowth != null">
             readnumtrendgrowth = #{readNumTrendGrowth, jdbcType=SMALLINT},
@@ -110,6 +110,13 @@
         <set>
             <include refid="checkPropertyNull"/>
         </set>
-        WHERE <include refid="uniqueQuery"/>
+        WHERE
+        <include refid="uniqueQuery"/>
     </update>
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM
+        <include refid="tableName"></include>
+        LIMIT 1500;
+    </select>
 </mapper>
