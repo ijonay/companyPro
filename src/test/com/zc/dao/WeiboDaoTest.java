@@ -24,7 +24,7 @@ public class WeiboDaoTest extends BaseTest {
         Weibo entity = new Weibo();
         entity.setTopicId(1);
         entity.setWeiboContent("微博内容");
-        entity.setReadNum(100000l);
+        entity.setReadNum("100亿");
 
         initId = dao.add(entity);
         Assert.assertTrue(initId == 1);
@@ -47,7 +47,7 @@ public class WeiboDaoTest extends BaseTest {
         Weibo entity = new Weibo();
         entity.setTopicId(1);
         entity.setWeiboContent("微博内容");
-        entity.setReadNum(100000l);
+        entity.setReadNum("100亿");
 
         int addRes = dao.add(entity);
         Assert.assertTrue(addRes == 1);
@@ -58,7 +58,7 @@ public class WeiboDaoTest extends BaseTest {
         Weibo entity = new Weibo();
         entity.setId(initId);
         entity.setTopicId(1);
-        entity.setReadNum(200000l);
+        entity.setReadNum("100亿");
 
         int updateRes = dao.update(entity);
         Weibo selectObj = dao.get(initId);

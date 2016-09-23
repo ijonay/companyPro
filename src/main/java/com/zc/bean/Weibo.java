@@ -4,14 +4,14 @@ package com.zc.bean;
  * Created by 张镇强 on 2016/9/18 12:43.
  */
 public class Weibo {
-    public Integer id;
-    public Integer topicId;
-    public String weiboContent;
-    public String keywords;
-    public String coordinate;
-    public Long readNum;
-    public byte readNumTrendGrowth;
-    public String weiboUrl;
+    private Integer id;
+    private Integer topicId;
+    private String weiboContent;
+    private String keywords;
+    private String coordinate;
+    private String readNum;
+    private byte readNumTrendGrowth;
+    private String weiboUrl;
 
     public Integer getId() {
         return id;
@@ -53,11 +53,11 @@ public class Weibo {
         this.coordinate = coordinate;
     }
 
-    public Long getReadNum() {
+    public String getReadNum() {
         return readNum;
     }
 
-    public void setReadNum(Long readNum) {
+    public void setReadNum(String readNum) {
         this.readNum = readNum;
     }
 

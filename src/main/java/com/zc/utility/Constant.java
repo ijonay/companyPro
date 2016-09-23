@@ -10,4 +10,5 @@ public interface Constant {
     String DISSIMILARITY_THRESHOLD = "DISSIMILARITY_THRESHOLD";
     String MAX_PATHLENGTH = "MAX_PATHLENGTH";
     String WORDR_EDISKEY_PREFIX = "topicanalysis:word:";
+    String SOLR_URL = "solr_url";
 }
