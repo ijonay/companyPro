@@ -15,6 +15,9 @@ public class WeiboItemModel {
     private byte readNumTrendGrowth;
     private String weiboUrl;
 
+    public WeiboItemModel() {
+    }
+
     public WeiboItemModel(Weibo entity) {
         this.fromEntity(entity);
     }
@@ -109,5 +112,19 @@ public class WeiboItemModel {
 
     public void setWeiboUrl(String weiboUrl) {
         this.weiboUrl = weiboUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "WeiboItemModel{" +
+                "id=" + id +
+                ", topicId=" + topicId +
+                ", weiboContent='" + weiboContent + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", coordinate='" + coordinate + '\'' +
+                ", readNum='" + readNum + '\'' +
+                ", readNumTrendGrowth=" + readNumTrendGrowth +
+                ", weiboUrl='" + weiboUrl + '\'' +
+                '}';
     }
 }

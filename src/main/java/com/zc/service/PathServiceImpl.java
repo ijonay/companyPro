@@ -6,11 +6,18 @@ import com.zc.dao.WeiboDao;
 import com.zc.model.WordRedisModel;
 import com.zc.model.path.*;
 import com.zc.model.weibo.WeiboCollection;
+import com.zc.model.weibo.WeiboItemModel;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.Constant;
 import com.zc.utility.PropertyHelper;
 import com.zc.utility.WordVectorHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.BinaryRequestWriter;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -62,17 +69,45 @@ public class PathServiceImpl implements PathService {
 
     @Override
     public NodeRelations getRelations(String startNode, String endNode) {
-        List<Weibo> weiboList = weiboDao.getAll();
+        NodeRelations result = new NodeRelations();
+        String url = "http://192.168.1.101/solr/topic_analysis";
+        HttpSolrServer server = new HttpSolrServer(url);
+        server.setRequestWriter(new BinaryRequestWriter());
+        SolrQuery query = new SolrQuery();
+        query.setQuery(startNode)
+                .addFilterQuery(endNode)
+                .setStart(0)
+                .setRows(3);
+        try {
+            QueryResponse response = server.query(query);
+            System.out.println(response.getResults().getNumFound());
+            List<WeiboItemModel> weiboItemModels = new ArrayList<>();
+            for (SolrDocument r : response.getResults()) {
+                System.out.println("id:" + r.getFieldValue("id"));
+                System.out.println("weibo_content:" + r.getFieldValue("weibo_content"));
+                WeiboItemModel weiboItemModel = new WeiboItemModel();
+                weiboItemModel.setId(Integer.parseInt(r.getFieldValue("id").toString()));
+                weiboItemModel.setWeiboContent(r.getFieldValue("weibo_content").toString());
+                weiboItemModels.add(weiboItemModel);
+            }
+            result.setWeiboItemModels(weiboItemModels);
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        }
 
-        long start = System.currentTimeMillis();
+        return result;
 
-        Collection<Weibo> relatedWeibos = getRelatedWeibo(startNode, endNode, weiboList);
-        NodeRelations nodeRelations = new NodeRelations();
-        nodeRelations.setWeiboItemModels(new WeiboCollection(relatedWeibos));
-
-        long span = System.currentTimeMillis() - start;
-        System.out.println(span);
-        return nodeRelations;
+//        List<Weibo> weiboList = weiboDao.getAll();
+//
+//        long start = System.currentTimeMillis();
+//
+//        Collection<Weibo> relatedWeibos = getRelatedWeibo(startNode, endNode, weiboList);
+//        NodeRelations nodeRelations = new NodeRelations();
+//        nodeRelations.setWeiboItemModels(new WeiboCollection(relatedWeibos));
+//
+//        long span = System.currentTimeMillis() - start;
+//        System.out.println(span);
+//        return nodeRelations;
     }
 
     //region helper method

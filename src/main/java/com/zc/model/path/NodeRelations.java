@@ -22,4 +22,11 @@ public class NodeRelations {
     public void setWeiboItemModels(List<WeiboItemModel> weiboItemModels) {
         this.weiboItemModels = weiboItemModels;
     }
+
+    @Override
+    public String toString() {
+        return "NodeRelations{" +
+                "weiboItemModels=" + weiboItemModels +
+                '}';
+    }
 }
