@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import com.zc.utility.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,6 @@ import com.zc.bean.Topic;
 import com.zc.model.ClusterModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
-import com.zc.utility.ResourceDict;
-import com.zc.utility.WordVectorHelper;
-import com.zc.utility.ZCFile;
 
 /**
  * Created by polun on 2016/7/8.
@@ -64,8 +62,8 @@ public class WordServiceImpl implements WordService {
 
     private void loadMaps() {
         try {
-            modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
-                    .get("cbow0"));
+            modelMap = WordVectorHelper.loadModel(
+                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
         } catch (IOException e) {
             e.printStackTrace();
         }

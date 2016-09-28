@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.zc.utility.Constant;
+import com.zc.utility.PropertyHelper;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.NlpAnalysis;
 import org.apache.commons.lang3.StringUtils;
@@ -100,7 +102,7 @@ public class CorpusApi {
     }
 
     private List<String> generateSingleTopicText(int topic_id,
-            int contentPageSize) throws Exception {
+                                                 int contentPageSize) throws Exception {
         List<String> results = new LinkedList<String>();
         Integer contentCount = cleanContentService.getItemCount(topic_id);
         int pageCount = (int) Math
@@ -140,11 +142,11 @@ public class CorpusApi {
 
     @RequestMapping("kmeans")
     public ApiResultModel generateKMeans(
-            @RequestParam(value = "topicid",required=true) int topicid,
-            @RequestParam(value = "clusterNum",required=false,defaultValue="10") int clusterNum) throws Exception {
-        if(topicid<=0||clusterNum<=0)
+            @RequestParam(value = "topicid", required = true) int topicid,
+            @RequestParam(value = "clusterNum", required = false, defaultValue = "10") int clusterNum) throws Exception {
+        if (topicid <= 0 || clusterNum <= 0)
             return new ApiResultModel(null);
-        List<List<ClusterModel>> result=null;
+        List<List<ClusterModel>> result = null;
         List<String> contents = generateSingleTopicText(topicid, 1000);
         if (contents != null && contents.size() > 0) {
             String relativePath = "C:\\Users\\huyulinhome\\Desktop\\document_arff\\"
@@ -154,77 +156,81 @@ public class CorpusApi {
                 file.createNewFile();
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(file), "UTF-8"));
-            
-            Map<String, float[]> maps=loadMap();
-           List<String>listWords=new LinkedList<String>();
-            
-            String header=generateHeader();
+
+            Map<String, float[]> maps = loadMap();
+            List<String> listWords = new LinkedList<String>();
+
+            String header = generateHeader();
             bw.write(header);
-            
-            String body=generateBody(maps,contents,listWords);
+
+            String body = generateBody(maps, contents, listWords);
             bw.write(body);
-            
+
             bw.flush();
             bw.close();
-            result=wordService.KMeans(file, null,clusterNum ,listWords);
-            
+            result = wordService.KMeans(file, null, clusterNum, listWords);
+
         }
         return new ApiResultModel(result);
     }
-    
-    private String generateHeader(){
-        StringBuilder sb=new StringBuilder();
+
+    private String generateHeader() {
+        StringBuilder sb = new StringBuilder();
         sb.append("@relation contact-lenses\n");
         sb.append("\n");
         for (int i = 0; i < 200; i++) {
-            sb.append("@attribute "+i+" numeric\n");  
+            sb.append("@attribute " + i + " numeric\n");
         }
         sb.append("\n");
         sb.append("@data\n");
         return sb.toString();
     }
-    private String generateBody(Map<String, float[]> maps,List<String> contents,List<String> listWords){
-        Map<String,float[]>corpusMap=new LinkedHashMap<String,float[]>();
-        List<String>results=new LinkedList<String>();
+
+    private String generateBody(Map<String, float[]> maps, List<String> contents, List<String> listWords) {
+        Map<String, float[]> corpusMap = new LinkedHashMap<String, float[]>();
+        List<String> results = new LinkedList<String>();
         for (String content : contents) {
             List<Term> terms = NlpAnalysis.parse(content).getTerms();
-            for(Term term:terms){
-                String word=term.getName();
-                if(!corpusMap.containsKey(word)&&maps.containsKey(word)){
-                    float[]vector=maps.get(word);
+            for (Term term : terms) {
+                String word = term.getName();
+                if (!corpusMap.containsKey(word) && maps.containsKey(word)) {
+                    float[] vector = maps.get(word);
                     corpusMap.put(word, vector);
                     listWords.add(word);
-                    String lineVector=trim(trim(Arrays.toString(vector),'['),']');
+                    String lineVector = trim(trim(Arrays.toString(vector), '['), ']');
                     results.add(lineVector);
                 }
             }
         }
-        
-        return StringUtils.join(results,"\n");
+
+        return StringUtils.join(results, "\n");
     }
-    private Map<String, float[]> loadMap() throws Exception{
-        Map<String, float[]> wordMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict.get("cbow0"));
+
+    private Map<String, float[]> loadMap() throws Exception {
+//        Map<String, float[]> wordMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict.get("cbow0"));
+        Map<String, float[]> wordMap = WordVectorHelper
+                .loadModel(PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
         return wordMap;
     }
-    
-    public static String trim(String source, char c){
+
+    public static String trim(String source, char c) {
         String beTrim = String.valueOf(c);
 
         source = source.trim(); // 循环去掉字符串首的beTrim字符 
-        String beginChar = source.substring(0, 1);  
-        while (beginChar.equalsIgnoreCase(beTrim)) {  
-            source = source.substring(1, source.length());  
-            beginChar = source.substring(0, 1);  
-        }  
- 
-       // 循环去掉字符串尾的beTrim字符  
-       String endChar = source.substring(source.length() - 1, source.length());  
-       while (endChar.equalsIgnoreCase(beTrim)) {  
-            source = source.substring(0, source.length() - 1);  
-            endChar = source.substring(source.length() - 1, source.length());  
-       }  
-       return source;  
-}
-    
-    
+        String beginChar = source.substring(0, 1);
+        while (beginChar.equalsIgnoreCase(beTrim)) {
+            source = source.substring(1, source.length());
+            beginChar = source.substring(0, 1);
+        }
+
+        // 循环去掉字符串尾的beTrim字符
+        String endChar = source.substring(source.length() - 1, source.length());
+        while (endChar.equalsIgnoreCase(beTrim)) {
+            source = source.substring(0, source.length() - 1);
+            endChar = source.substring(source.length() - 1, source.length());
+        }
+        return source;
+    }
+
+
 }
