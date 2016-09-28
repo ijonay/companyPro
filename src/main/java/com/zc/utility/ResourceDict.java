@@ -42,7 +42,7 @@ public interface ResourceDict {
                 ""
         ));
 
-        
+
     }};
     HashMap<String,String> Topic_Dict= new HashMap<String, String>() {{
         put("weibo", "classpath:dataset/vectors.bin.Sample.Douban.Weibo");

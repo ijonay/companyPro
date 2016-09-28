@@ -64,7 +64,7 @@ public final class WordVectorHelper {
     @SuppressWarnings("finally")
     public static Map<String, float[]> loadModel(String modelPath)
             throws NumberFormatException, IOException {
-        Map<String, float[]> wordMap = new HashMap<String, float[]>();
+        Map<String, float[]> wordMap = new HashMap<>();
         DataInputStream dis = null;
         BufferedInputStream bis = null;
         double len = 0;
