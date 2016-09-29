@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.WeiboDao">
+    <resultMap id="BaseResultMap" type="com.zc.bean.Weibo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="topicid" jdbcType="VARCHAR" property="topicid" />
+        <result column="weibo_content" jdbcType="VARCHAR" property="weiboContent" />
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
+        <result column="keywords" jdbcType="VARCHAR" property="keyWords" />
+        <result column="readnum" jdbcType="VARCHAR" property="readNum" />
+        <result column="readnumtrendgrowth" jdbcType="VARCHAR"
+            property="readNumTrendGrowth" />
+        <result column="weibourl" jdbcType="VARCHAR" property="weiboUrl" />
+    </resultMap>
+    <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
+    <sql id="tableName">weibo</sql>
+    <sql id="Base_Column_List">
+        id, topicid,weibo_content,
+        coordinate,keywords,readnum,readnumtrendgrowth,weibourl
+    </sql>
+    <sql id="checkColumnNull">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="topicid != null">
+            topicid,
+        </if>
+        <if test="weiboContent != null">
+            weibo_content,
+        </if>
+        <if test="coordinate != null">
+            coordinate
+        </if>
+        <if test="keyWords != null">
+            keywords
+        </if>
+        <if test="readNum != null">
+            readnum,
+        </if>
+        <if test="readNumTrendGrowth != null">
+            readnumtrendgrowth
+        </if>
+        <if test="weiboUrl != null">
+            weibourl
+        </if>
+    </sql>
+    <sql id="checkPropertyNull">
+        <if test="id != null">
+            #{id,jdbcType=INTEGER},
+        </if>
+        <if test="topicid != null">
+           #{topicid,jdbcType=INTEGER},
+        </if>
+        <if test="weiboContent != null">
+            #{weiboContent,jdbcType=VARCHAR},
+        </if>
+        <if test="coordinate != null">
+            #{coordinate,jdbcType=VARCHAR}
+        </if>
+        <if test="keyWords != null">
+            #{keyWords,jdbcType=VARCHAR}
+        </if>
+        <if test="readNum != null">
+            #{readNum,jdbcType=INTEGER}
+        </if>
+        <if test="readNumTrendGrowth != null">
+            #{readNumTrendGrowth,jdbcType=INTEGER}
+        </if>
+        <if test="weiboUrl != null">
+            #{weiboUrl,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <insert id="add" useGeneratedKeys="true" keyProperty="id"
+        parameterType="com.zc.bean.Weibo">
+        insert into
+        <include refid="tableName" />
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="checkColumnNull" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="checkPropertyNull" />
+        </trim>
+    </insert>
+
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+        <include refid="tableName" />
+        where
+        <include refid="uniqueQuery" />
+    </select>
+    <select id="getItemCount" resultType="java.lang.Integer">
+        select count(1) from
+        <include refid="tableName"></include>
+    </select>
+    <select id="getList" resultMap="BaseResultMap">
+        Select * from
+        <include refid="tableName"></include>
+        order by id
+        LIMIT
+        #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from
+        <include refid="tableName" />
+        where
+        <include refid="uniqueQuery" />
+    </delete>
+    <update id="update" parameterType="com.zc.bean.Weibo">
+        update
+        <include refid="tableName" />
+        <set>
+            <include refid="checkPropertyNull" />
+        </set>
+        <include refid="uniqueQuery" />
+    </update>
+    <update id="batchUpdate">
+        <foreach collection="list" item="item" index="index"
+            separator=";">
+            update
+            <include refid="tableName" />
+            <set>
+                coordinate='${item.coordinate}'
+            </set>
+            where id =${item.id}
+        </foreach>
+    </update>
+    <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        <include refid="tableName" />
+        (
+        <include refid="Base_Column_List" />
+        )
+        values
+        <foreach collection="list" item="item" index="i"
+            separator=",">
+            (
+            <choose>
+                <when test="item.id==null">null
+                </when>
+                <when test="item.id!=null">'${item.id}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.topicid==null">null
+                </when>
+                <when test="item.topicid!=null">'${item.topicid}'
+                </when>
+            </choose>
+             ,
+            <choose>
+                <when test="item.weiboContent==null">null
+                </when>
+                <when test="item.weiboContent!=null">#{item.weiboContent}
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.coordinate==null">null
+                </when>
+                <when test="item.coordinate!=null">'${item.coordinate}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.keyWords==null">null
+                </when>
+                <when test="item.keyWords!=null">'${item.keyWords}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.readNum==null">null
+                </when>
+                <when test="item.readNum!=null">'${item.readNum}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.readNumTrendGrowth==null">null
+                </when>
+                <when test="item.readNumTrendGrowth!=null">'${item.readNumTrendGrowth}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.weiboUrl==null">null
+                </when>
+                <when test="item.weiboUrl!=null">'${item.weiboUrl}'
+                </when>
+            </choose>
+            )
+        </foreach>
+    </insert>
+</mapper>

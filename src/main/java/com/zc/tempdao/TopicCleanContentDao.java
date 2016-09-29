@@ -11,11 +11,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.zc.tempbean.CleanContent;
+import com.zc.tempbean.TopicCleanContent;
 
 
-public interface CleanContentDao {
-     List<CleanContent> getList(@Param("pageSize")Integer pageSize,@Param("currentPage")Integer currentPage,
+public interface TopicCleanContentDao {
+     List<TopicCleanContent> getList(@Param("pageSize")Integer pageSize,@Param("currentPage")Integer currentPage,
              @Param("topic_id")Integer topic_id);
      Integer getItemCount(@Param("topic_id")Integer topic_id);
 }

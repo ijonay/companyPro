@@ -9,9 +9,9 @@ package com.zc.tempservice;
 
 import java.util.List;
 
-import com.zc.tempbean.CleanContent;
+import com.zc.tempbean.TopicCleanContent;
 
-public interface CleanContentService {
-    List<CleanContent>getList(Integer pageSize,Integer currentPage,Integer topic_id);
+public interface TopicCleanContentService {
+    List<TopicCleanContent>getList(Integer pageSize,Integer currentPage,Integer topic_id);
     Integer getItemCount(Integer topic_id);
 }

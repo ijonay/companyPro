@@ -7,8 +7,9 @@
  */
 package com.zc.tempbean;
 
-public class CleanContent {
+public class TopicCleanContent {
     private Integer topic_id;
+    private Integer weibo_id;
     private String title;
     private String weibo_content_cleansed;
     private String comment_content_cleansed;
@@ -69,5 +70,13 @@ public class CleanContent {
      */
     public void setTopic_id(Integer topic_id) {
         this.topic_id = topic_id;
+    }
+
+    public Integer getWeibo_id() {
+        return weibo_id;
+    }
+
+    public void setWeibo_id(Integer weibo_id) {
+        this.weibo_id = weibo_id;
     }
 }

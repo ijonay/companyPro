@@ -27,9 +27,11 @@ import weka.core.converters.ArffLoader;
 import com.alibaba.fastjson.JSON;
 import com.zc.bean.KeyWord;
 import com.zc.bean.Topic;
+import com.zc.bean.Weibo;
 import com.zc.model.ClusterModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
+import com.zc.model.WeiboModel;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
 import com.zc.utility.ZCFile;
@@ -43,16 +45,19 @@ public class WordServiceImpl implements WordService {
     @Autowired
     private TopicService topicServicetemp;
     private static TopicService topicService;
+    private WeiboService weiboServicetemp;
+    private static WeiboService weiboService;
     private static Map<String, float[]> modelMap = null;
     private static Map<Long, TopicModel> topicMap = new HashMap<Long, TopicModel>();
+    private static Map<Long, WeiboModel> weiboMap = new HashMap<Long, WeiboModel>();
 
     @PostConstruct
     public void init() {
         topicService = topicServicetemp;
-//        loadMaps();
-        loadTopicMap();
+        weiboService = weiboServicetemp;
+        // getModelMap();
+        // loadTopicMap();
     }
-
 
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
@@ -63,8 +68,11 @@ public class WordServiceImpl implements WordService {
                 e.printStackTrace();
             }
         }
-
         return modelMap;
+    }
+
+    public Map<Long, TopicModel> getTopicMap() {
+        return topicMap;
     }
 
     private static void loadTopicMap() {
@@ -82,6 +90,34 @@ public class WordServiceImpl implements WordService {
                 topicMap.put(topic.getId(), model);
             }
             // topicService.batchUpdate(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadWeiMap() {
+        try {
+            int pageSize = 2000;
+            int weiboCount = weiboService.getItemCount();
+            int pageCount = (int) Math.ceil(weiboCount / pageSize);
+            List<Weibo> list = new LinkedList<Weibo>();
+            for (int i = 0; i < pageCount; i++) {
+                list = weiboService.getList(pageSize, i * pageSize);
+                if (list != null && list.size() > 0) {
+                    for (Weibo w : list) {
+                        float[] weibo_vectors = getWeiboVector(w);
+                        if (weibo_vectors != null)
+                            w.setCoordinate(JSON.toJSONString(weibo_vectors));
+                        else
+                            weibo_vectors = new float[200];
+
+                        WeiboModel model = w.getModel();
+                        model.setCoordinate(weibo_vectors);
+                        weiboMap.put(w.getId().longValue(), model);
+                    }
+                    weiboService.batchUpdate(list);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,11 +148,21 @@ public class WordServiceImpl implements WordService {
     }
 
     public static float[] getTopicVector(Topic topic) {
-        float[] result = new float[200];
         List<KeyWord> wordEntrys = JSON.parseArray(topic.getKeywords(),
                 KeyWord.class);
+        return getKeywordsVector(wordEntrys);
+    }
+
+    public static float[] getWeiboVector(Weibo weibo) {
+        List<KeyWord> wordEntrys = JSON.parseArray(weibo.getKeyWords(),
+                KeyWord.class);
+        return getKeywordsVector(wordEntrys);
+    }
+
+    private static float[] getKeywordsVector(List<KeyWord> wordEntrys) {
         if (wordEntrys == null || wordEntrys.size() == 0)
             return null;
+        float[] result = new float[200];
         for (KeyWord wordEntry : wordEntrys) {
             if (wordEntry == null)
                 continue;
@@ -155,7 +201,7 @@ public class WordServiceImpl implements WordService {
     }
 
     public VertexEdgeModel getWords(String modelName, String clueWord,
-                                    int topN, float relevancy, int length) throws IOException {
+            int topN, float relevancy, int length) throws IOException {
 
         Map<String, float[]> modelMap = WordVectorHelper
                 .loadModel(ResourceDict.MODEL_DICT.get(modelName)
@@ -211,8 +257,8 @@ public class WordServiceImpl implements WordService {
 
     }
 
-    public List<List<ClusterModel>> KMeans(File arfffile, File outFile, Integer clusterNum, List<String> listWords)
-            throws Exception {
+    public List<List<ClusterModel>> KMeans(File arfffile, File outFile,
+            Integer clusterNum, List<String> listWords) throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
         Instances ins = loader.getDataSet();
@@ -239,16 +285,18 @@ public class WordServiceImpl implements WordService {
                 model.setWord(listWords.get(j));
                 singleClusterList.add(model);
             }
-            singleClusterList = singleClusterList.stream().sorted((object1, object2) -> object1.getDistance().compareTo(
-                    object2.getDistance())).collect(Collectors.toList()).subList(0, 10);
+            singleClusterList = singleClusterList
+                    .stream()
+                    .sorted((object1, object2) -> object1.getDistance()
+                            .compareTo(object2.getDistance()))
+                    .collect(Collectors.toList()).subList(0, 10);
             result.add(singleClusterList);
         }
         return result;
     }
 
-
-    public List<List<ClusterModel>> EM(File arfffile, File outFile, List<String> listWords)
-            throws Exception {
+    public List<List<ClusterModel>> EM(File arfffile, File outFile,
+            List<String> listWords) throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
         Instances ins = loader.getDataSet();
