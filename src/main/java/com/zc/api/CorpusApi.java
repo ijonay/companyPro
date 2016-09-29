@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zc.bean.Topic;
 import com.zc.bean.Weibo;
-import com.zc.model.ApiResultModel;
 import com.zc.model.ClusterModel;
 import com.zc.service.TopicService;
 import com.zc.service.WeiboService;
@@ -47,6 +45,7 @@ import com.zc.tempservice.WeiboCleanContentService;
 import com.zc.tempservice.WeiboInfoService;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
+import com.zc.utility.response.ApiResultModel;
 
 @RestController
 @RequestMapping("/api/")

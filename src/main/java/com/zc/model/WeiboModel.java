@@ -10,7 +10,7 @@ public class WeiboModel {
     /**
      * 阅读量增长趋势 -1:下降,0:不变,1:上升
      */
-    private Short readNumTrendGrowth;
+    private byte readNumTrendGrowth;
     private String weiboUrl;
 
     /**
@@ -57,14 +57,6 @@ public class WeiboModel {
         this.coordinate = coordinate;
     }
 
-    public Short getReadNumTrendGrowth() {
-        return readNumTrendGrowth;
-    }
-
-    public void setReadNumTrendGrowth(Short readNumTrendGrowth) {
-        this.readNumTrendGrowth = readNumTrendGrowth;
-    }
-
     public Long getTopicid() {
         return topicid;
     }
@@ -95,5 +87,13 @@ public class WeiboModel {
 
     public void setReadNum(String readNum) {
         this.readNum = readNum;
+    }
+
+    public byte getReadNumTrendGrowth() {
+        return readNumTrendGrowth;
+    }
+
+    public void setReadNumTrendGrowth(byte readNumTrendGrowth) {
+        this.readNumTrendGrowth = readNumTrendGrowth;
     }
 }

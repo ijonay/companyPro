@@ -55,24 +55,30 @@ public class WordServiceImpl implements WordService {
     public void init() {
         topicService = topicServicetemp;
         weiboService = weiboServicetemp;
-        // getModelMap();
-        // loadTopicMap();
+
+        loadMaps();
+        loadTopicMap();
     }
 
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
-            try {
-                modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
-                        .get("cbow0"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadMaps();
         }
         return modelMap;
     }
 
+
     public Map<Long, TopicModel> getTopicMap() {
         return topicMap;
+}
+
+    private void loadMaps() {
+        try {
+            modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
+                    .get("cbow0"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void loadTopicMap() {

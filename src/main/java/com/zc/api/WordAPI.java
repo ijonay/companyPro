@@ -1,7 +1,6 @@
 package com.zc.api;
 
 import java.util.List;
-import java.util.Map;
 
 import com.zc.enumeration.StatusCodeEnum;
 
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zc.bean.Topic;
-import com.zc.model.ApiResultModel;
+import com.zc.utility.response.ApiResultModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
 import com.zc.service.TopicService;

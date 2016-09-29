@@ -9,82 +9,81 @@ public class Weibo {
     private String keyWords;
     private String coordinate;
     private String readNum;
-    private Short readNumTrendGrowth;
+    private byte readNumTrendGrowth;
     private String weiboUrl;
 
    public WeiboModel getModel(){
        WeiboModel model=new WeiboModel();
-       model.setId(id.longValue());
-       model.setReadNum(readNum);
+       model.setId(getId().longValue());
+       model.setReadNum(getReadNum());
        model.setReadNumTrendGrowth(getReadNumTrendGrowth());
-       model.setTopicid(topicid.longValue());
-       model.setWeiboContent(weiboContent);
-       model.setWeiboUrl(weiboUrl);
+       model.setTopicid(getTopicid().longValue());
+       model.setWeiboContent(getWeiboContent());
+       model.setWeiboUrl(getWeiboUrl());
        return model;
    }
 
-    public String getWeiboContent() {
-        return weiboContent;
-    }
+public Integer getId() {
+    return id;
+}
 
-    public void setWeiboContent(String weiboContent) {
-        this.weiboContent = weiboContent;
-    }
+public void setId(Integer id) {
+    this.id = id;
+}
 
-    public String getCoordinate() {
-        return coordinate;
-    }
+public Integer getTopicid() {
+    return topicid;
+}
 
-    public void setCoordinate(String coordinate) {
-        this.coordinate = coordinate;
-    }
+public void setTopicid(Integer topicid) {
+    this.topicid = topicid;
+}
 
-    public String getReadNum() {
-        return readNum;
-    }
+public String getWeiboContent() {
+    return weiboContent;
+}
 
-    public void setReadNum(String readNum) {
-        this.readNum = readNum;
-    }
+public void setWeiboContent(String weiboContent) {
+    this.weiboContent = weiboContent;
+}
 
-    public String getWeiboUrl() {
-        return weiboUrl;
-    }
+public String getKeyWords() {
+    return keyWords;
+}
 
-    public void setWeiboUrl(String weiboUrl) {
-        this.weiboUrl = weiboUrl;
-    }
+public void setKeyWords(String keyWords) {
+    this.keyWords = keyWords;
+}
 
-    public Integer getId() {
-        return id;
-    }
+public String getCoordinate() {
+    return coordinate;
+}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+public void setCoordinate(String coordinate) {
+    this.coordinate = coordinate;
+}
 
-    public Integer getTopicid() {
-        return topicid;
-    }
+public String getReadNum() {
+    return readNum;
+}
 
-    public void setTopicid(Integer topicid) {
-        this.topicid = topicid;
-    }
+public void setReadNum(String readNum) {
+    this.readNum = readNum;
+}
 
-    public String getKeyWords() {
-        return keyWords;
-    }
+public String getWeiboUrl() {
+    return weiboUrl;
+}
 
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords;
-    }
+public void setWeiboUrl(String weiboUrl) {
+    this.weiboUrl = weiboUrl;
+}
 
-    public Short getReadNumTrendGrowth() {
-        return readNumTrendGrowth;
-    }
+public byte getReadNumTrendGrowth() {
+    return readNumTrendGrowth;
+}
 
-    public void setReadNumTrendGrowth(Short readNumTrendGrowth) {
-        this.readNumTrendGrowth = readNumTrendGrowth;
-    }
-
+public void setReadNumTrendGrowth(byte readNumTrendGrowth) {
+    this.readNumTrendGrowth = readNumTrendGrowth;
+}
 }

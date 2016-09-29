@@ -20,13 +20,17 @@ public interface CommonHelper {
         }
     }
 
-    static float[] stringToFloat(String str) {
-        List<BigDecimal> a = (List<BigDecimal>) JSONArray.parse(str);
-        float[] res = new float[a.size()];
-        for (int i = 0; i < a.size(); i++) {
-            res[i] = a.get(i).floatValue();
+    static float[] stringToFloatArray(String str) {
+        try {
+            List<BigDecimal> a = (List<BigDecimal>) JSONArray.parse(str);
+            float[] res = new float[a.size()];
+            for (int i = 0; i < a.size(); i++) {
+                res[i] = a.get(i).floatValue();
+            }
+            return res;
+        } catch (Exception ex) {
+            return null;
         }
 
-        return res;
     }
 }

@@ -7,7 +7,7 @@
 package com.zc.utility;
 
 import com.zc.enumeration.StatusCodeEnum;
-import com.zc.model.ApiResultModel;
+import com.zc.utility.response.ApiResultModel;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 

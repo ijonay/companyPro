@@ -8,12 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zc.bean.Topic;
 import com.zc.enumeration.StatusCodeEnum;
-import com.zc.model.ApiResultModel;
-import com.zc.model.HotTopicModel;
+import com.zc.utility.response.ApiResultModel;
 import com.zc.model.TopicModel;
-import com.zc.service.TopicService;
 import com.zc.service.WordService;
 
 @RestController
