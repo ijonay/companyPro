@@ -56,8 +56,8 @@ public class WordServiceImpl implements WordService {
         topicService = topicServicetemp;
         weiboService = weiboServicetemp;
 
-        loadMaps();
-        loadTopicMap();
+        // loadMaps();
+        // loadTopicMap();
     }
 
     public Map<String, float[]> getModelMap() {
