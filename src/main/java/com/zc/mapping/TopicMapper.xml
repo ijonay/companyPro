@@ -15,6 +15,7 @@
         <result column="topicurl" jdbcType="VARCHAR" property="topicUrl" />
         <result column="topictype" jdbcType="VARCHAR" property="topicType" />
     </resultMap>
+
     <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
     <sql id="tableName">topic</sql>
     <sql id="Base_Column_List">
@@ -116,6 +117,43 @@
         LIMIT
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
+    <select id="getTopicWordList" resultMap="BaseResultWordMap">
+        Select 1 AS datatype,
+        <include refid="Base_Column_List"></include>
+        from
+        <include refid="tableName"></include>
+        order by id
+        LIMIT
+        #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <resultMap id="BaseResultWordMap" type="com.zc.bean.Topic">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
+        <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+        <result column="logourl" jdbcType="VARCHAR" property="logoUrl" />
+        <result column="readnum" jdbcType="VARCHAR" property="readNum" />
+        <result column="readnumtrendgrowth" jdbcType="VARCHAR"
+            property="readNumTrendGrowth" />
+        <result column="relationdesc" jdbcType="VARCHAR"
+            property="relationDesc" />
+        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl" />
+        <result column="topictype" jdbcType="VARCHAR" property="topicType" />
+
+        <!-- <collection property="words" ofType="com.zc.bean.WordDataRelations"> 
+            id用于定义主表的唯一标识，是从表识别主表主键的唯一标识，column是结果集对应的字段名 <id property="id" column="id" 
+            /> result是普通属性，其他解释同上 <result property="word" column="word" /> </collection> -->
+        <collection property="words" ofType="com.zc.bean.WordDataRelations"
+            column="{datatype=datatype,dataid=id}" select="com.zc.dao.WordDataRelationsDao.get">
+            <id property="id" column="id" />
+            <result column="wordid" property="wordId"></result>
+            <result column="score" property="score"></result>
+            <association property="word" javaType="com.zc.bean.Word"
+                column="wordId" select="com.zc.dao.WordDao.get" />
+        </collection>
+
+    </resultMap>
+    
     <delete id="del" parameterType="java.lang.Integer">
         delete from
         <include refid="tableName" />
@@ -222,4 +260,5 @@
             )
         </foreach>
     </insert>
+
 </mapper>

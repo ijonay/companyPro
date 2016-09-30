@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.zc.bean.Word;
 import com.zc.model.ClusterModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
@@ -24,4 +27,16 @@ public interface WordService {
                                     List<String> listWords) throws Exception;
 
     Map<String, float[]> getModelMap();
+    
+    Integer add(Word bean);
+
+    Integer del(Integer id);
+
+    Integer update(Word bean);
+
+    Word get(Integer id);
+    
+    Integer getItemCount();
+
+    List<Word> getList(Integer pageSize, Integer rowStart);
 }

@@ -20,6 +20,8 @@ public interface TopicService {
     Integer batchInsert(List<Topic> list);
 
     List<Topic> getList(Integer pageSize, Integer rowStart);
+    
+    List<Topic> getTopicWordList(Integer pageSize, Integer rowStart);
 
     Integer getItemCount();
 

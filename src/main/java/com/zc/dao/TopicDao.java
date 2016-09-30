@@ -25,7 +25,9 @@ public interface TopicDao {
     Integer batchInsert(@Param("list") List<Topic> list);
 
     List<Topic> getList(@Param("pageSize") Integer pageSize, @Param("rowStart") Integer rowStart);
-
+    
+    List<Topic> getTopicWordList(@Param("pageSize") Integer pageSize, @Param("rowStart") Integer rowStart);
+    
     Integer getItemCount();
 
     Integer batchUpdate(@Param("list") List<Topic> list);

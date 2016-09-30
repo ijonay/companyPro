@@ -48,7 +48,7 @@
         </if>
     </sql>
     <insert id="add" useGeneratedKeys="true" keyProperty="id"
-        parameterType="com.zc.bean.Topic">
+        parameterType="com.zc.bean.WordDataRelations">
         insert into
         <include refid="tableName" />
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -59,21 +59,28 @@
         </trim>
     </insert>
 
-    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="get" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from
         <include refid="tableName" />
         where
-        <include refid="uniqueQuery" />
+        datatype=#{datatype,jdbcType=INTEGER}
+        and
+        dataid=#{dataid,jdbcType=INTEGER}
     </select>
+
     <select id="getItemCount" resultType="java.lang.Integer">
         select count(1) from
         <include refid="tableName"></include>
+        where
+        datatype=#{datatype,jdbcType=INTEGER}
     </select>
     <select id="getList" resultMap="BaseResultMap">
         Select * from
         <include refid="tableName"></include>
+        where
+        datatype=#{datatype,jdbcType=INTEGER}
         order by id
         LIMIT
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
@@ -84,7 +91,7 @@
         where
         <include refid="uniqueQuery" />
     </delete>
-    <update id="update" parameterType="com.zc.bean.Topic">
+    <update id="update" parameterType="com.zc.bean.WordDataRelations">
         update
         <include refid="tableName" />
         <set>

@@ -76,6 +76,11 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> getList(Integer pageSize, Integer currentPage) {
        return dao.getList(pageSize, currentPage);
     }
+    
+    @Override
+    public List<Topic> getTopicWordList(Integer pageSize, Integer currentPage) {
+       return dao.getTopicWordList(pageSize, currentPage);
+    }
 
     /**
      * 方法说明

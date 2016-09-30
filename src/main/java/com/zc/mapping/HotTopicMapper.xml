@@ -86,7 +86,7 @@
         </if>
     </sql>
     <insert id="add" useGeneratedKeys="true" keyProperty="id"
-        parameterType="com.zc.bean.Topic">
+        parameterType="com.zc.bean.HotTopic">
         insert into
         <include refid="tableName" />
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -122,7 +122,7 @@
         where
         <include refid="uniqueQuery" />
     </delete>
-    <update id="update" parameterType="com.zc.bean.Topic">
+    <update id="update" parameterType="com.zc.bean.HotTopic">
         update
         <include refid="tableName" />
         <set>

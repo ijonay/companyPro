@@ -7,6 +7,8 @@
  */
 package com.zc.bean;
 
+import java.util.List;
+
 import com.zc.model.TopicModel;
 
 public class Topic {
@@ -21,7 +23,7 @@ public class Topic {
 
     private String logoUrl;
     
-    private Long readNum;
+    private String readNum;
     
     
     /**
@@ -34,6 +36,8 @@ public class Topic {
     private String topicUrl;
     
     private String topicType;
+    
+    private List<WordDataRelations> words;
     
     public TopicModel getModel(){
         TopicModel model=new TopicModel();
@@ -116,11 +120,11 @@ public class Topic {
         this.logoUrl = logoUrl;
     }
 
-    public Long getReadNum() {
+    public String getReadNum() {
         return readNum;
     }
 
-    public void setReadNum(Long readNum) {
+    public void setReadNum(String readNum) {
         this.readNum = readNum;
     }
 
@@ -155,4 +159,11 @@ public class Topic {
     public void setReadNumTrendGrowth(Short readNumTrendGrowth) {
         this.readNumTrendGrowth = readNumTrendGrowth;
     }
+    public List<WordDataRelations> getWords() {
+        return words;
+    }
+    public void setWords(List<WordDataRelations> words) {
+        this.words = words;
+    }
+    
 }

@@ -13,7 +13,7 @@ public class TopicModel {
     private Float score;
     private float[] coordinate;
     private String logoUrl;
-    private Long readNum;
+    private String readNum;
     /**
      * 阅读量增长趋势 -1:下降,0:不变,1:上升
      */
@@ -89,11 +89,11 @@ public class TopicModel {
         this.logoUrl = logoUrl;
     }
 
-    public Long getReadNum() {
+    public String getReadNum() {
         return readNum;
     }
 
-    public void setReadNum(Long readNum) {
+    public void setReadNum(String readNum) {
         this.readNum = readNum;
     }
 

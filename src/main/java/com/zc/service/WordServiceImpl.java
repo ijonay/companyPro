@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,14 @@ import com.alibaba.fastjson.JSON;
 import com.zc.bean.KeyWord;
 import com.zc.bean.Topic;
 import com.zc.bean.Weibo;
+import com.zc.bean.Word;
+import com.zc.bean.WordDataRelations;
+import com.zc.dao.WordDao;
 import com.zc.model.ClusterModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
 import com.zc.model.WeiboModel;
+import com.zc.utility.CommonHelper;
 import com.zc.utility.ResourceDict;
 import com.zc.utility.WordVectorHelper;
 import com.zc.utility.ZCFile;
@@ -45,19 +50,30 @@ public class WordServiceImpl implements WordService {
     @Autowired
     private TopicService topicServicetemp;
     private static TopicService topicService;
+
+    @Autowired
     private WeiboService weiboServicetemp;
     private static WeiboService weiboService;
+
+    @Autowired
+    private WordService wordServicetemp;
+    private static WordService wordService;
+
+    @Autowired
+    private WordDao dao;
     private static Map<String, float[]> modelMap = null;
     private static Map<Long, TopicModel> topicMap = new HashMap<Long, TopicModel>();
     private static Map<Long, WeiboModel> weiboMap = new HashMap<Long, WeiboModel>();
+    private static Map<Integer, float[]> wordMap = new HashMap<Integer, float[]>();
 
     @PostConstruct
     public void init() {
         topicService = topicServicetemp;
         weiboService = weiboServicetemp;
-
-        // loadMaps();
-        // loadTopicMap();
+        wordService = wordServicetemp;
+         loadMaps();
+        loadTopicMap();
+        // loadWordMap();
     }
 
     public Map<String, float[]> getModelMap() {
@@ -67,10 +83,9 @@ public class WordServiceImpl implements WordService {
         return modelMap;
     }
 
-
     public Map<Long, TopicModel> getTopicMap() {
         return topicMap;
-}
+    }
 
     private void loadMaps() {
         try {
@@ -82,23 +97,63 @@ public class WordServiceImpl implements WordService {
     }
 
     private static void loadTopicMap() {
+        List<Topic> list = getTopicList(1000,false);
+        for (Topic item : list) {
+            if (StringUtils.isNoneEmpty(item.getCoordinate())) {
+                TopicModel model = item.getModel();
+                float[] coordiante = CommonHelper.stringToFloatArray(item
+                        .getCoordinate());
+                model.setCoordinate(coordiante);
+                topicMap.put(item.getId(), model);
+            }
+        }
+    }
+
+    /**
+     * 初始更新topic的coordinate
+     */
+    private static void InitUpdateTopicCoordinate() {
         try {
-            List<Topic> list = getTopicList(1000);
-            for (Topic topic : list) {
+            List<Topic> list = getTopicList(1000,true);
+            List<Topic> listTemp = new LinkedList<Topic>();
+            for (int i = 0; i < list.size(); i++) {
+                Topic topic = list.get(i);
                 float[] topic_vectors = getTopicVector(topic);
                 if (topic_vectors != null)
                     topic.setCoordinate(JSON.toJSONString(topic_vectors));
                 else
                     topic_vectors = new float[200];
-
-                TopicModel model = topic.getModel();
-                model.setCoordinate(topic_vectors);
-                topicMap.put(topic.getId(), model);
+                listTemp.add(topic);
+                /*
+                 * TopicModel model = topic.getModel();
+                 * model.setCoordinate(topic_vectors);
+                 * topicMap.put(topic.getId(), model);
+                 */
+                if (i % 1000 == 0 || i == list.size() - 1) {
+                    topicService.batchUpdate(listTemp);
+                    listTemp = new LinkedList<Topic>();
+                }
             }
-            // topicService.batchUpdate(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void loadWordMap() {
+        try {
+            List<Word> list = getWordList(1000);
+            for (Word word : list) {
+                wordMap.put(word.getId(),
+                        CommonHelper.stringToFloatArray(word.getCoordinate()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static float[] getWordCoordinate(Integer wordid) {
+        return CommonHelper.stringToFloatArray(wordService.get(wordid)
+                .getCoordinate());
     }
 
     private static void loadWeiMap() {
@@ -141,12 +196,30 @@ public class WordServiceImpl implements WordService {
     // e.printStackTrace();
     // }
     // }
-    private static List<Topic> getTopicList(int pageSize) {
+    private static List<Word> getWordList(int pageSize) {
+        List<Word> list = new LinkedList<Word>();
+        Integer wordCount = wordService.getItemCount();
+        int pageCount = (int) Math.ceil(wordCount / (double) pageSize);
+        for (int i = 0; i < pageCount; i++) {
+            List<Word> pageList = wordService.getList(pageSize, i * pageSize);
+            if (pageList != null && pageList.size() > 0)
+                list.addAll(pageList);
+        }
+        return list;
+    }
+
+    private static List<Topic> getTopicList(int pageSize,boolean isInit) {
         List<Topic> list = new LinkedList<Topic>();
         Integer topicCount = topicService.getItemCount();
         int pageCount = (int) Math.ceil(topicCount / (double) pageSize);
         for (int i = 0; i < pageCount; i++) {
-            List<Topic> pageList = topicService.getList(pageSize, i * pageSize);
+            List<Topic> pageList =new LinkedList<Topic>();
+            if(isInit)
+                pageList=topicService.getTopicWordList(pageSize, i
+                    * pageSize);
+            else
+                pageList=topicService.getList(pageSize, i
+                    * pageSize);
             if (pageList != null && pageList.size() > 0)
                 list.addAll(pageList);
         }
@@ -154,8 +227,29 @@ public class WordServiceImpl implements WordService {
     }
 
     public static float[] getTopicVector(Topic topic) {
-        List<KeyWord> wordEntrys = JSON.parseArray(topic.getKeywords(),
-                KeyWord.class);
+        List<WordDataRelations> list = topic.getWords();
+        List<KeyWord> wordEntrys = new LinkedList<KeyWord>();
+        if (list != null && list.size() > 0) {
+            for (WordDataRelations r : list) {
+                try {
+                    wordEntrys.add(new KeyWord() {
+                        {
+                            setWeight(r.getScore());
+                            setCoordinate(getWordCoordinate(r.getWordId()));
+                        }
+                    });
+                } catch (Exception e) {
+                    wordEntrys.add(new KeyWord() {
+                        {
+                            setWeight(r.getScore());
+                            setCoordinate(getWordCoordinate(r.getWordId()));
+                        }
+                    });
+                }
+
+            }
+        }
+
         return getKeywordsVector(wordEntrys);
     }
 
@@ -173,7 +267,7 @@ public class WordServiceImpl implements WordService {
             if (wordEntry == null)
                 continue;
             Float weight = wordEntry.getWeight();
-            float[] vectors = modelMap.get(wordEntry.getWord());
+            float[] vectors = wordEntry.getCoordinate();
             if (vectors == null)
                 vectors = new float[200];
             for (int i = 0; i < vectors.length; i++) {
@@ -340,6 +434,36 @@ public class WordServiceImpl implements WordService {
         // result.add(singleClusterList);
         // }
         return null;
+    }
+
+    @Override
+    public Integer add(Word bean) {
+        return dao.add(bean);
+    }
+
+    @Override
+    public Integer del(Integer id) {
+        return dao.del(id);
+    }
+
+    @Override
+    public Integer update(Word bean) {
+        return dao.update(bean);
+    }
+
+    @Override
+    public Word get(Integer id) {
+        return dao.get(id);
+    }
+
+    @Override
+    public Integer getItemCount() {
+        return dao.getItemCount();
+    }
+
+    @Override
+    public List<Word> getList(Integer pageSize, Integer rowStart) {
+        return dao.getList(pageSize, rowStart);
     }
 
 }
