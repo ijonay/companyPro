@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
+import com.zc.utility.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -74,6 +76,9 @@ public class WordServiceImpl implements WordService {
          loadMaps();
         loadTopicMap();
         // loadWordMap();
+
+        // loadMaps();
+        // loadTopicMap();
     }
 
     public Map<String, float[]> getModelMap() {
@@ -87,10 +92,11 @@ public class WordServiceImpl implements WordService {
         return topicMap;
     }
 
+
     private void loadMaps() {
         try {
-            modelMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict
-                    .get("cbow0"));
+            modelMap = WordVectorHelper.loadModel(
+                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -231,22 +237,12 @@ public class WordServiceImpl implements WordService {
         List<KeyWord> wordEntrys = new LinkedList<KeyWord>();
         if (list != null && list.size() > 0) {
             for (WordDataRelations r : list) {
-                try {
                     wordEntrys.add(new KeyWord() {
                         {
                             setWeight(r.getScore());
                             setCoordinate(getWordCoordinate(r.getWordId()));
                         }
                     });
-                } catch (Exception e) {
-                    wordEntrys.add(new KeyWord() {
-                        {
-                            setWeight(r.getScore());
-                            setCoordinate(getWordCoordinate(r.getWordId()));
-                        }
-                    });
-                }
-
             }
         }
 

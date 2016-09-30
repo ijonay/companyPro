@@ -20,6 +20,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.zc.utility.Constant;
+import com.zc.utility.PropertyHelper;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.NlpAnalysis;
 import org.apache.commons.lang3.StringUtils;
@@ -238,7 +240,7 @@ public class CorpusApi {
     }
 
     private List<String> generateSingleTopicText(int topic_id,
-            int contentPageSize) throws Exception {
+                                                 int contentPageSize) throws Exception {
         List<String> results = new LinkedList<String>();
         Integer contentCount = topicCleanContentService.getItemCount(topic_id);
         int pageCount = (int) Math
@@ -364,8 +366,9 @@ public class CorpusApi {
     }
 
     private Map<String, float[]> loadMap() throws Exception {
+//        Map<String, float[]> wordMap = WordVectorHelper.loadModel(ResourceDict.Topic_Dict.get("cbow0"));
         Map<String, float[]> wordMap = WordVectorHelper
-                .loadModel(ResourceDict.Topic_Dict.get("cbow0"));
+                .loadModel(PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
         return wordMap;
     }
 

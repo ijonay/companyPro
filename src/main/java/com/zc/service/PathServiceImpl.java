@@ -74,10 +74,11 @@ public class PathServiceImpl implements PathService {
         HttpSolrServer server = new HttpSolrServer(url);
         server.setRequestWriter(new BinaryRequestWriter());
         SolrQuery query = new SolrQuery();
-        query.setQuery(String.format("weibo_content:\"%s\"", startNode))
-                .addFilterQuery(String.format("weibo_content:\"%s\"", endNode))
+        query.setQuery(String.format("weibo_content:\"%s\" OR weibo_content:\"%s\"", startNode, endNode))
+//                .addFilterQuery(String.format("weibo_content:\"%s\"", endNode))
                 .setStart(0)
-                .setRows(3);
+                .setRows(Integer.valueOf(PropertyHelper
+                        .getValue(Constant.CONFIG_PROPERTIES, Constant.SOLR_SEARCH_LENGTH_KEY)));
         try {
             QueryResponse response = server.query(query);
             System.out.println(response.getResults().getNumFound());
@@ -155,7 +156,8 @@ public class PathServiceImpl implements PathService {
     }
 
     private void runRecursion(String start, float[] targetVector) {
-        Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(Constant.WORDR_EDISKEY_PREFIX + start).range(0, TOPNSIZE - 1);
+        Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(PropertyHelper
+                .getValue(Constant.CONFIG_PROPERTIES, Constant.WORDR_EDISKEY_PREFIX_KEY) + start).range(0, TOPNSIZE - 1);
         if (neighbors != null) {
             LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
             for (WordRedisModel w : tempNeighbors) {
@@ -172,6 +174,9 @@ public class PathServiceImpl implements PathService {
     }
 
     private boolean isSatisfied(String start, float[] targetVector) {
+        if (getSimilarity(start, targetVector) > 2) {
+            System.out.println("zhang");
+        }
         return getSimilarity(start, targetVector) >= SIMILARITY_THRESHOLD;
     }
 
