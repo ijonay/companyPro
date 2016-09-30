@@ -1,23 +1,21 @@
 package com.zc.dao;
 
-import com.zc.bean.Weibo;
 
 import java.util.List;
 
-/**
- * Created by 张镇强 on 2016/9/18 12:42.
- */
+import org.apache.ibatis.annotations.Param;
+
+import com.zc.bean.Weibo;
+
+
 public interface WeiboDao {
-    Integer add(Weibo entity);
+    Integer batchInsert(@Param("list") List<Weibo> list);
 
-    Weibo get(Integer id);
+    List<Weibo> getList(@Param("pageSize") Integer pageSize,
+            @Param("rowStart") Integer rowStart);
 
-    Integer del(Integer id);
+    Integer getItemCount();
 
-    Integer update(Weibo entity);
-
-    /**
-     * 验证方法
-     */
-    List<Weibo> getAll();
+    Integer batchUpdate(@Param("list") List<Weibo> list);
 }
+

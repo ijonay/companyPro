@@ -16,8 +16,8 @@ import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
 import com.zc.service.TopicService;
 import com.zc.service.WordService;
-import com.zc.tempbean.CleanContent;
-import com.zc.tempservice.CleanContentService;
+import com.zc.tempbean.TopicCleanContent;
+import com.zc.tempservice.TopicCleanContentService;
 import com.zc.utility.ResourceDict;
 
 /**
@@ -33,7 +33,7 @@ public class WordAPI {
     private TopicService topicService;
 
     @Autowired
-    private CleanContentService weiboService;
+    private TopicCleanContentService weiboService;
     private WordAPI() {
     }
 
@@ -103,7 +103,7 @@ public class WordAPI {
     
     @RequestMapping("words/test1")
     public ApiResultModel test1() {
-        List<CleanContent>list=weiboService.getList(10, 10,100);
+        List<TopicCleanContent>list=weiboService.getList(10, 10,100);
         return new ApiResultModel(list);
     }
 

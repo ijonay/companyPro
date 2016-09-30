@@ -12,23 +12,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zc.tempbean.CleanContent;
-import com.zc.tempdao.CleanContentDao;
+import com.zc.tempbean.TopicCleanContent;
+import com.zc.tempdao.TopicCleanContentDao;
 
 @Service
-public class CleanContentServiceImpl implements CleanContentService{
+public class TopicCleanContentServiceImpl implements TopicCleanContentService{
 
     @Autowired
-    private CleanContentDao dao;
+    private TopicCleanContentDao dao;
     /**
      * 方法说明
      * @param pageSize
      * @param currentPage
      * @return
-     * @see com.zc.tempservice.CleanContentService#getList(java.lang.Integer, java.lang.Integer)
+     * @see com.zc.tempservice.TopicCleanContentService#getList(java.lang.Integer, java.lang.Integer)
      */
     @Override
-    public List<CleanContent> getList(Integer pageSize, Integer currentPage,Integer topic_id) {
+    public List<TopicCleanContent> getList(Integer pageSize, Integer currentPage,Integer topic_id) {
         if(pageSize==null)
             pageSize=10000000;
         if(currentPage==null)
@@ -40,7 +40,7 @@ public class CleanContentServiceImpl implements CleanContentService{
      * 方法说明
      * @param topic_id
      * @return
-     * @see com.zc.tempservice.CleanContentService#getItemCount(java.lang.Integer)
+     * @see com.zc.tempservice.TopicCleanContentService#getItemCount(java.lang.Integer)
      */
     @Override
     public Integer getItemCount(Integer topic_id) {

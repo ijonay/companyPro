@@ -83,13 +83,7 @@ public class HotTopicServiceImpl implements HotTopicService {
     public Integer getItemCount() {
         return dao.getItemCount();
     }
-
-    /**
-     * 方法说明
-     * @param list
-     * @return
-     * @see com.zc.service.TopicService#batchUpdate(java.util.List)
-     */
+    
     @Override
     public Integer batchUpdate(List<HotTopic> list) {
         if(list==null||list.size()==0)return 0;

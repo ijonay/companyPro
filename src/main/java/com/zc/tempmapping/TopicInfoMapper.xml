@@ -40,7 +40,7 @@
     <select id="getList" resultMap="BaseResultMap">
         Select * from 
         <include refid="tableName"></include>
-        order by id
+        order by id desc
         offset(#{pageSize,jdbcType=INTEGER}*(#{currentPage,jdbcType=INTEGER}-1))
         row
         fetch next #{pageSize,jdbcType=INTEGER} rows only

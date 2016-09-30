@@ -24,9 +24,9 @@ public class WeiboItemModel {
 
     public WeiboItemModel fromEntity(Weibo entity) {
         this.setId(entity.getId());
-        this.setTopicId(entity.getTopicId());
+        this.setTopicId(entity.getTopicid());
         this.setWeiboContent(entity.getWeiboContent());
-        this.setKeywords(entity.getKeywords());
+        this.setKeywords(entity.getKeyWords());
         this.setCoordinate(entity.getCoordinate());
         this.setReadNum(entity.getReadNum());
         this.setReadNumTrendGrowth(entity.getReadNumTrendGrowth());
@@ -39,9 +39,9 @@ public class WeiboItemModel {
         Weibo entity = new Weibo();
         entity.setId(this.getId());
         entity.setId(this.getId());
-        entity.setTopicId(this.getTopicId());
+        entity.setTopicid(this.getTopicId());
         entity.setWeiboContent(this.getWeiboContent());
-        entity.setKeywords(this.getKeywords());
+        entity.setKeyWords(this.getKeywords());
         entity.setCoordinate(this.getCoordinate());
         entity.setReadNum(this.getReadNum());
         entity.setReadNumTrendGrowth(this.getReadNumTrendGrowth());

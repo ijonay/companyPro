@@ -1,17 +1,27 @@
 package com.zc.bean;
 
-/**
- * Created by 张镇强 on 2016/9/18 12:43.
- */
+import com.zc.model.WeiboModel;
+
 public class Weibo {
     private Integer id;
-    private Integer topicId;
+    private Integer topicid;
     private String weiboContent;
-    private String keywords;
+    private String keyWords;
     private String coordinate;
     private String readNum;
     private byte readNumTrendGrowth;
     private String weiboUrl;
+
+    public WeiboModel getModel() {
+        WeiboModel model = new WeiboModel();
+        model.setId(getId().longValue());
+        model.setReadNum(getReadNum());
+        model.setReadNumTrendGrowth(getReadNumTrendGrowth());
+        model.setTopicid(getTopicid().longValue());
+        model.setWeiboContent(getWeiboContent());
+        model.setWeiboUrl(getWeiboUrl());
+        return model;
+    }
 
     public Integer getId() {
         return id;
@@ -21,12 +31,12 @@ public class Weibo {
         this.id = id;
     }
 
-    public Integer getTopicId() {
-        return topicId;
+    public Integer getTopicid() {
+        return topicid;
     }
 
-    public void setTopicId(Integer topicId) {
-        this.topicId = topicId;
+    public void setTopicid(Integer topicid) {
+        this.topicid = topicid;
     }
 
     public String getWeiboContent() {
@@ -37,12 +47,12 @@ public class Weibo {
         this.weiboContent = weiboContent;
     }
 
-    public String getKeywords() {
-        return keywords;
+    public String getKeyWords() {
+        return keyWords;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords;
     }
 
     public String getCoordinate() {
@@ -61,19 +71,19 @@ public class Weibo {
         this.readNum = readNum;
     }
 
-    public byte getReadNumTrendGrowth() {
-        return readNumTrendGrowth;
-    }
-
-    public void setReadNumTrendGrowth(byte readNumTrendGrowth) {
-        this.readNumTrendGrowth = readNumTrendGrowth;
-    }
-
     public String getWeiboUrl() {
         return weiboUrl;
     }
 
     public void setWeiboUrl(String weiboUrl) {
         this.weiboUrl = weiboUrl;
+    }
+
+    public byte getReadNumTrendGrowth() {
+        return readNumTrendGrowth;
+    }
+
+    public void setReadNumTrendGrowth(byte readNumTrendGrowth) {
+        this.readNumTrendGrowth = readNumTrendGrowth;
     }
 }
