@@ -74,12 +74,11 @@ public class PathServiceImpl implements PathService {
         HttpSolrServer server = new HttpSolrServer(url);
         server.setRequestWriter(new BinaryRequestWriter());
         SolrQuery query = new SolrQuery();
-        query.setQuery(String.format("weibo_content:\"%s\"", startNode))
-                .addFilterQuery(String.format("weibo_content:\"%s\"", endNode))
+        query.setQuery(String.format("weibo_content:\"%s\" OR weibo_content:\"%s\"", startNode, endNode))
+//                .addFilterQuery(String.format("weibo_content:\"%s\"", endNode))
                 .setStart(0)
-                .setRows(
-                        Integer.valueOf(PropertyHelper
-                                .getValue(Constant.CONFIG_PROPERTIES, Constant.SOLR_SEARCH_LENGTH_KEY)));
+                .setRows(Integer.valueOf(PropertyHelper
+                        .getValue(Constant.CONFIG_PROPERTIES, Constant.SOLR_SEARCH_LENGTH_KEY)));
         try {
             QueryResponse response = server.query(query);
             System.out.println(response.getResults().getNumFound());
