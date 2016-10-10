@@ -73,8 +73,8 @@ public class WordServiceImpl implements WordService {
         topicService = topicServicetemp;
         weiboService = weiboServicetemp;
         wordService = wordServicetemp;
-         loadMaps();
-        loadTopicMap();
+        loadMaps();
+//        loadTopicMap();
         // loadWordMap();
 
         // loadMaps();
@@ -103,7 +103,7 @@ public class WordServiceImpl implements WordService {
     }
 
     private static void loadTopicMap() {
-        List<Topic> list = getTopicList(1000,false);
+        List<Topic> list = getTopicList(1000, false);
         for (Topic item : list) {
             if (StringUtils.isNoneEmpty(item.getCoordinate())) {
                 TopicModel model = item.getModel();
@@ -120,7 +120,7 @@ public class WordServiceImpl implements WordService {
      */
     private static void InitUpdateTopicCoordinate() {
         try {
-            List<Topic> list = getTopicList(1000,true);
+            List<Topic> list = getTopicList(1000, true);
             List<Topic> listTemp = new LinkedList<Topic>();
             for (int i = 0; i < list.size(); i++) {
                 Topic topic = list.get(i);
@@ -214,18 +214,18 @@ public class WordServiceImpl implements WordService {
         return list;
     }
 
-    private static List<Topic> getTopicList(int pageSize,boolean isInit) {
+    private static List<Topic> getTopicList(int pageSize, boolean isInit) {
         List<Topic> list = new LinkedList<Topic>();
         Integer topicCount = topicService.getItemCount();
         int pageCount = (int) Math.ceil(topicCount / (double) pageSize);
         for (int i = 0; i < pageCount; i++) {
-            List<Topic> pageList =new LinkedList<Topic>();
-            if(isInit)
-                pageList=topicService.getTopicWordList(pageSize, i
-                    * pageSize);
+            List<Topic> pageList = new LinkedList<Topic>();
+            if (isInit)
+                pageList = topicService.getTopicWordList(pageSize, i
+                        * pageSize);
             else
-                pageList=topicService.getList(pageSize, i
-                    * pageSize);
+                pageList = topicService.getList(pageSize, i
+                        * pageSize);
             if (pageList != null && pageList.size() > 0)
                 list.addAll(pageList);
         }
@@ -237,12 +237,12 @@ public class WordServiceImpl implements WordService {
         List<KeyWord> wordEntrys = new LinkedList<KeyWord>();
         if (list != null && list.size() > 0) {
             for (WordDataRelations r : list) {
-                    wordEntrys.add(new KeyWord() {
-                        {
-                            setWeight(r.getScore());
-                            setCoordinate(getWordCoordinate(r.getWordId()));
-                        }
-                    });
+                wordEntrys.add(new KeyWord() {
+                    {
+                        setWeight(r.getScore());
+                        setCoordinate(getWordCoordinate(r.getWordId()));
+                    }
+                });
             }
         }
 
@@ -297,7 +297,7 @@ public class WordServiceImpl implements WordService {
     }
 
     public VertexEdgeModel getWords(String modelName, String clueWord,
-            int topN, float relevancy, int length) throws IOException {
+                                    int topN, float relevancy, int length) throws IOException {
 
         Map<String, float[]> modelMap = WordVectorHelper
                 .loadModel(ResourceDict.MODEL_DICT.get(modelName)
@@ -322,8 +322,8 @@ public class WordServiceImpl implements WordService {
             float score = WordVectorHelper.getSimilarity(model.getCoordinate(),
                     sourceVectors);
             model.setScore(score);
-            TopicModel newModel = getNewModel(id, model);
-            result.add(newModel);
+//            TopicModel newModel = getNewModel(id, model);
+            result.add(model);
         }
         result = result
                 .stream()
@@ -332,6 +332,7 @@ public class WordServiceImpl implements WordService {
         return result;
     }
 
+    // 看不明白为什么需要这个函数
     private TopicModel getNewModel(Long id, TopicModel model) {
         TopicModel newModel = new TopicModel();
         newModel.setId(id);
@@ -354,7 +355,7 @@ public class WordServiceImpl implements WordService {
     }
 
     public List<List<ClusterModel>> KMeans(File arfffile, File outFile,
-            Integer clusterNum, List<String> listWords) throws Exception {
+                                           Integer clusterNum, List<String> listWords) throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
         Instances ins = loader.getDataSet();
@@ -392,7 +393,7 @@ public class WordServiceImpl implements WordService {
     }
 
     public List<List<ClusterModel>> EM(File arfffile, File outFile,
-            List<String> listWords) throws Exception {
+                                       List<String> listWords) throws Exception {
         ArffLoader loader = new ArffLoader();
         loader.setFile(arfffile);
         Instances ins = loader.getDataSet();

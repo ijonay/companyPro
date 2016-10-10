@@ -9,19 +9,26 @@ package com.zc.service;
 
 import com.zc.bean.Topic;
 import com.zc.dao.TopicDao;
+import com.zc.enumeration.StatusCodeEnum;
+import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 
+import com.zc.utility.CommonHelper;
+import com.zc.utility.WordVectorHelper;
+import com.zc.utility.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TopicServiceImpl implements TopicService {
 
     @Autowired
     private TopicDao dao;
+    @Autowired
+    private WordService wordService;
 
     /**
      * 获取词汇与热点话题的相似度
@@ -67,6 +74,7 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 方法说明
+     *
      * @param pageSize
      * @param currentPage
      * @return
@@ -74,16 +82,45 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public List<Topic> getList(Integer pageSize, Integer currentPage) {
-       return dao.getList(pageSize, currentPage);
+        return dao.getList(pageSize, currentPage);
     }
-    
+
     @Override
     public List<Topic> getTopicWordList(Integer pageSize, Integer currentPage) {
-       return dao.getTopicWordList(pageSize, currentPage);
+        return dao.getTopicWordList(pageSize, currentPage);
+    }
+
+    @Override
+    public List<TopicModel> getListExt(String clueWord, Integer currentPage, Integer pageSize) {
+        if (pageSize < 1 || currentPage < 1) {
+            throw new ServiceException(StatusCodeEnum.CLIENT_ERROR, "分页参数错误");
+        }
+
+        float[] sourceVectors = wordService.getModelMap().get(clueWord);
+        Objects.requireNonNull(sourceVectors, "没有找到线索词的坐标");
+
+        long a = System.nanoTime();
+        HashMap<Integer, float[]> allCoordinates = getAllCoordinates();
+        LinkedList<Integer> idList = new LinkedList<>();
+        idList.addAll(allCoordinates.keySet());
+        System.out.println("----------------------------------a:" + (System.nanoTime() - a));
+
+        long b = System.nanoTime();
+        Collections.sort(idList, (left, right) ->
+                CommonHelper.compare(WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(left)),
+                        WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(right)))
+        );
+
+        System.out.println("----------------------------------b:" + (System.nanoTime() - b));
+
+        List<Integer> ids = idList.stream().skip((currentPage - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
+
+        return getTopicByIdList(ids);
     }
 
     /**
      * 方法说明
+     *
      * @return
      * @see com.zc.service.TopicService#getItemCount()
      */
@@ -94,22 +131,47 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 方法说明
+     *
      * @param list
      * @return
      * @see com.zc.service.TopicService#batchUpdate(java.util.List)
      */
     @Override
     public Integer batchUpdate(List<Topic> list) {
-        if(list==null||list.size()==0)return 0;
+        if (list == null || list.size() == 0) return 0;
         return dao.batchUpdate(list);
     }
-    
+
     @Override
     public Topic get(Integer topicId) {
         Topic topic = dao.get(topicId);
         Objects.requireNonNull(topic);
 
         return topic;
+    }
+
+    @Override
+    public HashMap<Integer, float[]> getAllCoordinates() {
+        List<HashMap<Integer, String>> coordinatesMapList = dao.getAllCoordinates();
+        Objects.requireNonNull(coordinatesMapList);
+
+        LinkedHashMap<Integer, float[]> result = new LinkedHashMap<>();
+        coordinatesMapList.forEach(c -> {
+            result.put(Integer.parseInt(String.valueOf(c.get("id"))),
+                    CommonHelper.stringToFloatArray(c.get("coordinate")));
+        });
+
+        return result;
+    }
+
+    @Override
+    public List<TopicModel> getTopicByIdList(List<Integer> idList) {
+        long c = System.nanoTime();
+        List<Topic> topics = dao.getByIdList(idList);
+
+        List<TopicModel> result = topics.stream().map(t -> t.getModel()).collect(Collectors.toList());
+        System.out.println("----------------------------------c:" + (System.nanoTime() - c));
+        return result;
     }
 
 }

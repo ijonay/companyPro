@@ -2,25 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.dao.TopicDao">
     <resultMap id="BaseResultMap" type="com.zc.bean.Topic">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
-        <result column="keywords" jdbcType="VARCHAR" property="keywords" />
-        <result column="logourl" jdbcType="VARCHAR" property="logoUrl" />
-        <result column="readnum" jdbcType="VARCHAR" property="readNum" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
+        <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
+        <result column="logourl" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="readnum" jdbcType="VARCHAR" property="readNum"/>
         <result column="readnumtrendgrowth" jdbcType="VARCHAR"
-            property="readNumTrendGrowth" />
+                property="readNumTrendGrowth"/>
         <result column="relationdesc" jdbcType="VARCHAR"
-            property="relationDesc" />
-        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl" />
-        <result column="topictype" jdbcType="VARCHAR" property="topicType" />
+                property="relationDesc"/>
+        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl"/>
+        <result column="topictype" jdbcType="VARCHAR" property="topicType"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
     </resultMap>
 
     <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
     <sql id="tableName">topic</sql>
     <sql id="Base_Column_List">
         id, title,
-        coordinate,keywords,logourl,readnum,readnumtrendgrowth,relationdesc,topicurl,topictype
+        coordinate,keywords,logourl,readnum,readnumtrendgrowth,relationdesc,topicurl,topictype,introduction
     </sql>
     <sql id="checkColumnNull">
         <if test="id != null">
@@ -52,6 +53,9 @@
         </if>
         <if test="topicType != null">
             topictype
+        </if>
+        <if test="introduction != null">
+            introduction
         </if>
     </sql>
     <sql id="checkPropertyNull">
@@ -85,26 +89,29 @@
         <if test="topicType != null">
             #{topicType,jdbcType=VARCHAR}
         </if>
+        <if test="introduction != null">
+            #{introduction,jdbcType=VARCHAR}
+        </if>
     </sql>
     <insert id="add" useGeneratedKeys="true" keyProperty="id"
-        parameterType="com.zc.bean.Topic">
+            parameterType="com.zc.bean.Topic">
         insert into
-        <include refid="tableName" />
+        <include refid="tableName"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="checkColumnNull" />
+            <include refid="checkColumnNull"/>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="checkPropertyNull" />
+            <include refid="checkPropertyNull"/>
         </trim>
     </insert>
 
     <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from
-        <include refid="tableName" />
+        <include refid="tableName"/>
         where
-        <include refid="uniqueQuery" />
+        <include refid="uniqueQuery"/>
     </select>
     <select id="getItemCount" resultType="java.lang.Integer">
         select count(1) from
@@ -127,52 +134,53 @@
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
     <resultMap id="BaseResultWordMap" type="com.zc.bean.Topic">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
-        <result column="keywords" jdbcType="VARCHAR" property="keywords" />
-        <result column="logourl" jdbcType="VARCHAR" property="logoUrl" />
-        <result column="readnum" jdbcType="VARCHAR" property="readNum" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
+        <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
+        <result column="logourl" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="readnum" jdbcType="VARCHAR" property="readNum"/>
         <result column="readnumtrendgrowth" jdbcType="VARCHAR"
-            property="readNumTrendGrowth" />
+                property="readNumTrendGrowth"/>
         <result column="relationdesc" jdbcType="VARCHAR"
-            property="relationDesc" />
-        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl" />
-        <result column="topictype" jdbcType="VARCHAR" property="topicType" />
+                property="relationDesc"/>
+        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl"/>
+        <result column="topictype" jdbcType="VARCHAR" property="topicType"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
 
         <!-- <collection property="words" ofType="com.zc.bean.WordDataRelations"> 
             id用于定义主表的唯一标识，是从表识别主表主键的唯一标识，column是结果集对应的字段名 <id property="id" column="id" 
             /> result是普通属性，其他解释同上 <result property="word" column="word" /> </collection> -->
         <collection property="words" ofType="com.zc.bean.WordDataRelations"
-            column="{datatype=datatype,dataid=id}" select="com.zc.dao.WordDataRelationsDao.get">
-            <id property="id" column="id" />
+                    column="{datatype=datatype,dataid=id}" select="com.zc.dao.WordDataRelationsDao.get">
+            <id property="id" column="id"/>
             <result column="wordid" property="wordId"></result>
             <result column="score" property="score"></result>
             <association property="word" javaType="com.zc.bean.Word"
-                column="wordId" select="com.zc.dao.WordDao.get" />
+                         column="wordId" select="com.zc.dao.WordDao.get"/>
         </collection>
 
     </resultMap>
-    
+
     <delete id="del" parameterType="java.lang.Integer">
         delete from
-        <include refid="tableName" />
+        <include refid="tableName"/>
         where
-        <include refid="uniqueQuery" />
+        <include refid="uniqueQuery"/>
     </delete>
     <update id="update" parameterType="com.zc.bean.Topic">
         update
-        <include refid="tableName" />
+        <include refid="tableName"/>
         <set>
-            <include refid="checkPropertyNull" />
+            <include refid="checkPropertyNull"/>
         </set>
-        <include refid="uniqueQuery" />
+        <include refid="uniqueQuery"/>
     </update>
     <update id="batchUpdate">
         <foreach collection="list" item="item" index="index"
-            separator=";">
+                 separator=";">
             update
-            <include refid="tableName" />
+            <include refid="tableName"/>
             <set>
                 coordinate='${item.coordinate}'
             </set>
@@ -181,13 +189,13 @@
     </update>
     <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
         insert into
-        <include refid="tableName" />
+        <include refid="tableName"/>
         (
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         )
         values
         <foreach collection="list" item="item" index="i"
-            separator=",">
+                 separator=",">
             (
             <choose>
                 <when test="item.id==null">null
@@ -257,8 +265,26 @@
                 <when test="item.topicType!=null">'${item.topicType}'
                 </when>
             </choose>
+            ,
+            <choose>
+                <when test="item.introduction==null">null
+                </when>
+                <when test="item.introduction!=null">'${item.introduction}'
+                </when>
+            </choose>
             )
         </foreach>
     </insert>
-
+    <select id="getAllCoordinates" resultType="java.util.HashMap">
+        SELECT id AS id, coordinate AS coordinate FROM topic
+    </select>
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM topic
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

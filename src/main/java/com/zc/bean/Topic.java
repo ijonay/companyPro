@@ -1,7 +1,7 @@
-/** 
+/**
  * @title Topic.java
  * @author huyulinhome/huyl@heptax.com
- * @date：2016年8月17日 下午12:14:51 
+ * @date：2016年8月17日 下午12:14:51
  * Copyright 2016 知藏. All right reserved.
  * 类说明
  */
@@ -22,25 +22,28 @@ public class Topic {
     private String keywords;
 
     private String logoUrl;
-    
+
     private String readNum;
-    
-    
+
+
+    private String introduction;
+
+
     /**
      * 阅读量增长趋势 -1:下降,0:不变,1:上升
      */
     private Short readNumTrendGrowth;
-    
+
     private String relationDesc;
-    
+
     private String topicUrl;
-    
+
     private String topicType;
-    
+
     private List<WordDataRelations> words;
-    
-    public TopicModel getModel(){
-        TopicModel model=new TopicModel();
+
+    public TopicModel getModel() {
+        TopicModel model = new TopicModel();
         model.setId(id);
         model.setTitle(title);
         model.setLogoUrl(logoUrl);
@@ -50,8 +53,11 @@ public class Topic {
         model.setTitle(title);
         model.setTopicType(topicType);
         model.setTopicUrl(topicUrl);
+        model.setIntroduction(introduction);
+
         return model;
     }
+
     /**
      * @return the title
      */
@@ -60,8 +66,7 @@ public class Topic {
     }
 
     /**
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
@@ -75,8 +80,7 @@ public class Topic {
     }
 
     /**
-     * @param coordinate
-     *            the coordinate to set
+     * @param coordinate the coordinate to set
      */
     public void setCoordinate(String coordinate) {
         this.coordinate = coordinate;
@@ -90,8 +94,7 @@ public class Topic {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(long id) {
         this.id = id;
@@ -105,8 +108,7 @@ public class Topic {
     }
 
     /**
-     * @param keywords
-     *            the keywords to set
+     * @param keywords the keywords to set
      */
     public void setKeywords(String keywords) {
         this.keywords = keywords;
@@ -128,7 +130,6 @@ public class Topic {
         this.readNum = readNum;
     }
 
-    
 
     public String getTopicUrl() {
         return topicUrl;
@@ -153,17 +154,28 @@ public class Topic {
     public void setRelationDesc(String relationDesc) {
         this.relationDesc = relationDesc;
     }
+
     public Short getReadNumTrendGrowth() {
         return readNumTrendGrowth;
     }
+
     public void setReadNumTrendGrowth(Short readNumTrendGrowth) {
         this.readNumTrendGrowth = readNumTrendGrowth;
     }
+
     public List<WordDataRelations> getWords() {
         return words;
     }
+
     public void setWords(List<WordDataRelations> words) {
         this.words = words;
     }
-    
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 }

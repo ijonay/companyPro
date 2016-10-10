@@ -5,7 +5,7 @@ public class HotTopicModel {
     private String title;
     private Float score;
     private String logoUrl;
-    private Long readNum;
+    private String readNum;
     /**
      * 阅读量增长趋势 -1:下降,0:不变,1:上升
      */
@@ -13,6 +13,7 @@ public class HotTopicModel {
     private String relationDesc;
     private String topicUrl;
     private String topicType;
+    private String introduction;
 
     /**
      * @return the id
@@ -22,8 +23,7 @@ public class HotTopicModel {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(Long id) {
         this.id = id;
@@ -37,8 +37,7 @@ public class HotTopicModel {
     }
 
     /**
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
@@ -52,8 +51,7 @@ public class HotTopicModel {
     }
 
     /**
-     * @param score
-     *            the score to set
+     * @param score the score to set
      */
     public void setScore(Float score) {
         this.score = score;
@@ -67,11 +65,11 @@ public class HotTopicModel {
         this.logoUrl = logoUrl;
     }
 
-    public Long getReadNum() {
+    public String getReadNum() {
         return readNum;
     }
 
-    public void setReadNum(Long readNum) {
+    public void setReadNum(String readNum) {
         this.readNum = readNum;
     }
 
@@ -105,5 +103,13 @@ public class HotTopicModel {
 
     public void setTopicType(String topicType) {
         this.topicType = topicType;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 }

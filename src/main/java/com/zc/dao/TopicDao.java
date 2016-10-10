@@ -7,6 +7,7 @@
  */
 package com.zc.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -25,10 +26,14 @@ public interface TopicDao {
     Integer batchInsert(@Param("list") List<Topic> list);
 
     List<Topic> getList(@Param("pageSize") Integer pageSize, @Param("rowStart") Integer rowStart);
-    
+
     List<Topic> getTopicWordList(@Param("pageSize") Integer pageSize, @Param("rowStart") Integer rowStart);
-    
+
     Integer getItemCount();
 
     Integer batchUpdate(@Param("list") List<Topic> list);
+
+    List<HashMap<Integer, String>> getAllCoordinates();
+
+    List<Topic> getByIdList(@Param("list") List<Integer> idList);
 }
