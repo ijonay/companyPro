@@ -14,12 +14,13 @@
             property="relationDesc" />
         <result column="topicurl" jdbcType="VARCHAR" property="topicUrl" />
         <result column="topictype" jdbcType="VARCHAR" property="topicType" />
+        <result column="introduction" jdbcType="VARCHAR" property="introduction" />
     </resultMap>
     <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
     <sql id="tableName">hottopic</sql>
     <sql id="Base_Column_List">
         id, title,
-        coordinate,keywords,logourl,readnum,readnumtrendgrowth,relationdesc,topicurl,topictype
+        coordinate,keywords,logourl,readnum,readnumtrendgrowth,relationdesc,topicurl,topictype,introduction
     </sql>
     <sql id="checkColumnNull">
         <if test="id != null">
@@ -52,6 +53,9 @@
         <if test="topicType != null">
             topictype
         </if>
+        <if test="introduction != null">
+            introduction
+        </if>
     </sql>
     <sql id="checkPropertyNull">
         <if test="id != null">
@@ -83,6 +87,9 @@
         </if>
         <if test="topicType != null">
             #{topicType,jdbcType=VARCHAR}
+        </if>
+        <if test="introduction != null">
+            #{introduction,jdbcType=VARCHAR}
         </if>
     </sql>
     <insert id="add" useGeneratedKeys="true" keyProperty="id"
@@ -206,6 +213,7 @@
                 <when test="item.relationDesc!=null">'${item.relationDesc}'
                 </when>
             </choose>
+            ,
             <choose>
                 <when test="item.topicUrl==null">null
                 </when>
@@ -217,6 +225,13 @@
                 <when test="item.topicType==null">null
                 </when>
                 <when test="item.topicType!=null">'${item.topicType}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.introduction==null">null
+                </when>
+                <when test="item.introduction!=null">'${item.introduction}'
                 </when>
             </choose>
             )

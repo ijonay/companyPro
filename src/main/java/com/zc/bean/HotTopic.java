@@ -26,8 +26,10 @@ public class HotTopic {
 
     private String topicType;
 
-    public HotTopicModel getModel(){
-        HotTopicModel model=new HotTopicModel();
+    private String introduction;
+
+    public HotTopicModel getModel() {
+        HotTopicModel model = new HotTopicModel();
         model.setId(id);
         model.setLogoUrl(logoUrl);
         model.setReadNum(readNum);
@@ -36,8 +38,11 @@ public class HotTopic {
         model.setTitle(title);
         model.setTopicType(topicType);
         model.setTopicUrl(topicUrl);
+        model.setIntroduction(introduction);
+
         return model;
     }
+
     /**
      * @return the title
      */
@@ -46,8 +51,7 @@ public class HotTopic {
     }
 
     /**
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
@@ -61,8 +65,7 @@ public class HotTopic {
     }
 
     /**
-     * @param coordinate
-     *            the coordinate to set
+     * @param coordinate the coordinate to set
      */
     public void setCoordinate(String coordinate) {
         this.coordinate = coordinate;
@@ -76,8 +79,7 @@ public class HotTopic {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(long id) {
         this.id = id;
@@ -91,8 +93,7 @@ public class HotTopic {
     }
 
     /**
-     * @param keywords
-     *            the keywords to set
+     * @param keywords the keywords to set
      */
     public void setKeywords(String keywords) {
         this.keywords = keywords;
@@ -144,5 +145,13 @@ public class HotTopic {
 
     public void setRelationDesc(String relationDesc) {
         this.relationDesc = relationDesc;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 }
