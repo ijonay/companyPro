@@ -7,9 +7,11 @@
  */
 package com.zc.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.zc.bean.Topic;
+import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 
 public interface TopicService {
@@ -20,7 +22,7 @@ public interface TopicService {
     Integer batchInsert(List<Topic> list);
 
     List<Topic> getList(Integer pageSize, Integer rowStart);
-    
+
     List<Topic> getTopicWordList(Integer pageSize, Integer rowStart);
 
     Integer getItemCount();
@@ -28,4 +30,10 @@ public interface TopicService {
     Integer batchUpdate(List<Topic> list);
 
     Topic get(Integer topicId);
+
+    HashMap<Integer, float[]> getAllCoordinates();
+
+    List<TopicModel> getListExt(String clueWord, Integer currentPage, Integer pageSize);
+
+    List<TopicModel> getTopicByIdList(List<Integer> idList);
 }

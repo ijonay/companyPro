@@ -3,6 +3,8 @@ package com.zc.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.zc.service.TopicService;
+import com.zc.utility.ListHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +20,7 @@ import com.zc.service.WordService;
 public class TopicApi {
 
     @Autowired
-    private WordService wordService;
+    private TopicService topicService;
 
     @RequestMapping("getlist")
     public ApiResultModel getHotTopic(
@@ -28,13 +30,17 @@ public class TopicApi {
         try {
             if (pageSize <= 0 || currentPage <= 0)
                 return new ApiResultModel(null);
-            List<TopicModel> result = wordService.getTopicSimilarity(clueWord)
-                    .stream().map(m -> {
-                        m.setCoordinate(null);
-                        return m;
-                    }).skip((currentPage - 1) * pageSize).limit(pageSize)
-                    .collect(Collectors.toList());
-            return new ApiResultModel(result);
+
+            List<TopicModel> topics = topicService.getListExt(clueWord, currentPage, pageSize);
+            ApiResultModel resultModel = new ApiResultModel();
+
+            if (ListHelper.isEmpty(topics)) {
+                resultModel.setStatusCode(StatusCodeEnum.NOCONTENT);
+            } else {
+                resultModel.setData(topics);
+            }
+
+            return resultModel;
 
         } catch (Exception e) {
             return new ApiResultModel(StatusCodeEnum.SERVER_ERROR,
