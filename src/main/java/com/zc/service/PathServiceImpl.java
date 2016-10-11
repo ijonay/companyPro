@@ -12,6 +12,7 @@ import com.zc.utility.Constant;
 import com.zc.utility.PropertyHelper;
 import com.zc.utility.WordVectorHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.BinaryRequestWriter;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -32,7 +34,7 @@ public class PathServiceImpl implements PathService {
     //region autowired
     @Autowired
     private TopicService topicService;
-    @Autowired
+    @Resource
     private RedisTemplate<String, WordRedisModel> redisTemplate;
     @Autowired
     private WordService wordService;
@@ -112,6 +114,7 @@ public class PathServiceImpl implements PathService {
     //region helper method
     private List<PathModel> getAllPath(String start, float[] targetVector) {
         this.targetVector = targetVector;
+        isFirst = true;
         generatePath(new PathNode(start, null, 0));
 
         List<PathModel> result = new ArrayList<>();

@@ -35,5 +35,5 @@ public interface TopicService {
 
     List<TopicModel> getListExt(String clueWord, Integer currentPage, Integer pageSize);
 
-    List<TopicModel> getTopicByIdList(List<Integer> idList);
+    List<TopicModel> getTopicByIdList(List<Integer> idList, float[] sourceVectors);
 }

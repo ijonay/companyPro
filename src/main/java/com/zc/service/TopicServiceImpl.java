@@ -99,23 +99,22 @@ public class TopicServiceImpl implements TopicService {
         float[] sourceVectors = wordService.getModelMap().get(clueWord);
         Objects.requireNonNull(sourceVectors, "没有找到线索词的坐标");
 
-        long a = System.nanoTime();
         HashMap<Integer, float[]> allCoordinates = getAllCoordinates();
         LinkedList<Integer> idList = new LinkedList<>();
         idList.addAll(allCoordinates.keySet());
-        System.out.println("----------------------------------a:" + (System.nanoTime() - a));
 
-        long b = System.nanoTime();
         Collections.sort(idList, (left, right) ->
-                CommonHelper.compare(WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(left)),
-                        WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(right)))
+                CommonHelper.compare(WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(right)),
+                        WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(left)))
         );
-
-        System.out.println("----------------------------------b:" + (System.nanoTime() - b));
 
         List<Integer> ids = idList.stream().skip((currentPage - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
 
-        return getTopicByIdList(ids);
+        List<TopicModel> topicModels = getTopicByIdList(ids,sourceVectors);
+        Collections.sort(topicModels, (left, right) ->
+                CommonHelper.compare(right.getScore(), left.getScore()));
+
+        return topicModels;
     }
 
     /**
@@ -165,12 +164,17 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<TopicModel> getTopicByIdList(List<Integer> idList) {
-        long c = System.nanoTime();
+    public List<TopicModel> getTopicByIdList(List<Integer> idList, float[] sourceVectors) {
         List<Topic> topics = dao.getByIdList(idList);
 
-        List<TopicModel> result = topics.stream().map(t -> t.getModel()).collect(Collectors.toList());
-        System.out.println("----------------------------------c:" + (System.nanoTime() - c));
+        List<TopicModel> result = topics.stream().map(t -> {
+
+            TopicModel item = t.getModel();
+            item.setScore(WordVectorHelper
+                    .getSimilarity(sourceVectors, CommonHelper.stringToFloatArray(t.getCoordinate())));
+            return item;
+        }).collect(Collectors.toList());
+
         return result;
     }
 
