@@ -97,7 +97,7 @@ public class TopicServiceImpl implements TopicService {
         }
 
         float[] sourceVectors = wordService.getModelMap().get(clueWord);
-        Objects.requireNonNull(sourceVectors, "没有找到线索词的坐标");
+        Objects.requireNonNull(sourceVectors, "没有找到线索词的坐标,线索词:" + clueWord);
 
         HashMap<Integer, float[]> allCoordinates = getAllCoordinates();
         LinkedList<Integer> idList = new LinkedList<>();
@@ -110,7 +110,7 @@ public class TopicServiceImpl implements TopicService {
 
         List<Integer> ids = idList.stream().skip((currentPage - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
 
-        List<TopicModel> topicModels = getTopicByIdList(ids,sourceVectors);
+        List<TopicModel> topicModels = getTopicByIdList(ids, sourceVectors);
         Collections.sort(topicModels, (left, right) ->
                 CommonHelper.compare(right.getScore(), left.getScore()));
 
