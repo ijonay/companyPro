@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/paths/")
-public class PathApi {
+public class PathApi extends BaseApi {
     @Autowired
     private PathService pathService;
 
@@ -54,7 +54,7 @@ public class PathApi {
         }
         NodeRelations relations = pathService.getRelations(nodeRelationParamWrapper.startNode, nodeRelationParamWrapper.endNode);
 
-        ApiResultModel resultModel = new ApiResultModel(relations);
+        ApiResultModel resultModel = new ApiResultModel(relations, StatusCodeEnum.SUCCESS);
 
         return resultModel;
     }
