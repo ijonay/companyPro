@@ -17,7 +17,7 @@ import com.zc.service.WordService;
 
 @RestController
 @RequestMapping("/api/topic")
-public class TopicApi {
+public class TopicApi extends BaseApi {
 
     @Autowired
     private TopicService topicService;

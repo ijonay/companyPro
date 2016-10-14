@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by 张镇强 on 2016/8/16 18:08.
@@ -31,6 +32,18 @@ public interface CommonHelper {
         } catch (Exception ex) {
             return null;
         }
+    }
 
+    /**
+     * 根据路径判断请求是不是API请求
+     *
+     * @param requestPath
+     * @return
+     * @author: 张镇强/zhangzq@heptax.com
+     */
+    static boolean isAPIRequest(String requestPath) {
+        String patternStr = "/{1,2}api/.+";
+        Pattern pattern = Pattern.compile(patternStr, Pattern.CASE_INSENSITIVE);
+        return pattern.matcher(requestPath).find();
     }
 }
