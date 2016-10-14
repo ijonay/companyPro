@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.zc.enumeration.StatusCodeEnum;
 import com.zc.utility.Constant;
 import com.zc.utility.PropertyHelper;
 import org.ansj.domain.Term;
@@ -51,7 +52,7 @@ import com.zc.utility.response.ApiResultModel;
 
 @RestController
 @RequestMapping("/api/")
-public class CorpusApi {
+public class CorpusApi extends BaseApi {
     @Autowired
     private TopicCleanContentService topicCleanContentService;
     @Autowired
@@ -99,7 +100,7 @@ public class CorpusApi {
          * weiboTempDir); return new ApiResultModel(null);
          */
         insertWeiboRedis();
-      // String s= redisService.getCacheObject("weibo_comment_corpus:weibo:1").toString();
+        // String s= redisService.getCacheObject("weibo_comment_corpus:weibo:1").toString();
         return new ApiResultModel(null);
         // Integer weiboCount = weiboInfoService.getItemCount();
         // int pageCount = (int) Math.ceil(weiboCount / 1000d);
@@ -163,7 +164,7 @@ public class CorpusApi {
                 //insertWeibo(weiboList);
             }*/
         }
-        
+
         threadPool.shutdown();
         try {
             threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
@@ -171,45 +172,49 @@ public class CorpusApi {
         }
 
     }
+
     private class ExecuteCorpus implements Runnable {
-        private List<WeiboInfo> weiboList=null;
-        public ExecuteCorpus(List<WeiboInfo> weiboList){
-            this.weiboList=weiboList;
+        private List<WeiboInfo> weiboList = null;
+
+        public ExecuteCorpus(List<WeiboInfo> weiboList) {
+            this.weiboList = weiboList;
         }
+
         @Override
         public void run() {
             try {
-                if(weiboList != null && weiboList.size() > 0)
-                        Execute(weiboList);
+                if (weiboList != null && weiboList.size() > 0)
+                    Execute(weiboList);
             } catch (Exception e) {
                 System.out.print(e.getMessage());
                 System.out.print(e.getStackTrace());
             }
         }
-        private void Execute(List<WeiboInfo> weiboList) throws Exception{
+
+        private void Execute(List<WeiboInfo> weiboList) throws Exception {
             if (weiboList != null && weiboList.size() > 0) {
-                
+
                 // 遍历微博 取出评论内容 进行分词
                 for (WeiboInfo wi : weiboList) {
                     List<String> contents = new LinkedList<String>();
                     contents.add(wi.getWeiboContent() + "\n");
                     contents.addAll(generateSingleWeiboText(wi.getId(), 1000));
                     String commentsCorpus = generateCorpus(contents);
-                    try{
+                    try {
                         redisService.setCacheObject("weibo_comment_corpus:weibo:"
                                 + wi.getId(), commentsCorpus);
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
                         System.out.print(wi.getId());
                         redisService.setCacheObject("weibo_comment_corpus:weibo:"
                                 + wi.getId(), commentsCorpus);
                     }
-                    
+
                 }
                 //insertWeibo(weiboList);
             }
         }
     }
+
     private List<TopicInfo> getTopicInfoList(int pageSize) {
         List<TopicInfo> list = new LinkedList<TopicInfo>();
         Integer topicCount = topicInfoService.getItemCount();
@@ -245,14 +250,14 @@ public class CorpusApi {
         Integer contentCount = topicCleanContentService.getItemCount(topic_id);
         int pageCount = (int) Math
                 .ceil(contentCount / (double) contentPageSize);
-        List<Integer>weiboExsits=new LinkedList<Integer>();
+        List<Integer> weiboExsits = new LinkedList<Integer>();
         for (int i = 0; i < pageCount; i++) {
             List<TopicCleanContent> list = topicCleanContentService.getList(
                     contentPageSize, i + 1, topic_id);
             for (TopicCleanContent content : list) {
-                Integer weibo_id=content.getWeibo_id();
+                Integer weibo_id = content.getWeibo_id();
                 if (StringUtils
-                        .isNoneEmpty(content.getWeibo_content_cleansed())&&!weiboExsits.contains(weibo_id)){
+                        .isNoneEmpty(content.getWeibo_content_cleansed()) && !weiboExsits.contains(weibo_id)) {
                     weiboExsits.add(weibo_id);
                     results.add(content.getWeibo_content_cleansed() + "\n");
                 }
@@ -328,7 +333,7 @@ public class CorpusApi {
             result = wordService.KMeans(file, null, clusterNum, listWords);
 
         }
-        return new ApiResultModel(result);
+        return new ApiResultModel(result, StatusCodeEnum.SUCCESS);
     }
 
     private String generateHeader() {
@@ -344,7 +349,7 @@ public class CorpusApi {
     }
 
     private String generateBody(Map<String, float[]> maps,
-            List<String> contents, List<String> listWords) {
+                                List<String> contents, List<String> listWords) {
         Map<String, float[]> corpusMap = new LinkedHashMap<String, float[]>();
         List<String> results = new LinkedList<String>();
         for (String content : contents) {
@@ -417,7 +422,7 @@ public class CorpusApi {
     }
 
     private List<String> generateSingleWeiboText(int weibo_id,
-            int contentPageSize) throws Exception {
+                                                 int contentPageSize) throws Exception {
         List<String> results = new LinkedList<String>();
         Integer contentCount = weiboCleanContentService.getItemCount(weibo_id);
         int pageCount = (int) Math

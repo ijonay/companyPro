@@ -13,13 +13,18 @@ public class ApiResultModel {
         this.error = new ErrorCode(StatusCodeEnum.SUCCESS, StatusCodeEnum.SUCCESS.getDesc());
     }
 
-    public ApiResultModel(Object data) {
-        this();
-        this.setData(data);
+
+    public ApiResultModel(StatusCodeEnum statusCode) {
+        this.error = new ErrorCode(statusCode, statusCode.getDesc());
     }
 
     public ApiResultModel(StatusCodeEnum statusCode, String message) {
         this.error = new ErrorCode(statusCode, message);
+    }
+
+    public ApiResultModel(Object data, StatusCodeEnum statusCode) {
+        this(statusCode, statusCode.getDesc());
+        this.data = data;
     }
 
     public ApiResultModel(Object data, StatusCodeEnum statusCode, String message) {
