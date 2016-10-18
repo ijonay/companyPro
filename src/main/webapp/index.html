@@ -1,63 +1,408 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>话题热度分析</title>
-</head>
-<body>
-	<div>
-		<input id="searchInput" placeholder="请输入关键词" />
-		<button id="searchBtn">搜索</button>
-	</div>
-	<div id="topicList"></div>
-	<script src="node_modules/jquery/dist/jquery.min.js"></script>
-	<script>
-		var globalVar = {
-			topicUrl : 'api/words/topic',
-			queryWord : null,
-			pathUrl : 'api/paths/'
-		};
-		$(function() {
-			$('#searchBtn').click(search);
-		});
+<html lang="zh-CN">
 
-		function search() {
-			var query = $('#searchInput').val();
-			if (!query) {
-				alert('搜索词不能为空!');
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<title>北京知藏云道科技有限公司</title>
+		<link rel="stylesheet" href="css/jquery.fullPage.css">
+		<link rel="stylesheet" href="css/animate.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/zhicanghome.css" />
+		<style>
+			#fullPage-nav {font-size: 12px;}
+			#fullPage-nav li { width: 90px; height: 21px; margin: 10px 0 0; vertical-align: middle;}
+			#fullPage-nav li a { float: right; width: 21px; height: 21px; color: #fff; text-decoration: none; text-align: right; background: url(img/dot.png) 5px 5px no-repeat;}
+			#fullPage-nav li .active { background-position: 0 bottom;}
+			#fullPage-nav span { display: none;}
+			.fullPage-tooltip { float: left; top: 0; margin-right: 5px; font: 12px "Microsoft Yahei"; color: #8F9DA4; line-height: 21px;}
+		</style>
+		<script type="text/javascript" src="lib/jquery-1.12.0.min.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+		<script src="lib/jquery.fullPage.min.js"></script>
+		<script>
+			$(function(){
+				
+				$.fn.fullpage({
+					verticalCentered: false,
+					anchors: ['page1', 'page2', 'page3', 'page4', 'page5'],
+					navigation: true,
+			//		navigationTooltips: ['首页', '视觉', '交互', '皮肤', '功能'],
+					navigationColor:'#008888',
+					continuousVertical:true,
+					css3:true,
+					loopBottom: true,
+					afterRender:function(){
+						$('.sectionImg').delay(1500).animate({
+							bottom: '0'
+						}, 1000, 'easeOutExpo');
+						$('.section1li1').delay(300).animate({
+							opacity: '1'
+						}, 500, 'linear');
+						$('.section1li2').delay(500).animate({
+							opacity: '1'
+						}, 500, 'linear');
+						$('.section1li3').delay(700).animate({
+							opacity: '1'
+						}, 500, 'linear');
+						$('.section1li4').delay(900).animate({
+							opacity: '1'
+						}, 500, 'linear');
+						$('.section1li5').delay(1100).animate({
+							opacity: '1'
+						}, 500, 'linear');
+						$('.section1_img').delay(500).animate({
+							top:'180px',opacity:'1'
+						},500,'linear');
+					},
+					afterLoad: function(anchorLink, index){
+						if(index == 1){
+							$('.sectionImg').delay(1500).animate({
+								bottom: '0'
+							}, 1000, 'easeOutExpo');
+							$('.section1li1').delay(300).animate({
+								opacity: '1'
+							}, 500, 'linear');
+							$('.section1li2').delay(500).animate({
+								opacity: '1'
+							}, 500, 'linear');
+							$('.section1li3').delay(700).animate({
+								opacity: '1'
+							}, 500, 'linear');
+							$('.section1li4').delay(900).animate({
+								opacity: '1'
+							}, 500, 'linear');
+							$('.section1li5').delay(1100).animate({
+								opacity: '1'
+							}, 500, 'linear');
+							$('.section1_img').delay(500).animate({
+								top:'170px',opacity:'1'
+							},500,'linear');
+						}
+						if(index == 2){
+							$('.section2right1').delay(500).animate({
+								left: '52%'
+							}, 1500, 'easeOutExpo');
+							$('.section2right2').delay(500).animate({
+								left: '52%'
+							}, 1500, 'easeOutExpo');
+							$('.section2left1').delay(500).animate({
+								left: '37%'
+							}, 1500, 'easeOutExpo');
+							$('.section2left2').delay(500).animate({
+								left: '31%'
+							}, 1500, 'easeOutExpo');
+						}
+						if(index == 3){
+							$('.word1').delay(300).animate({
+								left: '37%',opacity:'1'
+							}, 1500, 'easeOutExpo');
+							$('.word2').delay(500).animate({
+								left: '47%',opacity:'1'
+							}, 1500, 'easeOutExpo');
+							$('.word3').delay(700).animate({
+								left: '53%',opacity:'1'
+							}, 1500, 'easeOutExpo');
+							$('.word4').delay(900).animate({
+								left: '39%',opacity:'1'
+							}, 1500, 'easeOutExpo');
+						}
+						if(index == 4){
+							$('.solution').fadeIn(2000);
+							$('.scheme').delay(500).fadeIn(1500);
+							$('.fourlin1').delay(300).animate({
+								left:'80px'
+							},1000,'easeOutExpo');
+							$('.fourlin2').delay(300).animate({
+								bottom:'110px'
+							},1000,'easeOutExpo')
+						}
+						if(index == '5'){
+							
+						}
+					},
+					onLeave: function(index, direction){
+						if(index == '1'){
+							$('.sectionImg').delay(500).animate({
+								bottom: '-40%'
+							}, 500, 'easeOutExpo');
+							$('.section1li1').delay(500).animate({
+								opacity: '0'
+							}, 500, 'linear');
+							$('.section1li2').delay(500).animate({
+								opacity: '0'
+							}, 500, 'linear');
+							$('.section1li3').delay(500).animate({
+								opacity: '0'
+							}, 500, 'linear');
+							$('.section1li4').delay(500).animate({
+								opacity: '0'
+							}, 500, 'linear');
+							$('.section1li5').delay(500).animate({
+								opacity: '0'
+							}, 500, 'linear');
+							$('.section1_img').delay(500).animate({
+								top:'160px',opacity:'0'
+							},500,'linear');
+						}
+						if(index == '2'){
+							$('.section2right1').delay(500).animate({
+								left: '130%'
+							}, 500, 'easeOutExpo');
+							$('.section2right2').delay(500).animate({
+								left: '130%'
+							}, 500, 'easeOutExpo');
+							$('.section2left1').delay(500).animate({
+								left: '-130%'
+							}, 500, 'easeOutExpo');
+							$('.section2left2').delay(500).animate({
+								left: '-130%'
+							}, 500, 'easeOutExpo');
+						}
+						if(index == '3'){
+							$('.word1').delay(300).animate({
+								left: '-100%',opacity:'0'
+							}, 500, 'easeOutExpo');
+							$('.word2').delay(300).animate({
+								left: '-100%',opacity:'0'
+							}, 500, 'easeOutExpo');
+							$('.word3').delay(300).animate({
+								left: '-100%',opacity:'0'
+							}, 500, 'easeOutExpo');
+							$('.word4').delay(300).animate({
+								left: '-100%',opacity:'0'
+							}, 500, 'easeOutExpo');
+						}
+						if(index == '4'){
+							$('.solution').fadeOut(2000);
+							$('.scheme').fadeOut(2000);
+							$('.fourlin1').delay(300).animate({
+								left:'0'
+							},1000,'easeOutExpo');
+							$('.fourlin2').delay(300).animate({
+								bottom:'0'
+							},1000,'easeOutExpo');
+						}
+						if(index == '5'){
+							
+						}
+					}
+			
+					
+				});
+			//	setInterval(function(){
+			//		$.fn.fullpage.moveSectionDown();
+			//	}，3000)
+			
+				var section4Ul = document.getElementById("section1li1ul");
+				var tabs = section4Ul.getElementsByTagName("li");
+				var section4Div = document.getElementById("section4div");
+				var divs = section4Div.getElementsByTagName("div");
+			//	for (var i=0;i<aLi.length;i++) {
+			//		aLi[i].index = i;
+			//		aLi[i].onclick=aLi[i].onmouseover = function(){
+			//			for (var j=0;j<aLi.length;j++) {
+			//				aDiv[j].style.display="none"
+			//				aLi[j].className=""
+			//			}
+			//				aDiv[this.index].style.display="block"
+			//				this.className="bor"
+			//		}
+			//	};
+				
+				for(var i=0;i<tabs.length;i++){
+			
+			tabs[i].onmouseover=function(){change(this);}
+			
 			}
-			globalVar.queryWord = query;
-			$.get(globalVar.topicUrl, {
-				'clueWord' : query
-			}, function(res) {
-				if (!res || res.statusCode) {
-					alert(res.statusCode);
-					return;
-				}
-				showTopics(res.data);
-			});
-
-		}
-
-		function showTopics(topics) {
-			var str = '';
-			for (var i = 0; i < topics.length; i++) {
-				var a = topics[i];
-				//            str += '<li><a href="javascript:void(0);" onclick="getPaths(' + 1 + ')">' + a + '</a></li>';
-				str += '<li><a target="_blank" href="connect?topicId=' + a['id'] + '&query='
-						+ globalVar.queryWord + '">' + a['title'] + '</a></li>';
+			
+			function change(obj){
+			
+			for(var i=0;i<tabs.length;i++)
+			
+			{
+			
+			if(tabs[i]==obj){
+			
+			tabs[i].className="fli";
+			
+			divs[i].className="fdiv";
+			
 			}
-			$('#topicList').html('').append(str);
-		}
-
-		function getPaths(topicId) {
-			var url = globalVar.pathUrl + topicId;
-			$.get(url, {
-				query : globalVar.queryWord
-			}, function(res) {
-				console.log(res);
+			
+			else{
+			
+			tabs[i].className="";
+			
+			divs[i].className="";
+			
+			}
+			
+			}
+			
+			}
+				
+				
 			});
-		}
-	</script>
-</body>
+		</script>
+	</head>
+
+	<body>
+		<a class="link-login" href="home">进入 Hepta<span style="font-weight:bold">X</span></a>
+		<div class="section section1">
+			
+		    <!--<div><a href="user/login">登录</a></div>-->
+			<div class="bg1"></div>
+			
+			<div class="section1_img"><img src="img/web_head.png"></div>
+			<!--<div class="sq_center_1 sq_position"><img src="img/zuiwai.png"></div>
+	<div class="sq_center sq_position"><img src="img/er.png"></div>
+	<div class="sq_start">从这里开始</div>
+	<div class="sq_mouse">
+        <div class="sq_m_small"></div><img src="img/shubiao.png">
+    </div>-->
+			<p class="sectionImg"><img src="img/web_iphone.png" /></p>
+			<ul class="sq_tow_msg">
+				<li class="section1li1"><img src="img/web_icon1.png"></li>
+				<li class="section1li2"><img src="img/web_icon2.png"></li>
+				<li class="section1li3"><img src="img/web_icon_3.png"></li>
+				<li class="section1li4"><img src="img/web_icon_4.png"></li>
+				<li class="section1li5"><img src="img/web_icon_5.png"></li>
+			</ul>
+		</div>
+
+		<div class="section section2">
+			<div class="bg2"></div>
+			<div class="section2Img pos"><img src="img/vline.png" /></div>
+			<div class="section2left1 pos"><img src="img/section2left1.png"></div>
+			<div class="section2left2 pos"><img src="img/section2left2.png"></div>
+			<div class="section2right1 pos"><img src="img/section2right1.png"></div>
+			<div class="section2right2 pos"><img src="img/section2right2.png"></div>
+		</div>
+
+		<div class="section section3">
+			<div class="bg3"></div>
+			<div class="word1 pos"><img src="img/word_1.png" /></div>
+			<div class="word2 pos"><img src="img/word_2.png" /></div>
+			<div class="word3 pos"><img src="img/word_3.png" /></div>
+			<div class="word4 pos"><img src="img/word_4.png" /></div>
+		</div>
+
+		<div class="section section4">
+			<div class="bg4"></div>
+			<div class="section4all pos"><img src="img/all.png" /></div>
+			<div class="solution pos"><img src="img/SOLUTION.png" /></div>
+			<div class="scheme pos"><img src="img/section4word.png" /></div>
+			<ul class="pos" id="section1li1ul">
+				<li><img src="img/function.png" /></li>
+				<li><img src="img/industry.png" /></li>
+			</ul>
+			<div class="pos" id="section4div">
+				<div class="fdiv"><img src="img/functiontab.png" /></div>
+				<div class="disno"><img src="img/industrytab.png" /></div>
+			</div>
+			<div class="fourlin1 pos"><img src="img/four_line_2.png" /></div>
+			<div class="fourlin2 pos"><img src="img/four_line_1.png" /></div>
+		</div>
+
+		<div class="section section5">
+			<div class="bg5"></div>
+			<div class="joinus pos">
+				<a href="http://www.lagou.com/gongsi/102188.html" target="_blank"><img src="img/joinus_2.png" /></a>
+			</div>
+			<div class="baidudownload pos">
+				<a href="http://www.qcloud.com"><img src="img/light_logo.png" border="0" alt="运行在腾讯云"></a>
+			</div>
+			<div class="contact pos"><img src="img/contact.png" /></div>
+			<ul class="pos">
+				<li class="code fl"><img src="img/code.png" /></li>
+				<li class="company fr"><img src="img/company.png" /></li>
+			</ul>
+			<div class="section5grey pos">
+				<div class="form-div">
+					<form id="reg-form" action="" method="">
+						<div class="clearfix">
+							<p class="fl">
+								<label>姓名</label>
+								<input type="text" maxlength="10" name="xm" />
+							</p>
+							<p class="fr">
+								<label>职业</label>
+								<input type="text" maxlength="10" name="zy" />
+							</p>
+
+						</div>
+						<div class="clearfix">
+							<label>公司</label>
+							<input class="form-comp" type="text" maxlength="25" name="gs" />
+						</div>
+						<div class="clearfix">
+							<p class="fl">
+								<label>电话</label>
+								<input type="text" maxlength="20" name="dh" />
+							</p>
+							<p class="fr">
+								<label>邮箱</label>
+								<input type="text" maxlength="" name="yx" />
+							</p>
+						</div>
+						<div class="clearfix">
+							<label style="align-top:0px;">留言</label>
+							<textarea maxlength="100" class="reg-form-area"></textarea>
+						</div>
+
+						<button id="sub-btn">提交</button>
+					</form>
+					</p>
+				</div>
+			</div>
+
+		<script>
+			$("#sub-btn").on("click",function(){
+				$("form").off("submit");
+				$("form").on("submit",function(){
+					var xm = $("input[name=xm]").val(),
+						zy = $("input[name=zy]").val(),
+						gs = $("input[name=gs]").val(),
+						dh = $("input[name=dh]").val(),
+						yx = $("input[name=yx]").val(),
+						areacon = $("textarea").val();
+						
+						var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+		    			var isMob=/^((\+?86)|(\(\+86\)))?(13[0123456789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+								if(dh == "" ){
+									alert("电话为空")
+									
+								}else if(isPhone.test(dh)|| isMob.test(dh)){
+									$.ajax({
+										url:"mail",
+										data:{
+											"name":xm,
+											"tel":dh,
+											"email":yx,
+											"to":[],
+											"jobtitle":zy,
+											"company":gs,
+											"content":areacon
+										},
+										success:function(data){
+											
+											alert("提交成功")
+					
+										}
+										
+										});
+								}
+								else{
+									alert("电话错误")
+								}
+						return false; // 阻止表单自动提交事件
+				})
+			})
+		</script>
+
+	</body>
+
 </html>
