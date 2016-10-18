@@ -41,6 +41,7 @@
     <mvc:annotation-driven/>
 
     <mvc:view-controller path="hotspots" view-name="hotspots"/>
+    <mvc:view-controller path="user/login" view-name="login"/>
     <mvc:view-controller path="socket" view-name="result"/>
     <mvc:view-controller path="result"
                          view-name="result"/>
