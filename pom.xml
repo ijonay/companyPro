@@ -214,7 +214,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>HotSpot</finalName>
+        <finalName>hotspot</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
