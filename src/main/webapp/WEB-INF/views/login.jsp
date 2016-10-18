@@ -93,7 +93,7 @@
         e.preventDefault();
         setLoginButton();
         $.ajax({
-            url: '${ctx}/api/login',
+            url: '${ctx}/api/account/login',
             type: 'POST',
             data: $('#loginForm').serialize(),
             success: function (res) {
