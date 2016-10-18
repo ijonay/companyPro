@@ -20,11 +20,11 @@
                                 expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
-    <!--<mvc:resources location="/img/" mapping="/img/**"></mvc:resources> -->
-    <!--<mvc:resources location="/css/" mapping="/css/**"></mvc:resources> -->
-    <mvc:resources location="/node_modules/" mapping="/node_modules/**"></mvc:resources>
-    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
-    <!--<mvc:resources location="/lib/" mapping="/lib/**"></mvc:resources> -->
+    <mvc:resources location="/static/img/" mapping="/img/**"></mvc:resources>
+    <mvc:resources location="/static/css/" mapping="/css/**"></mvc:resources>
+    <mvc:resources location="/static/js/" mapping="/js/**"></mvc:resources>
+    <mvc:resources location="/static/lib/" mapping="/lib/**"></mvc:resources>
+    <mvc:resources location="/static/fonts/" mapping="/fonts/**"></mvc:resources>
     <mvc:resources location="/index.html" mapping="/index.html"></mvc:resources>
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
@@ -40,8 +40,12 @@
     <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
     <mvc:annotation-driven/>
 
-    <mvc:view-controller path="connect" view-name="connect"/>
-    <mvc:view-controller path="socket" view-name="testsocket"/>
+    <mvc:view-controller path="hotspots" view-name="hotspots"/>
+    <mvc:view-controller path="socket" view-name="result"/>
+    <mvc:view-controller path="result"
+                         view-name="result"/>
+    <mvc:view-controller path="path"
+                         view-name="path"/>
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
 
     <bean
