@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="css/hotspots.css">
 <link rel="stylesheet" href="css/calendar.css" />
 <link rel="stylesheet" type="text/css" href="css/pop.css">
+	<meta name="keywords" content="舆情监控,热点营销,舆情营销">
+	<meta name="description" content="专业数据搜集,语义分析技术,提供舆情监控、舆情关联、舆情分析、舆情研判等智力支持，热点数据可视化方式展现，更好的应对营销策略">
 <!-- <base target="_blank" /> -->
 <title>热点分析</title>
 </head>
