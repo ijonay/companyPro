@@ -1,7 +1,7 @@
 /**
  * 文件用途说明：提供公用设置信息 作者姓名:于莎 制作日期：2016/4/15
  */
-var dataUrl = dataUrl || {}, localhostUrl = "http://localhost:8080/websvr/", localhostNewUrl = "http://127.0.0.1:8080/hotspot", serverUrl = "http://192.168.1.101/websvrdev/", virtualDataUrl = "http://192.168.1.121:3000/websvrdev/";
+var dataUrl = dataUrl || {}, localhostUrl = "http://localhost:8080/websvr/", localhostNewUrl = "http://127.0.0.1:8080/", serverUrl = "http://192.168.1.101/websvrdev/", virtualDataUrl = "http://192.168.1.121:3000/websvrdev/";
 
 baseUrl = "";
 dataUrl.util = {
