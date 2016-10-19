@@ -18,7 +18,7 @@
 .search-t-ul{margin-bottom:10px;height:14px;}
 .search-t-ul li{font-size:14px;margin-right:26px;}
 .search-t-ul li:first-child{color:#02998e;}
-.search-t-ul li:nth-child(4){margin-right:86px;}
+.search-t-ul li:nth-child(4){margin-right:90px;}
 
 .search-input{width:581px;height:40px;border:0;border-radius:5px;color:#444;font-size:14px;padding-left:10px;}
 .search-input:focus{border:1px #02998e solid;}
@@ -214,7 +214,7 @@
 }
 .pnl-predict .pnl-hots{
 	width:100%;
-	height:106px;
+	height:98px;
 	background:#fbfbfb;
 	-webkit-border-radius:0 0 5px 5px;
 	-moz-border-radius:0 0 5px 5px;

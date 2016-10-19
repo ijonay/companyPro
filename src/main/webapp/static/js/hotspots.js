@@ -263,7 +263,8 @@ $(document).on("click",".related",function(){
 //热点预测日历
 $(".pnl-calendar").calendar({
     width: 220,
-    height: 204,
+    height: 180,
+    
     data: [{
         date: '2016/01/01',
         value: 'Happy New Year'
