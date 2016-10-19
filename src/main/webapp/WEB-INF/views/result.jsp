@@ -55,7 +55,7 @@
                             <div class="talkTime">
                                 <img src="img/progress.png"> 话题量:
                                 <span>2105万</span>
-                                <img class="tag" src="img/arrowdown-result.png">
+                                <img class="tag" src="img/down4.png">
                             </div>
                             <div class="relevance" class="opa04">
                                 <img src="img/link1.png" class="opa04"> 关联度:
