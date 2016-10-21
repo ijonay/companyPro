@@ -44,7 +44,9 @@ public class AccountApi extends BaseApi {
                 loginModel.getPassword());
         if (!loginStatus.isLoggedIn()) {
             logger.info("用户{}登录失败", loginModel.getUsername());
-            result.setStatusCode(StatusCodeEnum.FAILED);
+            result.setStatusCode(StatusCodeEnum.FAILED)
+                    .setMessage(loginStatus.getLoginMessage());
+
             return result;
         }
 
