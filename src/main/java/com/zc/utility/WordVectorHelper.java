@@ -70,10 +70,7 @@ public final class WordVectorHelper {
         double len = 0;
         float vector = 0;
         try {
-            ResourceLoader resourceLoader = new DefaultResourceLoader();
-            InputStream inputStream = resourceLoader.getResource(modelPath)
-                    .getInputStream();
-            bis = new BufferedInputStream(inputStream);
+            bis = new BufferedInputStream(new FileInputStream(modelPath));
             dis = new DataInputStream(bis);
             // //读取词数
             int words = Integer.parseInt(readString(dis));
