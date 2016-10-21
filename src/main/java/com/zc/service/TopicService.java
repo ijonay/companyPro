@@ -20,7 +20,6 @@ public interface TopicService {
     Integer add(Topic topic);
 
     Integer batchInsert(List<Topic> list);
-    
 
     List<Topic> getList(Integer pageSize, Integer rowStart);
 
