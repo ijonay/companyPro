@@ -72,7 +72,7 @@ function getPath(explore){
             $.each(List,function(index,item){
                 var tempNode = [];
                 var num = Object.keys(item.nodes).length-1;
-                if(num>0){
+                if(num>=0){
                     lineArray.push(num)
                 }
                 $.each(item.nodes,function(index1,item1){
@@ -228,21 +228,27 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
        var currentLine = [];
        var currentCycle = [];
         for(var k=0;k<lineArray[i]+1;k++){
-          if(k == 0){
-            var str = "M"+startPoint[0]+" "+startPoint[1]+"L"+lineList[k][0]+" "+lineList[k][1];
-          }else if(k<lineArray[i]){
-            var str = "M"+lineList[k-1][0]+" "+lineList[k-1][1]+"L"+lineList[k][0]+" "+lineList[k][1];
-          }else{   
-             var str = "M"+lineList[k-1][0]+" "+lineList[k-1][1]+"L"+endPoint[0]+" "+endPoint[1];
-          }
+            if(lineArray[i] == 0){
+                var str = "M"+startPoint[0]+" "+startPoint[1]+"L"+endPoint[0]+" "+endPoint[1];
+            }else{
+                if(k == 0){
+                    var str = "M"+startPoint[0]+" "+startPoint[1]+"L"+lineList[k][0]+" "+lineList[k][1];
+                }else if(k<lineArray[i]){
+                    var str = "M"+lineList[k-1][0]+" "+lineList[k-1][1]+"L"+lineList[k][0]+" "+lineList[k][1];
+                }else{
+                    var str = "M"+lineList[k-1][0]+" "+lineList[k-1][1]+"L"+endPoint[0]+" "+endPoint[1];
+                }
+            }
+
           if(k<lineArray[i]){
             var cycle = paper.circle(lineList[k][0],lineList[k][1],7).animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4}, 200).data("lineNum",i);
             st.push(cycle);
             currentCycle.push(cycle);
-            paper.text(lineList[k][0],lineList[k][1]+25,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
+            paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
         }
         var scaleNum = 0;
         switch(lineArray[i]){
+            case 0:scaleNum = "s0.97";break;
             case 1: scaleNum = "s0.96";break;
             case 2: scaleNum = "s0.93";break;
             case 3: scaleNum = "s0.89";break;
@@ -264,6 +270,9 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
               startText = nodeList[i][k-1];
               endText = nodeList[i][k]
           }
+            if(lineArray[i] == 0){
+                endText = hotTopic;
+            }
           var line = paper.path(str).animate({fill:"#9B9B9B",stroke: "#9B9B9B", "stroke-width": 1,cursor:"pointer"}, 200).transform(scaleNum).data("lineNum",i).data("itemNum",k).data("startText",startText).data("endText",endText);
           line.attr("cursor","pointer");
           line.click(function(e){
