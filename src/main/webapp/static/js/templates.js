@@ -469,7 +469,7 @@ templates.design = {};
     tmpl.push('   {{if logoUrl}}<div class="hotImg" style="background-image:url({{:logoUrl}})"></div>{{else}}<div class="hotImg"></div>{{/if}}');
     tmpl.push('   <div class="hotTitle" title="{{:title}}">{{:title}}</div>');
     tmpl.push('   <div class="related">');
-    tmpl.push('       <img src="img/circle---ok.png">');
+    tmpl.push('       <img src="img/circle-ok.png">');
     tmpl.push('       <span data-id="{{:id}}">关联</span>');
     tmpl.push('   </div>');
     tmpl.push('</div>');

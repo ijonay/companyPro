@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="css/hotspots.css">
 <link rel="stylesheet" href="css/calendar.css" />
 <link rel="stylesheet" type="text/css" href="css/pop.css">
+	<meta name="keywords" content="舆情监控,热点营销,舆情营销">
+	<meta name="description" content="专业数据搜集,语义分析技术,提供舆情监控、舆情关联、舆情分析、舆情研判等智力支持，热点数据可视化方式展现，更好的应对营销策略">
 <!-- <base target="_blank" /> -->
 <title>热点分析</title>
 </head>
@@ -58,114 +60,6 @@
 			<li class="change-c fr opa04" id="change-c">换一批</li>
 		</ul>
 	<div id="hotspotsMain">	
-<!-- 		<div class="cardContainer"> -->
-<!--         <div class="cardTitle"> -->
-<!--            <div class="hotImg"></div> -->
-<!--            <div class="hotTitle">八达岭野生动物园老虎袭人</div> -->
-<!--            <div class="related"> -->
-<!--                <img src="img/circle---ok.png"> -->
-<!--                <span>关联</span> -->
-<!--            </div> -->
-<!--         </div> -->
-<!--         <div class="cardTag labelColor1">社会</div> -->
-<!--         <div class="hotInfo"> -->
-<!--             <div class="talkTime"> -->
-<!--                 <img src="img/progress.png"> 话题量: -->
-<!--                 <span>2105万</span> -->
-<!--                 <img src="img/up3.png"> -->
-<!--             </div> -->
-<!--             <div class="relevance"> -->
-<!--                 <img src="img/link1.png"> 关联性: -->
-<!--                 <span>道德、规则、动物保护</span> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--         <div class="hotOp"> -->
-<!--             <div class="concern opa04"> -->
-<!--                 <img src="img/star.png"> -->
-<!--                 关注热点 -->
-<!--             </div> -->
-<!--             <div class="viewSource opa04"> -->
-<!--                 <img src="img/viewon.png"> -->
-<!--                 查看源 -->
-<!--             </div> -->
-<!--             <div class="discard opa04"> -->
-<!--                 <img src="img/viewoff.png"> -->
-<!--                 不感兴趣 -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-<!--     <div class="cardContainer"> -->
-<!--         <div class="cardTitle"> -->
-<!--            <div class="hotImg"></div> -->
-<!--            <div class="hotTitle">八达岭野生动物园老虎袭人</div> -->
-<!--            <div class="related"> -->
-<!--                <img src="img/circle---ok.png"> -->
-<!--                <span>关联</span> -->
-<!--            </div> -->
-<!--         </div> -->
-<!--         <div class="cardTag labelColor2">科技</div> -->
-<!--         <div class="hotInfo"> -->
-<!--             <div class="talkTime"> -->
-<!--                 <img src="img/progress.png"> 话题量: -->
-<!--                 <span>2105万</span> -->
-<!--                 <img src="img/up3.png"> -->
-<!--             </div> -->
-<!--             <div class="relevance"> -->
-<!--                 <img src="img/link1.png"> 关联性: -->
-<!--                 <span>道德、规则、动物保护</span> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--         <div class="hotOp"> -->
-<!--             <div class="concern opa04"> -->
-<!--                 <img src="img/star.png"> -->
-<!--                 关注热点 -->
-<!--             </div> -->
-<!--             <div class="viewSource opa04"> -->
-<!--                 <img src="img/viewon.png"> -->
-<!--                 查看源 -->
-<!--             </div> -->
-<!--             <div class="discard opa04"> -->
-<!--                 <img src="img/viewoff.png"> -->
-<!--                 不感兴趣 -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-<!--     <div class="cardContainer"> -->
-<!--         <div class="cardTitle"> -->
-<!--            <div class="hotImg"></div> -->
-<!--            <div class="hotTitle">八达岭野生动物园老虎袭人</div> -->
-<!--            <div class="related"> -->
-<!--                <img src="img/circle---ok.png"> -->
-<!--                <span>关联</span> -->
-<!--            </div> -->
-<!--         </div> -->
-<!--         <div class="cardTag labelColor3">体育</div> -->
-<!--         <div class="hotInfo"> -->
-<!--             <div class="talkTime"> -->
-<!--                 <img src="img/progress.png"> 话题量: -->
-<!--                 <span>2105万</span> -->
-<!--                 <img src="img/up3.png"> -->
-<!--             </div> -->
-<!--             <div class="relevance"> -->
-<!--                 <img src="img/link1.png"> 关联性: -->
-<!--                 <span>道德、规则、动物保护</span> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--         <div class="hotOp"> -->
-<!--             <div class="concern opa04"> -->
-<!--                 <img src="img/star.png"> -->
-<!--                 关注热点 -->
-<!--             </div> -->
-<!--             <div class="viewSource opa04"> -->
-<!--                 <img src="img/viewon.png"> -->
-<!--                 查看源 -->
-<!--             </div> -->
-<!--             <div class="discard opa04"> -->
-<!--                 <img src="img/viewoff.png"> -->
-<!--                 不感兴趣 -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
 	</div>
 		</div>
 <!--     热点预测日历 -->
