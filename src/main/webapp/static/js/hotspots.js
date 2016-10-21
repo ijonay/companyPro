@@ -237,7 +237,7 @@ $(document).on("click",".related",function(){
     topic = topic[1]
 	var content = "";
 	content += '<input class="releateTag" placeholder="请输入关键字" />';
-	content += '<img style="padding:0 10px;position: relative;bottom: 17px;" src="img/link3.png">';
+	content += '<div style="display:inline-block;width:40px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
 	content += '<div class="selectTag" title='+topic+'>'+topic+'</div>';
 	var pop = new Pop({
         width:"380px",
