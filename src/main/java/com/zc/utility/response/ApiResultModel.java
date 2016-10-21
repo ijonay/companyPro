@@ -57,9 +57,11 @@ public class ApiResultModel {
 //        return this.error.getStatusCode().getValue();
 //    }
 
-    public void setStatusCode(StatusCodeEnum statusCode) {
+    public ApiResultModel setStatusCode(StatusCodeEnum statusCode) {
         this.error.setCode(statusCode);
         this.setMessage(statusCode.getDesc());
+
+        return this;
     }
 
     public ApiResultModel data(Object data) {
