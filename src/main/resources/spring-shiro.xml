@@ -27,6 +27,7 @@
             <value>
                 <!-- /** = anon -->
                 <!-- 对静态资源设置匿名访问 -->
+                / = anon
                 /img/** = anon
                 /js/** = anon
                 /lib/** = anon

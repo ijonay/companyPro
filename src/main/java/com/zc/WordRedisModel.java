@@ -1,4 +1,4 @@
-package com.zc.model;
+package com.zc;
 
 import java.io.Serializable;
 

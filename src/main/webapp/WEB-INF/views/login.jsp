@@ -33,7 +33,7 @@
       class="login-form" autocomplete="off">
     <ul class="list-group">
         <li class="list-group-item">
-            <input id="username" type="text" name="username" placeholder="用户名"/></li>
+            <input id="username" type="text" name="username" placeholder="用户名" autocomplete="off"/></li>
         <li class="list-group-item">
             <input type='password' name="password" placeholder="密码"/></li>
         <!--<li class="list-group-item"><input type='text' name="checkCode" placeholder="验证码" /></li>-->
@@ -108,10 +108,10 @@
                     }
                 } else if (res.error.code === 4001) {
                     // 参数错误
-                    loginWrongParam(res.data);
+                    loginWrongParam(res.error.message);
                 } else {
                     // 其它错误
-                    loginFailed(res.data);
+                    loginFailed(res.error.message);
                 }
             },
             error: loginError

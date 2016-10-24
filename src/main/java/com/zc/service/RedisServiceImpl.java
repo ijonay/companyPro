@@ -1,13 +1,7 @@
 package com.zc.service;
 
-import com.zc.model.WordEntry;
-import com.zc.model.WordRedisModel;
-import com.zc.utility.Constant;
-import com.zc.utility.PropertyHelper;
-import com.zc.utility.ResourceDict;
-import com.zc.utility.WordVectorHelper;
+import com.zc.WordRedisModel;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by 张镇强 on 2016/8/29 16:56.
