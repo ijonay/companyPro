@@ -5,10 +5,10 @@ package com.zc.utility;
  */
 public interface Constant {
     String CONFIG_PROPERTIES = "config.properties";
-    String SIMILARITY_THRESHOLD = "SIMILARITY_THRESHOLD";
-    String TOP_NSIZE = "TOPNSIZE";
-    String DISSIMILARITY_THRESHOLD = "DISSIMILARITY_THRESHOLD";
-    String MAX_PATHLENGTH = "MAX_PATHLENGTH";
+    String SIMILARITY_THRESHOLD = "similarity_threshold";
+    String TOP_NSIZE = "topnsize";
+    String DISSIMILARITY_THRESHOLD = "dissimilarity_threshold";
+    String MAX_PATHLENGTH = "max_pathlength";
     String SOLR_URL = "solr_url";
     String MODEL_BIN = "model_bin";
 
