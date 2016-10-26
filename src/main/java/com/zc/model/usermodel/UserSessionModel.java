@@ -7,6 +7,7 @@
 package com.zc.model.usermodel;
 
 import com.zc.bean.Users;
+import com.zc.utility.StringHelper;
 
 /**
  * @author 张镇强 / zhangzq@heptax.com
@@ -21,7 +22,8 @@ public class UserSessionModel {
         super();
         this.userId = entity.getId();
         this.userName = entity.getUserName();
-        this.nickName = entity.getNickName();
+        this.nickName = StringHelper.isEmpty(entity.getNickName()) ?
+                entity.getUserName() : entity.getNickName();
         this.avatar = entity.getAvatar();
     }
 

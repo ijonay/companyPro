@@ -16,7 +16,7 @@
         <li class="linkuser" data-type="linkuser"><img src="img/touxiang.png"/>
             <shiro:authenticated>
                 <div class="userName">
-                    <div class="name" title="${current_user.userName}">${current_user.userName}</div>
+                    <div class="name" title="${current_user.nickName}">${current_user.nickName}</div>
                     <div class="company" title="知藏">知藏</div>
                 </div>
             </shiro:authenticated>

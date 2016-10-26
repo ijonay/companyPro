@@ -1,10 +1,10 @@
 package com.zc.model;
 
+import com.zc.WordRedisModel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by 张镇强 on 2016/8/30 12:01.
