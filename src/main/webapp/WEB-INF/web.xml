@@ -20,6 +20,23 @@
             <param-value>classpath:dispatcher-servlet.xml</param-value>
         </init-param>
     </servlet>
+
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+
+
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -31,6 +48,9 @@
         <servlet-name>wordvector</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+
+
     <!-- shiro的filter -->
     <!-- shiro过虑器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
     <filter id="Filter_1457492967355">

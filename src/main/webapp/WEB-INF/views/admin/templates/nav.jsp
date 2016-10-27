@@ -9,10 +9,10 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluider">
         <div class="navbar-header">
-            <button class="navbar-toggle collapsed"><span class="sr-only">BI后台管理</span><span
+            <button class="navbar-toggle collapsed"><span class="sr-only">后台管理</span><span
                     class="icon-bar"></span><span
                     class="icon-bar"></span><span class="icon-bar"></span></button>
-            <a href="index" class="navbar-brand">BI后台管理 </a></div>
+            <a href="index" class="navbar-brand">后台管理 </a></div>
         <div id="navbar" class="collapse navbar-collapse" style="background: #222;">
             <ul class="nav navbar-nav">
                 <%--<li class="active"><a href="#">Home </a></li>--%>

@@ -14,4 +14,8 @@ public interface Constant {
 
     String SOLR_SEARCH_LENGTH_KEY = "solr_search_length";
     String WORDR_EDISKEY_PREFIX_KEY = "redis_word_key_prefix";
+    String WORD_VECTORS_KEY_PREFIX = "redis_word_vectors_key_prefix";
+
+    String TOPICS_VECTORS_KEY = "redis_topics_vectors_key";
+
 }

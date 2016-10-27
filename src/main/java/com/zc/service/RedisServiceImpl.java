@@ -20,6 +20,7 @@ import java.util.Set;
 public class RedisServiceImpl implements RedisService {
     private static Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
 
+
     @Autowired
     private RedisTemplate<String, WordRedisModel> redisTemplate;
     @Resource(name = "redisTemplate")
@@ -30,14 +31,18 @@ public class RedisServiceImpl implements RedisService {
     public void add() {
         throw new NotImplementedException("不运行");
 //        try {
-//            Map<String, float[]> wordMap = WordVectorHelper.loadModel(
+//
+//            Map<String, float[]> wordMap =
+//                    WordVectorHelper.loadModel(
 //                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+//
 //            Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
 //            int count = 1;
 //            long start = System.currentTimeMillis();
 //            for (Map.Entry<String, float[]> entry : wordSet) {
 //                String name = entry.getKey();
-//                if (StringUtils.isEmpty(name)) {
+//
+//                if (StringHelper.isEmpty(name)) {
 //                    continue;
 //                }
 //                Set<WordEntry> neighbors =
@@ -49,7 +54,7 @@ public class RedisServiceImpl implements RedisService {
 //
 //                neighbors.forEach(n -> {
 //                    WordRedisModel w = new WordRedisModel(n.name, n.score);
-//                    redisTemplate.boundZSetOps(Constant.WORDR_EDISKEY_PREFIX + name).add(w, n.score);
+//                    redisTemplate.boundZSetOps(Constant.WORDR_EDISKEY_PREFIX_KEY + name).add(w, n.score);
 //                });
 //
 //
