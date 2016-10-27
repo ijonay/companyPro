@@ -13,26 +13,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<li><a href="./getdata/?data=中国">获取自定义数据</a></li>
-	<li><a href="./user/getusers">获取全部用户</a></li>
-	<li><a href="./user/getuser?id=2">获取用户2</a></li>
-	<li><a href="./user/countuser">获取用户数</a></li>
-	<li><a href="pbd/user/login/home.html">index</a></li>
-	<!-- 上传文件 表单 post提交 -->
-	<form action="upload/upfile" method="post" enctype="multipart/form-data">
-		<input type='file' name="excelFile" /> <input type='submit' value="上传" />
-	</form>
-	<br>
-	<form action="user/loginauthc"
-		method="post">
-		<input type="text" name="username" /> <input type='text'
-			name="password" /> <input type="submit" value="登陆">
-	</form>
-	<a href="addtable">222</a>
+	<%--<li><a href="./getdata/?data=中国">获取自定义数据</a></li>--%>
+	<%--<li><a href="./user/getusers">获取全部用户</a></li>--%>
+	<%--<li><a href="./user/getuser?id=2">获取用户2</a></li>--%>
+	<%--<li><a href="./user/countuser">获取用户数</a></li>--%>
+	<%--<li><a href="pbd/user/login/home.html">index</a></li>--%>
+	<%--<!-- 上传文件 表单 post提交 -->--%>
+	<%--<form action="upload/upfile" method="post" enctype="multipart/form-data">--%>
+		<%--<input type='file' name="excelFile" /> <input type='submit' value="上传" />--%>
+	<%--</form>--%>
+	<%--<br>--%>
+	<%--<form action="user/loginauthc"--%>
+		<%--method="post">--%>
+		<%--<input type="text" name="username" /> <input type='text'--%>
+			<%--name="password" /> <input type="submit" value="登陆">--%>
+	<%--</form>--%>
+	<%--<a href="addtable">222</a>--%>
 	<h2>${registInfo}</h2>
 	<h2>${loginerror}</h2>
-	<br>
-	<a href="logout">退出</a>
+	<%--<br>--%>
+	<%--<a href="logout">退出</a>--%>
 	<br>
 	<form action="user/regist"
 		method="post">
