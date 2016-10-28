@@ -1,35 +1,7 @@
-//工具栏mouseover事件
-$(".header-right li").mouseover(function(){
-    var type=$(this).data("type"),
-        $img=$(this).find("img");
-    if(type==="search") $img.attr("src","img/nav_search_hover&down.png");
-    if(type==="message") $img.attr("src","img/nav_massage_hover&down.png");
-    if(type==="set") $img.attr("src","img/nav_set_hover&down.png");
-}).mouseout(function(){
-    var type=$(this).data("type"),
-        $img=$(this).find("img");
-    if(type==="search") $img.attr("src","img/nav_search_normal.png");
-    if(type==="message") $img.attr("src","img/nav_massage_normal.png");
-    if(type==="set") $img.attr("src","img/nav_set_normal.png");
-}).click(function(e){
-	var ev = e || window.event;
-    if (ev.stopPropagation) {
-        ev.stopPropagation();
-    } else if (window.event) {
-        window.event.cancelBubble = true; // 兼容IE
-    }
-	var type=$(this).data("type");
-	if(type==="overview"){ 
-		if($(".user-operate").css("display")==="none"){
-			$(".user-operate").css("display","block");
-		}else{
-			$(".user-operate").css("display","none");
-		}
-	}
-});
-$(document).on("click", function() {
-    $(".user-operate").css("display", "none");
-});
+if (!$.support.leadingWhitespace) {
+         alert("浏览器版本太低，请下载chrome或者IE10以上版本浏览器")
+}
+
 
 function GetQueryString(name) {
     if(cardId){
@@ -115,30 +87,7 @@ function stopPropagation(e) {
 	e.cancelBubble = true; 
 } ;
 
-//右侧按钮 微信点击出现隐藏
-$(document).bind("click",function(){
-//	$(".nav-sidebar").animate({right:"0px"},1000)
-	$(".nav-sideimg").animate({width:"0px"},1000)
-});
-$(".talk-weixin,.nav-sidebar").bind("click",function(e){
-	stopPropagation(e)
-//	$(".nav-sideimg").animate({width:"461px"},1000)
-	var offleft = $(".nav-sideimg").width();
-//	var offwidth = $(document.body).width();
-	if (offleft===461) {
-	    $(".nav-sideimg").animate({width:"0px"},1000);
-	    $(".nav-sidebar").find("img").attr("src","img/global_unfold_right.png");
-//		$(".nav-sidebar").animate({right:"461px"},1000);
-		
-		
-	} else if(offleft===0){
-	    $(".nav-sideimg").animate({width:"461"},1000);
-	    $(".nav-sidebar").find("img").attr("src","img/global_unfold_left.png");
-//		$(".nav-sidebar").animate({right:"0px"},1000);
-		
-		
-	}
-});
+
 //未授权401及errorCode4005
 var alertStatus = true;
 $(document).ajaxError(function(event,xhr,options,exc){
