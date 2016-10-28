@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="col-sm-3 col-md-2 sidebar" id="leftContainer">
     <ul class="nav nav-sidebar">
-        <li name="model"><a href="model" class="hasUrl">管理模型</a></li>
+        <li name="redisset"><a href="redisset" class="hasUrl">redis配置</a></li>
         <%--<li><a href="#">Reports</a></li>--%>
         <%--<li><a href="#">Analytics</a></li>--%>
         <%--<li><a href="#">Export</a></li>--%>
