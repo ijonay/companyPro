@@ -1,14 +1,14 @@
 package com.zc.service;
 
 import com.alibaba.fastjson.JSON;
+import com.zc.WordRedisModel;
 import com.zc.bean.*;
 import com.zc.dao.WordDao;
-import com.zc.model.ClusterModel;
-import com.zc.model.TopicModel;
-import com.zc.model.VertexEdgeModel;
-import com.zc.model.WeiboModel;
+import com.zc.model.*;
 import com.zc.utility.*;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
@@ -38,6 +38,9 @@ import java.util.stream.Collectors;
 @Service
 @Lazy(false)
 public class WordServiceImpl implements WordService {
+
+    private static Logger logger = LoggerFactory.getLogger(WordServiceImpl.class);
+
     @Autowired
     private TopicService topicServicetemp;
     private static TopicService topicService;
@@ -187,6 +190,49 @@ public class WordServiceImpl implements WordService {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cache_UpdateWordRoundPoints() {
+        try {
+
+            Map<String, float[]> wordMap =
+                    WordVectorHelper.loadModel(
+                            PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+
+            Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
+            int count = 1;
+            long start = System.currentTimeMillis();
+            for (Map.Entry<String, float[]> entry : wordSet) {
+                String name = entry.getKey();
+
+                if (StringHelper.isEmpty(name)) {
+                    continue;
+                }
+                Set<WordEntry> neighbors =
+                        WordVectorHelper.getDistance(name, wordMap, 25, 0.4f);
+
+                if (neighbors.size() == 0) {
+                    continue;
+                }
+
+                neighbors.forEach(n -> {
+                    WordRedisModel w = new WordRedisModel(n.name, n.score);
+                    redisTemplate.boundZSetOps(Constant.WORDR_EDISKEY_PREFIX_KEY + name).add(w, n.score);
+                });
+
+
+                if (count++ % 100 == 0) {
+                    System.out.println("-----------:" + count + "||" + (System.currentTimeMillis() - start));
+                    logger.info("-----------:" + count + "||" + (System.currentTimeMillis() - start));
+                }
+            }
+
+            System.out.println("耗时:" + (System.currentTimeMillis() - start));
+            logger.info("耗时:" + (System.currentTimeMillis() - start));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -42,6 +42,12 @@ public interface WordService {
      */
     void cache_UpdateWordVectors();
 
+    /**
+     * 更新redis中的词周围25个点
+     */
+    void cache_UpdateWordRoundPoints();
+
+
     Integer add(Word bean);
 
     Integer del(Integer id);
