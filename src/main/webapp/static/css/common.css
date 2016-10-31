@@ -184,6 +184,5 @@ textarea{resize: none;}
 .word-ellipsis{ text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;}
-
-body,html{background: #f1f1f1;font-family:  "Arial","微软雅黑","兰亭黑-简" !important;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+body,html{font-family:  "Arial","微软雅黑"!important;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 .pointer{cursor:pointer}

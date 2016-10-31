@@ -210,8 +210,10 @@ $(document).on('click', '.viewSource', function() {
     var hotTopic = $(".word").text();
     var topic = $(this).attr('data-name');
     var topicId = $(this).attr('data-id');
-    topic = topic.split("#");
-    topic = topic[1]
+    if(topic.substr(0,1) == "#" && topic.substr(-1) == "#"){
+    	topic = topic.split("#");
+        topic = topic[1]
+    }    
     window.location.href = "path?query=" + escape(hotTopic) + "&topicId=" + topicId + "&hotTopic=" + escape(topic);
 
 });
