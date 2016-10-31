@@ -91,27 +91,30 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	paper.setStart();
         	var textArrayItem = paper.text(xArray[i],yArray[i]+30,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("111")})
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] - 12,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).animate({"opacity":1,transform:"r45"},700,"ease");
         	var hotArrayItem = paper.text(xArray[i],yArray[i],returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("aaa")});
+        	textArrayItem.hover(function(){},function(){this.animate({transform:"s1.2"})})
         	var st = paper.setFinish();
-        	st.forEach(function(index,item){
-        		if(item.node.nodeName != "rect"){
-        			
-        		}
-        	})
-//        	st.hover(function(e){
-//        		console.log(this)
-//        	},function(){
-//        		
-//        	});
-        	//        	textArray.push(textArrayItem);
-//        	rectArray.push(rectArrayItem);
-//        	hotArray.push(hotArrayItem);
+//        	st.forEach(function(item,index){
+//        		console.log(item)
+//        		if(item.node.nodeName != "rect"){
+//        			item.hover(function(){
+//        				this.animate({transform:"s1.2"})
+//        			},function(){
+//        				
+//        			})
+//        		}else{
+//        			console.log(2)
+//        		}
+//        	})
+
+        	textArray.push(textArrayItem);
+        	rectArray.push(rectArrayItem);
+        	hotArray.push(hotArrayItem);
 //        	rectArrayItem.hover(function(){
-//        		textArrayItem.animate({"font-size":"18"},700,"ease");
+//        		textArrayItem.animate({"font-size":"25"},700,"ease");
 //        		this.animate({width:"30",height:"30"},700,"ease");
 //        		hotArrayItem.animate({"font-size":"16"},700,"ease");
 //        	},function(){
