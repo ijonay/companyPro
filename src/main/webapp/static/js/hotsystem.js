@@ -8,14 +8,21 @@
 
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+var paper;
+var base;
+var change1;
+var change2;
+var rectArray = [];
+var hotArray = [];
+var textArray = [];
 function loadSvg(){
         var width = $("#papersvg").css("width");
-    width = width.split("px")[0]-5;
-    var paper = Raphael("papersvg",width,200);
+    width = width.split("px")[0];
+    paper = Raphael("papersvg",width,200);
     //paper.clear()
     var xArray = [];
     var yArray = [];
-    var step = parseInt(width/11);
+    var step = width/11;
     for(var i=1;i<11;i++){
         xArray.push(step*i)
     };
@@ -31,40 +38,76 @@ function loadSvg(){
         baseLine += xArray[i] + " 100 ";
     }
     baseLine += " " + width + " 100"; 
-    var base = paper.path(baseLine).attr({"stroke-width":4,"opacity":0.7});
+    base = paper.path(baseLine).attr({stroke:"#22c0c6","stroke-width":4,"opacity":0.7});
     var changeLine = "M 0 100 R ";
     for(var i=0;i<xArray.length;i++){
         changeLine += xArray[i] + " " + yArray[i] + " ";            
     }
     changeLine += " " + width + " 100";
-    base.animate({path:changeLine},1000,"ease",shadom);
+    base.animate({path:changeLine},700,"ease",shadom);
     
     function shadom(){
 //          var cloneEle = base.clone().attr({"opacity":0});
 //          var cloneEle2 = base.clone().attr({"opacity":0});            
 //          cloneEle.attr({"opacity":0.5}).animate({transform:"T 0 15"});
 //          cloneEle2.attr({"opacity":0.3}).animate({transform:"T 0 30"})
-        var changeLine1 = "M 0 100 R ";
-        var changeLine2 = "M 0 100 R ";
+        var changeLine1 = "M 0 109.5 R ";
+        var changeLine2 = "M 0 118 R ";
         for(var i=0;i<xArray.length;i++){
-            changeLine1 += xArray[i] + " " + (yArray[i] + Math.random()*5) + " ";
-            changeLine2 += xArray[i] + " " + (yArray[i] + Math.random()*5) + " "; 
+            changeLine1 += xArray[i] + " " + (yArray[i] + 9.5 + Math.random()*1) + " ";
+            changeLine2 += xArray[i] + " " + (yArray[i] + 18 + Math.random()*1) + " "; 
         }
-        changeLine1 += " " + width + " 100";
-        changeLine2 += " " + width + " 100";
+        changeLine1 += " " + width + " 109.5";
+        changeLine2 += " " + width + " 118";
 
-        var change1 = paper.path(changeLine1).attr({"stroke-width":4,opacity:0.5}).animate({transform:"T 0 15"});
-        var change2 = paper.path(changeLine2).attr({"stroke-width":4,opacity:0.3}).animate({transform:"T 0 30"});
+        change1 = paper.path(changeLine1).attr({stroke:"#22c0c6","stroke-width":3,opacity:0.5});
+        change2 = paper.path(changeLine2).attr({stroke:"#22c0c6","stroke-width":2,opacity:0.3});
 
         for(var i=0;i<xArray.length;i++){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-           paper.text(xArray[i],yArray[i]+20,returndata[i].title).attr({"fill":'red'}).animate({transform:50}).click(function(){alert("111")})
+        	paper.setStart();
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+30,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("111")})
            
-           paper.rect(xArray[i]-5,yArray[i]-7,0,0).attr({"fill":"#fff","opacity":0,transform:"r45"}).animate({"opacity":1,width:10,height:10},700,"elastic");
-           paper.text(xArray[i]-5,yArray[i],returndata[i].weight).attr({"fill":'#f0f'}).animate({transform:50}).click(function(){alert("aaa")});
+            var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] - 12,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).animate({"opacity":1,transform:"r45"},700,"ease");
+        	var hotArrayItem = paper.text(xArray[i],yArray[i],returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("aaa")});
+        	var st = paper.setFinish();
+        	st.forEach(function(index,item){
+        		if(item.node.nodeName != "rect"){
+        			
+        		}
+        	})
+//        	st.hover(function(e){
+//        		console.log(this)
+//        	},function(){
+//        		
+//        	});
+        	//        	textArray.push(textArrayItem);
+//        	rectArray.push(rectArrayItem);
+//        	hotArray.push(hotArrayItem);
+//        	rectArrayItem.hover(function(){
+//        		textArrayItem.animate({"font-size":"18"},700,"ease");
+//        		this.animate({width:"30",height:"30"},700,"ease");
+//        		hotArrayItem.animate({"font-size":"16"},700,"ease");
+//        	},function(){
+//        		textArrayItem.animate({"font-size":"16"},700,"ease");
+//        		this.animate({width:"24",height:"24"},700,"ease");
+//        		hotArrayItem.animate({"font-size":"14"},700,"ease");
+//        	});
         }
+        console.log(rectArray)
+//        for(var i=0;i<rectArray.length;i++){
+//        	rectArray[i].hover(function(){
+//        		textArray[i].animate({"font-size":"18"},700,"ease");
+//        		rectArray[i].animate({width:"30",height:"30"},700,"ease");
+//        		hotArray[i].animate({"font-size":"16"},700,"ease");
+//        	},function(){
+//        		textArray[i].animate({"font-size":"16"},700,"ease");
+//        		rectArray[i].animate({width:"24",height:"24"},700,"ease");
+//        		hotArray[i].animate({"font-size":"14"},700,"ease");
+//        	});
+//        }
 }
 };
     loadSvg();

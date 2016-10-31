@@ -14,7 +14,7 @@
   
    <div style="width:100%;height:300px;background:#ff0;">搜索</div>
    
-   <div style="width:100%;height:230px;position:absolute;bottom:0;background:ccc">
+   <div style="width:100%;height:230px;bottom:0;background:ccc">
        <div id="papersvg"></div>
    </div>
        
