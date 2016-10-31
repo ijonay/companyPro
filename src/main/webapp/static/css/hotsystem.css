@@ -40,7 +40,16 @@
 
 .cook_ul{border:0;width:-o-calc(100% - 88px);width:calc-moz-(100% - 88px);width:calc-ms-(100% - 88px);width:-webkit-calc(100% - 88px);width:calc(100% - 88px);}
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
-
+html,body{
+	margin:0;
+	padding:0;
+	background-color:transparent!important;
+	height:100%;
+}
+body{
+	background:url("../img/background.png") no-repeat center!important;
+	background-size: cover!important;	
+}
 
 
 /*热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
