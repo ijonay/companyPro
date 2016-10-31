@@ -12,7 +12,6 @@
 
 /*搜索。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 .ser_section{
-	background:#f00;
 	width:100%;
 	height:-mozcalc(100% - 362px);
 	height:-webkit-calc(100% - 362px);
@@ -32,7 +31,7 @@
 .favorite_div{margin-top:4px;height:20px;line-height:20px;}
 .favorite_set_text{color:rgba(255,255,255,.5);margin-right:14px;}
 .favorite_ul{display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
-.favorite_ul li{position:relative;float:left;background:#fff;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;margin-right:8px;}
+.favorite_ul li{position:relative;float:left;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;margin-right:8px;}
 .favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(0,0,0,.3);}
 .favorite_ul li:hover span{background:url(../img/favorite_close.png) no-repeat;}
 .favorite_ul li span{cursor:pointer;position:absolute;top:5px;right:8px;width:8px;height:8px;}

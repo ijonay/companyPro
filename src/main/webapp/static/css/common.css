@@ -184,53 +184,5 @@ textarea{resize: none;}
 .word-ellipsis{ text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;}
-
-/*头部header*******************************************************************************************/
-.header{width:100%;height:60px;background: #222;min-width:900px;}
-.header-left{height: 60px;margin-left: 50px; padding-top: 9px;}
-.header-right{margin-right: 10px;position:relative;}
-.header-right > li{float: left;margin-left: 15px;height: 100%;width:50px;line-height: 60px;text-align: center;cursor:pointer;}
-.header-right > li.linkuser {margin-left: 7px;color:#bfbfbf;font-size: 12px;width:92px;}
-.header-right > li.linkuser img{width:46px;height:46px;}
-.header-right > li .userName{margin-left:10px;width:36px;height:36px;float:right;margin-top:12px;line-height:18px;text-align:left;overflow:hidden;}
-.header-right > li .userName>div{text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
-.header-right > li.overview{margin-left:26px;width:12px;}
-.user-operate{position:absolute;background:#fff;z-index:9999;padding:0px;right:5px;top:45px;border-radius:4px;display:none;box-shadow:0 0 5px #000}
-.user-operate span{display:block;width:0;height:0;border-width:0 5px 5px;border-style:solid;border-color:transparent transparent #fff;position:absolute;top:-5px;left:85%;/* 三角形居中显示 */margin-left:-5px;/* 三角形居中显示 */}
-.user-operate em{display:block;width:0;height:0;border-width:0 5px 5px;border-style:solid;border-color:transparent transparent #fff;position:absolute;top:0px;left:-5px;}
-.user-operate > li{cursor:pointer;}
-.user-operate > li.recyclebin{border-bottom:1px solid #ececec;}
-.user-operate li:not(:first-of-type){line-height:26px;text-align:center;padding:2px 12px}
-.user-operate > li:nth-child(2){border-bottom:1px solid #ececec}
-.user-operate > li:hover{background-color:#b2b2b2}
-/*导航nav*************************************************************************************************/
-.nav{width:100%;height:34px;background: #444;position: relative;min-width:900px;}
-
-.nav-menu-ul{padding-top: 4px;width:100%;}
-.nav-menu-ul li a{float: left;height:26px ;text-align:center;font-size: 14px;line-height:26px ;color:#bfbfbf;margin-left: 10px;padding:0 12px;border-radius: 5px;}
-.nav-menu-ul li a:hover{background: #222;}
-.nav-menu-ul li:first-child a{margin-left:50px;}
-.nav-sidebar{z-index: 999;background:url(../img/global_btm_unfold.png);width:13px;height:120px;line-height: 120px;text-align: center;    margin-top: 76px;}
-/*.nav-sideimg{right:-478px;top:0;z-index: 9999;}*/
-.nav-sideimg{width:0;height:430px;overflow: hidden;}
-
-
-
-  
-
 body,html{font-family:  "Arial","微软雅黑"!important;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
-
-/*模态样式*/
-.moadal-tooltip .modal-dialog{width:304px!important;margin-left: auto;margin-right: auto;}
-.moadal-tooltip .modal-dialog .modal-content{border-radius:4px;background:#fff;border:none;box-shadow:none;}
-.moadal-tooltip .modal-dialog .modal-content .modal-header{height: 30px;border-bottom: 1px solid #ececec;text-left;padding:0 20px;}
-.moadal-tooltip .modal-dialog .modal-content .modal-header .modal-title{font-size:14px;color:#000;line-height:30px;}
-.moadal-tooltip .modal-dialog .modal-content .modal-body{padding:15px 0 15px 0;}
-.moadal-tooltip .modal-dialog .modal-content .modal-body .text-center{font-size:12px!important;color:#000;line-height:12px;text-align:left;padding: 0 15px 0 20px;}
-.moadal-tooltip .modal-dialog .modal-content .modal-body .body-desc{margin-top:15px;}
-.moadal-tooltip .modal-dialog .modal-content .modal-footer{padding:10px 0 18px 20px;text-align:left;border-top:none;}
-.moadal-tooltip .modal-dialog .modal-content .modal-footer .btn-ok{width:50px;height:26px;background:#394156;border:none;color:#fff;margin-right:10px;border-radius:4px;vertical-align:top;}
-.moadal-tooltip .modal-dialog .modal-content .modal-footer .btn-cancel{width:50px;height:26px;background:none;border:none;line-height: 26px;color:#000;border:1px solid #b5b5b5;border-radius:4px;vertical-align:top;}
-.modal-backdrop.in {filter: alpha(opacity=40);opacity: .4;}
-
 .pointer{cursor:pointer}
