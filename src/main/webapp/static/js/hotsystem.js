@@ -3,10 +3,34 @@
 
 
 //搜索。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+	//设置为常用
+	$('#ser_text').on('input',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;	
+		$('#favorite_set_btn').removeClass('hidecommon');
+	});
+	$('#ser_text').on('input',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;	
+		$('#cook_ul').removeClass('hidecommon');
+	});
+	$(document).on('click',function(){
+		$('#cook_ul').addClass('hidecommon');
+		$('#favorite_set_btn').addClass('hidecommon');
+	})
 
+	$('#favorite_set_btn').on('click',function(){
+		var val = $.trim($('#ser_text').val());
+		var len = $('#favorite_ul li').length;
+		if(len>=5){
+			$('#favorite_ul').find('li').eq(5).remove();
+			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
+		}else{
+			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
+		};
+	});
 
-
-
+	$('#favorite_ul').delegate('li span','click',function(){
+		$(this).parent().remove();
+	});
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 function loadSvg(){
         var width = $("#papersvg").css("width");

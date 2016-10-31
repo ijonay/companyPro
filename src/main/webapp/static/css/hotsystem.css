@@ -1,11 +1,44 @@
+/* //本也蛮公用，通用的一些样式 */
+@CHARSET "UTF-8";
+@media screen and (max-width:1200px ) {
+    body{min-width: 1200px;overflow-x: auto!important;}
+}  
+.row {
+     margin-right: 0px; 
+    margin-left: 0px; 
+}
 /*头部。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 
 
 /*搜索。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
+.ser_section{
+	background:#f00;
+	width:100%;
+	height:-mozcalc(100% - 362px);
+	height:-webkit-calc(100% - 362px);
+	height:-o-calc(100% - 362px);
+	height:-ms-calc(100% - 362px);
+	height:calc(100% - 362px);
+	margin:0 auto;
+	padding:156px 320px 0px;
+}
+.ser_con{height:38px;}
+.ser_text{border:0;width:-o-calc(100% - 88px);width:calc-moz-(100% - 88px);width:calc-ms-(100% - 88px);width:-webkit-calc(100% - 88px);width:calc(100% - 88px);height:38px;line-height:38px;padding-left:10px;
+		  border-top-left-radius:5px;border-bottom-left-radius:5px;
+}
+/* .ser_text:focus{border:1px solid #389b9f;} */
+.ser_btn{width:88px;float:right;background-color:#389b9f;color:#fff;height:38px;line-height:38px;}
+.favorite_set_btn{right:100px;top:10px;border:1px solid #000;}
+.favorite_div{margin-top:4px;height:20px;line-height:20px;}
+.favorite_set_text{color:rgba(255,255,255,.5);margin-right:14px;}
+.favorite_ul{display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
+.favorite_ul li{position:relative;float:left;background:#fff;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;margin-right:8px;}
+.favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(0,0,0,.3);}
+.favorite_ul li:hover span{background:url(../img/favorite_close.png) no-repeat;}
+.favorite_ul li span{cursor:pointer;position:absolute;top:5px;right:8px;width:8px;height:8px;}
+.favorite_ul li span:hover{background:url(../img/favorite_close_hover.png) no-repeat;}
 
-
-
-
+.cook_ul{border:0;width:-o-calc(100% - 88px);width:calc-moz-(100% - 88px);width:calc-ms-(100% - 88px);width:-webkit-calc(100% - 88px);width:calc(100% - 88px);}
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 
 
