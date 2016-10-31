@@ -9,14 +9,13 @@
 <title>热点分析</title>
 </head>
 <body>
-   <div style="width: 100%;height:100px;background: #f00;">
-   </div>
+    <jsp:include page="nav.jsp" />
   
-   <div style="width:100%;height:300px;background:#ff0;">搜索</div>
+    <div style="width:100%;height:300px;background:#ff0;">搜索</div>
    
-   <div style="width:100%;height:230px;position:absolute;bottom:0;background:ccc">
-       <div id="papersvg"></div>
-   </div>
+    <div style="width:100%;height:230px;position:absolute;bottom:0;background:ccc">
+        <div id="papersvg"></div>
+    </div>
        
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
