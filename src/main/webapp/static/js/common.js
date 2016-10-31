@@ -1,8 +1,6 @@
 if (!$.support.leadingWhitespace) {
          alert("浏览器版本太低，请下载chrome或者IE10以上版本浏览器")
 }
-
-
 function GetQueryString(name) {
     if(cardId){
         return cardId;
@@ -86,7 +84,6 @@ function stopPropagation(e) {
 	else 
 	e.cancelBubble = true; 
 } ;
-
 
 //未授权401及errorCode4005
 var alertStatus = true;

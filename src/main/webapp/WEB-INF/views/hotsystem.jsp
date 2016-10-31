@@ -9,9 +9,7 @@
 <title>热点分析</title>
 </head>
 <body>
-   <div style="width: 100%;height:100px;background: #f00;">
-   </div>
-  
+    <jsp:include page="nav.jsp" />
    <div class="ser_section">
    		<div class="ser_con row pst">
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
