@@ -248,3 +248,18 @@ function loadSvg(){
 
 
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+   $('#allHot').on('click',function(){
+	   $('#allHot').addClass('hidecommon');
+	   $('#all_hot').removeClass('hidecommon');
+	   $('#all_hot').animate({
+		   opacity:1
+	   },500);
+	   $('#ser_section').animate({
+		   height:0
+	   },500);
+	   $('.notify-list').addClass('hidecommon');
+	   $('#nav_ser').delay("fast").fadeIn();
+   }); 
+    
+    
+    
