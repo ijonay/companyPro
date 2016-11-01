@@ -24,9 +24,9 @@
         <li class="head-notify"><a><span class="notify-count">6</span></a></li>
     </ul>
     <ul class="notify-list">
-        <li><a>● <span class="hot-word">特斯拉－</span><span class="hot-spot">加油站掺水</span><span class="time">10min</span><span class="notify-close">&times;</span></a></li>
-        <li><a>● <span class="hot-word">空气净化器－</span><span class="hot-spot">棉纱堵采样器造假</span><span class="time">18:00</span><span class="notify-close">&times;</span></a></li>
-        <li><a>● <span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span><span class="time">昨天</span><span class="notify-close">&times;</span></a></li>
+        <li><a><span class="dot-icon"></span><span class="hot-word">特斯拉－</span><span class="hot-spot">加油站掺水</span><span class="time">10min</span><span class="notify-close">&times;</span></a></li>
+        <li><a><span class="dot-icon"></span><span class="hot-word">空气净化器－</span><span class="hot-spot">棉纱堵采样器造假</span><span class="time">18:00</span><span class="notify-close">&times;</span></a></li>
+        <li><a><span class="dot-icon"></span><span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span><span class="time">昨天</span><span class="notify-close">&times;</span></a></li>
     </ul>
 </div>
 <div class="right-bar">
@@ -36,19 +36,34 @@
         <li class="right-bar-close">&times;</li>
     </ul>
     <div class="pnl-pred-tab">
-            <div class="pnl-calendar"></div>
-            <div class="pnl-hots">
-                <div class="hots-title">2016.8.22 热点预期</div>
-                <ul class="hots-list">
-                    <li><a href="javascript:void(0)">奥运闭幕式</a></li>
-                    <li><a href="javascript:void(0)">冠军</a></li>
-                    <li><a href="javascript:void(0)">东京</a></li>
-                </ul>
+        <div class="pnl-calendar"></div>
+        <div class="pnl-hots">
+            <div class="hots-title">
+                <span>2016.11.21</span>
+                <span class="hots-add">&#43;</span>
             </div>
+            <ul class="hots-list">
+                <li><a href="javascript:void(0)">北京冬奥会开幕式</a></li>
+                <li><a href="javascript:void(0)">王宝强离婚案宣判引争议</a></li>
+                <li><a href="javascript:void(0)">微软surface pro 3.0发布会</a></li>
+                <li><a href="javascript:void(0)">预告的热点名称</a>
+            </ul>
+        </div>
     </div>
-    <ul class="pnl-notify-tab">
-        <li><a>● <span class="hot-word">特斯拉－</span><span class="hot-spot">加油站掺水</span><span class="time">10min</span></a></li>
-        <li><a>● <span class="hot-word">空气净化器－</span><span class="hot-spot">棉纱堵采样器造假</span><span class="time">18:00</span></a></li>
-        <li><a>● <span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span><span class="time">昨天</span></a></li>
-    </ul>
+    <div class="pnl-notify-tab">
+        <ul class="notify-tab-list">
+            <li><div class="notify-info"><span class="dot-icon"></span><span class="hot-word">特斯拉－</span><span class="hot-spot">加油站掺水</span></div><div class="time">10min</div></li>
+            <li><div class="notify-info"><span class="dot-icon"></span><span class="hot-word">空气净化器－</span><span class="hot-spot">棉纱堵采样器造假棉纱堵采样器造假棉纱堵采样器造假</span></div><div class="time">18:00</div></li>
+            <li><div class="notify-info"><span class="dot-icon"></span><span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span></div><div class="time">昨天</div></li>
+            <li><div class="notify-info"><span class="dot-icon"></span><span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span></div><div class="time">昨天</div></li>
+            <li><div class="notify-info"><span class="dot-icon"></span><span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span></div><div class="time">昨天</div></li>
+        </ul>
+        <div class="notify-operate">
+            <div class="relate-email fl">
+                <input type="checkbox" id="chk-email" class="chk-email" /><label for="chk-email" class="lb-email"><span class="lb-circle"></span></label>
+                <span class="relate-title">通知发送至邮箱</span>
+            </div>
+            <div class="clear-notify fr">清空通知</div>
+        </div>
+    </div>
 </div>
