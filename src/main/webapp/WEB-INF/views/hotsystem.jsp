@@ -37,7 +37,7 @@
    <div style="width:100%;height:230px;bottom:0;background:ccc">
        <div id="papersvg"></div>
    </div>
-       
+   <div class="allHot">全部热点</div>	
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>

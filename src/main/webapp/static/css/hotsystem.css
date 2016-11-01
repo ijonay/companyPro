@@ -52,3 +52,16 @@ body{
 
 
 /*热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
+.allHot{
+	position:absolute;
+	display:inline-block;
+	width:124px;
+	height:34px;
+	font-size:18px;
+	line-height:34px;
+	color:#eee;
+	text-align:center;
+	left:50%;
+	transform:translate(-50%);
+	border:1px solid #389b9f
+}
