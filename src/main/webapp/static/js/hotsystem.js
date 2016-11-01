@@ -7,30 +7,119 @@
 	$('#ser_text').on('input',function(e){
 		e ? e.stopPropagation() : event.cancelBubble = true;	
 		$('#favorite_set_btn').removeClass('hidecommon');
-	});
-	$('#ser_text').on('input',function(e){
-		e ? e.stopPropagation() : event.cancelBubble = true;	
-		$('#cook_ul').removeClass('hidecommon');
+		$('#cook_ul').addClass('hidecommon');
 	});
 	$(document).on('click',function(){
 		$('#cook_ul').addClass('hidecommon');
 		$('#favorite_set_btn').addClass('hidecommon');
-	})
+	});
 
 	$('#favorite_set_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var len = $('#favorite_ul li').length;
+		var arrCon = [];
+		$('#favorite_ul li').each(function(i,item){
+			arrCon.push($(item).text());
+			return arrCon;
+		});
+		Array.prototype.contains = function (obj) {  
+		    var i = this.length;  
+		    while (i--) {  
+		        if (this[i] === obj) {  
+		            return true;  
+		        }  
+		    }  
+		    return false;  
+		}  
+		if(arrCon.contains(val)==true ){
+			return;
+		};
+		
 		if(len>=5){
-			$('#favorite_ul').find('li').eq(5).remove();
+			$('#favorite_ul').find('li').eq(4).remove();
 			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
 		}else{
 			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
 		};
 	});
-
-	$('#favorite_ul').delegate('li span','click',function(){
+	$('#favorite_ul').delegate('li','click',function(){
+		var val = $(this).text();
+		$('#ser_text').val(val);
+	});
+	
+	$('#favorite_ul').delegate('li span','click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
 		$(this).parent().remove();
 	});
+	
+	//设置为历史记录
+	$('#ser_text').focus(function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;	
+		$('#cook_ul').removeClass('hidecommon');
+	});
+	$('#ser_text').blur(function(){
+		//$('#cook_ul').addClass('hidecommon');
+	});
+	
+	$('#ser_btn').on('click',function(){
+		var val = $.trim($('#ser_text').val());
+		var len = $('#cook_ul li').length;
+		var arrCon = [];
+		$('#cook_ul li').each(function(i,item){
+			arrCon.push($(item).text());
+			return arrCon;
+		});
+		Array.prototype.contains = function (obj) {  
+		    var i = this.length;  
+		    while (i--) {  
+		        if (this[i] === obj) {  
+		            return true;  
+		        }  
+		    }  
+		    return false;  
+		}  
+		if(arrCon.contains(val)==true ){
+			return;
+		};
+		
+		if(!val){
+			return;
+		}else{
+			if(len>=5){
+				$('#cook_ul li').eq(4).remove();
+				$('#cook_ul').prepend('<li>'+val+'<span></span></li>');
+			}else{
+				$('#cook_ul').prepend('<li>'+val+'<span></span></li>');
+			};
+		};
+		
+	});
+
+	$('#ser_text').on('click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		//$('#cook_ul').addClass('hidecommon');
+	});
+	$('#cook_ul').delegate('li','click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		$('#cook_ul').addClass('hidecommon');
+		var val = $(this).text();
+		$('#ser_text').val(val);
+	});
+	
+	$('#cook_ul').delegate('li span','click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		$(this).parent().remove();
+	});
+	
+//高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+	$('#ser_btn_high').on('click',function(){
+		$('#ser_dialog').removeClass('hidecommon');
+	});
+	
+	$('.dialog_area span').on('click',function(){
+		$('#ser_dialog').addClass('hidecommon');
+	})
+	
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 var paper;
 var base;
