@@ -96,6 +96,6 @@ body{
 	transform:translate(-50%);
 	border:1px solid #389b9f
 }
-.all_hot{padding-left:100px;padding-right:100px;width:100%;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;}
+.all_hot{padding-left:48px;padding-right:48px;width:100%;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;}
 .all_hot_section{background:#ff0;height:1000px;width:100%;}
 
