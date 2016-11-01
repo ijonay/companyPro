@@ -1,4 +1,4 @@
-/* //本也蛮公用，通用的一些样式 */
+/* //本页面公用，通用的一些样式 */
 @CHARSET "UTF-8";
 @media screen and (max-width:1200px ) {
     body{min-width: 1200px;overflow-x: auto!important;}
@@ -13,7 +13,7 @@
 /*搜索。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 .ser_section{
 	width:100%;
-	height:-mozcalc(100% - 362px);
+	height:-moz-calc(100% - 362px);
 	height:-webkit-calc(100% - 362px);
 	height:-o-calc(100% - 362px);
 	height:-ms-calc(100% - 362px);
@@ -22,22 +22,51 @@
 	padding:156px 320px 0px;
 }
 .ser_con{height:38px;}
-.ser_text{border:0;width:-o-calc(100% - 88px);width:calc-moz-(100% - 88px);width:calc-ms-(100% - 88px);width:-webkit-calc(100% - 88px);width:calc(100% - 88px);height:38px;line-height:38px;padding-left:10px;
-		  border-top-left-radius:5px;border-bottom-left-radius:5px;
+.ser_text{border:0;border:1px solid #fff;width:-o-calc(100% - 186px);width:calc-moz-(100% - 186px);width:calc-ms-(100% - 186px);width:-webkit-calc(100% - 186px);width:calc(100% - 186px);height:38px;line-height:38px;padding-left:10px;
+		  border-top-left-radius:2px;border-bottom-left-radius:2px;
 }
-/* .ser_text:focus{border:1px solid #389b9f;} */
+.ser_text:focus{border:2px solid #389b9f;} 
 .ser_btn{width:88px;float:right;background-color:#389b9f;color:#fff;height:38px;line-height:38px;}
-.favorite_set_btn{right:100px;top:10px;border:1px solid #000;}
-.favorite_div{margin-top:4px;height:20px;line-height:20px;}
+#ser_btn{margin-right:10px;border-top-right-radius:2px;border-bottom-right-radius:2px}
+#ser_btn_high{border-radius:2px;}
+.favorite_set_btn{right:192px;top:5px;padding:4px 6px;background:#389b9f;color:#fff;border-radius:2px;}
+.favorite_set_btn:before{
+	content:'';
+	width:0;
+	height:0;
+	left:-7px;
+	position:absolute;
+	border-right:7px solid #389b9f;
+	border-top:7px solid transparent;
+	border-bottom:7px solid transparent;
+	top:7px;
+}
+.favorite_div{margin-top:4px;height:20px;line-height:20px;width:-o-calc(100% - 186px);width:calc-moz-(100% - 186px);width:calc-ms-(100% - 186px);width:-webkit-calc(100% - 186px);width:calc(100% - 186px);}
 .favorite_set_text{color:rgba(255,255,255,.5);margin-right:14px;}
 .favorite_ul{display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
-.favorite_ul li{position:relative;float:left;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;margin-right:8px;}
+.favorite_ul li{cursor:pointer;position:relative;float:left;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;margin-right:8px;}
 .favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(0,0,0,.3);}
 .favorite_ul li:hover span{background:url(../img/favorite_close.png) no-repeat;}
 .favorite_ul li span{cursor:pointer;position:absolute;top:5px;right:8px;width:8px;height:8px;}
 .favorite_ul li span:hover{background:url(../img/favorite_close_hover.png) no-repeat;}
 
-.cook_ul{border:0;width:-o-calc(100% - 88px);width:calc-moz-(100% - 88px);width:calc-ms-(100% - 88px);width:-webkit-calc(100% - 88px);width:calc(100% - 88px);}
+.cook_ul{margin-top:5px;background:#fff;z-index:10;border:0;width:-o-calc(100% - 186px);width:calc-moz-(100% - 186px);width:calc-ms-(100% - 186px);width:-webkit-calc(100% - 186px);width:calc(100% - 186px);}
+.cook_ul li{padding:0px 12px 0px 36px;cursor:pointer;height:30px;line-height:30px;font-size:14px;color:rgba(74,74,74,.8);background:url(../img/hostory-icon.png) no-repeat 12px center;}
+.cook_ul li:hover{background:#f9f9f9 url(../img/hostory-icon.png) no-repeat 12px center;}
+.cook_ul li span{width:14px;height:14px;float:right;background:url(../img/cook_li_del.png) no-repeat;margin-top:8px;}
+.cook_ul li span:hover{background:url(../img/cook_li_del_hover.png) no-repeat;}
+
+/*高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
+.ser_dialog{
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,.4);
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+}
+.dialog_area{width:500px;height:500px;background:#fff;margin:100px auto 0;}
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 html,body{
 	margin:0;
@@ -46,8 +75,10 @@ html,body{
 	height:100%;
 }
 body{
-	background:url("../img/background.png") no-repeat center!important;
-	background-size: cover!important;	
+	background-image:url("../img/background.png");
+	background-repeat: no-repeat ;
+	background-size: cover!important;
+	background-attachment:fixed;
 }
 
 
@@ -65,3 +96,6 @@ body{
 	transform:translate(-50%);
 	border:1px solid #389b9f
 }
+.all_hot{width:100%;padding-left:100px;padding-right:100px;}
+.all_hot_section{background:#ff0;height:1000px;width:100%;}
+
