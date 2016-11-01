@@ -180,36 +180,47 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	paper.setStart();
         	var textArrayItem = paper.text(xArray[i],yArray[i]+30,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("111")})
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] - 12,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).animate({"opacity":1,transform:"r45"},700,"ease");
         	var hotArrayItem = paper.text(xArray[i],yArray[i],returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("aaa")});
-        	var st = paper.setFinish();
-        	st.forEach(function(index,item){
-        		if(item.node.nodeName != "rect"){
-        			
-        		}
-        	})
-//        	st.hover(function(e){
-//        		console.log(this)
-//        	},function(){
-//        		
-//        	});
-        	//        	textArray.push(textArrayItem);
-//        	rectArray.push(rectArrayItem);
-//        	hotArray.push(hotArrayItem);
-//        	rectArrayItem.hover(function(){
-//        		textArrayItem.animate({"font-size":"18"},700,"ease");
-//        		this.animate({width:"30",height:"30"},700,"ease");
-//        		hotArrayItem.animate({"font-size":"16"},700,"ease");
-//        	},function(){
-//        		textArrayItem.animate({"font-size":"16"},700,"ease");
-//        		this.animate({width:"24",height:"24"},700,"ease");
-//        		hotArrayItem.animate({"font-size":"14"},700,"ease");
-//        	});
+        	textArray.push(textArrayItem);
+        	rectArray.push(rectArrayItem);
+        	hotArray.push(hotArrayItem);
         }
-        console.log(rectArray)
+        rectArray.forEach(function(item,index){
+        	item.hover(function(){
+        		rectArray[index].animate({transform:"r45s1.2"})
+        		textArray[index].animate({transform:"s1.2"})
+        		hotArray[index].animate({transform:"s1.2"})
+        	},function(){
+        		rectArray[index].animate({transform:"r45"})
+        		textArray[index].animate({transform:"s1"})
+        		hotArray[index].animate({transform:"s1"})
+        	})
+        })
+        textArray.forEach(function(item,index){
+        	item.hover(function(){
+        		rectArray[index].animate({transform:"r45s1.2"})
+        		textArray[index].animate({transform:"s1.2"})
+        		hotArray[index].animate({transform:"s1.2"})
+        	},function(){
+        		rectArray[index].animate({transform:"r45"})
+        		textArray[index].animate({transform:"s1"})
+        		hotArray[index].animate({transform:"s1"})
+        	})
+        })
+        hotArray.forEach(function(item,index){
+        	item.hover(function(){
+        		rectArray[index].animate({transform:"r45s1.2"})
+        		textArray[index].animate({transform:"s1.2"})
+        		hotArray[index].animate({transform:"s1.2"})
+        	},function(){
+        		rectArray[index].animate({transform:"r45"})
+        		textArray[index].animate({transform:"s1"})
+        		hotArray[index].animate({transform:"s1"})
+        	})
+        })
 //        for(var i=0;i<rectArray.length;i++){
 //        	rectArray[i].hover(function(){
 //        		textArray[i].animate({"font-size":"18"},700,"ease");
@@ -224,9 +235,14 @@ function loadSvg(){
 }
 };
     loadSvg();
+    var setTime;
     window.onresize=function(){
-        $("#papersvg").html('');
-        loadSvg();
+    	clearTimeout(setTime);
+    	setTime = setTimeout(function(){    		
+    		$("#papersvg").html('');
+            loadSvg();
+    	},500)
+        
     };
 
 

@@ -41,9 +41,10 @@
    			<span style="float:right;">X</span>
    		</div>
    </div>
-   <div style="width:100%;height:230px;bottom:0;background:ccc">
+   <div style="width:100%;height:230px;bottom:0;">
        <div id="papersvg"></div>
    </div>
+   <div class="allHot">全部热点</div>	
    
    <div class="all_hot">
    		<div class="all_hot_section">全部热点</div>
