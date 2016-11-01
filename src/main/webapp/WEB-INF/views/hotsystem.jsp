@@ -5,6 +5,7 @@
 <head>
 <jsp:include page="head.jsp" />
 <link rel="stylesheet" href="css/hotsystem.css">
+<link rel="stylesheet" type="text/css" href="css/pop.css">
 
 <title>热点分析</title>
 </head>
@@ -49,6 +50,28 @@
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">全部热点</div>
    </div>
+   <div class="alertCon">
+    <div class="portrait"></div>
+    <div class="info">
+        <div class="infoTop">
+            <div class="infoTitle">张雨绮结婚</div>
+            <div class="infoConnect">关联此热点</div>
+        </div>
+        <div class="hotInfo">
+            <div class="infoText">
+                张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚
+            </div>            
+        </div>
+        <div class="infoBottom">
+            <img class="hotIcon" src="img/hotIcon.png">
+            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span><img class="infoIcon" style="right:66px" src="img/weibo.png" alt="微博">
+            <img class="infoIcon" style="right:44px" src="img/wechat.png" alt="微信">
+            <img class="infoIcon" style="right:22px" src="img/zhihu.png" alt="知乎">
+            <img class="infoIcon" style="right:0" src="img/baidu.png" alt="百度">
+        </div>
+    </div>
+    <div class="triangle"></div>
+</div>
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -59,6 +82,7 @@
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
 <script src="js/hotsystem.js"></script>
+<script src="js/pop.js"></script>
 
 </body>
 </html>

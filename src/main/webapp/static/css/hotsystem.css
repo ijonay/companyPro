@@ -81,8 +81,139 @@ body{
 	background-size: cover!important;
 	background-attachment:fixed;
 }
-
-
+/*弹出层样式 */
+.alertCon{
+    display:none;
+    position:absolute;
+    left:32%;
+    top:35%;
+    width:386px;
+    height:128px;
+    margin:0;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color:#fff;
+    border-radius: 2px;
+}
+.portrait{
+    display: inline-block;
+    width:96px;
+    height:96px;
+    background-color:red;
+    margin-right: 10px;
+    margin:0;
+    padding: 0;
+}
+.info{
+    position: absolute;
+    top:16px;
+    display: inline-block;
+    width: 248px;
+    height:96px;
+    margin:0 0 0 10px;
+    padding: 0;
+}
+.infoTop{
+    position: absolute;
+    width:100%;
+    height:22px;
+    /*background-color: blue*/
+}
+.infoTitle{
+    display: inline-block;
+    width:160px;
+    height:22px;
+    line-height: 22px;
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.infoConnect{
+    float: right;
+    display: inline-block;
+    width: 80px;
+    height: 22px;
+    line-height: 12px;
+    font-size: 12px;
+    margin:0;
+    padding:5px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 11px;
+    background-color: #389b9f;
+    color:#fff;
+}
+.hotInfo{
+    position: absolute;
+    top:30px;
+    font-size: 12px;;
+    display: inline-block;
+    width: 100%;
+    padding: 0 0 12px 0;
+}
+.infoText{
+    overflow: hidden;
+    display: box;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    line-height: 17px;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    word-break: break-all;
+}
+.infoBottom{
+    position: absolute;
+    bottom:0px;
+    display: inline-block;    
+    width:248px;
+    height:24px;
+    line-height:18px;
+}
+.hotValue{
+    font-size: 24px;
+    margin: 0 5px 0 18px;
+    padding: 0;
+    line-height:32px;
+}
+.planText{
+    display: inline-block;
+    height: 12px;
+    font-size: 12px;
+    margin:0;
+    padding: 0; 
+}
+.infoSpace{
+    display: inline-block;
+    width: 45px;
+}
+.font14{
+    font-size: 14px;
+    margin-right:7px
+}
+.infoIcon{
+    position:absolute;
+    bottom:0;
+    margin: 0;
+    padding: 0;
+    vertical-align:bottom;
+}
+.hotIcon{
+	vertical-align:bottom;
+	position:absolute;
+	bottom:0;
+}
+.triangle{
+    position: absolute;
+    display: inline-block;
+    bottom:-14px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 14px solid #fff;
+}
 /*热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 .allHot{
 	position:absolute;
