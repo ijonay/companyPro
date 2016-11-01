@@ -82,6 +82,8 @@
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
 <script src="js/hotsystem.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/nav.js"></script>
 <script src="js/pop.js"></script>
 
 </body>
