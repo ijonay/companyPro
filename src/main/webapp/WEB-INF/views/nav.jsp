@@ -7,6 +7,9 @@
 <div class="header">
     <div class="header-logo fl"></div>
     <ul class="header-right fr">
+    	<li class="nav_ser">
+    		<input type="text" placeholder="请输入搜索关键字" maxlength="10" class="f16 hidecommon" id="nav_ser">
+    	</li>
         <li class="head-usericon"><a></a></li>
         <li class="head-userinfo">
             <shiro:authenticated>
