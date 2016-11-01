@@ -83,7 +83,7 @@ body{
 }
 /*弹出层样式 */
 .alertCon{
-    display:inline-block;
+    display:none;
     position:absolute;
     left:32%;
     top:35%;

@@ -247,8 +247,9 @@ function loadSvg(){
     	},500)
         
     };
-<<<<<<< HEAD
     function nodeClick(e,t){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+        alertCon.show();
         var index = t.data("index");
         var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
         var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
@@ -287,11 +288,9 @@ function loadSvg(){
             }]
         })
     })
-//热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
-=======
-
-
-
+    $(document).on("click",function(){
+    	alertCon.hide();
+    })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
 	   $('#allHot').addClass('hidecommon');
@@ -305,7 +304,3 @@ function loadSvg(){
 	   $('.notify-list').addClass('hidecommon');
 	   $('#nav_ser').delay("fast").fadeIn();
    }); 
-    
-    
-    
->>>>>>> 3afd984441e7571f426ab38bc63f37defc0c3c65
