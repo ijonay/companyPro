@@ -11,7 +11,7 @@
 </head>
 <body>
     <jsp:include page="nav.jsp" />
-   <div class="ser_section">
+   <div class="ser_section" id="ser_section">
    		<div class="ser_con row pst">
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 			 
@@ -42,13 +42,13 @@
    			<span style="float:right;">X</span>
    		</div>
    </div>
-   <div style="width:100%;height:230px;bottom:0;">
+   <div style="width:100%;height:160px;bottom:0;">
        <div id="papersvg"></div>
    </div>
-   <div class="allHot">全部热点</div>	
+   <div class="allHot pointer" id="allHot">全部热点</div>	
    
-   <div class="all_hot">
-   		<div class="all_hot_section">全部热点</div>
+   <div class="all_hot hidecommon" id="all_hot">
+   		<div class="all_hot_section" id="all_hot_section">全部热点</div>
    </div>
    <div class="alertCon">
     <div class="portrait"></div>

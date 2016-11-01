@@ -247,6 +247,7 @@ function loadSvg(){
     	},500)
         
     };
+<<<<<<< HEAD
     function nodeClick(e,t){
         var index = t.data("index");
         var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
@@ -287,3 +288,24 @@ function loadSvg(){
         })
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+=======
+
+
+
+//热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+   $('#allHot').on('click',function(){
+	   $('#allHot').addClass('hidecommon');
+	   $('#all_hot').removeClass('hidecommon');
+	   $('#all_hot').animate({
+		   opacity:1
+	   },500);
+	   $('#ser_section').animate({
+		   height:0
+	   },500);
+	   $('.notify-list').addClass('hidecommon');
+	   $('#nav_ser').delay("fast").fadeIn();
+   }); 
+    
+    
+    
+>>>>>>> 3afd984441e7571f426ab38bc63f37defc0c3c65
