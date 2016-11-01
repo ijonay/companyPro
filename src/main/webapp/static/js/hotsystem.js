@@ -7,30 +7,119 @@
 	$('#ser_text').on('input',function(e){
 		e ? e.stopPropagation() : event.cancelBubble = true;	
 		$('#favorite_set_btn').removeClass('hidecommon');
-	});
-	$('#ser_text').on('input',function(e){
-		e ? e.stopPropagation() : event.cancelBubble = true;	
-		$('#cook_ul').removeClass('hidecommon');
+		$('#cook_ul').addClass('hidecommon');
 	});
 	$(document).on('click',function(){
 		$('#cook_ul').addClass('hidecommon');
 		$('#favorite_set_btn').addClass('hidecommon');
-	})
+	});
 
 	$('#favorite_set_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var len = $('#favorite_ul li').length;
+		var arrCon = [];
+		$('#favorite_ul li').each(function(i,item){
+			arrCon.push($(item).text());
+			return arrCon;
+		});
+		Array.prototype.contains = function (obj) {  
+		    var i = this.length;  
+		    while (i--) {  
+		        if (this[i] === obj) {  
+		            return true;  
+		        }  
+		    }  
+		    return false;  
+		}  
+		if(arrCon.contains(val)==true ){
+			return;
+		};
+		
 		if(len>=5){
-			$('#favorite_ul').find('li').eq(5).remove();
+			$('#favorite_ul').find('li').eq(4).remove();
 			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
 		}else{
 			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
 		};
 	});
-
-	$('#favorite_ul').delegate('li span','click',function(){
+	$('#favorite_ul').delegate('li','click',function(){
+		var val = $(this).text();
+		$('#ser_text').val(val);
+	});
+	
+	$('#favorite_ul').delegate('li span','click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
 		$(this).parent().remove();
 	});
+	
+	//设置为历史记录
+	$('#ser_text').focus(function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;	
+		$('#cook_ul').removeClass('hidecommon');
+	});
+	$('#ser_text').blur(function(){
+		//$('#cook_ul').addClass('hidecommon');
+	});
+	
+	$('#ser_btn').on('click',function(){
+		var val = $.trim($('#ser_text').val());
+		var len = $('#cook_ul li').length;
+		var arrCon = [];
+		$('#cook_ul li').each(function(i,item){
+			arrCon.push($(item).text());
+			return arrCon;
+		});
+		Array.prototype.contains = function (obj) {  
+		    var i = this.length;  
+		    while (i--) {  
+		        if (this[i] === obj) {  
+		            return true;  
+		        }  
+		    }  
+		    return false;  
+		}  
+		if(arrCon.contains(val)==true ){
+			return;
+		};
+		
+		if(!val){
+			return;
+		}else{
+			if(len>=5){
+				$('#cook_ul li').eq(4).remove();
+				$('#cook_ul').prepend('<li>'+val+'<span></span></li>');
+			}else{
+				$('#cook_ul').prepend('<li>'+val+'<span></span></li>');
+			};
+		};
+		
+	});
+
+	$('#ser_text').on('click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		//$('#cook_ul').addClass('hidecommon');
+	});
+	$('#cook_ul').delegate('li','click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		$('#cook_ul').addClass('hidecommon');
+		var val = $(this).text();
+		$('#ser_text').val(val);
+	});
+	
+	$('#cook_ul').delegate('li span','click',function(e){
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		$(this).parent().remove();
+	});
+	
+//高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+	$('#ser_btn_high').on('click',function(){
+		$('#ser_dialog').removeClass('hidecommon');
+	});
+	
+	$('.dialog_area span').on('click',function(){
+		$('#ser_dialog').addClass('hidecommon');
+	})
+	
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 var paper;
 var base;
@@ -39,6 +128,9 @@ var change2;
 var rectArray = [];
 var hotArray = [];
 var textArray = [];
+var alertCon = $(".alertCon");
+var idArray = [1,2,3,4,5,6,7,8,9,10];
+var triangleStep = 35;
 function loadSvg(){
         var width = $("#papersvg").css("width");
     width = width.split("px")[0];
@@ -91,36 +183,47 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	paper.setStart();
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+30,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("111")})
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+30,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
-            var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] - 12,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).animate({"opacity":1,transform:"r45"},700,"ease");
-        	var hotArrayItem = paper.text(xArray[i],yArray[i],returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).animate({opacity:1},700,"ease").click(function(){alert("aaa")});
-        	var st = paper.setFinish();
-        	st.forEach(function(index,item){
-        		if(item.node.nodeName != "rect"){
-        			
-        		}
-        	})
-//        	st.hover(function(e){
-//        		console.log(this)
-//        	},function(){
-//        		
-//        	});
-        	//        	textArray.push(textArrayItem);
-//        	rectArray.push(rectArrayItem);
-//        	hotArray.push(hotArrayItem);
-//        	rectArrayItem.hover(function(){
-//        		textArrayItem.animate({"font-size":"18"},700,"ease");
-//        		this.animate({width:"30",height:"30"},700,"ease");
-//        		hotArrayItem.animate({"font-size":"16"},700,"ease");
-//        	},function(){
-//        		textArrayItem.animate({"font-size":"16"},700,"ease");
-//        		this.animate({width:"24",height:"24"},700,"ease");
-//        		hotArrayItem.animate({"font-size":"14"},700,"ease");
-//        	});
+            var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] - 12,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
+        	var hotArrayItem = paper.text(xArray[i],yArray[i],returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	textArray.push(textArrayItem);
+        	rectArray.push(rectArrayItem);
+        	hotArray.push(hotArrayItem);
         }
-        console.log(rectArray)
+        rectArray.forEach(function(item,index){
+        	item.hover(function(){
+        		rectArray[index].animate({transform:"r45s1.2"})
+        		textArray[index].animate({transform:"s1.2"})
+        		hotArray[index].animate({transform:"s1.2"})
+        	},function(){
+        		rectArray[index].animate({transform:"r45"})
+        		textArray[index].animate({transform:"s1"})
+        		hotArray[index].animate({transform:"s1"})
+        	})
+        })
+        textArray.forEach(function(item,index){
+        	item.hover(function(){
+        		rectArray[index].animate({transform:"r45s1.2"})
+        		textArray[index].animate({transform:"s1.2"})
+        		hotArray[index].animate({transform:"s1.2"})
+        	},function(){
+        		rectArray[index].animate({transform:"r45"})
+        		textArray[index].animate({transform:"s1"})
+        		hotArray[index].animate({transform:"s1"})
+        	})
+        })
+        hotArray.forEach(function(item,index){
+        	item.hover(function(){
+        		rectArray[index].animate({transform:"r45s1.2"});
+        		textArray[index].animate({transform:"s1.2"});
+        		hotArray[index].animate({transform:"s1.2"});
+        	},function(){
+        		rectArray[index].animate({transform:"r45"})
+        		textArray[index].animate({transform:"s1"})
+        		hotArray[index].animate({transform:"s1"})
+        	})
+        })
 //        for(var i=0;i<rectArray.length;i++){
 //        	rectArray[i].hover(function(){
 //        		textArray[i].animate({"font-size":"18"},700,"ease");
@@ -135,11 +238,69 @@ function loadSvg(){
 }
 };
     loadSvg();
+    var setTime;
     window.onresize=function(){
-        $("#papersvg").html('');
-        loadSvg();
+    	clearTimeout(setTime);
+    	setTime = setTimeout(function(){    		
+    		$("#papersvg").html('');
+            loadSvg();
+    	},500)
+        
     };
-
-
-
+    function nodeClick(e,t){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+        alertCon.show();
+        var index = t.data("index");
+        var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
+        var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
+        var trianglePos = triangleStep * (index + 1);
+        $(".triangle").css("left",trianglePos);
+        alertCon.css({left:X - trianglePos + 12,top:Y - 144});
+    }
+    $(document).on("click",".infoConnect",function(){
+        // var topicId = $(this).find("span").data("id");
+        // var topic = $(this).prev().text();
+        // topic = topic.split("#");
+        // topic = topic[1]
+    	var topic = "热点热点热点";
+        var content = "";
+        content += '<input class="releateTag" placeholder="请输入关键字" />';
+        content += '<div style="display:inline-block;width:40px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
+        content += '<div class="selectTag" title='+topic+'>'+topic+'</div>';
+        var pop = new Pop({
+            width:"380px",
+            header:"请输入需要与该热点关联的信息",
+            content:content,
+            buttons:[{
+                type:"popCancle",
+                text:"取消"
+            },{
+                type:"popOk",
+                text:"确定",
+                callback:function(){
+                    var query = $(document).find(".popWin").find(".releateTag").val();
+                    var hotTopic = $(document).find(".popWin").find(".selectTag").text();
+                    if(query.trim() == ""){                    
+                    }else{
+                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
+                    }               
+                }
+            }]
+        })
+    })
+    $(document).on("click",function(){
+    	alertCon.hide();
+    })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+   $('#allHot').on('click',function(){
+	   $('#allHot').addClass('hidecommon');
+	   $('#all_hot').removeClass('hidecommon');
+	   $('#all_hot').animate({
+		   opacity:1
+	   },500);
+	   $('#ser_section').animate({
+		   height:0
+	   },500);
+	   $('.notify-list').addClass('hidecommon');
+	   $('#nav_ser').delay("fast").fadeIn();
+   }); 
