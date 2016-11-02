@@ -54,7 +54,20 @@
 	
 	//设置为历史记录
 	$('#ser_text').focus(function(e){
-		e ? e.stopPropagation() : event.cancelBubble = true;	
+		alertCon.hide();
+		e ? e.stopPropagation() : event.cancelBubble = true;
+		var width = $(".ser_section input").width();
+		var scrollY = window.scrollY;
+        if(scrollY == undefined){
+            scrollY = window.pageYOffset
+        }
+        var scrollX = window.scrollX;
+        if(scrollX == undefined){
+            scrollX = window.pageXOffset
+        }
+		var top = $(".ser_section input").get(0).getBoundingClientRect().top + scrollY + 38;
+		var left = $(".ser_section input").get(0).getBoundingClientRect().left + scrollX;
+		$('#cook_ul').css({width:width+12,top:top,left:left});
 		$('#cook_ul').removeClass('hidecommon');
 	});
 	$('#ser_text').blur(function(){
@@ -131,6 +144,7 @@ var textArray = [];
 var alertCon = $(".alertCon");
 var idArray = [1,2,3,4,5,6,7,8,9,10];
 var triangleStep = 35;
+var canClick = true;
 function loadSvg(){
         var width = $("#papersvg").css("width");
     width = width.split("px")[0];
@@ -146,7 +160,6 @@ function loadSvg(){
     var returndata = eval('('+jsonstr+')');
     console.log(returndata.length)
     for(var i=0;i<10;i++){
-        console.log(returndata[i].weight)
         yArray.push(100-returndata[i].weight)
     }
     var baseLine = "M 0 100 R ";
@@ -187,41 +200,53 @@ function loadSvg(){
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] - 12,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
         	var hotArrayItem = paper.text(xArray[i],yArray[i],returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
-        	textArray.push(textArrayItem);
-        	rectArray.push(rectArrayItem);
-        	hotArray.push(hotArrayItem);
+        	textArray[i] = textArrayItem;
+        	rectArray[i] = rectArrayItem;
+        	hotArray[i] = hotArrayItem;
         }
         rectArray.forEach(function(item,index){
         	item.hover(function(){
-        		rectArray[index].animate({transform:"r45s1.2"})
-        		textArray[index].animate({transform:"s1.2"})
-        		hotArray[index].animate({transform:"s1.2"})
+                if(canClick){
+                    rectArray[index].animate({transform:"r45s1.2"})
+                    textArray[index].animate({transform:"s1.2"})
+                    hotArray[index].animate({transform:"s1.2"}) 
+                }        		
         	},function(){
-        		rectArray[index].animate({transform:"r45"})
-        		textArray[index].animate({transform:"s1"})
-        		hotArray[index].animate({transform:"s1"})
+                if(canClick){
+            		rectArray[index].animate({transform:"r45"})
+            		textArray[index].animate({transform:"s1"})
+            		hotArray[index].animate({transform:"s1"})
+                }
         	})
         })
         textArray.forEach(function(item,index){
         	item.hover(function(){
-        		rectArray[index].animate({transform:"r45s1.2"})
-        		textArray[index].animate({transform:"s1.2"})
-        		hotArray[index].animate({transform:"s1.2"})
+        		if(canClick){
+                    rectArray[index].animate({transform:"r45s1.2"});
+                    textArray[index].animate({transform:"s1.2"});
+                    hotArray[index].animate({transform:"s1.2"}); 
+                }    
         	},function(){
-        		rectArray[index].animate({transform:"r45"})
-        		textArray[index].animate({transform:"s1"})
-        		hotArray[index].animate({transform:"s1"})
+        		 if(canClick){
+                    rectArray[index].animate({transform:"r45"});
+                    textArray[index].animate({transform:"s1"});
+                    hotArray[index].animate({transform:"s1"});
+                }
         	})
         })
         hotArray.forEach(function(item,index){
         	item.hover(function(){
-        		rectArray[index].animate({transform:"r45s1.2"});
-        		textArray[index].animate({transform:"s1.2"});
-        		hotArray[index].animate({transform:"s1.2"});
+        		if(canClick){
+                    rectArray[index].animate({transform:"r45s1.2"});
+                    textArray[index].animate({transform:"s1.2"});
+                    hotArray[index].animate({transform:"s1.2"}); 
+                }    
         	},function(){
-        		rectArray[index].animate({transform:"r45"})
-        		textArray[index].animate({transform:"s1"})
-        		hotArray[index].animate({transform:"s1"})
+        		 if(canClick){
+                    rectArray[index].animate({transform:"r45"});
+                    textArray[index].animate({transform:"s1"});
+                    hotArray[index].animate({transform:"s1"});
+                }
         	})
         })
 //        for(var i=0;i<rectArray.length;i++){
@@ -240,22 +265,41 @@ function loadSvg(){
     loadSvg();
     var setTime;
     window.onresize=function(){
+    	if(!$('#cook_ul').hasClass("hidecommon")){
+    		var width = $(".ser_section input").width();
+    		$('#cook_ul').css("width",width+12);
+    	}
     	clearTimeout(setTime);
     	setTime = setTimeout(function(){    		
     		$("#papersvg").html('');
             loadSvg();
-    	},500)
-        
+    	},500)        
     };
     function nodeClick(e,t){
-    	e ? e.stopPropagation() : event.cancelBubble = true;
-        alertCon.show();
-        var index = t.data("index");
-        var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
-        var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
-        var trianglePos = triangleStep * (index + 1);
-        $(".triangle").css("left",trianglePos);
-        alertCon.css({left:X - trianglePos + 12,top:Y - 144});
+    	console.log("click");
+    	if(canClick){
+    		e ? e.stopPropagation() : event.cancelBubble = true;
+            var index = t.data("index");
+            var scrollY = window.scrollY;
+            if(scrollY == undefined){
+                scrollY = window.pageYOffset
+            }
+            var scrollX = window.scrollX;
+            if(scrollX == undefined){
+                scrollX = window.pageXOffset
+            }
+            var jqObj = $("rectArray[index].node");
+            var offset = jqObj.offset();
+            var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
+            var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
+            var trianglePos = triangleStep * (index + 1);
+            $(".triangle").css("left",trianglePos);
+            console.log(rectArray[index]);
+            console.log(rectArray[index].node.getBoundingClientRect().left);
+            console.log(offset);
+            alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
+            alertCon.show();
+    	}    	
     }
     $(document).on("click",".infoConnect",function(){
         // var topicId = $(this).find("span").data("id");
@@ -293,6 +337,7 @@ function loadSvg(){
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
+	   canClick = false;
 	   $('#allHot').addClass('hidecommon');
 	   $('#all_hot').removeClass('hidecommon');
 	   $('#all_hot').animate({
