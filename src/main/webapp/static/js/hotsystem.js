@@ -347,5 +347,5 @@ function loadSvg(){
 		   height:0
 	   },500);
 	   $('.notify-list').addClass('hidecommon');
-	   $('#nav_ser').delay("fast").fadeIn();
+	   $('.nav_ser').delay("fast").fadeIn();
    }); 
