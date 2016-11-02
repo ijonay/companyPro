@@ -77,9 +77,39 @@
    						<li>关联此热地</li>
    						<li class="hot_arrow"></li>
    					</ul>
-   					<div class="all_hot_list_bot">
-   						
-   					</div>
+   					<ul class="all_hot_list_bot">
+   					    <li class="li-first">
+   					        <div class="type-img fl"><div style="width:48px;height:48px;background:#fff;margin-top:18px;"></div></div>
+   					        <div class="type-content fl">
+   					            <div style="line-height:18px;"><span class="content-article">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</span><span class="content-sum">阅读量：<b>30004万</b></span></div>
+   					            <div class="content-desc">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</div>
+   					        </div>
+   					    </li>
+   						<li>
+   						   <div class="type-icon fl"></div>
+   						   <span class="type-title weixin-color fl">微信</span>
+   						   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+   						   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+   						</li>
+   						<li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>
+                           <span class="type-title baidu-color fl">百度</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>
+                           <span class="type-title zhihu-color fl">知乎</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>
+                           <span class="type-title weibo-color fl">微博</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+   					</ul>
    				</li>
    				<li>
    					<ul class="all_hot_list_top">
