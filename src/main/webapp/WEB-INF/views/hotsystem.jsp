@@ -41,8 +41,100 @@
    </div>
    <div class="allHot pointer" id="allHot">全部热点</div>	
    
-   <div class="all_hot hidecommon" id="all_hot">
-   		<div class="all_hot_section" id="all_hot_section">全部热点</div>
+   <div class="all_hot" id="all_hot">
+   		<div class="all_hot_section" id="all_hot_section">
+   			<div class="prf comeback_hot pointer">回到首页</div>
+   			<ul class="hot_ifo_title f18">
+   			    <li class="hot_ifo_title_img fl"></li>
+   				<li class="fl">全部热点</li>
+   			</ul>
+   			<ul class="all_hot_bar">
+   				<li>排名</li>
+   				<li>热点名称</li>
+   				<li>来源</li>
+   				<li>热度</li>
+   				<li>操作</li>
+   			</ul>
+   			<ul class="all_hot_list">
+   				<li>
+   					<ul class="all_hot_list_top">
+   						<li>1</li>
+   						<li class="all_hot_top_topic">
+   							<p>热地名称热地名称</p>
+   							<div>执法</div>
+   							<div>刑事犯罪</div>
+   						</li>
+   						<li class="all_hot_list_top_source">
+   							<div></div><div></div><div></div><div></div>
+   						</li>
+   						<li>99</li>
+   						<li>关联此热地</li>
+   						<li class="hot_arrow"></li>
+   					</ul>
+   					<div class="all_hot_list_bot">
+   						
+   					</div>
+   				</li>
+   				<li>
+   					<ul class="all_hot_list_top">
+   						<li>1</li>
+   						<li class="all_hot_top_topic">
+   							<p>热地名称热地名称</p>
+   							<div>执法</div>
+   							<div>刑事犯罪</div>
+   						</li>
+   						<li class="all_hot_list_top_source">
+   							<div></div><div></div><div></div><div></div>
+   						</li>
+   						<li>99</li>
+   						<li>关联此热地</li>
+   						<li class="hot_arrow"></li>
+   					</ul>
+   					<div class="all_hot_list_bot">
+   						
+   					</div>
+   				</li>
+   				<li>
+   					<ul class="all_hot_list_top">
+   						<li>1</li>
+   						<li class="all_hot_top_topic">
+   							<p>热地名称热地名称</p>
+   							<div>执法</div>
+   							<div>刑事犯罪</div>
+   						</li>
+   						<li class="all_hot_list_top_source">
+   							<div></div><div></div><div></div><div></div>
+   						</li>
+   						<li>99</li>
+   						<li>关联此热地</li>
+   						<li class="hot_arrow"></li>
+   					</ul>
+   					<div class="all_hot_list_bot">
+   						
+   					</div>
+   				</li>
+   				<li>
+   					<ul class="all_hot_list_top">
+   						<li>1</li>
+   						<li class="all_hot_top_topic">
+   							<p>热地名称热地名称</p>
+   							<div>执法</div>
+   							<div>刑事犯罪</div>
+   						</li>
+   						<li class="all_hot_list_top_source">
+   							<div></div><div></div><div></div><div></div>
+   						</li>
+   						<li>99</li>
+   						<li>关联此热地</li>
+   						<li class="hot_arrow"></li>
+   					</ul>
+   					<div class="all_hot_list_bot">
+   						
+   					</div>
+   				</li>
+   				
+   			</ul>
+   		</div>
    </div>
    <div class="alertCon">
     <div class="portrait"></div>
