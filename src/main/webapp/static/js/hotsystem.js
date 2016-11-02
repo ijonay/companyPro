@@ -338,6 +338,7 @@ function loadSvg(){
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
 	   $('#ser_section').css('min-height',0);
+	   $('#ser_section').css('opacity',0);
 	   canClick = false;
 	   $('#allHot').addClass('hidecommon');
 	   $('#all_hot').removeClass('hidecommon');
@@ -350,8 +351,9 @@ function loadSvg(){
    }); 
    //返回首页
     $('#comeback_hot').on('click',function(){
-    	canClick = true;
-    	 $('#ser_section').css('min-height','330px');
+       canClick = true;
+       $('#ser_section').css('opacity',1);
+       $('#ser_section').css('min-height','330px');
 	   $('#allHot').removeClass('hidecommon');
 	   $('#all_hot').addClass('hidecommon');
 	   $('#all_hot').animate({
