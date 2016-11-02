@@ -324,7 +324,7 @@
             var dt = this.date,
                 idt = new Date(y, m - 1, d),
                 data = {
-                    w: (this.width-64) / 7,
+                    w: (this.width-50) / 7,
                     h: 28,
                     value: d
                 },
@@ -402,7 +402,7 @@
                 weekArray = this.options.weekArray,
                 start = this.options.startWeek,
                 len = weekArray.length,
-                w = (this.width-64) / 7,
+                w = (this.width-50) / 7,
                 h = 14;
 
             for (var i = start; i < len; i++) {

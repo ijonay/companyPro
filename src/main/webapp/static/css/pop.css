@@ -49,7 +49,6 @@
 	font-size:16px;
     color:rgba(0,0,0,0.4);
     border-radius:2px;
-    border:1px solid rgba(0,0,0,0.4);
     cursor:pointer;
     border:1px solid rgba(74, 74, 74,0.4);
     width:60px;
@@ -59,6 +58,13 @@
     margin:0 12px 0 0;
     position:relative;
     top:1px;
+    transition:all .3s;
+}
+.popCancle:hover{
+	color:#fff;
+	border-radius:16px;
+	background-color:#389b9f;
+	border:1px solid transparent;
 }
 .popOk{
 	display:inline-block;
@@ -71,8 +77,9 @@
     border-radius:2px;
     background-color:#389b9f;
     text-align:center;
+    transition:all .3s;
 }
-.popCancle:hover{
-	color:#fff;
-	background-color:#389b9f;
+.popOk:hover{
+	border-radius:16px;
+	
 }

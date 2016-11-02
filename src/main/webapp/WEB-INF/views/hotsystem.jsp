@@ -17,13 +17,7 @@
 			 
 			 <div class="pointer ser_btn f16 ac fl" id="ser_btn_high">高级探索</div>
 			 <div class="pointer ser_btn f16 ac" id="ser_btn">探索</div>
-			 <div class="pos favorite_set_btn pointer hidecommon f14" id="favorite_set_btn">设为常用</div>
-			 <ul class="cook_ul pos hidecommon" id="cook_ul">
-    			<li>手机2<span></span></li>
-				<li>苹果2<span></span></li>
-				<li>三星2<span></span></li>
-				<li>华为2<span></span></li>			
-    		 </ul>
+			 <div class="pos favorite_set_btn pointer hidecommon f14" id="favorite_set_btn">设为常用</div>			 
 		</div>
 		
 		<div class="favorite_div f12">
@@ -79,9 +73,39 @@
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
    					</ul>
-   					<div class="all_hot_list_bot">
-   						
-   					</div>
+   					<ul class="all_hot_list_bot">
+   					    <li class="li-first">
+   					        <div class="type-img fl"><div style="width:48px;height:48px;background:#fff;margin-top:18px;"></div></div>
+   					        <div class="type-content fl">
+   					            <div style="line-height:18px;"><span class="content-article">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</span><span class="content-sum">阅读量：<b>30004万</b></span></div>
+   					            <div class="content-desc">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</div>
+   					        </div>
+   					    </li>
+   						<li>
+   						   <div class="type-icon fl"></div>
+   						   <span class="type-title weixin-color fl">微信</span>
+   						   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+   						   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+   						</li>
+   						<li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>
+                           <span class="type-title baidu-color fl">百度</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>
+                           <span class="type-title zhihu-color fl">知乎</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>
+                           <span class="type-title weibo-color fl">微博</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+   					</ul>
    				</li>
    				<li>
    					<ul class="all_hot_list_top">
@@ -100,9 +124,9 @@
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
    					</ul>
-   					<div class="all_hot_list_bot">
+<!--    					<div class="all_hot_list_bot"> -->
    						
-   					</div>
+<!--    					</div> -->
    				</li>
    				<li>
    					<ul class="all_hot_list_top">
@@ -121,13 +145,13 @@
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
    					</ul>
-   					<div class="all_hot_list_bot">
-   						
-   					</div>
+   					
    				</li>
    				<li>
    					<ul class="all_hot_list_top">
-   						<li class="hot_circle_num">1</li>
+   						<li>
+   							<span  class="hot_circle_num">1</span>
+   						</li>
    						<li class="all_hot_top_topic">
    							<p>热地名称热地名称</p>
    							<div>执法</div>
@@ -140,9 +164,7 @@
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
    					</ul>
-   					<div class="all_hot_list_bot">
-   						
-   					</div>
+   					
    				</li>
    				
    			</ul>
@@ -170,6 +192,12 @@
     </div>
     <div class="triangle"></div>
 </div>
+<ul class="cook_ul pos hidecommon" id="cook_ul">
+   			<li>手机2<span></span></li>
+			<li>苹果2<span></span></li>
+			<li>三星2<span></span></li>
+			<li>华为2<span></span></li>			
+   		 </ul>
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
