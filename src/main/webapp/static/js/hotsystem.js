@@ -265,11 +265,11 @@ function loadSvg(){
     	var topic = "热点热点热点";
         var content = "";
         content += '<input class="releateTag" placeholder="请输入关键字" />';
-        content += '<div style="display:inline-block;width:40px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
+        content += '<div style="display:inline-block;width:52px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
         content += '<div class="selectTag" title='+topic+'>'+topic+'</div>';
         var pop = new Pop({
-            width:"380px",
-            header:"请输入需要与该热点关联的信息",
+            width:"422px",
+            header:"请补充探索关键字",
             content:content,
             buttons:[{
                 type:"popCancle",

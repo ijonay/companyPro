@@ -82,6 +82,26 @@ body{
 	background-attachment:fixed;
 }
 /*弹出层样式 */
+.releateTag{
+    height: 38px;
+    line-height: 38px;
+    width:152px;
+    font-size: 16px;
+    padding-left:10px;
+    vertical-align: top;
+}
+.selectTag{
+    display: inline-block;
+    width:152px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #ececec;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap
+}
 .alertCon{
     display:none;
     position:absolute;
