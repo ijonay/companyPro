@@ -278,7 +278,7 @@ body{
 .all_hot_list_top{height:60px;line-height:60px;background:#fff;padding-left:30px;border-bottom:1px solid #eee}
 .all_hot_list_top >li{float:left;} 
 .all_hot_list_top li:nth-child(1){
-	width:28px;margin-right:22px;
+	width:28px;margin-right:22px;font-size:18px;
 }
 .all_hot_list_top li:nth-child(2){
 	width:40%;
@@ -305,7 +305,8 @@ body{
 	margin-right:30px;
 }
 .hot_circle_num{
-	padding: 5px 9px;
+	
+	padding: 5px 10px;
     border-radius: 50%;
     background: #389b9f;
     color:#fff;

@@ -357,8 +357,18 @@ function loadSvg(){
 		   opacity:0
 	   },500);
 	   $('#ser_section').css("height",'calc(100% - 292px)');
-	   $('.notify-list').addClass('hidecommon');
-	   $('#nav_ser').delay("fast").fadeOut();
+	   $('.notify-list').removeClass('hidecommon');
+	   $('.nav_ser').delay("fast").fadeOut();
 	  
     }) 
+    //切换效果
+    $('.all_hot_list_bot:not(":first")').css('display','none');
+    $('.all_hot_list_top').on('click',function(){
+    	console.log('1111')
+    	var _this = $(this).next('.all_hot_list_bot');
+    	_this.show().siblings().hide();
+    })
+    
+    
+    
     
