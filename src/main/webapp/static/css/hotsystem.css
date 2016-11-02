@@ -14,11 +14,11 @@
 .ser_section{
 	overflow:hidden;
 	width:100%;
-	height:-moz-calc(100% - 292px);
-	height:-webkit-calc(100% - 292px);
-	height:-o-calc(100% - 292px);
-	height:-ms-calc(100% - 292px);
-	height:calc(100% - 292px);
+	height:-moz-calc(100% - 272px);
+	height:-webkit-calc(100% - 272px);
+	height:-o-calc(100% - 272px);
+	height:-ms-calc(100% - 272px);
+	height:calc(100% - 272px);
 	padding:0px 320px 0px;
 	min-height:330px;
 	transition:all .5s;
@@ -30,7 +30,8 @@
 .ser_text:focus{border:2px solid #389b9f;} 
 .ser_btn{width:88px;float:right;background-color:#389b9f;color:#fff;height:38px;line-height:38px;}
 #ser_btn{margin-right:10px;border-top-right-radius:2px;border-bottom-right-radius:2px}
-#ser_btn_high{border-radius:2px;}
+#ser_btn_high{border-radius:2px;color:#fff;width:88px;height:38px;line-height:38px;}
+#ser_btn_high:hover{color:#389b9f}
 .favorite_set_btn{right:192px;top:5px;padding:4px 6px;background:#389b9f;color:#fff;border-radius:2px;}
 .favorite_set_btn:before{
 	content:'';
@@ -46,7 +47,7 @@
 .favorite_div{margin-top:4px;height:20px;line-height:20px;min-width:450px;width:-o-calc(100% - 186px);width:calc-moz-(100% - 186px);width:calc-ms-(100% - 186px);width:-webkit-calc(100% - 186px);width:calc(100% - 186px);}
 .favorite_set_text{color:rgba(255,255,255,.5);margin-right:14px;}
 .favorite_ul{max-width:360px;display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
-.favorite_ul li{max-width:69px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;;cursor:pointer;position:relative;float:left;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;}
+.favorite_ul li{max-width:80px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;;cursor:pointer;position:relative;float:left;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;}
 .favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(0,0,0,.3);}
 .favorite_ul li:hover span{background:url(../img/favorite_close.png) no-repeat;}
 .favorite_ul li span{cursor:pointer;position:absolute;top:5px;right:8px;width:8px;height:8px;}
@@ -165,6 +166,7 @@ body{
     border-radius: 11px;
     background-color: #389b9f;
     color:#fff;
+    cursor:pointer;
 }
 .hotInfo{
     position: absolute;
@@ -173,6 +175,7 @@ body{
     display: inline-block;
     width: 100%;
     padding: 0 0 12px 0;
+    cursor:pointer;
 }
 .infoText{
     overflow: hidden;
@@ -248,7 +251,10 @@ body{
 	left:50%;
 	transform:translate(-50%);
 	border:1px solid #389b9f;
-	bottom:22px;
+	transition:all .3s;
+}
+.allHot:hover{
+	border-radius:17px;
 }
 .all_hot{padding-left:48px;padding-right:48px;width:100%;
  filter:alpha(opacity=0);-moz-opacity:0;opacity:0;
@@ -279,7 +285,7 @@ body{
 .all_hot_list_top{height:60px;line-height:60px;background:#fff;padding-left:30px;border-bottom:1px solid #eee}
 .all_hot_list_top >li{float:left;} 
 .all_hot_list_top li:nth-child(1){
-	width:28px;margin-right:22px;
+	width:28px;margin-right:22px;font-size:18px;
 }
 .all_hot_list_top li:nth-child(2){
 	width:40%;
@@ -294,7 +300,7 @@ body{
 	width:8%;text-align:center;
 }
 .all_hot_list_top li:nth-child(6){
-	width:2%;margin-left:35px;background:url(../img/hot_arrow.png) no-repeat; height: 10px;
+	width:2%;margin-left:35px;background:url(../img/hot_arrow.png) no-repeat center center; height: 10px;
     margin-top: 26px;
 }
 .hot_relation{cursor:pointer;font-size:14px;}
@@ -306,7 +312,8 @@ body{
 	margin-right:30px;
 }
 .hot_circle_num{
-	padding: 5px 9px;
+	
+	padding: 5px 10px;
     border-radius: 50%;
     background: #389b9f;
     color:#fff;

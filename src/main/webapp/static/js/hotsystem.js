@@ -359,9 +359,29 @@ function loadSvg(){
 	   $('#all_hot').animate({
 		   opacity:0
 	   },500);
-	   $('#ser_section').css("height",'calc(100% - 292px)');
-	   $('.notify-list').addClass('hidecommon');
-	   $('#nav_ser').delay("fast").fadeOut();
+	   $('#ser_section').css("height",'calc(100% - 272px)');
+	   $('.notify-list').removeClass('hidecommon');
+	   $('.nav_ser').delay("fast").fadeOut();
 	  
     }) 
+    //切换效果
+    $('.all_hot_list_bot:not(":first")').css('display','none');
+    $('.all_hot_list_top:first').find('.hot_arrow').css('transform','rotate(180deg)');
+    $('.all_hot_list_top').on('click',function(){
+    	if($(this).next().css('display') == 'block'){
+    		$(this).next().hide();
+    		$(this).find(".hot_arrow").css("transform","rotate(0deg)")
+    	}else{
+    		$(this).parent().parent().find(".all_hot_list_bot").hide();
+        	$(this).next().show();
+        	$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
+        	$(this).find(".hot_arrow").css("transform","rotate(180deg)")
+    	}
+    	
+    	//$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
+    	
+    });
+    
+    
+    
     
