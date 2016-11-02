@@ -1,7 +1,7 @@
 /* //本页面公用，通用的一些样式 */
 @CHARSET "UTF-8";
 @media screen and (max-width:1200px ) {
-    body{min-width: 1200px;overflow-x: auto!important;}
+    body{min-width: 1200px;min-height:540px!important;overflow-x: auto!important;overflow-y: scroll!important;}
 }  
 .row {
      margin-right: 0px; 
@@ -41,9 +41,9 @@
 	border-bottom:7px solid transparent;
 	top:7px;
 }
-.favorite_div{margin-top:4px;height:20px;line-height:20px;width:-o-calc(100% - 186px);width:calc-moz-(100% - 186px);width:calc-ms-(100% - 186px);width:-webkit-calc(100% - 186px);width:calc(100% - 186px);}
+.favorite_div{margin-top:4px;height:20px;line-height:20px;min-width:450px;width:-o-calc(100% - 186px);width:calc-moz-(100% - 186px);width:calc-ms-(100% - 186px);width:-webkit-calc(100% - 186px);width:calc(100% - 186px);}
 .favorite_set_text{color:rgba(255,255,255,.5);margin-right:14px;}
-.favorite_ul{display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
+.favorite_ul{max-width:360px;display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
 .favorite_ul li{max-width:69px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;;cursor:pointer;position:relative;float:left;color:rgba(42,211,218,.5);padding:0 20px 0px 8px;}
 .favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(0,0,0,.3);}
 .favorite_ul li:hover span{background:url(../img/favorite_close.png) no-repeat;}
