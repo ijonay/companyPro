@@ -31,51 +31,23 @@
 			</ul>
 		</div>
    </div>
-   <div class="ser_dialog hidecommon" id="ser_dialog">
+   <div class="ser_dialog" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
-   			<div class="dialog_title">高级搜索<span></span></div>
-   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">热点事件标签</p>
+   			<div class="dialog_title">高级探索<span class="ser_dialog_close"></span></div>
+   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
    			<ul class="dialog_tab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos">1</span></li>
-   				<li class="pst">政治经济<span class="pos">1</span></li>
-   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
    			</ul>
    			
-   			<div class="dislog_inp_con">
+   			<div class="dislog_inp_con dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全1</label>
+   						<label><input type="checkbox">医药安全2</label>
+   						<label><input type="checkbox">医药安全3</label>
+   						
    					</li>
    					<li class="inp_select_all fr">
    						<label><input type="checkbox">全选</label>
@@ -83,9 +55,9 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全4</label>
+   						<label><input type="checkbox">医药安全5</label>
+   						<label><input type="checkbox">医药安全6</label>
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -103,12 +75,12 @@
    			</div>
    			
    			<ul class="dialog_tab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos">1</span></li>
-   				<li class="pst">政治经济<span class="pos">1</span></li>
-   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
    			</ul>
    			
-   			<div class="dislog_inp_con">
+   			<div class="dislog_inp_con dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
    						<label><input type="checkbox">医药安全</label>
@@ -144,16 +116,16 @@
    				</ul>
    			</div>
    			
-   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">人群热点标签</p>
+   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">人群标签筛选</p>
    			
    			
    			<ul class="dialog_tab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos">1</span></li>
-   				<li class="pst">政治经济<span class="pos">1</span></li>
-   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos">0</span></li>
    			</ul>
    			
-   			<div class="dislog_inp_con">
+   			<div class="dislog_inp_con dialog_tab_person">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
    						<label><input type="checkbox">医药安全</label>
@@ -189,10 +161,10 @@
    				</ul>
    			</div>
    			
-   			<div class="dialog_inp_c f12 hidecommon">
+   			<div class="dialog_inp_c f12">
    				<ol class="fl dialog_inp_c_data">
-   					<li>我的 测试1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111<span></span></li>
-   					<li>我的 测试<span></span></li>
+   					<li id="inp_data_event"><span></span></li>
+   					<li id="inp_data_person"><span></span></li>
    					
    				</ol>
    				

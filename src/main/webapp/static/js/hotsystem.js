@@ -129,14 +129,14 @@
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
-	$('.dialog_area span').on('click',function(){
+	$('.dialog_area .ser_dialog_close').on('click',function(){
 		$('#ser_dialog').addClass('hidecommon');
 	});
 	
 	$('.dialog_tab li').on('click',function(){
-		
 		var $t = $(this).index();
 		var $ul = $(this).parent().next().find('ul');
+	
 		if($ul.eq($t).css('display')=='block'){
 			$(this).removeClass('cor389b9f');
 			$(this).removeClass('hot_arrow_up');
@@ -150,17 +150,29 @@
 			$(this).addClass('hot_arrow_up');
 		}
 	});
-	//滚动条
-//	
-//	$('.inp_ch_list').niceScroll({
-//        cursorcolor: "#ccc",//#CC0071 光标颜色
-//        cursoropacitymax: 1, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0
-//        touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备
-//        cursorwidth: "5px", //像素光标的宽度
-//        cursorborder: "0", // 	游标边框css定义
-//        cursorborderradius: "5px",//以像素为光标边界半径
-//        autohidemode: false //是否隐藏滚动条
-//    });
+	
+	//事件标签点击
+	$('.dialog_tab_event  input').on('click',function(){
+		var num = Number($('.cor389b9f').find('span').text());
+		var textCon = $(this).parent().text();
+		console.log($(this).parent().text())
+		if($(this).is(':checked')){
+			$('.cor389b9f').find('span').css('display','block');
+			$('.cor389b9f').find('span').text(num+1);
+			$('#inp_data_event').prepend('<i>、'+textCon+'</i>');
+		}else{
+			if(num==1){
+				$('.cor389b9f').find('span').css('display','none');
+			};
+			$('.cor389b9f').find('span').text(num-1);
+			$('#inp_data_event i').each(function(i,item){
+				if(item.innerHTML.indexOf(textCon)>-1){
+					$(this).remove();
+				}
+			})
+		};
+	})
+
 
 	
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
