@@ -42,11 +42,11 @@
    			</ul>
    			
    			<div class="dislog_inp_con">
-   				<ul class="hidecommon">
+   				<ul class="">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全阿萨好</label>
+   						<label><input type="checkbox">医药安全去偶尔接斧头</label>
+   						<label><input type="checkbox">医药安全那么多空</label>
    						<label><input type="checkbox">医药安全</label>
    						<label><input type="checkbox">医药安全</label>
    						<label><input type="checkbox">医药安全</label>
@@ -189,9 +189,9 @@
    				</ul>
    			</div>
    			
-   			<div class="dialog_inp_c f12 hidecommon">
+   			<div class="dialog_inp_c f12">
    				<ol class="fl dialog_inp_c_data">
-   					<li>我的 测试1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111<span></span></li>
+   					<li>我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试、我的测试<span></span></li>
    					<li>我的 测试<span></span></li>
    					
    				</ol>
