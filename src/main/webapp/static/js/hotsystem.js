@@ -131,7 +131,37 @@
 	
 	$('.dialog_area span').on('click',function(){
 		$('#ser_dialog').addClass('hidecommon');
-	})
+	});
+	
+	$('.dialog_tab li').on('click',function(){
+		
+		var $t = $(this).index();
+		var $ul = $(this).parent().next().find('ul');
+		if($ul.eq($t).css('display')=='block'){
+			$(this).removeClass('cor389b9f');
+			$(this).removeClass('hot_arrow_up');
+			$ul.eq($t).css('display','none');
+		}else{
+			$('.dislog_inp_con').find('ul').css('display','none');
+			$ul.eq($t).css('display','block');
+			$('.dialog_tab li').removeClass('cor389b9f');
+			$(this).addClass('cor389b9f');
+			$('.dialog_tab li').removeClass('hot_arrow_up')
+			$(this).addClass('hot_arrow_up');
+		}
+	});
+	//滚动条
+//	
+//	$('.inp_ch_list').niceScroll({
+//        cursorcolor: "#ccc",//#CC0071 光标颜色
+//        cursoropacitymax: 1, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0
+//        touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备
+//        cursorwidth: "5px", //像素光标的宽度
+//        cursorborder: "0", // 	游标边框css定义
+//        cursorborderradius: "5px",//以像素为光标边界半径
+//        autohidemode: false //是否隐藏滚动条
+//    });
+
 	
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 var paper;
@@ -366,9 +396,29 @@ function loadSvg(){
 	   $('#all_hot').animate({
 		   opacity:0
 	   },500);
-	   $('#ser_section').css("height",'calc(100% - 292px)');
-	   $('.notify-list').addClass('hidecommon');
-	   $('#nav_ser').delay("fast").fadeOut();
+	   $('#ser_section').css("height",'calc(100% - 272px)');
+	   $('.notify-list').removeClass('hidecommon');
+	   $('.nav_ser').delay("fast").fadeOut();
 	  
     }) 
+    //切换效果
+    $('.all_hot_list_bot:not(":first")').css('display','none');
+    $('.all_hot_list_top:first').find('.hot_arrow').css('transform','rotate(180deg)');
+    $('.all_hot_list_top').on('click',function(){
+    	if($(this).next().css('display') == 'block'){
+    		$(this).next().hide();
+    		$(this).find(".hot_arrow").css("transform","rotate(0deg)")
+    	}else{
+    		$(this).parent().parent().find(".all_hot_list_bot").hide();
+        	$(this).next().show();
+        	$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
+        	$(this).find(".hot_arrow").css("transform","rotate(180deg)")
+    	}
+    	
+    	//$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
+    	
+    });
+    
+    
+    
     

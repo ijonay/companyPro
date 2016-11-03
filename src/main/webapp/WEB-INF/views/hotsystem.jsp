@@ -15,7 +15,7 @@
    		<div class="ser_con row pst">
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 			 
-			 <div class="pointer ser_btn f16 ac fl" id="ser_btn_high">高级探索</div>
+			 <div class="pointer  f16 ac fr" id="ser_btn_high">高级探索</div>
 			 <div class="pointer ser_btn f16 ac" id="ser_btn">探索</div>
 			 <div class="pos favorite_set_btn pointer hidecommon f14" id="favorite_set_btn">设为常用</div>			 
 		</div>
@@ -23,17 +23,188 @@
 		<div class="favorite_div f12">
 			<span class="favorite_set_text">常用搜索:</span>
 			<ul class="favorite_ul" id="favorite_ul">
-				<li>手机1<span></span></li>
-				<li>苹果1<span></span></li>
-				<li>三星1<span></span></li>
-				<li>华为1<span></span></li>
+				<li title="1手手机手机手机手机手机手机手机手机机1">1手手机手机手机手机手机手机手机手机机1<span></span></li>
+				<li title="苹果苹果苹果苹果苹果苹果苹果苹果苹果苹果1">苹果苹果苹果苹果苹果苹果苹果苹果苹果苹果1<span></span></li>
+				<li title="三星三星三星三星三星三星三星三星三星三星1">三星三星三星三星三星三星三星三星三星三星1<span></span></li>
+				<li title="华为华为华为华为华为华为华为华为华为华为华为华为1">华为华为华为华为华为华为华为华为华为华为华为华为1<span></span></li>
+				<li title="华为华为华为华为华为华为华为华为华为华为华为华为1">华为华为华为华为华为华为华为华为华为华为华为华为1<span></span></li>
 			</ul>
 		</div>
    </div>
    <div class="ser_dialog hidecommon" id="ser_dialog">
-   		<div class="dialog_area">
-   			高级搜索
-   			<span style="float:right;">X</span>
+   		<div class="dialog_area corlor4a f18">
+   			<div class="dialog_title">高级搜索<span></span></div>
+   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">热点事件标签</p>
+   			<ul class="dialog_tab f14 corlor4a">
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   			</ul>
+   			
+   			<div class="dislog_inp_con">
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   			</div>
+   			
+   			<ul class="dialog_tab f14 corlor4a">
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   			</ul>
+   			
+   			<div class="dislog_inp_con">
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   			</div>
+   			
+   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">人群热点标签</p>
+   			
+   			
+   			<ul class="dialog_tab f14 corlor4a">
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   				<li class="pst">政治经济<span class="pos">1</span></li>
+   			</ul>
+   			
+   			<div class="dislog_inp_con">
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   				<ul class="hidecommon">
+   					<li class="inp_ch_list fl">
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox">医药安全</label>
+   						
+   					</li>
+   					<li class="inp_select_all fr">
+   						<label><input type="checkbox">全选</label>
+   					</li>
+   				</ul>
+   			</div>
+   			
+   			<div class="dialog_inp_c f12 hidecommon">
+   				<ol class="fl dialog_inp_c_data">
+   					<li>我的 测试1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111<span></span></li>
+   					<li>我的 测试<span></span></li>
+   					
+   				</ol>
+   				
+   				<div class="fl dialog_inp_del cor389b9f">清空已选标签</div>
+   				
+   			</div>
+   			
+   			<div class="dialog_ser">
+   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16">
+			 	<div class="pointer f16 ac fr" >探索</div>
+   			</div>
+   		
    		</div>
    </div>
    <div style="width:100%;height:160px;bottom:0;">
@@ -124,9 +295,39 @@
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
    					</ul>
-<!--    					<div class="all_hot_list_bot"> -->
-   						
-<!--    					</div> -->
+					<ul class="all_hot_list_bot">
+   					    <li class="li-first">
+   					        <div class="type-img fl"><div style="width:48px;height:48px;background:#fff;margin-top:18px;"></div></div>
+   					        <div class="type-content fl">
+   					            <div style="line-height:18px;"><span class="content-article">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</span><span class="content-sum">阅读量：<b>30004万</b></span></div>
+   					            <div class="content-desc">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</div>
+   					        </div>
+   					    </li>
+   						<li>
+   						   <div class="type-icon fl"></div>
+   						   <span class="type-title weixin-color fl">微信</span>
+   						   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+   						   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+   						</li>
+   						<li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>
+                           <span class="type-title baidu-color fl">百度</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>
+                           <span class="type-title zhihu-color fl">知乎</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>
+                           <span class="type-title weibo-color fl">微博</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+   					</ul>
    				</li>
    				<li>
    					<ul class="all_hot_list_top">
@@ -145,7 +346,39 @@
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
    					</ul>
-   					
+   					<ul class="all_hot_list_bot">
+   					    <li class="li-first">
+   					        <div class="type-img fl"><div style="width:48px;height:48px;background:#fff;margin-top:18px;"></div></div>
+   					        <div class="type-content fl">
+   					            <div style="line-height:18px;"><span class="content-article">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</span><span class="content-sum">阅读量：<b>30004万</b></span></div>
+   					            <div class="content-desc">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</div>
+   					        </div>
+   					    </li>
+   						<li>
+   						   <div class="type-icon fl"></div>
+   						   <span class="type-title weixin-color fl">微信</span>
+   						   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+   						   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+   						</li>
+   						<li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>
+                           <span class="type-title baidu-color fl">百度</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>
+                           <span class="type-title zhihu-color fl">知乎</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>
+                           <span class="type-title weibo-color fl">微博</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+   					</ul>
    				</li>
    				<li>
    					<ul class="all_hot_list_top">
@@ -163,6 +396,39 @@
    						<li>99</li>
    						<li class="hot_relation">关联此热点</li>
    						<li class="hot_arrow"></li>
+   					</ul>
+   					<ul class="all_hot_list_bot">
+   					    <li class="li-first">
+   					        <div class="type-img fl"><div style="width:48px;height:48px;background:#fff;margin-top:18px;"></div></div>
+   					        <div class="type-content fl">
+   					            <div style="line-height:18px;"><span class="content-article">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</span><span class="content-sum">阅读量：<b>30004万</b></span></div>
+   					            <div class="content-desc">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</div>
+   					        </div>
+   					    </li>
+   						<li>
+   						   <div class="type-icon fl"></div>
+   						   <span class="type-title weixin-color fl">微信</span>
+   						   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+   						   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+   						</li>
+   						<li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>
+                           <span class="type-title baidu-color fl">百度</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>
+                           <span class="type-title zhihu-color fl">知乎</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
+                        <li>
+                           <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>
+                           <span class="type-title weibo-color fl">微博</span>
+                           <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
+                           <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
+                        </li>
    					</ul>
    					
    				</li>
@@ -207,6 +473,7 @@
 <script src="js/raphael.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
+<script src="lib/divScroll.js"></script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
