@@ -196,10 +196,10 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
-            var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
-        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+            var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0,cursor:"pointer"}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
+        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
         	textArray[i] = textArrayItem;
         	rectArray[i] = rectArrayItem;
         	hotArray[i] = hotArrayItem;
@@ -273,10 +273,10 @@ function loadSvg(){
     	setTime = setTimeout(function(){    		
     		$("#papersvg").html('');
             loadSvg();
-    	},500)        
+    	},500)
     };
     function nodeClick(e,t){
-    	console.log("click");
+    	$('#cook_ul').addClass('hidecommon');
     	if(canClick){
     		e ? e.stopPropagation() : event.cancelBubble = true;
             var index = t.data("index");
@@ -294,9 +294,6 @@ function loadSvg(){
             var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
             var trianglePos = triangleStep * (index + 1);
             $(".triangle").css("left",trianglePos);
-            console.log(rectArray[index]);
-            console.log(rectArray[index].node.getBoundingClientRect().left);
-            console.log(offset);
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
             alertCon.show();
     	}    	
@@ -337,6 +334,11 @@ function loadSvg(){
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
+        for(var i=0,j=rectArray.length;i<j;i++){
+            rectArray[i].attr({cursor:"default"});
+            hotArray[i].attr({cursor:"default"});
+            textArray[i].attr({cursor:"default"});
+        }
 	   $('#ser_section').css('min-height',0);
 	   $('#ser_section').css('opacity',0);
 	   canClick = false;
@@ -352,6 +354,11 @@ function loadSvg(){
    //返回首页
     $('#comeback_hot').on('click',function(){
        canClick = true;
+       for(var i=0,j=rectArray.length;i<j;i++){
+           rectArray[i].attr({cursor:"pointer"});
+           hotArray[i].attr({cursor:"pointer"});
+           textArray[i].attr({cursor:"pointer"});
+       }
        $('#ser_section').css('opacity',1);
        $('#ser_section').css('min-height','330px');
 	   $('#allHot').removeClass('hidecommon');
