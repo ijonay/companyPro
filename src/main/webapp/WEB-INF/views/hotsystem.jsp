@@ -41,13 +41,13 @@
    				<li class="pst">政治经济<span class="pos">0</span></li>
    			</ul>
    			
+
    			<div class="dislog_inp_con dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
    						<label><input type="checkbox">医药安全1</label>
    						<label><input type="checkbox">医药安全2</label>
    						<label><input type="checkbox">医药安全3</label>
-   						
    					</li>
    					<li class="inp_select_all fr">
    						<label><input type="checkbox">全选</label>
@@ -165,7 +165,6 @@
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event"><span></span></li>
    					<li id="inp_data_person"><span></span></li>
-   					
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f">清空已选标签</div>

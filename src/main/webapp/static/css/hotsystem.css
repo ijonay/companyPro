@@ -114,6 +114,8 @@ input[type=checkbox]:checked::after {
 .dialog_tab li span{width:16px;height:16px;border-radius:50%;background:#389b9f;color:#fff;font-size:12px;text-align:center;line-height:16px;top:-4px;right:17px;}
 .dislog_inp_con ul{width:100%;height:70px;background:#e7ecde;padding:0 20px;position:relative;}
 .dislog_inp_con ul li{font-size:14px;}
+.dislog_inp_con ul li.inp_ch_list label{line-height:36px;width:124px;margin-bottom:0;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;margin-right:30px;float:left;}
+.dislog_inp_con ul li.inp_ch_list label input{width:14px;height:14px;vertical-align:top;margin-top:11px;margin-right:12px!important;}
 .inp_ch_list{width:660px;height:70px;padding-right:10px;  overflow-y: auto;}
 
 .inp_ch_list::-webkit-scrollbar-track {background-color: #78ebff;border-radius: 10px;}
@@ -125,13 +127,15 @@ input[type=checkbox]:checked::after {
 
 .dialog_inp_c{height:74px;margin:20px 0;padding:0 20px;}
 .dialog_inp_c_data {width:660px;height:74px;overflow-y:auto;}
+
 .dialog_inp_c_data::-webkit-scrollbar-track {background-color: #78ebff;border-radius: 10px;}
 .dialog_inp_c_data::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 0.2);border-radius: 10px;}
 .dialog_inp_c_data::-webkit-scrollbar-button {background-color: #7c2929;display: none;}
 .dialog_inp_c_data::-webkit-scrollbar-corner {background-color: black;}
 .dialog_inp_c_data::-webkit-scrollbar {width: 0.5em;color: blue;}
-.dialog_inp_c_data li{margin-bottom:8px;position:relative;float:left;padding:10px 38px 10px 12px;background:#e8ebed;color:#4a4a4a;margin-right:10px;line-height:12px;}
+.dialog_inp_c_data li{margin-bottom:8px;position:relative;float:left;padding:10px 38px 10px 12px;background:#e8ebed;color:#4a4a4a;margin-right:10px;line-height:20px;}
 .dialog_inp_c_data li span{top:13px;background:url(../img/favorite_close.png) no-repeat;cursor:pointer;position:absolute;width:8px;height:8px;right:12px;}
+
 .dialog_inp_del{margin-top:30px;}
 
 .dialog_ser{padding:0 20px;}
@@ -346,7 +350,7 @@ body{
 	width:124px;
 	height:34px;
 	font-size:18px;
-	line-height:34px;
+	line-height:32px;
 	color:#eee;
 	text-align:center;
 	left:50%;
