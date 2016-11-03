@@ -129,13 +129,15 @@
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
-	$('.dialog_area span').on('click',function(){
+	$('.dialog_area .ser_dialog_close').on('click',function(){
 		$('#ser_dialog').addClass('hidecommon');
 	});
 	
-	$('.dialog_tab li').on('click',function(){		
+
+	$('.dialog_tab li').on('click',function(){
 		var $t = $(this).index();
 		var $ul = $(this).parent().next().find('ul');
+	
 		if($ul.eq($t).css('display')=='block'){
 			$(this).removeClass('cor389b9f');
 			$(this).removeClass('hot_arrow_up');
@@ -149,7 +151,30 @@
 			$(this).addClass('hot_arrow_up');
 		}
 	});
+
 	
+	//事件标签点击
+	$('.dialog_tab_event  input').on('click',function(){
+		var num = Number($('.cor389b9f').find('span').text());
+		var textCon = $(this).parent().text();
+		console.log($(this).parent().text())
+		if($(this).is(':checked')){
+			$('.cor389b9f').find('span').css('display','block');
+			$('.cor389b9f').find('span').text(num+1);
+			$('#inp_data_event').prepend('<i>、'+textCon+'</i>');
+		}else{
+			if(num==1){
+				$('.cor389b9f').find('span').css('display','none');
+			};
+			$('.cor389b9f').find('span').text(num-1);
+			$('#inp_data_event i').each(function(i,item){
+				if(item.innerHTML.indexOf(textCon)>-1){
+					$(this).remove();
+				}
+			})
+		};
+	})
+
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 var paper;
 var base;
