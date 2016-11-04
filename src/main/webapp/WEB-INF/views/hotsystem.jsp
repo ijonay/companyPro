@@ -23,11 +23,11 @@
 		<div class="favorite_div f12">
 			<span class="favorite_set_text">常用搜索:</span>
 			<ul class="favorite_ul" id="favorite_ul">
-				<li title="1手手机手机手机手机手机手机手机手机机1">1手手机手机手机手机手机手机手机手机机1<span></span></li>
-				<li title="苹果苹果苹果苹果苹果苹果苹果苹果苹果苹果1">苹果苹果苹果苹果苹果苹果苹果苹果苹果苹果1<span></span></li>
-				<li title="三星三星三星三星三星三星三星三星三星三星1">三星三星三星三星三星三星三星三星三星三星1<span></span></li>
-				<li title="华为华为华为华为华为华为华为华为华为华为华为华为1">华为华为华为华为华为华为华为华为华为华为华为华为1<span></span></li>
-				<li title="华为华为华为华为华为华为华为华为华为华为华为华为1">华为华为华为华为华为华为华为华为华为华为华为华为1<span></span></li>
+				<li title="1手手机手机手机手机手机手机手机手机机1">手机机1<span></span></li>
+				<li title="苹果苹果苹果苹果苹果苹果苹果苹果苹果苹果1">果苹果苹果苹果苹果1<span></span></li>
+				<li title="三星三星三星三星三星三星三星三星三星三星1">星三星三星三星三星1<span></span></li>
+				<li title="华为华为华为华为华为华为华为华为华为华为华为华为1">为华为华为华为华为华为华为华为1<span></span></li>
+				<li title="华为华为华为华为华为华为华为华为华为华为华为华为1">为华为华为华为华为华为1<span></span></li>
 			</ul>
 		</div>
    </div>
