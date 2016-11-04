@@ -36,18 +36,18 @@
    			<div class="dialog_title">高级探索<span class="ser_dialog_close"></span></div>
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
    			<ul class="dialog_tab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos">0</span></li>
-   				<li class="pst">政治经济<span class="pos">0</span></li>
-   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    			</ul>
    			
 
    			<div class="dislog_inp_con dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全1</label>
-   						<label><input type="checkbox">医药安全2</label>
-   						<label><input type="checkbox">医药安全3</label>
+   						<label><input type="checkbox" data-id="1">医药安全1</label>
+   						<label><input type="checkbox" data-id="2">医药安全2</label>
+   						<label><input type="checkbox" data-id="3">医药安全3</label>
    					</li>
    					<li class="inp_select_all fr">
    						<label><input type="checkbox">全选</label>
@@ -55,9 +55,9 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全4</label>
-   						<label><input type="checkbox">医药安全5</label>
-   						<label><input type="checkbox">医药安全6</label>
+   						<label><input type="checkbox" data-id="4">医药安全4</label>
+   						<label><input type="checkbox" data-id="5">医药安全5</label>
+   						<label><input type="checkbox" data-id="6">医药安全6</label>
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -66,7 +66,7 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
+   						
    					</li>
    					<li class="inp_select_all fr">
    						<label><input type="checkbox">全选</label>
@@ -75,17 +75,15 @@
    			</div>
    			
    			<ul class="dialog_tab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos">0</span></li>
-   				<li class="pst">政治经济<span class="pos">0</span></li>
-   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    			</ul>
    			
    			<div class="dislog_inp_con dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -94,9 +92,7 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -105,9 +101,7 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -120,17 +114,17 @@
    			
    			
    			<ul class="dialog_tab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos">0</span></li>
-   				<li class="pst">政治经济<span class="pos">0</span></li>
-   				<li class="pst">政治经济<span class="pos">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    			</ul>
    			
    			<div class="dislog_inp_con dialog_tab_person">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox" data-id="7">医药安全fff</label>
+   						<label><input type="checkbox" data-id="8">医药安全fff</label>
+   						<label><input type="checkbox" data-id="9">医药安全ddd</label>
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -139,9 +133,9 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						<label><input type="checkbox" data-id="10">医药安全aa</label>
+   						<label><input type="checkbox" data-id="11">医药安全ss</label>
+   						<label><input type="checkbox" data-id="12">医药安全cc</label>
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -150,9 +144,7 @@
    				</ul>
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
-   						<label><input type="checkbox">医药安全</label>
+   						
    						
    					</li>
    					<li class="inp_select_all fr">
@@ -161,13 +153,13 @@
    				</ul>
    			</div>
    			
-   			<div class="dialog_inp_c f12">
+   			<div class="dialog_inp_c f12 hidecommon">
    				<ol class="fl dialog_inp_c_data">
-   					<li id="inp_data_event"><span></span></li>
-   					<li id="inp_data_person"><span></span></li>
+   					<li id="inp_data_event" class="hidecommon"><span></span></li>
+   					<li id="inp_data_person" class="hidecommon"><span></span></li>
    				</ol>
    				
-   				<div class="fl dialog_inp_del cor389b9f">清空已选标签</div>
+   				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
    				
    			</div>
    			
