@@ -74,7 +74,7 @@ public class WordServiceImpl implements WordService {
         wordService = wordServicetemp;
 
 
-        loadMaps();
+//        loadMaps();
 
 
 //        loadTopicMap();
