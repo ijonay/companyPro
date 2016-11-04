@@ -42,6 +42,7 @@
 
     <mvc:view-controller path="hotspots" view-name="hotspots"/>
     <mvc:view-controller path="hotsystem" view-name="hotsystem"/>
+    <mvc:view-controller path="hotresult" view-name="hotresult"/>
     <mvc:view-controller path="user/login" view-name="login"/>
     <mvc:view-controller path="socket" view-name="result"/>
     <mvc:view-controller path="result"

@@ -16,7 +16,7 @@
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 			 
 			 <div class="pointer  f16 ac fr" id="ser_btn_high">高级探索</div>
-			 <div class="pointer ser_btn f16 ac" id="ser_btn">探索</div>
+			 <div class="pointer ser_btn f16 ac" id="ser_btn" onclick="window.location.href='hotresult'">探索</div>
 			 <div class="pos favorite_set_btn pointer hidecommon f14" id="favorite_set_btn">设为常用</div>			 
 		</div>
 		
@@ -436,7 +436,6 @@
 <script src="js/raphael.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
-<script src="lib/divScroll.js"></script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
