@@ -62,8 +62,10 @@ public class TopicClassApi extends BaseApi {
 
             List<SearchClassItemModel> childs = new ArrayList<>();
 
-            list.stream().filter(q -> p.getParentId().equals(q.getId())).forEach(q -> childs
+            list.stream().filter(q -> p.getId().equals(q.getParentId())).forEach(q -> childs
                     .add(new SearchClassItemModel(q)));
+
+            item.setChilds(childs);
 
             result.add(item);
 
