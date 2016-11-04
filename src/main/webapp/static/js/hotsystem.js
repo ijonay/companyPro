@@ -37,9 +37,9 @@
 		
 		if(len>=5){
 			$('#favorite_ul').find('li').eq(4).remove();
-			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
+			$('#favorite_ul').prepend('<li title='+val+'>'+val+'<span></span></li>');
 		}else{
-			$('#favorite_ul').prepend('<li>'+val+'<span></span></li>');
+			$('#favorite_ul').prepend('<li title='+val+'>'+val+'<span></span></li>');
 		};
 	});
 	$('#favorite_ul').delegate('li','click',function(){
