@@ -127,18 +127,18 @@
             '<div class="calendar-views">',
             '<div class="view view-date">',
             '<div class="calendar-hd">',
-            '<div class="calendar-arrow calendar-arrow-left">',
+            '<div class="calendar-arrow calendar-arrow-left" style="display:none;">',
             '<span class="prev" title="上一月" data-calendar-arrow-date>{prev}</span>',
             '</div>',
-            '<a href="javascript:;" data-calendar-display-date class="calendar-display">',
+            '<a href="javascript:;" data-calendar-display-date class="calendar-display" style="font-size:24px;color:#000;">',
             '{yyyy}/<span class="m">{mm}</span>',
             '</a>',
-            '<div class="calendar-arrow calendar-arrow-right">',
+            '<div class="calendar-arrow calendar-arrow-right" style="display:none;">',
             '<span class="next" title="下一月" data-calendar-arrow-date>{next}</span>',
             '</div>',
             '</div>',
             '<div class="calendar-ct">',
-            //'<ol class="week">{week}</ol>',
+            '<ol class="week" style="padding:0 25px 16px 25px;font-size:14px;color:#4a4a4a;background:#e8ebed;">{week}</ol>',
             '<ul class="date-items"></ul>',
             '</div>',
             '</div>',
@@ -324,8 +324,8 @@
             var dt = this.date,
                 idt = new Date(y, m - 1, d),
                 data = {
-                    w: this.width / 7,
-                    h: this.height / 6,
+                    w: (this.width-50) / 7,
+                    h: 28,
                     value: d
                 },
                 markData,
@@ -351,7 +351,7 @@
 
             if (markData) {
                 $html=$("<a data-calendar-day>"+d + MARK_DAY_HTML+"</a>").data(MARK_DATA, markData);
-                $item.html($html);
+                $item.addClass("markDate").html($html);
             }
 
             return $item;
@@ -359,7 +359,7 @@
         getDaysHtml: function(y, m) {
             var year, month, firstWeek, daysNum, prevM, prevDiff,
                 dt = this.date,
-                $days = $('<ol class="days"></ol>');
+                $days = $('<ol class="days" style="padding:24px 25px 10px 25px;"></ol>');
 
             if (isDate(y)) {
                 year = y.getFullYear();
@@ -402,8 +402,8 @@
                 weekArray = this.options.weekArray,
                 start = this.options.startWeek,
                 len = weekArray.length,
-                w = this.width / 7,
-                h = this.height / 7;
+                w = (this.width-50) / 7,
+                h = 14;
 
             for (var i = start; i < len; i++) {
                 week.push(WEEK_ITEM_TPL.repeat({
