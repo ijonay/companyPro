@@ -31,9 +31,9 @@
 			</ul>
 		</div>
    </div>
-   <div class="ser_dialog" id="ser_dialog">
+   <div class="ser_dialog hidecommon" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
-   			<div class="dialog_title">高级探索<span class="ser_dialog_close"></span></div>
+   			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
    			<ul class="dialog_tab f14 corlor4a">
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>

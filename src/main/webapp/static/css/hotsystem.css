@@ -118,21 +118,21 @@ input[type=checkbox]:checked::after {
 .dislog_inp_con ul li.inp_ch_list label input{width:14px;height:14px;vertical-align:top;margin-top:11px;margin-right:12px!important;}
 .inp_ch_list{width:660px;height:70px;padding-right:10px;  overflow-y: auto;}
 
-.inp_ch_list::-webkit-scrollbar-track {background-color: #78ebff;border-radius: 10px;}
-.inp_ch_list::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 0.2);border-radius: 10px;}
+.inp_ch_list::-webkit-scrollbar-track {background-color: #f1f1f1;border-radius: 10px;}
+.inp_ch_list::-webkit-scrollbar-thumb {background-color: #787878;border-radius: 10px;}
 .inp_ch_list::-webkit-scrollbar-button {background-color: #7c2929;display: none;}
 .inp_ch_list::-webkit-scrollbar-corner {background-color: black;}
-.inp_ch_list::-webkit-scrollbar {width: 0.5em;color: blue;}
+.inp_ch_list::-webkit-scrollbar {width: 8px;color: blue;}
 .inp_select_all{margin-top:25px;}
 
 .dialog_inp_c{height:74px;margin:20px 0px 0px 0px;padding:0 20px;}
 .dialog_inp_c_data {width:660px;height:74px;overflow-y:auto;}
 
-.dialog_inp_c_data::-webkit-scrollbar-track {background-color: #78ebff;border-radius: 10px;}
-.dialog_inp_c_data::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 0.2);border-radius: 10px;}
+.dialog_inp_c_data::-webkit-scrollbar-track {background-color: #f1f1f1;border-radius: 10px;}
+.dialog_inp_c_data::-webkit-scrollbar-thumb {background-color: #787878;border-radius: 10px;}
 .dialog_inp_c_data::-webkit-scrollbar-button {background-color: #7c2929;display: none;}
 .dialog_inp_c_data::-webkit-scrollbar-corner {background-color: black;}
-.dialog_inp_c_data::-webkit-scrollbar {width: 0.5em;color: blue;}
+.dialog_inp_c_data::-webkit-scrollbar {width: 8px;color: blue;}
 .dialog_inp_c_data li{margin-bottom:8px;position:relative;float:left;padding:10px 38px 10px 12px;background:#e8ebed;color:#4a4a4a;margin-right:10px;line-height:20px;}
 .dialog_inp_c_data li span{top:13px;background:url(../img/favorite_close.png) no-repeat;cursor:pointer;position:absolute;width:8px;height:8px;right:12px;}
 
@@ -504,3 +504,7 @@ body{
 .all_hot_list_bot li .baidu-color{color:#ed7561;}
 .all_hot_list_bot li .zhihu-color{color:#327edb;}
 .all_hot_list_bot li .type-article{margin-right:30px;}
+
+.notify-close{
+	cursor:pointer
+}
