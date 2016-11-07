@@ -12,8 +12,8 @@
 .header .header-right li.head-userinfo .userName{margin-top:13px;}
 .header .header-right li.head-down{width:10px;background:url(../img/head-down.png) no-repeat center;margin-right:16px;}
 .header .header-right li.head-pred{margin-right:18px;}
-.header .header-right li.head-pred a{border:1px solid #389b9f;background:url(../img/head-pred.png) no-repeat center;}
-.header .header-right li.head-notify a{border:1px solid #389b9f;background:url(../img/head-notify.png) no-repeat center;position:relative;}
+.header .header-right li.head-pred a{background:url(../img/head-pred.png) no-repeat center;}
+.header .header-right li.head-notify a{background:url(../img/head-notify.png) no-repeat center;position:relative;}
 .header .header-right li.head-notify a .notify-count{position:absolute;top:0px;left:26px;width:16px;background-color:#389b9f;color:#fff;font-size:12px;line-height:16px;text-align:center;border-radius:50%;}
 /*通知列表*/
 .notify-list{position:absolute;top:68px;right:48px;z-index:9;}
