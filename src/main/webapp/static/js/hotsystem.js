@@ -76,6 +76,19 @@
 	
 	$('#ser_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
+		
+		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+			
+			console.log('有数字')
+
+			$('#ser_hint').addClass('hidecommon');
+			
+		}else{
+		    console.log('无数字')
+			$('#ser_hint').removeClass('hidecommon');
+			return;
+			//return;
+		}
 		var len = $('#cook_ul li').length;
 		var arrCon = [];
 		$('#cook_ul li').each(function(i,item){
@@ -135,7 +148,7 @@
 	});
 	
 
-	$('.dialog_tab li').on('click',function(){
+	$('.dialog_tab').delegate('li','click',function(){
 		var $t = $(this).index();
 		var $ul = $(this).parent().next().find('ul');
 	
@@ -152,10 +165,94 @@
 			$(this).addClass('hot_arrow_up');
 		}
 	});
+	function labelList(){
+		$.ajax({
+			type:"get",
+			contentType: 'application/json',
+		    dataType:"json",
+			url:'api/topicclass/getsearchitem',
+			success:function(returnData){
+				console.log(returnData);
+				returnData = returnData.data;
+				if(returnData == null){
+					console.log('数据为空');
+				}else{
+					var eventData = returnData.EventClass;
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(17,22);
+					var userData = [];
+					var child1 = JSON.stringify(returnData.Gender);
+					child1 = JSON.parse(child1);				
+					var obj1 = {
+							id:'Gender',
+							name:"性别",
+							childs:child1
+					}
+					var child2 = JSON.stringify(returnData.Education);
+					child2 = JSON.parse(child2);				
+					var obj2 = {
+							id:'Education',
+							name:"学历",
+							childs:child2
+					}
+					var child3 = JSON.stringify(returnData.Area);
+					child3 = JSON.parse(child3);				
+					var obj3 = {
+							id:'Area',
+							name:"地区",
+							childs:child3
+					}
+					var child4 = JSON.stringify(returnData.UserClass);
+					child4 = JSON.parse(child4);				
+					var obj4 = {
+							id:'UserClass',
+							name:"兴趣",
+							childs:child4
+					}
+					userData.push(obj1);
+					userData.push(obj2);
+					userData.push(obj3);
+					userData.push(obj4);
+					$(".eventDialogTab").empty();
+					$(".eventTab").empty();
+					$(".eventDialogTab2").empty();
+					$(".eventTab2").empty();
+					$(".userDialogTab").empty();
+					$(".personTab").empty();
+					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
+					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
+					fillData($(".userDialogTab"),$(".personTab"),userData);
+				}
+				
+			},
+			error:function(){
+				console.log('获取标签列表失败');
+			}
+		});
+	};
+	labelList();
+	function fillData(selector,selector2,data){
+		$.each(data,function(index,item){
+			selector.append('<li data-id="'+item.id+'" class="pst">'+item.name+'<span class="pos dialog_inp_num">0</span></li>');
+			var childs = item.childs;
+			if(childs){
+				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
+				$.each(childs,function(index,item){
+					str += '<label><input type="checkbox" data-id="'+item.id+'">'+item.name+'</label>'
+				})
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+			}else{
+				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+			}
+			selector2.append(str);
+		})
+	}
+
 
 	
 	//事件标签点击
-	$('.dialog_tab_event .inp_ch_list input').on('click',function(){
+	$('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
 		var dataId = $(this).attr('data-id');
 		var num = Number($('.cor389b9f').find('span').text());
 		var textCon = $(this).parent().text();
@@ -201,7 +298,7 @@
 			};
 		};
 	});
-	$('.dialog_tab_event  .inp_select_all input').on('click',function(){
+	$('.dialog_tab_event').delegate('.inp_select_all input','click',function(){
 		var num = Number($('.cor389b9f').find('span').text());
 		var len = $(this).parent().parent().prev().find('input').length;
 		var inList = $(this).parent().parent().prev().find('input');
@@ -250,7 +347,7 @@
 	});
 	
 	//人群标签点击
-	$('.dialog_tab_person .inp_ch_list input').on('click',function(){
+	$('.dialog_tab_person').delegate(' .inp_ch_list input','click',function(){
 		var dataId = $(this).attr('data-id');
 		console.log(dataId);
 		var num = Number($('.cor389b9f').find('span').text());
@@ -296,7 +393,7 @@
 			};
 		};
 	});
-	$('.dialog_tab_person  .inp_select_all input').on('click',function(){
+	$('.dialog_tab_person').delegate('.inp_select_all input','click',function(){
 		var num = Number($('.cor389b9f').find('span').text());
 		var len = $(this).parent().parent().prev().find('input').length;
 		var inList = $(this).parent().parent().prev().find('input');
@@ -306,7 +403,7 @@
 			var lenList = $('#inp_data_person').find('i').length;
 			$(inList).each(function(i,item){
 				if($(this).prop("checked")==false){
-					console.log($(this).parent().text());
+					//console.log($(this).parent().text());
 					$('#inp_data_person').removeClass('hidecommon');
 					$('#inp_data_person').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
 					
