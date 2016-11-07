@@ -186,3 +186,10 @@ textarea{resize: none;}
     white-space: nowrap;}
 body,html{font-family:  "Arial","微软雅黑"!important;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 .pointer{cursor:pointer}
+.arrowLeft{
+	display:inline-block;width: 10px;
+    height: 10px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    transform:rotate(-45deg);
+}
