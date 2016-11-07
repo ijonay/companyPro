@@ -320,12 +320,15 @@ body{
 }
 .font14{
     font-size: 14px;
-    margin-right:7px
+}
+.iconCon{
+	display:inline-block;
+	width:88px;
 }
 .infoIcon{
-    position:absolute;
+    float:left;
     bottom:0;
-    margin: 0;
+    margin: 0 0 0 4px;
     padding: 0;
     vertical-align:bottom;
 }
@@ -507,4 +510,34 @@ body{
 
 .notify-close{
 	cursor:pointer
+}
+。borderShadow{
+	transition: 0.5s;
+}
+.borderShadow::before, .borderShadow::after {
+  width: 88px;
+  height:38px;
+  display:inline-block;
+  z-index: 3;
+  content:'';
+  position: absolute;
+  top:0;
+  right:0;
+  box-sizing: border-box;
+  -webkit-transform: scale(0);
+  transition: 0.5s;
+}
+#ser_btn_high::before {
+  border-bottom: 3px solid #389b9f;
+  border-left: 3px solid #389b9f;
+  -webkit-transform-origin: 0 100%;
+}
+
+#ser_btn_high::after {
+  border-top: 3px solid #389b9f;
+  border-right: 3px solid #389b9f;
+  -webkit-transform-origin: 100% 0%;
+}
+.borderShadow:hover::after, .borderShadow:hover::before {
+  -webkit-transform: scale(1);
 }

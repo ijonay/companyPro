@@ -9,7 +9,11 @@
 		$('#favorite_set_btn').removeClass('hidecommon');
 		$('#cook_ul').addClass('hidecommon');
 	});
-	$(document).on('click',function(){
+	$(document).on('click',function(e){
+		if($(".right-bar").css("right") == "0px"){
+			if($(window).width() - e.clientX > 277)
+			$(".right-bar-close").trigger("click");
+		}
 		$('#cook_ul').addClass('hidecommon');
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
@@ -527,6 +531,7 @@ function loadSvg(){
     loadSvg();
     var setTime;
     window.onresize=function(){
+    	$(".alertCon").hide();
     	if(!$('#cook_ul').hasClass("hidecommon")){
     		var width = $(".ser_section input").width();
     		$('#cook_ul').css("width",width+12);
