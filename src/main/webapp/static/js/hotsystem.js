@@ -78,6 +78,7 @@
 		var val = $.trim($('#ser_text').val());
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 			$('#ser_hint').addClass('hidecommon');
+			window.location.href="hotresult";
 		}else{
 			$('#ser_hint').removeClass('hidecommon');
 			return;
@@ -347,6 +348,7 @@
 		console.log(dataId);
 		var num = Number($('.cor389b9f').find('span').text());
 		var textCon = $(this).parent().text();
+		var textPar = $('.cor389b9f').find('em').text();
 		
 		if($(this).is(':checked')){
 			$('.cor389b9f').find('span').css('display','block');
@@ -354,13 +356,41 @@
 			
 			
 			console.log($('.cor389b9f').find('em').text())
-			
-			$('#inp_data_person1').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
-			var textStr = $('#inp_data_person1 i:last').text();
-			if(textStr.indexOf('、')>-1){
-				var newStr = textStr.substring(0,textStr.length-1);
-				$('#inp_data_person1 i:last').text(newStr);
+			if(textPar=='性别'){
+				$('#inp_data_person1 .person_sec').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
+
+				var textStr = $('.person_sec i:last').text();
+				if(textStr.indexOf('、')>-1){
+					var newStr = textStr.substring(0,textStr.length-1);
+					$('.person_sec i:last').text(newStr);
+				}
+				$('.person_sec').removeClass('hidecommon');
+			}else if(textPar=='学历'){
+				$('#inp_data_person1 .person_education').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
+				var textStr = $('.person_education i:last').text();
+				if(textStr.indexOf('、')>-1){
+					var newStr = textStr.substring(0,textStr.length-1);
+					$('.person_education i:last').text(newStr);
+				}
+				$('.person_education').removeClass('hidecommon');
+			}else if(textPar=='地区'){
+				$('#inp_data_person1 .person_area').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
+				var textStr = $('.person_area i:last').text();
+				if(textStr.indexOf('、')>-1){
+					var newStr = textStr.substring(0,textStr.length-1);
+					$('.person_area i:last').text(newStr);
+				}
+				$('.person_area').removeClass('hidecommon');
+			}else if(textPar=='兴趣'){
+				$('#inp_data_person1 .person_interest').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
+				var textStr = $('.person_interest i:last').text();
+				if(textStr.indexOf('、')>-1){
+					var newStr = textStr.substring(0,textStr.length-1);
+					$('.person_interest i:last').text(newStr);
+				}
+				$('.person_interest').removeClass('hidecommon');
 			}
+			
 			
 			$('.dialog_inp_c').removeClass('hidecommon');
 			$('#inp_data_person1').removeClass('hidecommon');
@@ -382,6 +412,22 @@
 			if(textStr.indexOf('、')>-1){
 				var newStr = textStr.substring(0,textStr.length-1)
 				$('#inp_data_person1 i:last').text(newStr);
+			};
+			var lensex = $('.person_sec').find('i').length;
+			if(lensex<1){
+				$('.person_sec').addClass('hidecommon');
+			};
+			var leneducation = $('.person_education').find('i').length;
+			if(leneducation<1){
+				$('.person_education').addClass('hidecommon');
+			}
+			var lenarea = $('.person_area').find('i').length;
+			if(lenarea<1){
+				$('.person_area').addClass('hidecommon');
+			}
+			var leninterest = $('.person_interest').find('i').length;
+			if(leninterest<1){
+				$('.person_interest').addClass('hidecommon');
 			}
 			
 			var len1 = $('#inp_data_event').find('i').length;
@@ -395,24 +441,62 @@
 		var num = Number($('.cor389b9f').find('span').text());
 		var len = $(this).parent().parent().prev().find('input').length;
 		var inList = $(this).parent().parent().prev().find('input');
+		var textPar = $('.cor389b9f').find('em').text();
 		if($(this).is(':checked')){
 			$('.dialog_inp_c').removeClass('hidecommon');
 			$('#inp_data_person1').removeClass('hidecommon');
 			var lenList = $('#inp_data_person1').find('i').length;
+			
+			
 			$(inList).each(function(i,item){
 				if($(this).prop("checked")==false){
 					//console.log($(this).parent().text());
 					$('#inp_data_person1').removeClass('hidecommon');
-					$('#inp_data_person1').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
+					if(textPar=='性别'){
+						$('#inp_data_person1 .person_sec').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
+						var textStr = $('.person_sec i:last').text();
+						if(textStr.indexOf('、')>-1){
+							var newStr = textStr.substring(0,textStr.length-1)
+							$('.person_sec i:last').text(newStr);
+						};
+						$('.person_sec').removeClass('hidecommon');
+					}else if(textPar=='学历'){
+						$('#inp_data_person1 .person_education').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
+						var textStr = $('.person_education i:last').text();
+						console.log(textStr)
+						if(textStr.indexOf('、')>-1){
+							var newStr = textStr.substring(0,textStr.length-1)
+							$('.person_education i:last').text(newStr);
+						};
+						$('.person_education').removeClass('hidecommon');
+					}
+					else if(textPar=='地区'){
+						$('#inp_data_person1 .person_area').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
+						var textStr = $('.person_area i:last').text();
+						if(textStr.indexOf('、')>-1){
+							var newStr = textStr.substring(0,textStr.length-1)
+							$('.person_area i:last').text(newStr);
+						};
+						$('.person_area').removeClass('hidecommon');
+					}else if(textPar=='兴趣'){
+						$('#inp_data_person1 .person_interest').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
+						var textStr = $('.person_interest i:last').text();
+						if(textStr.indexOf('、')>-1){
+							var newStr = textStr.substring(0,textStr.length-1)
+							$('.person_interest i:last').text(newStr);
+						};
+						$('.person_interest').removeClass('hidecommon');
+					}
+					
 					
 				}
 			});
-			var textStr = $('#inp_data_person1 i:last').text();
-			if(textStr.indexOf('、')>-1){
-				var newStr = textStr.substring(0,textStr.length-1)
-				$('#inp_data_person1 i:last').text(newStr);
-			}
-			
+//			var textStr = $('#inp_data_person1 i:last').text();
+//			if(textStr.indexOf('、')>-1){
+//				var newStr = textStr.substring(0,textStr.length-1)
+//				$('#inp_data_person1 i:last').text(newStr);
+//			}
+//			
 			
 			$(this).parent().parent().prev().find('input').prop("checked", true);
 			$('.cor389b9f').find('span').css('display','block')
@@ -436,6 +520,22 @@
 			if(textStr.indexOf('、')>-1){
 				var newStr = textStr.substring(0,textStr.length-1)
 				$('#inp_data_person1 i:last').text(newStr);
+			};
+			var lensex = $('.person_sec').find('i').length;
+			if(lensex<1){
+				$('.person_sec').addClass('hidecommon');
+			};
+			var leneducation = $('.person_education').find('i').length;
+			if(leneducation<1){
+				$('.person_education').addClass('hidecommon');
+			}
+			var lenarea = $('.person_area').find('i').length;
+			if(lenarea<1){
+				$('.person_area').addClass('hidecommon');
+			};
+			var leninterest = $('.person_interest').find('i').length;
+			if(leninterest<1){
+				$('.person_interest').addClass('hidecommon');
 			}
 			
 			var len1 = $('#inp_data_event').find('i').length;
@@ -460,11 +560,33 @@
 	})
 	//删除人群标签
 	$('#inp_data_person1 span').on('click',function(){
-		$('#inp_data_person1').addClass('hidecommon');
-		$('#inp_data_person1').find('i').remove();
-		$('.dialog_tab_person').find('input').prop("checked",false);
-		$('.dialog_tab_person').prev().find('.dialog_inp_num').text(0);
-		$('.dialog_tab_person').prev().find('.dialog_inp_num').css('display','none');
+		$(this).parent().addClass('hidecommon');
+		$(this).parent().find('i').remove();
+		//console.log($(this).parent().attr('class'));
+		if($(this).parent().attr('class').indexOf('person_sec')>=0){
+			$('.userDialogTab li').eq(0).find('.dialog_inp_num').css('display','none');
+			$('.userDialogTab li').eq(0).find('.dialog_inp_num').text(0);
+			$('.personTab').find('ul').eq(0).find('input').prop("checked",false);
+		}
+		if($(this).parent().attr('class').indexOf('person_education')>=0){
+			$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','none');
+			$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(0);
+			$('.personTab').find('ul').eq(1).find('input').prop("checked",false);
+		}
+		if($(this).parent().attr('class').indexOf('person_area')>=0){
+			$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','none');
+			$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(0);
+			$('.personTab').find('ul').eq(2).find('input').prop("checked",false);
+		}
+		if($(this).parent().attr('class').indexOf('person_interest')>=0){
+			$('.userDialogTab li').eq(3).find('.dialog_inp_num').css('display','none');
+			$('.userDialogTab li').eq(3).find('.dialog_inp_num').text(0);
+			$('.personTab').find('ul').eq(3).find('input').prop("checked",false);
+		}
+		
+//		$('.dialog_tab_person').find('input').prop("checked",false);
+//		$('.dialog_tab_person').prev().find('.dialog_inp_num').text(0);
+//		$('.dialog_tab_person').prev().find('.dialog_inp_num').css('display','none');
 		var len1 = $('#inp_data_event').find('i').length;
 		var len2 = $('#inp_data_person1').find('i').length;
 		if(len1<1&&len2<1){
@@ -479,6 +601,7 @@
 	function dialogInit(){
 		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
+		$('#inp_data_person1 div').addClass('hidecommon');
 		$('#inp_data_person1').addClass('hidecommon');
 		$('#inp_data_event').addClass('hidecommon');
 		$('#ser_dialog').find('.dialog_inp_num').text(0);
