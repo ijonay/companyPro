@@ -9,8 +9,12 @@
 
 <title>热点分析</title>
 </head>
-<body style="background:#ccc;">
+<body>
     <jsp:include page="nav.jsp" />
+    <div style="height:60px;background:#fff;"></div>
+    <div class="result-section">
+        <div id="canvas"></div>
+    </div>
    
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
