@@ -76,19 +76,12 @@
 	
 	$('#ser_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
-		
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
-			
-			console.log('有数字')
-
 			$('#ser_hint').addClass('hidecommon');
-			
 		}else{
-		    console.log('无数字')
 			$('#ser_hint').removeClass('hidecommon');
 			return;
-			//return;
-		}
+		};
 		var len = $('#cook_ul li').length;
 		var arrCon = [];
 		$('#cook_ul li').each(function(i,item){
@@ -233,7 +226,7 @@
 	labelList();
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
-			selector.append('<li data-id="'+item.id+'" class="pst">'+item.name+'<span class="pos dialog_inp_num">0</span></li>');
+			selector.append('<li data-id="'+item.id+'" class="pst"><em>'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
 			var childs = item.childs;
 			if(childs){
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
@@ -255,6 +248,7 @@
 	$('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
 		var dataId = $(this).attr('data-id');
 		var num = Number($('.cor389b9f').find('span').text());
+		console.log(num)
 		var textCon = $(this).parent().text();
 		
 		if($(this).is(':checked')){
@@ -292,7 +286,7 @@
 			}
 			
 			var len1 = $('#inp_data_event').find('i').length;
-			var len2 = $('#inp_data_person').find('i').length;
+			var len2 = $('#inp_data_person1').find('i').length;
 			if(len1<1&&len2<1){
 				$('.dialog_inp_c').addClass('hidecommon');
 			};
@@ -338,7 +332,7 @@
 			if($('#inp_data_event i').length<1){
 				$('#inp_data_event').addClass('hidecommon');
 			};
-			var len1 = $('#inp_data_person').find('i').length;
+			var len1 = $('#inp_data_person1').find('i').length;
 			var len2 = $('#inp_data_event').find('i').length;
 			if(len1<1&&len2<1){
 				$('.dialog_inp_c').addClass('hidecommon');
@@ -348,6 +342,7 @@
 	
 	//人群标签点击
 	$('.dialog_tab_person').delegate(' .inp_ch_list input','click',function(){
+		
 		var dataId = $(this).attr('data-id');
 		console.log(dataId);
 		var num = Number($('.cor389b9f').find('span').text());
@@ -357,37 +352,40 @@
 			$('.cor389b9f').find('span').css('display','block');
 			$('.cor389b9f').find('span').text(num+1);
 			
-			$('#inp_data_person').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
-			var textStr = $('#inp_data_person i:last').text();
+			
+			console.log($('.cor389b9f').find('em').text())
+			
+			$('#inp_data_person1').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
+			var textStr = $('#inp_data_person1 i:last').text();
 			if(textStr.indexOf('、')>-1){
 				var newStr = textStr.substring(0,textStr.length-1);
-				$('#inp_data_person i:last').text(newStr);
+				$('#inp_data_person1 i:last').text(newStr);
 			}
 			
 			$('.dialog_inp_c').removeClass('hidecommon');
-			$('#inp_data_person').removeClass('hidecommon');
+			$('#inp_data_person1').removeClass('hidecommon');
 		}else{
-			var len = $('#inp_data_person').find('i').length;
+			var len = $('#inp_data_person1').find('i').length;
 			if(num==1){
 				$('.cor389b9f').find('span').css('display','none');
 			};
 			$('.cor389b9f').find('span').text(num-1);
 			if(len <=1){
-				$('#inp_data_person').addClass('hidecommon');
+				$('#inp_data_person1').addClass('hidecommon');
 			}
-			$('#inp_data_person i').each(function(i,item){
+			$('#inp_data_person1 i').each(function(i,item){
 				if($(this).attr('data-id') == dataId){
 					$(this).remove();
 				}
 			});
-			var textStr = $('#inp_data_person i:last').text();
+			var textStr = $('#inp_data_person1 i:last').text();
 			if(textStr.indexOf('、')>-1){
 				var newStr = textStr.substring(0,textStr.length-1)
-				$('#inp_data_person i:last').text(newStr);
+				$('#inp_data_person1 i:last').text(newStr);
 			}
 			
 			var len1 = $('#inp_data_event').find('i').length;
-			var len2 = $('#inp_data_person').find('i').length;
+			var len2 = $('#inp_data_person1').find('i').length;
 			if(len1<1&&len2<1){
 				$('.dialog_inp_c').addClass('hidecommon');
 			};
@@ -399,20 +397,20 @@
 		var inList = $(this).parent().parent().prev().find('input');
 		if($(this).is(':checked')){
 			$('.dialog_inp_c').removeClass('hidecommon');
-			$('#inp_data_person').removeClass('hidecommon');
-			var lenList = $('#inp_data_person').find('i').length;
+			$('#inp_data_person1').removeClass('hidecommon');
+			var lenList = $('#inp_data_person1').find('i').length;
 			$(inList).each(function(i,item){
 				if($(this).prop("checked")==false){
 					//console.log($(this).parent().text());
-					$('#inp_data_person').removeClass('hidecommon');
-					$('#inp_data_person').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
+					$('#inp_data_person1').removeClass('hidecommon');
+					$('#inp_data_person1').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
 					
 				}
 			});
-			var textStr = $('#inp_data_person i:last').text();
+			var textStr = $('#inp_data_person1 i:last').text();
 			if(textStr.indexOf('、')>-1){
 				var newStr = textStr.substring(0,textStr.length-1)
-				$('#inp_data_person i:last').text(newStr);
+				$('#inp_data_person1 i:last').text(newStr);
 			}
 			
 			
@@ -425,23 +423,23 @@
 			$('.cor389b9f').find('span').css('display','none');
 			$(inList).each(function(i,item){
 				var dataid = $(this).attr('data-id');
-				$('#inp_data_person i').each(function(j,item){
+				$('#inp_data_person1 i').each(function(j,item){
 					if($(this).attr('data-id')==dataid){
 						$(this).remove();
 					}
 				})
 			});
-			if($('#inp_data_person i').length<1){
-				$('#inp_data_person').addClass('hidecommon');
+			if($('#inp_data_person1 i').length<1){
+				$('#inp_data_person1').addClass('hidecommon');
 			};
-			var textStr = $('#inp_data_person i:last').text();
+			var textStr = $('#inp_data_person1 i:last').text();
 			if(textStr.indexOf('、')>-1){
 				var newStr = textStr.substring(0,textStr.length-1)
-				$('#inp_data_person i:last').text(newStr);
+				$('#inp_data_person1 i:last').text(newStr);
 			}
 			
 			var len1 = $('#inp_data_event').find('i').length;
-			var len2 = $('#inp_data_person').find('i').length;
+			var len2 = $('#inp_data_person1').find('i').length;
 			if(len1<1&&len2<1){
 				$('.dialog_inp_c').addClass('hidecommon');
 			};
@@ -455,20 +453,20 @@
 		$('.dialog_tab_event').prev().find('.dialog_inp_num').text(0);
 		$('.dialog_tab_event').prev().find('.dialog_inp_num').css('display','none');
 		var len1 = $('#inp_data_event').find('i').length;
-		var len2 = $('#inp_data_person').find('i').length;
+		var len2 = $('#inp_data_person1').find('i').length;
 		if(len1<1&&len2<1){
 			$('.dialog_inp_c').addClass('hidecommon');
 		};
 	})
 	//删除人群标签
-	$('#inp_data_person span').on('click',function(){
-		$('#inp_data_person').addClass('hidecommon');
-		$('#inp_data_person').find('i').remove();
+	$('#inp_data_person1 span').on('click',function(){
+		$('#inp_data_person1').addClass('hidecommon');
+		$('#inp_data_person1').find('i').remove();
 		$('.dialog_tab_person').find('input').prop("checked",false);
 		$('.dialog_tab_person').prev().find('.dialog_inp_num').text(0);
 		$('.dialog_tab_person').prev().find('.dialog_inp_num').css('display','none');
 		var len1 = $('#inp_data_event').find('i').length;
-		var len2 = $('#inp_data_person').find('i').length;
+		var len2 = $('#inp_data_person1').find('i').length;
 		if(len1<1&&len2<1){
 			$('.dialog_inp_c').addClass('hidecommon');
 		};
@@ -479,9 +477,9 @@
 	});
 	dialogInit();
 	function dialogInit(){
-		$('#inp_data_person').find('i').remove();
+		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
-		$('#inp_data_person').addClass('hidecommon');
+		$('#inp_data_person1').addClass('hidecommon');
 		$('#inp_data_event').addClass('hidecommon');
 		$('#ser_dialog').find('.dialog_inp_num').text(0);
 		$('#ser_dialog').find('.dialog_inp_num').css('display','none');

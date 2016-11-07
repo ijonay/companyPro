@@ -15,7 +15,7 @@
    		<div class="ser_con row pst">
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 			 <div class="ser_hint pos f14 cor389b9f hidecommon" id="ser_hint">
-			 	<span>请输入汉字、英文或数字</span>
+			 	<p>请输入汉字、英文或数字</p>
 			 </div>
 			 <div class="pointer  f16 ac fr" id="ser_btn_high">高级探索</div>
 			 <div class="pointer ser_btn f16 ac" id="ser_btn">探索</div>
@@ -33,7 +33,7 @@
 			</ul>
 		</div>
    </div>
-   <div class="ser_dialog hidecommon" id="ser_dialog">
+   <div class="ser_dialog" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
@@ -158,7 +158,7 @@
    			<div class="dialog_inp_c f12 hidecommon">
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event" class="hidecommon"><span></span></li>
-   					<li id="inp_data_person" class="hidecommon"><span></span></li>
+   					<li id="inp_data_person1" class="hidecommon"><span></span></li>
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
