@@ -1,7 +1,7 @@
 var result={
         "data": [{
             "id": 1,
-            "title": "#霍建华林心如结婚#",
+            "title": "#霍建华林心如结婚霍建华林心如结婚#",
             "score": 0.44,
             "coordinate": null,
             "logoUrl": null,
@@ -12,7 +12,7 @@ var result={
             "topicType": null
         },{
             "id": 2,
-            "title": "#王宝强离婚#",
+            "title": "#王宝强离婚王宝强离婚王宝强离婚王宝强离婚王宝强离婚#",
             "score": 0.44,
             "coordinate": null,
             "logoUrl": null,
@@ -212,7 +212,7 @@ var result={
             "topicType": null
         },{
             "id": 2,
-            "title": "#热点名称#",
+            "title": "#热点名称热点名称热点名称热点名称热点名称热点名称#",
             "score": 0.44,
             "coordinate": null,
             "logoUrl": null,
@@ -227,21 +227,25 @@ var result={
             "message": "成功"
         }
     }
-$("<input type='text' class='word word-ellipsis wordwidth' value='关键词'>").appendTo($("#canvas"));
+$("<div type='text' class='word wordwidth'>关键字仅八个字…</div>").appendTo($("#canvas"));
 drawWord(result.data);
 function drawWord(data) {
     var pointArr = [];
     $.each(data, function(idx, item) {
-        var r = 133 + idx * 20;
+        if(idx%2!=0){
+            var r = 150 + (idx-1) * 16;
+        }else{
+            var r = 150 + idx * 16;
+        }
         var fontClass = "fontClass1",
             sizeClass = "sizeClass1";
-        if(item.readNum<= 25) {
+        if(item.readNum<= 50) {
             fontClass = "fontClass1";
             sizeClass = "sizeClass1";
-        } else if(item.readNum<= 50) {
+        } else if(item.readNum<= 80) {
             fontClass = "fontClass2";
             sizeClass = "sizeClass2";
-        } else if(item.readNum<= 75) {
+        } else if(item.readNum<= 90) {
             fontClass = "fontClass3";
             sizeClass = "sizeClass3";
         } else if(item.readNum<= 100) {
@@ -289,9 +293,9 @@ function checkao(idx, r, itemWidth, itemHeight, pointArr) {
         } else {
             ao = Math.random() * (270 - 90 + 1) + 90;
         }
-        elem.left = 494.5 + r * Math.cos(ao * 3.14 / 180) - itemWidth / 2;
-        elem.top = 210 + r * Math.sin(ao * 3.14 / 180) - itemHeight / 2;
-    } while (hitTest(elem, pointArr) || elem.top + itemHeight > 420 || elem.top < 0)
+        elem.left = 535 + r * Math.cos(ao * 3.14 / 180) - itemWidth / 2;
+        elem.top = 238 + r * Math.sin(ao * 3.14 / 180) - itemHeight / 2;
+    } while (hitTest(elem, pointArr) || elem.top + itemHeight > 476 || elem.top < 0)
     return elem;
 }
 /*检查重叠*/
@@ -312,22 +316,17 @@ function hitTest(elem, pointArr) {
     }
     return false;
 };
-
 //hover事件
 $(document).delegate('.topic','mouseover',function(){
-//    $(this).css('margin-left',-5+'px')
-//    var fsEle = parseInt($(this).find('.link').css("font-size")); 
-//    $(this).find('.link').css('font-size',fsEle+3 +'px');
-//    var wdEle = parseInt($(this).find('.icon').width()); 
-//    $(this).find('.icon').css('width',wdEle+5 +'px')
-//    $(this).find('.icon').css('height',wdEle+5 +'px')
+    if($(this).find('.link').hasClass("word-ellipsis")){
+        $(this).css("z-index","9").find('.link').removeClass("word-ellipsis").css({"width":"auto"});
+        $(this).css("left",$(this).position().left-($(this).width()-180)/2)
+    }
 });
 
 $(document).delegate('.topic','mouseout',function(){
-//    $(this).css('margin-left',0+'px')
-//    var fsEle = parseInt($(this).find('.link').css("font-size")); 
-//    $(this).find('.link').css('font-size',fsEle-3 +'px');
-//    var wdEle = parseInt($(this).find('.icon').width()); 
-//    $(this).find('.icon').css('width',wdEle-5 +'px')
-//    $(this).find('.icon').css('height',wdEle-5 +'px')
+    if($(this).find('.link').width()>180){
+        $(this).css("left",$(this).position().left+($(this).width()-180)/2)
+        $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+    }
 });
