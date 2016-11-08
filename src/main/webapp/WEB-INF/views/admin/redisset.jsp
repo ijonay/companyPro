@@ -46,14 +46,24 @@
                     });
                 });
                 $("button.submit2").click(function () {
-                    Model.updateTopicsToRedis(KD.Json.getString(KD.Form.getParams()), function (msg) {
+                    Model.updateTopicVectorCollToRedis(KD.Json.getString(KD.Form.getParams()), function (msg) {
                         if (msg.error.code == 0) {
-                            KD.showWarning("更新Topic坐标集合到redis执行成功！");
+                            KD.showWarning("更新Topic坐标集合到redis单个键值中执行成功！");
                         } else {
                             KD.showWarning(msg.error.message);
                         }
                     });
                 });
+                $("button.submit3").click(function () {
+                    Model.updateTopicVertorsToRedis(KD.Json.getString(KD.Form.getParams()), function (msg) {
+                        if (msg.error.code == 0) {
+                            KD.showWarning("更新Topic坐标到redis执行成功！");
+                        } else {
+                            KD.showWarning(msg.error.message);
+                        }
+                    });
+                });
+
             });
         </script>
     </jsp:attribute>
@@ -69,7 +79,12 @@
                     </div>
                     <div class="form-group">
                             <%--<div class="col-sm-offset-2 col-sm-10">--%>
-                        <button type="button" class="btn btn-default submit2">更新Topic坐标集合到redis</button>
+                        <button type="button" class="btn btn-default submit2">更新Topic坐标集合到redis单个键值中</button>
+                            <%--</div>--%>
+                    </div>
+                    <div class="form-group">
+                            <%--<div class="col-sm-offset-2 col-sm-10">--%>
+                        <button type="button" class="btn btn-default submit3">更新Topic坐标集合到redis</button>
                             <%--</div>--%>
                     </div>
                 </form>

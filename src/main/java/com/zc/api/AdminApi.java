@@ -34,10 +34,19 @@ public class AdminApi extends BaseApi {
 
     }
 
-    @RequestMapping(value = "updateTopicsToRedis", method = RequestMethod.POST)
-    public ApiResultModel updateTopicsToRedis() {
+    @RequestMapping(value = "updateTopicVectorCollToRedis", method = RequestMethod.POST)
+    public ApiResultModel updateTopicVectorCollToRedis() {
 
-        topicService.cache_UpdateTopics();
+        topicService.cache_UpdateTopicVerctorToColl();
+
+        return new ApiResultModel();
+
+
+    }
+    @RequestMapping(value = "updateTopicVertorsToRedis", method = RequestMethod.POST)
+    public ApiResultModel updateTopicVertorsToRedis() {
+
+        topicService.cache_UpdateTopicVerctors();
 
         return new ApiResultModel();
 

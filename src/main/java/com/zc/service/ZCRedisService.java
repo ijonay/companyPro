@@ -1,31 +1,37 @@
 package com.zc.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.ValueOperations;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public interface ZCRedisService<T> {
     /**
      * 缓存基本的对象，Integer、String、实体类等
-     * 
-     * @param key
-     *            缓存的键值
-     * @param value
-     *            缓存的值
+     *
+     * @param key   缓存的键值
+     * @param value 缓存的值
      * @return 缓存的对象
      */
     public <T> ValueOperations<String, T> setCacheObject(String key, T value);
 
     /**
+     * 获取键集合的map对象
+     *
+     * @param keys
+     * @return
+     */
+    Map<String, T> getCacheObjects(Collection<String> keys);
+
+    /**
      * 获得缓存的基本对象。
-     * 
-     * @param key
-     *            缓存键值
+     *
+     * @param key       缓存键值
      * @param operation
      * @return 缓存键值对应的数据
      */
@@ -33,40 +39,35 @@ public interface ZCRedisService<T> {
 
     /**
      * 缓存List数据
-     * 
-     * @param key
-     *            缓存的键值
-     * @param dataList
-     *            待缓存的List数据
+     *
+     * @param key      缓存的键值
+     * @param dataList 待缓存的List数据
      * @return 缓存的对象
      */
     public <T> ListOperations<String, T> setCacheList(String key,
-            List<T> dataList);
+                                                      List<T> dataList);
 
     /**
      * 获得缓存的list对象
-     * 
-     * @param key
-     *            缓存的键值
+     *
+     * @param key 缓存的键值
      * @return 缓存键值对应的数据
      */
     public <T> List<T> getCacheList(String key);
 
     /**
      * 缓存Set
-     * 
-     * @param key
-     *            缓存键值
-     * @param dataSet
-     *            缓存的数据
+     *
+     * @param key     缓存键值
+     * @param dataSet 缓存的数据
      * @return 缓存数据的对象
      */
     public <T> BoundSetOperations<String, T> setCacheSet(String key,
-            Set<T> dataSet);
+                                                         Set<T> dataSet);
 
     /**
      * 获得缓存的set
-     * 
+     *
      * @param key
      * @param operation
      * @return
@@ -78,17 +79,17 @@ public interface ZCRedisService<T> {
 
     /**
      * 缓存Map
-     * 
+     *
      * @param key
      * @param dataMap
      * @return
      */
     public <T> HashOperations<String, String, T> setCacheMap(String key,
-            Map<String, T> dataMap);
+                                                             Map<String, T> dataMap);
 
     /**
      * 获得缓存的Map
-     * 
+     *
      * @param key
      * @param hashOperation
      * @return
@@ -100,7 +101,7 @@ public interface ZCRedisService<T> {
 
     /**
      * 缓存Map
-     * 
+     *
      * @param key
      * @param dataMap
      * @return
@@ -110,7 +111,7 @@ public interface ZCRedisService<T> {
 
     /**
      * 获得缓存的Map
-     * 
+     *
      * @param key
      * @param hashOperation
      * @return
