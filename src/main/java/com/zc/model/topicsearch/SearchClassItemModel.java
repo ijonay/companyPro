@@ -1,4 +1,4 @@
-package com.zc.model.searchmodel;
+package com.zc.model.topicsearch;
 
 import com.zc.bean.TopicClass;
 

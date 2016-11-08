@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicFilterMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.TopicFilter">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="filter_id" jdbcType="INTEGER" property="filterId"/>
+        <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+         id,  filter_id,  topic_id     </sql>
+    <insert id="add" parameterType="com.zc.bean.TopicFilter"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into TopicFilter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="filterId != null">
+                filter_id,
+            </if>
+            <if test="topicId != null">
+                topic_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="filterId != null">
+                #{filterId,jdbcType=INTEGER},
+            </if>
+            <if test="topicId != null">
+                #{topicId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from TopicFilter
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.TopicFilter">
+        update TopicFilter
+        <set>
+            <if test="filterId != null">
+                filter_id = #{filterId,jdbcType=INTEGER},
+            </if>
+            <if test="topicId != null">
+                topic_id = #{topicId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicFilter
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getTopicIds" resultType="Integer">
+        SELECT
+        t.topic_id
+        FROM
+        (
+        TopicFilter t
+        <if test="searchModel.getGender().size>0">
+            LEFT JOIN TopicFilter a ON a.topic_id = t.topic_id
+        </if>
+        <if test="searchModel.getEducation().size>0">
+            LEFT JOIN TopicFilter b ON b.topic_id = t.topic_id
+        </if>
+        <if test="searchModel.getArea().size>0">
+            LEFT JOIN TopicFilter c ON c.topic_id = t.topic_id
+        </if>
+        <if test="searchModel.getEventClass().size>0">
+            LEFT JOIN TopicFilter d ON d.topic_id = t.topic_id
+        </if>
+        <if test="searchModel.getUserClass().size>0">
+            LEFT JOIN TopicFilter e ON e.topic_id = t.topic_id
+        </if>
+        )
+        WHERE
+
+        <if test="searchModel.getFilterIds().size()==0">
+            1!=1
+        </if>
+
+        <if test="searchModel.getFilterIds().size()>0">
+            t.filter_id in
+            <foreach collection="searchModel.getFilterIds()" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="searchModel.getGender().size()>0">
+            and a.filter_id in
+            <foreach collection="searchModel.getGender()" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searchModel.getEducation().size()>0">
+            and b.filter_id in
+            <foreach collection="searchModel.getEducation()" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searchModel.getArea().size()>0">
+            and c.filter_id in
+            <foreach collection="searchModel.getArea()" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searchModel.getEventClass().size()>0">
+            and d.filter_id in
+            <foreach collection="searchModel.getEventClass()" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searchModel.getUserClass().size()>0">
+            and e.filter_id in
+            <foreach collection="searchModel.getUserClass()" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY t.topic_id
+    </select>
+
+    <!--<select id="getAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from TopicFilter-->
+    <!--</select>-->
+    <!--<delete id="delAll">-->
+    <!--delete from TopicFilter-->
+    <!--</delete>-->
+</mapper>

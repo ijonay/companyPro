@@ -12,6 +12,7 @@ import com.zc.dao.TopicDao;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
+import com.zc.model.topicsearch.SearchModel;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.Constant;
 import com.zc.utility.PropertyHelper;
@@ -38,6 +39,8 @@ public class TopicServiceImpl implements TopicService {
     private RedisTemplate redisTemplate;
     @Autowired
     private ZCRedisService<float[]> redisService;
+    @Autowired
+    private TopicFilterService topicFilterService;
 
     /**
      * 获取词汇与热点话题的相似度
@@ -100,7 +103,8 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<TopicModel> getListExt(String clueWord, Integer currentPage, Integer pageSize) {
+    public List<TopicModel> getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer
+            pageSize) {
 
         if (pageSize < 1 || currentPage < 1) {
             throw new ServiceException(StatusCodeEnum.CLIENT_ERROR, "分页参数错误");
@@ -115,7 +119,24 @@ public class TopicServiceImpl implements TopicService {
 
 //        HashMap<Integer, float[]> allCoordinates = getAllCoordinates();
 
-        HashMap<Integer, float[]> allCoordinates = getCoordinatesByCache();
+        List<Integer> topicIds = new ArrayList<>();
+
+        HashMap<Integer, float[]> allCoordinates1 = new HashMap<>();
+
+        if (searchModel.getFilterIds().size() > 0) {
+
+            topicIds = topicFilterService.getTopicIds(searchModel);
+
+            if (topicIds.size() > 0) {
+
+                allCoordinates1 = getCoordinatesByTopicIdsAndCache(topicIds);
+            }
+
+        } else {
+            allCoordinates1 = getCoordinatesByCache();
+        }
+
+        HashMap<Integer, float[]> allCoordinates = allCoordinates1;
 
         long time3 = System.currentTimeMillis();
 
@@ -131,7 +152,11 @@ public class TopicServiceImpl implements TopicService {
                 .toList());
         long time5 = System.currentTimeMillis();
 
-        List<TopicModel> topicModels = getTopicByIdList(ids, sourceVectors);
+        List<TopicModel> topicModels = new ArrayList<>();
+
+        if (ids.size() > 0) {
+            topicModels = getTopicByIdList(ids, sourceVectors);
+        }
 
         long time6 = System.currentTimeMillis();
 
@@ -215,8 +240,33 @@ public class TopicServiceImpl implements TopicService {
                         .CONFIG_PROPERTIES,
                 Constant.TOPICS_VECTORS_KEY);
 
+
         return redisService.getCacheObject(key);
     }
+
+    @Override
+    public HashMap<Integer, float[]> getCoordinatesByTopicIdsAndCache(List<Integer> topicIds) {
+
+        String key = PropertyHelper.getValue(Constant
+                        .CONFIG_PROPERTIES,
+                Constant.TOPICS_VECTORS_KEY_PREFIx);
+
+        List<String> keys = new ArrayList<>();
+
+        topicIds.forEach(p -> keys.add(key + p));
+
+        HashMap<Integer, float[]> result = new HashMap<>();
+
+
+        redisService.getCacheObjects(keys).forEach((k, v) ->
+        {
+            if (v != null)
+                result.put(Integer.parseInt(k.replace(key, "")), v);
+        });
+
+        return result;
+    }
+
 
     @Override
     public List<TopicModel> getTopicByIdList(List<Integer> idList, float[] sourceVectors) {
@@ -234,7 +284,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void cache_UpdateTopics() {
+    public void cache_UpdateTopicVerctorToColl() {
 
         HashMap<Integer, float[]> result = getAllCoordinates();
 
@@ -259,6 +309,60 @@ public class TopicServiceImpl implements TopicService {
                 }
             });
 
+        }
+    }
+
+    @Override
+    public void cache_UpdateTopicVerctors() {
+        try {
+
+            long readTime = System.currentTimeMillis();
+
+            HashMap<Integer, float[]> result = getAllCoordinates();
+
+
+            if (Objects.nonNull(result)) {
+
+                String keyPrefix = PropertyHelper.getValue(Constant
+                                .CONFIG_PROPERTIES,
+                        Constant.TOPICS_VECTORS_KEY_PREFIx);
+
+                Set<String> keys = redisTemplate.keys(keyPrefix + "*");
+
+                long startTime = System.currentTimeMillis();
+
+                redisTemplate.execute(new SessionCallback() {
+                    @Override
+                    public Object execute(RedisOperations operations) throws DataAccessException {
+
+                        operations.multi();
+
+                        operations.delete(keys);
+
+
+                        Map<String, float[]> wordMapTemp = new HashMap<String, float[]>();
+
+                        result.forEach((k, v) -> wordMapTemp.put(keyPrefix + k, v));
+
+
+                        operations.opsForValue().multiSet(wordMapTemp);
+
+//                        wordMap.forEach((k, v) -> operations.opsForValue().set(PropertyHelper.getValue(Constant
+//                                        .CONFIG_PROPERTIES,
+//                                keyPrefix) + k, v v));
+
+                        return operations.exec();
+
+                    }
+                });
+                long endTime = System.currentTimeMillis();
+
+                System.out.println("当前开始时间为：" + readTime + "秒 执行入库开始时间为：" + startTime + "秒 结束时间为：" + endTime + "秒");
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
