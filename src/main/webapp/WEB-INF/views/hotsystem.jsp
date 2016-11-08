@@ -6,7 +6,6 @@
 <jsp:include page="head.jsp" />
 <link rel="stylesheet" href="css/hotsystem.css">
 <link rel="stylesheet" type="text/css" href="css/pop.css">
-
 <title>热点分析</title>
 </head>
 <body>
@@ -14,11 +13,13 @@
    <div class="ser_section" id="ser_section">
    		<div class="ser_con row pst">
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
+
 			 <div class="ser_hint pos f14 cor389b9f hidecommon" id="ser_hint">
 			 	<p>请输入汉字、英文或数字</p>
 			 </div>
-			 <div class="pointer  f16 ac fr" id="ser_btn_high">高级探索</div>
+			 <div class="pointer  f16 ac fr borderShadow" id="ser_btn_high">高级探索</div>
 			 <div class="pointer ser_btn f16 ac" id="ser_btn">探索</div>
+
 			 <div class="pos favorite_set_btn pointer hidecommon f14" id="favorite_set_btn">设为常用</div>			 
 		</div>
 		
@@ -420,10 +421,13 @@
         </div>
         <div class="infoBottom">
             <img class="hotIcon" src="img/hotIcon.png">
-            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span><img class="infoIcon" style="right:66px" src="img/weibo.png" alt="微博">
-            <img class="infoIcon" style="right:44px" src="img/wechat.png" alt="微信">
-            <img class="infoIcon" style="right:22px" src="img/zhihu.png" alt="知乎">
-            <img class="infoIcon" style="right:0" src="img/baidu.png" alt="百度">
+            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
+            <div class="iconCon">
+	            <img class="infoIcon" src="img/weibo.png" alt="微博">
+	            <img class="infoIcon" src="img/wechat.png" alt="微信">
+	            <img class="infoIcon" src="img/zhihu.png" alt="知乎">
+	            <img class="infoIcon" src="img/baidu.png" alt="百度">
+            </div>
         </div>
     </div>
     <div class="triangle"></div>
@@ -447,6 +451,5 @@
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/pop.js"></script>
-
 </body>
 </html>
