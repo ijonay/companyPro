@@ -27,7 +27,7 @@ public class TopicApi extends BaseApi {
             @RequestParam(value = "clueWord") String clueWord,
             @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
             @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-            @RequestBody SearchModel searchModel) {
+            @RequestBody(required = false) SearchModel searchModel) {
         try {
             if (pageSize <= 0 || currentPage <= 0)
                 return new ApiResultModel(null);
