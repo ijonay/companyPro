@@ -230,6 +230,28 @@
 		});
 	};
 	
+	//高级探索弹窗搜索
+	$('#dialog_ser_to').on('click',function(){
+		var val = $.trim($('#dialog_ser_text').val());
+		if(!val){
+			return;
+		}else{
+			$.ajax({
+				type:"post",
+				contentType: 'application/json',
+			    dataType:"json",
+				url:'api/topic/getlist?clueWord='+escape(val)+'&pageSize=20&currentPage=1',
+				success:function(result){
+					console.log(result)
+					
+				},
+				error:function(){
+					alert('失败了')
+				}
+			});
+		};
+	});
+	
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
 			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
