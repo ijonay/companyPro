@@ -7,7 +7,7 @@
      margin-right: 0px; 
     margin-left: 0px; 
 }
-em{font-style:normal;}
+em,i{font-style:normal!important;}
 .corlor4a{color:#4a4a4a;}
 .cor389b9f{color:#389b9f;}
 input[type=checkbox],input[type=radio]{

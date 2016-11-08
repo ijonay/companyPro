@@ -234,7 +234,73 @@
 	$('#dialog_ser_to').on('click',function(){
 		var val = $.trim($('#dialog_ser_text').val());
 			if(val){
-				window.location.href='hotresult?clueWord=='+val+'&pageSize=20&currentPage=1';
+				var obj = {
+						area:{
+							10:'北京',
+							20:'上海'
+						},
+						age:{
+							30:'湖南',
+							40:'河南'
+						}
+				};
+				var dataObj = {
+						Even:{},
+						Area:{},
+						Age:{},
+						Education:{},
+						Gender:{},
+						UserClass:{}
+				};
+				if($('#inp_data_event').is('.hidecommon')){
+				}else{
+					var list = $('#inp_data_event').find('i');
+					$(list).each(function(i,item){
+						var dataId = $(this).attr('data-id');
+						var dataText = $(this).text();
+						dataObj.Even[dataId]=dataText;
+					});
+				};
+				if($('.person_sec').is('.hidecommon')){
+				}else{
+					var list = $('.person_sec').find('i');
+					$(list).each(function(i,item){
+						var dataId = $(this).attr('data-id');
+						var dataText = $(this).text();
+						dataObj.Education[dataId]=dataText;
+					});
+				};
+				
+				if($('.person_area').is('.hidecommon')){
+				}else{
+					var list = $('.person_area').find('i');
+					$(list).each(function(i,item){
+						var dataId = $(this).attr('data-id');
+						var dataText = $(this).text();
+						dataObj.Area[dataId]=dataText;
+					});
+				};
+				if($('.person_education').is('.hidecommon')){
+				}else{
+					var list = $('.person_education').find('i');
+					$(list).each(function(i,item){
+						var dataId = $(this).attr('data-id');
+						var dataText = $(this).text();
+						dataObj.Gender[dataId]=dataText;
+					});
+				};
+				if($('.person_interest').is('.hidecommon')){
+				}else{
+					var list = $('.person_interest').find('i');
+					$(list).each(function(i,item){
+						var dataId = $(this).attr('data-id');
+						var dataText = $(this).text();
+						dataObj.UserClass[dataId]=dataText;
+					});
+				};
+				console.log(dataObj)
+				var hash = JSON.stringify(dataObj);
+				window.location.href='hotresult?clueWord=='+val+'&pageSize=20&currentPage=1#'+hash;
 			}else{
 				return;
 			};

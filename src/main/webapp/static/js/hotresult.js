@@ -1,4 +1,16 @@
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+	console.log(location.hash);
+	console.log(typeof(location.hash));
+	var str = location.hash;
+	var objString = str.substr(1);
+	console.log(objString);
+	console.log(JSON.parse(objString).area);
+	var resultSelect = JSON.parse(objString).area;
+    for(key in resultSelect){
+    	console.log(resultSelect[key]);
+    	console.log(key);
+    	//$('.result_t_l').append('<div data-id="'+key+'">'+resultSelect[key]+'</div>');
+    }
 	labelList();	
 	$('#result_filter').on('click',function(){
 		$('#ser_dialog').removeClass('hidecommon');
