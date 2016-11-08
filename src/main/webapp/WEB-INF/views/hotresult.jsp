@@ -20,7 +20,17 @@
 	    		<span class="black f16">探索结果</span>
 	    	</p>
 	    </div>
-	    <div class="result_t_r fr">111</div>
+	    <div class="result_t_r fr">
+	    	<div class="t_btn_Left"></div>
+	    	<div>
+		    	<ul>
+		    		<li>1</li>
+		    		<li>2</li>
+		    	</ul>
+		    </div>	
+	    	<div class="t-btn_right"></div>
+	    	<div>热点筛选</div>
+	    </div>
 	</div>    
     <div class="clearfix"></div>
     

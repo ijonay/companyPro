@@ -9,8 +9,10 @@ em{font-style:normal;}
 .notify-list{display:none;}
 body{background:#f1f1f1;}
 /*搜索标签*/
-.result_top{height:60px;background:#fff;padding:0px 48px;line-height:60px;}
-.result_t_l{}
+.result_top{height:60px;background:#fff;padding:0px 48px;}
+.result_t_l{line-height:60px;}
+.result_t_r div,.result_t_r ul{float:left;}
+.result_t_r ul li{float:left;}
 .result_t_l span{margin-right:5px;}
 .result_t_l span:nth-child(3){
 	display:inline-block;width: 10px;

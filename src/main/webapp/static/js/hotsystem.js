@@ -137,6 +137,7 @@
 	
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 	$('#ser_btn_high').on('click',function(){
+		labelList();
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
@@ -228,10 +229,10 @@
 			}
 		});
 	};
-	labelList();
+	
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
-			selector.append('<li data-id="'+item.id+'" class="pst"><em>'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
+			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
 			var childs = item.childs;
 			if(childs){
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
