@@ -81,6 +81,9 @@
         <property name="basePackage" value="com.zc.tempdao"/>
         <property name="sqlSessionFactoryBeanName" value="tempSqlSessionFactory"></property>
     </bean>
+    <bean class="redis.clients.jedis.Jedis">
+
+    </bean>
 
     <bean id="jedisConnFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
