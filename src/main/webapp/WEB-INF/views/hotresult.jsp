@@ -27,7 +27,18 @@
     <div class="result-section">
         <div id="canvas"></div>
     </div>
-   
+    <div class="hot-prev"></div>
+    <div class="hot-next"></div>
+    <div class="result-bottom">
+        <div class="fl">当前：1-20<span class="hot-count">/689</span></div>
+        <div class="fr">
+            <span class="fl">热度：高</span>
+            <div class="circle1 fl"></div>
+            <div class="circle2 fl"></div>
+            <div class="circle3 fl"></div>
+            <span class="fl">低</span>
+        </div>
+    </div>
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
