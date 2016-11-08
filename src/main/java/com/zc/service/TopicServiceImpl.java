@@ -123,7 +123,7 @@ public class TopicServiceImpl implements TopicService {
 
         HashMap<Integer, float[]> allCoordinates1 = new HashMap<>();
 
-        if (searchModel.getFilterIds().size() > 0) {
+        if (searchModel != null && searchModel.getFilterIds().size() > 0) {
 
             topicIds = topicFilterService.getTopicIds(searchModel);
 
