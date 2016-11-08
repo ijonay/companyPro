@@ -11,7 +11,19 @@
 </head>
 <body>
     <jsp:include page="nav.jsp" />
-    <div style="height:60px;background:#fff;"></div>
+    <div class="result_top">
+	    <div class="result_t_l fl">
+	    	<p>
+	    		<span class="corlor4a f14">&lt;</span>
+	    		<span class="corlor4a f14">首页</span>
+	    		<span class="black f16 pst"></span>
+	    		<span class="black f16">探索结果</span>
+	    	</p>
+	    </div>
+	    <div class="result_t_r fr">111</div>
+	</div>    
+    <div class="clearfix"></div>
+    
     <div class="result-section">
         <div id="canvas"></div>
     </div>

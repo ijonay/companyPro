@@ -2,9 +2,24 @@
 @media screen and (max-width:1200px ) {
     body{min-width: 1200px;min-height:540px!important;overflow-x: auto!important;overflow-y: scroll!important;}
 } 
+em{font-style:normal;}
+.corlor4a{color:#4a4a4a;}
+.cor389b9f{color:#389b9f;}
 .header{background:#052e44;}
 .notify-list{display:none;}
 body{background:#f1f1f1;}
+/*搜索标签*/
+.result_top{height:60px;background:#fff;padding:0px 48px;line-height:60px;}
+.result_t_l{}
+.result_t_l span{margin-right:5px;}
+.result_t_l span:nth-child(3){
+	display:inline-block;width: 10px;
+    height: 10px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    transform:rotate(-45deg);
+}
+
 /*搜索结果*/
 .result-section{
 	padding:0 48px;
