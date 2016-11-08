@@ -2,7 +2,7 @@ package com.zc.api;
 
 import com.zc.bean.TopicClass;
 import com.zc.enumeration.SearchTypeEnum;
-import com.zc.model.searchmodel.SearchClassItemModel;
+import com.zc.model.topicsearch.SearchClassItemModel;
 import com.zc.service.TopicClassService;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
