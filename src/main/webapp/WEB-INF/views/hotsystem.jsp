@@ -6,7 +6,6 @@
 <jsp:include page="head.jsp" />
 <link rel="stylesheet" href="css/hotsystem.css">
 <link rel="stylesheet" type="text/css" href="css/pop.css">
-
 <title>热点分析</title>
 </head>
 <body>
@@ -14,9 +13,13 @@
    <div class="ser_section" id="ser_section">
    		<div class="ser_con row pst">
 			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
-			 
-			 <div class="pointer  f16 ac fr" id="ser_btn_high">高级探索</div>
-			 <div class="pointer ser_btn f16 ac" id="ser_btn" onclick="window.location.href='hotresult'">探索</div>
+
+			 <div class="ser_hint pos f14 cor389b9f hidecommon" id="ser_hint">
+			 	<p>请输入汉字、英文或数字</p>
+			 </div>
+			 <div class="pointer  f16 ac fr borderShadow" id="ser_btn_high">高级探索</div>
+			 <div class="pointer ser_btn f16 ac" id="ser_btn">探索</div>
+
 			 <div class="pos favorite_set_btn pointer hidecommon f14" id="favorite_set_btn">设为常用</div>			 
 		</div>
 		
@@ -35,14 +38,14 @@
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
-   			<ul class="dialog_tab f14 corlor4a">
+   			<ul class="dialog_tab eventDialogTab f14 corlor4a">
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    			</ul>
    			
 
-   			<div class="dislog_inp_con dialog_tab_event">
+   			<div class="dislog_inp_con eventTab dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
    						<label><input type="checkbox" data-id="1">医药安全1</label>
@@ -74,13 +77,13 @@
    				</ul>
    			</div>
    			
-   			<ul class="dialog_tab f14 corlor4a">
+   			<ul class="dialog_tab eventDialogTab2 f14 corlor4a">
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    			</ul>
    			
-   			<div class="dislog_inp_con dialog_tab_event">
+   			<div class="dislog_inp_con eventTab2 dialog_tab_event">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
    						
@@ -113,13 +116,13 @@
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">人群标签筛选</p>
    			
    			
-   			<ul class="dialog_tab f14 corlor4a">
+   			<ul class="dialog_tab userDialogTab f14 corlor4a">
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
    			</ul>
    			
-   			<div class="dislog_inp_con dialog_tab_person">
+   			<div class="dislog_inp_con personTab dialog_tab_person">
    				<ul class="hidecommon">
    					<li class="inp_ch_list fl">
    						<label><input type="checkbox" data-id="7">医药安全fff</label>
@@ -156,7 +159,12 @@
    			<div class="dialog_inp_c f12 hidecommon">
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event" class="hidecommon"><span></span></li>
-   					<li id="inp_data_person" class="hidecommon"><span></span></li>
+   					<li id="inp_data_person1" class="hidecommon">
+   						<div class="person_sec pst hidecommon"><span></span></div>
+   						<div class="person_education pst hidecommon"><span></span></div>
+   						<div class="person_area pst hidecommon"><span></span></div>
+   						<div class="person_interest pst hidecommon"><span></span></div>
+   					</li>
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
@@ -413,10 +421,13 @@
         </div>
         <div class="infoBottom">
             <img class="hotIcon" src="img/hotIcon.png">
-            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span><img class="infoIcon" style="right:66px" src="img/weibo.png" alt="微博">
-            <img class="infoIcon" style="right:44px" src="img/wechat.png" alt="微信">
-            <img class="infoIcon" style="right:22px" src="img/zhihu.png" alt="知乎">
-            <img class="infoIcon" style="right:0" src="img/baidu.png" alt="百度">
+            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
+            <div class="iconCon">
+	            <img class="infoIcon" src="img/weibo.png" alt="微博">
+	            <img class="infoIcon" src="img/wechat.png" alt="微信">
+	            <img class="infoIcon" src="img/zhihu.png" alt="知乎">
+	            <img class="infoIcon" src="img/baidu.png" alt="百度">
+            </div>
         </div>
     </div>
     <div class="triangle"></div>
@@ -440,6 +451,5 @@
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/pop.js"></script>
-
 </body>
 </html>
