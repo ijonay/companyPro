@@ -23,6 +23,9 @@ $(document).ready(function(){
 var Pages = [];
 var pageNum = 0;
 var isLessClick = true;
+var timeOut;
+var isShow = false;
+var prevNum = 0;
 function getPath(explore){
     var localUrl = "http://192.168.1.120:8080/zhicang/";
     var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
@@ -185,20 +188,20 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     var hei = parseInt(450/(lineArray.length+1));
     var st = paper.set();//画圆
     //文字超出处理
-    var keyWord1 = "";
-    var hotTopic1 = "";
-    if(keyWord.length > 3){
-        keyWord1 = keyWord.slice(0,2);
-        keyWord1 += "..."
-    }else{
-        keyWord1 = keyWord; 
-    }
-    if(hotTopic.length > 3){
-        hotTopic1 = hotTopic.slice(0,2);
-        hotTopic1 += "..."
-    }else{
-        hotTopic1 = hotTopic;
-    }
+//    var keyWord1 = "";
+//    var hotTopic1 = "";
+//    if(keyWord.length > 3){
+//        keyWord1 = keyWord.slice(0,2);
+//        keyWord1 += "..."
+//    }else{
+//        keyWord1 = keyWord; 
+//    }
+//    if(hotTopic.length > 3){
+//        hotTopic1 = hotTopic.slice(0,2);
+//        hotTopic1 += "..."
+//    }else{
+//        hotTopic1 = hotTopic;
+//    }
     if(lineArray.length == 0){
         var str = "M"+startPoint[0]+" "+startPoint[1]+"L"+endPoint[0]+" "+endPoint[1];
         var line0 = paper.path(str).animate({fill:"#9B9B9B",stroke: "#9B9B9B", "stroke-width": 1,cursor:"pointer"}, 200);
@@ -293,29 +296,39 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             var endText = this.data("endText");
             $(document).find(".dialog-head div:eq(0)").text(startText);
             $(document).find(".dialog-head div:eq(2)").text(endText);
-            getPathInfo(startText,endText);
+//            getPathInfo(startText,endText);
           });
-          line.hover(function(){
-            var _this_ = this;
+          line.hover(function(e){
+            var _this_ = this;            
             var lineNum = this.data("lineNum");
-            var colorList = new gradientColor('#23A095','#69C668',lineArray[lineNum]+1);
-            $.each(lines[lineNum],function(index,item){
-                item.animate({stroke: colorList[index],"stroke-width": 4}, 0);
-            });
-            $.each(cycles[lineNum],function(index,item){
-                item.animate({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,}, 200);
-            });            
+//            if(prevNum == lineNum && isShow){
+////            	getAlert(e.pageX,e.pageY);
+//            	showHightLight(e,lineNum,lines,cycles,lineArray);
+//            	clearTimeout(timeOut);
+//            }else{
+            	hideHightLight(prevNum,lines,cycles);
+            	clearTimeout(timeOut);
+                isShow = true;
+                prevNum = lineNum;
+                setTimeout(function(){
+                	showHightLight(e,lineNum,lines,cycles,lineArray);
+                },0)                
+//            }
+            
           },function(){
             var _this_ = this;
-            setTimeout(function(){
-                var lineNum = _this_.data("lineNum");
-                $.each(lines[lineNum],function(index,item){
-                    item.animate({stroke: "#9B9B9B","stroke-width": 1},200);
-                });
-                $.each(cycles[lineNum],function(index,item){
-                    item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4},200);
-                });
-            },10)
+            isShow = false;
+            var lineNum = _this_.data("lineNum");
+            timeOut = setTimeout(function(){
+            	hideHightLight(prevNum,lines,cycles);
+//                $.each(lines[lineNum],function(index,item){
+//                    item.animate({stroke: "#9B9B9B","stroke-width": 1},200);
+//                });
+//                $.each(cycles[lineNum],function(index,item){
+//                    item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4},200);
+//                });
+//                $(".pathName").hide();
+            },5000)
           });
           currentLine.push(line);
        }
@@ -324,28 +337,47 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
        
     }
     
-    paper.circle(startPoint[0], startPoint[1], 25).animate({fill: "#23A095","stroke-width":0}, 300);
-    var textStart = paper.text(startPoint[0],startPoint[1],keyWord1).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#fff"});
-    textStart.attr({"cursor":"pointer","title":keyWord}).data("keyWord",keyWord);
-    textStart.hover(function(){
-//        alert(this.data("keyWord"));
-    },function(){});
-    paper.circle(endPoint[0],endPoint[1], 25).animate({fill: "#69C668","stroke-width":0}, 300);
-    var textEnd = paper.text(endPoint[0],endPoint[1],hotTopic1).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#fff"});
-    textEnd.attr({"cursor":"pointer","title":hotTopic}).data("hotTopic",hotTopic);
+    var startCircle = paper.circle(startPoint[0], startPoint[1], 25).animate({fill: "#23A095","stroke-width":0}, 300);
+    var imageStart = paper.image("img/keyWord.png",startPoint[0] - 11,startPoint[1] - 11,22,22).attr({title:keyWord,"pointer-events":"none"});
+    var textStart = paper.text(startPoint[0],startPoint[1]  + 43,keyWord).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#000"}).attr({title:keyWord});
+    var editKeyWord;
+    textStart.attr({title:keyWord}).data("keyWord",keyWord);
+    startCircle.hover(function(){
+    	editKeyWord = paper.image("img/editKeyWord.png",startPoint[0] - 25,startPoint[1] - 25,50,50);
+    	editKeyWord.hover(function(){},function(){
+    		this.remove()
+    	})
+    },function(){
+    });
+    var endCircle = paper.circle(endPoint[0],endPoint[1], 25).animate({fill: "#69C668","stroke-width":0}, 300);
+    var imageEnd = paper.image("img/hotspot.png",endPoint[0] - 10,endPoint[1] - 12,20,27).attr({title:hotTopic,"pointer-events":"none"});
+    var textEnd = paper.text(endPoint[0],endPoint[1] + 43,hotTopic).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#000"}).attr({title:hotTopic});
+    textEnd.attr({title:hotTopic}).data("hotTopic",hotTopic);
     textEnd.hover(function(){
-//        alert(this.data("hotTopic"));
-    },function(){});
-    
-    function getAlert(x,y){
-        if(x-130<endPoint[0]/2){
-          $(".path-dialog").css({"position":"absolute","left":x+10,"top":y});
-          $(".path-dialog").show();
-        }else{
-           $(".path-dialog").css({"position":"absolute","left":x-340,"top":y});
-           $(".path-dialog").show();
-        }
-     }
+    },function(){});    
+}
+function getAlert(x,y){
+    $(".pathName").css({"position":"absolute","left":x - 30,"top":y - 33});
+    $(".pathName").show();
+}
+function showHightLight(e,lineNum,lines,cycles,lineArray){
+	getAlert(e.pageX,e.pageY);
+	var colorList = new gradientColor('#23A095','#69C668',lineArray[lineNum]+1);    
+    $.each(cycles[lineNum],function(index,item){
+        item.animate({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,}, 200);
+    });
+    $.each(lines[lineNum],function(index,item){
+        item.animate({stroke: colorList[index],"stroke-width": 4}, 0);
+    });
+}
+function hideHightLight(lineNum,lines,cycles){
+    $.each(lines[lineNum],function(index,item){
+        item.animate({stroke: "#9B9B9B","stroke-width": 1},200);
+    });
+    $.each(cycles[lineNum],function(index,item){
+        item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4},200);
+    });
+    $(".pathName").hide();
 }
 
 function gradientColor(startColor,endColor,step){

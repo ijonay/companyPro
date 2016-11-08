@@ -11,6 +11,7 @@ body{
     }
 .result-section{
 	padding:0 62px 0px 50px;
+	position:relative;
 }
 .result-section-img{
 	width:258px;height:27px;background:url(../img/hotspotstitle.png) no-repeat;margin-top:9px;
@@ -344,4 +345,26 @@ body{
 .arrowDown:hover:after{
     border-right:3px solid #399b9f;
     border-bottom: 3px solid #399b9f;
+}
+.pathName{
+    position: absolute;
+    width:60px;
+    height:24px;
+    font-size: 14px;
+    color:#fff;
+    line-height: 24px;
+    background-color: #399b9f;
+    text-align: center;
+}
+.pathName:after{
+    position: absolute;
+    bottom:-8px;
+    left:25px;
+    content: "";
+    display:inline-block;
+    height:0;
+    width:0;
+    border-top: 8px solid #399b9f;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
 }

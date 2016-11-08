@@ -94,25 +94,27 @@ div#canvas {
             </div>
         </div>
         
-        
+        <div class="arrowCon">
+	        <div class="arrowUp pointer"></div>
+	        <div class="arrowDown pointer"></div>
+	    </div>
         
     </div>
     <ul class="bottom-choice f14">
-        	<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>
-        	<li class="fl mr5 choice-keyword"><span></span>关键词</li>
-        	<li class="fl libordercenter mr5"></li>
-        	<li class="fl mr5"><span></span>节点</li>
-        	<li class="fl libordercenter mr5"></li>
-        	<li class="fl mr5"><span></span>节点</li>
-        	<li class="fl libordercenter mr5"></li>
-        	<li class="fl mr5"><span></span>节点</li>
-        	<li class="fl libordercenter mr5"></li>
-        	<li class="fl mr5 choice-hot"><span></span>热点</li>
-        	<li class="fr computer-ok pointer">保存路径</li>
-        </ul>
-    <div class="arrowCon">
-        <div class="arrowUp pointer"></div>
-        <div class="arrowDown pointer"></div>
+       	<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>
+       	<li class="fl mr5 choice-keyword"><span></span>关键词</li>
+       	<li class="fl libordercenter mr5"></li>
+       	<li class="fl mr5"><span></span>节点</li>
+       	<li class="fl libordercenter mr5"></li>
+       	<li class="fl mr5"><span></span>节点</li>
+       	<li class="fl libordercenter mr5"></li>
+       	<li class="fl mr5"><span></span>节点</li>
+       	<li class="fl libordercenter mr5"></li>
+       	<li class="fl mr5 choice-hot"><span></span>热点</li>
+       	<li class="fr computer-ok pointer">保存路径</li>
+    </ul>
+    <div class="pathName disno">
+        路径2
     </div>
     
 <script src="lib/jquery-1.12.0.min.js"></script>
