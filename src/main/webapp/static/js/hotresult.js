@@ -227,15 +227,15 @@ var result={
             "message": "成功"
         }
     }
-$("<div type='text' class='word wordwidth'>关键字仅八个字…</div>").appendTo($("#canvas"));
+$("<div class='word wordwidth'>"+getSubstr("关键词仅限八个字字字")+"</div><div class='edit-word'></div>").appendTo($("#canvas"));
 drawWord(result.data);
 function drawWord(data) {
     var pointArr = [];
     $.each(data, function(idx, item) {
         if(idx%2!=0){
-            var r = 150 + (idx-1) * 16;
+            var r = 163 + (idx-1) * 16;
         }else{
-            var r = 150 + idx * 16;
+            var r = 163 + idx * 16;
         }
         var fontClass = "fontClass1",
             sizeClass = "sizeClass1";
@@ -330,3 +330,46 @@ $(document).delegate('.topic','mouseout',function(){
         $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
     }
 });
+//编辑关键字
+$(document).delegate(".edit-word","click",function(){
+    var content = $("<input type='text' class='txt-word' placeholder='请输入关键词'>");
+    var pop = new Pop({
+        width:"422px",
+        header:"编辑关键词",
+        content:content,
+        buttons:[{
+            type:"popCancle",
+            text:"取消"
+        },{
+            type:"popOk",
+            text:"确定",
+            callback:function(){
+                console.log("成功");         
+            }
+        }]
+    });
+}).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
+    e ? e.stopPropagation() : event.cancelBubble = true;
+    var left = $(this).position().left + $(this).width() / 2 - 207;
+    var top = $(this).position().top + $(this).find(".icon").height() + 16;
+    $(".alertCon").css({
+        'position': 'absolute',
+        'top': top,
+        'left': left,
+        'z-index': 9999,
+        'display': 'block'
+    });
+}).delegate(".alertCon", "click", function(e) {//弹窗内部防止冒泡
+    e ? e.stopPropagation() : event.cancelBubble = true;
+});
+$(document).on('click', function() {//点击任意地方隐藏弹窗
+    $('.alertCon').css('display', 'none');
+});
+//截取字符串
+function getSubstr(str){
+    if(str.length>8){
+        return str.substring(0,7)+"…";
+    }else{
+        return str;
+    }
+}

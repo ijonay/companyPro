@@ -21,6 +21,9 @@ body{background:#f1f1f1;}
 }
 
 /*搜索结果*/
+.result-content{
+	position:relative;
+}
 .result-section{
 	width:1070px;
     height: 520px;
@@ -41,8 +44,8 @@ body{background:#f1f1f1;}
     color: #fff;
     font-size: 18px;
     position: absolute;
-    left: 535px;
-    top: 238px;
+    left: 50%;
+    top: 50%;
     max-width:72px;
     max-height:50px;
     -webkit-transform: translate(-50%, -50%);
@@ -50,6 +53,36 @@ body{background:#f1f1f1;}
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+.edit-word{
+	height:119px;
+	width:119px;
+	border-radius:50%;
+	position: absolute;
+    background-position:center;
+    background-repeat:no-repeat;
+	left: 536px;
+    top: 239px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-size:100%;
+    cursor:pointer;
+}
+.edit-word:hover{
+	background-image:url(../img/edit-word.png);
+}
+.txt-word{
+	height:36px;
+	line-height:34px;
+	width:100%;
+	margin-top:3px;
+	border: 1px solid rgba(74, 74, 74,0.4);
+	font-size:16px;
+	color:#4a4a4a;
+	padding:0 10px;
 }
 .topic {
     color: #4a4a4a;
@@ -61,10 +94,13 @@ body{background:#f1f1f1;}
     border-radius: 50%;
     background-color: #a3a3a3;
     display: block;
-    margin: 0 auto 7px auto;
+    margin: 7px auto 7px auto;
     color:#fff;
     text-align:center;
     position:relative;
+}
+.topic .link{
+	white-space: nowrap;
 }
 .fontClass1 {
     font-size: 12px;
@@ -190,7 +226,7 @@ body{background:#f1f1f1;}
 	width:51px;
 	height:76px;
 	position:absolute;
-	top:360px;
+	top:240px;
 	left:34.5px;
 	background-image:url(../img/hot-prev.png);
 	background-repeat:no-repeat;
@@ -200,7 +236,7 @@ body{background:#f1f1f1;}
     width:51px;
     height:76px;
     position:absolute;
-    top:360px;
+    top:240px;
     right:34.5px;
     background-image:url(../img/hot-next.png);
     background-repeat:no-repeat;
@@ -209,4 +245,144 @@ body{background:#f1f1f1;}
 .hot-prev:hover,.hot-next:hover{
 	opacity:0.5;
 	background-color:rgba(0,0,0,0.5);
+}
+
+/*热点详情弹窗*/
+.alertCon{
+	display:none;
+    position:absolute;
+    left:32%;
+    top:35%;
+    width:414px;
+    height:140px;
+    margin:0;
+    box-sizing: border-box;
+    background-color:#fff;
+    border-radius: 2px;
+}
+.portrait{
+    display: inline-block;
+    width:140px;
+    height:140px;
+    background-color:red;
+    margin-right: 10px;
+    padding: 0;
+}
+.info{
+    position: absolute;
+    top:16px;
+    display: inline-block;
+    width: 246px;
+    height:108px;
+}
+.infoTop{
+    position: absolute;
+    width:100%;
+    height:22px;
+}
+.hotLabel{
+    position: absolute;
+    top:30px;
+    font-size: 12px;
+    color:#4a4a4a;
+    display: inline-block;
+    width: 100%;
+    height:20px;
+    line-height:20px;
+}
+.hotLabel div{
+	background:#e8ebed;
+	padding:0 8px;
+	float:left;
+	margin-right:6px;
+}
+.infoTitle{
+    display: inline-block;
+    width:160px;
+    height:22px;
+    line-height: 22px;
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.infoConnect{
+    float: right;
+    display: inline-block;
+    width: 80px;
+    height: 22px;
+    line-height: 12px;
+    font-size: 12px;
+    margin:0;
+    padding:5px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 11px;
+    background-color: #389b9f;
+    color:#fff;
+    cursor:pointer;
+}
+.hotInfo{
+    position: absolute;
+    top:54px;
+    font-size: 12px;;
+    display: inline-block;
+    width: 100%;
+    padding: 0 0 12px 0;
+    cursor:pointer;
+}
+.infoText{
+    overflow: hidden;
+    display: box;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    line-height: 17px;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    word-break: break-all;
+}
+.infoBottom{
+    position: absolute;
+    bottom:0px;
+    display: inline-block;    
+    width:248px;
+    height:24px;
+    line-height:18px;
+}
+.hotValue{
+    font-size: 24px;
+    margin: 0 5px 0 18px;
+    padding: 0;
+    line-height:32px;
+}
+.planText{
+    display: inline-block;
+    height: 12px;
+    font-size: 12px;
+    margin:0;
+    padding: 0; 
+}
+.infoSpace{
+    display: inline-block;
+    width: 45px;
+}
+.font14{
+    font-size: 14px;
+}
+.iconCon{
+    display:inline-block;
+    width:88px;
+}
+.infoIcon{
+    float:left;
+    bottom:0;
+    margin: 0 0 0 4px;
+    padding: 0;
+    vertical-align:bottom;
+}
+.hotIcon{
+    vertical-align:bottom;
+    position:absolute;
+    bottom:0;
 }
