@@ -10,6 +10,7 @@ package com.zc.service;
 import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
+import com.zc.model.topicsearch.SearchModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,13 +42,21 @@ public interface TopicService {
      */
     HashMap<Integer, float[]> getCoordinatesByCache();
 
+    HashMap<Integer, float[]> getCoordinatesByTopicIdsAndCache(List<Integer> topicIds);
 
-    List<TopicModel> getListExt(String clueWord, Integer currentPage, Integer pageSize);
+
+    List<TopicModel> getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer pageSize);
 
     List<TopicModel> getTopicByIdList(List<Integer> idList, float[] sourceVectors);
 
     /**
-     * 更新redis中的Topic数据
+     * 更新redis中的Topic向量数据集合到一个Key中
      */
-    void cache_UpdateTopics();
+    void cache_UpdateTopicVerctorToColl();
+
+    /**
+     * 更新redis中的Topic向量数据
+     */
+    void cache_UpdateTopicVerctors();
+
 }
