@@ -808,7 +808,8 @@ function loadSvg(){
                     var hotTopic = $(document).find(".popWin").find(".selectTag").text();
                     if(query.trim() == ""){                    
                     }else{
-                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
+//                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
+                    	  window.location.href="newPath"
                     }               
                 }
             }]

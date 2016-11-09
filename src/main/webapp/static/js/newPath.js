@@ -1,6 +1,5 @@
 $('#search-btn').click(function(){
 	//$('#load-con').removeClass('hidecommon');
-	
 	pathSer();
 });
 $('#search-input').keyup(function(event){
@@ -289,13 +288,13 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
           var line = paper.path(str).animate({fill:"#9B9B9B",stroke: "#9B9B9B", "stroke-width": 1,cursor:"pointer"}, 200).transform(scaleNum).data("lineNum",i).data("itemNum",k).data("startText",startText).data("endText",endText);
           line.attr("cursor","pointer");
           line.click(function(e){
-        	e?e.stopPropagation():event.cancelBubble = true;
-            getAlert(e.pageX,e.pageY);
+//        	e?e.stopPropagation():event.cancelBubble = true;
+//            getAlert(e.pageX,e.pageY);
             $(".bottom-choice").show();
-            var startText = this.data("startText");
-            var endText = this.data("endText");
-            $(document).find(".dialog-head div:eq(0)").text(startText);
-            $(document).find(".dialog-head div:eq(2)").text(endText);
+//            var startText = this.data("startText");
+//            var endText = this.data("endText");
+//            $(document).find(".dialog-head div:eq(0)").text(startText);
+//            $(document).find(".dialog-head div:eq(2)").text(endText);
 //            getPathInfo(startText,endText);
           });
           line.hover(function(e){
@@ -360,22 +359,27 @@ function getAlert(x,y){
     $(".pathName").css({"position":"absolute","left":x - 30,"top":y - 33});
     $(".pathName").show();
 }
+$(".pathName").on("click",function(e){
+	e?e.stopPropagation():event.cancelBubble = true;   
+    $(".bottom-choice").show();
+//    getPathInfo(startText,endText);
+  });
 function showHightLight(e,lineNum,lines,cycles,lineArray){
 	getAlert(e.pageX,e.pageY);
 	var colorList = new gradientColor('#23A095','#69C668',lineArray[lineNum]+1);    
     $.each(cycles[lineNum],function(index,item){
-        item.animate({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,}, 200);
+        item.attr({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,});
     });
     $.each(lines[lineNum],function(index,item){
-        item.animate({stroke: colorList[index],"stroke-width": 4}, 0);
+        item.attr({stroke: colorList[index],"stroke-width": 4});
     });
 }
 function hideHightLight(lineNum,lines,cycles){
     $.each(lines[lineNum],function(index,item){
-        item.animate({stroke: "#9B9B9B","stroke-width": 1},200);
+        item.attr({stroke: "#9B9B9B","stroke-width": 1});
     });
     $.each(cycles[lineNum],function(index,item){
-        item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4},200);
+        item.attr({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4});
     });
     $(".pathName").hide();
 }
