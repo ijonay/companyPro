@@ -40,6 +40,41 @@
 	    </div>
 	</div>    
     <div class="clearfix"></div>
+    <div class="result-content">
+        <div class="hot-prev"></div>
+        <div class="hot-next"></div>
+        <div class="result-section">
+            <div id="canvas">
+                <div class='edit-word'></div>
+                <div class="alertCon">
+                    <div class="portrait"></div>
+                    <div class="info">
+                        <div class="infoTop">
+                            <div class="infoTitle">张雨绮结婚</div>
+                            <div class="infoConnect">关联此热点</div>
+                        </div>
+                        <div class="hotLabel">
+                            <div>明星娱乐</div>
+                            <div>明星结婚</div>
+                        </div>
+                        <div class="hotInfo">
+                            <div class="infoText">张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚</div>            
+                        </div>
+                        <div class="infoBottom">
+                            <img class="hotIcon" src="img/hotIcon.png">
+                            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
+                            <div class="iconCon">
+                                <img class="infoIcon" src="img/weibo.png" alt="微博">
+                                <img class="infoIcon" src="img/wechat.png" alt="微信">
+                                <img class="infoIcon" src="img/zhihu.png" alt="知乎">
+                                <img class="infoIcon" src="img/baidu.png" alt="百度">
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- 弹窗end -->
+            </div><!-- 画图区域end -->
+        </div><!-- 画布背景end -->
+    </div>
     <div class="ser_dialog hidecommon" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
@@ -174,21 +209,12 @@
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
-   				
+   				<div class="fl dislog_btn_sure ac pointer f14" id="dislog_btn_sure">确定</div>
    			</div>
    			
-   			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
-			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
-   			</div>
-   		
    		</div>
    </div>
-    <div class="result-section">
-        <div id="canvas"></div>
-    </div>
-    <div class="hot-prev"></div>
-    <div class="hot-next"></div>
+
     <div class="result-bottom">
         <div class="fl">当前：1-20<span class="hot-count">/689</span></div>
         <div class="fr">
@@ -199,6 +225,7 @@
             <span class="fl">低</span>
         </div>
     </div>
+    
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>

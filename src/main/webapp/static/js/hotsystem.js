@@ -82,7 +82,7 @@
 		var val = $.trim($('#ser_text').val());
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 			$('#ser_hint').addClass('hidecommon');
-			window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1';
+			window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
 		}else{
 			$('#ser_hint').removeClass('hidecommon');
 			return;
@@ -177,8 +177,8 @@
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,5);
-					var eventTemp2 = eventData.slice(10,16);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -300,7 +300,7 @@
 				};
 				console.log(dataObj)
 				var hash = JSON.stringify(dataObj);
-				window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1#'+hash;
+				window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
 			}else{
 				return;
 			};
