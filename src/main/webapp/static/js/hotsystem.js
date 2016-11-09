@@ -18,6 +18,23 @@
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
 //添加常用
+	function getCommon(){
+		$("#favorite_ul").empty();
+		$.ajax({
+			type:"post",
+			contentType: 'application/json',
+		    dataType:"json",
+			url:dataUrl.util.getCommon(),
+			success:function(returnData){
+				console.log("111111111111111111111");
+				console.log(returnData)
+			},
+			error:function(){
+				console.log('添加常用失败');
+			}
+		});
+	}
+	getCommon();
 	$('#favorite_set_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var len = $('#favorite_ul li').length;
