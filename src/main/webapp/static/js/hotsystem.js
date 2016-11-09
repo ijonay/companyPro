@@ -82,7 +82,7 @@
 		var val = $.trim($('#ser_text').val());
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 			$('#ser_hint').addClass('hidecommon');
-			window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1';
+			window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
 		}else{
 			$('#ser_hint').removeClass('hidecommon');
 			return;
@@ -300,7 +300,7 @@
 				};
 				console.log(dataObj)
 				var hash = JSON.stringify(dataObj);
-				window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1#'+hash;
+				window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
 			}else{
 				return;
 			};
