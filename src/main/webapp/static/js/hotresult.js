@@ -1,234 +1,34 @@
-var result={
-        "data": [{
-            "id": 1,
-            "title": "#霍建华林心如结婚霍建华林心如结婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 70,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#王宝强离婚王宝强离婚王宝强离婚王宝强离婚王宝强离婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 85,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
+var urlinfo = window.location.href; //获取url
+//var word = unescape(urlinfo.split('?')[1].split('=')[1]); //拆分url得到”=”后面的参数
+getResult("aa", 20, 1);
+function getResult(clueWord, pageSize, currentPage) {
+    $.ajax({
+        type: "post",
+        contentType: 'application/json',
+        dataType: "json",
+        url: dataUrl.util.getResultList(clueWord, pageSize, currentPage),
+        data:{},
+        success: function(returnData) {
+            //console.log(returnData)
+            if(returnData.error.code == 0) {
+                $("#canvas .topic").remove();
+                $(".word").remove()
+                var clueWord1 = decodeURI(clueWord);
+                $("<div class='word wordwidth'>"+getSubstr("关键词仅限八个字字字")+"</div>").appendTo($("#canvas"));
+                result = _.sortBy(returnData.data, function(item) {
+                    return -item.score
+                });
+                drawWord(result);
+            } else {
+                $("<span class='word wordblack'>获取话题列表失败</span>").appendTo($("#canvas"));
+            }
+        },
+        error: function() {
+            console.log('获取话题列表失败');
         }
-        ,{
-            "id": 2,
-            "title": "#热点名称热点名称热点名称热点名称热点名称热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 95,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 65,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 75,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 82,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 79,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 15,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 35,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 10,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 1,
-            "title": "#霍建华林心如结婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 70,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#王宝强离婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 85,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        }
-        ,{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 95,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 65,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 75,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 82,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 79,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 15,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 35,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称热点名称热点名称热点名称热点名称热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 10,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        }],
-        "error": {
-            "code": 0,
-            "message": "成功"
-        }
-    }
-$("<div class='word wordwidth'>"+getSubstr("关键词仅限八个字字字")+"</div><div class='edit-word'></div>").appendTo($("#canvas"));
-drawWord(result.data);
+    });
+}
+
 function drawWord(data) {
     var pointArr = [];
     $.each(data, function(idx, item) {

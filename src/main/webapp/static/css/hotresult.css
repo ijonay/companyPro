@@ -55,6 +55,7 @@ body{background:#f1f1f1;}
     transform: translate(-50%, -50%);
 }
 .edit-word{
+	z-index:9;
 	height:119px;
 	width:119px;
 	border-radius:50%;

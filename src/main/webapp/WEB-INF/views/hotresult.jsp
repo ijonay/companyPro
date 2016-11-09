@@ -29,6 +29,7 @@
         <div class="hot-next"></div>
         <div class="result-section">
             <div id="canvas">
+                <div class='edit-word'></div>
                 <div class="alertCon">
                     <div class="portrait"></div>
                     <div class="info">
