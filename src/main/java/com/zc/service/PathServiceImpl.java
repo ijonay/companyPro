@@ -182,12 +182,12 @@ public class PathServiceImpl implements PathService {
     }
 
     private float getSimilarity(String start, String target) {
-        float[] tVector = wordService.getModelMap().get(target);
+        float[] tVector = wordService.getWordVectorsByCache(target);
         return getSimilarity(start, tVector);
     }
 
     private float getSimilarity(String start, float[] targetVector) {
-        float[] startVector = wordService.getModelMap().get(start);
+        float[] startVector = wordService.getWordVectorsByCache(start);
         float similarity = WordVectorHelper.getSimilarity(startVector, targetVector);
         return similarity;
     }
@@ -195,8 +195,8 @@ public class PathServiceImpl implements PathService {
     private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector) {
         LinkedList<WordRedisModel> list = new LinkedList(neighbors);
         Collections.sort(list, (left, right) -> CommonHelper.compare(
-                WordVectorHelper.getSimilarity(wordService.getModelMap().get(right.name), targetVector),
-                WordVectorHelper.getSimilarity(wordService.getModelMap().get(left.name), targetVector)
+                WordVectorHelper.getSimilarity(wordService.getWordVectorsByCache(right.name), targetVector),
+                WordVectorHelper.getSimilarity(wordService.getWordVectorsByCache(left.name), targetVector)
                 )
         );
 
@@ -206,8 +206,8 @@ public class PathServiceImpl implements PathService {
     private Collection<Weibo> getRelatedWeibo(String startNode, String endNode, List<Weibo> weiboList) {
         int resultSize = 3;
         SortedMap<Float, Weibo> resultWeibos = new TreeMap<>();
-        float[] sVector = wordService.getModelMap().get(startNode);
-        float[] eVector = wordService.getModelMap().get(endNode);
+        float[] sVector = wordService.getWordVectorsByCache(startNode);
+        float[] eVector = wordService.getWordVectorsByCache(endNode);
         for (Weibo w : weiboList) {
             float[] weiboVector = CommonHelper.stringToFloatArray(w.getCoordinate());
             float sSimilarity = WordVectorHelper.getSimilarity(sVector, weiboVector);

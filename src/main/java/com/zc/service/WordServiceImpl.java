@@ -1,24 +1,21 @@
 package com.zc.service;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-
-import org.apache.commons.lang3.StringUtils;
+import com.alibaba.fastjson.JSON;
+import com.zc.WordRedisModel;
+import com.zc.bean.*;
+import com.zc.dao.WordDao;
+import com.zc.model.*;
 import com.zc.utility.*;
-
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
-
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.EM;
 import weka.clusterers.SimpleKMeans;
@@ -27,21 +24,13 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
-import com.alibaba.fastjson.JSON;
-import com.zc.bean.KeyWord;
-import com.zc.bean.Topic;
-import com.zc.bean.Weibo;
-import com.zc.bean.Word;
-import com.zc.bean.WordDataRelations;
-import com.zc.dao.WordDao;
-import com.zc.model.ClusterModel;
-import com.zc.model.TopicModel;
-import com.zc.model.VertexEdgeModel;
-import com.zc.model.WeiboModel;
-import com.zc.utility.CommonHelper;
-import com.zc.utility.ResourceDict;
-import com.zc.utility.WordVectorHelper;
-import com.zc.utility.ZCFile;
+import javax.annotation.PostConstruct;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by polun on 2016/7/8.
@@ -49,6 +38,9 @@ import com.zc.utility.ZCFile;
 @Service
 @Lazy(false)
 public class WordServiceImpl implements WordService {
+
+    private static Logger logger = LoggerFactory.getLogger(WordServiceImpl.class);
+
     @Autowired
     private TopicService topicServicetemp;
     private static TopicService topicService;
@@ -62,7 +54,14 @@ public class WordServiceImpl implements WordService {
     private static WordService wordService;
 
     @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private ZCRedisService<float[]> redisService;
+
+    @Autowired
     private WordDao dao;
+
     private static Map<String, float[]> modelMap = null;
     private static Map<Long, TopicModel> topicMap = new HashMap<Long, TopicModel>();
     private static Map<Long, WeiboModel> weiboMap = new HashMap<Long, WeiboModel>();
@@ -73,14 +72,21 @@ public class WordServiceImpl implements WordService {
         topicService = topicServicetemp;
         weiboService = weiboServicetemp;
         wordService = wordServicetemp;
-        loadMaps();
+
+
+//        loadMaps();
+
+
 //        loadTopicMap();
         // loadWordMap();
 
         // loadMaps();
         // loadTopicMap();
+
+
     }
 
+    @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
             loadMaps();
@@ -88,11 +94,23 @@ public class WordServiceImpl implements WordService {
         return modelMap;
     }
 
+    @Override
+    public float[] getWordVectorsByCache(String key) {
+
+        String keyPrefix = PropertyHelper.getValue(Constant
+                        .CONFIG_PROPERTIES,
+                Constant.WORD_VECTORS_KEY_PREFIX);
+
+        return redisService.getCacheObject(keyPrefix + key);
+
+    }
+
     public Map<Long, TopicModel> getTopicMap() {
         return topicMap;
     }
 
 
+    @Deprecated
     private void loadMaps() {
         try {
             modelMap = WordVectorHelper.loadModel(
@@ -101,6 +119,123 @@ public class WordServiceImpl implements WordService {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * 刷新redis中语料库信息 如果redis不存在数据则重新加载数据如果有则不做任何操作
+     *
+     * @return
+     */
+    private void refreshMaps() {
+
+        String keyPrefix = Constant.WORD_VECTORS_KEY_PREFIX;
+        Set<String> keys = redisTemplate.keys(keyPrefix + "*");
+        if (keys.size() <= 0) {
+            cache_UpdateWordVectors();
+        }
+
+    }
+
+    /**
+     * 更新redis中的语料库信息 每调用一次更新一次redis
+     */
+    public void cache_UpdateWordVectors() {
+        try {
+
+            long readTime = System.currentTimeMillis();
+
+            Map<String, float[]> wordMap = WordVectorHelper.loadModel(PropertyHelper.getValue(Constant
+                    .CONFIG_PROPERTIES, Constant
+                    .MODEL_BIN));
+
+            if (Objects.nonNull(wordMap)) {
+
+                String keyPrefix = PropertyHelper.getValue(Constant
+                                .CONFIG_PROPERTIES,
+                        Constant.WORD_VECTORS_KEY_PREFIX);
+
+                Set<String> keys = redisTemplate.keys(keyPrefix + "*");
+
+                long startTime = System.currentTimeMillis();
+
+                redisTemplate.execute(new SessionCallback() {
+                    @Override
+                    public Object execute(RedisOperations operations) throws DataAccessException {
+
+                        operations.multi();
+
+                        operations.delete(keys);
+
+
+                        Map<String, float[]> wordMapTemp = new HashMap<String, float[]>();
+
+                        wordMap.forEach((k, v) -> wordMapTemp.put(keyPrefix + k, v));
+
+
+                        operations.opsForValue().multiSet(wordMapTemp);
+
+//                        wordMap.forEach((k, v) -> operations.opsForValue().set(PropertyHelper.getValue(Constant
+//                                        .CONFIG_PROPERTIES,
+//                                keyPrefix) + k, v v));
+
+                        return operations.exec();
+
+                    }
+                });
+                long endTime = System.currentTimeMillis();
+
+                System.out.println("当前开始时间为：" + readTime + "秒 执行入库开始时间为：" + startTime + "秒 结束时间为：" + endTime + "秒");
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cache_UpdateWordRoundPoints() {
+        try {
+
+            Map<String, float[]> wordMap =
+                    WordVectorHelper.loadModel(
+                            PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+
+            Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
+            int count = 1;
+            long start = System.currentTimeMillis();
+            for (Map.Entry<String, float[]> entry : wordSet) {
+                String name = entry.getKey();
+
+                if (StringHelper.isEmpty(name)) {
+                    continue;
+                }
+                Set<WordEntry> neighbors =
+                        WordVectorHelper.getDistance(name, wordMap, 25, 0.4f);
+
+                if (neighbors.size() == 0) {
+                    continue;
+                }
+
+                neighbors.forEach(n -> {
+                    WordRedisModel w = new WordRedisModel(n.name, n.score);
+                    redisTemplate.boundZSetOps(Constant.WORDR_EDISKEY_PREFIX_KEY + name).add(w, n.score);
+                });
+
+
+                if (count++ % 100 == 0) {
+                    System.out.println("-----------:" + count + "||" + (System.currentTimeMillis() - start));
+                    logger.info("-----------:" + count + "||" + (System.currentTimeMillis() - start));
+                }
+            }
+
+            System.out.println("耗时:" + (System.currentTimeMillis() - start));
+            logger.info("耗时:" + (System.currentTimeMillis() - start));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private static void loadTopicMap() {
         List<Topic> list = getTopicList(1000, false);
@@ -342,6 +477,7 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
+    @Deprecated
     public float[] getWordVector(String word) {
         float[] result = new float[200];
         if (modelMap.containsKey(word))

@@ -14,10 +14,13 @@
     background-color:rgba(0,0,0,0.4)
 }
 .popWin{
+	position:fixed;
+	top:50%;
     width:368px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 2px;
     overflow: hidden;
+    transform:translate(0,-50%)!important;
     box-shadow:1px 1px 1px 1px rgba(0,0,0,0.4);
 }
 .popTitle{
@@ -25,7 +28,8 @@
     height:48px;
     line-height:48px;
     padding-left:18px;
-    font-size:14px;
+    font-size:16px;
+    text-align:center;
     background-color: #F7F7F7;       
 }
 .popClose{
@@ -36,21 +40,49 @@
 }
 .popContent{
     padding: 44px 18px 20px 18px;
+    width:392px;
+    margin: 0 auto;
 }
 .popFooter{
     padding:20px 26px;
     text-align:right;
 }
 .popCancle{
+	display:inline-block;
+	font-size:16px;
     color:rgba(0,0,0,0.4);
-    padding-right:20px;
-    border-right:1px solid rgba(0,0,0,0.4);
-    cursor:pointer
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid rgba(74, 74, 74,0.4);
+    width:60px;
+    height:32px;
+    line-height:32px;
+    text-align:center;
+    margin:0 12px 0 0;
+    position:relative;
+    top:1px;
+    transition:all .3s;
+}
+.popCancle:hover{
+	color:#fff;
+	border-radius:16px;
+	background-color:#389b9f;
+	border:1px solid transparent;
 }
 .popOk{
-    padding-left:15px;
-    cursor:pointer
+	display:inline-block;
+	font-size:16px;
+    cursor:pointer;
+    color:#fff;
+    width:60px;
+    height:32px;
+    line-height:32px;
+    border-radius:2px;
+    background-color:#389b9f;
+    text-align:center;
+    transition:all .3s;
 }
 .popOk:hover{
-	color:#20998e
+	border-radius:16px;
+	
 }

@@ -60,23 +60,29 @@
     <!-- 注解方式配置事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="tempDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="${msdriver}"/>
-        <property name="url" value="${msurl}"/>
-        <property name="username" value="${msusername}"/>
-        <property name="password" value="${mspassword}"/>
-    </bean>
-    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
-    <bean id="tempSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="tempDataSource"/>
-        <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath*:com/zc/tempmapping/*.xml"></property>
-    </bean>
+    <!--<bean id="tempDataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+          <!--destroy-method="close">-->
+        <!--<property name="driverClassName" value="${msdriver}"/>-->
+        <!--<property name="url" value="${msurl}"/>-->
+        <!--<property name="username" value="${msusername}"/>-->
+        <!--<property name="password" value="${mspassword}"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; spring和MyBatis完美整合，不需要mybatis的配置映射文件 &ndash;&gt;-->
+    <!--<bean id="tempSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="tempDataSource"/>-->
+        <!--&lt;!&ndash; 自动扫描mapping.xml文件 &ndash;&gt;-->
+        <!--<property name="mapperLocations" value="classpath*:com/zc/tempmapping/*.xml"></property>-->
+    <!--</bean>-->
+
+
+
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.zc.tempdao"/>
         <property name="sqlSessionFactoryBeanName" value="tempSqlSessionFactory"></property>
+    </bean>
+    <bean class="redis.clients.jedis.Jedis">
+
     </bean>
 
     <bean id="jedisConnFactory"

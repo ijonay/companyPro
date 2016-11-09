@@ -51,7 +51,6 @@
 .calendar-views .week,
 .calendar-views .days {
     overflow: hidden;
-    font-family:"宋体";
     color:#000;
     font-size:12px;
 }
@@ -67,11 +66,10 @@
     float: right;
 }
 .calendar-hd {
-    padding: 0px 14px;
-    height: 30px;
-    line-height: 30px;
-    text-align:center;
-    border-bottom:1px solid #f0f0f0;
+    padding: 0px 32px;
+    height: 56px;
+    line-height: 56px;
+    background:#e8ebed;
 }
 .calendar-display {
     font-size: 28px;
@@ -81,7 +79,6 @@
 .calendar-arrow,
 .calendar-display {
     color: #000;
-    font-family: "宋体";
     font-size:14px;
 }
 .calendar li[disabled] {
@@ -96,7 +93,8 @@
 .calendar-views .days .new,
 .calendar-display:hover,
 .calendar-arrow span:hover {
-    color: #888;
+    color: #bbb;
+    font-size:14px;
 }
 
 .calendar-arrow span,
@@ -106,12 +104,12 @@
 }
 .calendar-views .days li a{
     display:block;
-    width:24px;
-    height:24px;
-    margin-top:4px;
-    margin-left:3.5px;
+    width:28px;
+    height:28px;
+    margin-left:1.5px;
     border-radius:50%;
-    line-height:24px;
+    line-height:28px;
+    font-size:16px;
 }
 .calendar-views .view-month li a{
     display:block;
@@ -122,10 +120,7 @@
     border-radius:50%;
     line-height:24px;
 }
-.calendar-views .days li,
-.calendar-views .view-month li{
-    border-bottom:1px solid #f0f0f0;
-} 
+ 
 .calendar li[disabled] {
     cursor: not-allowed;
 }
@@ -145,22 +140,20 @@
     height: 40px;
     line-height: 40px;
 }
+.calendar .days li {
+    margin-bottom:14px;
+}
 .calendar .month-items li {
     width: 70px;
     height: 70px;
     line-height: 70px;
 }
-.calendar .days li a:hover,
-.calendar .view-month li a:hover {
-    background: #eee; 
-}
 .calendar .calendar-views .now {
-    color: #fff;
-    background: #02998e!important;  
+    background: #e8ebed!important;  
 }
 .calendar .calendar-views .selected {
-    color: #66be8c;
-    background: #CDE9D9!important; 
+    color: #fff!important;
+    background: #01c9d6!important; 
 }
 .calendar .calendar-views .dot {
     position: absolute;
@@ -169,7 +162,7 @@
     margin-left: -2px; 
     width: 4px;
     height: 4px;
-    background: #66be8c;
+    /*background: #66be8c;*/
     border-radius: 50%;
 }
 .calendar-views .now .dot {
@@ -205,4 +198,11 @@
     margin-left: -3px;
     border: 6px solid transparent;
     border-top-color: #000;
+}
+
+.calendar .calendar-views .markDate {
+    border-bottom:1px solid #01c9d6;
+}
+.calendar .calendar-views .markDate a{
+    color:#01c9d6;
 }
