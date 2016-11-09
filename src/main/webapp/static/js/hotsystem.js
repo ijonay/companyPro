@@ -267,7 +267,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Education.push({id:dataId,name:dataText})
+						dataObj.Gender.push({id:dataId,name:dataText})
 					});
 				};
 				
@@ -286,7 +286,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Gender.push({id:dataId,name:dataText})
+						dataObj.Education.push({id:dataId,name:dataText})
 					});
 				};
 				if($('.person_interest').is('.hidecommon')){
@@ -572,12 +572,7 @@
 					
 				}
 			});
-//			var textStr = $('#inp_data_person1 i:last').text();
-//			if(textStr.indexOf('、')>-1){
-//				var newStr = textStr.substring(0,textStr.length-1)
-//				$('#inp_data_person1 i:last').text(newStr);
-//			}
-//			
+
 			
 			$(this).parent().parent().prev().find('input').prop("checked", true);
 			$('.cor389b9f').find('span').css('display','block')
