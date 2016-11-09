@@ -687,6 +687,7 @@
 		$('.dislog_inp_con ul').addClass('hidecommon');
 		$('.dialog_tab').find('li').removeClass('cor389b9f');
 		$('.dialog_tab').find('li').removeClass('hot_arrow_up');
+		$('#dialog_ser_text').val('');
 	};
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。

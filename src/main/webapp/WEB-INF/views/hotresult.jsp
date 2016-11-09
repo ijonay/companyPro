@@ -20,7 +20,7 @@
 	    		<span class="black f16">探索结果</span>
 	    	</p>
 	    </div>
-	    <div class="result_t_r fr f12">
+	    <div class="result_t_r fr f12" id="result_t_r">
 	    	<div class="result_evet_con hidecommon" id="result_evet_con">
 	    		<div class="cor389b9f">事件标签:</div>
 	    		<div class="corlor4a result_evet_div label_border width158 pst ac word-ellipsis" title="" id="result_label_even"><span class="lable_c-d"></span></div>
