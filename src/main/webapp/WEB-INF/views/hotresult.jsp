@@ -23,17 +23,17 @@
 	    <div class="result_t_r fr f12">
 	    	<div class="result_evet_con">
 	    		<div class="cor389b9f">事件标签:</div>
-	    		<div class="corlor4a result_evet_div label_border width158 pst ac word-ellipsis" title="受众特征事件受众特征事件受众特征事件">受众特征事件受众特征事件受众特征事件<span class="lable_c-d"></span></div>
+	    		<div class="corlor4a result_evet_div label_border width158 pst ac word-ellipsis" title="" id="result_label_even"><span class="lable_c-d"></span></div>
 	    	</div>
 	    	
 	    	<div class="result_evet_persn">
 	    		<div class="cor094" style="margin-right:10px;">受众特征:</div>
 	    		<ul class="corlor4a">
-	    			<li class="label_border labele_Gender width74 pst ac word-ellipsis">特征受众特征受众特征特征<span class="lable_c-d"></span></li>
-	    			<li class="label_border labele_Age width74 pst ac word-ellipsis">特征受众特征受众特征特征<span class="lable_c-d"></span></li>
-	    			<li class="label_border labele_Education width74 pst ac word-ellipsis">1<span class="lable_c-d"></span></li>
-	    			<li class="label_border labele_Area width74 pst ac word-ellipsis">1<span class="lable_c-d"></span></li>
-	    			<li class="label_border labele_UserClass width74 pst ac word-ellipsis">1<span class="lable_c-d"></span></li>
+	    			<li class="label_border labele_Gender width74 pst ac word-ellipsis" id="result_label_gender"><span class="lable_c-d"></span></li>
+	    			<li class="label_border labele_Age width74 pst ac word-ellipsis" id="result_label_age"><span class="lable_c-d"></span></li>
+	    			<li class="label_border labele_Education width74 pst ac word-ellipsis" id="result_label_education"><span class="lable_c-d"></span></li>
+	    			<li class="label_border labele_Area width74 pst ac word-ellipsis" id="result_label_area"><span class="lable_c-d"></span></li>
+	    			<li class="label_border labele_UserClass width74 pst ac word-ellipsis" id="result_label_userClass"><span class="lable_c-d"></span></li>
 	    		</ul>
 		    </div>
 	    	<div class="result_filter pointer" id="result_filter">热点筛选</div>

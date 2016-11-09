@@ -1,16 +1,71 @@
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
-	console.log(location.hash);
-	console.log(typeof(location.hash));
-	var str = location.hash;
-	var objString = str.substr(1);
-	console.log(objString);
-	console.log(JSON.parse(objString).area);
-	var resultSelect = JSON.parse(objString).area;
-    for(key in resultSelect){
-    	console.log(resultSelect[key]);
-    	console.log(key);
-    	//$('.result_t_l').append('<div data-id="'+key+'">'+resultSelect[key]+'</div>');
-    }
+	
+	if(location.hash){
+		console.log(location.hash);
+		console.log(typeof(location.hash));
+		var str = location.hash;
+		var objString = str.substr(1);
+		console.log(objString);
+		console.log(JSON.parse(objString).Even);
+		
+		var evenSelect = JSON.parse(objString).Even;
+		$('#result_label_even').innerHTML = '';
+		var titleEven = '';
+		$.each(evenSelect,function(i,item){
+			titleEven += item.name;
+			$('#result_label_even').attr('title',titleEven)
+	    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+		});
+
+		var genderSelect = JSON.parse(objString).Gender;
+		$('#result_label_gender').innerHTML = '';
+		var titleGender = '';
+		$.each(genderSelect,function(i,item){
+			titleEven += item.name;
+			$('#result_label_gender').attr('title',titleEven)
+	    	$('#result_label_gender').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+		});
+		
+		var ageSelect = JSON.parse(objString).Age;
+		$('#result_label_age').innerHTML = '';
+		var titleAge = '';
+		$.each(ageSelect,function(i,item){
+			titleAge += item.name;
+			$('#result_label_age').attr('title',titleAge)
+	    	$('#result_label_age').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+		});
+		
+		
+		var educationSelect = JSON.parse(objString).Education;
+		$('#result_label_education').innerHTML = '';
+		var titleEducation = '';
+		$.each(educationSelect,function(i,item){
+			titleEducation += item.name;
+			$('#result_label_education').attr('title',titleEducation)
+	    	$('#result_label_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+		});
+		
+		var areaSelect = JSON.parse(objString).Area;
+		$('#result_label_area').innerHTML = '';
+		var titleArea = '';
+		$.each(areaSelect,function(i,item){
+			titleArea += item.name;
+			$('#result_label_area').attr('title',titleArea)
+	    	$('#result_label_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+		});
+		
+		
+		var UserClassSelect = JSON.parse(objString).UserClass;
+		$('#result_label_userClass').innerHTML = '';
+		var titleuser = '';
+		$.each(UserClassSelect,function(i,item){
+			titleuser += item.name;
+			$('#result_label_userClass').attr('title',titleuser)
+	    	$('#result_label_userClass').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+		});
+		
+	};
+	
 	labelList();	
 	$('#result_filter').on('click',function(){
 		$('#ser_dialog').removeClass('hidecommon');

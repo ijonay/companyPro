@@ -82,7 +82,7 @@
 		var val = $.trim($('#ser_text').val());
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 			$('#ser_hint').addClass('hidecommon');
-			window.location.href="hotresult?clueWord=='+val+'&pageSize=20&currentPage=1";
+			window.location.href='hotresult?clueWord=='+val+'&pageSize=20&currentPage=1';
 		}else{
 			$('#ser_hint').removeClass('hidecommon');
 			return;
@@ -245,12 +245,12 @@
 						}
 				};
 				var dataObj = {
-						Even:{},
-						Area:{},
-						Age:{},
-						Education:{},
-						Gender:{},
-						UserClass:{}
+						Even:[],
+						Area:[],
+						Age:[],
+						Education:[],
+						Gender:[],
+						UserClass:[]
 				};
 				if($('#inp_data_event').is('.hidecommon')){
 				}else{
@@ -258,7 +258,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Even[dataId]=dataText;
+						dataObj.Even.push({id:dataId,name:dataText})
 					});
 				};
 				if($('.person_sec').is('.hidecommon')){
@@ -267,7 +267,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Education[dataId]=dataText;
+						dataObj.Education.push({id:dataId,name:dataText})
 					});
 				};
 				
@@ -277,7 +277,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Area[dataId]=dataText;
+						dataObj.Area.push({id:dataId,name:dataText})
 					});
 				};
 				if($('.person_education').is('.hidecommon')){
@@ -286,7 +286,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Gender[dataId]=dataText;
+						dataObj.Gender.push({id:dataId,name:dataText})
 					});
 				};
 				if($('.person_interest').is('.hidecommon')){
@@ -295,7 +295,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.UserClass[dataId]=dataText;
+						dataObj.UserClass.push({id:dataId,name:dataText})
 					});
 				};
 				console.log(dataObj)
