@@ -1,20 +1,83 @@
-var urlinfo = window.location.href; //获取url
-//var word = unescape(urlinfo.split('?')[1].split('=')[1]); //拆分url得到”=”后面的参数
-getResult("aa", 20, 1);
-function getResult(clueWord, pageSize, currentPage) {
+var urlLabel = GetRequestLabel();//标签信息
+var word = GetRequest().clueWord;//关键词
+var nowPage = GetRequest().currentPage;//页码
+$('#nav_ser').val(word);
+
+function resSer() {
+    word = $.trim($('#nav_ser').val());
+    if(word) {
+        nowPage = 1;
+        var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage=1";
+        if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+        history.pushState && history.pushState({title: word,pagenumber:1}, word, url);
+        getResult(word, 20, nowPage,urlLabel);
+    }
+
+}
+$('.head-search').click(function() {//搜索按钮
+    resSer();
+});
+$('#nav_ser').keyup(function(event) {//搜索框回车
+    if(event.keyCode == "13") {
+        resSer();
+    };
+});
+//换一批
+$('.hot-next').bind('click', function() {//下一页
+    nowPage++;
+    var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+    if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+    history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
+    getResult(word, 20, nowPage,urlLabel);
+});
+$('.hot-prev').bind('click', function() {//上一页
+    if(nowPage>1){
+        nowPage--;
+        var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+        if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+        history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
+        getResult(word, 20, nowPage,urlLabel);
+    }       
+});
+
+// 监听popstate事件
+history.pushState && window.addEventListener("popstate", function(e) {
+    // 获取history.state对象中的状态信息
+    // 在这里state将自动成为event的子对象，可直接通过event.state访问
+    var currWord = GetRequest().clueWord; //拆分url得到”=”后面的参数
+    var currPage = GetRequest().currentPage; //拆分url得到”=”后面的参数 ;
+    var currLabel = GetRequestLabel();//标签信息
+    if(currWord&&currPage){
+        $('#nav_ser').val(currWord);
+        getResult(currWord, 20, currPage,currLabel);
+    }
+}, false);
+
+getResult(word, 20, nowPage,urlLabel);
+function getResult(clueWord, pageSize, currentPage,labeInfo) {
+    var data={}
+    if(labeInfo){
+        data={
+                age:labeInfo.Age?_.pluck(labeInfo.Age, 'id'):[],
+                gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
+                education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
+                area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],
+                eventClass:labeInfo.Even?_.pluck(labeInfo.Even, 'id'):[],
+                userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
+        };
+    } 
     $.ajax({
         type: "post",
         contentType: 'application/json',
         dataType: "json",
         url: dataUrl.util.getResultList(clueWord, pageSize, currentPage),
-        data:{},
+        data:JSON.stringify(data),
         success: function(returnData) {
-            //console.log(returnData)
             if(returnData.error.code == 0) {
                 $("#canvas .topic").remove();
                 $(".word").remove()
                 var clueWord1 = decodeURI(clueWord);
-                $("<div class='word wordwidth'>"+getSubstr("关键词仅限八个字字字")+"</div>").appendTo($("#canvas"));
+                $("<div class='word wordwidth'>"+getSubstr(word)+"</div>").appendTo($("#canvas"));
                 result = _.sortBy(returnData.data, function(item) {
                     return -item.score
                 });
@@ -742,7 +805,7 @@ $(document).delegate('.topic','mouseout',function(){
 });
 //编辑关键字
 $(document).delegate(".edit-word","click",function(){
-    var content = $("<input type='text' class='txt-word' placeholder='请输入关键词'>");
+    var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+word+">");
     var pop = new Pop({
         width:"422px",
         header:"编辑关键词",
@@ -754,7 +817,9 @@ $(document).delegate(".edit-word","click",function(){
             type:"popOk",
             text:"确定",
             callback:function(){
-                console.log("成功");         
+                $('#nav_ser').val($('.txt-word').val());
+                resSer();
+                $(".popMask").hide();
             }
         }]
     });
