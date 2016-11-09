@@ -172,8 +172,8 @@
    			</div>
    			
    			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16">
-			 	<div class="pointer f16 ac fr" >探索</div>
+   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
+			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
    			</div>
    		
    		</div>
