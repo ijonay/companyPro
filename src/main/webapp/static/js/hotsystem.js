@@ -82,7 +82,7 @@
 		var val = $.trim($('#ser_text').val());
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 			$('#ser_hint').addClass('hidecommon');
-			window.location.href='hotresult?clueWord=='+val+'&pageSize=20&currentPage=1';
+			window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1';
 		}else{
 			$('#ser_hint').removeClass('hidecommon');
 			return;
@@ -267,7 +267,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Education.push({id:dataId,name:dataText})
+						dataObj.Gender.push({id:dataId,name:dataText})
 					});
 				};
 				
@@ -286,7 +286,7 @@
 					$(list).each(function(i,item){
 						var dataId = $(this).attr('data-id');
 						var dataText = $(this).text();
-						dataObj.Gender.push({id:dataId,name:dataText})
+						dataObj.Education.push({id:dataId,name:dataText})
 					});
 				};
 				if($('.person_interest').is('.hidecommon')){
@@ -300,7 +300,7 @@
 				};
 				console.log(dataObj)
 				var hash = JSON.stringify(dataObj);
-				window.location.href='hotresult?clueWord=='+val+'&pageSize=20&currentPage=1#'+hash;
+				window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1#'+hash;
 			}else{
 				return;
 			};
@@ -572,12 +572,7 @@
 					
 				}
 			});
-//			var textStr = $('#inp_data_person1 i:last').text();
-//			if(textStr.indexOf('、')>-1){
-//				var newStr = textStr.substring(0,textStr.length-1)
-//				$('#inp_data_person1 i:last').text(newStr);
-//			}
-//			
+
 			
 			$(this).parent().parent().prev().find('input').prop("checked", true);
 			$('.cor389b9f').find('span').css('display','block')
