@@ -193,3 +193,13 @@ body,html{font-family:  "Arial","微软雅黑"!important;-webkit-font-smoothing:
     border-left: 1px solid #000;
     transform:rotate(-45deg);
 }
+.arrowRight{
+	display:inline-block;width: 10px;
+    height: 10px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    transform:rotate(135deg);
+}
+.border-radius2px{
+	border-raidus:2px;
+}
