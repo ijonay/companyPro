@@ -119,7 +119,7 @@ input[type=checkbox]:checked::after {
 .dialog_title span:hover{background:url(../img/cook_li_del_hover.png) no-repeat;}
 .dialog_tab{padding:0 20px;height:40px;line-height:40px;}
 .dialog_tab li span{display:none;}
-.dialog_tab li{float:left;margin-right:10px;cursor:pointer;background:url(../img/hot_arrow_down.png) no-repeat center right;padding-right:25px;}
+.dialog_tab li{float:left;margin-right:10px;cursor:pointer;background:url(../img/hot_arrow_down.png) no-repeat right center ;padding-right:16px;}
 .dialog_tab li.hot_arrow_up{background:url(../img/hot_arrow_up.png) no-repeat center right;}
 .dialog_tab li span{width:16px;height:16px;border-radius:50%;background:#389b9f;color:#fff;font-size:12px;text-align:center;line-height:16px;top:-4px;right:17px;}
 .dislog_inp_con ul{width:100%;height:70px;background:#e7ecde;padding:0 20px;position:relative;}

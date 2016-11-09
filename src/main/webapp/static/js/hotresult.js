@@ -193,15 +193,19 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		$('#result_evet_persn').addClass('hidecommon');
 	}else{
 		$('#result_evet_persn').removeClass('hidecommon');
-	}
+	};
 	
-	labelList();	
+	labelList();
+	
+
+	
+		
 	$('#result_filter').on('click',function(){
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
 	$('.dialog_area .ser_dialog_close').on('click',function(){
-		dialogInit();
+		//dialogInit();
 		$('#ser_dialog').addClass('hidecommon');
 	});
 	
@@ -236,8 +240,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,5);
-					var eventTemp2 = eventData.slice(10,16);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -280,6 +284,25 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
 					fillData($(".userDialogTab"),$(".personTab"),userData);
+//					//渲染弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。ser_dialog
+//					//var result_t_r = $('#result_t_r').find('i')
+//					if($('#result_t_r').find('i').length>=0){
+//						$('#result_t_r i').each(function(i,item){
+//							var dataid = $(this).attr('data-id');
+//							$('#inp'+dataid).prop("checked",true);
+//						})
+//					};
+					var  inpflag = 0;
+					$('.dialog_inp_num').each(function(index,item){
+						if($(this).text()!=='0'){
+							inpflag++;
+							if(inpflag == 1){
+								$(this).parent().click();
+							}			
+							$(this).css('display','block');
+						}
+					})
+					
 				}
 				
 			},
@@ -315,22 +338,43 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
-			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
 			var childs = item.childs;
 			if(childs){
-				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
+				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
+				var lenNum = 0;
 				$.each(childs,function(index,item){
-					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'">'+item.name+'</label>'
+					//渲染弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。ser_dialog
+					//var result_t_r = $('#result_t_r').find('i')
+					var flag="";
+					if($('#result_t_r').find('i').length>=0){
+						$('#result_t_r i').each(function(){
+							var dataid = $(this).attr('data-id');
+							if(item.id==dataid){
+								flag="checked";
+								lenNum++;
+								return false;
+							}
+						})
+					};
+					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'" '+flag+'>'+item.name+'</label>'
 				})
 				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}else{
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
 				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}
+			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">'+lenNum+'</span></li>');
+			
+			
+			
 			selector2.append(str);
 		})
-	}
-
+		
+		
+		};
+	
+	
+	
 
 	
 	//事件标签点击
@@ -683,9 +727,9 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	//清空标签
 	$('#dialog_inp_del').on('click',function(){
-		dialogInit()
+		//dialogInit()
 	});
-	dialogInit();
+	//dialogInit();
 	function dialogInit(){
 		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
@@ -803,6 +847,7 @@ $(document).delegate('.topic','mouseout',function(){
         $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
     }
 });
+
 //编辑关键字
 $(document).delegate(".edit-word","click",function(){
     var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+word+">");
@@ -848,3 +893,4 @@ function getSubstr(str){
         return str;
     }
 }
+
