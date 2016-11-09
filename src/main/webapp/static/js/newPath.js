@@ -23,6 +23,7 @@ var Pages = [];
 var pageNum = 0;
 var isLessClick = true;
 var timeOut;
+var circleTimeout;
 var isShow = false;
 var prevNum = 0;
 function getPath(explore){
@@ -258,6 +259,33 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             currentCycle.push(cycle);
             paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
         }
+          cycle.click(function(){
+        	  var lineNum = this.data("lineNum");
+        	  console.log(lineNum);
+        	  $(".pathName").click();
+          })
+         //节点hover高亮
+          cycle.hover(function(e){
+              var _this_ = this;            
+              var lineNum = this.data("lineNum");
+              	hideHightLight(prevNum,lines,cycles);
+              	clearTimeout(circleTimeout);
+              	clearTimeout(timeOut);
+                  isShow = true;
+                  prevNum = lineNum;
+//                  setTimeout(function(){
+                  getAlert(e.pageX,e.pageY - 5);
+                  showHightLight(e,lineNum,lines,cycles,lineArray);
+//                  },0)
+              
+            },function(){
+              var _this_ = this;
+              isShow = false;
+              var lineNum = _this_.data("lineNum");
+              circleTimeout = setTimeout(function(){
+              	hideHightLight(prevNum,lines,cycles);
+              },5000)
+            });
         var scaleNum = 0;
         switch(lineArray[i]){
             case 0:scaleNum = "s0.97";break;
@@ -288,7 +316,12 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
           var line = paper.path(str).animate({fill:"#9B9B9B",stroke: "#9B9B9B", "stroke-width": 1,cursor:"pointer"}, 200).transform(scaleNum).data("lineNum",i).data("itemNum",k).data("startText",startText).data("endText",endText);
           line.attr("cursor","pointer");
           line.click(function(e){
-//        	e?e.stopPropagation():event.cancelBubble = true;
+        	e?e.stopPropagation():event.cancelBubble = true;
+        	var lineNum = this.data("lineNum");
+        	$.each(lines[lineNum],function(index,item){
+        		console.log(item.data("endText"))
+        	})
+//        	console.log(lineNum);
 //            getAlert(e.pageX,e.pageY);
             $(".bottom-choice").show();
 //            var startText = this.data("startText");
@@ -307,11 +340,13 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
 //            }else{
             	hideHightLight(prevNum,lines,cycles);
             	clearTimeout(timeOut);
+            	clearTimeout(circleTimeout);
                 isShow = true;
                 prevNum = lineNum;
-                setTimeout(function(){
-                	showHightLight(e,lineNum,lines,cycles,lineArray);
-                },0)                
+//                setTimeout(function(){
+                getAlert(e.pageX,e.pageY);
+                showHightLight(e,lineNum,lines,cycles,lineArray);
+//                },0)                
 //            }
             
           },function(){
@@ -364,8 +399,7 @@ $(".pathName").on("click",function(e){
     $(".bottom-choice").show();
 //    getPathInfo(startText,endText);
   });
-function showHightLight(e,lineNum,lines,cycles,lineArray){
-	getAlert(e.pageX,e.pageY);
+function showHightLight(e,lineNum,lines,cycles,lineArray){	
 	var colorList = new gradientColor('#23A095','#69C668',lineArray[lineNum]+1);    
     $.each(cycles[lineNum],function(index,item){
         item.attr({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,});

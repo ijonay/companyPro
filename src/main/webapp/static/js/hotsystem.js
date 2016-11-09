@@ -17,7 +17,7 @@
 		$('#cook_ul').addClass('hidecommon');
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
-
+//添加常用
 	$('#favorite_set_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var len = $('#favorite_ul li').length;
@@ -50,7 +50,7 @@
 		var val = $(this).text();
 		$('#ser_text').val(val);
 	});
-	
+	//删除常用
 	$('#favorite_ul').delegate('li span','click',function(e){
 		e ? e.stopPropagation() : event.cancelBubble = true;
 		$(this).parent().remove();
