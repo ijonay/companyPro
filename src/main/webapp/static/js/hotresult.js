@@ -6,65 +6,101 @@
 		var str = location.hash;
 		var objString = str.substr(1);
 		console.log(objString);
-		console.log(JSON.parse(objString).Even);
+		//console.log(JSON.parse(objString).Even);
 		
 		var evenSelect = JSON.parse(objString).Even;
 		$('#result_label_even').innerHTML = '';
-		var titleEven = '';
-		$.each(evenSelect,function(i,item){
-			titleEven += item.name;
-			$('#result_label_even').attr('title',titleEven)
-	    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-		});
-
+		if(evenSelect.length <=0 && evenSelect){
+			$('#result_evet_con').addClass('hidecommon');
+		}else{
+			var titleEven = '';
+			$.each(evenSelect,function(i,item){
+				titleEven += item.name;
+				$('#result_label_even').attr('title',titleEven)
+		    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+			});
+			$('#result_evet_con').removeClass('hidecommon');
+		};	
+		
+		
 		var genderSelect = JSON.parse(objString).Gender;
 		$('#result_label_gender').innerHTML = '';
-		var titleGender = '';
-		$.each(genderSelect,function(i,item){
-			titleEven += item.name;
-			$('#result_label_gender').attr('title',titleEven)
-	    	$('#result_label_gender').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-		});
+		if(genderSelect.length<=0){
+			$('#result_label_gender').addClass('hidecommon');
+		}else{
+			var titleGender = '';
+			$.each(genderSelect,function(i,item){
+				titleGender += item.name;
+				$('#result_label_gender').attr('title',titleGender)
+		    	$('#result_label_gender').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+			});
+			$('#result_label_gender').removeClass('hidecommon')
+		};
 		
 		var ageSelect = JSON.parse(objString).Age;
 		$('#result_label_age').innerHTML = '';
+		if(ageSelect.length<=0){
+			$('#result_label_age').addClass('hidecommon');
+		}else{
 		var titleAge = '';
 		$.each(ageSelect,function(i,item){
 			titleAge += item.name;
 			$('#result_label_age').attr('title',titleAge)
 	    	$('#result_label_age').append('<i data-id="'+item.id+'">'+item.name+'</i>');
 		});
-		
+			$('#result_label_age').removeClass('hidecommon');
+		};
 		
 		var educationSelect = JSON.parse(objString).Education;
 		$('#result_label_education').innerHTML = '';
-		var titleEducation = '';
-		$.each(educationSelect,function(i,item){
-			titleEducation += item.name;
-			$('#result_label_education').attr('title',titleEducation)
-	    	$('#result_label_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-		});
+		if(educationSelect.length<=0){
+			$('#result_label_education').addClass('hidecommon');
+		}else{
+			var titleEducation = '';
+			$.each(educationSelect,function(i,item){
+				titleEducation += item.name;
+				$('#result_label_education').attr('title',titleEducation)
+		    	$('#result_label_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+			});
+			$('#result_label_education').removeClass('hidecommon');
+		};
 		
 		var areaSelect = JSON.parse(objString).Area;
 		$('#result_label_area').innerHTML = '';
-		var titleArea = '';
-		$.each(areaSelect,function(i,item){
-			titleArea += item.name;
-			$('#result_label_area').attr('title',titleArea)
-	    	$('#result_label_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-		});
-		
+		if(areaSelect<=0){
+			$('#result_label_area').addClass('hidecommon');
+		}else{
+			var titleArea = '';
+			$.each(areaSelect,function(i,item){
+				titleArea += item.name;
+				$('#result_label_area').attr('title',titleArea)
+		    	$('#result_label_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+			});
+			$('#result_label_area').removeClass('hidecommon');
+		};
 		
 		var UserClassSelect = JSON.parse(objString).UserClass;
 		$('#result_label_userClass').innerHTML = '';
-		var titleuser = '';
-		$.each(UserClassSelect,function(i,item){
-			titleuser += item.name;
-			$('#result_label_userClass').attr('title',titleuser)
-	    	$('#result_label_userClass').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-		});
+		if(UserClassSelect.length<=0){
+			$('#result_label_userClass').addClass('hidecommon');
+		}else{
+			var titleuser = '';
+			$.each(UserClassSelect,function(i,item){
+				titleuser += item.name;
+				$('#result_label_userClass').attr('title',titleuser)
+		    	$('#result_label_userClass').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+			});
+			$('#result_label_userClass').removeClass('hidecommon');
+		};
 		
+	}else{
+		$('#result_evet_con').addClass('hidecommon');
 	};
+	if($('#result_evet_persn').find('i').length<=0){
+		$('#result_evet_persn').addClass('hidecommon');
+	}else{
+		$('#result_evet_persn').removeClass('hidecommon');
+	}
 	
 	labelList();	
 	$('#result_filter').on('click',function(){
@@ -107,8 +143,8 @@
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,9);
-					var eventTemp2 = eventData.slice(17,22);
+					var eventTemp = eventData.slice(0,5);
+					var eventTemp2 = eventData.slice(10,16);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -191,7 +227,7 @@
 			if(childs){
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
 				$.each(childs,function(index,item){
-					str += '<label><input type="checkbox" data-id="'+item.id+'">'+item.name+'</label>'
+					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'">'+item.name+'</label>'
 				})
 				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}else{
