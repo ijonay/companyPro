@@ -52,71 +52,101 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="getTopicIds" resultType="Integer">
-        SELECT
-        t.topic_id
-        FROM
-        (
-        TopicFilter t
-        <if test="searchModel.getGender().size>0">
-            LEFT JOIN TopicFilter a ON a.topic_id = t.topic_id
-        </if>
-        <if test="searchModel.getEducation().size>0">
-            LEFT JOIN TopicFilter b ON b.topic_id = t.topic_id
-        </if>
-        <if test="searchModel.getArea().size>0">
-            LEFT JOIN TopicFilter c ON c.topic_id = t.topic_id
-        </if>
-        <if test="searchModel.getEventClass().size>0">
-            LEFT JOIN TopicFilter d ON d.topic_id = t.topic_id
-        </if>
-        <if test="searchModel.getUserClass().size>0">
-            LEFT JOIN TopicFilter e ON e.topic_id = t.topic_id
-        </if>
-        )
-        WHERE
 
-        <if test="searchModel.getFilterIds().size()==0">
-            1!=1
-        </if>
+        ${searchModel.getExistsSql("SELECT topic_id  from TopicFilter t#i where   filter_id in(#fids) #exists "
+                                    ,"AND EXISTS(#tempSql AND t#i.topic_id=t#j.topic_id)"
+                                    ,"SELECT topic_id FROM TopicAgeStatistics ta WHERE 1 = 1 #where GROUP BY topic_id"
+                                    ,"AND year_of_birth &gt;=(YEAR(CURDATE()) - #max) "
+                                    ,"AND year_of_birth &lt;=(YEAR(CURDATE()) - #min) "
+                                    ,"AND topic_id in(#other) ")}
 
-        <if test="searchModel.getFilterIds().size()>0">
-            t.filter_id in
-            <foreach collection="searchModel.getFilterIds()" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
+        <!--SELECT-->
+        <!--t.topic_id-->
+        <!--FROM-->
+        <!--(-->
+        <!--TopicFilter t-->
+        <!--<if test="searchModel.getGender().size()>0">-->
+        <!--INNER JOIN TopicFilter a ON a.topic_id = t.topic_id and a.filter_id in-->
+        <!--<foreach collection="searchModel.getGender()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getEducation().size()>0">-->
+        <!--INNER JOIN TopicFilter b ON b.topic_id = t.topic_id and b.filter_id in-->
+        <!--<foreach collection="searchModel.getEducation()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getArea().size()>0">-->
+        <!--INNER JOIN TopicFilter c ON c.topic_id = t.topic_id and c.filter_id in-->
+        <!--<foreach collection="searchModel.getArea()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getEventClass().size()>0">-->
+        <!--INNER JOIN TopicFilter d ON d.topic_id = t.topic_id and d.filter_id in-->
+        <!--<foreach collection="searchModel.getEventClass()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getUserClass().size()>0">-->
+        <!--INNER JOIN TopicFilter e ON e.topic_id = t.topic_id and e.filter_id in-->
+        <!--<foreach collection="searchModel.getUserClass()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getAge().size()>0">-->
+        <!--INNER JOIN TopicAgeStatistics f ON f.topic_id = t.topic_id-->
+        <!--AND year_of_birth &lt;= (YEAR(CURDATE()) - ${searchModel.getAge().get(0)})-->
+        <!--<if test="searchModel.getAge().size()>1">-->
+        <!--AND year_of_birth &gt;= (YEAR(CURDATE()) - ${searchModel.getAge().get(1)})-->
+        <!--</if>-->
+        <!--</if>-->
+        <!--)-->
+        <!--WHERE-->
 
-        <if test="searchModel.getGender().size()>0">
-            and a.filter_id in
-            <foreach collection="searchModel.getGender()" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        <if test="searchModel.getEducation().size()>0">
-            and b.filter_id in
-            <foreach collection="searchModel.getEducation()" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        <if test="searchModel.getArea().size()>0">
-            and c.filter_id in
-            <foreach collection="searchModel.getArea()" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        <if test="searchModel.getEventClass().size()>0">
-            and d.filter_id in
-            <foreach collection="searchModel.getEventClass()" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        <if test="searchModel.getUserClass().size()>0">
-            and e.filter_id in
-            <foreach collection="searchModel.getUserClass()" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        GROUP BY t.topic_id
+        <!--<if test="searchModel.getFilterIds().size()==0">-->
+        <!--1!=1-->
+        <!--</if>-->
+
+        <!--<if test="searchModel.getFilterIds().size()>0">-->
+        <!--t.filter_id in-->
+        <!--<foreach collection="searchModel.getFilterIds()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--GROUP BY t.topic_id-->
+        <!--<if test="searchModel.getGender().size()>0">-->
+        <!--and a.filter_id in-->
+        <!--<foreach collection="searchModel.getGender()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getEducation().size()>0">-->
+        <!--and b.filter_id in-->
+        <!--<foreach collection="searchModel.getEducation()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getArea().size()>0">-->
+        <!--and c.filter_id in-->
+        <!--<foreach collection="searchModel.getArea()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getEventClass().size()>0">-->
+        <!--and d.filter_id in-->
+        <!--<foreach collection="searchModel.getEventClass()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="searchModel.getUserClass().size()>0">-->
+        <!--and e.filter_id in-->
+        <!--<foreach collection="searchModel.getUserClass()" item="item" open="(" separator="," close=")">-->
+        <!--#{item}-->
+        <!--</foreach>-->
+        <!--</if>-->
+
     </select>
 
     <!--<select id="getAll" resultMap="BaseResultMap">-->

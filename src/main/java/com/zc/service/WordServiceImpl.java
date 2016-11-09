@@ -63,7 +63,7 @@ public class WordServiceImpl implements WordService {
     private WordDao dao;
 
     private static Map<String, float[]> modelMap = null;
-    private static Map<Long, TopicModel> topicMap = new HashMap<Long, TopicModel>();
+    private static Map<Integer, TopicModel> topicMap = new HashMap<Integer, TopicModel>();
     private static Map<Long, WeiboModel> weiboMap = new HashMap<Long, WeiboModel>();
     private static Map<Integer, float[]> wordMap = new HashMap<Integer, float[]>();
 
@@ -105,7 +105,7 @@ public class WordServiceImpl implements WordService {
 
     }
 
-    public Map<Long, TopicModel> getTopicMap() {
+    public Map<Integer, TopicModel> getTopicMap() {
         return topicMap;
     }
 
@@ -451,7 +451,7 @@ public class WordServiceImpl implements WordService {
             return null;
         }
 
-        for (Long id : topicMap.keySet()) {
+        for (Integer id : topicMap.keySet()) {
             TopicModel model = topicMap.get(id);
 
             float score = WordVectorHelper.getSimilarity(model.getCoordinate(),
@@ -468,7 +468,7 @@ public class WordServiceImpl implements WordService {
     }
 
     // 看不明白为什么需要这个函数
-    private TopicModel getNewModel(Long id, TopicModel model) {
+    private TopicModel getNewModel(Integer id, TopicModel model) {
         TopicModel newModel = new TopicModel();
         newModel.setId(id);
         newModel.setTitle(model.getTitle());
