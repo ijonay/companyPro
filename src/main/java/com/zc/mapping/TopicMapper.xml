@@ -282,7 +282,12 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-
+    <select id="getHotTopic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from View_HotTopic
+        limit #{count,jdbcType=INTEGER}
+    </select>
     <select id="getItemCount" resultType="java.lang.Integer">
         select count(1) from
        topic

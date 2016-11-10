@@ -7,12 +7,11 @@
  */
 package com.zc.dao;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.zc.bean.Topic;
 import org.apache.ibatis.annotations.Param;
 
-import com.zc.bean.Topic;
+import java.util.HashMap;
+import java.util.List;
 
 public interface TopicDao {
     Integer add(Topic topic);
@@ -22,6 +21,8 @@ public interface TopicDao {
     Integer update(Topic topic);
 
     Topic get(Integer id);
+
+    List<Topic> getHotTopic(Integer count);
 
     Integer batchInsert(@Param("list") List<Topic> list);
 
