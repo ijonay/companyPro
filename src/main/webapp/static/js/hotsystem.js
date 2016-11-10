@@ -30,7 +30,8 @@
 				if(returnData.data != null && returnData.error.code == 0){
 					var str = "";
 					$.each(returnData.data,function(index,item){
-						str += "<li data-id='"+item.id+"' title='"+ item.words +"'>"+item.words+"<span></span></li>"
+						if(index > 4) return;
+						str += "<li data-id='"+item.id+"' title='"+ unescape(item.words) +"'>"+unescape(item.words)+"<span></span></li>"
 					})
 					$("#favorite_ul").html(str);
 				}
@@ -63,7 +64,7 @@
 			return;
 		};
 		console.log(val);
-		var data = {searchWords:val};
+		var data = {searchWords:escape(val)};
 		$.ajax({
 			type:"post",
 			url:dataUrl.util.addCommon(),
@@ -73,9 +74,9 @@
 				if(returnData.error.code == 0){
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
-						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					}else{
-						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					};
 				}
 			},
