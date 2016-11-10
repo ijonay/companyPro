@@ -1,3 +1,103 @@
+var urlLabel = GetRequestLabel();//标签信息
+var word = GetRequest().clueWord;//关键词
+var nowPage = GetRequest().currentPage;//页码
+$('#nav_ser').val(word);
+
+function resSer() {
+    var newWord=$.trim($('#nav_ser').val());
+    if(newWord && word!=newWord){
+        word=newWord;
+        nowPage = 1;
+        urlLabel=null;
+        var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage=1";
+        history.pushState && history.pushState({title: word,pagenumber:1}, word, url);
+        getResult(word, 20, nowPage,null);
+    }
+}
+$('.head-search').click(function() {//搜索按钮
+    resSer();
+});
+$('#nav_ser').keyup(function(event) {//搜索框回车
+    if(event.keyCode == "13") {
+        resSer();
+    };
+});
+//换一批
+$('.hot-next').bind('click', function() {//下一页
+    nowPage++;
+    var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+    if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+    history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
+    getResult(word, 20, nowPage,urlLabel);
+});
+$('.hot-prev').bind('click', function() {//上一页
+    if(nowPage>1){
+        nowPage--;
+        var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+        if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+        history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
+        getResult(word, 20, nowPage,urlLabel);
+    }       
+});
+
+// 监听popstate事件
+history.pushState && window.addEventListener("popstate", function(e) {
+    // 获取history.state对象中的状态信息
+    // 在这里state将自动成为event的子对象，可直接通过event.state访问
+    var currWord = GetRequest().clueWord; //拆分url得到”=”后面的参数
+    var currPage = GetRequest().currentPage; //拆分url得到”=”后面的参数 ;
+    var currLabel = GetRequestLabel();//标签信息
+    if(currWord&&currPage){
+        $('#nav_ser').val(currWord);
+        getResult(currWord, 20, currPage,currLabel);
+    }
+}, false);
+
+getResult(word, 20, nowPage,urlLabel);
+function getResult(clueWord, pageSize, currentPage,labeInfo) {
+    var data={}
+    if(labeInfo){
+        data={
+            age:labeInfo.Age?_.pluck(labeInfo.Age, 'id'):[],
+            gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
+            education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
+            area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],
+            eventClass:labeInfo.Even?_.pluck(labeInfo.Even, 'id'):[],
+            userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
+        };
+    } 
+    $.ajax({
+        type: "post",
+        contentType: 'application/json',
+        dataType: "json",
+        url: dataUrl.util.getResultList(clueWord, pageSize, currentPage),
+        data:JSON.stringify(data),
+        success: function(returnData) {
+            if(returnData.error.code == 0) {
+                $(".result-content").css("display","block");
+                $("#canvas .topic").remove();
+                $(".word").remove()
+                var clueWord1 = decodeURI(clueWord);
+                $("<div class='word wordwidth'>"+getSubstr(word)+"</div>").appendTo($("#canvas"));
+                result = _.sortBy(returnData.data, function(item) {
+                    return -item.score
+                });
+                drawWord(result);
+            } else {
+                if(labeInfo){
+                    $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词或筛选条件");
+                }else{
+                    $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词重新探索");
+                }
+                $(".result-content").css("display","none");
+                $(".result-error").css("display","block");
+            }
+        },
+        error: function() {
+            console.log('获取热点失败');
+        }
+    });
+}
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 	
 	if(location.hash){
@@ -100,15 +200,19 @@
 		$('#result_evet_persn').addClass('hidecommon');
 	}else{
 		$('#result_evet_persn').removeClass('hidecommon');
-	}
+	};
 	
-	labelList();	
+	labelList();
+	
+
+	
+		
 	$('#result_filter').on('click',function(){
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
 	$('.dialog_area .ser_dialog_close').on('click',function(){
-		dialogInit();
+		//dialogInit();
 		$('#ser_dialog').addClass('hidecommon');
 	});
 	
@@ -143,8 +247,8 @@
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,5);
-					var eventTemp2 = eventData.slice(10,16);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -187,6 +291,25 @@
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
 					fillData($(".userDialogTab"),$(".personTab"),userData);
+//					//渲染弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。ser_dialog
+//					//var result_t_r = $('#result_t_r').find('i')
+//					if($('#result_t_r').find('i').length>=0){
+//						$('#result_t_r i').each(function(i,item){
+//							var dataid = $(this).attr('data-id');
+//							$('#inp'+dataid).prop("checked",true);
+//						})
+//					};
+					var  inpflag = 0;
+					$('.dialog_inp_num').each(function(index,item){
+						if($(this).text()!=='0'){
+							inpflag++;
+							if(inpflag == 1){
+								$(this).parent().click();
+							}			
+							$(this).css('display','block');
+						}
+					})
+					
 				}
 				
 			},
@@ -222,22 +345,43 @@
 	
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
-			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
 			var childs = item.childs;
 			if(childs){
-				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
+				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
+				var lenNum = 0;
 				$.each(childs,function(index,item){
-					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'">'+item.name+'</label>'
+					//渲染弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。ser_dialog
+					//var result_t_r = $('#result_t_r').find('i')
+					var flag="";
+					if($('#result_t_r').find('i').length>=0){
+						$('#result_t_r i').each(function(){
+							var dataid = $(this).attr('data-id');
+							if(item.id==dataid){
+								flag="checked";
+								lenNum++;
+								return false;
+							}
+						})
+					};
+					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'" '+flag+'>'+item.name+'</label>'
 				})
 				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}else{
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
 				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}
+			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">'+lenNum+'</span></li>');
+			
+			
+			
 			selector2.append(str);
 		})
-	}
-
+		
+		
+		};
+	
+	
+	
 
 	
 	//事件标签点击
@@ -590,9 +734,9 @@
 	});
 	//清空标签
 	$('#dialog_inp_del').on('click',function(){
-		dialogInit()
+		//dialogInit()
 	});
-	dialogInit();
+	//dialogInit();
 	function dialogInit(){
 		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
@@ -608,245 +752,14 @@
 		$('.dialog_tab').find('li').removeClass('hot_arrow_up');
 	};
 
-
-var result={
-        "data": [{
-            "id": 1,
-            "title": "#霍建华林心如结婚霍建华林心如结婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 70,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#王宝强离婚王宝强离婚王宝强离婚王宝强离婚王宝强离婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 85,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        }
-        ,{
-            "id": 2,
-            "title": "#热点名称热点名称热点名称热点名称热点名称热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 95,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 65,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 75,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 82,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 79,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 15,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 35,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 10,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 1,
-            "title": "#霍建华林心如结婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 70,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#王宝强离婚#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 85,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        }
-        ,{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 95,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 65,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 75,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 82,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 79,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 15,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 35,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        },{
-            "id": 2,
-            "title": "#热点名称热点名称热点名称热点名称热点名称热点名称#",
-            "score": 0.44,
-            "coordinate": null,
-            "logoUrl": null,
-            "readNum": 10,
-            "readNumTrendGrowth": null,
-            "relationDesc": null,
-            "topicUrl": null,
-            "topicType": null
-        }],
-        "error": {
-            "code": 0,
-            "message": "成功"
-        }
-    }
-$("<div type='text' class='word wordwidth'>关键字仅八个字…</div>").appendTo($("#canvas"));
-drawWord(result.data);
+/*显示热点图*/
 function drawWord(data) {
     var pointArr = [];
     $.each(data, function(idx, item) {
         if(idx%2!=0){
-            var r = 150 + (idx-1) * 16;
+            var r = 163 + (idx-1) * 16;
         }else{
-            var r = 150 + idx * 16;
+            var r = 163 + idx * 16;
         }
         var fontClass = "fontClass1",
             sizeClass = "sizeClass1";
@@ -941,3 +854,50 @@ $(document).delegate('.topic','mouseout',function(){
         $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
     }
 });
+
+//编辑关键字
+$(document).delegate(".edit-word","click",function(){
+    var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+word+">");
+    var pop = new Pop({
+        width:"422px",
+        header:"编辑关键词",
+        content:content,
+        buttons:[{
+            type:"popCancle",
+            text:"取消"
+        },{
+            type:"popOk",
+            text:"确定",
+            callback:function(){
+                $('#nav_ser').val($('.txt-word').val());
+                resSer();
+                $(".popMask").hide();
+            }
+        }]
+    });
+}).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
+    e ? e.stopPropagation() : event.cancelBubble = true;
+    var left = $(this).position().left + $(this).width() / 2 - 207;
+    var top = $(this).position().top + $(this).find(".icon").height() + 16;
+    $(".alertCon").css({
+        'position': 'absolute',
+        'top': top,
+        'left': left,
+        'z-index': 9999,
+        'display': 'block'
+    });
+}).delegate(".alertCon", "click", function(e) {//弹窗内部防止冒泡
+    e ? e.stopPropagation() : event.cancelBubble = true;
+});
+$(document).on('click', function() {//点击任意地方隐藏弹窗
+    $('.alertCon').css('display', 'none');
+});
+//截取字符串
+function getSubstr(str){
+    if(str.length>8){
+        return str.substring(0,7)+"…";
+    }else{
+        return str;
+    }
+}
+

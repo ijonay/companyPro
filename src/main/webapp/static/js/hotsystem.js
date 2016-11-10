@@ -17,7 +17,31 @@
 		$('#cook_ul').addClass('hidecommon');
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
-
+//添加常用
+	function getCommon(){
+		$("#favorite_ul").empty();
+		$.ajax({
+			type:"post",
+			contentType: 'application/json',
+		    dataType:"json",
+			url:dataUrl.util.getCommon(),
+			success:function(returnData){
+				console.log(returnData.data)
+				if(returnData.data != null && returnData.error.code == 0){
+					var str = "";
+					$.each(returnData.data,function(index,item){
+						str += "<li data-id='"+item.id+"' title='"+ item.words +"'>"+item.words+"<span></span></li>"
+					})
+					$("#favorite_ul").html(str);
+				}
+			},
+			error:function(){
+				console.log('获取常用失败');
+			}
+		});
+	}
+	getCommon();
+	//设为常用 
 	$('#favorite_set_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var len = $('#favorite_ul li').length;
@@ -38,22 +62,52 @@
 		if(arrCon.contains(val)==true ){
 			return;
 		};
-		
-		if(len>=5){
-			$('#favorite_ul').find('li').eq(4).remove();
-			$('#favorite_ul').prepend('<li title='+val+'>'+val+'<span></span></li>');
-		}else{
-			$('#favorite_ul').prepend('<li title='+val+'>'+val+'<span></span></li>');
-		};
+		console.log(val);
+		var data = {searchWords:val};
+		$.ajax({
+			type:"post",
+			url:dataUrl.util.addCommon(),
+			data:data,
+			success:function(returnData){
+				console.log(returnData);
+				if(returnData.error.code == 0){
+					if(len>=5){
+						$('#favorite_ul').find('li').eq(4).remove();
+						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+					}else{
+						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+					};
+				}
+			},
+			error:function(){
+				console.log('获取常用失败');
+			}
+		});		
 	});
 	$('#favorite_ul').delegate('li','click',function(){
 		var val = $(this).text();
 		$('#ser_text').val(val);
 	});
-	
+	//删除常用
 	$('#favorite_ul').delegate('li span','click',function(e){
+		var $this = $(this);
 		e ? e.stopPropagation() : event.cancelBubble = true;
-		$(this).parent().remove();
+		var id = $(this).parent().data("id");
+		var data = {"id":id};
+		$.ajax({
+			type:"post",
+			url:dataUrl.util.cancleCommon(),
+			data:data,
+			success:function(returnData){
+				console.log(returnData);
+				if(returnData.error.code == 0){
+					$this.parent().remove();
+				}
+			},
+			error:function(){
+				console.log('获取常用失败');
+			}
+		});		
 	});
 	
 	//设置为历史记录
@@ -82,7 +136,7 @@
 		var val = $.trim($('#ser_text').val());
 		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 			$('#ser_hint').addClass('hidecommon');
-			window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1';
+			window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
 		}else{
 			$('#ser_hint').removeClass('hidecommon');
 			return;
@@ -177,8 +231,8 @@
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,5);
-					var eventTemp2 = eventData.slice(10,16);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -300,7 +354,7 @@
 				};
 				console.log(dataObj)
 				var hash = JSON.stringify(dataObj);
-				window.location.href='hotresult?clueWord='+val+'&pageSize=20&currentPage=1#'+hash;
+				window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
 			}else{
 				return;
 			};
@@ -687,6 +741,7 @@
 		$('.dislog_inp_con ul').addClass('hidecommon');
 		$('.dialog_tab').find('li').removeClass('cor389b9f');
 		$('.dialog_tab').find('li').removeClass('hot_arrow_up');
+		$('#dialog_ser_text').val('');
 	};
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
@@ -880,7 +935,8 @@ function loadSvg(){
                     var hotTopic = $(document).find(".popWin").find(".selectTag").text();
                     if(query.trim() == ""){                    
                     }else{
-                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
+//                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
+                    	  window.location.href="newPath"
                     }               
                 }
             }]

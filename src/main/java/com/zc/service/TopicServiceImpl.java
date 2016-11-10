@@ -115,30 +115,47 @@ public class TopicServiceImpl implements TopicService {
         float[] sourceVectors = wordService.getWordVectorsByCache(clueWord);
         Objects.requireNonNull(sourceVectors, "没有找到线索词的坐标,线索词:" + clueWord);
 
-        long time2 = System.currentTimeMillis();
 
 //        HashMap<Integer, float[]> allCoordinates = getAllCoordinates();
 
         List<Integer> topicIds = new ArrayList<>();
 
-        HashMap<Integer, float[]> allCoordinates1 = new HashMap<>();
+        Map<Integer, float[]> allCoordinates1 = new HashMap<>();
+
+        long time2 = 0;
+        long time3 = 0;
 
         if (searchModel != null && searchModel.getFilterIds().size() > 0) {
 
+            time2 = System.currentTimeMillis();
+
             topicIds = topicFilterService.getTopicIds(searchModel);
 
-            if (topicIds.size() > 0) {
+            time3 = System.currentTimeMillis();
 
-                allCoordinates1 = getCoordinatesByTopicIdsAndCache(topicIds);
+            if (topicIds.size() > 0) {
+//
+//                allCoordinates1 = getCoordinatesByTopicIdsAndCache(topicIds);
+
+                List<Integer> topicIds1 = topicIds;
+
+                Map<Integer, float[]> result = getCoordinatesByCache().entrySet()
+                        .stream()
+                        .filter(p -> topicIds1.contains(p.getKey()))
+                        .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+
+
+                allCoordinates1 = result;
+
             }
 
         } else {
             allCoordinates1 = getCoordinatesByCache();
         }
 
-        HashMap<Integer, float[]> allCoordinates = allCoordinates1;
+        Map<Integer, float[]> allCoordinates = allCoordinates1;
 
-        long time3 = System.currentTimeMillis();
+        long time4 = System.currentTimeMillis();
 
         LinkedList<Integer> idList = new LinkedList<>();
         idList.addAll(allCoordinates.keySet());
@@ -147,10 +164,12 @@ public class TopicServiceImpl implements TopicService {
                 CommonHelper.compare(WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(right)),
                         WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(left)))
         );
-        long time4 = System.currentTimeMillis();
+        long time5 = System.currentTimeMillis();
+
         List<Integer> ids = idList.stream().skip((currentPage - 1) * pageSize).limit(pageSize).collect(Collectors
                 .toList());
-        long time5 = System.currentTimeMillis();
+
+        long time6 = System.currentTimeMillis();
 
         List<TopicModel> topicModels = new ArrayList<>();
 
@@ -158,22 +177,23 @@ public class TopicServiceImpl implements TopicService {
             topicModels = getTopicByIdList(ids, sourceVectors);
         }
 
-        long time6 = System.currentTimeMillis();
 
+        long time7 = System.currentTimeMillis();
 
         Collections.sort(topicModels, (left, right) ->
                 CommonHelper.compare(right.getScore(), left.getScore()));
 
-        long time7 = System.currentTimeMillis();
+        long time8 = System.currentTimeMillis();
 
         System.out.println("time1:" + time1 + "毫秒");
         System.out.println("time2：" + time2 + "毫秒" + "，与上一个相差" + (time2 - time1) + "毫秒");
-        System.out.println("time2：" + time3 + "毫秒" + "，与上一个相差" + (time3 - time2) + "毫秒");
-        System.out.println("time2：" + time4 + "毫秒" + "，与上一个相差" + (time4 - time3) + "毫秒");
-        System.out.println("time2：" + time5 + "毫秒" + "，与上一个相差" + (time5 - time4) + "毫秒");
-        System.out.println("time2：" + time6 + "毫秒" + "，与上一个相差" + (time6 - time5) + "毫秒");
-        System.out.println("time2：" + time7 + "毫秒" + "，与上一个相差" + (time7 - time6) + "毫秒");
-        System.out.println("总耗时：" + (time7 - time1) + "毫秒");
+        System.out.println("time3：" + time3 + "毫秒" + "，与上一个相差" + (time3 - time2) + "毫秒");
+        System.out.println("time4：" + time4 + "毫秒" + "，与上一个相差" + (time4 - time3) + "毫秒");
+        System.out.println("time5：" + time5 + "毫秒" + "，与上一个相差" + (time5 - time4) + "毫秒");
+        System.out.println("time6：" + time6 + "毫秒" + "，与上一个相差" + (time6 - time5) + "毫秒");
+        System.out.println("time7：" + time7 + "毫秒" + "，与上一个相差" + (time7 - time6) + "毫秒");
+        System.out.println("time8：" + time8 + "毫秒" + "，与上一个相差" + (time8 - time7) + "毫秒");
+        System.out.println("总耗时：" + (time8 - time1) + "毫秒");
         return topicModels;
     }
 
