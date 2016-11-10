@@ -20,7 +20,7 @@
 	    		<span class="black f16">探索结果</span>
 	    	</p>
 	    </div>
-	    <div class="result_t_r fr f12">
+	    <div class="result_t_r fr f12" id="result_t_r">
 	    	<div class="result_evet_con hidecommon" id="result_evet_con">
 	    		<div class="cor389b9f">事件标签:</div>
 	    		<div class="corlor4a result_evet_div label_border width158 pst ac word-ellipsis" title="" id="result_label_even"><span class="lable_c-d"></span></div>
@@ -75,129 +75,46 @@
             </div><!-- 画图区域end -->
         </div><!-- 画布背景end -->
     </div>
+    <div class="result-error">
+        <div class="error-content">
+            <div class="content-icon"></div>
+            <div class="content-title"></div>
+        </div>
+    </div>
     <div class="ser_dialog hidecommon" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
    			<ul class="dialog_tab eventDialogTab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				
    			</ul>
    			
 
    			<div class="dislog_inp_con eventTab dialog_tab_event">
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						<label><input type="checkbox" data-id="1">医药安全1</label>
-   						<label><input type="checkbox" data-id="2">医药安全2</label>
-   						<label><input type="checkbox" data-id="3">医药安全3</label>
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						<label><input type="checkbox" data-id="4">医药安全4</label>
-   						<label><input type="checkbox" data-id="5">医药安全5</label>
-   						<label><input type="checkbox" data-id="6">医药安全6</label>
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
+   				
    			</div>
    			
    			<ul class="dialog_tab eventDialogTab2 f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				
    			</ul>
    			
    			<div class="dislog_inp_con eventTab2 dialog_tab_event">
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
+   				
    			</div>
    			
    			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">人群标签筛选</p>
    			
    			
    			<ul class="dialog_tab userDialogTab f14 corlor4a">
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
-   				<li class="pst">政治经济<span class="pos dialog_inp_num">0</span></li>
+   				
    			</ul>
    			
    			<div class="dislog_inp_con personTab dialog_tab_person">
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						<label><input type="checkbox" data-id="7">医药安全fff</label>
-   						<label><input type="checkbox" data-id="8">医药安全fff</label>
-   						<label><input type="checkbox" data-id="9">医药安全ddd</label>
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						<label><input type="checkbox" data-id="10">医药安全aa</label>
-   						<label><input type="checkbox" data-id="11">医药安全ss</label>
-   						<label><input type="checkbox" data-id="12">医药安全cc</label>
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
-   				<ul class="hidecommon">
-   					<li class="inp_ch_list fl">
-   						
-   						
-   					</li>
-   					<li class="inp_select_all fr">
-   						<label><input type="checkbox">全选</label>
-   					</li>
-   				</ul>
+   				
    			</div>
-   			
-   			<div class="dialog_inp_c f12 hidecommon">
+   			<div class="clearfix"></div>
+   		<div style="height:74px;">	
+   			<div class="dialog_inp_c f12 hidecommon fl">
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event" class="hidecommon"><span></span></li>
    					<li id="inp_data_person1" class="hidecommon">
@@ -209,14 +126,10 @@
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
-   				
    			</div>
    			
-   			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
-			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
-   			</div>
-   		
+   		<div class="dislog_btn_sure ac pointer f14 fr" id="dislog_btn_sure">确定</div>
+   	</div>		
    		</div>
    </div>
 

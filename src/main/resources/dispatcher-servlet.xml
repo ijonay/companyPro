@@ -49,6 +49,7 @@
                          view-name="result"/>
     <mvc:view-controller path="path"
                          view-name="path"/>
+    <mvc:view-controller path="newPath" view-name="newPath"/>
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
 
     <bean

@@ -37,7 +37,7 @@
 
                 /api/account/login = anon
                 /user/regist = anon
-                /api/** = anon
+                <!--/api/** = anon-->
                 <!-- 请求 logout地址，shiro去清除session -->
                 /logout = logout
                 <!-- 配置记住我或认证通过可以访问的地址 -->
