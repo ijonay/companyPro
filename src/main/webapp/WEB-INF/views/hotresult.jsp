@@ -75,6 +75,12 @@
             </div><!-- 画图区域end -->
         </div><!-- 画布背景end -->
     </div>
+    <div class="result-error">
+        <div class="error-content">
+            <div class="content-icon"></div>
+            <div class="content-title"></div>
+        </div>
+    </div>
     <div class="ser_dialog hidecommon" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
