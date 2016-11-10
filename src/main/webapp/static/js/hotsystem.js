@@ -767,12 +767,9 @@ function loadSvg(){
     var step = width/11;
     for(var i=1;i<11;i++){
         xArray.push(step*i)
-    };
-    var jsonstr = "[{'title':'测试','weight':10},{'title':'我的1111111111112222','weight':80},{'title':'123','weight':70},{'title':'你的','weight':60},{'title':'热点','weight':20},{'title':'123','weight':90},{'title':'话题','weight':30},{'title':'abc','weight':90},{'title':'123','weight':40},{'title':'123','weight':50}]";
-    var returndata = eval('('+jsonstr+')');
-    console.log(returndata.length)
+    };   
     for(var i=0;i<10;i++){
-        yArray.push(100-returndata[i].weight)
+        yArray.push(100-scoreArray[i])
     }
     var baseLine = "M 0 65 R ";
     for(var i=0;i<xArray.length;i++){
@@ -808,10 +805,10 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleArray[i]).attr({"fill":'#fff',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0,cursor:"pointer"}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
-        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,scoreArray[i]).attr({"fill":'#fff',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
         	textArray[i] = textArrayItem;
         	rectArray[i] = rectArrayItem;
         	hotArray[i] = hotArrayItem;
@@ -874,7 +871,6 @@ function loadSvg(){
 //        }
 }
 };
-    loadSvg();
     var setTime;
     window.onresize=function(){
     	$(".alertCon").hide();
@@ -908,6 +904,16 @@ function loadSvg(){
             var trianglePos = triangleStep * (index + 1);
             $(".triangle").css("left",trianglePos);
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
+            $(".hotValue").html(scoreArray[index]);
+            $(".infoTitle").html(titleArray[index]);
+            if(imageArray[index].indexOf("javascript") > 0){
+            	var url = imageArray[index];
+            }else{
+            	var url = "url("+imageArray[index]+")"
+            }
+            $(".portrait").css("background-image",url);
+            $(".infoText").html(introArray[index]);
+            $(".infoConnect").attr("data-id",hotIdArray[index]);
             alertCon.show();
     	}    	
     }
@@ -1002,7 +1008,51 @@ function loadSvg(){
     	//$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
     	
     });
+    var hotIdArray=[];
+    var imageArray=[];
+    var titleArray=[];
+    var scoreArray=[];
+    var introArray=[];
+    var formArray=[];
+    function getTenHot(){
+    	$.ajax({
+            type: "post",
+            contentType: 'application/json',
+            dataType: "json",
+            url: dataUrl.util.getResultList("北京", 10, 1),
+            success: function(returnData) {
+            	console.log(returnData.data)
+            	if(returnData.error.code != 0) return;
+            	$.each(returnData.data,function(index,item){            		
+            		hotIdArray.push(item.id);
+            		if(item.logoImgUrl){
+            			imageArray.push(item.logoImgUrl);
+            		}else{
+            			imageArray.push("javascript:void(0)");
+            		}
+            		
+            		titleArray.push(item.title);
+            		scoreArray.push(parseInt((item.score*100).toFixed(2)));
+            		introArray.push(item.introduction);
+            		var tempArray = [];
+            		if(item.baiduHitNum){
+            			tempArray.push("baidu");
+            		}
+            		if(item.zhihuAvgAnswerNumber){
+            			tempArray.push("zhihu");
+            		}
+            		if(item.wechatAvgReadNum){
+            			tempArray.push("wechat");
+            		}
+            		formArray.push(tempArray);
+            	})
+            	loadSvg();
+            },
+            error: function() {
+                console.log('获取热点失败');
+            }
+        });
+    }
     
-    
-    
+    getTenHot()
     

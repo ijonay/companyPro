@@ -27,10 +27,19 @@ var circleTimeout;
 var isShow = false;
 var prevNum = 0;
 function getPath(explore){
-    var localUrl = "http://192.168.1.120:8080/zhicang/";
-    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
-    var query = GetRequest('query').query;
-    var hotTopic = GetRequest('query').hotTopic;
+	var hash = location.hash.substr(1);
+	var pathInfo = {};
+	var infoArray = hash.split("&");
+	$.each(infoArray,function(index,item){
+		var temp = item.split("=");
+		pathInfo[temp[0]] = temp[1];
+	})
+//    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
+//    var query = GetRequest('query').query;
+//    var hotTopic = GetRequest('query').hotTopic;
+    var topicId = pathInfo.topicId;
+    var query = pathInfo.query;
+    var hotTopic = pathInfo.hotTopic;
     if(explore){
         query = explore;
     }

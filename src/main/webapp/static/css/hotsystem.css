@@ -440,10 +440,13 @@ body{
     display: inline-block;
     width:96px;
     height:96px;
-    background-color:red;
+    background-color:#eee;
     margin-right: 10px;
     margin:0;
     padding: 0;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
 }
 .info{
     position: absolute;
