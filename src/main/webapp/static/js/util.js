@@ -23,6 +23,9 @@ dataUrl.util = {
     },
     addCommon:function(){
     	return encodeURI("api/searchItem/add");
+    },
+    getHotPred:function(nowDate){
+        return encodeURI("api/predict/list?dateStr="+nowDate);
     }
 }
 
