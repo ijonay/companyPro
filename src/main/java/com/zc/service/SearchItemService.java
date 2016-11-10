@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface SearchItemService {
 
-    boolean add(UserFavoriteSearchItem item);
+    UserFavoriteSearchItem add(UserFavoriteSearchItem item);
 
     List<UserFavoriteSearchItem> getUserFavoriteSearchItems(Integer userId);
 

@@ -17,18 +17,13 @@ public class SearchItemServiceImpl implements SearchItemService {
     private UserFavoriteSearchItemDao userFavoriteSearchItemDao;
 
     @Override
-    public boolean add(UserFavoriteSearchItem item){
-        boolean result = true;
+    public UserFavoriteSearchItem add(UserFavoriteSearchItem item){
         try{
-            int flag = userFavoriteSearchItemDao.add(item);
-            if( flag == 0){
-                result = false;
-            }
+            userFavoriteSearchItemDao.add(item);
         }catch (Exception e){
-            result = false;
             e.printStackTrace();
         }
-        return result;
+        return item;
     }
 
     @Override
