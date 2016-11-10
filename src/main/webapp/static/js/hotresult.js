@@ -76,9 +76,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
             if(returnData.error.code == 0) {
                 $(".result-content").css("display","block");
                 $("#canvas .topic").remove();
-                $(".word").remove()
-                var clueWord1 = decodeURI(clueWord);
-                $("<div class='word wordwidth'>"+getSubstr(word)+"</div>").appendTo($("#canvas"));
+                $(".word").remove();
+                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
                 result = _.sortBy(returnData.data, function(item) {
                     return -item.score
                 });
@@ -763,21 +762,23 @@ function drawWord(data) {
         }
         var fontClass = "fontClass1",
             sizeClass = "sizeClass1";
-        if(item.readNum<= 50) {
+        var prevailingTrend=item.prevailingTrend?parseInt(item.prevailingTrend):0;
+        if(prevailingTrend<= 50) {
             fontClass = "fontClass1";
             sizeClass = "sizeClass1";
-        } else if(item.readNum<= 80) {
+        } else if(prevailingTrend<= 80) {
             fontClass = "fontClass2";
             sizeClass = "sizeClass2";
-        } else if(item.readNum<= 90) {
+        } else if(prevailingTrend<= 90) {
             fontClass = "fontClass3";
             sizeClass = "sizeClass3";
-        } else if(item.readNum<= 100) {
+        } else if(prevailingTrend<= 100) {
             fontClass = "fontClass4";
             sizeClass = "sizeClass4";
         }
-        $item = $("<div class='topic'>" +
-                "<span class='icon " + sizeClass + "'>"+item.readNum+"</span><span class='link " + fontClass + "'>" + item.title + "</span></div>").appendTo($("#canvas"));
+        $item = $("<div class='topic' data-id="+item.id+"></div>")
+            .data("info",item).appendTo($("#canvas"));
+        $("<span class='icon " + sizeClass + "'>"+prevailingTrend+"</span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
         var itemWidth = $item.width();
         var itemHeight = $item.height();
         if(itemWidth > 180) {
@@ -877,8 +878,41 @@ $(document).delegate(".edit-word","click",function(){
     });
 }).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
     e ? e.stopPropagation() : event.cancelBubble = true;
+    var hotInfo=$(this).data("info");
     var left = $(this).position().left + $(this).width() / 2 - 207;
     var top = $(this).position().top + $(this).find(".icon").height() + 16;
+    $(".alertCon").find(".infoTitle").text(hotInfo.title?hotInfo.title:"");
+    $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
+    $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"");
+    $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"");
+    $(".alertCon").find(".hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
+    $(".alertCon").find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
+    if(hotInfo.wechatUrl){
+        $(".alertCon").find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","block");
+    }else{
+        $(".alertCon").find(".weixin-link").css("display","none");
+    }
+    if(hotInfo.zhihuUrl){
+        $(".alertCon").find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","block");
+    }else{
+        $(".alertCon").find(".zhihu-link").css("display","none");
+    }
+    if(hotInfo.baiduUrl){
+        $(".alertCon").find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","block");
+    }else{
+        $(".alertCon").find(".baidu-link").css("display","none");
+    }
+    var topicType=hotInfo.topicType;
+    if(topicType){
+        var typeArr=$.trim(topicType).split(" ");
+        $.each(typeArr,function(idx,val){
+            if(idx>1) return false;
+            $(".alertCon").find(".hotLabel"+idx).text(val);
+        });
+    }else{
+        $(".alertCon").find(".hotLabel0").text("");
+        $(".alertCon").find(".hotLabel1").text("");
+    }
     $(".alertCon").css({
         'position': 'absolute',
         'top': top,
@@ -892,12 +926,13 @@ $(document).delegate(".edit-word","click",function(){
 $(document).on('click', function() {//点击任意地方隐藏弹窗
     $('.alertCon').css('display', 'none');
 });
-//截取字符串
-function getSubstr(str){
-    if(str.length>8){
-        return str.substring(0,7)+"…";
-    }else{
-        return str;
+//关联热点
+$(".infoConnect").on("click",function(){
+    var id=parseInt($(this).data("id"));
+    var topic=$(this).siblings(".infoTitle").text();
+    if(topic.substr(0,1) == "#" && topic.substr(-1) == "#"){
+        topic = topic.split("#");
+        topic = topic[1];
     }
-}
-
+    window.location.href='newPath#query='+escape(word)+'&topicId='+id+"&hotTopic="+escape(topic);
+});

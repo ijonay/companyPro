@@ -64,3 +64,10 @@ $(".notify-list").delegate("li .notify-close","click",function(){
         $(".notify-list").css("display","none");
     }
 });
+//点击任意地方关闭弹窗
+$(document).on('click',function(e){
+    if($(".right-bar").css("right") == "0px"){
+        if($(window).width() - e.clientX > 277)
+        $(".right-bar-close").trigger("click");
+    }
+});
