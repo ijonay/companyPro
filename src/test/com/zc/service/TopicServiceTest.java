@@ -24,7 +24,7 @@ public class TopicServiceTest extends BaseTest {
 
     @Test
     public void getListExtTest() {
-        List<TopicModel> topics = topicService.getListExt("王宝强", null, 1, 20);
-        System.out.println(topics);
+//        List<TopicModel> topics = topicService.getListExt("王宝强", null, 1, 20);
+//        System.out.println(topics);
     }
 }
