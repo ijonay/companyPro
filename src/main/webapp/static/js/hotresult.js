@@ -4,15 +4,15 @@ var nowPage = GetRequest().currentPage;//页码
 $('#nav_ser').val(word);
 
 function resSer() {
-    word = $.trim($('#nav_ser').val());
-    if(word) {
+    var newWord=$.trim($('#nav_ser').val());
+    if(newWord && word!=newWord){
+        word=newWord;
         nowPage = 1;
-        var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage=1";
-        if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+        urlLabel=null;
+        var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage=1";
         history.pushState && history.pushState({title: word,pagenumber:1}, word, url);
-        getResult(word, 20, nowPage,urlLabel);
+        getResult(word, 20, nowPage,null);
     }
-
 }
 $('.head-search').click(function() {//搜索按钮
     resSer();
@@ -25,7 +25,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 //换一批
 $('.hot-next').bind('click', function() {//下一页
     nowPage++;
-    var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+    var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
     if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
     history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
     getResult(word, 20, nowPage,urlLabel);
@@ -33,7 +33,7 @@ $('.hot-next').bind('click', function() {//下一页
 $('.hot-prev').bind('click', function() {//上一页
     if(nowPage>1){
         nowPage--;
-        var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+        var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
         if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
         history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
         getResult(word, 20, nowPage,urlLabel);
@@ -58,12 +58,12 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
     var data={}
     if(labeInfo){
         data={
-                age:labeInfo.Age?_.pluck(labeInfo.Age, 'id'):[],
-                gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
-                education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
-                area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],
-                eventClass:labeInfo.Even?_.pluck(labeInfo.Even, 'id'):[],
-                userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
+            age:labeInfo.Age?_.pluck(labeInfo.Age, 'id'):[],
+            gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
+            education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
+            area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],
+            eventClass:labeInfo.Even?_.pluck(labeInfo.Even, 'id'):[],
+            userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
         };
     } 
     $.ajax({
@@ -74,6 +74,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
         data:JSON.stringify(data),
         success: function(returnData) {
             if(returnData.error.code == 0) {
+                $(".result-content").css("display","block");
                 $("#canvas .topic").remove();
                 $(".word").remove()
                 var clueWord1 = decodeURI(clueWord);
@@ -83,11 +84,17 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
                 });
                 drawWord(result);
             } else {
-                $("<span class='word wordblack'>获取话题列表失败</span>").appendTo($("#canvas"));
+                if(labeInfo){
+                    $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词或筛选条件");
+                }else{
+                    $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词重新探索");
+                }
+                $(".result-content").css("display","none");
+                $(".result-error").css("display","block");
             }
         },
         error: function() {
-            console.log('获取话题列表失败');
+            console.log('获取热点失败');
         }
     });
 }
