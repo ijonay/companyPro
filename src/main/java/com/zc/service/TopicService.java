@@ -11,6 +11,7 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
+import com.zc.utility.Page;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +46,7 @@ public interface TopicService {
     HashMap<Integer, float[]> getCoordinatesByTopicIdsAndCache(List<Integer> topicIds);
 
 
-    List<TopicModel> getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer pageSize);
+    Page getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer pageSize);
 
     List<TopicModel> getTopicByIdList(List<Integer> idList, float[] sourceVectors);
 
