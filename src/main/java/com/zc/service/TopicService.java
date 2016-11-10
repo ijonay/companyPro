@@ -33,6 +33,8 @@ public interface TopicService {
 
     Topic get(Integer topicId);
 
+    List<Topic> getHotTopic(Integer count);
+
     HashMap<Integer, float[]> getAllCoordinates();
 
     /**
