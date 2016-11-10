@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.HotTopicPredictionMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.HotTopicPrediction">
+                                    <id column="id" jdbcType="INTEGER" property="id"/>
+                                                <result column="operator_user_id" jdbcType="INTEGER" property="operatorUserId"/>
+                                                <result column="name" jdbcType="VARCHAR" property="name"/>
+                                                <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+                                                <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+                                                <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+                                                <result column="note" jdbcType="VARCHAR" property="note"/>
+                                                <result column="is_active" jdbcType="INTEGER" property="isActive"/>
+                        </resultMap>
+    <sql id="Base_Column_List">
+         id,  operator_user_id,  name,  start_date,  create_date,  end_date,  note,  is_active     </sql>
+    <insert id="add" parameterType="com.zc.bean.HotTopicPrediction"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into HotTopicPrediction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                            <if test="operatorUserId != null">
+                    operator_user_id,
+                </if>
+                            <if test="name != null">
+                    name,
+                </if>
+                            <if test="startDate != null">
+                    start_date,
+                </if>
+                            <if test="createDate != null">
+                    create_date,
+                </if>
+                            <if test="endDate != null">
+                    end_date,
+                </if>
+                            <if test="note != null">
+                    note,
+                </if>
+                            <if test="isActive != null">
+                    is_active,
+                </if>
+                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                            <if test="operatorUserId != null">
+                    #{operatorUserId,jdbcType=INTEGER},
+                </if>
+                            <if test="name != null">
+                    #{name,jdbcType=VARCHAR},
+                </if>
+                            <if test="startDate != null">
+                    #{startDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="createDate != null">
+                    #{createDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="endDate != null">
+                    #{endDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="note != null">
+                    #{note,jdbcType=VARCHAR},
+                </if>
+                            <if test="isActive != null">
+                    #{isActive,jdbcType=INTEGER},
+                </if>
+                    </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from HotTopicPrediction
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.HotTopicPrediction">
+        update HotTopicPrediction
+        <set>
+                            <if test="operatorUserId != null">
+                    operator_user_id = #{operatorUserId,jdbcType=INTEGER},
+                </if>
+                            <if test="name != null">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                            <if test="startDate != null">
+                    start_date = #{startDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="createDate != null">
+                    create_date = #{createDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="endDate != null">
+                    end_date = #{endDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="note != null">
+                    note = #{note,jdbcType=VARCHAR},
+                </if>
+                            <if test="isActive != null">
+                    is_active = #{isActive,jdbcType=INTEGER},
+                </if>
+                    </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from HotTopicPrediction
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getHotTopicEventList" parameterType="java.lang.String" resultMap="ViewResultMap">
+        select id, name,
+         DATE_FORMAT(start_date,'%Y-%m-%d') as start_date,
+         DATE_FORMAT(end_date,'%Y-%m-%d') as end_date
+        from HotTopicPrediction
+        where is_active = 1
+        and DATE_FORMAT( STR_TO_DATE( #{dateStr,jdbcType=VARCHAR},'%Y-%m-%d'), '%Y-%m') &gt;= DATE_FORMAT(start_date,'%Y-%m')
+        AND  DATE_FORMAT(end_date,'%Y-%m') &gt;= DATE_FORMAT( STR_TO_DATE( #{dateStr,jdbcType=VARCHAR},'%Y-%m-%d'), '%Y-%m')
+    </select>
+
+    <resultMap id="ViewResultMap" type="com.zc.model.HotTopicPredictionModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+    </resultMap>
+
+</mapper>
