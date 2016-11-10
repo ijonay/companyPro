@@ -60,7 +60,7 @@ public class SearchItemApi  extends BaseApi{
     @RequestMapping(value = "cancel", method = RequestMethod.POST)
     public ApiResultModel cancelSearchItem(
             @RequestParam(value = "id") Integer id
-    ){
+        ){
         ApiResultModel resultModel = new ApiResultModel();
         try{
             boolean flag = searchItemService.cancelSearchItem( id );
