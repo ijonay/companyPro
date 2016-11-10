@@ -1,10 +1,12 @@
 package com.zc.api;
 
+import com.alibaba.fastjson.JSON;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.zc.service.SearchItemService;
@@ -22,7 +24,7 @@ public class SearchItemApi  extends BaseApi{
     @Autowired
     private SearchItemService searchItemService;
 
-    @RequestMapping("add")
+    @RequestMapping(value = "add" , method = RequestMethod.POST)
     public ApiResultModel addSearchItem(
             @RequestParam(value = "searchWords") String searchWords
     ){
@@ -31,12 +33,9 @@ public class SearchItemApi  extends BaseApi{
             UserFavoriteSearchItem searchItem = new UserFavoriteSearchItem();
             searchItem.setUserId(CommonHelper.getCurrentUserId());
             searchItem.setWords(searchWords);
-            boolean flag = searchItemService.add( searchItem );
-            if(flag) {
-                resultModel.code(StatusCodeEnum.SUCCESS);
-            }else {
-                resultModel.code(StatusCodeEnum.FAILED);
-            }
+            searchItemService.add(searchItem);
+            resultModel.setData( searchItem.getId() );
+            resultModel.code(StatusCodeEnum.SUCCESS);
         }catch (Exception e){
             resultModel.setStatusCode(StatusCodeEnum.SERVER_ERROR);
             e.printStackTrace();
@@ -44,7 +43,7 @@ public class SearchItemApi  extends BaseApi{
         return resultModel;
     }
 
-    @RequestMapping("list")
+    @RequestMapping(value = "list", method = RequestMethod.POST)
     public ApiResultModel getUserFavoriteSearchItems(){
         ApiResultModel resultModel = new ApiResultModel();
         try{
@@ -58,7 +57,7 @@ public class SearchItemApi  extends BaseApi{
         return resultModel;
     }
 
-    @RequestMapping("cancel")
+    @RequestMapping(value = "cancel", method = RequestMethod.POST)
     public ApiResultModel cancelSearchItem(
             @RequestParam(value = "id") Integer id
     ){
