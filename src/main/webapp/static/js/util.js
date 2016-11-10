@@ -14,6 +14,15 @@ dataUrl.util = {
     },
     getPath: function (topicId, query) {
         return encodeURI(localhostNewUrl + 'api/paths/' + topicId + '?query=' + query);
+    },
+    getCommon:function(){
+    	return encodeURI("api/searchItem/list");
+    },
+    cancleCommon:function(){
+    	return encodeURI("api/searchItem/cancel");
+    },
+    addCommon:function(){
+    	return encodeURI("api/searchItem/add");
     }
 }
 

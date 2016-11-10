@@ -1,6 +1,5 @@
 $('#search-btn').click(function(){
 	//$('#load-con').removeClass('hidecommon');
-	
 	pathSer();
 });
 $('#search-input').keyup(function(event){
@@ -23,6 +22,10 @@ $(document).ready(function(){
 var Pages = [];
 var pageNum = 0;
 var isLessClick = true;
+var timeOut;
+var circleTimeout;
+var isShow = false;
+var prevNum = 0;
 function getPath(explore){
     var localUrl = "http://192.168.1.120:8080/zhicang/";
     var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
@@ -31,27 +34,38 @@ function getPath(explore){
     if(explore){
         query = explore;
     }
-    $.ajax({
-        type:"get",
-        url:dataUrl.util.getPath(topicId,query),
-        success:function(data){
+    query = "123";
+    hotTopic = "5456"
+//    $.ajax({
+//        type:"get",
+//        url:dataUrl.util.getPath(topicId,query),
+//        success:function(data){
+        	data = {};
         	
-            if(data.data.length == 0){
-            	$('#canvas').css('height','200px');
-                $('#canvas').html('<div style="margin:0px auto ;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
-                return;
-            }
-            if(data.error.code == 2004){
-                console.log(data.error.message);
-                //$('#canvas').html('');
-                $('#canvas').css('height','200px');
-                $('#canvas').html('对不起,没有找到合适的语义路径.请换个关键词或者热点');
-                $('#canvas').html('<div style="margin:0px auto;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
-                return;
-            }else if(data.data == null){
-                console.log("数据为空");
-                return;
-            };
+        	var dataArray = [];
+        	for(var i=0;i<30;i++){
+        		var obj = {};
+        		obj.nodes = [{"name":"王宝强"},{"name":"陈国坤"},{"name":"宝强"},{"name":"方丈"},{"name":"师傅"}];
+        		dataArray.push(obj);
+        	}
+        	data.data = dataArray;
+        	
+//            if(data.data.length == 0){
+//            	$('#canvas').css('height','200px');
+//                $('#canvas').html('<div style="margin:0px auto ;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
+//                return;
+//            }
+//            if(data.error.code == 2004){
+//                console.log(data.error.message);
+//                //$('#canvas').html('');
+//                $('#canvas').css('height','200px');
+//                $('#canvas').html('对不起,没有找到合适的语义路径.请换个关键词或者热点');
+//                $('#canvas').html('<div style="margin:0px auto;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
+//                return;
+//            }else if(data.data == null){
+//                console.log("数据为空");
+//                return;
+//            };
             $('#canvas').css('height','500px');
             var dataStr = JSON.stringify(data.data);
             Pages = JSON.parse(dataStr);
@@ -87,11 +101,11 @@ function getPath(explore){
            $('#canvas').html('');
             raphealDraw(lineArray,nodeList,query,hotTopic); 
             $('#search-btn').removeAttr("disabled"); 
-        },
-        error:function(){
-    
-        }
-});
+//        },
+//        error:function(){
+//    
+//        }
+//});
 }
 function pageChange(up){
     if(!isLessClick){
@@ -170,25 +184,24 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     var lines = [];
     var cycles = [];
     var linkImg = "";
-    var imgHover = false;
     //y轴点
     var hei = parseInt(450/(lineArray.length+1));
     var st = paper.set();//画圆
     //文字超出处理
-    var keyWord1 = "";
-    var hotTopic1 = "";
-    if(keyWord.length > 3){
-        keyWord1 = keyWord.slice(0,2);
-        keyWord1 += "..."
-    }else{
-        keyWord1 = keyWord; 
-    }
-    if(hotTopic.length > 3){
-        hotTopic1 = hotTopic.slice(0,2);
-        hotTopic1 += "..."
-    }else{
-        hotTopic1 = hotTopic;
-    }
+//    var keyWord1 = "";
+//    var hotTopic1 = "";
+//    if(keyWord.length > 3){
+//        keyWord1 = keyWord.slice(0,2);
+//        keyWord1 += "..."
+//    }else{
+//        keyWord1 = keyWord; 
+//    }
+//    if(hotTopic.length > 3){
+//        hotTopic1 = hotTopic.slice(0,2);
+//        hotTopic1 += "..."
+//    }else{
+//        hotTopic1 = hotTopic;
+//    }
     if(lineArray.length == 0){
         var str = "M"+startPoint[0]+" "+startPoint[1]+"L"+endPoint[0]+" "+endPoint[1];
         var line0 = paper.path(str).animate({fill:"#9B9B9B",stroke: "#9B9B9B", "stroke-width": 1,cursor:"pointer"}, 200);
@@ -246,6 +259,33 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             currentCycle.push(cycle);
             paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
         }
+          cycle.click(function(){
+        	  var lineNum = this.data("lineNum");
+        	  console.log(lineNum);
+        	  $(".pathName").click();
+          })
+         //节点hover高亮
+          cycle.hover(function(e){
+              var _this_ = this;            
+              var lineNum = this.data("lineNum");
+              	hideHightLight(prevNum,lines,cycles);
+              	clearTimeout(circleTimeout);
+              	clearTimeout(timeOut);
+                  isShow = true;
+                  prevNum = lineNum;
+//                  setTimeout(function(){
+                  getAlert(e.pageX,e.pageY - 5);
+                  showHightLight(e,lineNum,lines,cycles,lineArray);
+//                  },0)
+              
+            },function(){
+              var _this_ = this;
+              isShow = false;
+              var lineNum = _this_.data("lineNum");
+              circleTimeout = setTimeout(function(){
+              	hideHightLight(prevNum,lines,cycles);
+              },5000)
+            });
         var scaleNum = 0;
         switch(lineArray[i]){
             case 0:scaleNum = "s0.97";break;
@@ -277,93 +317,105 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
           line.attr("cursor","pointer");
           line.click(function(e){
         	e?e.stopPropagation():event.cancelBubble = true;
-            getAlert(e.pageX,e.pageY);
+        	var lineNum = this.data("lineNum");
+        	$.each(lines[lineNum],function(index,item){
+        		console.log(item.data("endText"))
+        	})
+//        	console.log(lineNum);
+//            getAlert(e.pageX,e.pageY);
             $(".bottom-choice").show();
-            var startText = this.data("startText");
-            var endText = this.data("endText");
-            $(document).find(".dialog-head div:eq(0)").text(startText);
-            $(document).find(".dialog-head div:eq(2)").text(endText);
-            getPathInfo(startText,endText);
+//            var startText = this.data("startText");
+//            var endText = this.data("endText");
+//            $(document).find(".dialog-head div:eq(0)").text(startText);
+//            $(document).find(".dialog-head div:eq(2)").text(endText);
+//            getPathInfo(startText,endText);
           });
-          line.hover(function(){
-            var _this_ = this;
+          line.hover(function(e){
+            var _this_ = this;            
             var lineNum = this.data("lineNum");
-            var colorList = new gradientColor('#23A095','#69C668',lineArray[lineNum]+1);
-            $.each(lines[lineNum],function(index,item){
-                item.animate({stroke: colorList[index],"stroke-width": 4}, 0);
-            });
-            $.each(cycles[lineNum],function(index,item){
-                item.animate({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,}, 200);
-            });
-            linkImg = paper.image("img/nodeLink.png",(this.attrs.path[0][1]+this.attrs.path[1][1]-20)/2,(this.attrs.path[0][2]+this.attrs.path[1][2]-20)/2,20,20);
-            linkImg.hover(function(){
-                imgHover = true;
-            },function(){
-                var lineNum = _this_.data("lineNum");
-                $.each(lines[lineNum],function(index,item){
-                    item.animate({stroke: "#9B9B9B","stroke-width": 1}, 200);
-                });
-                $.each(cycles[lineNum],function(index,item){
-                    item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4}, 200);
-                });
-                imgHover = false;
-                linkImg.remove();
-            })
-            linkImg.click(function(e){
+//            if(prevNum == lineNum && isShow){
+////            	getAlert(e.pageX,e.pageY);
+//            	showHightLight(e,lineNum,lines,cycles,lineArray);
+//            	clearTimeout(timeOut);
+//            }else{
+            	hideHightLight(prevNum,lines,cycles);
+            	clearTimeout(timeOut);
+            	clearTimeout(circleTimeout);
+                isShow = true;
+                prevNum = lineNum;
+//                setTimeout(function(){
                 getAlert(e.pageX,e.pageY);
-                $(".bottom-choice").show();
-                var startText = _this_.data("startText");
-                var endText = _this_.data("endText");
-                $(document).find(".dialog-head div:eq(0)").text(startText);
-                $(document).find(".dialog-head div:eq(2)").text(endText);
-                getPathInfo(startText,endText);
-            })
+                showHightLight(e,lineNum,lines,cycles,lineArray);
+//                },0)                
+//            }
+            
           },function(){
             var _this_ = this;
-            setTimeout(function(){
-                if(imgHover == false){
-                    var lineNum = _this_.data("lineNum");
-                    $.each(lines[lineNum],function(index,item){
-                        item.animate({stroke: "#9B9B9B","stroke-width": 1},200);
-                    });
-                    $.each(cycles[lineNum],function(index,item){
-                        item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4},200);
-                    });
-                    linkImg.remove();
-                    imgHover = false;
-                }
-            },10)                    
+            isShow = false;
+            var lineNum = _this_.data("lineNum");
+            timeOut = setTimeout(function(){
+            	hideHightLight(prevNum,lines,cycles);
+//                $.each(lines[lineNum],function(index,item){
+//                    item.animate({stroke: "#9B9B9B","stroke-width": 1},200);
+//                });
+//                $.each(cycles[lineNum],function(index,item){
+//                    item.animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4},200);
+//                });
+//                $(".pathName").hide();
+            },5000)
           });
           currentLine.push(line);
        }
        lines.push(currentLine);
        cycles.push(currentCycle);
-       // var c = paper.path(raphaelList[i]);
        
     }
     
-    paper.circle(startPoint[0], startPoint[1], 35).animate({fill: "#23A095","stroke-width":0}, 300);
-    var textStart = paper.text(startPoint[0],startPoint[1],keyWord1).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#fff"});
-    textStart.attr({"cursor":"pointer","title":keyWord}).data("keyWord",keyWord);
-    textStart.hover(function(){
-//        alert(this.data("keyWord"));
-    },function(){});
-    paper.circle(endPoint[0],endPoint[1], 35).animate({fill: "#69C668","stroke-width":0}, 300);
-    var textEnd = paper.text(endPoint[0],endPoint[1],hotTopic1).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#fff"});
-    textEnd.attr({"cursor":"pointer","title":hotTopic}).data("hotTopic",hotTopic);
+    var startCircle = paper.circle(startPoint[0], startPoint[1], 25).animate({fill: "#23A095","stroke-width":0}, 300);
+    var imageStart = paper.image("img/keyWord.png",startPoint[0] - 11,startPoint[1] - 11,22,22).attr({title:keyWord,"pointer-events":"none"});
+    var textStart = paper.text(startPoint[0],startPoint[1]  + 43,keyWord).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#000"}).attr({title:keyWord});
+    var editKeyWord;
+    textStart.attr({title:keyWord}).data("keyWord",keyWord);
+    startCircle.hover(function(){
+    	editKeyWord = paper.image("img/editKeyWord.png",startPoint[0] - 25,startPoint[1] - 25,50,50);
+    	editKeyWord.hover(function(){},function(){
+    		this.remove()
+    	})
+    },function(){
+    });
+    var endCircle = paper.circle(endPoint[0],endPoint[1], 25).animate({fill: "#69C668","stroke-width":0}, 300);
+    var imageEnd = paper.image("img/hotspot.png",endPoint[0] - 10,endPoint[1] - 12,20,27).attr({title:hotTopic,"pointer-events":"none"});
+    var textEnd = paper.text(endPoint[0],endPoint[1] + 43,hotTopic).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#000"}).attr({title:hotTopic});
+    textEnd.attr({title:hotTopic}).data("hotTopic",hotTopic);
     textEnd.hover(function(){
-//        alert(this.data("hotTopic"));
-    },function(){});
-    
-    function getAlert(x,y){
-        if(x-130<endPoint[0]/2){
-          $(".path-dialog").css({"position":"absolute","left":x+10,"top":y});
-          $(".path-dialog").show();
-        }else{
-           $(".path-dialog").css({"position":"absolute","left":x-340,"top":y});
-           $(".path-dialog").show();
-        }
-     }
+    },function(){});    
+}
+function getAlert(x,y){
+    $(".pathName").css({"position":"absolute","left":x - 30,"top":y - 33});
+    $(".pathName").show();
+}
+$(".pathName").on("click",function(e){
+	e?e.stopPropagation():event.cancelBubble = true;   
+    $(".bottom-choice").show();
+//    getPathInfo(startText,endText);
+  });
+function showHightLight(e,lineNum,lines,cycles,lineArray){	
+	var colorList = new gradientColor('#23A095','#69C668',lineArray[lineNum]+1);    
+    $.each(cycles[lineNum],function(index,item){
+        item.attr({fill: colorList[index],stroke: "#c1e0cd","stroke-width":4,});
+    });
+    $.each(lines[lineNum],function(index,item){
+        item.attr({stroke: colorList[index],"stroke-width": 4});
+    });
+}
+function hideHightLight(lineNum,lines,cycles){
+    $.each(lines[lineNum],function(index,item){
+        item.attr({stroke: "#9B9B9B","stroke-width": 1});
+    });
+    $.each(cycles[lineNum],function(index,item){
+        item.attr({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4});
+    });
+    $(".pathName").hide();
 }
 
 function gradientColor(startColor,endColor,step){
@@ -488,7 +540,7 @@ $("#prev-next").click(function(){
     }
     pageChange(true);
 })
-function getPathInfo("王宝强","离婚"){
+function getPathInfo(startText,endText){
     $.ajax({
         type:"get",
         url:dataUrl.util.getPathInfo(startText,endText),
