@@ -231,8 +231,8 @@
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,5);
-					var eventTemp2 = eventData.slice(10,16);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -741,6 +741,7 @@
 		$('.dislog_inp_con ul').addClass('hidecommon');
 		$('.dialog_tab').find('li').removeClass('cor389b9f');
 		$('.dialog_tab').find('li').removeClass('hot_arrow_up');
+		$('#dialog_ser_text').val('');
 	};
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。

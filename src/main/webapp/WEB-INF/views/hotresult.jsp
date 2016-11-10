@@ -20,7 +20,7 @@
 	    		<span class="black f16">探索结果</span>
 	    	</p>
 	    </div>
-	    <div class="result_t_r fr f12">
+	    <div class="result_t_r fr f12" id="result_t_r">
 	    	<div class="result_evet_con hidecommon" id="result_evet_con">
 	    		<div class="cor389b9f">事件标签:</div>
 	    		<div class="corlor4a result_evet_div label_border width158 pst ac word-ellipsis" title="" id="result_label_even"><span class="lable_c-d"></span></div>
@@ -209,14 +209,9 @@
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
-   				
+   				<div class="fl dislog_btn_sure ac pointer f14" id="dislog_btn_sure">确定</div>
    			</div>
    			
-   			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
-			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
-   			</div>
-   		
    		</div>
    </div>
 
