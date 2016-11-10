@@ -25,7 +25,7 @@ public class SearchModel {
 
         HashSet<Integer> filterIds = new HashSet<>();
 
-        if (Objects.nonNull(gender) && gender.size() > 0)
+        if (Objects.nonNull(gender) && gender.size() == 1)
             gender.forEach(p -> filterIds.add(p));
 
         if (Objects.nonNull(education) && education.size() > 0)
