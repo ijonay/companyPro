@@ -27,6 +27,8 @@ function getPath(explore){
     var localUrl = "http://192.168.1.120:8080/zhicang/";
     var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
     var query = GetRequest('query').query;
+    topicId = 11;
+    query = "离婚";
     var hotTopic = GetRequest('query').hotTopic;
     if(explore){
         query = explore;
@@ -488,7 +490,7 @@ $("#prev-next").click(function(){
     }
     pageChange(true);
 })
-function getPathInfo("王宝强","离婚"){
+function getPathInfo(startText,endText){
     $.ajax({
         type:"get",
         url:dataUrl.util.getPathInfo(startText,endText),
