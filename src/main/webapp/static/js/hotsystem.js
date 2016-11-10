@@ -232,8 +232,8 @@
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,9);
-					var eventTemp2 = eventData.slice(9);
+					var eventTemp = eventData.slice(0,8);
+					var eventTemp2 = eventData.slice(8);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
