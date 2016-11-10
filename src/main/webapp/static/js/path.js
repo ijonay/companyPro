@@ -488,7 +488,7 @@ $("#prev-next").click(function(){
     }
     pageChange(true);
 })
-function getPathInfo(startText,endText){
+function getPathInfo("王宝强","离婚"){
     $.ajax({
         type:"get",
         url:dataUrl.util.getPathInfo(startText,endText),

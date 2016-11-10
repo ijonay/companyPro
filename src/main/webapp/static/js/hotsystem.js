@@ -26,15 +26,22 @@
 		    dataType:"json",
 			url:dataUrl.util.getCommon(),
 			success:function(returnData){
-				console.log("111111111111111111111");
-				console.log(returnData)
+				console.log(returnData.data)
+				if(returnData.data != null && returnData.error.code == 0){
+					var str = "";
+					$.each(returnData.data,function(index,item){
+						str += "<li data-id='"+item.id+"' title='"+ item.words +"'>"+item.words+"<span></span></li>"
+					})
+					$("#favorite_ul").html(str);
+				}
 			},
 			error:function(){
-				console.log('添加常用失败');
+				console.log('获取常用失败');
 			}
 		});
 	}
 	getCommon();
+	//设为常用 
 	$('#favorite_set_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var len = $('#favorite_ul li').length;
@@ -55,13 +62,27 @@
 		if(arrCon.contains(val)==true ){
 			return;
 		};
-		
-		if(len>=5){
-			$('#favorite_ul').find('li').eq(4).remove();
-			$('#favorite_ul').prepend('<li title='+val+'>'+val+'<span></span></li>');
-		}else{
-			$('#favorite_ul').prepend('<li title='+val+'>'+val+'<span></span></li>');
-		};
+		console.log(val);
+		var data = {searchWords:val};
+		$.ajax({
+			type:"post",
+			url:dataUrl.util.addCommon(),
+			data:data,
+			success:function(returnData){
+				console.log(returnData);
+				if(returnData.error.code == 0){
+					if(len>=5){
+						$('#favorite_ul').find('li').eq(4).remove();
+						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+					}else{
+						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+					};
+				}
+			},
+			error:function(){
+				console.log('获取常用失败');
+			}
+		});		
 	});
 	$('#favorite_ul').delegate('li','click',function(){
 		var val = $(this).text();
@@ -69,8 +90,24 @@
 	});
 	//删除常用
 	$('#favorite_ul').delegate('li span','click',function(e){
+		var $this = $(this);
 		e ? e.stopPropagation() : event.cancelBubble = true;
-		$(this).parent().remove();
+		var id = $(this).parent().data("id");
+		var data = {"id":id};
+		$.ajax({
+			type:"post",
+			url:dataUrl.util.cancleCommon(),
+			data:data,
+			success:function(returnData){
+				console.log(returnData);
+				if(returnData.error.code == 0){
+					$this.parent().remove();
+				}
+			},
+			error:function(){
+				console.log('获取常用失败');
+			}
+		});		
 	});
 	
 	//设置为历史记录

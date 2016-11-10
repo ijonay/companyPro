@@ -17,6 +17,12 @@ dataUrl.util = {
     },
     getCommon:function(){
     	return encodeURI("api/searchItem/list");
+    },
+    cancleCommon:function(){
+    	return encodeURI("api/searchItem/cancel");
+    },
+    addCommon:function(){
+    	return encodeURI("api/searchItem/add");
     }
 }
 
