@@ -235,6 +235,12 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public List<Topic> getHotTopic(Integer count) {
+        Objects.requireNonNull(count);
+        return dao.getHotTopic(count);
+    }
+
+    @Override
     public HashMap<Integer, float[]> getAllCoordinates() {
 
         long time1 = System.currentTimeMillis();
