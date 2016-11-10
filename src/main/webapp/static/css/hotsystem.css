@@ -387,6 +387,17 @@ input[type=checkbox]:checked::after {
 	top:-10px;
 	left:185px;
 }
+ .personTab ul:nth-child(5):before{
+	width:0;
+	height:0;
+	content:'';
+	position:absolute;
+	border-bottom:10px solid #e7eced;
+	border-left:10px solid transparent;
+	border-right:10px solid transparent;
+	top:-10px;
+	left:240px;
+}
 
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 html,body{
