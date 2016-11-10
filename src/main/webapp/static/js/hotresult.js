@@ -219,6 +219,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	resultDia();
 	function resultDia(){
 
+
 		if(urlLabel){
 		var evenSelect = urlLabel.Even;
 		$('#inp_data_event').find('i').empty();
@@ -427,7 +428,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	    
 		if(urlLabel) {
 	        nowPage = 1;
-	        var url="result?clueWord=" + escape(word)+"&pageSize=20&currentPage=1";
+	        var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage=1";
 	        if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
 	        history.pushState && history.pushState({title: word,pagenumber:1}, word, url);
 	        getResult(word, 20, nowPage,urlLabel);
@@ -436,17 +437,215 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	}
 	//top 删除事件标签
 	$('#result_label_even').delegate('span','click',function(){
-		console.log('1111');
-		console.log(urlLabel.Even)
 		urlLabel.Even = [];
-		console.log(urlLabel.Even)
 		resNewSer();
 		resultLabel();
 		resultDia();
+		$('.eventDialogTab').find('.dialog_inp_num').text('0');
+		$('.eventDialogTab').find('.dialog_inp_num').css('display','none');
+		$('.eventDialogTab2').find('.dialog_inp_num').text('0');
+		$('.eventDialogTab2').find('.dialog_inp_num').css('display','none');
+		$('.dialog_tab_event').find('input').prop('checked',false);
+	});
+	//top 删除性别标签
+	$('#result_label_gender').delegate('span','click',function(){
+		urlLabel.Gender = [];
+		resNewSer();
+		resultLabel();
+		resultDia();
+		$('.userDialogTab .dialog_inp_num').eq(0).text(0);
+		$('.userDialogTab .dialog_inp_num').eq(0).css('display','none');
+		$('.dialog_tab_person ul').eq(0).find('input').prop('checked',false);
+		$('.dialog_tab_person ul').eq(0).addClass('hidecommon');
+		$('.userDialogTab li').eq(0).removeClass('cor389b9f');
+		$('.userDialogTab li').eq(0).removeClass('hot_arrow_up');
+		if($('#result_evet_persn').find('i').length<=0){
+			$('#result_evet_persn').addClass('hidecommon');
+		};
+		
+	});
+	//top 删除教育标签
+	$('#result_label_education').delegate('span','click',function(){
+		urlLabel.Education = [];
+		resNewSer();
+		resultLabel();
+		resultDia();
+		$('.userDialogTab .dialog_inp_num').eq(1).text(0);
+		$('.userDialogTab .dialog_inp_num').eq(1).css('display','none');
+		$('.dialog_tab_person ul').eq(1).find('input').prop('checked',false);
+		$('.dialog_tab_person ul').eq(1).addClass('hidecommon');
+		$('.userDialogTab li').eq(1).removeClass('cor389b9f');
+		$('.userDialogTab li').eq(1).removeClass('hot_arrow_up');
+		if($('#result_evet_persn').find('i').length<=0){
+			$('#result_evet_persn').addClass('hidecommon');
+		};
+		
 	});
 	
+	//top 删除地区标签
+	$('#result_label_area').delegate('span','click',function(){
+		urlLabel.Area = [];
+		resNewSer();
+		resultLabel();
+		resultDia();
+		$('.userDialogTab .dialog_inp_num').eq(2).text(0);
+		$('.userDialogTab .dialog_inp_num').eq(2).css('display','none');
+		$('.dialog_tab_person ul').eq(2).find('input').prop('checked',false);
+		$('.dialog_tab_person ul').eq(2).addClass('hidecommon');
+		$('.userDialogTab li').eq(2).removeClass('cor389b9f');
+		$('.userDialogTab li').eq(2).removeClass('hot_arrow_up');
+		if($('#result_evet_persn').find('i').length<=0){
+			$('#result_evet_persn').addClass('hidecommon');
+		};
+		
+	});
+	//top 删除兴趣爱好标签
+	$('#result_label_userClass').delegate('span','click',function(){
+		urlLabel.UserClass = [];
+		resNewSer();
+		resultLabel();
+		resultDia();
+		$('.userDialogTab .dialog_inp_num').eq(3).text(0);
+		$('.userDialogTab .dialog_inp_num').eq(3).css('display','none');
+		$('.dialog_tab_person ul').eq(3).find('input').prop('checked',false);
+		$('.dialog_tab_person ul').eq(3).addClass('hidecommon');
+		$('.userDialogTab li').eq(3).removeClass('cor389b9f');
+		$('.userDialogTab li').eq(3).removeClass('hot_arrow_up');
+		if($('#result_evet_persn').find('i').length<=0){
+			$('#result_evet_persn').addClass('hidecommon');
+		};
+		
+	});
+	
+
+//	var dataObj = {
+//			Even:[],
+//			Area:[],
+//			Age:[],
+//			Education:[],
+//			Gender:[],
+//			UserClass:[]
+//	};
+//	if($('#inp_data_event').is('.hidecommon')){
+//	}else{
+//		var list = $('#inp_data_event').find('i');
+//		$(list).each(function(i,item){
+//			var dataId = $(this).attr('data-id');
+//			var dataText = $(this).text();
+//			dataObj.Even.push({id:dataId,name:dataText})
+//		});
+//	};
+//	if($('.person_sec').is('.hidecommon')){
+//	}else{
+//		var list = $('.person_sec').find('i');
+//		$(list).each(function(i,item){
+//			var dataId = $(this).attr('data-id');
+//			var dataText = $(this).text();
+//			dataObj.Gender.push({id:dataId,name:dataText})
+//		});
+//	};
+//	
+//	if($('.person_area').is('.hidecommon')){
+//	}else{
+//		var list = $('.person_area').find('i');
+//		$(list).each(function(i,item){
+//			var dataId = $(this).attr('data-id');
+//			var dataText = $(this).text();
+//			dataObj.Area.push({id:dataId,name:dataText})
+//		});
+//	};
+//	if($('.person_education').is('.hidecommon')){
+//	}else{
+//		var list = $('.person_education').find('i');
+//		$(list).each(function(i,item){
+//			var dataId = $(this).attr('data-id');
+//			var dataText = $(this).text();
+//			dataObj.Education.push({id:dataId,name:dataText})
+//		});
+//	};
+//	if($('.person_interest').is('.hidecommon')){
+//	}else{
+//		var list = $('.person_interest').find('i');
+//		$(list).each(function(i,item){
+//			var dataId = $(this).attr('data-id');
+//			var dataText = $(this).text();
+//			dataObj.UserClass.push({id:dataId,name:dataText})
+//		});
+//	};
+	$('#dislog_btn_sure').on('click',function(){
+	console.log("111")
+	console.log(urlLabel)
+		urlLabel.Even=[];
+		urlLabel.Area=[];
+		urlLabel.Age=[];
+		urlLabel.Education=[];
+		urlLabel.Gender=[];
+		urlLabel.UserClass=[];
+		
+		if($('#inp_data_event').is('.hidecommon')){
+		}else{
+			var list = $('#inp_data_event').find('i');
+			$(list).each(function(i,item){
+				var dataId = $(this).attr('data-id');
+				var dataText = $(this).text();
+				urlLabel.Even.push({id:dataId,name:dataText})
+			});
+		};
+		if($('.person_sec').is('.hidecommon')){
+		}else{
+			var list = $('.person_sec').find('i');
+			$(list).each(function(i,item){
+				var dataId = $(this).attr('data-id');
+				var dataText = $(this).text();
+				urlLabel.Gender.push({id:dataId,name:dataText})
+			});
+		};
+		
+		if($('.person_area').is('.hidecommon')){
+		}else{
+			var list = $('.person_area').find('i');
+			$(list).each(function(i,item){
+				var dataId = $(this).attr('data-id');
+				var dataText = $(this).text();
+				urlLabel.Area.push({id:dataId,name:dataText})
+			});
+		};
+		if($('.person_education').is('.hidecommon')){
+		}else{
+			var list = $('.person_education').find('i');
+			$(list).each(function(i,item){
+				var dataId = $(this).attr('data-id');
+				var dataText = $(this).text();
+				urlLabel.Education.push({id:dataId,name:dataText})
+			});
+		};
+		if($('.person_interest').is('.hidecommon')){
+		}else{
+			var list = $('.person_interest').find('i');
+			$(list).each(function(i,item){
+				var dataId = $(this).attr('data-id');
+				var dataText = $(this).text();
+				urlLabel.UserClass.push({id:dataId,name:dataText})
+			});
+		};
+		resNewSer();
+		resultLabel();
+		resultDia();
+		$('#ser_dialog').addClass('hidecommon');
+	})
 	
 	$('#result_filter').on('click',function(){
+		var  inpflag = 0;
+		$('.dialog_inp_num').each(function(index,item){
+			if($(this).text()!=='0'){
+				console.log('aaa')
+				inpflag++;
+				if(inpflag == 1){
+					$(this).parent().click();
+				}			
+				$(this).css('display','block');
+			}
+		})
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
@@ -530,16 +729,16 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
 					fillData($(".userDialogTab"),$(".personTab"),userData);
-					var  inpflag = 0;
-					$('.dialog_inp_num').each(function(index,item){
-						if($(this).text()!=='0'){
-							inpflag++;
-							if(inpflag == 1){
-								$(this).parent().click();
-							}			
-							$(this).css('display','block');
-						}
-					})
+//					var  inpflag = 0;
+//					$('.dialog_inp_num').each(function(index,item){
+//						if($(this).text()!=='0'){
+//							inpflag++;
+//							if(inpflag == 1){
+//								$(this).parent().click();
+//							}			
+//							$(this).css('display','block');
+//						}
+//					})
 					
 				}
 				
@@ -963,7 +1162,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	//清空标签
 	$('#dialog_inp_del').on('click',function(){
-		//dialogInit()
+		dialogInit()
 	});
 	//dialogInit();
 	function dialogInit(){

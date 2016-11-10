@@ -202,8 +202,9 @@
    					</li>
    				</ul>
    			</div>
-   			
-   			<div class="dialog_inp_c f12 hidecommon">
+   			<div class="clearfix"></div>
+   		<div style="height:74px;">	
+   			<div class="dialog_inp_c f12 hidecommon fl">
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event" class="hidecommon"><span></span></li>
    					<li id="inp_data_person1" class="hidecommon">
@@ -215,9 +216,10 @@
    				</ol>
    				
    				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
-   				<div class="fl dislog_btn_sure ac pointer f14" id="dislog_btn_sure">确定</div>
    			</div>
    			
+   		<div class="dislog_btn_sure ac pointer f14 fr" id="dislog_btn_sure">确定</div>
+   	</div>		
    		</div>
    </div>
 
