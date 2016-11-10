@@ -102,8 +102,9 @@ public class SearchModel {
 
         List<ArrayList<Integer>> result = new ArrayList<>();
 
-        if (Objects.nonNull(gender) && gender.size() > 0)
+        if (Objects.nonNull(gender) && gender.size() > 0) {
             result.add(gender);
+        }
 
         if (Objects.nonNull(education) && education.size() > 0)
             result.add(education);
