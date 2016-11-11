@@ -509,25 +509,36 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	
 	$('#result_filter').on('click',function(){
-
-//		resultLabel();
-//    	labelList();
-//    	resultDia();
-		var  inpflag = 0;
-		$('.dialog_inp_num').each(function(index,item){
-			if($(this).text()!=='0'){
-				inpflag++;
-				if(inpflag == 1){
-					var ele1 = $(this).parent().parent();
-					var ele2 = $(this).parent();
-					ele2.addClass('cor389b9f'); 
-					ele2.addClass('hot_arrow_up'); 
-					var currentIndex = ele2.index();
-					ele1.next().find("ul:eq("+currentIndex+")").removeClass('hidecommon');
-				}			
-				$(this).css('display','block');
-			}
-		})
+		$('#ser_dialog').find('input').prop('checked',false);
+		$('#ser_dialog').find('.dialog_inp_num').text('0');
+		$('#ser_dialog').find('.dialog_inp_num').css('display','none'); 
+		$('#ser_dialog .dialog_tab li').removeClass('cor389b9f');
+		$('#ser_dialog .dialog_tab li').removeClass('hot_arrow_up');
+		$('.dialog_inp_c_data').find('i').remove();
+		$('.dialog_inp_c').addClass('hidecommon');
+		//resultLabel();
+    	labelList();
+    	resultDia();
+//		var  inpflag = 0;
+//		setTimeout(function(){
+//			$('.dialog_inp_num').each(function(index,item){
+//			
+//				if($(this).text()!=='0'){
+//					inpflag++;
+//					if(inpflag == 1){
+//						var ele1 = $(this).parent().parent();
+//						var ele2 = $(this).parent();
+//						ele2.addClass('cor389b9f'); 
+//						ele2.addClass('hot_arrow_up'); 
+//						var currentIndex = ele2.index();
+//						ele1.next().find("ul:eq("+currentIndex+")").removeClass('hidecommon');
+//					}			
+//					$(this).css('display','block');
+//				}
+//			})
+//			
+//		},5000);
+		
 		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
@@ -628,7 +639,25 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 								$('#hot_age1').val(ageSelect[0]);
 								$('#hot_age2').val(ageSelect[1]);
 						}
-					}
+					};
+					var  inpflag = 0;
+						$('.dialog_inp_num').each(function(index,item){
+						
+							if($(this).text()!=='0'){
+								inpflag++;
+								if(inpflag == 1){
+									var ele1 = $(this).parent().parent();
+									var ele2 = $(this).parent();
+									ele2.addClass('cor389b9f'); 
+									ele2.addClass('hot_arrow_up'); 
+									var currentIndex = ele2.index();
+									ele1.next().find("ul:eq("+currentIndex+")").removeClass('hidecommon');
+								}			
+								$(this).css('display','block');
+							}
+						})
+						
+					
 
 					
 				}
