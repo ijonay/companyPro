@@ -400,7 +400,10 @@ input[type=checkbox]:checked::after {
 }
 .age_dia_con{height:24px;padding-top:20px;color:#4a4a4a;font-size:12px;line-height:24px;}
 .age_dia_con input {width:88px;height:24px;border:0;border-radius:2px;padding-left:10px;}
-
+.age_dia_con b {font-style:normal!important;margin-right:10px;}
+.age_dia_con b:nth-child(3){
+	margin-right:10px;
+}
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 html,body{
 	margin:0;

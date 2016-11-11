@@ -81,7 +81,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
                 $(".word").remove()
                 var clueWord1 = decodeURI(clueWord);
                 $("<div class='word wordwidth'>"+getSubstr(word)+"</div>").appendTo($("#canvas"));
-                result = _.sortBy(returnData.data, function(item) {
+                result = _.sortBy(returnData.data.data, function(item) {
                     return -item.score
                 });
                 drawWord(result);
@@ -605,7 +605,17 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		urlLabel.Education=[];
 		urlLabel.Gender=[];
 		urlLabel.UserClass=[];
-	}	
+	}else{
+		        urlLabel = {
+				Even:[],
+				Area:[],
+				Age:[],
+				Education:[],
+				Gender:[],
+				UserClass:[]
+		};
+		var hash = JSON.stringify(urlLabel);
+	};	
 		if($('#inp_data_event').is('.hidecommon')){
 		}else{
 			var list = $('#inp_data_event').find('i');
@@ -655,15 +665,12 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		
 		var ageVal1 = $('#hot_age1').val(),
 			ageVal2 = $('#hot_age2').val();
-		console.log(ageVal1)
-		console.log(ageVal2)
 		if(ageVal1){
 			urlLabel.Age.push(ageVal1);
 		}
 		if(ageVal2){
 			urlLabel.Age.push(ageVal2);
 		}
-		
 		resNewSer();
 		resultLabel();
 		resultDia();
@@ -776,19 +783,22 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
 					fillDataBot($(".userDialogTab"),$(".personTab"),userData);
-					var ageSelect = urlLabel.Age;
-					$('#hot_dia_age').find('i').remove();
-					console.log(ageSelect.length)
-					console.log($('#hot_age1').val())
-					if(ageSelect.length<=0){
-						$('#hot_dia_age').addClass('hidecommon');
-					}else if(ageSelect==1){
-							$('#hot_age1').val(ageSelect[0]);
-						}else{
-							console.log(ageSelect[0])
-							$('#hot_age1').val(ageSelect[0]);
-							$('#hot_age2').val(ageSelect[1]);
+					if(urlLabel){
+						var ageSelect = urlLabel.Age;
+						$('#hot_dia_age').find('i').remove();
+						console.log(ageSelect.length)
+						console.log($('#hot_age1').val())
+						if(ageSelect.length<=0){
+							$('#hot_dia_age').addClass('hidecommon');
+						}else if(ageSelect==1){
+								$('#hot_age1').val(ageSelect[0]);
+							}else{
+								console.log(ageSelect[0])
+								$('#hot_age1').val(ageSelect[0]);
+								$('#hot_age2').val(ageSelect[1]);
+						}
 					}
+					
 //					var  inpflag = 0;
 //					$('.dialog_inp_num').each(function(index,item){
 //						if($(this).text()!=='0'){
