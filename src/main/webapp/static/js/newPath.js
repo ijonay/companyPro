@@ -27,45 +27,46 @@ var circleTimeout;
 var isShow = false;
 var prevNum = 0;
 function getPath(explore){
-    var localUrl = "http://192.168.1.120:8080/zhicang/";
-    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
-    var query = GetRequest('query').query;
-    var hotTopic = GetRequest('query').hotTopic;
+	var hash = location.hash.substr(1);
+	var pathInfo = {};
+	var infoArray = hash.split("&");
+	$.each(infoArray,function(index,item){
+		var temp = item.split("=");
+		pathInfo[temp[0]] = temp[1];
+	})
+//    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
+//    var query = GetRequest('query').query;
+//    var hotTopic = GetRequest('query').hotTopic;
+    var topicId = pathInfo.topicId;
+    var query = pathInfo.query;
+    var hotTopic = pathInfo.hotTopic;
     if(explore){
         query = explore;
     }
-    query = "123";
+    topicId = 7380;
+    query = "手机";
     hotTopic = "5456"
-//    $.ajax({
-//        type:"get",
-//        url:dataUrl.util.getPath(topicId,query),
-//        success:function(data){
-        	data = {};
+    $.ajax({
+        type:"get",
+        url:dataUrl.util.getNewPath(topicId,query),
+        success:function(data){
         	
-        	var dataArray = [];
-        	for(var i=0;i<30;i++){
-        		var obj = {};
-        		obj.nodes = [{"name":"王宝强"},{"name":"陈国坤"},{"name":"宝强"},{"name":"方丈"},{"name":"师傅"}];
-        		dataArray.push(obj);
-        	}
-        	data.data = dataArray;
-        	
-//            if(data.data.length == 0){
-//            	$('#canvas').css('height','200px');
-//                $('#canvas').html('<div style="margin:0px auto ;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
-//                return;
-//            }
-//            if(data.error.code == 2004){
-//                console.log(data.error.message);
-//                //$('#canvas').html('');
-//                $('#canvas').css('height','200px');
-//                $('#canvas').html('对不起,没有找到合适的语义路径.请换个关键词或者热点');
-//                $('#canvas').html('<div style="margin:0px auto;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
-//                return;
-//            }else if(data.data == null){
-//                console.log("数据为空");
-//                return;
-//            };
+            if(data.data.length == 0){
+            	$('#canvas').css('height','200px');
+                $('#canvas').html('<div style="margin:0px auto ;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
+                return;
+            }
+            if(data.error.code == 2004){
+                console.log(data.error.message);
+                //$('#canvas').html('');
+                $('#canvas').css('height','200px');
+                $('#canvas').html('对不起,没有找到合适的语义路径.请换个关键词或者热点');
+                $('#canvas').html('<div style="margin:0px auto;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
+                return;
+            }else if(data.data == null){
+                console.log("数据为空");
+                return;
+            };
             $('#canvas').css('height','500px');
             var dataStr = JSON.stringify(data.data);
             Pages = JSON.parse(dataStr);
@@ -101,11 +102,11 @@ function getPath(explore){
            $('#canvas').html('');
             raphealDraw(lineArray,nodeList,query,hotTopic); 
             $('#search-btn').removeAttr("disabled"); 
-//        },
-//        error:function(){
-//    
-//        }
-//});
+        },
+        error:function(){
+    
+        }
+});
 }
 function pageChange(up){
     if(!isLessClick){
@@ -261,7 +262,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
         }
           cycle.click(function(){
         	  var lineNum = this.data("lineNum");
-        	  console.log(lineNum);
+        	  console.log(lineNum)
         	  $(".pathName").click();
           })
          //节点hover高亮
@@ -372,7 +373,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     }
     
     var startCircle = paper.circle(startPoint[0], startPoint[1], 25).animate({fill: "#23A095","stroke-width":0}, 300);
-    var imageStart = paper.image("img/keyWord.png",startPoint[0] - 11,startPoint[1] - 11,22,22).attr({title:keyWord,"pointer-events":"none"});
+    var imageStart = paper.image("img/keyWord.png",startPoint[0] - 11,startPoint[1] - 11,22,22).attr({title:keyWord});
     var textStart = paper.text(startPoint[0],startPoint[1]  + 43,keyWord).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#000"}).attr({title:keyWord});
     var editKeyWord;
     textStart.attr({title:keyWord}).data("keyWord",keyWord);
@@ -381,10 +382,50 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     	editKeyWord.hover(function(){},function(){
     		this.remove()
     	})
+    	editKeyWord.click(function(){
+        	var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+111+">");
+        	var pop = new Pop({
+    	        width:"422px",
+    	        header:"编辑关键词",
+    	        content:content,
+    	        buttons:[{
+    	            type:"popCancle",
+    	            text:"取消"
+    	        },{
+    	            type:"popOk",
+    	            text:"确定",
+    	            callback:function(){
+    	                $('#nav_ser').val($('.txt-word').val());
+    	                $(".popMask").hide();
+    	            }
+    	        }]
+    	    });
+        })
     },function(){
     });
+    if(editKeyWord){
+    	editKeyWord.click(function(){
+        	var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+111+">");
+        	var pop = new Pop({
+    	        width:"422px",
+    	        header:"编辑关键词",
+    	        content:content,
+    	        buttons:[{
+    	            type:"popCancle",
+    	            text:"取消"
+    	        },{
+    	            type:"popOk",
+    	            text:"确定",
+    	            callback:function(){
+    	                $('#nav_ser').val($('.txt-word').val());
+    	                $(".popMask").hide();
+    	            }
+    	        }]
+    	    });
+        })
+    }    
     var endCircle = paper.circle(endPoint[0],endPoint[1], 25).animate({fill: "#69C668","stroke-width":0}, 300);
-    var imageEnd = paper.image("img/hotspot.png",endPoint[0] - 10,endPoint[1] - 12,20,27).attr({title:hotTopic,"pointer-events":"none"});
+    var imageEnd = paper.image("img/hotspot.png",endPoint[0] - 10,endPoint[1] - 12,20,27).attr({title:hotTopic});
     var textEnd = paper.text(endPoint[0],endPoint[1] + 43,hotTopic).attr({"font-size":"20px","font-family":'微软雅黑',"fill":"#000"}).attr({title:hotTopic});
     textEnd.attr({title:hotTopic}).data("hotTopic",hotTopic);
     textEnd.hover(function(){

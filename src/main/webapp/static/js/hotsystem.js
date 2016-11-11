@@ -30,7 +30,8 @@
 				if(returnData.data != null && returnData.error.code == 0){
 					var str = "";
 					$.each(returnData.data,function(index,item){
-						str += "<li data-id='"+item.id+"' title='"+ item.words +"'>"+item.words+"<span></span></li>"
+						if(index > 4) return;
+						str += "<li data-id='"+item.id+"' title='"+ unescape(item.words) +"'>"+unescape(item.words)+"<span></span></li>"
 					})
 					$("#favorite_ul").html(str);
 				}
@@ -63,7 +64,7 @@
 			return;
 		};
 		console.log(val);
-		var data = {searchWords:val};
+		var data = {searchWords:escape(val)};
 		$.ajax({
 			type:"post",
 			url:dataUrl.util.addCommon(),
@@ -73,9 +74,9 @@
 				if(returnData.error.code == 0){
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
-						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					}else{
-						$('#favorite_ul').prepend('<li data-id="" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					};
 				}
 			},
@@ -786,12 +787,9 @@ function loadSvg(){
     var step = width/11;
     for(var i=1;i<11;i++){
         xArray.push(step*i)
-    };
-    var jsonstr = "[{'title':'测试','weight':10},{'title':'我的1111111111112222','weight':80},{'title':'123','weight':70},{'title':'你的','weight':60},{'title':'热点','weight':20},{'title':'123','weight':90},{'title':'话题','weight':30},{'title':'abc','weight':90},{'title':'123','weight':40},{'title':'123','weight':50}]";
-    var returndata = eval('('+jsonstr+')');
-    console.log(returndata.length)
+    };   
     for(var i=0;i<10;i++){
-        yArray.push(100-returndata[i].weight)
+        yArray.push(100-scoreArray[i])
     }
     var baseLine = "M 0 65 R ";
     for(var i=0;i<xArray.length;i++){
@@ -827,10 +825,10 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,returndata[i].title).attr({"fill":'#fff',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleArray[i]).attr({"fill":'#fff',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0,cursor:"pointer"}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
-        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,returndata[i].weight).attr({"fill":'#fff',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,scoreArray[i]).attr({"fill":'#fff',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
         	textArray[i] = textArrayItem;
         	rectArray[i] = rectArrayItem;
         	hotArray[i] = hotArrayItem;
@@ -893,7 +891,6 @@ function loadSvg(){
 //        }
 }
 };
-    loadSvg();
     var setTime;
     window.onresize=function(){
     	$(".alertCon").hide();
@@ -927,6 +924,21 @@ function loadSvg(){
             var trianglePos = triangleStep * (index + 1);
             $(".triangle").css("left",trianglePos);
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
+            $(".hotValue").html(scoreArray[index]);
+            $(".infoTitle").html(titleArray[index]);
+            if(imageArray[index].indexOf("javascript") > 0){
+            	var url = imageArray[index];
+            }else{
+            	var url = "url("+imageArray[index]+")"
+            }
+            $(".portrait").css("background-image",url);
+            $(".infoText").html(introArray[index]);
+            $(".infoConnect").attr("data-id",hotIdArray[index]);
+            $(".infoConnect").attr("data-index",index);
+            $(".infoIcon").hide();
+            $.each(formArray[index],function(index,item){            	
+            	$("#icon"+item).show();
+            })
             alertCon.show();
     	}    	
     }
@@ -935,7 +947,13 @@ function loadSvg(){
         // var topic = $(this).prev().text();
         // topic = topic.split("#");
         // topic = topic[1]
-    	var topic = "热点热点热点";
+    	var index = $(this).attr("data-index");
+    	var topic = titleArray[index];
+    	topic = topic.replace(/#/g,"");
+    	if($(".selectTag")){
+    		$(".selectTag").attr("title",topic);
+    		$(".selectTag").html(topic)
+    	}
         var content = "";
         content += '<input class="releateTag" placeholder="请输入关键字" />';
         content += '<div style="display:inline-block;width:52px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
@@ -952,11 +970,11 @@ function loadSvg(){
                 text:"确定",
                 callback:function(){
                     var query = $(document).find(".popWin").find(".releateTag").val();
-                    var hotTopic = $(document).find(".popWin").find(".selectTag").text();
+                    var hotTopic = titleArray[index];
                     if(query.trim() == ""){                    
                     }else{
 //                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
-                    	  window.location.href="newPath"
+                    	  window.location.href="newPath#query="+query+"&topicId="+hotIdArray[index]+"&hotTopic="+topic;
                     }               
                 }
             }]
@@ -1021,7 +1039,70 @@ function loadSvg(){
     	//$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
     	
     });
+    var hotIdArray=[];
+    var imageArray=[];
+    var titleArray=[];
+    var scoreArray=[];
+    var introArray=[];
+    var formArray=[];
+    var hotList = hotList || {};
+    hotList.templates = {
+    		registerTmpl : function(tmplId, scriptTagId) {
+    			chartsAttr.templates[tmplId] = $
+    					.templates(templates.design[scriptTagId]);
+    		}
+    	};
+    hotList.templates.registerTmpl("allHotList", "tmplAllHotList");
+    var hotList2 = $.templates(templates.design["tmplAllHotList"]);
+    function getTenHot(){
+    	$.ajax({
+            type: "get",
+            contentType: 'application/json',
+            dataType: "json",
+            url: dataUrl.util.getHotTopic(50),
+            success: function(returnData) {
+            	console.log(returnData.data)
+            	if(returnData.error.code != 0) return;
+            	$.each(returnData.data,function(index,item){
+            		if(index < 10){
+            			hotIdArray.push(item.id);
+                		if(item.logoImgUrl){
+                			imageArray.push(item.logoImgUrl);
+                		}else{
+                			imageArray.push("javascript:void(0)");
+                		}
+                		
+                		titleArray.push(item.title);
+                		scoreArray.push(item.prevailingTrend);
+                		introArray.push(item.introduction);
+                		var tempArray = [];
+                		if(item.baiduHitNum){
+                			tempArray.push("baidu");
+                		}
+                		if(item.zhihuAvgAnswerNumber){
+                			tempArray.push("zhihu");
+                		}
+                		if(item.wechatAvgReadNum){
+                			tempArray.push("wechat");
+                		}
+                		tempArray.push("weibo");
+                		formArray.push(tempArray);
+            		}
+            		
+            	});
+            	loadSvg();
+//            	console.log($.render.allHotList(returnData.data));
+            	console.log(hotList2.render(returnData.data));
+            	console.log(hotList.templates.allHotList.render(returnData.data));
+            	$(".all_hot_list").html(hotList.templates.allHotList.render(returnData.data));
+            },
+            error: function() {
+                console.log('获取热点失败');
+            }
+        });
+    }
     
+    getTenHot()
     
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')

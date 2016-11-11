@@ -459,10 +459,13 @@ body{
     display: inline-block;
     width:96px;
     height:96px;
-    background-color:red;
+    background-color:#eee;
     margin-right: 10px;
     margin:0;
     padding: 0;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
 }
 .info{
     position: absolute;
@@ -663,7 +666,7 @@ body{
 	background:#ccc;height:20px;font-size:12px;color:#4a4a4a;
 }
 .all_hot_list_top_source div{float:left;margin-right:18px;}
-.all_hot_list_top_source div:nth-child(1){
+/*.all_hot_list_top_source div:nth-child(1){
 	background:url(../img/hot_weixin.png) no-repeat;width:18px;height:18px;
 }
 .all_hot_list_top_source div:nth-child(2){
@@ -674,6 +677,26 @@ body{
 }
 .all_hot_list_top_source div:nth-child(4){
 	background:url(../img/hot_baidu.png) no-repeat;width:18px;height:18px;
+}*/
+.weixinIcon{
+	background:url(../img/hot_weixin.png) no-repeat;width:18px;height:18px;
+}
+.weiboIcon{
+	background:url(../img/hot_weibo.png) no-repeat;width:18px;height:18px;
+}
+.zhihuIcon{
+	background:url(../img/hot_zhihu.png) no-repeat;width:18px;height:18px;
+}
+.baiduinIcon{
+	background:url(../img/hot_baidu.png) no-repeat;width:18px;height:18px;
+}
+.logoImageCon{
+	width:48px;height:48px;
+	background:#fff;
+	margin-top:18px;
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:center center;
 }
 /*热点详情*/
 .all_hot_list_bot{
