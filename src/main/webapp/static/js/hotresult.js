@@ -4,7 +4,6 @@ var nowPage = GetRequest().currentPage;//页码
 $('#nav_ser').val(word);
 console.log(urlLabel);
 
-
 function resSer() {
     var newWord=$.trim($('#nav_ser').val());
     if(newWord && word!=newWord){
@@ -102,9 +101,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
         }
     });
 }
-
+    resultLabel();
 	labelList();
-	resultLabel();
 	resultDia();
 	function resultDia(){
 		if(urlLabel){
@@ -434,6 +432,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		};
 		var hash = JSON.stringify(urlLabel);
 	};	
+		
 		if($('#inp_data_event').is('.hidecommon')){
 		}else{
 			var list = $('#inp_data_event').find('i');
@@ -491,12 +490,15 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		}
 		resNewSer();
 		resultLabel();
+		labelList();
 		resultDia();
 		$('#ser_dialog').addClass('hidecommon');
-	})
+	});
 	
 	$('#result_filter').on('click',function(){
-		resultDia();
+		resultLabel();
+//		labelList();
+//		resultDia();
 		var  inpflag = 0;
 		$('.dialog_inp_num').each(function(index,item){
 			if($(this).text()!=='0'){
