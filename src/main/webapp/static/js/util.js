@@ -18,11 +18,20 @@ dataUrl.util = {
     getCommon:function(){
     	return encodeURI("api/searchItem/list");
     },
+    getSerHistory:function(){
+    	return encodeURI("api/searchLog/list");
+    },
     cancleCommon:function(){
     	return encodeURI("api/searchItem/cancel");
     },
+    cancleSerHistory:function(){
+    	return encodeURI("api/searchLog/delete");
+    },
     addCommon:function(){
     	return encodeURI("api/searchItem/add");
+    },
+    addSerHistory:function(){
+    	return encodeURI("api/searchLog/add");
     },
     getNewPath:function(topicId,query){
     	return encodeURI('api/paths/' + topicId + '?query=' + query);
