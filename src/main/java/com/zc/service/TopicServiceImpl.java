@@ -13,10 +13,7 @@ import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
-import com.zc.utility.CommonHelper;
-import com.zc.utility.Constant;
-import com.zc.utility.PropertyHelper;
-import com.zc.utility.WordVectorHelper;
+import com.zc.utility.*;
 import com.zc.utility.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -50,6 +47,7 @@ public class TopicServiceImpl implements TopicService {
      * @see com.zc.service.TopicService#getSimilarity(java.util.List)
      */
     public float getSimilarity(List<TopicWordModel> list) {
+
         if (list == null || list.size() == 0)
             return 0;
         float totalWeight = 0f;
@@ -80,6 +78,7 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public Integer batchInsert(List<Topic> list) {
+
         if (list == null || list.size() == 0) return 0;
         return dao.batchInsert(list);
     }
@@ -99,11 +98,12 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<Topic> getTopicWordList(Integer pageSize, Integer currentPage) {
+
         return dao.getTopicWordList(pageSize, currentPage);
     }
 
     @Override
-    public List<TopicModel> getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer
+    public Page getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer
             pageSize) {
 
         if (pageSize < 1 || currentPage < 1) {
@@ -134,7 +134,7 @@ public class TopicServiceImpl implements TopicService {
             time3 = System.currentTimeMillis();
 
             if (topicIds.size() > 0) {
-//
+
 //                allCoordinates1 = getCoordinatesByTopicIdsAndCache(topicIds);
 
                 List<Integer> topicIds1 = topicIds;
@@ -166,6 +166,11 @@ public class TopicServiceImpl implements TopicService {
         );
         long time5 = System.currentTimeMillis();
 
+
+        Page page = new Page(currentPage, pageSize);
+
+        page.setTotalCount(idList.size());
+
         List<Integer> ids = idList.stream().skip((currentPage - 1) * pageSize).limit(pageSize).collect(Collectors
                 .toList());
 
@@ -194,7 +199,10 @@ public class TopicServiceImpl implements TopicService {
         System.out.println("time7：" + time7 + "毫秒" + "，与上一个相差" + (time7 - time6) + "毫秒");
         System.out.println("time8：" + time8 + "毫秒" + "，与上一个相差" + (time8 - time7) + "毫秒");
         System.out.println("总耗时：" + (time8 - time1) + "毫秒");
-        return topicModels;
+
+        page.setData(topicModels);
+
+        return page;
     }
 
     /**
@@ -227,6 +235,12 @@ public class TopicServiceImpl implements TopicService {
         Objects.requireNonNull(topic);
 
         return topic;
+    }
+
+    @Override
+    public List<Topic> getHotTopic(Integer count) {
+        Objects.requireNonNull(count);
+        return dao.getHotTopic(count);
     }
 
     @Override
