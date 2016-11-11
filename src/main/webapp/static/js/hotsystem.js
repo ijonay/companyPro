@@ -275,7 +275,7 @@
 					$(".personTab").empty();
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
-					fillData($(".userDialogTab"),$(".personTab"),userData);
+					fillDataBot($(".userDialogTab"),$(".personTab"),userData);
 				}
 				
 			},
@@ -289,16 +289,6 @@
 	$('#dialog_ser_to').on('click',function(){
 		var val = $.trim($('#dialog_ser_text').val());
 			if(val){
-				var obj = {
-						area:{
-							10:'北京',
-							20:'上海'
-						},
-						age:{
-							30:'湖南',
-							40:'河南'
-						}
-				};
 				var dataObj = {
 						Even:[],
 						Area:[],
@@ -353,6 +343,14 @@
 						dataObj.UserClass.push({id:dataId,name:dataText})
 					});
 				};
+				var ageVal1 = $('#hot_age1').val(),
+					ageVal2 = $('#hot_age2').val();
+				if(ageVal1){
+					dataObj.Age.push(ageVal1)
+				}
+				if(ageVal2){
+					dataObj.Age.push(ageVal2)
+				}
 				console.log(dataObj)
 				var hash = JSON.stringify(dataObj);
 				window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
@@ -362,6 +360,7 @@
 	});
 	
 	function fillData(selector,selector2,data){
+		//selector.append('<li>年龄</li>');
 		$.each(data,function(index,item){
 			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
 			var childs = item.childs;
@@ -376,8 +375,32 @@
 				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}
 			selector2.append(str);
-		})
-	}
+		});
+	};
+	
+	function fillDataBot(selector,selector2,data){
+		selector.append('<li>年龄</li>');
+		$.each(data,function(index,item){
+			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
+			var childs = item.childs;
+			if(childs){
+				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
+				$.each(childs,function(index,item){
+					str += '<label><input type="checkbox" data-id="'+item.id+'">'+item.name+'</label>'
+				})
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+			}else{
+				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+			}
+			selector2.append(str);
+		});
+		selector2.prepend('<ul class="hot_dia_age hidecommon" id="hot_dia_age"><div class="age_dia_con">'+
+				'<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1"><b>岁</b><b>至</b>'+
+				'<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2"><b>岁</b>'+
+				'</div></ul>')
+	};
+
 
 
 	
@@ -489,9 +512,6 @@
 		if($(this).is(':checked')){
 			$('.cor389b9f').find('span').css('display','block');
 			$('.cor389b9f').find('span').text(num+1);
-			
-			
-			console.log($('.cor389b9f').find('em').text())
 			if(textPar=='性别'){
 				$('#inp_data_person1 .person_sec').prepend('<i data-id='+dataId+'>'+textCon+'、</i>');
 
@@ -692,27 +712,26 @@
 	//删除人群标签
 	$('#inp_data_person1 span').on('click',function(){
 		$(this).parent().addClass('hidecommon');
-		$(this).parent().find('i').remove();
-		//console.log($(this).parent().attr('class'));
+		$(this).parent().find('i').remove();;
 		if($(this).parent().attr('class').indexOf('person_sec')>=0){
-			$('.userDialogTab li').eq(0).find('.dialog_inp_num').css('display','none');
-			$('.userDialogTab li').eq(0).find('.dialog_inp_num').text(0);
-			$('.personTab').find('ul').eq(0).find('input').prop("checked",false);
-		}
-		if($(this).parent().attr('class').indexOf('person_education')>=0){
 			$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','none');
 			$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(0);
 			$('.personTab').find('ul').eq(1).find('input').prop("checked",false);
 		}
-		if($(this).parent().attr('class').indexOf('person_area')>=0){
+		if($(this).parent().attr('class').indexOf('person_education')>=0){
 			$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','none');
 			$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(0);
 			$('.personTab').find('ul').eq(2).find('input').prop("checked",false);
 		}
-		if($(this).parent().attr('class').indexOf('person_interest')>=0){
+		if($(this).parent().attr('class').indexOf('person_area')>=0){
 			$('.userDialogTab li').eq(3).find('.dialog_inp_num').css('display','none');
 			$('.userDialogTab li').eq(3).find('.dialog_inp_num').text(0);
 			$('.personTab').find('ul').eq(3).find('input').prop("checked",false);
+		}
+		if($(this).parent().attr('class').indexOf('person_interest')>=0){
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','none');
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(0);
+			$('.personTab').find('ul').eq(4).find('input').prop("checked",false);
 		}
 		
 //		$('.dialog_tab_person').find('input').prop("checked",false);
@@ -743,6 +762,7 @@
 		$('.dialog_tab').find('li').removeClass('cor389b9f');
 		$('.dialog_tab').find('li').removeClass('hot_arrow_up');
 		$('#dialog_ser_text').val('');
+		$('#hot_dia_age').find('input').val('');
 	};
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
@@ -1083,4 +1103,8 @@ function loadSvg(){
     }
     
     getTenHot()
+    
+    function clearChat(a){
+    	a.value=a.value.replace(/[^\d]/g,'')
+    }
     

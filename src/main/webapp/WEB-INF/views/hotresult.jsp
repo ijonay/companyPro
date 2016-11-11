@@ -54,8 +54,8 @@
                             <div class="infoConnect">关联此热点</div>
                         </div>
                         <div class="hotLabel">
-                            <div>明星娱乐</div>
-                            <div>明星结婚</div>
+                            <div class="hotLabel0"></div>
+                            <div class="hotLabel1"></div>
                         </div>
                         <div class="hotInfo">
                             <div class="infoText">张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚</div>            
@@ -64,10 +64,10 @@
                             <img class="hotIcon" src="img/hotIcon.png">
                             <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
                             <div class="iconCon">
-                                <img class="infoIcon" src="img/weibo.png" alt="微博">
-                                <img class="infoIcon" src="img/wechat.png" alt="微信">
-                                <img class="infoIcon" src="img/zhihu.png" alt="知乎">
-                                <img class="infoIcon" src="img/baidu.png" alt="百度">
+                                <a target=" _blank" class="weibo-link" href="#"><img class="infoIcon" src="img/weibo.png" alt="微博"></a>
+                                <a target=" _blank" class="weixin-link" href="#" style="display:none;"><img class="infoIcon" src="img/wechat.png" alt="微信"></a>
+                                <a target=" _blank" class="zhihu-link" href="#" style="display:none;"><img class="infoIcon" src="img/zhihu.png" alt="知乎"></a>
+                                <a target=" _blank" class="baidu-link" href="#" style="display:none;"><img class="infoIcon" src="img/baidu.png" alt="百度"></a>
                             </div>
                         </div>
                     </div>

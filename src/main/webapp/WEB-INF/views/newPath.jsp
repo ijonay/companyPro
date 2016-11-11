@@ -133,5 +133,7 @@ div#canvas {
 <script src="js/util.js"></script>
 <script src="js/raphael.js"></script>
 <script src="js/newPath.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/nav.js"></script>
 </body>
 </html>
