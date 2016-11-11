@@ -329,10 +329,10 @@
             <img class="hotIcon" src="img/hotIcon.png">
             <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
             <div class="iconCon">
-	            <img class="infoIcon" src="img/weibo.png" alt="微博">
-	            <img class="infoIcon" src="img/wechat.png" alt="微信">
-	            <img class="infoIcon" src="img/zhihu.png" alt="知乎">
-	            <img class="infoIcon" src="img/baidu.png" alt="百度">
+	            <img class="infoIcon" id="iconweibo" src="img/weibo.png" alt="微博">
+	            <img class="infoIcon" id="iconwechat" src="img/wechat.png" alt="微信">
+	            <img class="infoIcon" id="iconzhihu" src="img/zhihu.png" alt="知乎">
+	            <img class="infoIcon" id="iconbaidu" src="img/baidu.png" alt="百度">
             </div>
         </div>
     </div>

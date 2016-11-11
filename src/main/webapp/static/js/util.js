@@ -26,6 +26,9 @@ dataUrl.util = {
     },
     getNewPath:function(topicId,query){
     	return encodeURI('api/paths/' + topicId + '?query=' + query);
+    },
+    getHotTopic:function(count){
+    	return encodeURI('api/topic/hottopic/'+count);
     }
 }
 
