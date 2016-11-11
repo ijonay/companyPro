@@ -44,7 +44,12 @@ public class SearchModel {
         return filterIds;
     }
 
-    public String getExistsSql(String tempSql, String exists, String ageTempSql, String max, String min, String other) {
+    public String getExistsSql(String tempSql, String defRule, String genderRule, String exists, String ageTempSql,
+                               String max,
+                               String
+                                       min,
+                               String
+                                       other) {
 
         String result = tempSql;
 
@@ -58,11 +63,27 @@ public class SearchModel {
 
         while (iterator.hasNext()) {
 
+            String defRule1 = defRule.replaceAll("#i", i + "");
+            String genderRule1 = genderRule.replaceAll("#i", i + "");
+
             ArrayList<Integer> item = iterator.next();
 
             String filterIds = Arrays.toString(item.toArray()).replaceAll("[\\[\\]]", "");
 
             result = result.replaceAll("#fids", filterIds).replaceAll("#i", i + "");
+
+            String where = "";
+
+            if (item == gender) {
+                where = genderRule1;
+            } else if (item == eventClass) {
+
+            } else {
+                where = defRule1;
+            }
+
+            result = result.replaceAll("#where", where);
+
 
             if (iterator.hasNext()) {
 
@@ -80,20 +101,20 @@ public class SearchModel {
         if (age == null || age.size() < 1)
             return result;
 
-        String where = "";
+        String dateWhere = "";
 
-        where += min.replaceAll("#min", age.get(0) + "");
+        dateWhere += min.replaceAll("#min", age.get(0) + "");
 
         if (age.size() > 1) {
-            where += max.replaceAll("#max", age.get(1) + "");
+            dateWhere += max.replaceAll("#max", age.get(1) + "");
         }
+
+
+        ageTempSql = ageTempSql.replaceAll("#dateWhere", dateWhere);
 
         if (!StringUtils.isEmpty(result)) {
-            where += other.replaceAll("#other", result);
+            ageTempSql = ageTempSql.replaceAll("#where", other.replaceAll("#other", result));
         }
-
-
-        ageTempSql = ageTempSql.replaceAll("#where", where);
 
         return ageTempSql;
     }
@@ -102,8 +123,9 @@ public class SearchModel {
 
         List<ArrayList<Integer>> result = new ArrayList<>();
 
-        if (Objects.nonNull(gender) && gender.size() > 0)
+        if (Objects.nonNull(gender) && gender.size() > 0) {
             result.add(gender);
+        }
 
         if (Objects.nonNull(education) && education.size() > 0)
             result.add(education);
