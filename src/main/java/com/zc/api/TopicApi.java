@@ -7,7 +7,6 @@ import com.zc.model.topicsearch.SearchModel;
 import com.zc.service.TopicService;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,9 +20,6 @@ public class TopicApi extends BaseApi {
 
     @Autowired
     private TopicService topicService;
-
-    @Autowired
-    ApplicationContext context;
 
     @RequestMapping(value = "getlist", method = RequestMethod.POST)
     public ApiResultModel getHotTopic(
@@ -43,8 +39,11 @@ public class TopicApi extends BaseApi {
         }
     }
 
+
     @RequestMapping(value = "hottopic/{count}", method = RequestMethod.GET)
     public ApiResultModel getHotTopic(@PathVariable("count") Integer count) {
+
+
         try {
 
             Objects.requireNonNull(count);

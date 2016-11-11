@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.UserLogMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.UserLog">
+                                    <id column="id" jdbcType="INTEGER" property="id"/>
+                                                <result column="user_id" jdbcType="INTEGER" property="userId"/>
+                                                <result column="log_type" jdbcType="INTEGER" property="logType"/>
+                                                <result column="log_info" jdbcType="VARCHAR" property="logInfo"/>
+                                                <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+                                                <result column="ip" jdbcType="VARCHAR" property="ip"/>
+                                                <result column="explore_type" jdbcType="VARCHAR" property="exploreType"/>
+                        </resultMap>
+    <sql id="Base_Column_List">
+         id,  user_id,  log_type,  log_info,  create_date,  ip,  explore_type     </sql>
+    <insert id="add" parameterType="com.zc.bean.UserLog"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into UserLog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                            <if test="userId != null">
+                    user_id,
+                </if>
+                            <if test="logType != null">
+                    log_type,
+                </if>
+                            <if test="logInfo != null">
+                    log_info,
+                </if>
+                            <if test="createDate != null">
+                    create_date,
+                </if>
+                            <if test="ip != null">
+                    ip,
+                </if>
+                            <if test="exploreType != null">
+                    explore_type,
+                </if>
+                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                            <if test="userId != null">
+                    #{userId,jdbcType=INTEGER},
+                </if>
+                            <if test="logType != null">
+                    #{logType,jdbcType=INTEGER},
+                </if>
+                            <if test="logInfo != null">
+                    #{logInfo,jdbcType=VARCHAR},
+                </if>
+                            <if test="createDate != null">
+                    #{createDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="ip != null">
+                    #{ip,jdbcType=VARCHAR},
+                </if>
+                            <if test="exploreType != null">
+                    #{exploreType,jdbcType=VARCHAR},
+                </if>
+                    </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from UserLog
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.UserLog">
+        update UserLog
+        <set>
+                            <if test="userId != null">
+                    user_id = #{userId,jdbcType=INTEGER},
+                </if>
+                            <if test="logType != null">
+                    log_type = #{logType,jdbcType=INTEGER},
+                </if>
+                            <if test="logInfo != null">
+                    log_info = #{logInfo,jdbcType=VARCHAR},
+                </if>
+                            <if test="createDate != null">
+                    create_date = #{createDate,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="ip != null">
+                    ip = #{ip,jdbcType=VARCHAR},
+                </if>
+                            <if test="exploreType != null">
+                    explore_type = #{exploreType,jdbcType=VARCHAR},
+                </if>
+                    </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from UserLog
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--<select id="getAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from UserLog-->
+    <!--</select>-->
+    <!--<delete id="delAll">-->
+    <!--delete from UserLog-->
+    <!--</delete>-->
+</mapper>
