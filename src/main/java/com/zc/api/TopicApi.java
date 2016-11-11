@@ -43,7 +43,6 @@ public class TopicApi extends BaseApi {
     @RequestMapping(value = "hottopic/{count}", method = RequestMethod.GET)
     public ApiResultModel getHotTopic(@PathVariable("count") Integer count) {
 
-
         try {
 
             Objects.requireNonNull(count);
@@ -63,5 +62,18 @@ public class TopicApi extends BaseApi {
             return new ApiResultModel(StatusCodeEnum.SERVER_ERROR,
                     e.getMessage() + "_" + e.getStackTrace());
         }
+    }
+
+    @RequestMapping(value = "percentage/{topicId}", method = RequestMethod.GET)
+    public ApiResultModel getTopicPercentage(@PathVariable("topicId") Integer topicId) {
+
+        Objects.requireNonNull(topicId);
+
+        ApiResultModel result = new ApiResultModel();
+
+        result.data(topicService.getTopicPercentage(topicId));
+
+
+        return result;
     }
 }

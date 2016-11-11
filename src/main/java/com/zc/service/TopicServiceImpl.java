@@ -8,8 +8,12 @@
 package com.zc.service;
 
 import com.zc.bean.Topic;
+import com.zc.bean.TopicAgeStatistics;
+import com.zc.bean.TopicFilterClass;
 import com.zc.dao.TopicDao;
+import com.zc.enumeration.DimensionEnum;
 import com.zc.enumeration.StatusCodeEnum;
+import com.zc.model.KeyValueCollection;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
@@ -38,6 +42,8 @@ public class TopicServiceImpl implements TopicService {
     private ZCRedisService<float[]> redisService;
     @Autowired
     private TopicFilterService topicFilterService;
+    @Autowired
+    private TopicAgeStatisticsService topicAgeStatisticsService;
 
     /**
      * 获取词汇与热点话题的相似度
@@ -399,5 +405,51 @@ public class TopicServiceImpl implements TopicService {
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public Object getTopicPercentage(Integer topicId) {
+
+
+        HashMap<String, Object> result = new HashMap<>();
+
+        List<TopicFilterClass> gender = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Gender.getValue
+                ());
+        KeyValueCollection genderColl = new KeyValueCollection(gender);
+
+        result.put("gender", genderColl);
+
+        List<TopicFilterClass> edu = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Education.getValue
+                ());
+        KeyValueCollection eduColl = new KeyValueCollection(edu);
+
+        result.put("education", eduColl);
+
+        List<TopicFilterClass> area = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Area.getValue
+                ());
+        KeyValueCollection areaColl = new KeyValueCollection(area);
+
+        result.put("area ", areaColl);
+
+        List<TopicFilterClass> interest = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Interest
+                .getValue
+                        ());
+        if (interest.size() > 6) {
+
+            interest = interest.stream().limit(6).collect(Collectors.toList());
+
+        }
+        KeyValueCollection interestColl = new KeyValueCollection(interest);
+
+        result.put("interest ", interestColl);
+
+        List<TopicAgeStatistics> age = topicAgeStatisticsService.getByTopicId(topicId);
+
+        KeyValueCollection ageColl = new KeyValueCollection(age, "");
+
+        result.put("age ", ageColl);
+
+        return result;
+    }
+
 
 }

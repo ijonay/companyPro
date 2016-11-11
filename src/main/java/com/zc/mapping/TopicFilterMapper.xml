@@ -5,9 +5,13 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="filter_id" jdbcType="INTEGER" property="filterId"/>
         <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
     </resultMap>
     <sql id="Base_Column_List">
-         id,  filter_id,  topic_id     </sql>
+        id,  filter_id,  topic_id,  scale,  percentage     </sql>
+
+
     <insert id="add" parameterType="com.zc.bean.TopicFilter"
             useGeneratedKeys="true" keyProperty="id">
         insert into TopicFilter
@@ -18,6 +22,12 @@
             <if test="topicId != null">
                 topic_id,
             </if>
+            <if test="scale != null">
+                scale,
+            </if>
+            <if test="percentage != null">
+                percentage,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="filterId != null">
@@ -25,6 +35,12 @@
             </if>
             <if test="topicId != null">
                 #{topicId,jdbcType=INTEGER},
+            </if>
+            <if test="scale != null">
+                #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                #{percentage,jdbcType=DOUBLE},
             </if>
         </trim>
     </insert>
@@ -42,6 +58,12 @@
             <if test="topicId != null">
                 topic_id = #{topicId,jdbcType=INTEGER},
             </if>
+            <if test="scale != null">
+                scale = #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                percentage = #{percentage,jdbcType=DOUBLE},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -51,8 +73,6 @@
         from TopicFilter
         where id = #{id,jdbcType=INTEGER}
     </select>
-
-
     <!--<select id="getAll" resultMap="BaseResultMap">-->
     <!--select-->
     <!--<include refid="Base_Column_List"/>-->
@@ -75,93 +95,28 @@
                                     ," AND year_of_birth &lt;=(YEAR(CURDATE()) - #min) "
                                     ," AND topic_id in(#other)  ")}
 
-        <!--SELECT-->
-        <!--t.topic_id-->
-        <!--FROM-->
-        <!--(-->
-        <!--TopicFilter t-->
-        <!--<if test="searchModel.getGender().size()>0">-->
-        <!--INNER JOIN TopicFilter a ON a.topic_id = t.topic_id and a.filter_id in-->
-        <!--<foreach collection="searchModel.getGender()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getEducation().size()>0">-->
-        <!--INNER JOIN TopicFilter b ON b.topic_id = t.topic_id and b.filter_id in-->
-        <!--<foreach collection="searchModel.getEducation()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getArea().size()>0">-->
-        <!--INNER JOIN TopicFilter c ON c.topic_id = t.topic_id and c.filter_id in-->
-        <!--<foreach collection="searchModel.getArea()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getEventClass().size()>0">-->
-        <!--INNER JOIN TopicFilter d ON d.topic_id = t.topic_id and d.filter_id in-->
-        <!--<foreach collection="searchModel.getEventClass()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getUserClass().size()>0">-->
-        <!--INNER JOIN TopicFilter e ON e.topic_id = t.topic_id and e.filter_id in-->
-        <!--<foreach collection="searchModel.getUserClass()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getAge().size()>0">-->
-        <!--INNER JOIN TopicAgeStatistics f ON f.topic_id = t.topic_id-->
-        <!--AND year_of_birth &lt;= (YEAR(CURDATE()) - ${searchModel.getAge().get(0)})-->
-        <!--<if test="searchModel.getAge().size()>1">-->
-        <!--AND year_of_birth &gt;= (YEAR(CURDATE()) - ${searchModel.getAge().get(1)})-->
-        <!--</if>-->
-        <!--</if>-->
-        <!--)-->
-        <!--WHERE-->
-
-        <!--<if test="searchModel.getFilterIds().size()==0">-->
-        <!--1!=1-->
-        <!--</if>-->
-
-        <!--<if test="searchModel.getFilterIds().size()>0">-->
-        <!--t.filter_id in-->
-        <!--<foreach collection="searchModel.getFilterIds()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--GROUP BY t.topic_id-->
-        <!--<if test="searchModel.getGender().size()>0">-->
-        <!--and a.filter_id in-->
-        <!--<foreach collection="searchModel.getGender()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getEducation().size()>0">-->
-        <!--and b.filter_id in-->
-        <!--<foreach collection="searchModel.getEducation()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getArea().size()>0">-->
-        <!--and c.filter_id in-->
-        <!--<foreach collection="searchModel.getArea()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getEventClass().size()>0">-->
-        <!--and d.filter_id in-->
-        <!--<foreach collection="searchModel.getEventClass()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
-        <!--<if test="searchModel.getUserClass().size()>0">-->
-        <!--and e.filter_id in-->
-        <!--<foreach collection="searchModel.getUserClass()" item="item" open="(" separator="," close=")">-->
-        <!--#{item}-->
-        <!--</foreach>-->
-        <!--</if>-->
 
     </select>
+
+    <resultMap id="ClassResultMap" type="com.zc.bean.TopicFilterClass">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="filter_id" jdbcType="INTEGER" property="filterId"/>
+        <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+        <result column="name" jdbcType="DOUBLE" property="name"/>
+        <result column="scaleTotal" jdbcType="DOUBLE" property="scaleTotal"/>
+        <result column="percentageTotal" jdbcType="DOUBLE" property="percentageTotal"/>
+    </resultMap>
+
+
+    <select id="getByTopicIdAndType" resultMap="ClassResultMap">
+        select
+        tf.id,tf.filter_id,tf.topic_id,tf.scale,tf.percentage,
+        tc.name,tc.scale scaleTotal,tc.percentage percentageTotal
+        from TopicFilter tf INNER JOIN TopicClass tc on tf.filter_id=tc.id
+        where tf.topic_id = #{topicId,jdbcType=INTEGER} AND tc.type=#{type,jdbcType=INTEGER} ORDER  BY  tf.scale DESC
+    </select>
+
 
 </mapper>
