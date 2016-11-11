@@ -5,6 +5,7 @@
 <head>
 <jsp:include page="head.jsp" />
 <link rel="stylesheet" href="css/newPath.css">
+<link rel="stylesheet" href="css/pop.css">
 <style>
 div#canvas {
   width: 100%;
@@ -127,9 +128,12 @@ div#canvas {
 <script src="lib/bootstrap.min.js"></script>
 <script src="lib/underscore-min.js"></script>
 <script src="js/common.js"></script>
+<script src="js/pop.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
 <script src="js/raphael.js"></script>
 <script src="js/newPath.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/nav.js"></script>
 </body>
 </html>

@@ -1,7 +1,10 @@
 @CHARSET "UTF-8";
 @media screen and (max-width:1340px ) {
     body{min-width: 1220px;overflow-x: auto!important;}
-}  
+} 
+.header{background:#052e44;}
+.nav_ser{display:block;}
+.notify-list{display:none;} 
 body{
 	margin-bottom:15px;
 	background-color:#F2F2F2;
@@ -367,4 +370,14 @@ body{
     border-top: 8px solid #399b9f;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
+}
+.txt-word{
+	height:36px;
+	line-height:34px;
+	width:100%;
+	margin-top:3px;
+	border: 1px solid rgba(74, 74, 74,0.4);
+	font-size:16px;
+	color:#4a4a4a;
+	padding:0 10px;
 }
