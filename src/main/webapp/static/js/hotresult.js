@@ -102,126 +102,11 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
         }
     });
 }
-//高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
-//	
-//	if(location.hash){
-//		console.log(location.hash);
-//		console.log(typeof(location.hash));
-//		var str = location.hash;
-//		var objString = str.substr(1);
-//		console.log(objString);
-//		//console.log(JSON.parse(objString).Even);
-//		
-//		var evenSelect = JSON.parse(objString).Even;
-//		$('#result_label_even').innerHTML = '';
-//		if(evenSelect.length <=0 && evenSelect){
-//			$('#result_evet_con').addClass('hidecommon');
-//		}else{
-//			var titleEven = '';
-//			$.each(evenSelect,function(i,item){
-//				titleEven += item.name;
-//				$('#result_label_even').attr('title',titleEven)
-//		    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//				$('#inp_data_event').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//				$('#inp_data_event').removeClass('hidecommon');
-//				$('.dialog_inp_c').removeClass('hidecommon');
-//			});
-//			$('#result_evet_con').removeClass('hidecommon');
-//		};	
-//		
-//		
-//		var genderSelect = JSON.parse(objString).Gender;
-//		$('#result_label_gender').innerHTML = '';
-//		if(genderSelect.length<=0){
-//			$('#result_label_gender').addClass('hidecommon');
-//		}else{
-//			var titleGender = '';
-//			$.each(genderSelect,function(i,item){
-//				titleGender += item.name;
-//				$('#result_label_gender').attr('title',titleGender)
-//		    	$('#result_label_gender').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//				$('.person_sec').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//			});
-//			$('#result_label_gender').removeClass('hidecommon');
-//			$('.person_sec').removeClass('hidecommon');
-//			$('#inp_data_person1').removeClass('hidecommon');
-//		};
-//		
-//		var ageSelect = JSON.parse(objString).Age;
-//		$('#result_label_age').innerHTML = '';
-//		if(ageSelect.length<=0){
-//			$('#result_label_age').addClass('hidecommon');
-//		}else{
-//		var titleAge = '';
-//		$.each(ageSelect,function(i,item){
-//			titleAge += item.name;
-//			$('#result_label_age').attr('title',titleAge)
-//	    	$('#result_label_age').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//		});
-//			$('#result_label_age').removeClass('hidecommon');
-//		};
-//		
-//		var educationSelect = JSON.parse(objString).Education;
-//		$('#result_label_education').innerHTML = '';
-//		if(educationSelect.length<=0){
-//			$('#result_label_education').addClass('hidecommon');
-//		}else{
-//			var titleEducation = '';
-//			$.each(educationSelect,function(i,item){
-//				titleEducation += item.name;
-//				$('#result_label_education').attr('title',titleEducation)
-//		    	$('#result_label_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//				$('.person_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//			});
-//			$('#result_label_education').removeClass('hidecommon');
-//			$('#result_label_gender').removeClass('hidecommon');
-//			$('.person_education').removeClass('hidecommon');
-//			$('#inp_data_person1').removeClass('hidecommon');
-//		};
-//		
-//		var areaSelect = JSON.parse(objString).Area;
-//		$('#result_label_area').innerHTML = '';
-//		if(areaSelect<=0){
-//			$('#result_label_area').addClass('hidecommon');
-//		}else{
-//			var titleArea = '';
-//			$.each(areaSelect,function(i,item){
-//				titleArea += item.name;
-//				$('#result_label_area').attr('title',titleArea)
-//		    	$('#result_label_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//			});
-//			$('#result_label_area').removeClass('hidecommon');
-//		};
-//		
-//		var UserClassSelect = JSON.parse(objString).UserClass;
-//		$('#result_label_userClass').innerHTML = '';
-//		if(UserClassSelect.length<=0){
-//			$('#result_label_userClass').addClass('hidecommon');
-//		}else{
-//			var titleuser = '';
-//			$.each(UserClassSelect,function(i,item){
-//				titleuser += item.name;
-//				$('#result_label_userClass').attr('title',titleuser)
-//		    	$('#result_label_userClass').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-//			});
-//			$('#result_label_userClass').removeClass('hidecommon');
-//		};
-//		
-//	}else{
-//		$('#result_evet_con').addClass('hidecommon');
-//	};
-//	if($('#result_evet_persn').find('i').length<=0){
-//		$('#result_evet_persn').addClass('hidecommon');
-//	}else{
-//		$('#result_evet_persn').removeClass('hidecommon');
-//	};
-	//var urlLabel = GetRequestLabel();//标签信息
+
 	labelList();
 	resultLabel();
 	resultDia();
 	function resultDia(){
-
-
 		if(urlLabel){
 		var evenSelect = urlLabel.Even;
 		$('#inp_data_event').find('i').empty();
@@ -252,23 +137,6 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			$('#inp_data_person1').removeClass('hidecommon');
 			$('.dialog_inp_c').removeClass('hidecommon');
 		};
-		
-//		var ageSelect = urlLabel.Age;
-//		$('#hot_dia_age').find('i').remove();
-//		console.log(ageSelect.length)
-//		console.log($('#hot_age1').val())
-//		if(ageSelect.length<=0){
-//			$('#hot_dia_age').addClass('hidecommon');
-//		}else if(ageSelect==1){
-//				$('#hot_age1').val(ageSelect[0]);
-//			}else{
-//				console.log(ageSelect[0])
-//				$('#hot_age1').val(ageSelect[0]);
-//				$('#hot_age2').val(ageSelect[1]);
-//			}
-//			$('#result_label_age').removeClass('hidecommon');
-//			$('#inp_data_person1').removeClass('hidecommon');
-//			$('.dialog_inp_c').removeClass('hidecommon');
 		
 		
 		var educationSelect = urlLabel.Education;
@@ -344,7 +212,6 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
 			});
 			$('#result_evet_con').removeClass('hidecommon');
-			
 			$('.dialog_inp_c').removeClass('hidecommon');
 		};	
 		var genderSelect = urlLabel.Gender;
@@ -393,7 +260,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		
 		var areaSelect = urlLabel.Area;
 		$('#result_label_area').find('i').remove();
-		if(areaSelect<=0){
+		if(areaSelect.length<=0){
 			$('#result_label_area').addClass('hidecommon');
 		}else{
 			var titleArea = '';
@@ -464,6 +331,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		$('.dialog_tab_person ul').eq(1).find('input').prop('checked',false);
 		$('.dialog_tab_person ul').eq(1).addClass('hidecommon');
 		$('.userDialogTab li').eq(1).removeClass('cor389b9f');
+		$('.userDialogTab li').eq(1).find('.dialog_inp_num').text('0');
+		$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','none');
 		$('.userDialogTab li').eq(1).removeClass('hot_arrow_up');
 		if($('#result_evet_persn').find('i').length<=0){
 			$('#result_evet_persn').addClass('hidecommon');
@@ -482,6 +351,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		$('.dialog_tab_person ul').eq(2).addClass('hidecommon');
 		$('.userDialogTab li').eq(2).removeClass('cor389b9f');
 		$('.userDialogTab li').eq(2).removeClass('hot_arrow_up');
+		$('.userDialogTab li').eq(2).find('.dialog_inp_num').text('0');
+		$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','none');
 		if($('#result_evet_persn').find('i').length<=0){
 			$('#result_evet_persn').addClass('hidecommon');
 		};
@@ -500,6 +371,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		$('.dialog_tab_person ul').eq(3).addClass('hidecommon');
 		$('.userDialogTab li').eq(3).removeClass('cor389b9f');
 		$('.userDialogTab li').eq(3).removeClass('hot_arrow_up');
+		$('.userDialogTab li').eq(3).find('.dialog_inp_num').text('0');
+		$('.userDialogTab li').eq(3).find('.dialog_inp_num').css('display','none');
 		if($('#result_evet_persn').find('i').length<=0){
 			$('#result_evet_persn').addClass('hidecommon');
 		};
@@ -517,20 +390,19 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		$('.dialog_tab_person ul').eq(4).addClass('hidecommon');
 		$('.userDialogTab li').eq(4).removeClass('cor389b9f');
 		$('.userDialogTab li').eq(4).removeClass('hot_arrow_up');
+		$('.userDialogTab li').eq(4).find('.dialog_inp_num').text('0');
+		$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','none');
 		if($('#result_evet_persn').find('i').length<=0){
 			$('#result_evet_persn').addClass('hidecommon');
 		};
 		
 	});
-	//top 删除兴趣爱好标签
+	//top 删除年龄标签
 	$('#result_label_age').delegate('span','click',function(){
 		urlLabel.Age = [];
 		resNewSer();
 		resultLabel();
 		resultDia();
-//		$('.userDialogTab .dialog_inp_num').eq(3).text(0);
-//		$('.userDialogTab .dialog_inp_num').eq(3).css('display','none');
-//		$('.dialog_tab_person ul').eq(3).find('input').prop('checked',false);
 		$('#hot_age1').val('');
 		$('#hot_age2').val('');
 		$('.dialog_tab_person ul').eq(0).addClass('hidecommon');
@@ -541,64 +413,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		};
 		
 	});
-	
-
-//	var dataObj = {
-//			Even:[],
-//			Area:[],
-//			Age:[],
-//			Education:[],
-//			Gender:[],
-//			UserClass:[]
-//	};
-//	if($('#inp_data_event').is('.hidecommon')){
-//	}else{
-//		var list = $('#inp_data_event').find('i');
-//		$(list).each(function(i,item){
-//			var dataId = $(this).attr('data-id');
-//			var dataText = $(this).text();
-//			dataObj.Even.push({id:dataId,name:dataText})
-//		});
-//	};
-//	if($('.person_sec').is('.hidecommon')){
-//	}else{
-//		var list = $('.person_sec').find('i');
-//		$(list).each(function(i,item){
-//			var dataId = $(this).attr('data-id');
-//			var dataText = $(this).text();
-//			dataObj.Gender.push({id:dataId,name:dataText})
-//		});
-//	};
-//	
-//	if($('.person_area').is('.hidecommon')){
-//	}else{
-//		var list = $('.person_area').find('i');
-//		$(list).each(function(i,item){
-//			var dataId = $(this).attr('data-id');
-//			var dataText = $(this).text();
-//			dataObj.Area.push({id:dataId,name:dataText})
-//		});
-//	};
-//	if($('.person_education').is('.hidecommon')){
-//	}else{
-//		var list = $('.person_education').find('i');
-//		$(list).each(function(i,item){
-//			var dataId = $(this).attr('data-id');
-//			var dataText = $(this).text();
-//			dataObj.Education.push({id:dataId,name:dataText})
-//		});
-//	};
-//	if($('.person_interest').is('.hidecommon')){
-//	}else{
-//		var list = $('.person_interest').find('i');
-//		$(list).each(function(i,item){
-//			var dataId = $(this).attr('data-id');
-//			var dataText = $(this).text();
-//			dataObj.UserClass.push({id:dataId,name:dataText})
-//		});
-//	};
+	//弹窗确定按钮事件
 	$('#dislog_btn_sure').on('click',function(){
-	console.log("111")
 	console.log(urlLabel)
 	if(urlLabel){
 		urlLabel.Even=[];
@@ -607,7 +423,17 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		urlLabel.Education=[];
 		urlLabel.Gender=[];
 		urlLabel.UserClass=[];
-	}	
+	}else{
+		        urlLabel = {
+				Even:[],
+				Area:[],
+				Age:[],
+				Education:[],
+				Gender:[],
+				UserClass:[]
+		};
+		var hash = JSON.stringify(urlLabel);
+	};	
 		if($('#inp_data_event').is('.hidecommon')){
 		}else{
 			var list = $('#inp_data_event').find('i');
@@ -657,15 +483,12 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		
 		var ageVal1 = $('#hot_age1').val(),
 			ageVal2 = $('#hot_age2').val();
-		console.log(ageVal1)
-		console.log(ageVal2)
 		if(ageVal1){
 			urlLabel.Age.push(ageVal1);
 		}
 		if(ageVal2){
 			urlLabel.Age.push(ageVal2);
 		}
-		
 		resNewSer();
 		resultLabel();
 		resultDia();
@@ -685,7 +508,6 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					ele2.addClass('hot_arrow_up'); 
 					var currentIndex = ele2.index();
 					ele1.next().find("ul:eq("+currentIndex+")").removeClass('hidecommon');
-//					$(this).parent().click();
 				}			
 				$(this).css('display','block');
 			}
@@ -778,29 +600,20 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
 					fillDataBot($(".userDialogTab"),$(".personTab"),userData);
-					var ageSelect = urlLabel.Age;
-					$('#hot_dia_age').find('i').remove();
-					console.log(ageSelect.length)
-					console.log($('#hot_age1').val())
-					if(ageSelect.length<=0){
-						$('#hot_dia_age').addClass('hidecommon');
-					}else if(ageSelect==1){
-							$('#hot_age1').val(ageSelect[0]);
-						}else{
-							console.log(ageSelect[0])
-							$('#hot_age1').val(ageSelect[0]);
-							$('#hot_age2').val(ageSelect[1]);
+					if(urlLabel){
+						var ageSelect = urlLabel.Age;
+						$('#hot_dia_age').find('i').remove();
+						if(ageSelect.length<=0){
+							$('#hot_dia_age').addClass('hidecommon');
+						}else if(ageSelect==1){
+								$('#hot_age1').val(ageSelect[0]);
+							}else{
+								console.log(ageSelect[0])
+								$('#hot_age1').val(ageSelect[0]);
+								$('#hot_age2').val(ageSelect[1]);
+						}
 					}
-//					var  inpflag = 0;
-//					$('.dialog_inp_num').each(function(index,item){
-//						if($(this).text()!=='0'){
-//							inpflag++;
-//							if(inpflag == 1){
-//								$(this).parent().click();
-//							}			
-//							$(this).css('display','block');
-//						}
-//					})
+
 					
 				}
 				
@@ -812,28 +625,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	};
 	
 	//高级探索弹窗搜索
-//	$('#dialog_ser_to').on('click',function(){
-//		var val = $.trim($('#dialog_ser_text').val());
-//		var data={
-//			clueWord:'北京',
-//			pageSize:20,
-//			currentPage:1
-//		}
-//			$.ajax({
-//				type:"post",
-//				data:JSON.stringify(data),
-//				contentType: 'application/json',
-////			    dataType:"json",
-//				url:'api/topic/getlist',
-//				success:function(result){
-//					console.log(result)					
-//				},
-//				error:function(){
-//					alert('失败了')
-//				}
-//			});
-//		
-//	});
+
 	
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
@@ -903,34 +695,12 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 				selector2.append(str);
 			})
 			selector2.prepend('<ul class="hot_dia_age hidecommon" id="hot_dia_age"><div class="age_dia_con">'+
-					'<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1" type="text">岁'+
-					'~<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2" type="text">岁'+
+					'<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1" type="text"><b>岁</b><b>至</b>'+
+					'~<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2" type="text"><b>岁</b>'+
 					'</div></ul>')
 			
 			};
-	
-//		function fillDataBot(selector,selector2,data){
-//			selector.append('<li>年龄</li>');
-//			$.each(data,function(index,item){
-//				selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
-//				var childs = item.childs;
-//				if(childs){
-//					var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">'
-//					$.each(childs,function(index,item){
-//						str += '<label><input type="checkbox" data-id="'+item.id+'">'+item.name+'</label>'
-//					})
-//					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
-//				}else{
-//					var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-//					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
-//				}
-//				selector2.append(str);
-//			});
-//			selector2.prepend('<ul class="hot_dia_age hidecommon" id="hot_dia_age">'+
-//					'<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1">岁'+
-//					'~<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2">岁'+
-//					'</ul>')
-//		};
+
 	
 
 	
@@ -1180,12 +950,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					
 				}
 			});
-//			var textStr = $('#inp_data_person1 i:last').text();
-//			if(textStr.indexOf('、')>-1){
-//				var newStr = textStr.substring(0,textStr.length-1)
-//				$('#inp_data_person1 i:last').text(newStr);
-//			}
-//			
+
 			
 			$(this).parent().parent().prev().find('input').prop("checked", true);
 			$('.cor389b9f').find('span').css('display','block')
@@ -1251,26 +1016,25 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	$('#inp_data_person1 span').on('click',function(){
 		$(this).parent().addClass('hidecommon');
 		$(this).parent().find('i').remove();
-		//console.log($(this).parent().attr('class'));
 		if($(this).parent().attr('class').indexOf('person_sec')>=0){
-			$('.userDialogTab li').eq(0).find('.dialog_inp_num').css('display','none');
-			$('.userDialogTab li').eq(0).find('.dialog_inp_num').text(0);
-			$('.personTab').find('ul').eq(0).find('input').prop("checked",false);
-		}
-		if($(this).parent().attr('class').indexOf('person_education')>=0){
 			$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','none');
 			$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(0);
 			$('.personTab').find('ul').eq(1).find('input').prop("checked",false);
 		}
-		if($(this).parent().attr('class').indexOf('person_area')>=0){
+		if($(this).parent().attr('class').indexOf('person_education')>=0){
 			$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','none');
 			$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(0);
 			$('.personTab').find('ul').eq(2).find('input').prop("checked",false);
 		}
-		if($(this).parent().attr('class').indexOf('person_interest')>=0){
+		if($(this).parent().attr('class').indexOf('person_area')>=0){
 			$('.userDialogTab li').eq(3).find('.dialog_inp_num').css('display','none');
 			$('.userDialogTab li').eq(3).find('.dialog_inp_num').text(0);
 			$('.personTab').find('ul').eq(3).find('input').prop("checked",false);
+		}
+		if($(this).parent().attr('class').indexOf('person_interest')>=0){
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','none');
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(0);
+			$('.personTab').find('ul').eq(4).find('input').prop("checked",false);
 		}
 		
 //		$('.dialog_tab_person').find('input').prop("checked",false);
