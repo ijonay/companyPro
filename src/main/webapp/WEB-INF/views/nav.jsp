@@ -39,16 +39,14 @@
     <div class="pnl-pred-tab">
         <div class="pnl-calendar"></div>
         <div class="pnl-hots">
-            <div class="hots-title">
-                <span class="hots-date">2016.11.21</span>
-                <span class="hots-add">&#43;</span>
+            <div class="hots-content">
+                <div class="hots-title">
+                    <span class="hots-date">2016.11.21</span>
+                    <span class="hots-add">&#43;</span>
+                </div>
+                <ul class="hots-list"></ul>
             </div>
-            <ul class="hots-list">
-                <li><a href="javascript:void(0)">北京冬奥会开幕式</a></li>
-                <li><a href="javascript:void(0)">王宝强离婚案宣判引争议</a></li>
-                <li><a href="javascript:void(0)">微软surface pro 3.0发布会</a></li>
-                <li><a href="javascript:void(0)">预告的热点名称</a>
-            </ul>
+            <div class="hots-alert">今日无预告</div>
         </div>
     </div>
     <div class="pnl-notify-tab">

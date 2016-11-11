@@ -1425,7 +1425,7 @@ $(document).delegate(".edit-word","click",function(){
             callback:function(){
                 $('#nav_ser').val($('.txt-word').val());
                 resSer();
-                $(".popMask").hide();
+                $(".popMask").remove();
             }
         }]
     });

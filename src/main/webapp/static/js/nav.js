@@ -4,17 +4,21 @@ function initCalendar(dateInfo){
     $(".pnl-calendar").calendar({
         width: 272,
         height: 264,
-        data: dateInfo,
+        data: [],
         onSelected: function(view, date, data) {
             if(data){
                 $(".pnl-hots").find(".hots-date").text(getNowDate(date,"."));
                 $container=$(".pnl-hots").find(".hots-list").html("");
                 $.each(data,function(idx,item){
                     $("<li data-id="+item.id+"><a>"+item.name+"</a></li>").appendTo($container);
+                    $(".pnl-hots").find(".hots-alert").css("display","none");
+                    $(".pnl-hots").find(".hots-content").css("display","block");
                     $(".pnl-hots").css("display","block");
                 });
             }else{
-                $(".pnl-hots").css("display","none");
+                $(".pnl-hots").find(".hots-alert").css("display","block");
+                $(".pnl-hots").find(".hots-content").css("display","none");
+                $(".pnl-hots").css("display","block");
             }
         }
     });
@@ -84,7 +88,9 @@ function getHotPred(date){
         success: function(returnData) {
             if(returnData.error.code == 0) {
                 if(returnData.data){
-                    getInfo(returnData.data);
+                    initCalendar(getInfo(returnData.data));
+                    var rel=formatterData(returnData.data)
+                    dispList(rel,getNowDate(date));
                 }
             } else {
                 console.log('没有热点预告');
@@ -127,7 +133,57 @@ function getInfo(data){
         };
         dataDate.push(sub);
     });
-    initCalendar(dataDate);
+    return dataDate;
+}
+//处理当前月的数据
+function formatterData(data){
+    var tempDate={};
+    $.each(data,function(idx,item){
+        var startDate=item.startDate;
+        var endDate=item.endDate;
+        var name=item.name;
+        var id=item.id;
+        var startDateArr=startDate.split("-");
+        var endDateArr=endDate.split("-");
+        if(startDateArr.length==3&&endDateArr.length==3){
+            var y=startDateArr[0];
+            var m=startDateArr[1];
+            var startD=startDateArr[2];
+            var endD=endDateArr[2];
+            var currDate="";
+            if(startD==endD){
+                currDate = m+"."+startD;
+                
+            }else if(startD<endD){
+                currDate = m+"."+startD+"-"+endD;
+            }
+            if(!tempDate[currDate]){
+                tempDate[currDate]=[];
+            }
+            tempDate[currDate].push({id:item.id,name:name});
+        }
+    });
+    return tempDate;
+}
+//显示当月预告列表
+function dispList(data,date){
+    if(data){
+        var dateArr=date.split("-");
+        var txt=dateArr[0]+"年"+dateArr[1]+"月份热点预告";
+        $(".pnl-hots").find(".hots-date").text(txt);
+        $container=$(".pnl-hots").find(".hots-list").html("");
+        $.each(data,function(key,val){
+            $.each(val,function(idx,item){
+                $li=$("<li data-index="+key+"></li>").appendTo($container);
+                $("<span>"+item.name+"</span>").appendTo($li);
+            });
+            $(".pnl-hots").find(".hots-alert").css("display","none");
+            $(".pnl-hots").find(".hots-content").css("display","block");
+        });
+    }else{
+        $(".pnl-hots").find(".hots-alert").css("display","block");
+        $(".pnl-hots").find(".hots-content").css("display","none");
+    }
 }
 
 //获取当前时间
