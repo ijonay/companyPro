@@ -1,6 +1,7 @@
 package com.zc.dao;
 
 import com.zc.bean.TopicFilter;
+import com.zc.bean.TopicFilterClass;
 import com.zc.model.topicsearch.SearchModel;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,6 +28,15 @@ public interface TopicFilterMapper {
      * @return
      */
     List<Integer> getTopicIds(@Param("searchModel") SearchModel searchModel);
+
+    /**
+     * 获取集合通过TopicId & type
+     *
+     * @param topicId
+     * @return
+     */
+    List<TopicFilterClass> getByTopicIdAndType(@Param("topicId") Integer topicId, @Param("type") Integer type);
+
 
 //    List<TopicFilter> getAll();
 //

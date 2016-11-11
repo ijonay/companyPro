@@ -62,4 +62,8 @@ public interface TopicService {
      */
     void cache_UpdateTopicVerctors();
 
+
+    Object getTopicPercentage(Integer topicId);
+
+
 }
