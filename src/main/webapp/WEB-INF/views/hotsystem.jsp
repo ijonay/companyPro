@@ -92,10 +92,10 @@
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
-   			<ul class="hot_ifo_title f18">
+   			<!-- <ul class="hot_ifo_title f18">
    			    <li class="hot_ifo_title_img fl"></li>
    				<li class="fl">全部热点</li>
-   			</ul>
+   			</ul> -->
    			<ul class="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
@@ -357,5 +357,8 @@
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/pop.js"></script>
+<script id="allHotTmpl" type="text/x-jsrender">
+
+</script>
 </body>
 </html>

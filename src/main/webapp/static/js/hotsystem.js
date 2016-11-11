@@ -1147,13 +1147,14 @@ function loadSvg(){
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
-            if(imageArray[index].indexOf("javascript") > 0){
-            	var url = imageArray[index];
-            }else{
-            	var url = "url("+imageArray[index]+")"
-            }
-            $(".portrait").css("background-image",url);
+            var divH = $(".hotInfo").height();
+            var $p = $(".infoConnect");
+            while ($p.outerHeight() > divH) {
+                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+            };
+            $(".portrait").css("background-image","url("+imageArray[index]+")");
             $(".infoText").html(introArray[index]);
+            $(".infoText").attr("title",introArray[index]);
             $(".infoConnect").attr("data-id",hotIdArray[index]);
             $(".infoConnect").attr("data-index",index);
             $(".infoIcon").hide();
@@ -1164,12 +1165,14 @@ function loadSvg(){
     	}    	
     }
     $(document).on("click",".hot_relation,.infoConnect",function(){
-        // var topicId = $(this).find("span").data("id");
-        // var topic = $(this).prev().text();
-        // topic = topic.split("#");
-        // topic = topic[1]
     	var index = $(this).attr("data-index");
-    	var topic = titleArray[index];
+    	if(index < 10){
+    		var topic = titleArray[index];
+    		var hotTopId = hotIdArray[index];
+    	}else{
+    		var topic = $(this).data("topic");
+    		var hotTopId = $(this).data("id");
+    	}
     	topic = topic.replace(/#/g,"");
     	if($(".selectTag")){
     		$(".selectTag").attr("title",topic);
@@ -1195,14 +1198,18 @@ function loadSvg(){
                     if(query.trim() == ""){                    
                     }else{
 //                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
-                    	  window.location.href="newPath#query="+query+"&topicId="+hotIdArray[index]+"&hotTopic="+topic;
+                    	  window.location.href="newPath#query="+query+"&topicId="+hotTopId+"&hotTopic="+topic;
                     }               
                 }
             }]
         })
     })
-    $(document).on("click",function(){
+    $(document).on("click",function(e){
+    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
     	alertCon.hide();
+    })
+    $(".infoBottom").on("click",function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
@@ -1222,6 +1229,8 @@ function loadSvg(){
 	   $('#ser_section').css("height",0);
 	   $('.notify-list').addClass('hidecommon');
 	   $('.nav_ser').delay("fast").fadeIn();
+	   $(".all_hot_list_bot").hide();
+	   $(".all_hot_list_bot:eq(0)").show();
    }); 
    //返回首页
     $('#comeback_hot').on('click',function(){
@@ -1246,7 +1255,7 @@ function loadSvg(){
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
     $('.all_hot_list_top:first').find('.hot_arrow').css('transform','rotate(180deg)');
-    $('.all_hot_list_top').on('click',function(){
+    $(document).on('click','.all_hot_list_top',function(){
     	if($(this).next().css('display') == 'block'){
     		$(this).next().hide();
     		$(this).find(".hot_arrow").css("transform","rotate(0deg)")
@@ -1266,14 +1275,14 @@ function loadSvg(){
     var scoreArray=[];
     var introArray=[];
     var formArray=[];
-    var hotList = hotList || {};
-    hotList.templates = {
-    		registerTmpl : function(tmplId, scriptTagId) {
-    			chartsAttr.templates[tmplId] = $
-    					.templates(templates.design[scriptTagId]);
-    		}
-    	};
-    hotList.templates.registerTmpl("allHotList", "tmplAllHotList");
+//    var hotList = hotList || {};
+//    hotList.templates = {
+//    		registerTmpl : function(tmplId, scriptTagId) {
+//    			chartsAttr.templates[tmplId] = $
+//    					.templates(templates.design[scriptTagId]);
+//    		}
+//    	};
+//    hotList.templates.registerTmpl("allHotList", "tmplAllHotList");
     var hotList2 = $.templates(templates.design["tmplAllHotList"]);
     function getTenHot(){
     	$.ajax({
@@ -1282,7 +1291,7 @@ function loadSvg(){
             dataType: "json",
             url: dataUrl.util.getHotTopic(50),
             success: function(returnData) {
-            	console.log(returnData.data)
+//            	console.log(returnData.data)
             	if(returnData.error.code != 0) return;
             	$.each(returnData.data,function(index,item){
             		if(index < 10){
@@ -1312,10 +1321,7 @@ function loadSvg(){
             		
             	});
             	loadSvg();
-//            	console.log($.render.allHotList(returnData.data));
-            	console.log(hotList2.render(returnData.data));
-            	console.log(hotList.templates.allHotList.render(returnData.data));
-            	$(".all_hot_list").html(hotList.templates.allHotList.render(returnData.data));
+            	$(".all_hot_list").html(hotList2.render(returnData));
             },
             error: function() {
                 console.log('获取热点失败');
@@ -1328,4 +1334,23 @@ function loadSvg(){
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')
     }
+    $(".hotInfo").on("click",function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+    	var index = $(".infoConnect").attr("data-index");
+    	$("#allHot").click();
+    	$(".all_hot_list_bot").hide();
+    	$("#ulBottom"+index).show();
+    	setTimeout(function(){
+    		console.log(index)
+    		var a = $("#ulBottom"+index).offset().top;
+    		a -= 300;
+    		$("html,body").animate({scrollTop:a},"slow");
+    	},150)
+    })
+//    $(".alertCon").on("click",function(e){    	
+//    	if($(e.target).hasClass("infoConnect")){
+//    		e ? e.stopPropagation() : event.cancelBubble = true;
+//    	}
+//    	
+//    })
     
