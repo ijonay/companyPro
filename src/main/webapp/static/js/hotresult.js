@@ -49,11 +49,16 @@ history.pushState && window.addEventListener("popstate", function(e) {
     // 在这里state将自动成为event的子对象，可直接通过event.state访问
     var currWord = GetRequest().clueWord; //拆分url得到”=”后面的参数
     var currPage = GetRequest().currentPage; //拆分url得到”=”后面的参数 ;
-    var currLabel = GetRequestLabel();//标签信息
+        urlLabel = GetRequestLabel();//标签信息
     if(currWord&&currPage){
         $('#nav_ser').val(currWord);
-        getResult(currWord, 20, currPage,currLabel);
-    }
+        getResult(currWord, 20, currPage,urlLabel);
+    };
+    	resultLabel();
+    	labelList();
+    	resultDia();
+    
+    
 }, false);
 
 getResult(word, 20, nowPage,urlLabel);
@@ -95,6 +100,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
                 $(".result-content").css("display","none");
                 $(".result-error").css("display","block");
             }
+            
         },
         error: function() {
             console.log('获取热点失败');
@@ -186,6 +192,12 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		};
 		
 		}else{
+			$('#ser_dialog').find('input').prop('checked',false);
+			$('#ser_dialog').find('.dialog_inp_num').text('0');
+			$('#ser_dialog').find('.dialog_inp_num').css('display','none'); 
+			$('#ser_dialog .dialog_tab li').removeClass('cor389b9f');
+			$('#ser_dialog .dialog_tab li').removeClass('hot_arrow_up');
+			$('.dialog_inp_c_data').find('i').remove();
 			$('.dialog_inp_c').addClass('hidecommon');
 		};
 //		if($('#result_evet_persn').find('i').length<=0){
@@ -285,6 +297,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		};
 		
 		}else{
+			$('#result_t_r').find('i').remove();
 			$('#result_evet_persn').addClass('hidecommon');
 			$('#result_evet_con').addClass('hidecommon');
 		};
@@ -496,9 +509,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	
 	$('#result_filter').on('click',function(){
-		resultLabel();
-//		labelList();
-//		resultDia();
+
+//		resultLabel();
+//    	labelList();
+//    	resultDia();
 		var  inpflag = 0;
 		$('.dialog_inp_num').each(function(index,item){
 			if($(this).text()!=='0'){
@@ -1048,7 +1062,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	//清空标签
 	$('#dialog_inp_del').on('click',function(){
-		dialogInit()
+		dialogInit();
 	});
 	//dialogInit();
 	function dialogInit(){
