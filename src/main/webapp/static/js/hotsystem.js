@@ -926,18 +926,12 @@ function loadSvg(){
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
-            if(imageArray[index].indexOf("javascript") > 0){
-            	var url = "";
-            	$(".portrait").get(0).style.background="";
-            }else{
-            	var url = "url("+imageArray[index]+")";
-            	$(".portrait").css("background-image",url);
-            }
             var divH = $(".hotInfo").height();
             var $p = $(".infoConnect");
             while ($p.outerHeight() > divH) {
                 $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
             };
+            $(".portrait").css("background-image","url("+imageArray[index]+")");
             $(".infoText").html(introArray[index]);
             $(".infoText").attr("title",introArray[index]);
             $(".infoConnect").attr("data-id",hotIdArray[index]);
@@ -1040,7 +1034,7 @@ function loadSvg(){
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
     $('.all_hot_list_top:first').find('.hot_arrow').css('transform','rotate(180deg)');
-    $('.all_hot_list_top').on('click',function(){
+    $(document).on('click','.all_hot_list_top',function(){
     	if($(this).next().css('display') == 'block'){
     		$(this).next().hide();
     		$(this).find(".hot_arrow").css("transform","rotate(0deg)")

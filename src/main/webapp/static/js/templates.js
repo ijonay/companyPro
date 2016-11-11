@@ -23,7 +23,7 @@ templates.design = {};
     tmpl.push('<li data-id="{{:id}}">');
     tmpl.push('    <ul class="all_hot_list_top">');
     tmpl.push('       <li><span  class="hot_circle_num">{{:#index+1}}</span></li>');
-    tmpl.push('       <li class="all_hot_top_topic"><p>{{:title}}</p><div>{{:topicType}}</div></li>');
+    tmpl.push('       <li class="all_hot_top_topic"><p>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
     tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}</li>');
     tmpl.push('       <li>{{:prevailingTrend}}</li>');
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation">关联此热点</li>');
@@ -71,6 +71,16 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplAllHotList'] = tmpl.join('\r\n');
+    $.views.helpers({
+        "addTag": function(eventClass) {
+            var tagArray = eventClass.split(",");
+            var str = "";
+            $.each(tagArray,function(index,item){
+            	str += "<div>"+item+"</div>"
+            })
+            return str;
+        }
+    });
 })();
 
 //<ul class="all_hot_list_top">
