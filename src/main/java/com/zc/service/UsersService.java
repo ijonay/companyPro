@@ -25,4 +25,12 @@ public interface UsersService {
     LoginStatus getStatus();
 
     LoginStatus login(String username, String password);
+
+    /**
+     * 退出登录
+     * zhuzhzh 2016年11月11日12:19:42
+     *
+     * @return
+     */
+    boolean loginOut();
 }

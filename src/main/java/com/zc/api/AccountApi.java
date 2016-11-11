@@ -25,8 +25,10 @@ import java.util.Map;
 @RequestMapping("/api/account/")
 public class AccountApi extends BaseApi {
     private final Logger logger = LoggerFactory.getLogger(AccountApi.class);
+
     @Autowired
     private UsersService usersService;
+
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ApiResultModel login(@Valid LoginModel loginModel,
@@ -74,5 +76,14 @@ public class AccountApi extends BaseApi {
         }
 
         return resultModel;
+    }
+
+    @RequestMapping(value = "loginout", method = RequestMethod.GET)
+    public ApiResultModel loginOut() {
+
+
+
+        return new ApiResultModel().data(usersService.loginOut());
+
     }
 }
