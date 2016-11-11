@@ -739,10 +739,15 @@ body{
     color:#4a4a4a;
     line-height:14px;
     margin-top:10px;
+    width:300px;
+    height:20px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 .all_hot_list_bot li{
 	height:40px;
-	line-height:40px;
+	line-height:39px;
 	background:#eff4f5;
 	border-bottom:1px solid #dee1e3;
 	padding:0 37px;
