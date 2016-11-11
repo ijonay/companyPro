@@ -40,6 +40,8 @@
 	height:242px;
 	background:#e8ebed;
 	padding:20px 32px 0 32px;
+	display:none;
+	overflow:auto;
 }
 .pnl-hots .hots-title{
 	height:24px;
@@ -52,6 +54,7 @@
 	color:#444;
 	float:right;
 	cursor:pointer;
+	display:none;
 }
 .pnl-hots .hots-list li{font-size:14px;color:#000;margin-bottom:26px;line-height:14px;}
 /*通知tab*/

@@ -375,8 +375,8 @@
 			}
 			selector2.append(str);
 		});
-		//selector2.prepend('<ul>123</ul>')
 	};
+	
 	function fillDataBot(selector,selector2,data){
 		selector.append('<li>年龄</li>');
 		$.each(data,function(index,item){

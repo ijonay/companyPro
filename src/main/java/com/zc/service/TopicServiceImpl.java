@@ -47,6 +47,7 @@ public class TopicServiceImpl implements TopicService {
      * @see com.zc.service.TopicService#getSimilarity(java.util.List)
      */
     public float getSimilarity(List<TopicWordModel> list) {
+
         if (list == null || list.size() == 0)
             return 0;
         float totalWeight = 0f;
@@ -77,6 +78,7 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public Integer batchInsert(List<Topic> list) {
+
         if (list == null || list.size() == 0) return 0;
         return dao.batchInsert(list);
     }
@@ -96,6 +98,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<Topic> getTopicWordList(Integer pageSize, Integer currentPage) {
+
         return dao.getTopicWordList(pageSize, currentPage);
     }
 
@@ -131,7 +134,7 @@ public class TopicServiceImpl implements TopicService {
             time3 = System.currentTimeMillis();
 
             if (topicIds.size() > 0) {
-//
+
 //                allCoordinates1 = getCoordinatesByTopicIdsAndCache(topicIds);
 
                 List<Integer> topicIds1 = topicIds;
