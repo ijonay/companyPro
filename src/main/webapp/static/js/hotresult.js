@@ -109,7 +109,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	function resultDia(){
 		if(urlLabel){
 		var evenSelect = urlLabel.Even;
-		$('#inp_data_event').find('i').empty();
+		$('#inp_data_event').find('i').remove();
 		if(evenSelect.length <=0 && evenSelect){
 			$('#inp_data_event').addClass('hidecommon');
 		}else{
@@ -123,7 +123,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			$('.dialog_inp_c').removeClass('hidecommon');
 		};	
 		var genderSelect = urlLabel.Gender;
-		$('.person_sec').find('i').empty();
+		$('.person_sec').find('i').remove();
 		if(genderSelect.length<=0){
 			$('.person_sec').addClass('hidecommon');
 		}else{
@@ -140,7 +140,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		
 		
 		var educationSelect = urlLabel.Education;
-		$('.person_education').find('i').empty();
+		$('.person_education').find('i').remove();
 		if(educationSelect.length<=0){
 			$('.person_education').addClass('hidecommon');
 		}else{
@@ -156,7 +156,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		};
 		
 		var areaSelect = urlLabel.Area;
-		$('.person_area').find('i').empty();
+		$('.person_area').find('i').remove();
 		if(areaSelect<=0){
 			$('.person_area').addClass('hidecommon');
 		}else{
@@ -172,7 +172,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		};
 		
 		var UserClassSelect = urlLabel.UserClass;
-		$('.person_interest').find('i').empty();
+		$('.person_interest').find('i').remove();
 		if(UserClassSelect.length<=0){
 			$('.person_interest').addClass('hidecommon');
 		}else{
@@ -424,7 +424,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		urlLabel.Gender=[];
 		urlLabel.UserClass=[];
 	}else{
-		        urlLabel = {
+	    urlLabel = {
 				Even:[],
 				Area:[],
 				Age:[],
@@ -496,10 +496,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	})
 	
 	$('#result_filter').on('click',function(){
+		resultDia();
 		var  inpflag = 0;
 		$('.dialog_inp_num').each(function(index,item){
 			if($(this).text()!=='0'){
-				console.log('aaa')
 				inpflag++;
 				if(inpflag == 1){
 					var ele1 = $(this).parent().parent();
@@ -625,8 +625,6 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	};
 	
 	//高级探索弹窗搜索
-
-	
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
 			var childs = item.childs;
@@ -708,7 +706,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	$('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
 		var dataId = $(this).attr('data-id');
 		var num = Number($('.cor389b9f').find('span').text());
-		console.log(num)
+		//console.log(num)
 		var textCon = $(this).parent().text();
 		
 		if($(this).is(':checked')){
