@@ -43,9 +43,6 @@ function getPath(explore){
     if(explore){
         query = explore;
     }
-    topicId = 7380;
-    query = "手机";
-    hotTopic = "5456"
     $.ajax({
         type:"get",
         url:dataUrl.util.getNewPath(topicId,query),

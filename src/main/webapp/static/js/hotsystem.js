@@ -933,8 +933,13 @@ function loadSvg(){
             	var url = "url("+imageArray[index]+")";
             	$(".portrait").css("background-image",url);
             }
-            
+            var divH = $(".hotInfo").height();
+            var $p = $(".infoConnect");
+            while ($p.outerHeight() > divH) {
+                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+            };
             $(".infoText").html(introArray[index]);
+            $(".infoText").attr("title",introArray[index]);
             $(".infoConnect").attr("data-id",hotIdArray[index]);
             $(".infoConnect").attr("data-index",index);
             $(".infoIcon").hide();
@@ -945,10 +950,6 @@ function loadSvg(){
     	}    	
     }
     $(document).on("click",".hot_relation,.infoConnect",function(){
-        // var topicId = $(this).find("span").data("id");
-        // var topic = $(this).prev().text();
-        // topic = topic.split("#");
-        // topic = topic[1]
     	var index = $(this).attr("data-index");
     	if(index < 10){
     		var topic = titleArray[index];
@@ -989,7 +990,11 @@ function loadSvg(){
         })
     })
     $(document).on("click",function(e){
+    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
     	alertCon.hide();
+    })
+    $(".infoBottom").on("click",function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
@@ -1101,14 +1106,7 @@ function loadSvg(){
             		
             	});
             	loadSvg();
-//            	console.log($(templates.design["tmplAllHotList"]));
-//            	console.log($(templates.design["tmplAllHotList"]).render(returnData));
-//            	console.log($.render.allHotList(returnData));
-            	var a = hotList2.render(returnData);
             	$(".all_hot_list").html(hotList2.render(returnData));
-//            	$(".all_hot_list").html($(templates.design["tmplAllHotList"]).render(returnData.data));
-//            	$(".all_hot_list").html($(templates.design["tmplAllHotList"]).render(returnData. ));
-//            	$(".all_hot_list").html(hotList2.render(returnData));
             },
             error: function() {
                 console.log('获取热点失败');

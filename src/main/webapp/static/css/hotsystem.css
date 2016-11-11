@@ -516,6 +516,8 @@ body{
     width: 100%;
     padding: 0 0 12px 0;
     cursor:pointer;
+    height:36px;
+    overflow:hidden;
 }
 .infoText{
     overflow: hidden;
@@ -607,7 +609,7 @@ body{
 .comeback_hot{bottom:30px;right:4px;width:26px;background:#389b9f;color:#fff;width:40px;height:40px;font-size:14px;text-align:center;line-height:21px;}
 .hot_ifo_title{height:40px;line-height:40px;background:#389b9f;padding-left:30px;color:#fff;}
 .hot_ifo_title_img{width:20px;height:13px;background:url(../img/hot_ifo_title.png) no-repeat;margin-top:13px;margin-right:30px;}
-.all_hot_bar{padding-left:30px;height:34px;line-height:34px;font-size:14px;color:#4a4a4a;background:#e8ebed;}
+.all_hot_bar{padding-left:30px;height:40px;line-height:40px;font-size:14px;color:#4a4a4a;background:#e8ebed;}
 .all_hot_bar li{float:left;}
 .all_hot_bar li:nth-child(1){
 	width:28px;text-align:center;margin-right:22px;
@@ -665,7 +667,7 @@ body{
 	margin-right:6px;margin-top:20px;line-height:20px;padding:0 5px;
 	background:#ccc;height:20px;font-size:12px;color:#4a4a4a;
 }
-.all_hot_list_top_source div{float:left;margin-right:18px;}
+.all_hot_list_top_source div{float:left;margin-right:6px;}
 /*.all_hot_list_top_source div:nth-child(1){
 	background:url(../img/hot_weixin.png) no-repeat;width:18px;height:18px;
 }
@@ -691,9 +693,10 @@ body{
 	background:url(../img/hot_baidu.png) no-repeat;width:18px;height:18px;
 }
 .logoImageCon{
-	width:48px;height:48px;
+	width:60px;
+	height:60px;
 	background:#fff;
-	margin-top:18px;
+	margin-top:12px;
 	background-size:cover;
 	background-repeat:no-repeat;
 	background-position:center center;
@@ -715,10 +718,10 @@ body{
 }
 .all_hot_list_bot li.li-first{
 	height:84px;
-	padding:0 22px;
+	padding:0 32px;
 }
 .all_hot_list_bot li.li-first .type-img{
-	width:48px;
+	width:60px;
 	height:100%;
 	margin-right:22px;
 }
@@ -746,11 +749,11 @@ body{
     white-space:nowrap;
 }
 .all_hot_list_bot li{
-	height:40px;
-	line-height:39px;
+	height:42px;
+	line-height:41px;
 	background:#eff4f5;
 	border-bottom:1px solid #dee1e3;
-	padding:0 37px;
+	padding:0 32px;
 	font-size:14px;
 }
 .all_hot_list_bot li .type-icon{
@@ -759,9 +762,9 @@ body{
 	background-image:url(../img/hot_weixin.png);
 	background-repeat:no-repeat;
 	background-position:center;
-	margin-right:36px;
+	margin-right:8px;
 }
-.all_hot_list_bot li .type-title{margin-right:18px;}
+.all_hot_list_bot li .type-title{margin-right:24px;}
 .all_hot_list_bot li .weixin-color{color:#389b9f;}
 .all_hot_list_bot li .weibo-color{color:#ff8040;}
 .all_hot_list_bot li .baidu-color{color:#ed7561;}
@@ -800,4 +803,12 @@ body{
 }
 .borderShadow:hover::after, .borderShadow:hover::before {
   -webkit-transform: scale(1);
+}
+.gray { 
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);    
+    filter: grayscale(100%);	
+    filter: gray;
 }
