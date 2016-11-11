@@ -1,8 +1,9 @@
 package com.zc.service;
 
-import java.util.List;
-
+import com.zc.bean.Users;
+import com.zc.dao.UsersMapper;
 import com.zc.enumeration.StatusCodeEnum;
+import com.zc.enumeration.UserBehaviorEnum;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.UserSessionModel;
 import com.zc.utility.PasswordHelper;
@@ -16,20 +17,20 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zc.bean.Users;
-import com.zc.dao.UsersMapper;
-
 @Service
 public class UsersServiceImpl implements UsersService {
     private final static String LOGIN_MSG = "用户名或密码错误";
     @Autowired
     private UsersMapper usersMapper;
+    @Autowired
+    private UserLogService userLogService;
 
     @Override
     public boolean add(Users record) {
         if (usersMapper.getByUserName(record.getUserName()) != null) {
             throw new ServiceException(StatusCodeEnum.CLIENT_ERROR, "该用户已存在");
         }
+
 
         PasswordHelper.encryptPassword(record);
         return usersMapper.add(record) > 0;
@@ -83,6 +84,10 @@ public class UsersServiceImpl implements UsersService {
             try {
                 subject.login(token);
                 Users users = getByUserName(subject.getPrincipal().toString());
+
+                userLogService.log(users.getId(), UserBehaviorEnum.Login,
+                        "");
+
                 return new LoginStatus(true, new UserSessionModel(users), "登录成功");
             } catch (UnknownAccountException e) {
                 return new LoginStatus(false, null, LOGIN_MSG);
@@ -92,5 +97,18 @@ public class UsersServiceImpl implements UsersService {
                 return new LoginStatus(false, null, LOGIN_MSG);
             }
         }
+    }
+
+    @Override
+    public boolean loginOut() {
+        if (getStatus().isLoggedIn()) {
+            Subject subject = SecurityUtils.getSubject();
+
+            userLogService.log(getByUserName(subject.getPrincipal().toString()).getId(), UserBehaviorEnum.LoginOut,
+                    "");
+
+            subject.logout();
+        }
+        return true;
     }
 }
