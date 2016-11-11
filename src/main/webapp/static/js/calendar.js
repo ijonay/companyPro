@@ -344,13 +344,21 @@
                 data['class'] += ' ' + TODAY_CLASS;
             }
 
-            data.action = this.getDayAction(idt);
+            if(data.class=="old"||data.class=="new"){
+                data.action=""
+            }else{
+                data.action = this.getDayAction(idt);
+            }
             markData = this.getDayData(idt);
 
             $item = $(DAY_ITEM_TPL.repeat(data));
 
             if (markData) {
-                $html=$("<a data-calendar-day>"+d + MARK_DAY_HTML+"</a>").data(MARK_DATA, markData);
+                if(data.class=="old"||data.class=="new"){
+                    $html=$("<a>"+d + MARK_DAY_HTML+"</a>").data(MARK_DATA, markData);
+                }else{
+                    $html=$("<a data-calendar-day>"+d + MARK_DAY_HTML+"</a>").data(MARK_DATA, markData);
+                }
                 $item.addClass("markDate").html($html);
             }
 
@@ -662,19 +670,19 @@
             var _this = this,
                 vc = _this.options.viewChange;
 
-            // view change
-            _this.$element.on('click', DISPLAY_VD, function() {
-                var arr = _this.getDisDateValue();
-                _this.updateMonthView(arr[0], arr[1]);
-
-                vc('month', arr[0], arr[1]);
-
-            }).on('click', DISPLAY_VM, function() {
-                var y = this.innerHTML;
-
-                _this.updateDateView(y);
-                vc('date', y);
-            });
+//            // view change
+//            _this.$element.on('click', DISPLAY_VD, function() {
+//                var arr = _this.getDisDateValue();
+//                _this.updateMonthView(arr[0], arr[1]);
+//
+//                vc('month', arr[0], arr[1]);
+//
+//            }).on('click', DISPLAY_VM, function() {
+//                var y = this.innerHTML;
+//
+//                _this.updateDateView(y);
+//                vc('date', y);
+//            });
 
             // arrow
             _this.$element.on('click', ARROW_DATE, function() {

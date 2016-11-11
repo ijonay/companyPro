@@ -40,7 +40,7 @@
         <div class="pnl-calendar"></div>
         <div class="pnl-hots">
             <div class="hots-title">
-                <span>2016.11.21</span>
+                <span class="hots-date">2016.11.21</span>
                 <span class="hots-add">&#43;</span>
             </div>
             <ul class="hots-list">

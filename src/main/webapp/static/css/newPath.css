@@ -1,7 +1,10 @@
 @CHARSET "UTF-8";
 @media screen and (max-width:1340px ) {
     body{min-width: 1220px;overflow-x: auto!important;}
-}  
+} 
+.header{background:#052e44;}
+.nav_ser{display:block;}
+.notify-list{display:none;} 
 body{
 	margin-bottom:15px;
 	background-color:#F2F2F2;

@@ -7,7 +7,7 @@ baseUrl = "";
 dataUrl.util = {
    
     getResultList: function (clueWord, pageSize, currentPage) {//获取话题列表
-        return encodeURI(localhostNewUrl + "hotspot/api/topic/getlist?clueWord=" + clueWord + "&pageSize=" + pageSize + "&currentPage=" + currentPage);
+        return encodeURI("api/topic/getlist?clueWord=" + clueWord + "&pageSize=" + pageSize + "&currentPage=" + currentPage);
     },
     getPathInfo: function (startNode, endNode) {
         return localhostNewUrl + "api/paths/nodeRelations?startNode=" + startNode + "&endNode=" + endNode;
@@ -23,6 +23,9 @@ dataUrl.util = {
     },
     addCommon:function(){
     	return encodeURI("api/searchItem/add");
+    },
+    getHotPred:function(nowDate){
+        return encodeURI("api/predict/list?dateStr="+nowDate);
     }
 }
 
