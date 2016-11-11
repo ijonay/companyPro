@@ -35,6 +35,7 @@ public class TopicModel {
     private String zhihuTitle;
     private String zhihuUrl;
     private Integer zhihuAvgAnswerNumber;
+    private String eventClass;
 
 
     /**
@@ -243,5 +244,13 @@ public class TopicModel {
 
     public void setZhihuAvgAnswerNumber(Integer zhihuAvgAnswerNumber) {
         this.zhihuAvgAnswerNumber = zhihuAvgAnswerNumber;
+    }
+
+    public String getEventClass() {
+        return eventClass;
+    }
+
+    public void setEventClass(String eventClass) {
+        this.eventClass = eventClass;
     }
 }
