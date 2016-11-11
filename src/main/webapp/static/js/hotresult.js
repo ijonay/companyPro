@@ -25,14 +25,16 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
     };
 });
 //换一批
-$('.hot-next').bind('click', function() {//下一页
-    nowPage++;
-    var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
-    if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
-    history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
-    getResult(word, 20, nowPage,urlLabel);
-});
-$('.hot-prev').bind('click', function() {//上一页
+$(document).delegate('.hot-next','click', function() {//下一页
+    var pageCount=$(this).attr("data-pageCount")?parseInt($(this).attr("data-pageCount")):0;
+    if(nowPage<pageCount){
+        nowPage++;
+        var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
+        if(urlLabel) url=url+"#"+JSON.stringify(urlLabel);
+        history.pushState && history.pushState({title: word,pagenumber:nowPage}, word, url);
+        getResult(word, 20, nowPage,urlLabel);
+    }
+}).delegate('.hot-prev','click', function() {//上一页
     if(nowPage>1){
         nowPage--;
         var url="hotresult?clueWord=" + escape(word)+"&pageSize=20&currentPage="+nowPage;
@@ -80,7 +82,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
                 $("#canvas .topic").remove();
                 $(".word").remove();
                 $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
-                result = _.sortBy(returnData.data, function(item) {
+                $(".hot-next").attr("data-pageCount",returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0);
+                result = _.sortBy(returnData.data.data, function(item) {
                     return -item.score
                 });
                 drawWord(result);
