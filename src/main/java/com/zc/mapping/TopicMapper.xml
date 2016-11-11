@@ -7,18 +7,19 @@
         <result column="readnum" jdbcType="VARCHAR" property="readNum"/>
         <result column="topicurl" jdbcType="VARCHAR" property="topicUrl"/>
         <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
-        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
         <result column="logourl" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
         <result column="readnumtrendgrowth" jdbcType="INTEGER" property="readNumTrendGrowth"/>
         <result column="relationdesc" jdbcType="VARCHAR" property="relationDesc"/>
         <result column="topictype" jdbcType="VARCHAR" property="topicType"/>
+        <result column="event_class" jdbcType="VARCHAR" property="eventClass"/>
         <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
         <result column="topic_region" jdbcType="VARCHAR" property="topicRegion"/>
         <result column="labels" jdbcType="VARCHAR" property="labels"/>
         <result column="id_backup" jdbcType="INTEGER" property="idBackup"/>
         <result column="logo_img_url" jdbcType="VARCHAR" property="logoImgUrl"/>
         <result column="logo_img_url_local" jdbcType="VARCHAR" property="logoImgUrlLocal"/>
-        <result column="prevailing_trend" jdbcType="VARCHAR" property="prevailingTrend"/>
+        <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
         <result column="wechat_url" jdbcType="VARCHAR" property="wechatUrl"/>
         <result column="wechat_title" jdbcType="VARCHAR" property="wechatTitle"/>
         <result column="wechat_avg_read_num" jdbcType="INTEGER" property="wechatAvgReadNum"/>
@@ -30,7 +31,7 @@
         <result column="zhihu_avg_answer_number" jdbcType="INTEGER" property="zhihuAvgAnswerNumber"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,  title,  readnum,  topicurl,  keywords,  coordinate,  logourl,  readnumtrendgrowth,  relationdesc,  topictype,  introduction,  topic_region,  labels,  id_backup,  logo_img_url,  logo_img_url_local,  prevailing_trend,  wechat_url,  wechat_title,  wechat_avg_read_num,  baidu_title,  baidu_url,  baidu_hit_num,  zhihu_title,  zhihu_url,  zhihu_avg_answer_number     </sql>
+        id,  title,  readnum,  topicurl,  keywords,  logourl,  coordinate,  readnumtrendgrowth,  relationdesc,  topictype,  event_class,  introduction,  topic_region,  labels,  id_backup,  logo_img_url,  logo_img_url_local,  prevailing_trend,  wechat_url,  wechat_title,  wechat_avg_read_num,  baidu_title,  baidu_url,  baidu_hit_num,  zhihu_title,  zhihu_url,  zhihu_avg_answer_number     </sql>
     <insert id="add" parameterType="com.zc.bean.Topic"
             useGeneratedKeys="true" keyProperty="id">
         insert into topic
@@ -47,11 +48,11 @@
             <if test="keywords != null">
                 keywords,
             </if>
-            <if test="coordinate != null">
-                coordinate,
-            </if>
             <if test="logoUrl != null">
                 logourl,
+            </if>
+            <if test="coordinate != null">
+                coordinate,
             </if>
             <if test="readNumTrendGrowth != null">
                 readnumtrendgrowth,
@@ -61,6 +62,9 @@
             </if>
             <if test="topicType != null">
                 topictype,
+            </if>
+            <if test="eventClass != null">
+                event_class,
             </if>
             <if test="introduction != null">
                 introduction,
@@ -124,11 +128,11 @@
             <if test="keywords != null">
                 #{keywords,jdbcType=VARCHAR},
             </if>
-            <if test="coordinate != null">
-                #{coordinate,jdbcType=VARCHAR},
-            </if>
             <if test="logoUrl != null">
                 #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="coordinate != null">
+                #{coordinate,jdbcType=VARCHAR},
             </if>
             <if test="readNumTrendGrowth != null">
                 #{readNumTrendGrowth,jdbcType=INTEGER},
@@ -138,6 +142,9 @@
             </if>
             <if test="topicType != null">
                 #{topicType,jdbcType=VARCHAR},
+            </if>
+            <if test="eventClass != null">
+                #{eventClass,jdbcType=VARCHAR},
             </if>
             <if test="introduction != null">
                 #{introduction,jdbcType=VARCHAR},
@@ -158,7 +165,7 @@
                 #{logoImgUrlLocal,jdbcType=VARCHAR},
             </if>
             <if test="prevailingTrend != null">
-                #{prevailingTrend,jdbcType=VARCHAR},
+                #{prevailingTrend,jdbcType=INTEGER},
             </if>
             <if test="wechatUrl != null">
                 #{wechatUrl,jdbcType=VARCHAR},
@@ -209,11 +216,11 @@
             <if test="keywords != null">
                 keywords = #{keywords,jdbcType=VARCHAR},
             </if>
-            <if test="coordinate != null">
-                coordinate = #{coordinate,jdbcType=VARCHAR},
-            </if>
             <if test="logoUrl != null">
                 logourl = #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="coordinate != null">
+                coordinate = #{coordinate,jdbcType=VARCHAR},
             </if>
             <if test="readNumTrendGrowth != null">
                 readnumtrendgrowth = #{readNumTrendGrowth,jdbcType=INTEGER},
@@ -223,6 +230,9 @@
             </if>
             <if test="topicType != null">
                 topictype = #{topicType,jdbcType=VARCHAR},
+            </if>
+            <if test="eventClass != null">
+                event_class = #{eventClass,jdbcType=VARCHAR},
             </if>
             <if test="introduction != null">
                 introduction = #{introduction,jdbcType=VARCHAR},
@@ -243,7 +253,7 @@
                 logo_img_url_local = #{logoImgUrlLocal,jdbcType=VARCHAR},
             </if>
             <if test="prevailingTrend != null">
-                prevailing_trend = #{prevailingTrend,jdbcType=VARCHAR},
+                prevailing_trend = #{prevailingTrend,jdbcType=INTEGER},
             </if>
             <if test="wechatUrl != null">
                 wechat_url = #{wechatUrl,jdbcType=VARCHAR},
@@ -281,6 +291,7 @@
         from topic
         where id = #{id,jdbcType=INTEGER}
     </select>
+
 
     <select id="getHotTopic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

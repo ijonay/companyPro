@@ -51,6 +51,18 @@
         from TopicFilter
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+
+    <!--<select id="getAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from TopicFilter-->
+    <!--</select>-->
+    <!--<delete id="delAll">-->
+    <!--delete from TopicFilter-->
+    <!--</delete>-->
+
+
     <select id="getTopicIds" resultType="Integer">
 
         ${searchModel.getExistsSql("SELECT topic_id  from TopicFilter t#i  INNER JOIN TopicClass tc ON t#i.filter_id = tc.id  where   filter_id in(#fids) #where  #exists "
@@ -152,12 +164,4 @@
 
     </select>
 
-    <!--<select id="getAll" resultMap="BaseResultMap">-->
-    <!--select-->
-    <!--<include refid="Base_Column_List"/>-->
-    <!--from TopicFilter-->
-    <!--</select>-->
-    <!--<delete id="delAll">-->
-    <!--delete from TopicFilter-->
-    <!--</delete>-->
 </mapper>
