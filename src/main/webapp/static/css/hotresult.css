@@ -349,7 +349,14 @@ input[type=checkbox]:checked::after {
 }
 .age_dia_con{height:24px;padding-top:20px;color:#4a4a4a;font-size:12px;line-height:24px;}
 .age_dia_con input {width:88px;height:24px;border:0;border-radius:2px;padding-left:10px;}
-
+.age_dia_con b {font-style:normal!important;margin-right:10px;font-weight:400!important;}
+.age_dia_con b:nth-of-type(3){
+	margin-left:10px;
+}
+.age_dia_con b:nth-of-type(1){
+	margin-left:10px;
+}
+#result_label_age{width:90px;}
 /*搜索标签*/
 .result_top{height:60px;background:#fff;padding:0px 48px;}
 .result_t_l{line-height:60px;}
