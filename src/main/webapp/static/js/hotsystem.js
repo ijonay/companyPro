@@ -1281,6 +1281,61 @@ function loadSvg(){
         	$(this).find(".hot_img_arrow").css("transform","rotate(180deg)")
     	};    	
     });
+    var circleOption = {
+    		title: {
+                text: '',
+                left: 'center'
+            },
+            color:["#5ccfcd","#6faff4"],
+            backgroundColor:"#fff",
+            tooltip: {
+                trigger: 'item',
+                formatter: function (obj) {
+                    return obj.name.substr(0,1) + ": " + obj.percent + "%" 
+                },
+                backgroundColor:"rgba(255,255,255,0.5)",
+                borderColor:"#5ccfcd",
+                borderWidth:2,
+                textStyle:{
+                	color:"#000",
+                	fontFamily:"微软雅黑"
+                }
+            },
+            legend: {
+                orient: 'horizontal',
+                bottom:10,
+                data:[],
+                formatter: function (name) {
+                    return name.substr(0,1);
+                }
+            },
+            series: [
+                {
+                    name:'',
+                    type:'pie',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            textStyle: {
+                                fontSize: '0',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '0',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    data:[]
+                }
+            ]
+    }
     var option1 = {
             title: {
                 text: '受众性别分布',
@@ -1314,19 +1369,18 @@ function loadSvg(){
                     color:["#5ccfcd","#6faff4"],
                     type:'pie',
                     radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '0',
-                                fontWeight: 'bold'
-                            }
-                        }
-                    },
+                    avoidLabelOverlap: false,                    
                     data:[
-                        {value:97, name:'男 97%'},
+                        {value:97, name:'男 97%',label: {
+                            normal: {
+                                show: true,
+                                position: 'center',
+                                textStyle: {
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        }},
                         {value:3, name:'女 3%'}
                     ]
                 }
@@ -1353,17 +1407,42 @@ function loadSvg(){
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
     	};
     	var $this = $(this);
+    	if($this.parent().parent().find(".Personas").length > 0){
+			console.log("已添加用户画像");
+			return;
+		}
     	$.ajax({
     		type:"get",
     		url:dataUrl.util.getPercentData($(this).attr("data-id")),
     		success:function(data){
     			console.log(data);
-    			//受众年龄画像
-    			if(data.data && data.data.gender.length > 0){
-    				var ageCon = $("<div style='width:17%;height:279px;margin:5px 0;background:#fff'></div>");
+    			var data = data.data;
+    			//受众年龄画像    			
+    			if(data && data.gender.length > 0){
+    				console.log(data.gender);
+    				var ageCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(ageCon);
     				var ageCharts = echarts.init(ageCon.get(0));
-//    				var
+    				var ageOption = $.extend(true,{},circleOption);
+    				ageOption.title.text = "受众性别分布";
+    				var max = 0;
+    				var currentIndex = 0;
+//    				$.each(data.gender,function(index,item){
+//    					ageOption.legend.data.push(item.name+" "+item.value+"%");
+//    					if(max < item.value){
+//    						max = item.value;
+//    						currentIndex = index;
+//    					}    					
+//    				})
+    				ageOption.legend.data.push(data.gender[0].name+" "+item.value+"%");
+    				if(data.gender[0].value > data.gender[1].value){
+    					
+    				}else{
+    					
+    				}
+    				console.log(index);
+    				ageOption.legend.data = [];
+    				console.log(ageOption);
     				ageCharts.setOption(option1);
     			}
     		},
