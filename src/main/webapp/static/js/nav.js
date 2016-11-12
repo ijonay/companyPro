@@ -3,7 +3,7 @@ getHotPred(getNowDate(new Date()));
 //热点预测日历
 $(".pnl-calendar").calendar({
     width: 272,
-    height: 264,
+    height: 279,
     data: [],
     onSelected: function(view, date, data) {
         var day=parseInt($(this).data("index"));
@@ -30,15 +30,17 @@ $(".lb-email").on("click",function(){
 /*tab切换*/
 $(".bar-tabs>li").on("click",function(){
     if($(this).hasClass("right-bar-close")){//关闭弹窗
-        $(".right-bar").animate({"right":"-272px"},500);
+        $(".right-bar").animate({"right":"-292px"},500);
     }else if($(this).hasClass("pred-tab")){//热点预告tab
         $(this).addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
         $(".pnl-pred-tab").css("display","block");
+        $(".right-bar").css("background","#fff");
     }else{//探索通知tab
         $(this).addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
         $(".pnl-pred-tab").css("display","none");
+        $(".right-bar").css("background","#e8ebed");
     }
 });
 /*头部菜单栏*/
@@ -47,12 +49,12 @@ $(".header-right>li").on("click",function(){
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
         $(".pnl-pred-tab").css("display","block");
-        $(".right-bar").animate({"right":"0px"},500);
+        $(".right-bar").animate({"right":"0px"},500).css("background","#fff");
     }else if($(this).hasClass("head-notify")){//探索通知
         $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
         $(".pnl-pred-tab").css("display","none");
-        $(".right-bar").animate({"right":"0px"},500);
+        $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }
 });
 /*关闭通知*/
@@ -259,3 +261,24 @@ function getNowDate(myDate,type){
         return year+'-'+month+"-"+date;
     }
 }
+
+//获取探索通知
+$.ajax({
+    type: "post",
+    contentType: 'application/json',
+    dataType: "json",
+    url: dataUrl.util.getResultList("手机", 20, 1),
+    data:JSON.stringify({}),
+    success: function(returnData) {
+        if(returnData.error.code == 0&&returnData.data) {
+            $.each(returnData.data.data,function(idx,item){
+                $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData.data));
+            });
+        }else{
+            $(".notify-tab-list").html("<li>暂无通知</li>");
+        }
+    },
+    error: function() {
+        console.log('获取探索通知失败');
+    }
+});

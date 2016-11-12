@@ -14,7 +14,42 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplSheetList'] = tmpl.join('\r\n');
-
+    
+    tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('<li data-index={{:id}}>');
+    tmpl.push('     <a>');
+    tmpl.push('         <span class="dot-icon"></span>');
+    tmpl.push('         <span class="pnl"><span class="hot-word">特斯拉</span>－');
+    tmpl.push('         <span class="hot-spot">{{:title}}</span></span>');
+    tmpl.push('         <span class="time">10min</span><span class="notify-close">&times;</span></a>');
+    tmpl.push('     <div class="notify-info" >');
+    tmpl.push('         <div class="notify-infoTop">');
+    tmpl.push('             <div class="notify-infoTitle">张雨绮结婚</div>');
+    tmpl.push('             <div class="notify-infoConnect">关联此热点</div>');
+    tmpl.push(          '</div>');
+    tmpl.push('         <div class="notify-hotLabel">');
+    tmpl.push('             <div class="notify-hotLabel0">标签1</div>');
+    tmpl.push('             <div class="notify-hotLabel1">标签1</div>');
+    tmpl.push('             <div class="notify-hotLabel2">标签1</div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="notify-hotInfo">');
+    tmpl.push('             <div class="notify-infoText">张雨绮结婚张雨绮张雨绮结婚张雨绮张雨绮结婚张雨绮张雨绮结婚张雨绮张雨绮结婚张雨绮张雨绮结婚张雨绮</div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="notify-infoBottom">');
+    tmpl.push('             <img class="notify-hotIcon" src="img/hotIcon.png">');
+    tmpl.push('             <span class="notify-hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>');
+    tmpl.push('             <div class="notify-iconCon">');
+    tmpl.push('                 <a target=" _blank" class="weibo-link" href="#"><img class="infoIcon" src="img/weibo.png" alt="微博"></a>');
+    tmpl.push('                 <a target=" _blank" class="weixin-link" href="#" style="display:none;"><img class="infoIcon" src="img/wechat.png" alt="微信"></a>');
+    tmpl.push('                 <a target=" _blank" class="zhihu-link" href="#" style="display:none;"><img class="infoIcon" src="img/zhihu.png" alt="知乎"></a>');
+    tmpl.push('                 <a target=" _blank" class="baidu-link" href="#" style="display:none;"><img class="infoIcon" src="img/baidu.png" alt="百度"></a>');
+    tmpl.push('             </div>');
+    tmpl.push('         </div>');
+    tmpl.push('     </div>');
+    tmpl.push('</li>');
+    tmpl.push('{{/for}}');
+    templates.design['tmplNotifyList'] = tmpl.join('\r\n');
     
 })();
 (function() {
