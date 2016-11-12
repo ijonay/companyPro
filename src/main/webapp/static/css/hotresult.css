@@ -629,7 +629,8 @@ input[type=checkbox]:checked::after {
     display: inline-block;
     width:140px;
     height:140px;
-    background-color:red;
+    background-size:100%;
+    background-position:center;
     margin-right: 10px;
     padding: 0;
 }

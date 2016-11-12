@@ -1164,7 +1164,8 @@ function loadSvg(){
             alertCon.show();
     	}    	
     }
-    $(document).on("click",".hot_relation,.infoConnect",function(){
+    $(document).on("click",".hot_relation,.infoConnect",function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
     	var index = $(this).attr("data-index");
     	if(index < 10){
     		var topic = titleArray[index];
@@ -1254,20 +1255,42 @@ function loadSvg(){
     }) 
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
-    $('.all_hot_list_top:first').find('.hot_arrow').css('transform','rotate(180deg)');
-    $(document).on('click','.all_hot_list_top',function(){
-    	if($(this).next().css('display') == 'block'){
-    		$(this).next().hide();
-    		$(this).find(".hot_arrow").css("transform","rotate(0deg)")
+    
+    $(document).on('click','.all_hot_list_top_source',function(){
+    	$('.all_hot_list_top_look').css('color','#4a4a4a');
+    	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
+    	$('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
+    	$('.hot_echart_list').addClass('hidecommon');
+    	if($(this).parent().next().css('display') == 'block'){
+    		$(this).parent().next().hide();
+    		$(this).find(".hot_img_arrow").css("transform","rotate(0deg)")
     	}else{
-    		$(this).parent().parent().find(".all_hot_list_bot").hide();
-        	$(this).next().show();
-        	$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
-        	$(this).find(".hot_arrow").css("transform","rotate(180deg)")
-    	}
+    		$(this).parent().parent().parent().find(".all_hot_list_bot").hide();
+        	$(this).parent().next().show();
+        	$(this).parent().parent().parent().find(".hot_img_arrow").css("transform","rotate(0deg)");
+        	$(this).find(".hot_img_arrow").css("transform","rotate(180deg)")
+    	};
+    });
+    $(document).on('click','.all_hot_list_top_look',function(){
+    	$('.all_hot_list_bot').css('display','none');
+    	$('.hot_img_arrow').css("transform","rotate(0deg)");
     	
-    	//$(this).parent().parent().find(".hot_arrow").css("transform","rotate(0deg)");
-    	
+    	if($(this).parent().next().next().is('.hidecommon')){
+    		$('.all_hot_list_top_look').css('color','#4a4a4a');
+    		$(this).css('color','#389b9f');
+    		$(this).parent().parent().parent().find(".hot_look_eye").css("background-image","url(img/hot_look_eye.png)");
+    		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye_hover.png)');
+    		$(this).parent().parent().parent().find(".hot_echart_list").addClass('hidecommon');
+    		$(this).parent().next().next().removeClass('hidecommon');
+    		$(this).parent().parent().parent().find(".hot_look_arrow").css("transform","rotate(0deg)");
+    		$(this).find(".hot_look_arrow").css("transform","rotate(180deg)")
+    	}else{
+    		$(this).parent().next().next().addClass('hidecommon');
+        	$(this).parent().next().next().addClass('hidecommon');
+        	$(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
+    		$(this).css('color','#4a4a4a');
+    		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
+    	};
     });
     var hotIdArray=[];
     var imageArray=[];
@@ -1286,6 +1309,7 @@ function loadSvg(){
             success: function(returnData) {
             	if(returnData.error.code != 0) return;
             	$(".all_hot_list").html(hotList2.render(returnData));
+            	$('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
             },
             error: function() {
                 console.log('获取热点失败');
