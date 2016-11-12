@@ -575,7 +575,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			type:"get",
 			contentType: 'application/json',
 		    dataType:"json",
-			url:'api/topicclass/getsearchitem',
+			url:dataUrl.util.getInpList(),
 			success:function(returnData){
 				console.log(returnData);
 				returnData = returnData.data;
