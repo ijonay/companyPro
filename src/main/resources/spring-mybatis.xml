@@ -117,7 +117,7 @@
 
     <bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="userRecommandedTopicsJob" />
-        <property name="cronExpression" value="0 * 0/1,* * * ?" />
+        <property name="cronExpression" value="0 0 0/1,* * * ?" />
     </bean>
 
     <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
