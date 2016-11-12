@@ -1284,14 +1284,15 @@ function loadSvg(){
     var circleOption = {
     		title: {
                 text: '',
-                left: 'center'
+                left: 'center',
+                top:15
             },
             color:["#5ccfcd","#6faff4"],
             backgroundColor:"#fff",
             tooltip: {
                 trigger: 'item',
                 formatter: function (obj) {
-                    return obj.name.substr(0,1) + ": " + obj.percent + "%" 
+                    return obj.name.split(" ")[0] + ": " + obj.percent + "%" 
                 },
                 backgroundColor:"rgba(255,255,255,0.5)",
                 borderColor:"#5ccfcd",
@@ -1303,10 +1304,10 @@ function loadSvg(){
             },
             legend: {
                 orient: 'horizontal',
-                bottom:10,
+                bottom:20,
                 data:[],
                 formatter: function (name) {
-                    return name.substr(0,1);
+                    return name.split(" ")[0];
                 }
             },
             series: [
@@ -1345,7 +1346,7 @@ function loadSvg(){
             tooltip: {
                 trigger: 'item',
                 formatter: function (obj) {
-                    return obj.name.substr(0,1) + ": " + obj.percent + "%" 
+                    return obj.name.split(":")[0] + ": " + obj.percent + "%" 
                 },
                 backgroundColor:"rgba(255,255,255,0.5)",
                 borderColor:"#5ccfcd",
@@ -1450,13 +1451,13 @@ function loadSvg(){
     			var data = data.data;
     			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				var ageCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
     				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
-    				$this.parent().parent().find(".hot_echart_list").append(ageCon);
+    				$this.parent().parent().find(".hot_echart_list").append(genderCon);
     				$this.parent().parent().find(".hot_echart_list").append(interestCon);
-    				var ageCharts = echarts.init(ageCon.get(0));
-    				var ageOption = $.extend(true,{},circleOption);
-    				ageOption.title.text = "受众性别分布";
+    				var genderCharts = echarts.init(genderCon.get(0));
+    				var genderOption = $.extend(true,{},circleOption);
+    				genderOption.title.text = "受众性别分布";
     				var max = 0;
     				var currentIndex = 0;
 //    				$.each(data.gender,function(index,item){
@@ -1466,15 +1467,85 @@ function loadSvg(){
 //    						currentIndex = index;
 //    					}    					
 //    				})
-    				ageOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value+"%");
+    				genderOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value+"%");
+    				genderOption.legend.data.push(data.gender[1].name+" "+data.gender[1].value+"%");
+    				genderOption.series[0].name = "性别";
+    				var genderJson0 = JSON.stringify(data.gender[0]); 
+    				genderOption.series[0].data.push(JSON.parse(genderJson0));
+    				var genderJson1 = JSON.stringify(data.gender[1]); 
+    				genderOption.series[0].data.push(JSON.parse(genderJson1));
+    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value+"%";
+    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value+"%";
+    				var label =  {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
     				if(data.gender[0].value > data.gender[1].value){
-    					
+    					genderOption.series[0].data[0].label = label;
     				}else{
-    					
+    					genderOption.series[0].data[1].label = label;
     				}
-    				ageOption.legend.data = [];
-//    				console.log(ageOption);
-    				ageCharts.setOption(option1);
+    				console.log(genderOption);
+    				console.log(option1);
+    				genderCharts.setOption(genderOption);
+    				//受众学历分布
+    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    				$this.parent().parent().find(".hot_echart_list").append(educationCon);
+    				var educationCharts = echarts.init(educationCon.get(0));
+    				var educationOption = $.extend(true,{},circleOption);
+    				educationOption.title.text = "受众性别分布";
+    				var educationMax = 0;
+    				var educationMaxIndex = 0;
+    				educationOption.series[0].name = "学历分布";
+    				$.each(data.education,function(index,item){
+    					educationOption.legend.data.push(item.name+" "+item.value+"%");
+    					var tempItem = JSON.stringify(item);
+    					tempItem = JSON.parse(tempItem);
+    					tempItem.name = item.name+" "+item.value+"%";
+    					educationOption.series[0].data.push(tempItem);
+    					if(educationMax > item.value){    						
+    					}else{
+    						educationMax = item.value;
+    						educationMaxIndex = index;
+    					}
+    				})
+    				console.log("..............")
+    				console.log(educationMax);
+    				console.log(educationMaxIndex);
+//    				educationOption.legend.data.push(data.education[0].name+" "+data.education[0].value+"%");
+//    				educationOption.legend.data.push(data.education[1].name+" "+data.education[1].value+"%");
+//    				educationOption.series[0].name = "性别";
+//    				var educationJson0 = JSON.stringify(data.education[0]); 
+//    				educationOption.series[0].data.push(JSON.parse(educationJson0));
+//    				var educationJson1 = JSON.stringify(data.education[1]); 
+//    				educationOption.series[0].data.push(JSON.parse(educationJson1));
+//    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value+"%";
+//    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value+"%";
+    				var label =  {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
+                    educationOption.series[0].data[educationMaxIndex].label = label;
+//    				if(data.gender[0].value > data.gender[1].value){
+//    					genderOption.series[0].data[0].label = label;
+//    				}else{
+//    					genderOption.series[0].data[1].label = label;
+//    				}
+    				console.log(educationOption);
+    				console.log(option1);
+    				educationCharts.setOption(educationOption);
     				//兴趣雷达图
     				var interestCharts = echarts.init(interestCon.get(0));
     				var vals = [];
