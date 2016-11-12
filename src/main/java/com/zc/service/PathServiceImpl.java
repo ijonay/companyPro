@@ -128,7 +128,7 @@ public class PathServiceImpl implements PathService {
     private List<PathModel> getAllPath(String start, float[] targetVector) {
 
 
-        Map<String, float[]> allVector = getWordVectorsCollByCache();
+        Map<String, float[]> allVector = wordService.getModelMap();
 
         this.targetVector = targetVector;
         isFirst = true;
@@ -268,14 +268,5 @@ public class PathServiceImpl implements PathService {
     }
     //endregion
 
-    @Override
-    public Map<String, float[]> getWordVectorsCollByCache() {
 
-        String keyPrefix = PropertyHelper.getValue(Constant
-                        .CONFIG_PROPERTIES,
-                Constant.WORD_VECTORS_KEY);
-
-        return redisService.getCacheObject(keyPrefix);
-
-    }
 }

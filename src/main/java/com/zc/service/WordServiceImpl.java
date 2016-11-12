@@ -75,8 +75,6 @@ public class WordServiceImpl implements WordService {
 
 
 //        loadMaps();
-
-
 //        loadTopicMap();
         // loadWordMap();
 
@@ -86,10 +84,15 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    private void loadWordVectorCollMaps() {
+        modelMap = getWordVectorsCollByCache();
+    }
+
     @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
             loadMaps();
+            loadWordVectorCollMaps();
         }
         return modelMap;
     }
