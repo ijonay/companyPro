@@ -257,11 +257,11 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             currentCycle.push(cycle);
             paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
         }
-          cycle.click(function(){
-        	  var lineNum = this.data("lineNum");
-        	  console.log(lineNum)
-        	  $(".pathName").click();
-          })
+//          cycle.click(function(){
+//        	  var lineNum = this.data("lineNum");
+//        	  console.log(lineNum)
+//        	  $(".pathName").click();
+//          })
          //节点hover高亮
           cycle.hover(function(e){
               var _this_ = this;            
