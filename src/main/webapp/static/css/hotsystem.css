@@ -766,7 +766,7 @@ body{
 .all_hot_list_bot li.li-first .type-img{
 	width:60px;
 	height:100%;
-	margin-right:22px;
+	margin-right:23px;
 }
 .all_hot_list_bot li.li-first .type-content{
 	margin-top:12px;
@@ -813,7 +813,7 @@ body{
 	background-position:center;
 	margin-right:8px;
 }
-.all_hot_list_bot li .type-title{margin-right:24px;}
+.all_hot_list_bot li .type-title{margin-right:27px;}
 .all_hot_list_bot li .weixin-color{color:#389b9f;}
 .all_hot_list_bot li .weibo-color{color:#ff8040;}
 .all_hot_list_bot li .baidu-color{color:#ed7561;}

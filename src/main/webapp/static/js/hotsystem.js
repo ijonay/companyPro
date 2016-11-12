@@ -101,9 +101,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(returnData.error.code == 0){
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
-						$('#favorite_ul').prepend('<li data-id="'+returnData.data.id+'" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					}else{
-						$('#favorite_ul').prepend('<li data-id="'+returnData.data.id+'" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					};
 				}
 			},
