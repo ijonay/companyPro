@@ -14,4 +14,7 @@ public interface UserFavoriteSearchItemDao {
     List<UserFavoriteSearchItem> getUserFavoriteSearchItems(Integer userId);
 
     int cancelSearchItem(Integer id);
+
+    List<UserFavoriteSearchItem> getAllUserFavoriteSearchItems();
+
 }
