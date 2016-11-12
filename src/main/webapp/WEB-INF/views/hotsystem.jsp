@@ -99,8 +99,9 @@
    			<ul class="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
-   				<li>来源</li>
+   				<li>热点来源</li>
    				<li>热度</li>
+   				<li>热点受众画像</li>
    				<li>操作</li>
    			</ul>
    			<ul class="all_hot_list">
@@ -118,8 +119,9 @@
    							<div></div><div></div><div></div><div></div>
    						</li>
    						<li>99</li>
+   						<li>点击查看</li>
    						<li class="hot_relation">关联此热点</li>
-   						<li class="hot_arrow"></li>
+   						
    					</ul>
    					<ul class="all_hot_list_bot">
    					    <li class="li-first">
