@@ -23,9 +23,10 @@ templates.design = {};
     tmpl.push('<li data-id="{{:id}}">');
     tmpl.push('    <ul class="all_hot_list_top">');
     tmpl.push('       <li><span  class="hot_circle_num">{{:#index+1}}</span></li>');
-    tmpl.push('       <li class="all_hot_top_topic"><p>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
-    tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}</li>');
+    tmpl.push('       <li class="all_hot_top_topic"><p title={{:title}}>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
+    tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}<div class="hot_img_arrow"></div></li>');
     tmpl.push('       <li>{{:prevailingTrend}}</li>');
+    tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span>点击查看<span class="hot_look_arrow"></span></li>');
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation">关联此热点</li>');
     tmpl.push('       <li class="hot_arrow"></li>');
     tmpl.push('     </ul>');
@@ -68,6 +69,8 @@ templates.design = {};
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
     tmpl.push('     </ul>');
+    tmpl.push('     <div class="hot_echart_list hidecommon">123');
+    tmpl.push('     </div>');
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplAllHotList'] = tmpl.join('\r\n');
@@ -76,7 +79,7 @@ templates.design = {};
             var tagArray = eventClass.split(",");
             var str = "";
             $.each(tagArray,function(index,item){
-            	str += "<div>"+item+"</div>"
+            	str += '<div title="'+item+'">'+item+'</div>'
             })
             return str;
         }
