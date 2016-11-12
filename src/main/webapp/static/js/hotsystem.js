@@ -1046,10 +1046,10 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleArray[i]).attr({"fill":'#fff',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleArray[i]).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0,cursor:"pointer"}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
-        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,scoreArray[i]).attr({"fill":'#fff',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,scoreArray[i]).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
         	textArray[i] = textArrayItem;
         	rectArray[i] = rectArrayItem;
         	hotArray[i] = hotArrayItem;
@@ -1147,39 +1147,43 @@ function loadSvg(){
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
-            var divH = $(".hotInfo").height();
-            var $p = $(".infoConnect");
-            while ($p.outerHeight() > divH) {
-                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
-            };
+//            var divH = $(".hotInfo").height();
+//            var $p = $(".infoConnect");
+//            while ($p.outerHeight() > divH) {
+//                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+//            };
             $(".portrait").css("background-image","url("+imageArray[index]+")");
             $(".infoText").html(introArray[index]);
             $(".infoText").attr("title",introArray[index]);
             $(".infoConnect").attr("data-id",hotIdArray[index]);
             $(".infoConnect").attr("data-index",index);
+            $(".infoConnect").attr("data-topic",titleArray[index]);
             $(".infoIcon").hide();
             $.each(formArray[index],function(index,item){            	
             	$("#icon"+item).show();
             })
+            $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
             alertCon.show();
     	}    	
     }
     $(document).on("click",".hot_relation,.infoConnect",function(){
-    	var index = $(this).attr("data-index");
-    	if(index < 10){
-    		var topic = titleArray[index];
-    		var hotTopId = hotIdArray[index];
-    	}else{
-    		var topic = $(this).data("topic");
-    		var hotTopId = $(this).data("id");
-    	}
+    	var $this = $(this);
+    	var index = $this.attr("data-index");
+//    	if(index < 10){
+//    		var topic = titleArray[index];
+//    		var hotTopId = hotIdArray[index];
+//    	}else{
+    		var topic = $this.attr("data-topic");
+    		var hotTopId = $this.attr("data-id");
+//    	}
     	topic = topic.replace(/#/g,"");
+    	console.log(topic);
     	if($(".selectTag")){
     		$(".selectTag").attr("title",topic);
     		$(".selectTag").html(topic)
     	}
         var content = "";
-        content += '<input class="releateTag" placeholder="请输入关键字" />';
+        content += '<input class="releateTag" autofocus placeholder="请输入关键字" />';
         content += '<div style="display:inline-block;width:52px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
         content += '<div class="selectTag" title='+topic+'>'+topic+'</div>';
         var pop = new Pop({
@@ -1202,7 +1206,11 @@ function loadSvg(){
                     }               
                 }
             }]
-        })
+        });
+        if($(".selectTag")){
+    		$(".selectTag").attr("title",topic);
+    		$(".selectTag").html(topic)
+    	}
     })
     $(document).on("click",function(e){
     	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
@@ -1275,6 +1283,7 @@ function loadSvg(){
     var scoreArray=[];
     var introArray=[];
     var formArray=[];
+    var tagArray={};
 //获取渲染全部热点
     var hotList2 = $.templates(templates.design["tmplAllHotList"]);
     function getAllHot(){
@@ -1282,7 +1291,7 @@ function loadSvg(){
             type: "get",
             contentType: 'application/json',
             dataType: "json",
-            url: dataUrl.util.getHotTopic(50),
+            url: dataUrl.util.getHotTopic(100),
             success: function(returnData) {
             	if(returnData.error.code != 0) return;
             	$(".all_hot_list").html(hotList2.render(returnData));
@@ -1301,6 +1310,13 @@ function loadSvg(){
             url: dataUrl.util.getTenHot(),
             success: function(returnData) {
             	if(returnData.error.code != 0) return;
+            	hotIdArray.length = 0;
+            	imageArray.length = 0;
+            	titleArray.length = 0;
+            	scoreArray.length = 0;
+            	introArray.length = 0;
+            	formArray.length = 0;
+            	tagArray.length = 0;
             	$.each(returnData.data,function(index,item){
             		if(index < 10){
             			hotIdArray.push(item.id);
@@ -1308,11 +1324,16 @@ function loadSvg(){
                 			imageArray.push(item.logoImgUrl);
                 		}else{
                 			imageArray.push("javascript:void(0)");
-                		}
-                		
+                		}                		
                 		titleArray.push(item.title);
                 		scoreArray.push(item.prevailingTrend);
                 		introArray.push(item.introduction);
+                		var eventClass = item.eventClass.split(",");
+                        var str = "";
+                        $.each(eventClass,function(index2,item2){
+                        	str += "<div>"+item2+"</div>"
+                        })
+                        tagArray[item.id] = str;
                 		var tempArray = [];
                 		if(item.baiduHitNum){
                 			tempArray.push("baidu");

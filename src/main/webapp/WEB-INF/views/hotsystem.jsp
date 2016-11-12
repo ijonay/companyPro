@@ -320,6 +320,7 @@
             <div class="infoTitle">张雨绮结婚</div>
             <div class="infoConnect">关联此热点</div>
         </div>
+        <div class="hotAlertTag"></div>
         <div class="hotInfo">
             <div class="infoText">
                 张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚
