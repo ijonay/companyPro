@@ -1299,7 +1299,7 @@ $(".infoConnect").on("click",function(){
         topic = topic.split("#");
         topic = topic[1];
     }
-    window.location.href='newPath#query='+escape(word)+'&topicId='+id+"&hotTopic="+escape(topic);
+    window.location.href='newPath#query='+word+'&topicId='+id+"&hotTopic="+topic;
 });
 
 //只可以输入数字
