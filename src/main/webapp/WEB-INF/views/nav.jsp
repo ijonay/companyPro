@@ -46,7 +46,13 @@
                 </div>
                 <ul class="hots-list"></ul>
             </div>
-            <div class="hots-alert">今日无预告</div>
+            <div class="hots-detail">
+                <div class="detail-title">
+                    <span class="detail-date">2016.11.21</span>
+                    <span class="detail-return">查看当月</span>
+                </div>
+                <ul class="detail-list"></ul>
+            </div>
         </div>
     </div>
     <div class="pnl-notify-tab">

@@ -325,7 +325,7 @@
                 idt = new Date(y, m - 1, d),
                 data = {
                     w: (this.width-50) / 7,
-                    h: 28,
+                    h: 42,
                     value: d
                 },
                 markData,
@@ -337,7 +337,7 @@
             } else if (f === 3) {
                 data['class'] = NEW_DAY_CLASS;
             } else {
-                data['class'] = '';
+                data['class'] = 'abled';
             }
 
             if (dt.isSame(y, m, d)) {
@@ -555,25 +555,7 @@
                             ppm = Date.getPrevMonth(y, m, 2);
                         m = pm.m;
                         y = pm.y;
-                        $.ajax({
-                            type: "post",
-                            contentType: 'application/json',
-                            dataType: "json",
-                            url: dataUrl.util.getHotPred(y+"-"+m+"-"+"1"),
-                            success: function(returnData) {
-                                if(returnData.error.code == 0) {
-                                    if(returnData.data){
-                                        initCalendar(getInfo(returnData.data));
-                                    }
-                                } else {
-                                    console.log('没有热点预告');
-                                }
-                            },
-                            error: function() {
-                                console.log('获取热点预告失败');
-                            }
-                        });
-                        var$prevItem = _this.getDaysHtml(ppm.y, ppm.m);
+                        var $prevItem = _this.getDaysHtml(ppm.y, ppm.m);
 
                         
 
@@ -712,8 +694,8 @@
 
                 var d = _this.updateDateView(y, m, type, function() {
                     vc('date', d.y, d.m);
+                    getHotPred(d.y+"-"+d.m+"-"+"1");
                 });
-
             }).on('click', ARROW_MONTH, function() {
 
                 var y = Number(_this.$disMonth.html()),

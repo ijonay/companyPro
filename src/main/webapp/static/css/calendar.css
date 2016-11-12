@@ -109,7 +109,6 @@
     width:28px;
     height:28px;
     margin-left:1.5px;
-    border-radius:50%;
     line-height:28px;
     font-size:16px;
 }
@@ -144,7 +143,7 @@
     line-height: 40px;
 }
 .calendar .days li {
-    margin-bottom:14px;
+    position:relative;
 }
 .calendar .month-items li {
     width: 70px;
@@ -152,11 +151,10 @@
     line-height: 70px;
 }
 .calendar .calendar-views .now {
-    background: #e8ebed!important;  
+    background: #c5c5c5!important;  
 }
 .calendar .calendar-views .selected {
-    color: #fff!important;
-    background: #01c9d6!important; 
+    color: #01c9d6!important;
 }
 .calendar .calendar-views .dot {
     position: absolute;
@@ -208,4 +206,23 @@
 }
 .calendar .calendar-views .markDate a{
     color:#01c9d6;
+}
+
+/*划线*/
+.calendar .days li div {
+    position:absolute;
+    height:1px;
+    border-bottom:1px solid #444;
+} 
+.calendar .days li div.active {
+    border-bottom:1px solid #01c9d6;
+} 
+.calendar .days li .line1{
+	top:31px;
+}
+.calendar .days li .line2{
+    top:34px;
+}
+.calendar .days li .line3{
+    top:37px;
 }

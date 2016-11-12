@@ -1219,6 +1219,11 @@ $(document).delegate(".edit-word","click",function(){
     }else{
         $(".alertCon").find(".baidu-link").css("display","none");
     }
+    if(hotInfo.logoImgUrl){
+        $(".alertCon").find(".portrait").css("background-image","url("+hotInfo.logoImgUrl+")");
+    }else{
+        $(".alertCon").find(".portrait").css("background-image","");
+    }
     var topicType=hotInfo.topicType;
     if(topicType){
         var typeArr=$.trim(topicType).split(" ");
