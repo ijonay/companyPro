@@ -9,9 +9,11 @@ import java.util.List;
  */
 public interface SearchItemService {
 
-    UserFavoriteSearchItem add(UserFavoriteSearchItem item);
+    boolean add(UserFavoriteSearchItem item);
 
     List<UserFavoriteSearchItem> getUserFavoriteSearchItems(Integer userId);
 
     boolean cancelSearchItem(Integer id);
+
+    List<UserFavoriteSearchItem> getAllUserFavoriteSearchItems();
 }

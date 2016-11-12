@@ -101,4 +101,48 @@
                     class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
         </property>
     </bean>
+
+    <!--quartz job-->
+    <!-- For times when you need more complex processing, passing data to the scheduled job -->
+    <bean name="userRecommandedTopicsJob" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="Durability" value="true"/>
+        <property name="jobClass" value="com.zc.jobs.UserRecommandedTopicsJob" />
+    <!-- <property name="jobDataMap">
+            <map>
+                <entry key="anotherBean" value-ref="anotherBean" />
+            </map>
+        </property>
+        <property name="durability" value="true" /> -->
+    </bean>
+
+    <bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userRecommandedTopicsJob" />
+        <property name="cronExpression" value="0 0 0/1,* * * ?" />
+    </bean>
+
+    <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="userRecommandedTopicsJob" />
+            </list>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger" />
+            </list>
+        </property>
+
+        <property name="schedulerContextAsMap">
+            <map>
+                <!-- spring 管理的service需要放到这里，才能够注入成功 -->
+                <description>schedulerContextAsMap</description>
+                <entry key="userRecommendedTopicsService" value-ref="userRecommendedTopicsService"/>
+            </map>
+        </property>
+        <!-- 通过applicationContextSchedulerContextKey属性配置spring上下文 -->
+        <property name="applicationContextSchedulerContextKey">
+            <value>applicationContext</value>
+        </property>
+    </bean>
 </beans>
