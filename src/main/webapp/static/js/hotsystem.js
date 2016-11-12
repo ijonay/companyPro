@@ -91,7 +91,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			return;
 		};
 		console.log(val);
-		var data = {searchWords:escape(val)};
+		var data = {searchWords:val};
 		$.ajax({
 			type:"post",
 			url:dataUrl.util.addCommon(),
@@ -101,9 +101,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(returnData.error.code == 0){
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
-						$('#favorite_ul').prepend('<li data-id="'+returnData.data.id+'" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					}else{
-						$('#favorite_ul').prepend('<li data-id="'+returnData.data.id+'" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
 					};
 				}
 			},
@@ -208,7 +208,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			};
 			if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 				$('#ser_hint').addClass('hidecommon');
-				var data = {keyword:escape(val)};
+				var data = {keyword:val};
 				$.ajax({
 					type:"post",
 					url:dataUrl.util.addSerHistory(),
@@ -1265,7 +1265,7 @@ function loadSvg(){
     }) 
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
-    
+  
     $(document).on('click','.all_hot_list_top_source',function(){
     	$('.all_hot_list_top_look').css('color','#4a4a4a');
     	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
@@ -1386,6 +1386,34 @@ function loadSvg(){
                 }
             ]
     };
+    var optionInterest  = {
+    	    title: {
+    	        text: '基础雷达图'
+    	    },
+    	    tooltip: {},
+    	    legend: {
+    	        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+    	    },
+    	    radar: {
+    	        // shape: 'circle',
+    	        indicator: [
+    	           { name: '销售（sales）', max: 6500},
+    	           { name: '管理（Administration）', max: 16000},
+    	           { name: '信息技术（Information Techology）', max: 30000},
+    	           { name: '客服（Customer Support）', max: 38000},
+    	           { name: '研发（Development）', max: 52000},
+    	           { name: '市场（Marketing）', max: 25000}
+    	        ]
+    	    },
+    	    series: [{
+    	        type: 'radar',
+    	        data : [
+    	            {
+    	                value : [4300, 10000, 28000, 35000, 50000, 19000],
+    	            }
+    	        ]
+    	    }]
+    	};
     $(document).on('click','.all_hot_list_top_look',function(){
     	$('.all_hot_list_bot').css('display','none');
     	$('.hot_img_arrow').css("transform","rotate(0deg)");
@@ -1393,6 +1421,8 @@ function loadSvg(){
     	if($(this).parent().next().next().is('.hidecommon')){
     		$('.all_hot_list_top_look').css('color','#4a4a4a');
     		$(this).css('color','#389b9f');
+    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('点击查看');
+    		$(this).find('em').text('点击收起');
     		$(this).parent().parent().parent().find(".hot_look_eye").css("background-image","url(img/hot_look_eye.png)");
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye_hover.png)');
     		$(this).parent().parent().parent().find(".hot_echart_list").addClass('hidecommon');
@@ -1404,6 +1434,7 @@ function loadSvg(){
         	$(this).parent().next().next().addClass('hidecommon');
         	$(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
     		$(this).css('color','#4a4a4a');
+    		$(this).find('em').text('点击查看');
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
     	};
     	var $this = $(this);
@@ -1417,11 +1448,12 @@ function loadSvg(){
     		success:function(data){
     			console.log(data);
     			var data = data.data;
-    			//受众年龄画像    			
+    			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				console.log(data.gender);
-    				var ageCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff'></div>");
+    				var ageCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(ageCon);
+    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
     				var ageCharts = echarts.init(ageCon.get(0));
     				var ageOption = $.extend(true,{},circleOption);
     				ageOption.title.text = "受众性别分布";
@@ -1434,16 +1466,38 @@ function loadSvg(){
 //    						currentIndex = index;
 //    					}    					
 //    				})
-    				ageOption.legend.data.push(data.gender[0].name+" "+item.value+"%");
+    				ageOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value+"%");
     				if(data.gender[0].value > data.gender[1].value){
     					
     				}else{
     					
     				}
-    				console.log(index);
     				ageOption.legend.data = [];
-    				console.log(ageOption);
+//    				console.log(ageOption);
     				ageCharts.setOption(option1);
+    				//兴趣雷达图
+    				var interestCharts = echarts.init(interestCon.get(0));
+    				var vals = [];
+    	        	var names = [];
+    	        	var interest =data.interest;
+    	        	$.each(interest,function(i,item){
+    	        		vals.push(item.value);
+    	        		names.push({name:item.name});
+    	        	});
+    	        	
+    	        	interestCharts.setOption({        //加载数据图表
+    	        		 title: {
+    	         	        text: '受众兴趣偏好'
+    	         	    },
+    	        		 radar: {
+    	        			 indicator: names
+    	                 },
+    	                 series: [{
+    	                     // 根据名字对应到相应的系列
+    	                	 type: 'radar',
+    	                     data: [{value:vals}]
+    	                 }]
+    	             });
     			}
     		},
     		error:function(){
@@ -1554,4 +1608,3 @@ function loadSvg(){
 //    	}
 //    	
 //    })
-    

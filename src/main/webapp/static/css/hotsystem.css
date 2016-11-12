@@ -662,6 +662,9 @@ body{
 .all_hot_list_top li:nth-child(6){
 	width:15%;text-align:center;
 }
+.all_hot_list_top li:nth-child(6) span{
+	padding:3px 8px;background:#399b9f;color:#fff;border-radius:14px;
+}
 .all_hot_list_top li:nth-child(5) .hot_look_arrow{
 	background:url(../img/hot_look_arrow.png) no-repeat center center;width: 20px;
     height: 10px;
@@ -768,7 +771,7 @@ body{
 .all_hot_list_bot li.li-first .type-img{
 	width:60px;
 	height:100%;
-	margin-right:22px;
+	margin-right:23px;
 }
 .all_hot_list_bot li.li-first .type-content{
 	margin-top:12px;
@@ -815,7 +818,7 @@ body{
 	background-position:center;
 	margin-right:8px;
 }
-.all_hot_list_bot li .type-title{margin-right:24px;}
+.all_hot_list_bot li .type-title{margin-right:27px;}
 .all_hot_list_bot li .weixin-color{color:#389b9f;}
 .all_hot_list_bot li .weibo-color{color:#ff8040;}
 .all_hot_list_bot li .baidu-color{color:#ed7561;}
