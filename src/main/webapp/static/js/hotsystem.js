@@ -1399,30 +1399,29 @@ function loadSvg(){
     				var interestCharts = echarts.init(interestCon.get(0));
     				var vals = [];
     	        	var names = [];
-    	        	//var interest =data.data.data.interest;
+    	        	var interest =data.data.interest;
     	        	console.log(data.data)
     	        	console.log(data.data.education)
     	        	console.log(data.data.interest)
-    	        	//console.log(interest)
-//    	        	$.each(interest,function(i,item){
-//    	        		console.log(item.value)
-//    	        		vals.push(item.value);
-//    	        		names.push({name:item.name});
-//    	        	});
+    	        	$.each(interest,function(i,item){
+    	        		console.log(item.value)
+    	        		vals.push(item.value);
+    	        		names.push({name:item.name});
+    	        	});
     	        	
-    	        	console.log(vals)
-    	        	console.log(names)
-    	        	interestCharts.setOption(optionInterest)
-//    	        	interestCharts.setOption({        //加载数据图表
-//    	        		 radar: {
-//    	        			 indicator: names
-//    	                 },
-//    	                 series: [{
-//    	                     // 根据名字对应到相应的系列
-//    	                	 type: 'radar',
-//    	                     data: [{value:vals}]
-//    	                 }]
-//    	             });
+    	        	interestCharts.setOption({        //加载数据图表
+    	        		 title: {
+    	         	        text: '受众兴趣偏好'
+    	         	    },
+    	        		 radar: {
+    	        			 indicator: names
+    	                 },
+    	                 series: [{
+    	                     // 根据名字对应到相应的系列
+    	                	 type: 'radar',
+    	                     data: [{value:vals}]
+    	                 }]
+    	             });
     				ageCharts.setOption(option1);
     			}
     		},
