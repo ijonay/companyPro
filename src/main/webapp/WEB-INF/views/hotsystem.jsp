@@ -356,6 +356,7 @@
 <script src="js/raphael.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
+<script src="lib/echarts.js"></script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
