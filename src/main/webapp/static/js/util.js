@@ -47,6 +47,9 @@ dataUrl.util = {
     getTenHot:function(){
     	return encodeURI('api/topic/hottopic/10');
     },
+    getPercentData:function(id){
+    	return 'api/topic/percentage/' + id;
+    }
 }
 
 var chartsAttr = chartsAttr || {};

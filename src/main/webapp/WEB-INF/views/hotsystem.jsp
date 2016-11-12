@@ -332,10 +332,10 @@
             <img class="hotIcon" src="img/hotIcon.png">
             <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
             <div class="iconCon">
-	            <img class="infoIcon" id="iconweibo" src="img/weibo.png" alt="微博">
-	            <img class="infoIcon" id="iconwechat" src="img/wechat.png" alt="微信">
-	            <img class="infoIcon" id="iconzhihu" src="img/zhihu.png" alt="知乎">
-	            <img class="infoIcon" id="iconbaidu" src="img/baidu.png" alt="百度">
+	            <img class="infoIcon" id="iconweibo" src="img/hot_weibo.png" alt="微博">
+	            <img class="infoIcon" id="iconwechat" src="img/hot_weixin.png" alt="微信">
+	            <img class="infoIcon" id="iconzhihu" src="img/hot_zhihu.png" alt="知乎">
+	            <img class="infoIcon" id="iconbaidu" src="img/hot_baidu.png" alt="百度">
             </div>
         </div>
     </div>
@@ -357,6 +357,7 @@
 <script src="js/raphael.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
+<script src="lib/echarts.js"></script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>

@@ -565,6 +565,8 @@ body{
 .infoIcon{
     float:left;
     bottom:0;
+    position:relative;
+    bottom:-2px;
     margin: 0 0 0 4px;
     padding: 0;
     vertical-align:bottom;

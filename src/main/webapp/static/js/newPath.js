@@ -316,9 +316,14 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
           line.click(function(e){
         	e?e.stopPropagation():event.cancelBubble = true;
         	var lineNum = this.data("lineNum");
+        	var str = '<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>';
         	$.each(lines[lineNum],function(index,item){
-        		console.log(item.data("endText"))
+        		console.log(item.data("endText"));
+        		str += '<li class="fl mr5 choice-keyword"><span></span>关键词</li>';
+        		str += '<li class="fl libordercenter mr5"></li>';
         	})
+        	str += '<li class="fr computer-ok pointer">保存路径</li>';
+        	$(".bottom-choice").html(str);
 //        	console.log(lineNum);
 //            getAlert(e.pageX,e.pageY);
             $(".bottom-choice").show();
