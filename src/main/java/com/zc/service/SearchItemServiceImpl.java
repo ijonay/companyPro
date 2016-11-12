@@ -17,13 +17,8 @@ public class SearchItemServiceImpl implements SearchItemService {
     private UserFavoriteSearchItemDao userFavoriteSearchItemDao;
 
     @Override
-    public UserFavoriteSearchItem add(UserFavoriteSearchItem item){
-        try{
-            userFavoriteSearchItemDao.add(item);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return item;
+    public boolean add(UserFavoriteSearchItem item){
+            return userFavoriteSearchItemDao.add(item) > 0;
     }
 
     @Override
@@ -33,16 +28,11 @@ public class SearchItemServiceImpl implements SearchItemService {
 
     @Override
     public boolean cancelSearchItem(Integer id){
-        boolean result = true;
-        try{
-            int flag = userFavoriteSearchItemDao.cancelSearchItem(id);
-            if( flag == 0){
-                result = false;
-            }
-        }catch (Exception e){
-            result = false;
-            e.printStackTrace();
-        }
-        return result;
+             return  userFavoriteSearchItemDao.cancelSearchItem(id) > 0;
+    }
+
+    @Override
+    public List<UserFavoriteSearchItem> getAllUserFavoriteSearchItems(){
+            return userFavoriteSearchItemDao.getAllUserFavoriteSearchItems();
     }
 }

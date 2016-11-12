@@ -63,6 +63,8 @@
     <resultMap id="ViewResultMap" type="com.zc.model.UserSearchLogModel">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
+        <result column="topic_id" jdbcType="VARCHAR" property="topicId"/>
+
     </resultMap>
 
 </mapper>

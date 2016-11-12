@@ -2,15 +2,19 @@ package com.zc.api;
 
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.path.NodeRelations;
-import com.zc.utility.ListHelper;
-import com.zc.utility.response.ApiResultModel;
 import com.zc.model.path.PathModel;
 import com.zc.service.PathService;
+import com.zc.utility.EffectLog;
+import com.zc.utility.ListHelper;
 import com.zc.utility.ValidateHelper;
+import com.zc.utility.response.ApiResultModel;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,7 +37,14 @@ public class PathApi extends BaseApi {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
 
+        EffectLog log = new EffectLog("pathApi");
+
         List<PathModel> paths = pathService.getPaths(topicId, pathParamWrapper.query);
+
+        log.add("1");
+
+        log.writeToConsole();
+
         ApiResultModel resultModel = new ApiResultModel();
         if (ListHelper.isEmpty()) {
             resultModel.setStatusCode(StatusCodeEnum.NOCONTENT);
@@ -52,7 +63,8 @@ public class PathApi extends BaseApi {
         if (bindingResult.hasErrors()) {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
-        NodeRelations relations = pathService.getRelations(nodeRelationParamWrapper.startNode, nodeRelationParamWrapper.endNode);
+        NodeRelations relations = pathService.getRelations(nodeRelationParamWrapper.startNode,
+                nodeRelationParamWrapper.endNode);
 
         ApiResultModel resultModel = new ApiResultModel(relations, StatusCodeEnum.SUCCESS);
 

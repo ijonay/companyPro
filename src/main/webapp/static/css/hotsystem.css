@@ -510,7 +510,7 @@ body{
 }
 .hotInfo{
     position: absolute;
-    top:30px;
+    top:44px;
     font-size: 12px;;
     display: inline-block;
     width: 100%;
@@ -532,7 +532,7 @@ body{
 }
 .infoBottom{
     position: absolute;
-    bottom:0px;
+    bottom:-1px;
     display: inline-block;    
     width:248px;
     height:24px;
@@ -844,7 +844,21 @@ body{
   border-left: 3px solid #389b9f;
   -webkit-transform-origin: 0 100%;
 }
-
+.hotAlertTag{
+	position:absolute;
+	top:22px;
+	height:20px;
+}
+.hotAlertTag div{
+	display:inline-block;
+	margin-right:6px;
+	line-height:20px;
+	padding:0 5px;
+	background:#ccc;
+	height:20px;
+	font-size:12px;
+	color:#4a4a4a;
+}
 #ser_btn_high::after {
   border-top: 3px solid #389b9f;
   border-right: 3px solid #389b9f;
