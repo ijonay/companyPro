@@ -154,7 +154,7 @@
     background: #c5c5c5!important;  
 }
 .calendar .calendar-views .selected {
-    color: #01c9d6!important;
+    color: #2ad5d8!important;
 }
 .calendar .calendar-views .dot {
     position: absolute;
@@ -212,10 +212,10 @@
 .calendar .days li div {
     position:absolute;
     height:1px;
-    border-bottom:1px solid #444;
+    border-bottom:1px solid #ccc;
 } 
 .calendar .days li div.active {
-    border-bottom:1px solid #01c9d6;
+    border-bottom:1px solid #2ad5d8;
 } 
 .calendar .days li .line1{
 	top:31px;

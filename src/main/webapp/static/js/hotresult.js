@@ -1267,11 +1267,11 @@ $(document).delegate(".edit-word","click",function(){
     }else{
         $(".alertCon").find(".portrait").css("background-image","");
     }
-    var topicType=hotInfo.topicType;
-    if(topicType){
-        var typeArr=$.trim(topicType).split(" ");
+    var eventClass=hotInfo.eventClass;
+    if(eventClass){
+        var typeArr=$.trim(eventClass).split(",");
         $.each(typeArr,function(idx,val){
-            if(idx>1) return false;
+            if(idx>2) return false;
             $(".alertCon").find(".hotLabel"+idx).text(val);
         });
     }else{
