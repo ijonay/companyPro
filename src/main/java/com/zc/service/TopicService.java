@@ -35,6 +35,8 @@ public interface TopicService {
 
     List<Topic> getHotTopic(Integer count);
 
+    List<Topic> getRandomHotTopic(Integer allCount, Integer count);
+
     HashMap<Integer, float[]> getAllCoordinates();
 
     /**

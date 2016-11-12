@@ -296,9 +296,25 @@
     <select id="getHotTopic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from View_HotTopic
+        from topic
+        ORDER BY
+        prevailing_trend DESC
         limit #{count,jdbcType=INTEGER}
     </select>
+    <select id="getRandomHotTopic" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from (
+        select
+        <include refid="Base_Column_List"/>
+        from topic
+        ORDER BY
+        prevailing_trend DESC
+        limit #{allCount,jdbcType=INTEGER}
+        )a ORDER BY
+        RAND() LIMIT #{count,jdbcType=INTEGER}
+    </select>
+
     <select id="getItemCount" resultType="java.lang.Integer">
         select count(1) from
        topic

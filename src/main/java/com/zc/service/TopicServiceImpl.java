@@ -250,6 +250,11 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public List<Topic> getRandomHotTopic(Integer allCount, Integer count) {
+        return dao.getRandomHotTopic(allCount, count);
+    }
+
+    @Override
     public HashMap<Integer, float[]> getAllCoordinates() {
 
         long time1 = System.currentTimeMillis();
