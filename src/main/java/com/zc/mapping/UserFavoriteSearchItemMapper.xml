@@ -51,4 +51,13 @@
         order by create_date DESC
     </select>
 
+    <select id="getAllUserFavoriteSearchItems" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM UserFavoriteSearchItem
+        where is_active = '1'
+        order by create_date DESC
+    </select>
+
+
 </mapper>
