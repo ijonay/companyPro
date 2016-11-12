@@ -1,11 +1,13 @@
+@CHARSET "UTF-8";
 /*头部header*******************************************************************************************/
+body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 .header{height:60px;padding:0 48px;color:#fff;position:relative;}
 .header .header-logo{width:283px;height:100%;background:url(../img/head-logo.png) no-repeat left center;}
-.header .header-right{height:100%;font-size:12px;font-family:"黑体";}
+.header .header-right{height:100%;font-size:12px;font-family:"微软雅黑";}
 .header .header-right li{float:left;height:100%;cursor:pointer;}
 .header .header-right li a{width:36px;height:36px;display:inline-block;margin-top:12px;border-radius:50%;}
 .header .header-right li.nav_ser{width:240px;padding-top:12px;margin-right:30px;position:relative;}
-.header .header-right li.nav_ser input{border:0;width:240px;height:36px;padding:0 40px 0 10px;color:#000;opacity:0.8;}
+.header .header-right li.nav_ser input{border:0;width:240px;height:36px;padding:0 40px 0 10px;color:#000;opacity:0.8;font-family: "微软雅黑";}
 .header .header-right li.nav_ser .head-search{width:20px;height:20px;position:absolute;top:20px;right:10px;background:url(../img/head-search.png) no-repeat;}
 .header .header-right li.head-usericon a{background:#fff;}
 .header .header-right li.head-userinfo{margin:0 12px;}
