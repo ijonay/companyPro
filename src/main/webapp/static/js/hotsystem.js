@@ -1386,34 +1386,8 @@ function loadSvg(){
                 }
             ]
     };
-    var optionInterest  = {
-    	    title: {
-    	        text: '基础雷达图'
-    	    },
-    	    tooltip: {},
-    	    legend: {
-    	        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-    	    },
-    	    radar: {
-    	        // shape: 'circle',
-    	        indicator: [
-    	           { name: '销售（sales）', max: 6500},
-    	           { name: '管理（Administration）', max: 16000},
-    	           { name: '信息技术（Information Techology）', max: 30000},
-    	           { name: '客服（Customer Support）', max: 38000},
-    	           { name: '研发（Development）', max: 52000},
-    	           { name: '市场（Marketing）', max: 25000}
-    	        ]
-    	    },
-    	    series: [{
-    	        type: 'radar',
-    	        data : [
-    	            {
-    	                value : [4300, 10000, 28000, 35000, 50000, 19000],
-    	            }
-    	        ]
-    	    }]
-    	};
+  
+ 
     $(document).on('click','.all_hot_list_top_look',function(){
     	$('.all_hot_list_bot').css('display','none');
     	$('.hot_img_arrow').css("transform","rotate(0deg)");
@@ -1477,27 +1451,108 @@ function loadSvg(){
     				ageCharts.setOption(option1);
     				//兴趣雷达图
     				var interestCharts = echarts.init(interestCon.get(0));
-    				var vals = [];
-    	        	var names = [];
+    				var interestvals = [];
+    	        	var interestnames = [];
     	        	var interest =data.interest;
     	        	$.each(interest,function(i,item){
-    	        		vals.push(item.value);
-    	        		names.push({name:item.name});
+    	        		interestvals.push(item.value);
+    	        		interestnames.push({name:item.name});
     	        	});
     	        	
-    	        	interestCharts.setOption({        //加载数据图表
-    	        		 title: {
-    	         	        text: '受众兴趣偏好'
-    	         	    },
-    	        		 radar: {
-    	        			 indicator: names
-    	                 },
-    	                 series: [{
-    	                     // 根据名字对应到相应的系列
-    	                	 type: 'radar',
-    	                     data: [{value:vals}]
-    	                 }]
-    	             });
+    	        	interestCharts.setOption({
+    	        		color:['#ccc'],
+    	        	    title: {
+    	        	        text: '受众兴趣偏好',
+    	        	        left:'center'
+    	        	    },
+    	        	    backgroundColor:"#fff",
+    	        	    tooltip: {},
+    	        	    
+    	        	    radar: {
+    	        	    	splitArea: {
+    	        	            areaStyle: {
+    	        	                color: ['#B8D3E4', '#96C5E3', '#7DB5DA', '#72ACD1']
+    	        	            }
+    	        	        },
+    	        	        // shape: 'circle',
+    	        	        indicator: interestnames,
+    	        	        splitLine: {
+        	                    lineStyle: {
+        	                        color: '#ccc'
+        	                    }
+        	                },
+    	        	    },
+    	        	    series: [{
+    	        	        type: 'radar',
+    	        	        data : [
+    	        	            {
+    	        	                value : interestvals,
+    	        	            }
+    	        	        ]
+    	        	    }]
+    	        	});
+    	        	//年龄柱状图
+    	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
+    	        	var ageNewCharts = echarts.init(ageNewCon.get(0));
+    	        	var ageNames = [];
+    	        	var ageVals = [];
+    	        	var age =data.age;
+    	        	$.each(age,function(i,item){
+    	        		ageVals.push(item.value);
+    	        		ageNames.push(item.name);
+    	        	});
+    	        	
+    	        	ageNewCharts.setOption({
+    	        			backgroundColor:"#fff",
+	    	        		title: {
+	     	        	        text: '受众年龄分布',
+	     	        	        left:'center'
+	     	        	    },
+    	            	    color: ['#3398DB'],
+    	            	    tooltip : {
+    	            	        trigger: 'axis',
+    	            	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    	            	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    	            	        }
+    	            	    },
+    	            	    grid: {
+    	            	        left: '3%',
+    	            	        right: '4%',
+    	            	        bottom: '3%',
+    	            	        containLabel: true
+    	            	    },
+    	            	    xAxis : [
+    	            	        {
+    	            	            type : 'category',
+    	            	            data :ageNames ,
+    	            	            axisTick: {
+    	            	                alignWithLabel: true
+    	            	            },
+    	            	            splitLine:false,
+    	            	            axisLine:{
+    	            	            	lineStyle:{color:'#ccc'}
+    	            	            }
+    	            	        }
+    	            	    ],
+    	            	    yAxis : [
+    	            	        {
+    	            	            type : 'value',
+    	            	            splitLine:false,
+    	            	            axisLine:{
+    	            	            	lineStyle:{color:'#ccc'}
+    	            	            }
+    	            	        }
+    	            	    ],
+    	            	    series : [
+    	            	        {
+    	            	            name:'年龄',
+    	            	            type:'bar',
+    	            	            barWidth: '60%',
+    	            	            data:ageVals
+    	            	        }
+    	            	    ]
+    	        	})
     			}
     		},
     		error:function(){
