@@ -1,6 +1,7 @@
 package com.zc.service;
 
 import com.zc.bean.TopicFilter;
+import com.zc.bean.TopicFilterClass;
 import com.zc.dao.TopicFilterMapper;
 import com.zc.model.topicsearch.SearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class TopicFilterServiceImpl implements TopicFilterService {
     public List<Integer> getTopicIds(SearchModel searchModel) {
         return topicFilterMapper.getTopicIds(searchModel);
     }
+
+    @Override
+    public List<TopicFilterClass> getByTopicIdAndType(Integer topicId, Integer type) {
+        return topicFilterMapper.getByTopicIdAndType(topicId, type);
+    }
+
 //    @Override
 //    public List<TopicFilter > getAll() { return topicFilterMapper.getAll();}
 //

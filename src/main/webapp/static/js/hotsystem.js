@@ -1,12 +1,39 @@
 //头部。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
-
+$('#nav-head-search').on('click',function(){
+	var val = $.trim($('#nav_ser').val());
+	if(val){
+		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+			window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+		}else{
+			return;
+		};
+	}	
+});
+$('#nav_ser').keyup(function(event) {//搜索框回车
+	var val = $.trim($('#nav_ser').val());
+    if(event.keyCode == "13") {
+    	if(val){
+	    	if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+	    		window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+	    	}else{
+	    		return;
+	    	}
+    	};	
+    };
+});
 
 
 //搜索。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 	//设置为常用
 	$('#ser_text').on('input',function(e){
 		e ? e.stopPropagation() : event.cancelBubble = true;	
-		$('#favorite_set_btn').removeClass('hidecommon');
+		var val = $.trim($('#ser_text').val());
+		if(val){
+			$('#favorite_set_btn').removeClass('hidecommon');
+		}else{
+			$('#favorite_set_btn').addClass('hidecommon');
+		}
+		
 		$('#cook_ul').addClass('hidecommon');
 	});
 	$(document).on('click',function(e){
@@ -70,18 +97,18 @@
 			url:dataUrl.util.addCommon(),
 			data:data,
 			success:function(returnData){
-				console.log(returnData);
+				console.log(returnData.data.id);
 				if(returnData.error.code == 0){
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
-						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data.id+'" title='+val+'>'+val+'<span></span></li>');
 					}else{
-						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
+						$('#favorite_ul').prepend('<li data-id="'+returnData.data.id+'" title='+val+'>'+val+'<span></span></li>');
 					};
 				}
 			},
 			error:function(){
-				console.log('获取常用失败');
+				console.log('添加常用失败');
 			}
 		});		
 	});
@@ -112,6 +139,7 @@
 	});
 	
 	//设置为历史记录
+	
 	$('#ser_text').focus(function(e){
 		alertCon.hide();
 		e ? e.stopPropagation() : event.cancelBubble = true;
@@ -132,17 +160,92 @@
 	$('#ser_text').blur(function(){
 		//$('#cook_ul').addClass('hidecommon');
 	});
+	//获取历史记录
+	getSetHistory()
+	function getSetHistory(){
+		$("#cook_ul").empty();
+		$.ajax({
+			type:"post",
+			contentType: 'application/json',
+		    dataType:"json",
+			url:dataUrl.util.getSerHistory(),
+			success:function(returnData){
+				console.log(returnData.data)
+				if(returnData.data != null && returnData.error.code == 0){
+					var str = "";
+					$.each(returnData.data,function(index,item){
+						str += "<li data-id='"+item.id+"'>"+unescape(item.keyword)+"<span></span></li>"
+					})
+					$("#cook_ul").html(str);
+				}
+			},
+			error:function(){
+				console.log('获取历史记录失败');
+			}
+		});
+	};
+	
+	$('#ser_text').keyup(function(event) {
+		var val = $.trim($('#ser_text').val());
+		if(event.keyCode == "13") {
+			var arrCon = [];
+			$('#cook_ul li').each(function(i,item){
+				arrCon.push($(item).text());
+				return arrCon;
+			});
+			Array.prototype.contains = function (obj) {  
+			    var i = this.length;  
+			    while (i--) {  
+			        if (this[i] === obj) {  
+			            return true;  
+			        }  
+			    }  
+			    return false;  
+			}  
+			if(arrCon.contains(val)==true ){
+				window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+				return;
+			};
+			if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+				$('#ser_hint').addClass('hidecommon');
+				var data = {keyword:escape(val)};
+				$.ajax({
+					type:"post",
+					url:dataUrl.util.addSerHistory(),
+					data:data,
+					success:function(returnData){
+						if(returnData.error.code == 0){
+							var len = $('#cook_ul li').length;
+							
+							
+							if(!val){
+								return;
+							}else{
+								if(len>=5){
+									$('#cook_ul li').eq(4).remove();
+									$('#cook_ul').prepend('<li data-id="'+returnData.data+'">'+val+'<span></span></li>');
+								}else{
+									$('#cook_ul').prepend('<li data-id="'+returnData.data+'">'+val+'<span></span></li>');
+								};
+								window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+							};
+						}
+					},
+					error:function(){
+						console.log('获取常用失败');
+					}
+				});	
+				
+			}else{
+				$('#ser_hint').removeClass('hidecommon');
+				return;
+			};
+			
+		}
+	});
 	
 	$('#ser_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
-		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
-			$('#ser_hint').addClass('hidecommon');
-			window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
-		}else{
-			$('#ser_hint').removeClass('hidecommon');
-			return;
-		};
-		var len = $('#cook_ul li').length;
 		var arrCon = [];
 		$('#cook_ul li').each(function(i,item){
 			arrCon.push($(item).text());
@@ -158,19 +261,44 @@
 		    return false;  
 		}  
 		if(arrCon.contains(val)==true ){
+			window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+			return;
+		};
+		if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+			$('#ser_hint').addClass('hidecommon');
+			var data = {keyword:escape(val)};
+			$.ajax({
+				type:"post",
+				url:dataUrl.util.addSerHistory(),
+				data:data,
+				success:function(returnData){
+					if(returnData.error.code == 0){
+						var len = $('#cook_ul li').length;
+						
+						
+						if(!val){
+							return;
+						}else{
+							if(len>=5){
+								$('#cook_ul li').eq(4).remove();
+								$('#cook_ul').prepend('<li data-id="'+returnData.data+'">'+val+'<span></span></li>');
+							}else{
+								$('#cook_ul').prepend('<li data-id="'+returnData.data+'">'+val+'<span></span></li>');
+							};
+							window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+						};
+					}
+				},
+				error:function(){
+					console.log('获取常用失败');
+				}
+			});	
+			
+		}else{
+			$('#ser_hint').removeClass('hidecommon');
 			return;
 		};
 		
-		if(!val){
-			return;
-		}else{
-			if(len>=5){
-				$('#cook_ul li').eq(4).remove();
-				$('#cook_ul').prepend('<li>'+val+'<span></span></li>');
-			}else{
-				$('#cook_ul').prepend('<li>'+val+'<span></span></li>');
-			};
-		};
 		
 	});
 
@@ -186,8 +314,26 @@
 	});
 	
 	$('#cook_ul').delegate('li span','click',function(e){
-		e ? e.stopPropagation() : event.cancelBubble = true;
-		$(this).parent().remove();
+		var $this = $(this);
+		var id = $(this).parent().data("id");
+		console.log(id)
+		e ? e.stopPropagation() : event.cancelBubble = true;	
+		var data = {"id":id};
+		$.ajax({
+			type:"post",
+			url:dataUrl.util.cancleSerHistory(),
+			data:data,
+			success:function(returnData){
+				console.log(returnData);
+				if(returnData.error.code == 0){
+					$this.parent().remove();
+				}
+			},
+			error:function(){
+				console.log('获取常用失败');
+			}
+		});	
+		
 	});
 	
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
@@ -286,9 +432,84 @@
 	};
 	
 	//高级探索弹窗搜索
+	$('#dialog_ser_text').keyup(function(event){
+		if(event.keyCode == "13") {
+			var val = $.trim($('#dialog_ser_text').val());
+				if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+					var dataObj = {
+							Even:[],
+							Area:[],
+							Age:[],
+							Education:[],
+							Gender:[],
+							UserClass:[]
+					};
+					if($('#inp_data_event').is('.hidecommon')){
+					}else{
+						var list = $('#inp_data_event').find('i');
+						$(list).each(function(i,item){
+							var dataId = $(this).attr('data-id');
+							var dataText = $(this).text();
+							dataObj.Even.push({id:dataId,name:dataText})
+						});
+					};
+					if($('.person_sec').is('.hidecommon')){
+					}else{
+						var list = $('.person_sec').find('i');
+						$(list).each(function(i,item){
+							var dataId = $(this).attr('data-id');
+							var dataText = $(this).text();
+							dataObj.Gender.push({id:dataId,name:dataText})
+						});
+					};
+					
+					if($('.person_area').is('.hidecommon')){
+					}else{
+						var list = $('.person_area').find('i');
+						$(list).each(function(i,item){
+							var dataId = $(this).attr('data-id');
+							var dataText = $(this).text();
+							dataObj.Area.push({id:dataId,name:dataText})
+						});
+					};
+					if($('.person_education').is('.hidecommon')){
+					}else{
+						var list = $('.person_education').find('i');
+						$(list).each(function(i,item){
+							var dataId = $(this).attr('data-id');
+							var dataText = $(this).text();
+							dataObj.Education.push({id:dataId,name:dataText})
+						});
+					};
+					if($('.person_interest').is('.hidecommon')){
+					}else{
+						var list = $('.person_interest').find('i');
+						$(list).each(function(i,item){
+							var dataId = $(this).attr('data-id');
+							var dataText = $(this).text();
+							dataObj.UserClass.push({id:dataId,name:dataText})
+						});
+					};
+					var ageVal1 = $('#hot_age1').val(),
+						ageVal2 = $('#hot_age2').val();
+					if(ageVal1){
+						dataObj.Age.push(ageVal1)
+					}
+					if(ageVal2){
+						dataObj.Age.push(ageVal2)
+					}
+					console.log(dataObj)
+					var hash = JSON.stringify(dataObj);
+					window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
+				}else{
+					return;
+				};
+		};	
+	});
+	
 	$('#dialog_ser_to').on('click',function(){
 		var val = $.trim($('#dialog_ser_text').val());
-			if(val){
+			if(val&&val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 				var dataObj = {
 						Even:[],
 						Area:[],
@@ -926,13 +1147,14 @@ function loadSvg(){
             alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
-            if(imageArray[index].indexOf("javascript") > 0){
-            	var url = imageArray[index];
-            }else{
-            	var url = "url("+imageArray[index]+")"
-            }
-            $(".portrait").css("background-image",url);
+            var divH = $(".hotInfo").height();
+            var $p = $(".infoConnect");
+            while ($p.outerHeight() > divH) {
+                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+            };
+            $(".portrait").css("background-image","url("+imageArray[index]+")");
             $(".infoText").html(introArray[index]);
+            $(".infoText").attr("title",introArray[index]);
             $(".infoConnect").attr("data-id",hotIdArray[index]);
             $(".infoConnect").attr("data-index",index);
             $(".infoIcon").hide();
@@ -943,12 +1165,14 @@ function loadSvg(){
     	}    	
     }
     $(document).on("click",".hot_relation,.infoConnect",function(){
-        // var topicId = $(this).find("span").data("id");
-        // var topic = $(this).prev().text();
-        // topic = topic.split("#");
-        // topic = topic[1]
     	var index = $(this).attr("data-index");
-    	var topic = titleArray[index];
+    	if(index < 10){
+    		var topic = titleArray[index];
+    		var hotTopId = hotIdArray[index];
+    	}else{
+    		var topic = $(this).data("topic");
+    		var hotTopId = $(this).data("id");
+    	}
     	topic = topic.replace(/#/g,"");
     	if($(".selectTag")){
     		$(".selectTag").attr("title",topic);
@@ -974,14 +1198,18 @@ function loadSvg(){
                     if(query.trim() == ""){                    
                     }else{
 //                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
-                    	  window.location.href="newPath#query="+query+"&topicId="+hotIdArray[index]+"&hotTopic="+topic;
+                    	  window.location.href="newPath#query="+query+"&topicId="+hotTopId+"&hotTopic="+topic;
                     }               
                 }
             }]
         })
     })
-    $(document).on("click",function(){
+    $(document).on("click",function(e){
+    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
     	alertCon.hide();
+    })
+    $(".infoBottom").on("click",function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
@@ -1001,6 +1229,8 @@ function loadSvg(){
 	   $('#ser_section').css("height",0);
 	   $('.notify-list').addClass('hidecommon');
 	   $('.nav_ser').delay("fast").fadeIn();
+	   $(".all_hot_list_bot").hide();
+	   $(".all_hot_list_bot:eq(0)").show();
    }); 
    //返回首页
     $('#comeback_hot').on('click',function(){
@@ -1025,7 +1255,7 @@ function loadSvg(){
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
     $('.all_hot_list_top:first').find('.hot_arrow').css('transform','rotate(180deg)');
-    $('.all_hot_list_top').on('click',function(){
+    $(document).on('click','.all_hot_list_top',function(){
     	if($(this).next().css('display') == 'block'){
     		$(this).next().hide();
     		$(this).find(".hot_arrow").css("transform","rotate(0deg)")
@@ -1045,23 +1275,31 @@ function loadSvg(){
     var scoreArray=[];
     var introArray=[];
     var formArray=[];
-    var hotList = hotList || {};
-    hotList.templates = {
-    		registerTmpl : function(tmplId, scriptTagId) {
-    			chartsAttr.templates[tmplId] = $
-    					.templates(templates.design[scriptTagId]);
-    		}
-    	};
-    hotList.templates.registerTmpl("allHotList", "tmplAllHotList");
+//获取渲染全部热点
     var hotList2 = $.templates(templates.design["tmplAllHotList"]);
-    function getTenHot(){
+    function getAllHot(){
     	$.ajax({
             type: "get",
             contentType: 'application/json',
             dataType: "json",
             url: dataUrl.util.getHotTopic(50),
             success: function(returnData) {
-            	console.log(returnData.data)
+            	if(returnData.error.code != 0) return;
+            	$(".all_hot_list").html(hotList2.render(returnData));
+            },
+            error: function() {
+                console.log('获取热点失败');
+            }
+        });
+    }
+    getTenHot();
+    function getTenHot(){
+    	$.ajax({
+            type: "get",
+            contentType: 'application/json',
+            dataType: "json",
+            url: dataUrl.util.getTenHot(),
+            success: function(returnData) {
             	if(returnData.error.code != 0) return;
             	$.each(returnData.data,function(index,item){
             		if(index < 10){
@@ -1088,23 +1326,36 @@ function loadSvg(){
                 		tempArray.push("weibo");
                 		formArray.push(tempArray);
             		}
-            		
             	});
             	loadSvg();
-//            	console.log($.render.allHotList(returnData.data));
-            	console.log(hotList2.render(returnData.data));
-            	console.log(hotList.templates.allHotList.render(returnData.data));
-            	$(".all_hot_list").html(hotList.templates.allHotList.render(returnData.data));
+        		getAllHot();
             },
             error: function() {
                 console.log('获取热点失败');
             }
         });
     }
-    
-    getTenHot()
-    
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')
     }
+    $(".hotInfo").on("click",function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+//    	var index = $(".infoConnect").attr("data-index");
+    	var index = $(".infoConnect").attr("data-id");
+    	$("#allHot").click();
+    	$(".all_hot_list_bot").hide();
+    	$("#ulBottom"+index).show();
+    	setTimeout(function(){
+    		console.log(index)
+    		var a = $("#ulBottom"+index).offset().top;
+    		a -= 300;
+    		$("html,body").animate({scrollTop:a},"slow");
+    	},150)
+    })
+//    $(".alertCon").on("click",function(e){    	
+//    	if($(e.target).hasClass("infoConnect")){
+//    		e ? e.stopPropagation() : event.cancelBubble = true;
+//    	}
+//    	
+//    })
     

@@ -35,6 +35,8 @@ public interface TopicService {
 
     List<Topic> getHotTopic(Integer count);
 
+    List<Topic> getRandomHotTopic(Integer allCount, Integer count);
+
     HashMap<Integer, float[]> getAllCoordinates();
 
     /**
@@ -61,5 +63,9 @@ public interface TopicService {
      * 更新redis中的Topic向量数据
      */
     void cache_UpdateTopicVerctors();
+
+
+    Object getTopicPercentage(Integer topicId);
+
 
 }

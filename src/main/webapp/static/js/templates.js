@@ -22,55 +22,65 @@ templates.design = {};
     tmpl.push('{{for data}}');
     tmpl.push('<li data-id="{{:id}}">');
     tmpl.push('    <ul class="all_hot_list_top">');
-    tmpl.push('       <li><span  class="hot_circle_num">{{:#index}}</span></li>');
-    tmpl.push('       <li class="all_hot_top_topic"><p>{{:title}}</p><div>{{:topicType}}</div></li>');
-    tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}</li>');
-    tmpl.push('       <li>{{:prevailingTrend}}<li>');
-    tmpl.push('       <li data-id={{:id}} data-topic={{:title}} class="hot_relation">关联此热点</li>');
+    tmpl.push('       <li><span  class="hot_circle_num">{{:#index+1}}</span></li>');
+    tmpl.push('       <li class="all_hot_top_topic"><p>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
+    tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}</li>');
+    tmpl.push('       <li>{{:prevailingTrend}}</li>');
+    tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation">关联此热点</li>');
     tmpl.push('       <li class="hot_arrow"></li>');
     tmpl.push('     </ul>');
-    tmpl.push('    <ul class="all_hot_list_bot">');
+    tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot">');
     tmpl.push('       <li class="li-first">');
-    tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}logoImgUrl{{/if}})"></div></div>');
+    tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{/if}})"></div></div>');
     tmpl.push('           <div class="type-content fl">');
-    tmpl.push('               <div style="line-height:18px;"><span class="content-article">{{:title}}</span><span class="content-sum">阅读量：<b>{{:readNum}}</b></span></div>');
+    tmpl.push('               <div style="line-height:18px;"><span class="content-article">热点概述</span></div>');
     tmpl.push('               <div class="content-desc">{{:introduction}}</div>')
     tmpl.push('           </div>')
     tmpl.push('       </li>');
     tmpl.push('       <li>');
-    tmpl.push('           <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>');
+    tmpl.push('           <div class="type-icon gray fl" style="background-image:url(img/hot_weibo.png)"></div>');
     tmpl.push('           <span class="type-title weibo-color fl">微博</span>');
-    tmpl.push('           <span class="type-article fl">推荐文章：<a href={{:topicUrl}}>{{:title}}</a></span>');
-    tmpl.push('           <span class="type-num fl">前10篇文章平均阅读量：<b>{{:readNum}}</b></span>');
+    tmpl.push('           <span class="type-article fl">微博话题：<a target="_blank" href={{:topicUrl}}>{{:title}}</a></span>');
+    tmpl.push('           <span class="type-num fl">阅读量：<b>{{:readNum}}</b></span>');
     tmpl.push('       </li>');
     tmpl.push('   {{if wechatAvgReadNum}}');
     tmpl.push('       <li>');
-    tmpl.push('           <div class="type-icon fl"></div>');
+    tmpl.push('           <div class="type-icon gray fl"></div>');
     tmpl.push('            <span class="type-title weixin-color fl">微信</span>');
-    tmpl.push('           <span class="type-article fl">推荐文章：<a href={{:wechatUrl}}>{{:wechatTitle}}</a></span>');
+    tmpl.push('           <span class="type-article fl">推荐文章：<a target="_blank" href={{:wechatUrl}}>{{:wechatTitle}}</a></span>');
     tmpl.push('           <span class="type-num fl">前10篇文章平均阅读量：<b>{{:wechatAvgReadNum}}</b></span>');
-    tmpl.push('       </li>');
-    tmpl.push('   {{/if}}');
-    tmpl.push('   {{if zhihuAvgAnswerNumber}}');
-    tmpl.push('       <li>');
-    tmpl.push('           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>');
-    tmpl.push('           <span class="type-title zhihu-color fl">知乎</span>');
-    tmpl.push('           <span class="type-article fl">推荐文章：<a href={{:zhihuUrl}}>{:zhihuTitle}</a></span>');
-    tmpl.push('           <span class="type-num fl">前10篇文章平均阅读量：<b>{{:zhihuAvgAnswerNumber}}</b></span>');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
     tmpl.push('   {{if baiduHitNum}}');
     tmpl.push('       <li>');
-    tmpl.push('           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>');
+    tmpl.push('           <div class="type-icon gray fl" style="background-image:url(img/hot_baidu.png)"></div>');
     tmpl.push('           <span class="type-title baidu-color fl">百度</span>');
-    tmpl.push('           <span class="type-article fl">推荐文章：<a href={{:baiduUrl}}>{{:baiduTitle}}</a></span>');
-    tmpl.push('           <span class="type-num fl">前10篇文章平均阅读量：<b>{{:baiduHitNum}}</b></span>');
+    tmpl.push('           <span class="type-article fl">搜索结果：<a target="_blank" href={{:baiduUrl}}>{{:baiduTitle}}</a></span>');
+    tmpl.push('           <span class="type-num fl">搜索结果数：<b>{{:baiduHitNum}}</b></span>');
+    tmpl.push('       </li>');
+    tmpl.push('   {{/if}}');
+    tmpl.push('   {{if zhihuAvgAnswerNumber}}');
+    tmpl.push('       <li>');
+    tmpl.push('           <div class="type-icon gray fl" style="background-image:url(img/hot_zhihu.png)"></div>');
+    tmpl.push('           <span class="type-title zhihu-color fl">知乎</span>');
+    tmpl.push('           <span class="type-article fl">推荐回答：<a target="_blank" href={{:zhihuUrl}}>{{:zhihuTitle}}</a></span>');
+    tmpl.push('           <span class="type-num fl">前10个问题的平均回答：<b>{{:zhihuAvgAnswerNumber}}</b></span>');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
     tmpl.push('     </ul>');
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplAllHotList'] = tmpl.join('\r\n');
+    $.views.helpers({
+        "addTag": function(eventClass) {
+            var tagArray = eventClass.split(",");
+            var str = "";
+            $.each(tagArray,function(index,item){
+            	str += "<div>"+item+"</div>"
+            })
+            return str;
+        }
+    });
 })();
 
 //<ul class="all_hot_list_top">

@@ -25,7 +25,7 @@ public enum DimensionEnum {
     /**
      * 学历
      */
-    Eeducation(5),
+    Education(5),
     /**
      * 年龄
      */

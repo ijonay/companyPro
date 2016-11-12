@@ -33,7 +33,7 @@
    <div class="ser_dialog hidecommon" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
-   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签筛选</p>
+   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签(按照热点事件标签筛选)</p>
    			<ul class="dialog_tab eventDialogTab f14 corlor4a">
    				
    			</ul>
@@ -51,7 +51,7 @@
    				
    			</div>
    			
-   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">人群标签筛选</p>
+   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">受众特征(按照热点受众特征筛选)</p>
    			
    			
    			<ul class="dialog_tab userDialogTab f14 corlor4a">
@@ -92,10 +92,10 @@
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
-   			<ul class="hot_ifo_title f18">
+   			<!-- <ul class="hot_ifo_title f18">
    			    <li class="hot_ifo_title_img fl"></li>
    				<li class="fl">全部热点</li>
-   			</ul>
+   			</ul> -->
    			<ul class="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
@@ -357,5 +357,8 @@
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/pop.js"></script>
+<script id="allHotTmpl" type="text/x-jsrender">
+
+</script>
 </body>
 </html>

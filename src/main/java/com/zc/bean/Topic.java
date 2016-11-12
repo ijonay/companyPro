@@ -63,6 +63,10 @@ public class Topic {
      * topicType ,所属表字段为topic.topictype
      */
     private String topicType;
+    /**
+     * eventClass ,所属表字段为topic.event_class
+     */
+    private String eventClass;
 
     /**
      * introduction ,所属表字段为topic.introduction
@@ -323,6 +327,24 @@ public class Topic {
      */
     public String getTopicType() {
         return topicType;
+    }
+
+    /**
+     * 设置 表的  eventClass 字段值
+     *
+     * @param eventClass 将值赋予 topic.event_class
+     */
+    public void setEventClass(String eventClass) {
+        this.eventClass = eventClass;
+    }
+
+    /**
+     * 获取  表的  eventClass 字段
+     *
+     * @return topic.event_class
+     */
+    public String getEventClass() {
+        return eventClass;
     }
 
     /**
@@ -646,6 +668,8 @@ public class Topic {
         model.setWechatAvgReadNum(wechatAvgReadNum);
         model.setWechatTitle(wechatTitle);
         model.setWechatUrl(wechatUrl);
+
+        model.setEventClass(eventClass);
 
         return model;
     }

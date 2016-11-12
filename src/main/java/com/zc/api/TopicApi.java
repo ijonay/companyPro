@@ -43,12 +43,18 @@ public class TopicApi extends BaseApi {
     @RequestMapping(value = "hottopic/{count}", method = RequestMethod.GET)
     public ApiResultModel getHotTopic(@PathVariable("count") Integer count) {
 
-
         try {
 
             Objects.requireNonNull(count);
 
-            List<Topic> list = topicService.getHotTopic(count);
+            List<Topic> list = null;
+
+            if (count == 10) {
+                list = topicService.getRandomHotTopic(100, 10);
+
+            } else {
+                list = topicService.getHotTopic(count);
+            }
             List<TopicModel> result = new ArrayList<>();
 
             if (!Objects.isNull(list)) {
@@ -63,5 +69,18 @@ public class TopicApi extends BaseApi {
             return new ApiResultModel(StatusCodeEnum.SERVER_ERROR,
                     e.getMessage() + "_" + e.getStackTrace());
         }
+    }
+
+    @RequestMapping(value = "percentage/{topicId}", method = RequestMethod.GET)
+    public ApiResultModel getTopicPercentage(@PathVariable("topicId") Integer topicId) {
+
+        Objects.requireNonNull(topicId);
+
+        ApiResultModel result = new ApiResultModel();
+
+        result.data(topicService.getTopicPercentage(topicId));
+
+
+        return result;
     }
 }
