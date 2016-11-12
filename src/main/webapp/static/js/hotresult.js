@@ -66,7 +66,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
     var data={}
     if(labeInfo){
         data={
-            age:labeInfo.Age?_.pluck(labeInfo.Age, 'id'):[],
+            age:labeInfo.Age?labeInfo.Age:[],
             gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
             education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
             area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],

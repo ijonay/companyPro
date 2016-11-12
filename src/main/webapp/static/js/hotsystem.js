@@ -1332,6 +1332,34 @@ function loadSvg(){
                 }
             ]
     };
+    var optionInterest  = {
+    	    title: {
+    	        text: '基础雷达图'
+    	    },
+    	    tooltip: {},
+    	    legend: {
+    	        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+    	    },
+    	    radar: {
+    	        // shape: 'circle',
+    	        indicator: [
+    	           { name: '销售（sales）', max: 6500},
+    	           { name: '管理（Administration）', max: 16000},
+    	           { name: '信息技术（Information Techology）', max: 30000},
+    	           { name: '客服（Customer Support）', max: 38000},
+    	           { name: '研发（Development）', max: 52000},
+    	           { name: '市场（Marketing）', max: 25000}
+    	        ]
+    	    },
+    	    series: [{
+    	        type: 'radar',
+    	        data : [
+    	            {
+    	                value : [4300, 10000, 28000, 35000, 50000, 19000],
+    	            }
+    	        ]
+    	    }]
+    	};
     $(document).on('click','.all_hot_list_top_look',function(){
     	$('.all_hot_list_bot').css('display','none');
     	$('.hot_img_arrow').css("transform","rotate(0deg)");
@@ -1363,10 +1391,38 @@ function loadSvg(){
     			console.log(data);
     			//受众年龄画像
     			if(data.data && data.data.gender.length > 0){
-    				var ageCon = $("<div style='width:17%;height:279px;margin:5px 0;background:#fff'></div>");
+    				var ageCon = $("<div style='width:17%;height:279px;margin:5px 0;background:#fff;float:left;'></div>");
+    				var interestCon = $("<div style='width:17%;height:279px;margin:5px 0;background:#fff;float:left;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(ageCon);
+    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
     				var ageCharts = echarts.init(ageCon.get(0));
-//    				var
+    				var interestCharts = echarts.init(interestCon.get(0));
+    				var vals = [];
+    	        	var names = [];
+    	        	//var interest =data.data.data.interest;
+    	        	console.log(data.data)
+    	        	console.log(data.data.education)
+    	        	console.log(data.data.interest)
+    	        	//console.log(interest)
+//    	        	$.each(interest,function(i,item){
+//    	        		console.log(item.value)
+//    	        		vals.push(item.value);
+//    	        		names.push({name:item.name});
+//    	        	});
+    	        	
+    	        	console.log(vals)
+    	        	console.log(names)
+    	        	interestCharts.setOption(optionInterest)
+//    	        	interestCharts.setOption({        //加载数据图表
+//    	        		 radar: {
+//    	        			 indicator: names
+//    	                 },
+//    	                 series: [{
+//    	                     // 根据名字对应到相应的系列
+//    	                	 type: 'radar',
+//    	                     data: [{value:vals}]
+//    	                 }]
+//    	             });
     				ageCharts.setOption(option1);
     			}
     		},
