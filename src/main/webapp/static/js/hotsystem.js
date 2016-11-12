@@ -370,7 +370,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			type:"get",
 			contentType: 'application/json',
 		    dataType:"json",
-			url:'api/topicclass/getsearchitem',
+			url:dataUrl.util.getInpList(),
 			success:function(returnData){
 				console.log(returnData);
 				returnData = returnData.data;

@@ -5,7 +5,9 @@ var dataUrl = dataUrl || {}, localhostUrl = "http://localhost:8080/websvr/", loc
 
 baseUrl = "";
 dataUrl.util = {
-   
+	getInpList:function(){
+    	return encodeURI("api/topicclass/getsearchitem");
+    },
     getResultList: function (clueWord, pageSize, currentPage) {//获取话题列表
         return encodeURI("api/topic/getlist?clueWord=" + clueWord + "&pageSize=" + pageSize + "&currentPage=" + currentPage);
     },
