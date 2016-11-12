@@ -69,7 +69,7 @@ templates.design = {};
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
     tmpl.push('     </ul>');
-    tmpl.push('     <div class="hot_echart_list hidecommon">123');
+    tmpl.push('     <div class="hot_echart_list hidecommon">');
     tmpl.push('     </div>');
     tmpl.push('</li>');
     tmpl.push('{{/for}}');

@@ -64,34 +64,38 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
 
         for(int i=0;i<allUserFavoriteKeywordList.size();i++){
 
-            UserFavoriteSearchItem userFavoriteSearchItem = allUserFavoriteKeywordList.get(i);
-            String keyword = userFavoriteSearchItem.getWords();
-            Integer userId = userFavoriteSearchItem.getUserId();
+            try{
 
-            if( ! kwResultMap.keySet().contains(keyword)){// this keyword hasn't been searched
-                Page page = topicService.getListExt(keyword,null,1,20);
-                List<TopicModel> topicModels = (List<TopicModel>) page.getData();
-                if(topicModels.size() > 0){
-                    Set<Integer> topicIdSet = new HashSet<Integer>();
-                    topicModels.forEach(item -> topicIdSet.add(item.getId()));
-                    topicIdSet.retainAll(hotTopicIdSet);
-                    kwResultMap.put(keyword, topicIdSet);
+                UserFavoriteSearchItem userFavoriteSearchItem = allUserFavoriteKeywordList.get(i);
+                String keyword = userFavoriteSearchItem.getWords();
+                Integer userId = userFavoriteSearchItem.getUserId();
+
+                if( ! kwResultMap.keySet().contains(keyword) ){// this keyword hasn't been searched
+                    Page page = topicService.getListExt(keyword,null,1,20);
+                    List<TopicModel> topicModels = (List<TopicModel>) page.getData();
+                    if(topicModels.size() > 0){
+                        Set<Integer> topicIdSet = new HashSet<Integer>();
+                        topicModels.forEach(item -> topicIdSet.add(item.getId()));
+                        topicIdSet.retainAll(hotTopicIdSet);
+                        kwResultMap.put(keyword, topicIdSet);
+                    }
                 }
-            }else {// has been searched
+
                 Set<Integer> topicIdSet = kwResultMap.get(keyword);
-                if(topicIdSet != null && topicIdSet.size() > 0){
+                if(topicIdSet != null && topicIdSet.size() > 0){// has been searched
                     for(Integer topicId : topicIdSet){
                         //insert into db
                         UserRecommendedTopics recommentedTopics = new UserRecommendedTopics();
                         recommentedTopics.setUserId(userId);
                         recommentedTopics.setKeyword(keyword);
                         recommentedTopics.setTopicId(topicId);
-
                         userRecommentedTopicsMapper.add(recommentedTopics);
                     }
                 }
-            }
 
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
     }

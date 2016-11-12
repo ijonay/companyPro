@@ -110,6 +110,7 @@
         where is_active = 1
         and DATE_FORMAT( STR_TO_DATE( #{dateStr,jdbcType=VARCHAR},'%Y-%m-%d'), '%Y-%m') &gt;= DATE_FORMAT(start_date,'%Y-%m')
         AND  DATE_FORMAT(end_date,'%Y-%m') &gt;= DATE_FORMAT( STR_TO_DATE( #{dateStr,jdbcType=VARCHAR},'%Y-%m-%d'), '%Y-%m')
+        ORDER by start_date DESC
     </select>
 
     <resultMap id="ViewResultMap" type="com.zc.model.HotTopicPredictionModel">
