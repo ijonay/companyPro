@@ -82,15 +82,26 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
         data:JSON.stringify(data),
         success: function(returnData) {
             if(returnData.error.code == 0) {
-                $(".result-content").css("display","block");
-                $("#canvas .topic").remove();
-                $(".word").remove();
-                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
-                $(".hot-next").attr("data-pageCount",returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0);
-                result = _.sortBy(returnData.data.data, function(item) {
-                    return -item.score
-                });
-                drawWord(result);
+            	console.log(returnData.data.data)
+            	if(returnData.data.data.length == 0){
+            		if(labeInfo){
+                        $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词或筛选条件");
+                    }else{
+                        $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词重新探索");
+                    }
+            		 $(".result-content").css("display","none");
+                     $(".result-error").css("display","block");
+            	}else{
+	                $(".result-content").css("display","block");
+	                $("#canvas .topic").remove();
+	                $(".word").remove();
+	                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
+	                $(".hot-next").attr("data-pageCount",returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0);
+	                result = _.sortBy(returnData.data.data, function(item) {
+	                    return -item.score
+	                });
+	                drawWord(result);
+            	};   
             } else {
                 if(labeInfo){
                     $(".result-error").find(".content-title").text("无探索结果，请尝试更换关键词或筛选条件");
