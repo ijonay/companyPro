@@ -91,7 +91,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			return;
 		};
 		console.log(val);
-		var data = {searchWords:escape(val)};
+		var data = {searchWords:val};
 		$.ajax({
 			type:"post",
 			url:dataUrl.util.addCommon(),
@@ -208,7 +208,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			};
 			if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 				$('#ser_hint').addClass('hidecommon');
-				var data = {keyword:escape(val)};
+				var data = {keyword:val};
 				$.ajax({
 					type:"post",
 					url:dataUrl.util.addSerHistory(),
@@ -1265,7 +1265,7 @@ function loadSvg(){
     }) 
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
-    
+  
     $(document).on('click','.all_hot_list_top_source',function(){
     	$('.all_hot_list_top_look').css('color','#4a4a4a');
     	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
@@ -1288,6 +1288,8 @@ function loadSvg(){
     	if($(this).parent().next().next().is('.hidecommon')){
     		$('.all_hot_list_top_look').css('color','#4a4a4a');
     		$(this).css('color','#389b9f');
+    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('点击查看');
+    		$(this).find('em').text('点击收起');
     		$(this).parent().parent().parent().find(".hot_look_eye").css("background-image","url(img/hot_look_eye.png)");
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye_hover.png)');
     		$(this).parent().parent().parent().find(".hot_echart_list").addClass('hidecommon');
@@ -1299,6 +1301,7 @@ function loadSvg(){
         	$(this).parent().next().next().addClass('hidecommon');
         	$(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
     		$(this).css('color','#4a4a4a');
+    		$(this).find('em').text('点击查看');
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
     	};
     });
@@ -1405,4 +1408,3 @@ function loadSvg(){
 //    	}
 //    	
 //    })
-    

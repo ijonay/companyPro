@@ -660,6 +660,9 @@ body{
 .all_hot_list_top li:nth-child(6){
 	width:15%;text-align:center;
 }
+.all_hot_list_top li:nth-child(6) span{
+	padding:3px 8px;background:#399b9f;color:#fff;border-radius:14px;
+}
 .all_hot_list_top li:nth-child(5) .hot_look_arrow{
 	background:url(../img/hot_look_arrow.png) no-repeat center center;width: 20px;
     height: 10px;

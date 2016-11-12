@@ -342,11 +342,12 @@
     <div class="triangle"></div>
 </div>
 <ul class="cook_ul pos hidecommon" id="cook_ul">
-   			<li>手机2<span></span></li>
-			<li>苹果2<span></span></li>
-			<li>三星2<span></span></li>
-			<li>华为2<span></span></li>			
-   		 </ul>
+  		<li>手机2<span></span></li>
+		<li>苹果2<span></span></li>
+		<li>三星2<span></span></li>
+		<li>华为2<span></span></li>			
+</ul>
+
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
