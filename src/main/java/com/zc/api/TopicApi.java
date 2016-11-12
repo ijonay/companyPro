@@ -47,7 +47,14 @@ public class TopicApi extends BaseApi {
 
             Objects.requireNonNull(count);
 
-            List<Topic> list = topicService.getHotTopic(count);
+            List<Topic> list = null;
+
+            if (count == 10) {
+                list = topicService.getRandomHotTopic(100, 10);
+
+            } else {
+                list = topicService.getHotTopic(count);
+            }
             List<TopicModel> result = new ArrayList<>();
 
             if (!Objects.isNull(list)) {

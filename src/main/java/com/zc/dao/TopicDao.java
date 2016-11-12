@@ -24,6 +24,15 @@ public interface TopicDao {
 
     List<Topic> getHotTopic(Integer count);
 
+    /**
+     * 按热度进行排序后 从N条数据中随机抽选出M条
+     *
+     * @param allCount
+     * @param count
+     * @return
+     */
+    List<Topic> getRandomHotTopic(@Param("allCount") Integer allCount, @Param("count") Integer count);
+
     Integer batchInsert(@Param("list") List<Topic> list);
 
     List<Topic> getList(@Param("pageSize") Integer pageSize, @Param("rowStart") Integer rowStart);
