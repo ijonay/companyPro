@@ -105,6 +105,17 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    @Override
+    public Map<String, float[]> getWordVectorsCollByCache() {
+
+        String keyPrefix = PropertyHelper.getValue(Constant
+                        .CONFIG_PROPERTIES,
+                Constant.WORD_VECTORS_KEY);
+
+        return redisService.getCacheObject(keyPrefix);
+
+    }
+
     public Map<Integer, TopicModel> getTopicMap() {
         return topicMap;
     }
@@ -132,6 +143,43 @@ public class WordServiceImpl implements WordService {
         Set<String> keys = redisTemplate.keys(keyPrefix + "*");
         if (keys.size() <= 0) {
             cache_UpdateWordVectors();
+        }
+
+    }
+
+    @Override
+    public void cache_UpdateWordVerctorsToColl() {
+
+        try {
+
+            Map<String, float[]> wordMap = WordVectorHelper.loadModel(PropertyHelper.getValue(Constant
+                    .CONFIG_PROPERTIES, Constant
+                    .MODEL_BIN));
+
+            if (Objects.nonNull(wordMap)) {
+
+                String key = PropertyHelper.getValue(Constant
+                                .CONFIG_PROPERTIES,
+                        Constant.WORD_VECTORS_KEY);
+
+                redisTemplate.execute(new SessionCallback() {
+                    @Override
+                    public Object execute(RedisOperations operations) throws DataAccessException {
+
+                        operations.multi();
+
+                        operations.delete(key);
+
+                        operations.opsForValue().set(key, wordMap);
+
+                        return operations.exec();
+
+                    }
+                });
+
+            }
+
+        } catch (Exception ex) {
         }
 
     }

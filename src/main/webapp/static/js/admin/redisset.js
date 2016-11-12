@@ -9,6 +9,12 @@
         /// <param name="func" type="Function">回调方法</param>
         return KD.ajax("../api/admin/updateWordToRedis?Load=" + Math.random(), "POST", jsonData, func, null, "application/json");
     };
+    fs.updateWordsCollToRedis = function (jsonData, func) {
+        /// <summary>提交Model数据</summary>
+        /// <param name="jsonData" type="JSON">提交数据</param>
+        /// <param name="func" type="Function">回调方法</param>
+        return KD.ajax("../api/admin/updateWordToRediscoll?Load=" + Math.random(), "POST", jsonData, func, null, "application/json");
+    };
     fs.updateTopicVectorCollToRedis = function (jsonData, func) {
         /// <summary>提交Model数据</summary>
         /// <param name="jsonData" type="JSON">提交数据</param>
