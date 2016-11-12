@@ -52,7 +52,7 @@ body{
     display: inline-block;
 }
 .color9c{color:#9c9c9c;}
-.nav-banner{padding:18px 0 21px 0;border-top:1px solid #d8d8d8;font-size:14px;height:62px;background-color:#fff}
+.nav-banner{padding:18px 48px 21px 48px;border-top:1px solid #d8d8d8;font-size:14px;height:62px;background-color:#fff}
 .nav-banner-ul li{float:left;margin-left:30px;}
 .correlation{padding-right:42px;background:url(../img/correlation.png) no-repeat  right 3px;}
 .changeviewpoints{padding-left:22px;background:url(../img/changeviewpoints.png) no-repeat  left 3px;}
