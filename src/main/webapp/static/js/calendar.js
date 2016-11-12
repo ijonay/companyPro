@@ -119,7 +119,7 @@
 
         ITEM_STYLE = 'style="width:{w}px;height:{h}px;line-height:{h}px"',
         WEEK_ITEM_TPL = '<li ' + ITEM_STYLE + '>{wk}</li>',
-        DAY_ITEM_TPL = '<li ' + ITEM_STYLE + '><a class="{class}" {action}>{value}</a></li>',
+        DAY_ITEM_TPL = '<li ' + ITEM_STYLE + '><a class="{class}" data-index="{value}" {action}>{value}</a></li>',
         MONTH_ITEM_TPL = '<li ' + ITEM_STYLE + '><a ' + ITEM_MONTH + '>{m}月</a></li>',
 
         TEMPLATE = [
@@ -127,13 +127,13 @@
             '<div class="calendar-views">',
             '<div class="view view-date">',
             '<div class="calendar-hd">',
-            '<div class="calendar-arrow calendar-arrow-left" style="display:none;">',
+            '<div class="calendar-arrow calendar-arrow-left">',
             '<span class="prev" title="上一月" data-calendar-arrow-date>{prev}</span>',
             '</div>',
             '<a href="javascript:;" data-calendar-display-date class="calendar-display" style="font-size:24px;color:#000;">',
             '{yyyy}/<span class="m">{mm}</span>',
             '</a>',
-            '<div class="calendar-arrow calendar-arrow-right" style="display:none;">',
+            '<div class="calendar-arrow calendar-arrow-right">',
             '<span class="next" title="下一月" data-calendar-arrow-date>{next}</span>',
             '</div>',
             '</div>',
@@ -325,7 +325,7 @@
                 idt = new Date(y, m - 1, d),
                 data = {
                     w: (this.width-50) / 7,
-                    h: 28,
+                    h: 42,
                     value: d
                 },
                 markData,
@@ -337,7 +337,7 @@
             } else if (f === 3) {
                 data['class'] = NEW_DAY_CLASS;
             } else {
-                data['class'] = '';
+                data['class'] = 'abled';
             }
 
             if (dt.isSame(y, m, d)) {
@@ -552,11 +552,12 @@
                 exec = {
                     prev: function() {
                         var pm = Date.getPrevMonth(y, m),
-                            ppm = Date.getPrevMonth(y, m, 2),
-                            $prevItem = _this.getDaysHtml(ppm.y, ppm.m);
-
+                            ppm = Date.getPrevMonth(y, m, 2);
                         m = pm.m;
                         y = pm.y;
+                        var $prevItem = _this.getDaysHtml(ppm.y, ppm.m);
+
+                        
 
                         $dis.animate({
                             marginLeft: 0
@@ -693,8 +694,8 @@
 
                 var d = _this.updateDateView(y, m, type, function() {
                     vc('date', d.y, d.m);
+                    getHotPred(d.y+"-"+d.m+"-"+"1");
                 });
-
             }).on('click', ARROW_MONTH, function() {
 
                 var y = Number(_this.$disMonth.html()),
