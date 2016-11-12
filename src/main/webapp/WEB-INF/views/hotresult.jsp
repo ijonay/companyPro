@@ -56,6 +56,7 @@
                         <div class="hotLabel">
                             <div class="hotLabel0"></div>
                             <div class="hotLabel1"></div>
+                            <div class="hotLabel2"></div>
                         </div>
                         <div class="hotInfo">
                             <div class="infoText">张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚</div>            
