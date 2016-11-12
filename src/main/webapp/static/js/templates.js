@@ -29,7 +29,7 @@ templates.design = {};
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation">关联此热点</li>');
     tmpl.push('       <li class="hot_arrow"></li>');
     tmpl.push('     </ul>');
-    tmpl.push('    <ul id="ulBottom{{:#index}}" class="all_hot_list_bot">');
+    tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot">');
     tmpl.push('       <li class="li-first">');
     tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{/if}})"></div></div>');
     tmpl.push('           <div class="type-content fl">');

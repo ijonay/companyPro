@@ -34,15 +34,17 @@ dataUrl.util = {
     	return encodeURI("api/searchLog/add");
     },
     getNewPath:function(topicId,query){
-    	return encodeURI('api/paths/' + topicId + '?query=' + query);
+    	return 'api/paths/' + topicId + '?query=' + query;
     },
     getHotTopic:function(count){
     	return encodeURI('api/topic/hottopic/'+count);
     },
     getHotPred:function(nowDate){
-        return encodeURI("api/predict/list?dateStr="+nowDate);
-        
-    }
+        return encodeURI("api/predict/list?dateStr="+nowDate);        
+    },
+    getTenHot:function(){
+    	return encodeURI('api/topic/hottopic/10');
+    },
 }
 
 var chartsAttr = chartsAttr || {};
