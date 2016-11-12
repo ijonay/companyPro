@@ -1211,6 +1211,9 @@ function loadSvg(){
     		$(".selectTag").attr("title",topic);
     		$(".selectTag").html(topic)
     	}
+        setTimeout(function(){
+        	$(".releateTag").focus();
+        },10)
     })
     $(document).on("click",function(e){
     	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
