@@ -1275,23 +1275,31 @@ function loadSvg(){
     var scoreArray=[];
     var introArray=[];
     var formArray=[];
-//    var hotList = hotList || {};
-//    hotList.templates = {
-//    		registerTmpl : function(tmplId, scriptTagId) {
-//    			chartsAttr.templates[tmplId] = $
-//    					.templates(templates.design[scriptTagId]);
-//    		}
-//    	};
-//    hotList.templates.registerTmpl("allHotList", "tmplAllHotList");
+//获取渲染全部热点
     var hotList2 = $.templates(templates.design["tmplAllHotList"]);
-    function getTenHot(){
+    function getAllHot(){
     	$.ajax({
             type: "get",
             contentType: 'application/json',
             dataType: "json",
             url: dataUrl.util.getHotTopic(50),
             success: function(returnData) {
-//            	console.log(returnData.data)
+            	if(returnData.error.code != 0) return;
+            	$(".all_hot_list").html(hotList2.render(returnData));
+            },
+            error: function() {
+                console.log('获取热点失败');
+            }
+        });
+    }
+    getTenHot();
+    function getTenHot(){
+    	$.ajax({
+            type: "get",
+            contentType: 'application/json',
+            dataType: "json",
+            url: dataUrl.util.getTenHot(),
+            success: function(returnData) {
             	if(returnData.error.code != 0) return;
             	$.each(returnData.data,function(index,item){
             		if(index < 10){
@@ -1318,25 +1326,22 @@ function loadSvg(){
                 		tempArray.push("weibo");
                 		formArray.push(tempArray);
             		}
-            		
             	});
             	loadSvg();
-            	$(".all_hot_list").html(hotList2.render(returnData));
+        		getAllHot();
             },
             error: function() {
                 console.log('获取热点失败');
             }
         });
     }
-    
-    getTenHot()
-    
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')
     }
     $(".hotInfo").on("click",function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
-    	var index = $(".infoConnect").attr("data-index");
+//    	var index = $(".infoConnect").attr("data-index");
+    	var index = $(".infoConnect").attr("data-id");
     	$("#allHot").click();
     	$(".all_hot_list_bot").hide();
     	$("#ulBottom"+index).show();
