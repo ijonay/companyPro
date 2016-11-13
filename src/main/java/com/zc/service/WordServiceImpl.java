@@ -74,9 +74,9 @@ public class WordServiceImpl implements WordService {
         wordService = wordServicetemp;
 
 
+//        loadWordVectorCollMaps();
+
 //        loadMaps();
-
-
 //        loadTopicMap();
         // loadWordMap();
 
@@ -86,10 +86,15 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    private void loadWordVectorCollMaps() {
+        modelMap = getWordVectorsCollByCache();
+    }
+
     @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
-            loadMaps();
+//            loadMaps();
+            loadWordVectorCollMaps();
         }
         return modelMap;
     }
@@ -105,6 +110,17 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    @Override
+    public Map<String, float[]> getWordVectorsCollByCache() {
+
+        String keyPrefix = PropertyHelper.getValue(Constant
+                        .CONFIG_PROPERTIES,
+                Constant.WORD_VECTORS_KEY);
+
+        return redisService.getCacheObject(keyPrefix);
+
+    }
+
     public Map<Integer, TopicModel> getTopicMap() {
         return topicMap;
     }
@@ -114,7 +130,7 @@ public class WordServiceImpl implements WordService {
     private void loadMaps() {
         try {
             modelMap = WordVectorHelper.loadModel(
-                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, getModelPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -136,6 +152,42 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    @Override
+    public void cache_UpdateWordVerctorsToColl() {
+
+        try {
+
+            Map<String, float[]> wordMap = WordVectorHelper.loadModel(getModelPath());
+
+            if (Objects.nonNull(wordMap)) {
+
+                String key = PropertyHelper.getValue(Constant
+                                .CONFIG_PROPERTIES,
+                        Constant.WORD_VECTORS_KEY);
+
+                redisTemplate.execute(new SessionCallback() {
+                    @Override
+                    public Object execute(RedisOperations operations) throws DataAccessException {
+
+                        operations.multi();
+
+                        operations.delete(key);
+
+                        operations.opsForValue().set(key, wordMap);
+
+                        return operations.exec();
+
+                    }
+                });
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
     /**
      * 更新redis中的语料库信息 每调用一次更新一次redis
      */
@@ -144,9 +196,7 @@ public class WordServiceImpl implements WordService {
 
             long readTime = System.currentTimeMillis();
 
-            Map<String, float[]> wordMap = WordVectorHelper.loadModel(PropertyHelper.getValue(Constant
-                    .CONFIG_PROPERTIES, Constant
-                    .MODEL_BIN));
+            Map<String, float[]> wordMap = WordVectorHelper.loadModel(getModelPath());
 
             if (Objects.nonNull(wordMap)) {
 
@@ -198,8 +248,7 @@ public class WordServiceImpl implements WordService {
         try {
 
             Map<String, float[]> wordMap =
-                    WordVectorHelper.loadModel(
-                            PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+                    WordVectorHelper.loadModel(getModelPath());
 
             Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
             int count = 1;
@@ -597,6 +646,17 @@ public class WordServiceImpl implements WordService {
     @Override
     public List<Word> getList(Integer pageSize, Integer rowStart) {
         return dao.getList(pageSize, rowStart);
+    }
+
+    private String getModelPath() {
+
+        String path = PropertyHelper.getValue(Constant
+                .CONFIG_PROPERTIES, Constant
+                .MODEL_BIN);
+        if (path.indexOf("\\") > -1 || path.indexOf("/") > -1) {
+            return path;
+        }
+        return this.getClass().getClassLoader().getResource(path).getPath();
     }
 
 }
