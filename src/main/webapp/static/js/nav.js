@@ -58,10 +58,15 @@ $(".header-right>li").on("click",function(){
     }
 });
 /*关闭通知*/
-$(document).delegate("li .notify-close","click",function(){
+$(document).delegate("li .notify-close","click",function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
     $(this).parents("li").remove();
     if($(".notify-list").find("li").length==0){
         $(".notify-list").css("display","none");
+    }
+    if($(".notify-tab-list").find("li").length==0){
+        $(".notify-tab-list").css("display","none");
+        $(".notify-operate").css("display","none");
     }
     var count=parseInt($(".notify-count").data("count"));
     if(count<=1){
@@ -283,7 +288,7 @@ $.ajax({
     type: "get",
     contentType: 'application/json',
     dataType: "json",
-    url: dataUrl.util.getNotify(15),
+    url: dataUrl.util.getNotify(10),
     success: function(returnData) {
         if(returnData.error.code == 0&&returnData.data) {
             $(".notify-list").html("");
@@ -307,7 +312,8 @@ $.ajax({
             }
             $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
         }else{
-            $(".notify-tab-list").html("<li>暂无通知</li>");
+            $(".notify-tab-list").html("<li style='text-align:center;'><a>暂无通知</a></li>");
+            $(".notify-operate").css("display","none");
         }
     },
     error: function() {

@@ -38,7 +38,7 @@ templates.design = {};
     tmpl.push('         </div>');
     tmpl.push('         <div class="notify-infoBottom">');
     tmpl.push('             <div class="notify-hotIcon fl"></div>');
-    tmpl.push('             <div class="notify-hotValue fl"></div><div class="planText fl">/热度</div><div class="infoSpace fl"></div>');
+    tmpl.push('             <div class="notify-hotValue fl"></div><div class="planText fl">/热度</div>');
     tmpl.push('             <div class="notify-iconCon fr">');
     tmpl.push('                 <a target=" _blank" class="weibo-link" href="#" style="background-image:url(img/hot_weibo.png);"></a>');
     tmpl.push('                 <a target=" _blank" class="weixin-link" href="#" style="background-image:url(img/hot_weixin.png);display:none;"></a>');

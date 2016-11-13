@@ -101,6 +101,7 @@ body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing:
 /*通知tab*/
 .pnl-notify-tab{position:relative;display:none;width:100%;}
 .pnl-notify-tab:before{position:absolute;top:-12px;left:139px;width:0px;height:0px;border-left:12px solid transparent;border-right: 12px solid transparent;border-bottom: 12px solid #e8ebed;content:""}
+.pnl-notify-tab .notify-tab-list{margin-bottom:10px;}
 .pnl-notify-tab .notify-tab-list li{cursor:pointer;font-size:14px;background:rgba(232,235,237,1);}
 .pnl-notify-tab .notify-tab-list li:hover{background:rgba(232,235,237,0.5);}
 .pnl-notify-tab .notify-tab-list li>a{height:36px;line-height:36px;display:inline-block;border-radius:2px;font-size:14px;padding:0px 14px 0 18px;}
@@ -109,7 +110,7 @@ body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing:
 .pnl-notify-tab .notify-tab-list li>a .dot-icon{width:6px;height:6px;background:#389b9f;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:12px;}
 .pnl-notify-tab .notify-tab-list li>a .hot-word{color:#4a4a4a;}
 .pnl-notify-tab .notify-tab-list li>a .hot-spot{color:#389b9f;}
-.pnl-notify-tab .notify-operate{height:16px;line-height:16px;margin-top:10px;padding:0 14px 0 18px;font-size:12px;color:#4a4a4a;}
+.pnl-notify-tab .notify-operate{height:16px;line-height:16px;padding:0 14px 0 18px;font-size:12px;color:#4a4a4a;}
 .pnl-notify-tab .notify-operate .clear-notify{color:#389b9f;cursor:pointer;}
 .pnl-notify-tab .notify-operate .relate-email .relate-title{opacity:0.5;vertical-align:top;margin-left:10px;display:none}
 
