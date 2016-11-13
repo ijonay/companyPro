@@ -8,7 +8,7 @@ em,i{font-style:normal!important;}
 .cor094{color:#009944;}
 .header{background:#052e44;}
 .nav_ser{display:block;}
-.notify-list{display:none;}
+.notify-list{display:none!important;}
 .label_border{border:1px solid #4a4a4a;border-radius:2px;}
 .label_border:hover{border:1px solid #389b9f}
 .width74{width:74px;padding:0px 15px 0 5px;}
@@ -648,7 +648,7 @@ input[type=checkbox]:checked::after {
 }
 .hotLabel{
     position: absolute;
-    top:30px;
+    top:27px;
     font-size: 12px;
     color:#4a4a4a;
     display: inline-block;
@@ -690,7 +690,7 @@ input[type=checkbox]:checked::after {
 }
 .hotInfo{
     position: absolute;
-    top:54px;
+    top:52px;
     font-size: 12px;;
     display: inline-block;
     width: 100%;
@@ -710,48 +710,38 @@ input[type=checkbox]:checked::after {
     word-break: break-all;
 }
 .infoBottom{
-    position: absolute;
+	position: absolute;
     bottom:0px;
     display: inline-block;    
-    width:248px;
+    width:100%;
     height:24px;
-    line-height:18px;
+    line-height:24px;
 }
 .hotValue{
     font-size: 24px;
-    margin: 0 5px 0 18px;
-    padding: 0;
-    line-height:32px;
-}
-.planText{
-    display: inline-block;
-    height: 12px;
-    font-size: 12px;
-    margin:0;
-    padding: 0; 
-}
-.infoSpace{
-    display: inline-block;
-    width: 45px;
+    line-height:24px;
 }
 .font14{
     font-size: 14px;
 }
-.iconCon{
-    display:inline-block;
-    width:88px;
-}
 .infoIcon{
+    line-height:24px;
+    float:right;
+}
+.iconCon a{
+    width:16px;
+    height:24px;
+    background-position:center;
+    background-repeat:no-repeat;
+    margin-left:5px;
+    display:inline-block;
     float:left;
-    bottom:0;
-    margin: 0 0 0 4px;
-    padding: 0;
-    vertical-align:bottom;
 }
 .hotIcon{
-    vertical-align:bottom;
-    position:absolute;
-    bottom:0;
+    height:100%;
+    width:12px;
+    background:url(../img/hotIcon.png) no-repeat center;
+    margin-right:5px;
 }
 /*搜索报错*/
 .result-error{

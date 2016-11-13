@@ -35,6 +35,11 @@ public class PathServiceImpl implements PathService {
     private WordService wordService;
     @Autowired
     private WeiboDao weiboDao;
+
+    @Autowired
+    private ZCRedisService<float[]> redisService;
+
+
     //endregion
 
     //region fields
@@ -66,6 +71,8 @@ public class PathServiceImpl implements PathService {
 
         Topic topic = topicService.get(topicId);
         float[] topicVector = CommonHelper.stringToFloatArray(topic.getCoordinate());
+
+
         List<PathModel> paths = getAllPath(query, topicVector);
 
         log.add("writeToConsole");
@@ -119,6 +126,8 @@ public class PathServiceImpl implements PathService {
 
     //region helper method
     private List<PathModel> getAllPath(String start, float[] targetVector) {
+
+
         this.targetVector = targetVector;
         isFirst = true;
 
@@ -179,7 +188,8 @@ public class PathServiceImpl implements PathService {
         if (neighbors != null) {
             LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
             for (WordRedisModel w : tempNeighbors) {
-                if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w.name)) {
+                if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w
+                        .name)) {
                     float similarity = getSimilarity(start, w.getName());
                     generatePath(new PathNode(w.name, start, similarity));
                 }
@@ -201,12 +211,12 @@ public class PathServiceImpl implements PathService {
     }
 
     private float getSimilarity(String start, String target) {
-        float[] tVector = wordService.getWordVectorsByCache(target);
+        float[] tVector = wordService.getModelMap().get(target);
         return getSimilarity(start, tVector);
     }
 
     private float getSimilarity(String start, float[] targetVector) {
-        float[] startVector = wordService.getWordVectorsByCache(start);
+        float[] startVector = wordService.getModelMap().get(start);
         float similarity = WordVectorHelper.getSimilarity(startVector, targetVector);
         return similarity;
     }
@@ -216,8 +226,8 @@ public class PathServiceImpl implements PathService {
         String key = Math.random() + "";
         log.add("getSortedWordEntryList_" + key + "_1");
         Collections.sort(list, (left, right) -> CommonHelper.compare(
-                WordVectorHelper.getSimilarity(wordService.getWordVectorsByCache(right.name), targetVector),
-                WordVectorHelper.getSimilarity(wordService.getWordVectorsByCache(left.name), targetVector)
+                WordVectorHelper.getSimilarity(wordService.getModelMap().get(right.name), targetVector),
+                WordVectorHelper.getSimilarity(wordService.getModelMap().get(left.name), targetVector)
                 )
         );
         log.add("getSortedWordEntryList_" + key + "_1");
@@ -254,4 +264,6 @@ public class PathServiceImpl implements PathService {
         return resultWeibos.values();
     }
     //endregion
+
+
 }

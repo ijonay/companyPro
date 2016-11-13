@@ -87,7 +87,7 @@
    <div style="width:100%;height:160px;bottom:0;">
        <div id="papersvg"></div>
    </div>
-   <div class="allHot pointer" id="allHot">全部热点</div>	
+   <div class="allHot pointer" id="allHot">更多热点</div>	
    
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">
@@ -358,6 +358,11 @@
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
 <script src="lib/echarts.js"></script>
+<script>
+$.get('js/china.json', function (chinaJson) {
+    echarts.registerMap('china', chinaJson);
+});
+</script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>

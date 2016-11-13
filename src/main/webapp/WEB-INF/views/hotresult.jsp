@@ -62,14 +62,15 @@
                             <div class="infoText">张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚</div>            
                         </div>
                         <div class="infoBottom">
-                            <img class="hotIcon" src="img/hotIcon.png">
-                            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
-                            <div class="iconCon">
-                                <a target=" _blank" class="weibo-link" href="#"><img class="infoIcon" src="img/weibo.png" alt="微博"></a>
-                                <a target=" _blank" class="weixin-link" href="#" style="display:none;"><img class="infoIcon" src="img/wechat.png" alt="微信"></a>
-                                <a target=" _blank" class="zhihu-link" href="#" style="display:none;"><img class="infoIcon" src="img/zhihu.png" alt="知乎"></a>
-                                <a target=" _blank" class="baidu-link" href="#" style="display:none;"><img class="infoIcon" src="img/baidu.png" alt="百度"></a>
+                            <div class="hotIcon fl"></div>
+                            <div class="hotValue fl"></div><div class="planText fl">/热度</div>
+                            <div class="iconCon fr">
+                                <a target=" _blank" class="weibo-link" href="#" style="background-image:url(img/hot_weibo.png);"></a>
+                                <a target=" _blank" class="weixin-link" href="#" style="background-image:url(img/hot_weixin.png);display:none;"></a>
+                                <a target=" _blank" class="zhihu-link" href="#" style="background-image:url(img/hot_zhihu.png);display:none;"></a>
+                                <a target=" _blank" class="baidu-link" href="#" style="background-image:url(img/hot_baidu.png);display:none;"></a>
                             </div>
+                            <div class="planText font14 fr">来源:</div>
                         </div>
                     </div>
                 </div><!-- 弹窗end -->

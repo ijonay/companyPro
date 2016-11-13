@@ -9,7 +9,8 @@ body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing:
 .header .header-right li.nav_ser{width:240px;padding-top:12px;margin-right:30px;position:relative;}
 .header .header-right li.nav_ser input{border:0;width:240px;height:36px;padding:0 40px 0 10px;color:#000;opacity:0.8;font-family: "微软雅黑";}
 .header .header-right li.nav_ser .head-search{width:20px;height:20px;position:absolute;top:20px;right:10px;background:url(../img/head-search.png) no-repeat;}
-.header .header-right li.head-usericon a{background:#fff;}
+/* .header .header-right li.head-usericon a{background:#fff;} */
+.header .header-right li.head-usericon a{background:url(../img/nav_defalut.png) no-repeat;}
 .header .header-right li.head-userinfo{margin:0 12px;}
 .header .header-right li.head-userinfo .userName{margin-top:13px;}
 .header .header-right li.head-down{width:10px;background:url(../img/head-down.png) no-repeat center;margin-right:16px;}
@@ -56,7 +57,7 @@ body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing:
 	cursor:pointer;
 	display:none;
 }
-.pnl-hots .hots-list li{font-size:14px;color:#000;line-height:14px;border-bottom:1px solid #ddd;padding-top:13px;}
+.pnl-hots .hots-list li{font-size:14px;color:#000;line-height:14px;border-bottom:1px solid #ddd;padding-top:13px;cursor:pointer;}
 .pnl-hots .hots-list li .content{margin-bottom:13px;display:inline-block;width:100%;}
 .pnl-hots .hots-list li .content .title{width:130px;float:left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .pnl-hots .hots-list li .content .date{width:58px;float:right;text-align:right;}
@@ -101,22 +102,25 @@ body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing:
 /*通知tab*/
 .pnl-notify-tab{position:relative;display:none;width:100%;}
 .pnl-notify-tab:before{position:absolute;top:-12px;left:139px;width:0px;height:0px;border-left:12px solid transparent;border-right: 12px solid transparent;border-bottom: 12px solid #e8ebed;content:""}
-.pnl-notify-tab .notify-tab-list li{cursor:pointer;font-size:14px;background:rgba(232,235,237,1);}
-.pnl-notify-tab .notify-tab-list li:hover{background:rgba(232,235,237,0.5);}
-.pnl-notify-tab .notify-tab-list li>a{height:36px;line-height:36px;display:inline-block;border-radius:2px;font-size:14px;padding:0px 14px 0 18px;}
-.pnl-notify-tab .notify-tab-list li>a .pnl{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;display:inline-block;vertical-align:top;width:126px;}
-.pnl-notify-tab .notify-tab-list li>a .time{display:inline-block;width:34px;text-align:right;font-size:12px;color:#4a4a4a;margin:0 10px;}
+.pnl-notify-tab .notify-tab-list li{cursor:pointer;font-size:14px;}
+.pnl-notify-tab .notify-tab-list li:hover{background:#fff;}
+.pnl-notify-tab .notify-tab-list li:visited{background:#fff;}
+.pnl-notify-tab .notify-tab-list li>a{height:36px;line-height:36px;display:inline-block;border-radius:2px;font-size:14px;padding:0px 14px 0 18px;width:100%;}
+.pnl-notify-tab .notify-tab-list li>a .pnl{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;display:inline-block;vertical-align:top;max-width:164px;}
+.pnl-notify-tab .notify-tab-list li>a .time{display:inline-block;width:34px;text-align:center;font-size:12px;color:#4a4a4a;margin:0 0 0 10px;}
 .pnl-notify-tab .notify-tab-list li>a .dot-icon{width:6px;height:6px;background:#389b9f;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:12px;}
 .pnl-notify-tab .notify-tab-list li>a .hot-word{color:#4a4a4a;}
 .pnl-notify-tab .notify-tab-list li>a .hot-spot{color:#389b9f;}
-.pnl-notify-tab .notify-operate{height:16px;line-height:16px;margin-top:10px;padding:0 14px 0 18px;font-size:12px;color:#4a4a4a;}
+.pnl-notify-tab .notify-tab-list li>a .notify-close{display:inline-block;width:34px;text-align:center;margin:0 0 0 10px;}
+.pnl-notify-tab .notify-operate{height:36px;line-height:36px;padding:0 14px 0 18px;font-size:12px;color:#4a4a4a;background:#fff;position:fixed;bottom:0;width:272px;}
 .pnl-notify-tab .notify-operate .clear-notify{color:#389b9f;cursor:pointer;}
-.pnl-notify-tab .notify-operate .relate-email .relate-title{opacity:0.5;vertical-align:top;margin-left:10px;display:none}
+.pnl-notify-tab .notify-operate .relate-email .relate-title{opacity:0.5;vertical-align:top;margin-left:10px;display:none;}
 
 .notify-info{
     width: 100%;
     background:#fff;
-    padding:6px 14px 6px 18px;
+    padding:12px 14px 8px 18px;
+    height:143px;
 }
 .notify-infoTop{
     width:100%;
@@ -211,6 +215,7 @@ body,html{font-family:  "微软雅黑"!important,"Arial";-webkit-font-smoothing:
 	background-repeat:no-repeat;
 	margin-left:5px;
 	display:inline-block;
+	float:left;
 }
 .notify-hotIcon{
 	height:100%;

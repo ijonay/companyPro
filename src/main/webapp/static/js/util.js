@@ -36,7 +36,7 @@ dataUrl.util = {
     	return encodeURI("api/searchLog/add");
     },
     getNewPath:function(topicId,query){
-    	return 'api/paths/' + topicId + '?query=' + query;
+    	return 'http://192.168.1.101/hotspot/api/paths/' + topicId + '?query=' + query;
     },
     getHotTopic:function(count){
     	return encodeURI('api/topic/hottopic/'+count);
@@ -55,7 +55,14 @@ dataUrl.util = {
     },
     getPercentData:function(id){
     	return 'api/topic/percentage/' + id;
-    }
+    },
+    getLogOut:function(){
+    	return 'api/account/loginout' 
+    },
+    delNotify:function(id){//单个删除通知
+        return encodeURI('api/hotTopicMessage/del?id='+id);
+    },
+    delAllNotify: encodeURI('api/hotTopicMessage/delAll')//删除所有通知
 }
 
 var chartsAttr = chartsAttr || {};

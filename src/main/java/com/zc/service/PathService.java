@@ -12,4 +12,5 @@ public interface PathService {
     List<PathModel> getPaths(Integer topicId, String query);
 
     NodeRelations getRelations(String startNode, String endNode);
+
 }

@@ -34,6 +34,16 @@ public class AdminApi extends BaseApi {
 
     }
 
+    @RequestMapping(value = "updateWordToRediscoll", method = RequestMethod.POST)
+    public ApiResultModel updateWordVectorsColltoRedis() {
+
+        wordService.cache_UpdateWordVerctorsToColl();
+
+        return new ApiResultModel();
+
+
+    }
+
     @RequestMapping(value = "updateTopicVectorCollToRedis", method = RequestMethod.POST)
     public ApiResultModel updateTopicVectorCollToRedis() {
 
@@ -43,6 +53,7 @@ public class AdminApi extends BaseApi {
 
 
     }
+
     @RequestMapping(value = "updateTopicVertorsToRedis", method = RequestMethod.POST)
     public ApiResultModel updateTopicVertorsToRedis() {
 
