@@ -52,6 +52,9 @@ dataUrl.util = {
     },
     getNotifyDetail:function(id){//获取通知详细信息列表
         return encodeURI('api/hotTopicMessage/detail?id='+id);
+    },
+    getPercentData:function(id){
+    	return 'api/topic/percentage/' + id;
     }
 }
 

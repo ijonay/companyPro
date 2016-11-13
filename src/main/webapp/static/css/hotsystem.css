@@ -565,6 +565,8 @@ body{
 .infoIcon{
     float:left;
     bottom:0;
+    position:relative;
+    bottom:-2px;
     margin: 0 0 0 4px;
     padding: 0;
     vertical-align:bottom;
@@ -660,6 +662,9 @@ body{
 .all_hot_list_top li:nth-child(6){
 	width:15%;text-align:center;
 }
+.all_hot_list_top li:nth-child(6) span{
+	padding:3px 8px;background:#399b9f;color:#fff;border-radius:14px;
+}
 .all_hot_list_top li:nth-child(5) .hot_look_arrow{
 	background:url(../img/hot_look_arrow.png) no-repeat center center;width: 20px;
     height: 10px;
@@ -679,7 +684,7 @@ body{
 
 
 /* echart */
-.hot_echart_list{height:300px;background:#f00;color:#fff;padding:8px 20px;}
+.hot_echart_list{height:300px;background:#EEF3F4;color:#fff;padding:8px 20px;}
 
 .hot_relation{cursor:pointer;font-size:14px;}
 .hot_relation:hover{color:#389b9f;}
@@ -766,7 +771,7 @@ body{
 .all_hot_list_bot li.li-first .type-img{
 	width:60px;
 	height:100%;
-	margin-right:22px;
+	margin-right:23px;
 }
 .all_hot_list_bot li.li-first .type-content{
 	margin-top:12px;
@@ -813,7 +818,7 @@ body{
 	background-position:center;
 	margin-right:8px;
 }
-.all_hot_list_bot li .type-title{margin-right:24px;}
+.all_hot_list_bot li .type-title{margin-right:27px;}
 .all_hot_list_bot li .weixin-color{color:#389b9f;}
 .all_hot_list_bot li .weibo-color{color:#ff8040;}
 .all_hot_list_bot li .baidu-color{color:#ed7561;}
@@ -874,4 +879,7 @@ body{
     -o-filter: grayscale(100%);    
     filter: grayscale(100%);	
     filter: gray;
+}
+.Personas{
+	margin:5px 1% 5px 0
 }
