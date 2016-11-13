@@ -31,6 +31,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		if(val){
 			$('#favorite_set_btn').removeClass('hidecommon');
 		}else{
+			$('#ser_hint').addClass('hidecommon');
 			$('#favorite_set_btn').addClass('hidecommon');
 		}
 		
@@ -54,7 +55,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			url:dataUrl.util.getCommon(),
 			success:function(returnData){
 				console.log(returnData.data)
+				$('.favorite_div').removeClass('hidecommon');
 				if(returnData.data != null && returnData.error.code == 0){
+					
 					var str = "";
 					$.each(returnData.data,function(index,item){
 						if(index > 4) return;
@@ -62,6 +65,12 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					})
 					$("#favorite_ul").html(str);
 				}
+					
+					if(returnData.data.length == 0){
+						$('.favorite_div').addClass('hidecommon');
+					}
+					
+				
 			},
 			error:function(){
 				console.log('获取常用失败');
@@ -99,6 +108,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			success:function(returnData){
 				console.log(returnData.data.id);
 				if(returnData.error.code == 0){
+					$('.favorite_div').removeClass('hidecommon');
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
 						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
@@ -130,6 +140,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				console.log(returnData);
 				if(returnData.error.code == 0){
 					$this.parent().remove();
+					if($('#favorite_ul li').length == 0){
+						$('.favorite_div').addClass('hidecommon');
+					}
 				}
 			},
 			error:function(){
@@ -1293,7 +1306,13 @@ function loadSvg(){
     		title: {
                 text: '',
                 left: 'center',
-                top:15
+                top:15,
+                textStyle:{
+                	color:'#4a4a4a',
+                	fontFamily:'微软雅黑',
+                	fontSize:'16',
+                	fontWeight:'400'
+                }
             },
             color:["#5ccfcd","#6faff4"],
             backgroundColor:"#fff",
@@ -1428,9 +1447,9 @@ function loadSvg(){
                             show: true,
                             position: 'center',
                             textStyle: {
-                            	color:"#000",
-                                fontSize: '16',
-                                fontWeight: 'bold'
+                            	color:"#4a4a4a",
+                                fontSize: '14',
+                                fontWeight: '400'
                             }
                         }
                     }
@@ -1479,9 +1498,9 @@ function loadSvg(){
                             show: true,
                             position: 'center',
                             textStyle: {
-                            	color:"#000",
-                                fontSize: '16',
-                                fontWeight: 'bold'
+                            	color:"#4a4a4a",
+                                fontSize: '14',
+                                fontWeight: '400'
                             }
                         }
                     }
@@ -1512,7 +1531,13 @@ function loadSvg(){
 	    	        	    title: {
 	    	        	        text: '受众兴趣偏好',
 	    	        	        left:'center',
-	    	        	        top:15
+	    	        	        top:15,
+	    	        	        textStyle:{
+	    	                    	color:'#4a4a4a',
+	    	                    	fontFamily:'微软雅黑',
+	    	                    	fontSize:'16',
+	    	                    	fontWeight:'400'
+	    	                    }
 	    	        	    },
 	    	        	    backgroundColor:"#fff",
 	    	        	    tooltip: {},
@@ -1573,6 +1598,12 @@ function loadSvg(){
 	     	        	        text: '受众年龄分布',
 	     	        	        left:'center',
 	     	        	        top:15,
+	     	        	        textStyle:{
+	     	                  	color:'#4a4a4a',
+	     	                  	fontFamily:'微软雅黑',
+	     	                  	fontSize:'16',
+	     	                  	fontWeight:'400'
+	     	                  }
 	     	        	    },
     	            	    color: ['#3398DB'],
     	            	    tooltip : {
@@ -1674,8 +1705,15 @@ function loadSvg(){
     	        	mapCharts.setOption({
     	        		backgroundColor:"#fff",
     	        	    title : {
+    	        	    	top:15,
     	        	        text: '受众地区分布',
-    	        	        left: 'center'
+    	        	        left: 'center',
+    	        	        textStyle:{
+    	                    	color:'#4a4a4a',
+    	                    	fontFamily:'微软雅黑',
+    	                    	fontSize:'16',
+    	                    	fontWeight:'400'
+    	                    }
     	        	    },
     	        	    tooltip : {
     	        	        trigger: 'item'
@@ -1699,13 +1737,9 @@ function loadSvg(){
     	        	    },
     	        	    series : [
     	        	        {
-    	        	            name: '地区',
     	        	            type: 'map',
     	        	            mapType: 'china',
     	        	            roam: false,
-    	        	            markPoint:{itemStyle:{normal:{color:'#0ff'}}
-    	        	            	},
-    	        	        
     	        	            label: {
     	        	                normal: {
     	        	                    show: false
