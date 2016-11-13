@@ -104,15 +104,15 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
     public List<UserRecommendedTopicModel> getUserHotTopicMessageList(Integer userId,Integer count){
 
         return userRecommentedTopicsMapper.getUserHotTopicMessageList(userId, count);
-        //float[] sourceVectors = wordService.getWordVectorsByCache(clueWord);
-        //topicModels = topicService.getTopicByIdList(ids, sourceVectors);
-
 
     }
 
     @Override
     public TopicModel getTopicMessageDetail(Integer id){
         UserRecommendedTopics  userRecommendedTopics = userRecommentedTopicsMapper.get(id);
+        if(userRecommendedTopics == null){
+            return null;
+        }
         String keyword = userRecommendedTopics.getKeyword();
         float[] sourceVectors = wordService.getWordVectorsByCache(keyword);
         List<Integer> ids = new ArrayList<Integer>();
@@ -124,4 +124,8 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
         return null;
     }
 
+    @Override
+    public boolean delAll(Integer userId){
+        return userRecommentedTopicsMapper.delAll(userId) > 0;
+    }
 }

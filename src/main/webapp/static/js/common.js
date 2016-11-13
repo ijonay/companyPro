@@ -260,7 +260,17 @@ function GetRequestLabel() {
 	}
 })(jQuery)
 
-
+//
+function logOut(){
+	$.ajax({
+		type:"get",
+		url:dataUrl.util.getLogOut(),
+		success:function(data){
+			console.log("logoutData: " + data);
+		}
+	   
+	})
+}
  
   
     

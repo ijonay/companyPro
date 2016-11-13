@@ -3,7 +3,7 @@ getHotPred(getNowDate(new Date()));
 //热点预测日历
 $(".pnl-calendar").calendar({
     width: 272,
-    height: 264,
+    height: 279,
     data: [],
     onSelected: function(view, date, data) {
         var day=parseInt($(this).data("index"));
@@ -30,15 +30,17 @@ $(".lb-email").on("click",function(){
 /*tab切换*/
 $(".bar-tabs>li").on("click",function(){
     if($(this).hasClass("right-bar-close")){//关闭弹窗
-        $(".right-bar").animate({"right":"-272px"},500);
+        $(".right-bar").animate({"right":"-292px"},500);
     }else if($(this).hasClass("pred-tab")){//热点预告tab
         $(this).addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
         $(".pnl-pred-tab").css("display","block");
+        $(".right-bar").css("background","#fff");
     }else{//探索通知tab
         $(this).addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
         $(".pnl-pred-tab").css("display","none");
+        $(".right-bar").css("background","#e8ebed");
     }
 });
 /*头部菜单栏*/
@@ -47,19 +49,27 @@ $(".header-right>li").on("click",function(){
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
         $(".pnl-pred-tab").css("display","block");
-        $(".right-bar").animate({"right":"0px"},500);
+        $(".right-bar").animate({"right":"0px"},500).css("background","#fff");
     }else if($(this).hasClass("head-notify")){//探索通知
         $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
         $(".pnl-pred-tab").css("display","none");
-        $(".right-bar").animate({"right":"0px"},500);
+        $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }
 });
 /*关闭通知*/
-$(".notify-list").delegate("li .notify-close","click",function(){
+$(document).delegate("li .notify-close","click",function(){
     $(this).parents("li").remove();
     if($(".notify-list").find("li").length==0){
         $(".notify-list").css("display","none");
+    }
+    var count=parseInt($(".notify-count").data("count"));
+    if(count<=1){
+        $(".notify-count").data("count",0).text("").css("display","none");
+    }else if(count<=10){
+        $(".notify-count").data("count",count-1).text(count-1).css("display","block");
+    }else{
+        $(".notify-count").data("count",count-1).text("9+").css("display","block");
     }
 });
 //点击任意地方关闭弹窗
@@ -128,7 +138,7 @@ function dispBottom(data){
         $.each(res,function(subIdx,subRes){
             var startD=parseInt(subRes.start);
             var endD=parseInt(subRes.end);
-            var loc=checkLine(startD,startD);
+            var loc=checkLine(startD,endD);
             if(loc!=0){
                 for(i=startD;i<=endD;i++){
                     var $date=$('.date-items>li').eq(1).find("a.abled[data-index="+i+"]");
@@ -157,7 +167,7 @@ function dispBottom(data){
         $.each(item,function(subIdx,subRes){
             var startD=parseInt(subRes.start);
             var endD=parseInt(subRes.end);
-            var loc=checkLine(startD,startD);
+            var loc=checkLine(startD,endD);
             var $date=$('.date-items>li').eq(1).find("a.abled[data-index="+startD+"]");
             var divCount=$date.siblings("div").length;
             if(divCount<3){
@@ -203,9 +213,17 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span>");
+                if(type!="all"){
+                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span><span class='content desc'>描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息</span>");
+                }else{
+                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span>");
+                }
             }else{
-                $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></li>").appendTo($container);
+                if(type!="all"){
+                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span><span class='content desc'>描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息</span></li>").appendTo($container);
+                }else{
+                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></li>").appendTo($container);
+                }
             }
         });
     }else{
@@ -258,4 +276,119 @@ function getNowDate(myDate,type){
     }else{
         return year+'-'+month+"-"+date;
     }
+}
+
+//获取探索通知
+$.ajax({
+    type: "get",
+    contentType: 'application/json',
+    dataType: "json",
+    url: dataUrl.util.getNotify(15),
+    success: function(returnData) {
+        if(returnData.error.code == 0&&returnData.data) {
+            $(".notify-list").html("");
+            var count=returnData.data.length;
+            if(count>0){
+                $(".notify-count").attr("data-count",count).text(count>9?"9+":count).css("display","block");
+            }else{
+                $(".notify-count").attr("data-count",0).text("").css("display","none");
+            }
+            $.each(returnData.data,function(idx,item){
+                item.createDate=GetDateDiff(item.createDate);
+                if(idx<3){
+                    $('<li data-id='+item.id+'><a><span class="dot-icon"></span>'+
+                    '<span class="hot-word">'+item.keyword+'-</span>'+
+                    '<span class="hot-spot">'+item.title+'</span><span class="time">'+item.createDate+'</span><span class="notify-close">&times;</span></a></li>')
+                    .appendTo($(".notify-list"));
+                }
+            })
+            if($(".notify-list").find("li").length>0){
+                $(".notify-list").css("display","block");
+            }
+            $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
+        }else{
+            $(".notify-tab-list").html("<li>暂无通知</li>");
+        }
+    },
+    error: function() {
+        console.log('获取探索通知失败');
+    }
+});
+//点击通知查看详情
+$(document).delegate(".notify-tab-list>li","click",function(){
+    $(this).siblings("li").find(".notify-info").css("display","none");
+    var id=$(this).data("id");
+    $detail=$(this).find(".notify-info").css("display","block");
+    $.ajax({
+        type: "get",
+        contentType: 'application/json',
+        dataType: "json",
+        url: dataUrl.util.getNotifyDetail(id),
+        success: function(returnData) {
+            if(returnData.error.code == 0&&returnData.data) {
+                var hotInfo=returnData.data;
+                $detail.find(".notify-infoTitle").text(hotInfo.title?hotInfo.title:"");
+                $detail.find(".notify-infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
+                $detail.find(".notify-infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
+                $detail.find(".notify-hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
+                $detail.find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
+                if(hotInfo.wechatUrl){
+                    $detail.find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","inline-block");
+                }else{
+                    $detail.find(".weixin-link").css("display","none");
+                }
+                if(hotInfo.zhihuUrl){
+                    $detail.find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","inline-block");
+                }else{
+                    $detail.find(".zhihu-link").css("display","none");
+                }
+                if(hotInfo.baiduUrl){
+                    $detail.find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","inline-block");
+                }else{
+                    $detail.find(".baidu-link").css("display","none");
+                }
+                var eventClass=hotInfo.eventClass;
+                if(eventClass){
+                    var typeArr=$.trim(eventClass).split(",");
+                    $.each(typeArr,function(idx,val){
+                        if(idx>2) return false;
+                        $detail.find(".notify-hotLabel"+idx).text(val);
+                    });
+                }else{
+                    $detail.find(".notify-hotLabel0").text("");
+                    $detail.find(".notify-hotLabel1").text("");
+                    $detail.find(".notify-hotLabel2").text("");
+                }
+            }
+        },
+        error: function() {
+            console.log('获取探索通知失败');
+        }
+    });
+}).delegate(".notify-infoConnect","click",function(){
+    var topicId=$(this).parents("li").data("topicId");
+    var query=$(this).parents("li").find(".hot-word").text();
+    var hotTopic=$(this).parents("li").find(".hot-spot").text();
+    window.location.href='newPath#query='+query+'&topicId='+topicId+"&hotTopic="+hotTopic;
+});
+//获取俩个日期之差
+function GetDateDiff(startTime) {
+    //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式 
+    startTime = startTime.replace(/\-/g, "/");
+
+    //将计算间隔类性字符转换为小写
+    var sTime = new Date(startTime);      //开始时间
+    var eTime = new Date();  //结束时间
+    var tempDate=eTime.getTime() - sTime.getTime();
+    var info=null;
+    if(parseInt(tempDate/(1000 * 3600 * 24))>0){
+        info=parseInt(tempDate/(1000 * 3600 * 24))+"day";
+    }else if(parseInt(tempDate/(1000 * 3600))>0){
+        info=parseInt(tempDate/(1000 * 3600))+"hour";
+    }else if(parseInt(tempDate/(1000 * 60))>0){
+        info=parseInt(tempDate/(1000 * 60))+"min";
+    }else if(parseInt(tempDate/(1000))>0){
+        info=parseInt(tempDate/(1000))+"sec";
+    }
+    return info;
 }
