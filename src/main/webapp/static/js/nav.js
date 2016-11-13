@@ -3,7 +3,7 @@ getHotPred(getNowDate(new Date()));
 //热点预测日历
 $(".pnl-calendar").calendar({
     width: 272,
-    height: 279,
+    height: 277,
     data: [],
     onSelected: function(view, date, data) {
         var day=parseInt($(this).data("index"));
@@ -58,10 +58,30 @@ $(".header-right>li").on("click",function(){
     }
 });
 /*关闭通知*/
-$(document).delegate("li .notify-close","click",function(){
+$(document).delegate(".notify-list>li .notify-close","click",function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
     $(this).parents("li").remove();
     if($(".notify-list").find("li").length==0){
         $(".notify-list").css("display","none");
+    }
+}).delegate(".notify-list>li","click",function(e){/*查看通知详情*/
+    var id=$(this).data("id");
+    $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
+    $(".pnl-notify-tab").css("display","block");
+    $(".pnl-pred-tab").css("display","none");
+    $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
+    $(".notify-tab-list").find("li[data-id="+id+"]").trigger("click");
+}).delegate(".notify-tab-list>li","mouseover",function(e){/*查看通知详情*/
+    $(this).find(".notify-close").css("display","inline-block");
+    $(this).find(".time").css("display","none");
+}).delegate(".notify-tab-list>li","mouseout",function(e){/*查看通知详情*/
+    $(this).find(".time").css("display","inline-block");
+    $(this).find(".notify-close").css("display","none");
+}).delegate(".notify-tab-list>li .notify-close","click",function(e){//删除通知
+    e ? e.stopPropagation() : event.cancelBubble = true;
+    $(this).parents("li").remove();
+    if($(".notify-tab-list").find("li").length==0){
+        $(".notify-tab-list").css("display","none");
     }
     var count=parseInt($(".notify-count").data("count"));
     if(count<=1){
@@ -213,14 +233,14 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                if(type!="all"){
-                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span><span class='content desc'>描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息</span>");
+                if(item.note){
+                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span><span class='content desc'>"+item.note+"</span>");
                 }else{
                     $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span>");
                 }
             }else{
-                if(type!="all"){
-                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span><span class='content desc'>描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息</span></li>").appendTo($container);
+                if(item.note){
+                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span><span class='content desc'>"+item.note+"</span></li>").appendTo($container);
                 }else{
                     $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></li>").appendTo($container);
                 }
@@ -283,7 +303,7 @@ $.ajax({
     type: "get",
     contentType: 'application/json',
     dataType: "json",
-    url: dataUrl.util.getNotify(15),
+    url: dataUrl.util.getNotify(30),
     success: function(returnData) {
         if(returnData.error.code == 0&&returnData.data) {
             $(".notify-list").html("");
@@ -307,7 +327,8 @@ $.ajax({
             }
             $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
         }else{
-            $(".notify-tab-list").html("<li>暂无通知</li>");
+            $(".notify-tab-list").html("<li style='text-align:center;'><a>暂无通知</a></li>");
+            $(".notify-operate").css("display","none");
         }
     },
     error: function() {
@@ -382,13 +403,13 @@ function GetDateDiff(startTime) {
     var tempDate=eTime.getTime() - sTime.getTime();
     var info=null;
     if(parseInt(tempDate/(1000 * 3600 * 24))>0){
-        info=parseInt(tempDate/(1000 * 3600 * 24))+"day";
-    }else if(parseInt(tempDate/(1000 * 3600))>0){
-        info=parseInt(tempDate/(1000 * 3600))+"hour";
-    }else if(parseInt(tempDate/(1000 * 60))>0){
-        info=parseInt(tempDate/(1000 * 60))+"min";
-    }else if(parseInt(tempDate/(1000))>0){
-        info=parseInt(tempDate/(1000))+"sec";
+        var m=sTime.getMonth()+1;
+        var d=sTime.getDate();
+        info=m+"-"+d;
+    }else{
+        var h=sTime.getHours();
+        var m=sTime.getMinutes();
+        info=h+":"+m;
     }
     return info;
 }

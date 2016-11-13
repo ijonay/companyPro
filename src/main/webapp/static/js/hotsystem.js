@@ -1238,7 +1238,7 @@ function loadSvg(){
 		   opacity:1
 	   },500);
 	   $('#ser_section').css("height",0);
-	   $('.notify-list').addClass('hidecommon');
+	   $('.notify-list').css('display',"none");
 	   $('.nav_ser').delay("fast").fadeIn();
 	   $(".all_hot_list_bot").hide();
 	   $(".all_hot_list_bot:eq(0)").show();
@@ -1259,7 +1259,7 @@ function loadSvg(){
 		   opacity:0
 	   },500);
 	   $('#ser_section').css("height",'calc(100% - 272px)');
-	   $('.notify-list').removeClass('hidecommon');
+	   $('.notify-list').css('display',"block");
 	   $('.nav_ser').delay("fast").fadeOut();
 	  
     }) 
