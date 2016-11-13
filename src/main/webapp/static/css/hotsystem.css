@@ -83,12 +83,13 @@ input[type=checkbox]:checked::after {
 .favorite_set_text{color:rgba(255,255,255,.5);margin-right:14px;}
 .favorite_ul{display:-webkit-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:-moz-inline-flex;display:inline-flex;}
 .favorite_ul li{min-weidth:70px;max-width:80px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;;cursor:pointer;position:relative;float:left;color:rgba(42,211,218,.5);padding:0 15px 0px 8px;}
-.favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(0,0,0,.3);padding:0 15px 0px 8px;}
-.favorite_ul li:hover span{background:url(../img/favorite_close.png) no-repeat;}
+.favorite_ul li:hover{color:rgba(42,211,218,1);background-color:rgba(56,155,159,.5);padding:0 15px 0px 8px;border-radius:2px;color:#fff;}
+
+.favorite_ul li:hover span{background:url(../img/favorite_close_hover.png) no-repeat;}
 .favorite_ul li span{cursor:pointer;position:absolute;top:5px;right:3px;width:8px;height:8px;}
 .favorite_ul li span:hover{background:url(../img/favorite_close_hover.png) no-repeat;}
 .ser_hint{top:-42px;height:34px;line-height:34px;background:#fff url(../img/ser_hint.png) no-repeat 12px center;padding-left:32px;padding-right:12px;border-radius:2px;}
-.ser_hint span:after{
+.ser_hint:after{
 	content:'';
 	position:absolute;
 	top:34px;
