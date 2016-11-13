@@ -55,6 +55,9 @@ dataUrl.util = {
     },
     getPercentData:function(id){
     	return 'api/topic/percentage/' + id;
+    },
+    getLogOut:function(){
+    	return 'api/account/loginout'
     }
 }
 
