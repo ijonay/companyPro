@@ -4,7 +4,7 @@
 } 
 .header{background:#052e44;}
 .nav_ser{display:block;}
-.notify-list{display:none;} 
+.notify-list{display:none!important;} 
 body{
 	margin-bottom:15px;
 	background-color:#F2F2F2;
