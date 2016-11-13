@@ -23,4 +23,6 @@ public interface UserRecommendedTopicsService {
 
     TopicModel getTopicMessageDetail(Integer topicId);
 
+    boolean delAll(Integer userId);
+
 }
