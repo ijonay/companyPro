@@ -685,7 +685,7 @@ body{
 
 
 /* echart */
-.hot_echart_list{height:300px;background:#EEF3F4;color:#fff;padding:8px 20px;}
+.hot_echart_list{height:300px;background:#EEF3F4;color:#fff;padding:8px 20px;text-align:center}
 
 .hot_relation{cursor:pointer;font-size:14px;}
 .hot_relation:hover{color:#389b9f;}
