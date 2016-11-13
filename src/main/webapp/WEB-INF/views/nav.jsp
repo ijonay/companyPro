@@ -31,7 +31,7 @@
     <ul class="bar-tabs">
         <li class="pred-tab active">热点预告</li>
         <li class="notify-tab">探索通知<span class="notify-count">6</span></li>
-        <li class="right-bar-close">&times;</li>
+        <li class="right-bar-close"><img src="img/close-rightbar.png"></li>
     </ul>
     <div class="pnl-pred-tab">
         <div class="pnl-calendar"></div>

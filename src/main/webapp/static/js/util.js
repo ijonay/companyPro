@@ -36,7 +36,7 @@ dataUrl.util = {
     	return encodeURI("api/searchLog/add");
     },
     getNewPath:function(topicId,query){
-    	return 'api/paths/' + topicId + '?query=' + query;
+    	return 'http://192.168.1.101/hotspot/api/paths/' + topicId + '?query=' + query;
     },
     getHotTopic:function(count){
     	return encodeURI('api/topic/hottopic/'+count);

@@ -1238,7 +1238,7 @@ function loadSvg(){
 		   opacity:1
 	   },500);
 	   $('#ser_section').css("height",0);
-	   $('.notify-list').addClass('hidecommon');
+	   $('.notify-list').css('display',"none");
 	   $('.nav_ser').delay("fast").fadeIn();
 	   $(".all_hot_list_bot").hide();
 	   $(".all_hot_list_bot:eq(0)").show();
@@ -1259,7 +1259,7 @@ function loadSvg(){
 		   opacity:0
 	   },500);
 	   $('#ser_section').css("height",'calc(100% - 272px)');
-	   $('.notify-list').removeClass('hidecommon');
+	   $('.notify-list').css('display',"block");
 	   $('.nav_ser').delay("fast").fadeOut();
 	  
     }) 
@@ -1442,8 +1442,9 @@ function loadSvg(){
 //    						currentIndex = index;
 //    					}    					
 //    				})
-    				genderOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value+"%");
-    				genderOption.legend.data.push(data.gender[1].name+" "+data.gender[1].value+"%");
+
+    				genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
+    				genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
     				genderOption.series[0].name = "性别";
     				var genderJson0 = JSON.stringify(data.gender[0]); 
     				genderOption.series[0].data.push(JSON.parse(genderJson0));
@@ -1480,7 +1481,7 @@ function loadSvg(){
     				var educationMaxIndex = 0;
     				educationOption.series[0].name = "学历分布";
     				$.each(data.education,function(index,item){
-    					educationOption.legend.data.push(item.name+" "+item.value+"%");
+    					educationOption.legend.data.push({name:item.name+" "+item.value+"%",icon:"circle"});
     					var tempItem = JSON.stringify(item);
     					tempItem = JSON.parse(tempItem);
     					tempItem.name = item.name+" "+item.value+"%";
@@ -1789,7 +1790,7 @@ function loadSvg(){
                 		if(item.logoImgUrl){
                 			imageArray.push(item.logoImgUrl);
                 		}else{
-                			imageArray.push("javascript:void(0)");
+                			imageArray.push("img/defaultIcon.png");
                 		}                		
                 		titleArray.push(item.title);
                 		scoreArray.push(item.prevailingTrend);
