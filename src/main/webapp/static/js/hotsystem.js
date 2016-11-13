@@ -244,6 +244,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		}
 	});
 	
+	
 	$('#ser_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var arrCon = [];
@@ -1394,7 +1395,81 @@ function loadSvg(){
                 }
             ]
     };
-  
+  var mapOption = {
+
+  		backgroundColor:"#fff",
+  	    title : {
+  	        text: '受众地区分布',
+  	        left: 'center'
+  	    },
+  	    tooltip : {
+  	        trigger: 'item'
+  	    },
+//  	    legend: {
+//  	        orient: 'vertical',
+//  	        left: 'left',
+//  	    },
+  	    visualMap: {
+  	    	show:false,
+              inRange: {
+                  color: ['#a9d6fe','#619edd']
+              },
+              left:'right'
+          },
+  	    toolbox: {
+  	        show: true,
+  	        orient : 'vertical',
+  	        left: 'right',
+  	        top: 'center',
+  	    },
+  	    series : [
+  	        {
+  	            name: '地区',
+  	            type: 'map',
+  	            mapType: 'china',
+  	            roam: false,
+  	            markPoint:{itemStyle:{normal:{color:'#0ff'}}
+  	            	},
+  	        
+  	            label: {
+  	                normal: {
+  	                    show: false
+  	                },
+  	                emphasis: {
+  	                    show: false
+  	                }
+  	            },//    	        	           
+  	            itemStyle: {
+                      normal: {
+                          //borderWidth: 2,
+                         // borderColor: 'lightgreen',
+                      	areaColor: '#a9d6fe',
+                          label: {
+                              show: false
+                          }
+                      },
+                      emphasis: { // 也是选中样式
+                      	show: false,
+                          borderWidth: 1,
+                          borderColor: '#fff',
+                          areaColor: '#a9d6fe',
+                          //color: '#f00',
+                          label: {
+                              textStyle: {
+                              	font_size:'0',
+                              	show:false,
+                                  color: '#fff'
+                              }
+                          }
+                      }
+                  },
+  	            data:[],
+  	        },
+  	    
+  	       
+  	    ]
+  	
+  }
  
     $(document).on('click','.all_hot_list_top_look',function(){
     	$('.all_hot_list_bot').css('display','none');
@@ -1672,11 +1747,14 @@ function loadSvg(){
     	        	var mapCharts = echarts.init(mapCon.get(0));
     	        	var mapNames = [];
     	        	var mapVals = [];
-    	        	var mapChina =data.area;
+    	        	var mapChina = data.area;
+    	        	console.log(mapChina)
     	        	$.each(mapChina,function(i,item){
     	        		//ageVals.push(item.value);
-    	        		mapVals.push({name:item.name,value:item.value});
+    	        		
+    	        		mapVals.push({name:item.name,value:666});
     	        	});
+<<<<<<< HEAD
     	        	console.log(mapVals)
     	        	mapCharts.setOption({
     	        		backgroundColor:"#fff",
@@ -1755,6 +1833,8 @@ function loadSvg(){
     	        	       
     	        	    ]
     	        	})
+    	        	mapOption.series[0].data = mapVals;
+    	        	mapCharts.setOption(mapOption);
     	        	window.onresize=mapCharts.resize;
     			}
     		},
