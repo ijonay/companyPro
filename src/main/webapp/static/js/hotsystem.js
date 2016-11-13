@@ -1754,7 +1754,6 @@ function loadSvg(){
     	        		
     	        		mapVals.push({name:item.name,value:666});
     	        	});
-<<<<<<< HEAD
     	        	console.log(mapVals)
     	        	mapCharts.setOption({
     	        		backgroundColor:"#fff",
