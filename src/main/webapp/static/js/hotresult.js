@@ -1275,7 +1275,7 @@ $(document).delegate(".edit-word","click",function(){
     if(hotInfo.logoImgUrl){
         $(".alertCon").find(".portrait").css("background-image","url("+hotInfo.logoImgUrl+")");
     }else{
-        $(".alertCon").find(".portrait").css("background-image","");
+        $(".alertCon").find(".portrait").css("background-image","url(img/defaultIcon.png)");
     }
     var eventClass=hotInfo.eventClass;
     if(eventClass){

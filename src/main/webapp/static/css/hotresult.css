@@ -735,6 +735,7 @@ input[type=checkbox]:checked::after {
     background-repeat:no-repeat;
     margin-left:5px;
     display:inline-block;
+    float:left;
 }
 .hotIcon{
     height:100%;
