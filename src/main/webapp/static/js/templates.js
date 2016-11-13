@@ -14,7 +14,43 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplSheetList'] = tmpl.join('\r\n');
-
+    
+    tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('<li data-topicId={{:topicId}} data-id={{:id}}>');
+    tmpl.push('     <a>');
+    tmpl.push('         <span class="dot-icon"></span>');
+    tmpl.push('         <span class="pnl"><span class="hot-word">{{>keyword}}</span>－');
+    tmpl.push('         <span class="hot-spot">{{:title}}</span></span>');
+    tmpl.push('         <span class="time">{{>createDate}}</span><span class="notify-close">&times;</span></a>');
+    tmpl.push('     <div class="notify-info" style="display:none;">');
+    tmpl.push('         <div class="notify-infoTop">');
+    tmpl.push('             <div class="notify-infoTitle"></div>');
+    tmpl.push('             <div class="notify-infoConnect">关联此热点</div>');
+    tmpl.push(          '</div>');
+    tmpl.push('         <div class="notify-hotLabel">');
+    tmpl.push('             <div class="notify-hotLabel0"></div>');
+    tmpl.push('             <div class="notify-hotLabel1"></div>');
+    tmpl.push('             <div class="notify-hotLabel2"></div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="notify-hotInfo">');
+    tmpl.push('             <div class="notify-infoText"></div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="notify-infoBottom">');
+    tmpl.push('             <div class="notify-hotIcon fl"></div>');
+    tmpl.push('             <div class="notify-hotValue fl"></div><div class="planText fl">/热度</div><div class="infoSpace fl"></div>');
+    tmpl.push('             <div class="notify-iconCon fr">');
+    tmpl.push('                 <a target=" _blank" class="weibo-link" href="#" style="background-image:url(img/hot_weibo.png);"></a>');
+    tmpl.push('                 <a target=" _blank" class="weixin-link" href="#" style="background-image:url(img/hot_weixin.png);display:none;"></a>');
+    tmpl.push('                 <a target=" _blank" class="zhihu-link" href="#" style="background-image:url(img/hot_zhihu.png);display:none;"></a>');
+    tmpl.push('                 <a target=" _blank" class="baidu-link" href="#" style="background-image:url(img/hot_baidu.png);display:none;"></a>');
+    tmpl.push('             </div>');
+    tmpl.push('             <div class="planText font14 fr">来源:</div>');
+    tmpl.push('         </div>');
+    tmpl.push('     </div>');
+    tmpl.push('</li>');
+    tmpl.push('{{/for}}');
+    templates.design['tmplNotifyList'] = tmpl.join('\r\n');
     
 })();
 (function() {

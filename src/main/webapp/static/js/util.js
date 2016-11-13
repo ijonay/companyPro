@@ -47,6 +47,12 @@ dataUrl.util = {
     getTenHot:function(){
     	return encodeURI('api/topic/hottopic/10');
     },
+    getNotify:function(count){//获取通知列表
+        return encodeURI('api/hotTopicMessage/list?count='+count);
+    },
+    getNotifyDetail:function(id){//获取通知详细信息列表
+        return encodeURI('api/hotTopicMessage/detail?id='+id);
+    },
     getPercentData:function(id){
     	return 'api/topic/percentage/' + id;
     },
