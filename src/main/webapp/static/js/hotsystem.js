@@ -1423,17 +1423,6 @@ function loadSvg(){
     		success:function(data){
     			console.log(data);
     			var data = data.data;
-    			if(data == null){
-    				str = "<h1 style='position:relative;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</h1>";
-    				$this.parent().parent().find(".hot_echart_list").html(str);
-    				return;
-    			}
-    			var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
-    			if(dataLen < 1){
-    				str = "<h1 style='position:relative;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</h1>";
-    				$this.parent().parent().find(".hot_echart_list").html(str);
-    				return;
-    			}
     			//受众年龄画像
     			if(data && data.gender.length > 0){
     				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
@@ -1453,15 +1442,15 @@ function loadSvg(){
 //    						currentIndex = index;
 //    					}    					
 //    				})
-    				genderOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%");
-    				genderOption.legend.data.push(data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%");
+    				genderOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value+"%");
+    				genderOption.legend.data.push(data.gender[1].name+" "+data.gender[1].value+"%");
     				genderOption.series[0].name = "性别";
     				var genderJson0 = JSON.stringify(data.gender[0]); 
     				genderOption.series[0].data.push(JSON.parse(genderJson0));
     				var genderJson1 = JSON.stringify(data.gender[1]); 
     				genderOption.series[0].data.push(JSON.parse(genderJson1));
-    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
-    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
+    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value+"%";
+    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value+"%";
     				var label =  {
                         normal: {
                             show: true,
@@ -1478,6 +1467,8 @@ function loadSvg(){
     				}else{
     					genderOption.series[0].data[1].label = label;
     				}
+    				console.log(genderOption);
+    				console.log(option1);
     				genderCharts.setOption(genderOption);
     				//受众学历分布
     				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;;background:#fff;'></div>");
@@ -1492,7 +1483,7 @@ function loadSvg(){
     					educationOption.legend.data.push(item.name+" "+item.value+"%");
     					var tempItem = JSON.stringify(item);
     					tempItem = JSON.parse(tempItem);
-    					tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
+    					tempItem.name = item.name+" "+item.value+"%";
     					educationOption.series[0].data.push(tempItem);
     					if(educationMax > item.value){    						
     					}else{
@@ -1500,6 +1491,9 @@ function loadSvg(){
     						educationMaxIndex = index;
     					}
     				})
+    				console.log("..............")
+    				console.log(educationMax);
+    				console.log(educationMaxIndex);
 //    				educationOption.legend.data.push(data.education[0].name+" "+data.education[0].value+"%");
 //    				educationOption.legend.data.push(data.education[1].name+" "+data.education[1].value+"%");
 //    				educationOption.series[0].name = "性别";
@@ -1526,6 +1520,8 @@ function loadSvg(){
 //    				}else{
 //    					genderOption.series[0].data[1].label = label;
 //    				}
+    				console.log(educationOption);
+    				console.log(option1);
     				educationCharts.setOption(educationOption);
     				//兴趣雷达图
     				
@@ -1648,8 +1644,11 @@ function loadSvg(){
     	        	});
     	        	
     	        	//地图
-    	        	var mapCon = $("<div class='Personas' style='display:inline-block;width:20%;height:279px;background:#fff;'></div>");
-    	        	$this.parent().parent().find(".hot_echart_list").append(mapCon);
+    	        	var mapDiv = $("<div class='pst Personas'  style='display:inline-block;width:20%;height:279px;background:#fff;'><p class='pos' style='background:#f00;z-index:9000;'>海外</p></div>");
+    	        	var mapCon = $("<div style='width:100%;height:279px;'></div>");
+    	        	
+    	        	$this.parent().parent().find(".hot_echart_list").append(mapDiv);
+    	        	mapDiv.append(mapCon);
     	        	var mapCharts = echarts.init(mapCon.get(0));
     	        	var mapNames = [];
     	        	var mapVals = [];
@@ -1668,10 +1667,10 @@ function loadSvg(){
     	        	    tooltip : {
     	        	        trigger: 'item'
     	        	    },
-    	        	    legend: {
-    	        	        orient: 'vertical',
-    	        	        left: 'left',
-    	        	    },
+//    	        	    legend: {
+//    	        	        orient: 'vertical',
+//    	        	        left: 'left',
+//    	        	    },
     	        	    visualMap: {
     	        	    	show:false,
     	                    inRange: {
@@ -1734,7 +1733,7 @@ function loadSvg(){
     	        	                {name: '重庆',value: 600},
     	        	                {name: '海外',value: 1},
     	        	                {name: '湖南',value: 50},
-    	        	                {name: '海南',value: 120}
+    	        	                {name: '海南',value: 120},
     	        	                
     	        	            ]
     	        	        },
