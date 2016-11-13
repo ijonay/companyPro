@@ -846,8 +846,8 @@ body{
   transition: 0.5s;
 }
 #ser_btn_high::before {
-  border-bottom: 3px solid #389b9f;
-  border-left: 3px solid #389b9f;
+  border-bottom: 2px solid #389b9f;
+  border-left: 2px solid #389b9f;
   -webkit-transform-origin: 0 100%;
 }
 .hotAlertTag{
@@ -866,8 +866,8 @@ body{
 	color:#4a4a4a;
 }
 #ser_btn_high::after {
-  border-top: 3px solid #389b9f;
-  border-right: 3px solid #389b9f;
+  border-top: 2px solid #389b9f;
+  border-right: 2px solid #389b9f;
   -webkit-transform-origin: 100% 0%;
 }
 .borderShadow:hover::after, .borderShadow:hover::before {
@@ -882,5 +882,5 @@ body{
     filter: gray;
 }
 .Personas{
-	margin:2px 1% 5px 0
+	margin:2px 0.5% 5px 0
 }
