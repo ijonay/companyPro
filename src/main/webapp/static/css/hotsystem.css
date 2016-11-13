@@ -684,7 +684,7 @@ body{
 
 
 /* echart */
-.hot_echart_list{height:300px;background:#f00;color:#fff;padding:8px 20px;}
+.hot_echart_list{height:300px;background:#EEF3F4;color:#fff;padding:8px 20px;}
 
 .hot_relation{cursor:pointer;font-size:14px;}
 .hot_relation:hover{color:#389b9f;}
@@ -879,4 +879,7 @@ body{
     -o-filter: grayscale(100%);    
     filter: grayscale(100%);	
     filter: gray;
+}
+.Personas{
+	margin:2px 1% 5px 0
 }

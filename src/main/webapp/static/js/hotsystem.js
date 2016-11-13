@@ -1281,6 +1281,62 @@ function loadSvg(){
         	$(this).find(".hot_img_arrow").css("transform","rotate(180deg)")
     	};    	
     });
+    var circleOption = {
+    		title: {
+                text: '',
+                left: 'center',
+                top:15
+            },
+            color:["#5ccfcd","#6faff4"],
+            backgroundColor:"#fff",
+            tooltip: {
+                trigger: 'item',
+                formatter: function (obj) {
+                    return obj.name.split(" ")[0] + ": " + obj.percent + "%" 
+                },
+                backgroundColor:"rgba(255,255,255,0.5)",
+                borderColor:"#5ccfcd",
+                borderWidth:2,
+                textStyle:{
+                	color:"#000",
+                	fontFamily:"微软雅黑"
+                }
+            },
+            legend: {
+                orient: 'horizontal',
+                bottom:20,
+                data:[],
+                formatter: function (name) {
+                    return name.split(" ")[0];
+                }
+            },
+            series: [
+                {
+                    name:'',
+                    type:'pie',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            textStyle: {
+                                fontSize: '0',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '0',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    data:[]
+                }
+            ]
+    }
     var option1 = {
             title: {
                 text: '受众性别分布',
@@ -1290,7 +1346,7 @@ function loadSvg(){
             tooltip: {
                 trigger: 'item',
                 formatter: function (obj) {
-                    return obj.name.substr(0,1) + ": " + obj.percent + "%" 
+                    return obj.name.split(":")[0] + ": " + obj.percent + "%" 
                 },
                 backgroundColor:"rgba(255,255,255,0.5)",
                 borderColor:"#5ccfcd",
@@ -1314,24 +1370,25 @@ function loadSvg(){
                     color:["#5ccfcd","#6faff4"],
                     type:'pie',
                     radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '0',
-                                fontWeight: 'bold'
-                            }
-                        }
-                    },
+                    avoidLabelOverlap: false,                    
                     data:[
-                        {value:97, name:'男 97%'},
+                        {value:97, name:'男 97%',label: {
+                            normal: {
+                                show: true,
+                                position: 'center',
+                                textStyle: {
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        }},
                         {value:3, name:'女 3%'}
                     ]
                 }
             ]
     };
+  
+ 
     $(document).on('click','.all_hot_list_top_look',function(){
     	$('.all_hot_list_bot').css('display','none');
     	$('.hot_img_arrow').css("transform","rotate(0deg)");
@@ -1356,18 +1413,228 @@ function loadSvg(){
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
     	};
     	var $this = $(this);
+    	if($this.parent().parent().find(".Personas").length > 0){
+			console.log("已添加用户画像");
+			return;
+		}
     	$.ajax({
     		type:"get",
     		url:dataUrl.util.getPercentData($(this).attr("data-id")),
     		success:function(data){
     			console.log(data);
+    			var data = data.data;
+    			if(data == null){
+    				str = "<h1 style='position:relative;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</h1>";
+    				$this.parent().parent().find(".hot_echart_list").html(str);
+    				return;
+    			}
+    			var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
+    			if(dataLen < 1){
+    				str = "<h1 style='position:relative;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</h1>";
+    				$this.parent().parent().find(".hot_echart_list").html(str);
+    				return;
+    			}
     			//受众年龄画像
-    			if(data.data && data.data.gender.length > 0){
-    				var ageCon = $("<div style='width:17%;height:279px;margin:5px 0;background:#fff'></div>");
-    				$this.parent().parent().find(".hot_echart_list").append(ageCon);
-    				var ageCharts = echarts.init(ageCon.get(0));
-//    				var
-    				ageCharts.setOption(option1);
+    			if(data && data.gender.length > 0){
+    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
+    				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
+    				$this.parent().parent().find(".hot_echart_list").append(genderCon);
+    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
+    				var genderCharts = echarts.init(genderCon.get(0));
+    				var genderOption = $.extend(true,{},circleOption);
+    				genderOption.title.text = "受众性别分布";
+    				var max = 0;
+    				var currentIndex = 0;
+//    				$.each(data.gender,function(index,item){
+//    					ageOption.legend.data.push(item.name+" "+item.value+"%");
+//    					if(max < item.value){
+//    						max = item.value;
+//    						currentIndex = index;
+//    					}    					
+//    				})
+    				genderOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%");
+    				genderOption.legend.data.push(data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%");
+    				genderOption.series[0].name = "性别";
+    				var genderJson0 = JSON.stringify(data.gender[0]); 
+    				genderOption.series[0].data.push(JSON.parse(genderJson0));
+    				var genderJson1 = JSON.stringify(data.gender[1]); 
+    				genderOption.series[0].data.push(JSON.parse(genderJson1));
+    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
+    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
+    				var label =  {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            textStyle: {
+                            	color:"#000",
+                                fontSize: '16',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
+    				if(data.gender[0].value > data.gender[1].value){
+    					genderOption.series[0].data[0].label = label;
+    				}else{
+    					genderOption.series[0].data[1].label = label;
+    				}
+    				genderCharts.setOption(genderOption);
+    				//受众学历分布
+    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;;background:#fff;'></div>");
+    				$this.parent().parent().find(".hot_echart_list").append(educationCon);
+    				var educationCharts = echarts.init(educationCon.get(0));
+    				var educationOption = $.extend(true,{},circleOption);
+    				educationOption.title.text = "受众性别分布";
+    				var educationMax = 0;
+    				var educationMaxIndex = 0;
+    				educationOption.series[0].name = "学历分布";
+    				$.each(data.education,function(index,item){
+    					educationOption.legend.data.push(item.name+" "+item.value+"%");
+    					var tempItem = JSON.stringify(item);
+    					tempItem = JSON.parse(tempItem);
+    					tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
+    					educationOption.series[0].data.push(tempItem);
+    					if(educationMax > item.value){    						
+    					}else{
+    						educationMax = item.value;
+    						educationMaxIndex = index;
+    					}
+    				})
+//    				educationOption.legend.data.push(data.education[0].name+" "+data.education[0].value+"%");
+//    				educationOption.legend.data.push(data.education[1].name+" "+data.education[1].value+"%");
+//    				educationOption.series[0].name = "性别";
+//    				var educationJson0 = JSON.stringify(data.education[0]); 
+//    				educationOption.series[0].data.push(JSON.parse(educationJson0));
+//    				var educationJson1 = JSON.stringify(data.education[1]); 
+//    				educationOption.series[0].data.push(JSON.parse(educationJson1));
+//    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value+"%";
+//    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value+"%";
+    				var label =  {
+                        normal: {
+                            show: true,
+                            position: 'center',
+                            textStyle: {
+                            	color:"#000",
+                                fontSize: '16',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
+                    educationOption.series[0].data[educationMaxIndex].label = label;
+//    				if(data.gender[0].value > data.gender[1].value){
+//    					genderOption.series[0].data[0].label = label;
+//    				}else{
+//    					genderOption.series[0].data[1].label = label;
+//    				}
+    				educationCharts.setOption(educationOption);
+    				//兴趣雷达图
+    				var interestCharts = echarts.init(interestCon.get(0));
+    				var interestvals = [];
+    	        	var interestnames = [];
+    	        	var interest =data.interest;
+    	        	$.each(interest,function(i,item){
+    	        		interestvals.push(item.value);
+    	        		interestnames.push({name:item.name});
+    	        	});
+    	        	
+    	        	interestCharts.setOption({
+    	        		color:['#ccc'],
+    	        	    title: {
+    	        	        text: '受众兴趣偏好',
+    	        	        left:'center'
+    	        	    },
+    	        	    backgroundColor:"#fff",
+    	        	    tooltip: {},
+    	        	    
+    	        	    radar: {
+    	        	    	splitArea: {
+    	        	            areaStyle: {
+    	        	                color: ['#B8D3E4', '#96C5E3', '#7DB5DA', '#72ACD1']
+    	        	            }
+    	        	        },
+    	        	        // shape: 'circle',
+    	        	        indicator: interestnames,
+    	        	        splitLine: {
+        	                    lineStyle: {
+        	                        color: '#ccc'
+        	                    }
+        	                },
+    	        	    },
+    	        	    series: [{
+    	        	        type: 'radar',
+    	        	        data : [
+    	        	            {
+    	        	                value : interestvals,
+    	        	                areaStyle: {
+    	                                normal: {
+    	                                    color: '#80D8DD'
+    	                                }
+    	                            }
+    	        	            }
+    	        	        ]
+    	        	    }]
+    	        	});
+    	        	//年龄柱状图
+    	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
+    	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
+    	        	var ageNewCharts = echarts.init(ageNewCon.get(0));
+    	        	var ageNames = [];
+    	        	var ageVals = [];
+    	        	var age =data.age;
+    	        	$.each(age,function(i,item){
+    	        		ageVals.push(item.value);
+    	        		ageNames.push(item.name);
+    	        	});
+    	        	
+    	        	ageNewCharts.setOption({
+    	        			backgroundColor:"#fff",
+	    	        		title: {
+	     	        	        text: '受众年龄分布',
+	     	        	        left:'center'
+	     	        	    },
+    	            	    color: ['#3398DB'],
+    	            	    tooltip : {
+    	            	        trigger: 'axis',
+    	            	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    	            	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    	            	        }
+    	            	    },
+    	            	    grid: {
+    	            	        left: '3%',
+    	            	        right: '4%',
+    	            	        bottom: '3%',
+    	            	        containLabel: true
+    	            	    },
+    	            	    xAxis : [
+    	            	        {
+    	            	            type : 'category',
+    	            	            data :ageNames ,
+    	            	            axisTick: {
+    	            	                alignWithLabel: true
+    	            	            },
+    	            	            splitLine:false,
+    	            	            axisLine:{
+    	            	            	lineStyle:{color:'#ccc'}
+    	            	            }
+    	            	        }
+    	            	    ],
+    	            	    yAxis : [
+    	            	        {
+    	            	            type : 'value',
+    	            	            splitLine:false,
+    	            	            axisLine:{
+    	            	            	lineStyle:{color:'#ccc'}
+    	            	            }
+    	            	        }
+    	            	    ],
+    	            	    series : [
+    	            	        {
+    	            	            name:'年龄',
+    	            	            type:'bar',
+    	            	            barWidth: '60%',
+    	            	            data:ageVals
+    	            	        }
+    	            	    ]
+    	        	})
     			}
     		},
     		error:function(){

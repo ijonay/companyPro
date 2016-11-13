@@ -68,4 +68,38 @@ public class UserHotTopicMessageApi extends BaseApi{
 
     }
 
+    @RequestMapping(value = "del")
+    public ApiResultModel deleteUserHotTopicMessage(
+            @RequestParam(value = "id") Integer id
+    ){
+        ApiResultModel resultModel = new ApiResultModel();
+        try{
+            if( userRecommendedTopicsService.del(id) ){
+                resultModel.code(StatusCodeEnum.SUCCESS);
+            }else{
+                resultModel.code(StatusCodeEnum.FAILED);
+            }
+        }catch (Exception e){
+            resultModel.setStatusCode(StatusCodeEnum.SERVER_ERROR);
+            e.printStackTrace();
+        }
+        return resultModel;
+    }
+
+    @RequestMapping(value = "delAll")
+    public ApiResultModel deleteUserAllHotTopicMessage(){
+        ApiResultModel resultModel = new ApiResultModel();
+        try{
+            if( userRecommendedTopicsService.delAll( CommonHelper.getCurrentUserId() ) ){
+                resultModel.code(StatusCodeEnum.SUCCESS);
+            }else{
+                resultModel.code(StatusCodeEnum.FAILED);
+            }
+        }catch (Exception e){
+            resultModel.setStatusCode(StatusCodeEnum.SERVER_ERROR);
+            e.printStackTrace();
+        }
+        return resultModel;
+    }
+
 }
