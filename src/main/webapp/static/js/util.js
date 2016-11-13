@@ -57,8 +57,12 @@ dataUrl.util = {
     	return 'api/topic/percentage/' + id;
     },
     getLogOut:function(){
-    	return 'api/account/loginout'
-    }
+    	return 'api/account/loginout' 
+    },
+    delNotify:function(id){//单个删除通知
+        return encodeURI('api/hotTopicMessage/del?id='+id);
+    },
+    delAllNotify: encodeURI('api/hotTopicMessage/delAll')//删除所有通知
 }
 
 var chartsAttr = chartsAttr || {};
