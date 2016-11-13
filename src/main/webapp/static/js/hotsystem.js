@@ -1060,7 +1060,7 @@ function loadSvg(){
                     rectArray[index].attr({fill:"#2ad3da"}).animate({transform:"r45s1.2"})
                     textArray[index].animate({transform:"s1.2"})
                     hotArray[index].animate({transform:"s1.2"}) 
-                }        		
+                }
         	},function(){
                 if(canClick){
             		rectArray[index].attr({fill:"#389b9f"}).animate({transform:"r45"})
@@ -1164,8 +1164,15 @@ function loadSvg(){
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
             alertCon.show();
-    	}    	
+    	}else{
+        	$("#comeback_hot").click();
+        }
     }
+//    $(".papersvg").click(function(){
+//    	if(!canClick){
+//    		$("#comeback_hot").click()
+//    	}    	
+//    })
     $(document).on("click",".hot_relation,.infoConnect",function(){
     	var $this = $(this);
     	var index = $this.attr("data-index");
@@ -1436,33 +1443,35 @@ function loadSvg(){
     				}
     			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
-    				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
-    				$this.parent().parent().find(".hot_echart_list").append(genderCon);
-    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
+    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");    				
+    				$this.parent().parent().find(".hot_echart_list").append(genderCon);    				
     				var genderCharts = echarts.init(genderCon.get(0));
     				
     				var genderOption = $.extend(true,{},circleOption);
     				genderOption.title.text = "受众性别分布";
     				var max = 0;
     				var currentIndex = 0;
-//    				$.each(data.gender,function(index,item){
-//    					ageOption.legend.data.push(item.name+" "+item.value+"%");
-//    					if(max < item.value){
-//    						max = item.value;
-//    						currentIndex = index;
-//    					}    					
-//    				})
-
-    				genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
-    				genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
-    				genderOption.series[0].name = "性别";
-    				var genderJson0 = JSON.stringify(data.gender[0]); 
-    				genderOption.series[0].data.push(JSON.parse(genderJson0));
-    				var genderJson1 = JSON.stringify(data.gender[1]); 
-    				genderOption.series[0].data.push(JSON.parse(genderJson1));
-    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
-    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
+       				$.each(data.gender,function(index,item){
+                        genderOption.legend.data.push({name:item.name+" "+item.value.toFixed(2)+"%",icon:"circle"});
+       					var tempItem = JSON.stringify(item);
+                        tempItem = JSON.parse(tempItem);
+                        tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
+                        genderOption.series[0].data.push(tempItem);
+                        if(max > item.value){                          
+                        }else{
+                            max = item.value;
+                            currentIndex = index;
+                        }  					
+       				})                    
+    				// genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
+    				// genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
+    				// genderOption.series[0].name = "性别";
+    				// var genderJson0 = JSON.stringify(data.gender[0]); 
+    				// genderOption.series[0].data.push(JSON.parse(genderJson0));
+    				// var genderJson1 = JSON.stringify(data.gender[1]); 
+    				// genderOption.series[0].data.push(JSON.parse(genderJson1));
+    				// genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
+    				// genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
     				var label =  {
                         normal: {
                             show: true,
@@ -1474,13 +1483,12 @@ function loadSvg(){
                             }
                         }
                     }
-    				if(data.gender[0].value > data.gender[1].value){
-    					genderOption.series[0].data[0].label = label;
-    				}else{
-    					genderOption.series[0].data[1].label = label;
-    				}
-    				console.log(genderOption);
-    				console.log(option1);
+       				genderOption.series[0].data[currentIndex].label = label;
+    				// if(data.gender[0].value > data.gender[1].value){
+    				// 	genderOption.series[0].data[0].label = label;
+    				// }else{
+    				// 	genderOption.series[0].data[1].label = label;
+    				// }
     				genderCharts.setOption(genderOption);
     				window.onresize = genderCharts.resize;
     				//受众学历分布
@@ -1533,60 +1541,63 @@ function loadSvg(){
     				educationCharts.setOption(educationOption);
     				window.onresize=educationCharts.resize;
     				//兴趣雷达图
-    				
-    				var interestCharts = echarts.init(interestCon.get(0));
-    				var interestvals = [];
-    	        	var interestnames = [];
-    	        	var interest =data.interest;
-    	        	$.each(interest,function(i,item){
-    	        		interestvals.push(item.value);
-    	        		interestnames.push({name:item.name});
-    	        	});
-    	        	
-    	        	interestCharts.setOption({
-    	        		color:['#ccc'],
-    	        	    title: {
-    	        	        text: '受众兴趣偏好',
-    	        	        left:'center',
-    	        	        top:15
-    	        	    },
-    	        	    backgroundColor:"#fff",
-    	        	    tooltip: {},
-    	        	    
-    	        	    radar: {
-    	        	    	radius:'50%',
-    	        	    	center:['50%','60%'],
-    	        	    	splitArea: {
-    	        	            areaStyle: {
-    	        	                color: ['#fff', '#fff', '#fff', '#fff']
-    	        	            }
-    	        	        },
-    	        	        // shape: 'circle',
-    	        	        indicator: interestnames,
-    	        	        splitLine: {
-        	                    lineStyle: {
-        	                        color: '#ccc'
-        	                    }
-        	                },
-        	                axisLine: {
-        	                    show:false
-        	                },
-    	        	    },
-    	        	    series: [{
-    	        	        type: 'radar',
-    	        	        data : [
-    	        	            {
-    	        	                value : interestvals,
-    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
-//    	        	                areaStyle: {
-//    	                                normal: {
-//    	                                    color: '#fff'
-//    	                                }
-//    	                            }
-    	        	            }
-    	        	        ]
-    	        	    }]
-    	        	});
+    				if(data && data.interest.length > 0){
+						var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
+	    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
+	    				var interestCharts = echarts.init(interestCon.get(0));
+	    				var interestvals = [];
+	    	        	var interestnames = [];
+	    	        	var interest =data.interest;
+	    	        	$.each(interest,function(i,item){
+	    	        		interestvals.push(item.value);
+	    	        		interestnames.push({name:item.name});
+	    	        	});
+	    	        	
+	    	        	interestCharts.setOption({
+	    	        		color:['#ccc'],
+	    	        	    title: {
+	    	        	        text: '受众兴趣偏好',
+	    	        	        left:'center',
+	    	        	        top:15
+	    	        	    },
+	    	        	    backgroundColor:"#fff",
+	    	        	    tooltip: {},
+	    	        	    
+	    	        	    radar: {
+	    	        	    	radius:'50%',
+	    	        	    	center:['50%','60%'],
+	    	        	    	splitArea: {
+	    	        	            areaStyle: {
+	    	        	                color: ['#fff', '#fff', '#fff', '#fff']
+	    	        	            }
+	    	        	        },
+	    	        	        // shape: 'circle',
+	    	        	        indicator: interestnames,
+	    	        	        splitLine: {
+	        	                    lineStyle: {
+	        	                        color: '#ccc'
+	        	                    }
+	        	                },
+	        	                axisLine: {
+	        	                    show:false
+	        	                },
+	    	        	    },
+	    	        	    series: [{
+	    	        	        type: 'radar',
+	    	        	        data : [
+	    	        	            {
+	    	        	                value : interestvals,
+	    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
+	//    	        	                areaStyle: {
+	//    	                                normal: {
+	//    	                                    color: '#fff'
+	//    	                                }
+	//    	                            }
+	    	        	            }
+	    	        	        ]
+	    	        	    }]
+	    	        	});
+    				}
     	        	window.onresize=interestCharts.resize;
     	        	//年龄柱状图
     	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
