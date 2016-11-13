@@ -1653,11 +1653,11 @@ function loadSvg(){
     	        	var mapNames = [];
     	        	var mapVals = [];
     	        	var mapChina =data.area;
-//    	        	$.each(mapChina,function(i,item){
-//    	        		ageVals.push(item.value);
-//    	        		ageNames.push(item.name);
-//    	        	});
-    	        	
+    	        	$.each(mapChina,function(i,item){
+    	        		//ageVals.push(item.value);
+    	        		mapVals.push({name:item.name,value:item.value});
+    	        	});
+    	        	console.log(mapVals)
     	        	mapCharts.setOption({
     	        		backgroundColor:"#fff",
     	        	    title : {
@@ -1726,16 +1726,10 @@ function loadSvg(){
     	                                }
     	                            }
     	                        },
-    	        	            data:[
-    	        	                {name: '北京',value: 1000},
-    	        	                {name: '天津',value: 300},
-    	        	                {name: '上海',value: 500},
-    	        	                {name: '重庆',value: 600},
-    	        	                {name: '海外',value: 1},
-    	        	                {name: '湖南',value: 50},
-    	        	                {name: '海南',value: 120},
-    	        	                
-    	        	            ]
+    	        	            data:[ {name: '北京',value: 1000},
+    	                        {name: '天津',value: 300},
+    	                        {name: '上海',value: 500},
+    	                        {name: '重庆',value: 600}]
     	        	        },
     	        	    
     	        	       
