@@ -1345,56 +1345,6 @@ function loadSvg(){
                 }
             ]
     }
-    var option1 = {
-            title: {
-                text: '受众性别分布',
-                left: 'center'
-            },
-            backgroundColor:"#fff",
-            tooltip: {
-                trigger: 'item',
-                formatter: function (obj) {
-                    return obj.name.split(":")[0] + ": " + obj.percent + "%" 
-                },
-                backgroundColor:"rgba(255,255,255,0.5)",
-                borderColor:"#5ccfcd",
-                borderWidth:2,
-                textStyle:{
-                	color:"#000",
-                	fontFamily:"微软雅黑"
-                }
-            },
-            legend: {
-                orient: 'horizontal',
-                bottom:10,
-                data:['男 97%','女 3%'],
-                formatter: function (name) {
-                    return name.substr(0,1);
-                }
-            },
-            series: [
-                {
-                    name:'性别',
-                    color:["#5ccfcd","#6faff4"],
-                    type:'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,                    
-                    data:[
-                        {value:97, name:'男 97%',label: {
-                            normal: {
-                                show: true,
-                                position: 'center',
-                                textStyle: {
-                                    fontSize: '20',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        }},
-                        {value:3, name:'女 3%'}
-                    ]
-                }
-            ]
-    };
   var mapOption = {
 
   		backgroundColor:"#fff",
@@ -1566,6 +1516,8 @@ function loadSvg(){
     				// }
     				genderCharts.setOption(genderOption);
     				window.onresize = genderCharts.resize;
+    			}
+    			if(data && data.education.length > 0){
     				//受众学历分布
     				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(educationCon);
@@ -1615,6 +1567,7 @@ function loadSvg(){
 //    				}
     				educationCharts.setOption(educationOption);
     				window.onresize=educationCharts.resize;
+    			}
     				//兴趣雷达图
     				if(data && data.interest.length > 0){
 						var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
@@ -1672,9 +1625,11 @@ function loadSvg(){
 	    	        	        ]
 	    	        	    }]
 	    	        	});
+	    	        	window.onresize=interestCharts.resize;
     				}
-    	        	window.onresize=interestCharts.resize;
+    	        	
     	        	//年龄柱状图
+    	        if(data && data.age.length > 0){
     	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
     	        	var ageNewCharts = echarts.init(ageNewCon.get(0));
@@ -1738,7 +1693,9 @@ function loadSvg(){
     	            	    ]
     	        	});
     	        	window.onresize=ageNewCharts.resize;
+    	        }
     	        	//地图
+    	        if(data && data.area.length > 0){
     	        	var mapDiv = $("<div class='pst Personas'  style='display:inline-block;width:27%;height:279px;background:#fff;'><p class='pos' style='background:#f00;z-index:9000;'>海外</p></div>");
     	        	var mapCon = $("<div style='width:100%;height:279px;'></div>");
     	        	
@@ -1836,6 +1793,7 @@ function loadSvg(){
     	        	mapCharts.setOption(mapOption);
     	        	window.onresize=mapCharts.resize;
     			}
+    			
     		},
     		error:function(){
     			console.log("获取受众画像失败");
