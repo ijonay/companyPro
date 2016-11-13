@@ -25,9 +25,6 @@
         <li class="head-notify"><a><span class="notify-count">6</span></a></li>
     </ul>
     <ul class="notify-list">
-        <li><a><span class="dot-icon"></span><span class="hot-word">特斯拉－</span><span class="hot-spot">加油站掺水</span><span class="time">10min</span><span class="notify-close">&times;</span></a></li>
-        <li><a><span class="dot-icon"></span><span class="hot-word">空气净化器－</span><span class="hot-spot">棉纱堵采样器造假</span><span class="time">18:00</span><span class="notify-close">&times;</span></a></li>
-        <li><a><span class="dot-icon"></span><span class="hot-word">手机－</span><span class="hot-spot">冤狱男子结婚</span><span class="time">昨天</span><span class="notify-close">&times;</span></a></li>
     </ul>
 </div>
 <div class="right-bar">

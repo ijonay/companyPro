@@ -1287,6 +1287,7 @@ $(document).delegate(".edit-word","click",function(){
     }else{
         $(".alertCon").find(".hotLabel0").text("");
         $(".alertCon").find(".hotLabel1").text("");
+        $(".alertCon").find(".hotLabel2").text("");
     }
     $(".alertCon").css({
         'position': 'absolute',
