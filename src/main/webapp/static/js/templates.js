@@ -70,7 +70,7 @@ templates.design = {};
     tmpl.push('     </ul>');
     tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot">');
     tmpl.push('       <li class="li-first">');
-    tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{/if}})"></div></div>');
+    tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{else}}img/defaultIcon.png{{/if}})"></div></div>');
     tmpl.push('           <div class="type-content fl">');
     tmpl.push('               <div style="line-height:18px;"><span class="content-article">热点概述</span></div>');
     tmpl.push('               <div class="content-desc">{{:introduction}}</div>')
