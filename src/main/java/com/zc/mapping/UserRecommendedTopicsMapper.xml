@@ -81,7 +81,7 @@
     <select id="getUserHotTopicMessageList"  resultMap="ViewResultMap">
 
         SELECT retopic.id,retopic.keyword,retopic.topic_id,t.title,
-        DATE_FORMAT(retopic.create_date,'%Y-%m-%d %H:%i:%s') as
+        DATE_FORMAT(retopic.create_date,'%Y-%m-%d %H:%i:%s') as create_date
         from UserRecommentedTopics retopic
         INNER join users u on u.id = retopic.user_id
         INNER join topic t on t.id = retopic.topic_id

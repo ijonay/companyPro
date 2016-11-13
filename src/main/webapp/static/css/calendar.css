@@ -141,9 +141,11 @@
     width: 40px;
     height: 40px;
     line-height: 40px;
+    margin-right:-1px;
 }
 .calendar .days li {
     position:relative;
+    margin-right:-1px;
 }
 .calendar .month-items li {
     width: 70px;
@@ -212,10 +214,10 @@
 .calendar .days li div {
     position:absolute;
     height:1px;
-    border-bottom:1px solid #ccc;
+    border-bottom:2px solid #ccc;
 } 
 .calendar .days li div.active {
-    border-bottom:1px solid #2ad5d8;
+    border-bottom:2px solid #2ad5d8;
 } 
 .calendar .days li .line1{
 	top:31px;

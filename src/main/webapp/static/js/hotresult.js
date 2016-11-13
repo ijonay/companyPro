@@ -1254,8 +1254,7 @@ $(document).delegate(".edit-word","click",function(){
     var top = $(this).position().top + $(this).find(".icon").height() + 16;
     $(".alertCon").find(".infoTitle").text(hotInfo.title?hotInfo.title:"");
     $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
-    $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"");
-    $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"");
+    $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
     $(".alertCon").find(".hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
     $(".alertCon").find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
     if(hotInfo.wechatUrl){
@@ -1288,6 +1287,7 @@ $(document).delegate(".edit-word","click",function(){
     }else{
         $(".alertCon").find(".hotLabel0").text("");
         $(".alertCon").find(".hotLabel1").text("");
+        $(".alertCon").find(".hotLabel2").text("");
     }
     $(".alertCon").css({
         'position': 'absolute',
