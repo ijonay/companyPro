@@ -103,10 +103,14 @@
         <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
     </resultMap>
 
-    <update id="delAll" parameterType="java.lang.Integer">
-        UPDATE UserRecommentedTopics
+    <update id="delAll">
+        UPDATE  UserRecommentedTopics
         set is_active = 0
-        where user_id = #{user_id, jdbcType=INTEGER}
+        where id in
+        <foreach collection="idList" item="id" index="index"
+                 open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </update>
 
 </mapper>
