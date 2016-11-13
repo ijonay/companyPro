@@ -139,9 +139,19 @@ function pageChange(up){
     }
     var lineArray = [];
     var nodeList = [];
-    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
-    var query = GetRequest('query').query;
-    var hotTopic = GetRequest('query').hotTopic;
+//    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
+//    var query = GetRequest('query').query;
+//    var hotTopic = GetRequest('query').hotTopic;
+    var hash = location.hash.substr(1);
+	var pathInfo = {};
+	var infoArray = hash.split("&");
+	$.each(infoArray,function(index,item){
+		var temp = item.split("=");
+		pathInfo[temp[0]] = temp[1];
+	})
+    var topicId = pathInfo.topicId;
+    var query = pathInfo.query;
+    var hotTopic = pathInfo.hotTopic;
     var List = [];
     for(var i=0;i<5;i++){
         var ListItem = Pages[pageNum*5+i];
