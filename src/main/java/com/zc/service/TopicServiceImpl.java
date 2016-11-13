@@ -433,7 +433,7 @@ public class TopicServiceImpl implements TopicService {
                 ());
         KeyValueCollection areaColl = new KeyValueCollection(area);
 
-        result.put("area ", areaColl);
+        result.put("area", areaColl);
 
         List<TopicFilterClass> interest = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Interest
                 .getValue
@@ -445,13 +445,13 @@ public class TopicServiceImpl implements TopicService {
         }
         KeyValueCollection interestColl = new KeyValueCollection(interest);
 
-        result.put("interest ", interestColl);
+        result.put("interest", interestColl);
 
         List<TopicAgeStatistics> age = topicAgeStatisticsService.getByTopicId(topicId);
 
         KeyValueCollection ageColl = new KeyValueCollection(age, "");
 
-        result.put("age ", ageColl);
+        result.put("age", ageColl);
 
         return result;
     }

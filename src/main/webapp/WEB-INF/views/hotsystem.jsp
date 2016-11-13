@@ -332,21 +332,22 @@
             <img class="hotIcon" src="img/hotIcon.png">
             <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
             <div class="iconCon">
-	            <img class="infoIcon" id="iconweibo" src="img/weibo.png" alt="微博">
-	            <img class="infoIcon" id="iconwechat" src="img/wechat.png" alt="微信">
-	            <img class="infoIcon" id="iconzhihu" src="img/zhihu.png" alt="知乎">
-	            <img class="infoIcon" id="iconbaidu" src="img/baidu.png" alt="百度">
+	            <img class="infoIcon" id="iconweibo" src="img/hot_weibo.png" alt="微博">
+	            <img class="infoIcon" id="iconwechat" src="img/hot_weixin.png" alt="微信">
+	            <img class="infoIcon" id="iconzhihu" src="img/hot_zhihu.png" alt="知乎">
+	            <img class="infoIcon" id="iconbaidu" src="img/hot_baidu.png" alt="百度">
             </div>
         </div>
     </div>
     <div class="triangle"></div>
 </div>
 <ul class="cook_ul pos hidecommon" id="cook_ul">
-   			<li>手机2<span></span></li>
-			<li>苹果2<span></span></li>
-			<li>三星2<span></span></li>
-			<li>华为2<span></span></li>			
-   		 </ul>
+  		<li>手机2<span></span></li>
+		<li>苹果2<span></span></li>
+		<li>三星2<span></span></li>
+		<li>华为2<span></span></li>			
+</ul>
+
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -356,6 +357,7 @@
 <script src="js/raphael.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
+<script src="lib/echarts.js"></script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>

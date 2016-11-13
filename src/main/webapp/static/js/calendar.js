@@ -325,7 +325,7 @@
                 idt = new Date(y, m - 1, d),
                 data = {
                     w: (this.width-50) / 7,
-                    h: 42,
+                    h: 48,
                     value: d
                 },
                 markData,
@@ -367,7 +367,7 @@
         getDaysHtml: function(y, m) {
             var year, month, firstWeek, daysNum, prevM, prevDiff,
                 dt = this.date,
-                $days = $('<ol class="days" style="padding:24px 25px 10px 25px;"></ol>');
+                $days = $('<ol class="days" style="padding:0px 25px 10px 25px;"></ol>');
 
             if (isDate(y)) {
                 year = y.getFullYear();
