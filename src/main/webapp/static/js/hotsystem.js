@@ -1294,11 +1294,11 @@ function loadSvg(){
                 formatter: function (obj) {
                     return obj.name.split(" ")[0] + ": " + obj.percent + "%" 
                 },
-                backgroundColor:"rgba(255,255,255,0.5)",
-                borderColor:"#5ccfcd",
-                borderWidth:2,
+//                backgroundColor:"rgba(255,255,255,0.5)",
+//                borderColor:"#5ccfcd",
+//                borderWidth:2,
                 textStyle:{
-                	color:"#000",
+                	color:"#fff",
                 	fontFamily:"微软雅黑"
                 }
             },
@@ -1430,6 +1430,7 @@ function loadSvg(){
     				$this.parent().parent().find(".hot_echart_list").append(genderCon);
     				$this.parent().parent().find(".hot_echart_list").append(interestCon);
     				var genderCharts = echarts.init(genderCon.get(0));
+    				
     				var genderOption = $.extend(true,{},circleOption);
     				genderOption.title.text = "受众性别分布";
     				var max = 0;
@@ -1474,7 +1475,7 @@ function loadSvg(){
     				$this.parent().parent().find(".hot_echart_list").append(educationCon);
     				var educationCharts = echarts.init(educationCon.get(0));
     				var educationOption = $.extend(true,{},circleOption);
-    				educationOption.title.text = "受众性别分布";
+    				educationOption.title.text = "受众学历分布";
     				var educationMax = 0;
     				var educationMaxIndex = 0;
     				educationOption.series[0].name = "学历分布";
@@ -1523,6 +1524,7 @@ function loadSvg(){
     				console.log(option1);
     				educationCharts.setOption(educationOption);
     				//兴趣雷达图
+    				
     				var interestCharts = echarts.init(interestCon.get(0));
     				var interestvals = [];
     	        	var interestnames = [];
@@ -1536,15 +1538,18 @@ function loadSvg(){
     	        		color:['#ccc'],
     	        	    title: {
     	        	        text: '受众兴趣偏好',
-    	        	        left:'center'
+    	        	        left:'center',
+    	        	        top:15
     	        	    },
     	        	    backgroundColor:"#fff",
     	        	    tooltip: {},
     	        	    
     	        	    radar: {
+    	        	    	radius:'50%',
+    	        	    	center:['50%','60%'],
     	        	    	splitArea: {
     	        	            areaStyle: {
-    	        	                color: ['#B8D3E4', '#96C5E3', '#7DB5DA', '#72ACD1']
+    	        	                color: ['#fff', '#fff', '#fff', '#fff']
     	        	            }
     	        	        },
     	        	        // shape: 'circle',
@@ -1554,21 +1559,26 @@ function loadSvg(){
         	                        color: '#ccc'
         	                    }
         	                },
+        	                axisLine: {
+        	                    show:false
+        	                },
     	        	    },
     	        	    series: [{
     	        	        type: 'radar',
     	        	        data : [
     	        	            {
     	        	                value : interestvals,
-    	        	                areaStyle: {
-    	                                normal: {
-    	                                    color: '#80D8DD'
-    	                                }
-    	                            }
+    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
+//    	        	                areaStyle: {
+//    	                                normal: {
+//    	                                    color: '#fff'
+//    	                                }
+//    	                            }
     	        	            }
     	        	        ]
     	        	    }]
     	        	});
+    	        	window.onresize = interestCharts.resize;
     	        	//年龄柱状图
     	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
@@ -1585,7 +1595,8 @@ function loadSvg(){
     	        			backgroundColor:"#fff",
 	    	        		title: {
 	     	        	        text: '受众年龄分布',
-	     	        	        left:'center'
+	     	        	        left:'center',
+	     	        	        top:15,
 	     	        	    },
     	            	    color: ['#3398DB'],
     	            	    tooltip : {
@@ -1630,6 +1641,102 @@ function loadSvg(){
     	            	            data:ageVals
     	            	        }
     	            	    ]
+    	        	});
+    	        	
+    	        	//地图
+    	        	var mapCon = $("<div class='Personas' style='display:inline-block;width:20%;height:279px;background:#fff;'></div>");
+    	        	$this.parent().parent().find(".hot_echart_list").append(mapCon);
+    	        	var mapCharts = echarts.init(mapCon.get(0));
+    	        	var mapNames = [];
+    	        	var mapVals = [];
+    	        	var mapChina =data.area;
+//    	        	$.each(mapChina,function(i,item){
+//    	        		ageVals.push(item.value);
+//    	        		ageNames.push(item.name);
+//    	        	});
+    	        	
+    	        	mapCharts.setOption({
+    	        		backgroundColor:"#fff",
+    	        	    title : {
+    	        	        text: '受众地区分布',
+    	        	        left: 'center'
+    	        	    },
+    	        	    tooltip : {
+    	        	        trigger: 'item'
+    	        	    },
+    	        	    legend: {
+    	        	        orient: 'vertical',
+    	        	        left: 'left',
+    	        	    },
+    	        	    visualMap: {
+    	        	    	show:false,
+    	                    inRange: {
+    	                        color: ['#a9d6fe','#619edd']
+    	                    },
+    	                    left:'right'
+    	                },
+    	        	    toolbox: {
+    	        	        show: true,
+    	        	        orient : 'vertical',
+    	        	        left: 'right',
+    	        	        top: 'center',
+    	        	    },
+    	        	    series : [
+    	        	        {
+    	        	            name: '地区',
+    	        	            type: 'map',
+    	        	            mapType: 'china',
+    	        	            roam: false,
+    	        	            markPoint:{itemStyle:{normal:{color:'#0ff'}}
+    	        	            	},
+    	        	        
+    	        	            label: {
+    	        	                normal: {
+    	        	                    show: false
+    	        	                },
+    	        	                emphasis: {
+    	        	                    show: false
+    	        	                }
+    	        	            },
+//    	        	           
+    	        	            itemStyle: {
+    	                            normal: {
+    	                                //borderWidth: 2,
+    	                               // borderColor: 'lightgreen',
+    	                            	areaColor: '#a9d6fe',
+    	                                label: {
+    	                                    show: false
+    	                                }
+    	                            },
+    	                            emphasis: { // 也是选中样式
+    	                            	show: false,
+    	                                borderWidth: 1,
+    	                                borderColor: '#fff',
+    	                                areaColor: '#a9d6fe',
+    	                                //color: '#f00',
+    	                                label: {
+    	                                    textStyle: {
+    	                                    	font_size:'0',
+    	                                    	show:false,
+    	                                        color: '#fff'
+    	                                    }
+    	                                }
+    	                            }
+    	                        },
+    	        	            data:[
+    	        	                {name: '北京',value: 1000},
+    	        	                {name: '天津',value: 300},
+    	        	                {name: '上海',value: 500},
+    	        	                {name: '重庆',value: 600},
+    	        	                {name: '海外',value: 1},
+    	        	                {name: '湖南',value: 50},
+    	        	                {name: '海南',value: 120}
+    	        	                
+    	        	            ]
+    	        	        },
+    	        	    
+    	        	       
+    	        	    ]
     	        	})
     			}
     		},

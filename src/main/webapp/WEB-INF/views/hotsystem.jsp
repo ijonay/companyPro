@@ -358,6 +358,11 @@
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
 <script src="lib/echarts.js"></script>
+<script>
+$.get('js/china.json', function (chinaJson) {
+    echarts.registerMap('china', chinaJson);
+});
+</script>
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
