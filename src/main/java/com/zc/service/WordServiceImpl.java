@@ -130,7 +130,7 @@ public class WordServiceImpl implements WordService {
     private void loadMaps() {
         try {
             modelMap = WordVectorHelper.loadModel(
-                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, getModelPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,9 +157,7 @@ public class WordServiceImpl implements WordService {
 
         try {
 
-            Map<String, float[]> wordMap = WordVectorHelper.loadModel(PropertyHelper.getValue(Constant
-                    .CONFIG_PROPERTIES, Constant
-                    .MODEL_BIN));
+            Map<String, float[]> wordMap = WordVectorHelper.loadModel(getModelPath());
 
             if (Objects.nonNull(wordMap)) {
 
@@ -185,6 +183,7 @@ public class WordServiceImpl implements WordService {
             }
 
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
     }
@@ -197,9 +196,7 @@ public class WordServiceImpl implements WordService {
 
             long readTime = System.currentTimeMillis();
 
-            Map<String, float[]> wordMap = WordVectorHelper.loadModel(PropertyHelper.getValue(Constant
-                    .CONFIG_PROPERTIES, Constant
-                    .MODEL_BIN));
+            Map<String, float[]> wordMap = WordVectorHelper.loadModel(getModelPath());
 
             if (Objects.nonNull(wordMap)) {
 
@@ -251,8 +248,7 @@ public class WordServiceImpl implements WordService {
         try {
 
             Map<String, float[]> wordMap =
-                    WordVectorHelper.loadModel(
-                            PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+                    WordVectorHelper.loadModel(getModelPath());
 
             Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
             int count = 1;
@@ -650,6 +646,17 @@ public class WordServiceImpl implements WordService {
     @Override
     public List<Word> getList(Integer pageSize, Integer rowStart) {
         return dao.getList(pageSize, rowStart);
+    }
+
+    private String getModelPath() {
+
+        String path = PropertyHelper.getValue(Constant
+                .CONFIG_PROPERTIES, Constant
+                .MODEL_BIN);
+        if (path.indexOf("\\") > -1 || path.indexOf("/") > -1) {
+            return path;
+        }
+        return this.getClass().getClassLoader().getResource(path).getPath();
     }
 
 }
