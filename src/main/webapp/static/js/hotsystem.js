@@ -1735,6 +1735,7 @@ function loadSvg(){
     	        		
     	        		mapVals.push({name:item.name,value:666});
     	        	});
+    	        	
     	        	mapOption.series[0].data = mapVals;
     	        	mapCharts.setOption(mapOption);
     			}
