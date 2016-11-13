@@ -28,8 +28,8 @@ div#canvas {
                 	<span id="prev-path" class="disstate">上一页</span>
                 	<span id="prev-next">下一页</span>
                 </li>
-        <li class="pointer color9c save-path-num pst"><span>已保存路径</span>
-            	<div class="pos save-p-n ac f12">5</div>
+       <!-- <li class="pointer color9c save-path-num pst"><span>已保存路径</span>
+            	<div class="pos save-p-n ac f12">5</div>  -->
          </li>
         </ul>
     </div>

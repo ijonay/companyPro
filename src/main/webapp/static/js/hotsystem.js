@@ -1452,8 +1452,8 @@ function loadSvg(){
 //    						currentIndex = index;
 //    					}    					
 //    				})
-    				genderOption.legend.data.push(data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%");
-    				genderOption.legend.data.push(data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%");
+    				genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
+    				genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
     				genderOption.series[0].name = "性别";
     				var genderJson0 = JSON.stringify(data.gender[0]); 
     				genderOption.series[0].data.push(JSON.parse(genderJson0));
@@ -1488,7 +1488,7 @@ function loadSvg(){
     				var educationMaxIndex = 0;
     				educationOption.series[0].name = "学历分布";
     				$.each(data.education,function(index,item){
-    					educationOption.legend.data.push(item.name+" "+item.value+"%");
+    					educationOption.legend.data.push({name:item.name+" "+item.value+"%",icon:"circle"});
     					var tempItem = JSON.stringify(item);
     					tempItem = JSON.parse(tempItem);
     					tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
@@ -1689,7 +1689,7 @@ function loadSvg(){
                 		if(item.logoImgUrl){
                 			imageArray.push(item.logoImgUrl);
                 		}else{
-                			imageArray.push("javascript:void(0)");
+                			imageArray.push("img/defaultIcon.png");
                 		}                		
                 		titleArray.push(item.title);
                 		scoreArray.push(item.prevailingTrend);
