@@ -48,7 +48,7 @@ function getPath(explore){
         type:"get",
         url:dataUrl.util.getNewPath(topicId,query),
         success:function(data){
-        	
+        	$("#prev-next").removeClass("disstate");
             if(data.data.length == 0){
             	$('#canvas').css('height','200px');
                 $('#canvas').html('<div style="margin:0px auto ;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
@@ -405,7 +405,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     		this.remove()
     	})
     	editKeyWord.click(function(){
-        	var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+111+">");
+        	var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+keyWord+">");
         	var pop = new Pop({
     	        width:"422px",
     	        header:"编辑关键词",
@@ -417,11 +417,19 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     	            type:"popOk",
     	            text:"确定",
     	            callback:function(){
-    	                $('#nav_ser').val($('.txt-word').val());
-    	                $(".popMask").hide();
+//    	                $('#nav_ser').val($('.txt-word').val());
+    	            	var word = $('.txt-word').val();    	            	
+    	            	 $(".bottom-choice").hide();
+    	            	 pageNum = 0;
+    	            	 location.hash = location.hash.split(keyWord).join(word);
+    	            	 getPath();
+    	            	 $("#prev-path").addClass("disstate");
+    	            	 $("#prev-next").addClass("disstate");
+    	                 $(".popMask").remove();
     	            }
     	        }]
     	    });
+        	$(".txt-word").focus();
         })
     },function(){
     });
@@ -628,3 +636,25 @@ function getPathInfo(startText,endText){
         }
     });
 }
+$("#nav-head-search").on("click",function(){
+	var val = $.trim($('#nav_ser').val());
+	if(val){
+    	if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+    		window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+    	}else{
+    		return;
+    	}
+	}
+})
+$('#nav_ser').keyup(function(event) {//搜索框回车
+	var val = $.trim($('#nav_ser').val());
+    if(event.keyCode == "13") {
+    	if(val){
+	    	if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+	    		window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+	    	}else{
+	    		return;
+	    	}
+    	}
+    }
+})
