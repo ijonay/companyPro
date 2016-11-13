@@ -93,7 +93,7 @@ $(document).ajaxError(function(event,xhr,options,exc){
         code  = JSON.parse(code);
         if(code.error.code == 4005){
             console.log(code.error.msg);
-//            window.location.href = "user/login?returnUrl="+window.location;
+//            window.location.href = "user/login?returnUrl="+window.location; 
             alertStatus = false;
             return
         }else if(code.error.code != 0){
