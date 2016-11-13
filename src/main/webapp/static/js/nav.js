@@ -79,18 +79,43 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
     $(this).find(".notify-close").css("display","none");
 }).delegate(".notify-tab-list>li .notify-close","click",function(e){//删除通知
     e ? e.stopPropagation() : event.cancelBubble = true;
-    $(this).parents("li").remove();
-    if($(".notify-tab-list").find("li").length==0){
-        $(".notify-tab-list").css("display","none");
-    }
-    var count=parseInt($(".notify-count").data("count"));
-    if(count<=1){
-        $(".notify-count").data("count",0).text("").css("display","none");
-    }else if(count<=10){
-        $(".notify-count").data("count",count-1).text(count-1).css("display","block");
-    }else{
-        $(".notify-count").data("count",count-1).text("9+").css("display","block");
-    }
+    var id=$(this).parents("li").data("id");
+    var _this=$(this);
+    $.ajax({
+        type: "delete",
+        url: dataUrl.util.delNotify(id),
+        success: function(returnData) {
+            if(returnData.error.code==0){
+                _this.parents("li").remove();
+                if($(".notify-tab-list").find("li").length==0){
+                    $(".notify-tab-list").css("display","none");
+                }
+                var count=parseInt($(".notify-count").data("count"));
+                if(count<=1){
+                    $(".notify-count").data("count",0).text("").css("display","none");
+                }else if(count<=10){
+                    $(".notify-count").data("count",count-1).text(count-1).css("display","block");
+                }else{
+                    $(".notify-count").data("count",count-1).text("9+").css("display","block");
+                }
+            }
+        },
+        error: function() {
+            console.log('删除探索通知失败');
+        }
+    });
+}).delegate(".clear-notify","click",function(e){//删除通知
+    e ? e.stopPropagation() : event.cancelBubble = true;
+    $.ajax({
+        type: "delete",
+        url: dataUrl.util.delAllNotify,
+        success: function(returnData) {
+            console.log(returnData.error.message);
+        },
+        error: function() {
+            console.log('清空探索通知失败');
+        }
+    });
 });
 //点击任意地方关闭弹窗
 $(document).on('click',function(e){
@@ -303,7 +328,7 @@ $.ajax({
     type: "get",
     contentType: 'application/json',
     dataType: "json",
-    url: dataUrl.util.getNotify(30),
+    url: dataUrl.util.getNotify(15),
     success: function(returnData) {
         if(returnData.error.code == 0&&returnData.data) {
             $(".notify-list").html("");
