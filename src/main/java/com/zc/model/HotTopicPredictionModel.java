@@ -11,6 +11,7 @@ public class HotTopicPredictionModel {
     private String name;
     private String startDate;
     private String endDate;
+    private String note;
 
     public Integer getId() {
         return id;
@@ -42,5 +43,13 @@ public class HotTopicPredictionModel {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
