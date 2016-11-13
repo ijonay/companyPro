@@ -27,7 +27,8 @@ var circleTimeout;
 var isShow = false;
 var prevNum = 0;
 function getPath(explore){
-	var hash = location.hash.substr(1);
+	var hash = decodeURIComponent(location.hash);
+	hash = hash.substr(1)
 	var pathInfo = {};
 	var infoArray = hash.split("&");
 	$.each(infoArray,function(index,item){
@@ -47,7 +48,7 @@ function getPath(explore){
         type:"get",
         url:dataUrl.util.getNewPath(topicId,query),
         success:function(data){
-        	
+        	$("#prev-next").removeClass("disstate");
             if(data.data.length == 0){
             	$('#canvas').css('height','200px');
                 $('#canvas').html('<div style="margin:0px auto ;width:500px;text-align:center;font-size:17px;padding-top:176px;">对不起,没有找到合适的语义路径.请更换关键词或者热点</div>');
@@ -142,7 +143,8 @@ function pageChange(up){
 //    var topicId= GetRequest('word').topicId;//GetRequest('dsId').topicId,
 //    var query = GetRequest('query').query;
 //    var hotTopic = GetRequest('query').hotTopic;
-    var hash = location.hash.substr(1);
+    var hash = decodeURIComponent(location.hash);
+	hash = hash.substr(1)
 	var pathInfo = {};
 	var infoArray = hash.split("&");
 	$.each(infoArray,function(index,item){
@@ -266,34 +268,41 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             st.push(cycle);
             currentCycle.push(cycle);
             paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
-        }
-//          cycle.click(function(){
-//        	  var lineNum = this.data("lineNum");
-//        	  console.log(lineNum)
-//        	  $(".pathName").click();
-//          })
-         //节点hover高亮
-          cycle.hover(function(e){
-              var _this_ = this;            
-              var lineNum = this.data("lineNum");
-              	hideHightLight(prevNum,lines,cycles);
-              	clearTimeout(circleTimeout);
-              	clearTimeout(timeOut);
-                  isShow = true;
-                  prevNum = lineNum;
-//                  setTimeout(function(){
-                  getAlert(e.pageX,e.pageY - 5);
-                  showHightLight(e,lineNum,lines,cycles,lineArray);
-//                  },0)
-              
-            },function(){
-              var _this_ = this;
-              isShow = false;
-              var lineNum = _this_.data("lineNum");
-              circleTimeout = setTimeout(function(){
-              	hideHightLight(prevNum,lines,cycles);
-              },5000)
-            });
+            cycle.click(function(e){
+              e?e.stopPropagation():event.cancelBubble = true;
+          	  var lineNum = this.data("lineNum");
+          	  $(".pathName").click();
+            })
+           //节点hover高亮
+            cycle.hover(function(e){
+                var _this_ = this;
+                var lineNum = this.data("lineNum");
+                	hideHightLight(prevNum,lines,cycles);
+                	clearTimeout(circleTimeout);
+                	clearTimeout(timeOut);
+                    isShow = true;
+                    prevNum = lineNum;
+//                    setTimeout(function(){
+                    getAlert(e.pageX,e.pageY - 5);
+                    showHightLight(e,lineNum,lines,cycles,lineArray);
+//                    },0)
+                var str = '<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>';
+            	str += '<li class="fl mr5 choice-keyword"><span></span>'+ keyWord +'</li>'; 
+            	$.each(lines[lineNum],function(index,item){
+            		str += '<li class="fl libordercenter mr5"></li>';
+            		str += '<li class="fl mr5 choice-keyword"><span></span>'+item.data("endText")+'</li>';        		
+            	})
+//            	str += '<li class="fr computer-ok pointer">保存路径</li>';
+            	$(".pathName").attr("data-str",str);
+              },function(){
+                var _this_ = this;
+                isShow = false;
+                var lineNum = _this_.data("lineNum");
+                circleTimeout = setTimeout(function(){
+                	hideHightLight(prevNum,lines,cycles);
+                },5000)
+              });
+        }          
         var scaleNum = 0;
         switch(lineArray[i]){
             case 0:scaleNum = "s0.97";break;
@@ -325,17 +334,11 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
           line.attr("cursor","pointer");
           line.click(function(e){
         	e?e.stopPropagation():event.cancelBubble = true;
-        	var lineNum = this.data("lineNum");
-        	var str = '<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>';
-        	$.each(lines[lineNum],function(index,item){
-        		console.log(item.data("endText"));
-        		str += '<li class="fl mr5 choice-keyword"><span></span>关键词</li>';
-        		str += '<li class="fl libordercenter mr5"></li>';
-        	})
-        	str += '<li class="fr computer-ok pointer">保存路径</li>';
-        	$(".bottom-choice").html(str);
+        	var lineNum = this.data("lineNum");        	
+//        	$(".bottom-choice").html();
 //        	console.log(lineNum);
 //            getAlert(e.pageX,e.pageY);
+        	$(".bottom-choice").html($(".pathName").attr("data-str"));
             $(".bottom-choice").show();
 //            var startText = this.data("startText");
 //            var endText = this.data("endText");
@@ -361,7 +364,14 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
                 showHightLight(e,lineNum,lines,cycles,lineArray);
 //                },0)                
 //            }
-            
+                var str = '<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>';
+            	str += '<li class="fl mr5 choice-keyword"><span></span>'+ keyWord +'</li>'; 
+            	$.each(lines[lineNum],function(index,item){
+            		str += '<li class="fl libordercenter mr5"></li>';
+            		str += '<li class="fl mr5 choice-keyword"><span></span>'+item.data("endText")+'</li>';        		
+            	})
+//            	str += '<li class="fr computer-ok pointer">保存路径</li>';
+            	$(".pathName").attr("data-str",str);
           },function(){
             var _this_ = this;
             isShow = false;
@@ -395,7 +405,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     		this.remove()
     	})
     	editKeyWord.click(function(){
-        	var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+111+">");
+        	var content = $("<input type='text' class='txt-word' placeholder='请输入关键词' value="+keyWord+">");
         	var pop = new Pop({
     	        width:"422px",
     	        header:"编辑关键词",
@@ -407,11 +417,19 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     	            type:"popOk",
     	            text:"确定",
     	            callback:function(){
-    	                $('#nav_ser').val($('.txt-word').val());
-    	                $(".popMask").hide();
+//    	                $('#nav_ser').val($('.txt-word').val());
+    	            	var word = $('.txt-word').val();    	            	
+    	            	 $(".bottom-choice").hide();
+    	            	 pageNum = 0;
+    	            	 location.hash = location.hash.split(keyWord).join(word);
+    	            	 getPath();
+    	            	 $("#prev-path").addClass("disstate");
+    	            	 $("#prev-next").addClass("disstate");
+    	                 $(".popMask").remove();
     	            }
     	        }]
     	    });
+        	$(".txt-word").focus();
         })
     },function(){
     });
@@ -448,7 +466,8 @@ function getAlert(x,y){
     $(".pathName").show();
 }
 $(".pathName").on("click",function(e){
-	e?e.stopPropagation():event.cancelBubble = true;   
+	e?e.stopPropagation():event.cancelBubble = true;
+	$(".bottom-choice").html($(this).attr("data-str"));
     $(".bottom-choice").show();
 //    getPathInfo(startText,endText);
   });
@@ -617,3 +636,25 @@ function getPathInfo(startText,endText){
         }
     });
 }
+$("#nav-head-search").on("click",function(){
+	var val = $.trim($('#nav_ser').val());
+	if(val){
+    	if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+    		window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+    	}else{
+    		return;
+    	}
+	}
+})
+$('#nav_ser').keyup(function(event) {//搜索框回车
+	var val = $.trim($('#nav_ser').val());
+    if(event.keyCode == "13") {
+    	if(val){
+	    	if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+	    		window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1';
+	    	}else{
+	    		return;
+	    	}
+    	}
+    }
+})

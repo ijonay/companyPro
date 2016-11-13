@@ -1258,24 +1258,24 @@ $(document).delegate(".edit-word","click",function(){
     $(".alertCon").find(".hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
     $(".alertCon").find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
     if(hotInfo.wechatUrl){
-        $(".alertCon").find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","block");
+        $(".alertCon").find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","inline-block");
     }else{
         $(".alertCon").find(".weixin-link").css("display","none");
     }
     if(hotInfo.zhihuUrl){
-        $(".alertCon").find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","block");
+        $(".alertCon").find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","inline-block");
     }else{
         $(".alertCon").find(".zhihu-link").css("display","none");
     }
     if(hotInfo.baiduUrl){
-        $(".alertCon").find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","block");
+        $(".alertCon").find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","inline-block");
     }else{
         $(".alertCon").find(".baidu-link").css("display","none");
     }
     if(hotInfo.logoImgUrl){
         $(".alertCon").find(".portrait").css("background-image","url("+hotInfo.logoImgUrl+")");
     }else{
-        $(".alertCon").find(".portrait").css("background-image","");
+        $(".alertCon").find(".portrait").css("background-image","url(img/defaultIcon.png)");
     }
     var eventClass=hotInfo.eventClass;
     if(eventClass){
