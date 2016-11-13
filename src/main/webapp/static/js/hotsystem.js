@@ -244,6 +244,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		}
 	});
 	
+	
 	$('#ser_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
 		var arrCon = [];
@@ -1653,10 +1654,12 @@ function loadSvg(){
     	        	var mapCharts = echarts.init(mapCon.get(0));
     	        	var mapNames = [];
     	        	var mapVals = [];
-    	        	var mapChina =data.area;
+    	        	var mapChina = data.area;
+    	        	console.log(mapChina)
     	        	$.each(mapChina,function(i,item){
     	        		//ageVals.push(item.value);
-    	        		mapVals.push({name:item.name,value:item.value});
+    	        		
+    	        		mapVals.push({name:'item.name',value:item.value});
     	        	});
     	        	console.log(mapVals)
     	        	mapCharts.setOption({
@@ -1701,8 +1704,7 @@ function loadSvg(){
     	        	                emphasis: {
     	        	                    show: false
     	        	                }
-    	        	            },
-//    	        	           
+    	        	            },//    	        	           
     	        	            itemStyle: {
     	                            normal: {
     	                                //borderWidth: 2,
@@ -1727,10 +1729,7 @@ function loadSvg(){
     	                                }
     	                            }
     	                        },
-    	        	            data:[ {name: '北京',value: 1000},
-    	                        {name: '天津',value: 300},
-    	                        {name: '上海',value: 500},
-    	                        {name: '重庆',value: 600}]
+    	        	            data:mapVals,
     	        	        },
     	        	    
     	        	       
