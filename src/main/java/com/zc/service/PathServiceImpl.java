@@ -128,15 +128,13 @@ public class PathServiceImpl implements PathService {
     private List<PathModel> getAllPath(String start, float[] targetVector) {
 
 
-        Map<String, float[]> allVector = wordService.getModelMap();
-
         this.targetVector = targetVector;
         isFirst = true;
 
 
         log.add(start);
 
-        generatePath(new PathNode(start, null, 0), allVector);
+        generatePath(new PathNode(start, null, 0));
         log.add(start + "1");
         List<PathModel> result = new ArrayList<>();
         this.pathList.forEach(p -> {
@@ -157,23 +155,23 @@ public class PathServiceImpl implements PathService {
         return result;
     }
 
-    private void generatePath(PathNode start, Map<String, float[]> allVector) {
+    private void generatePath(PathNode start) {
         path.push(start);
         onPath.add(start.getName());
 
         log.add("generatePath_" + start.getName());
 
         if (path.size() <= MAX_PATHLENGTH) {
-            if (isSatisfied(start.getName(), targetVector, allVector)) {
+            if (isSatisfied(start.getName(), targetVector)) {
                 LinkedList<PathNode> tempPath = new LinkedList<>();
                 tempPath.addAll(path);
                 this.pathList.add(tempPath);
                 if (isFirst) {
                     isFirst = false;
-                    runRecursion(start.getName(), this.targetVector, allVector);
+                    runRecursion(start.getName(), this.targetVector);
                 }
             } else {
-                runRecursion(start.getName(), this.targetVector, allVector);
+                runRecursion(start.getName(), this.targetVector);
             }
         }
         log.add("generatePath_end");
@@ -181,19 +179,19 @@ public class PathServiceImpl implements PathService {
         onPath.remove(start.getName());
     }
 
-    private void runRecursion(String start, float[] targetVector, Map<String, float[]> allVector) {
+    private void runRecursion(String start, float[] targetVector) {
         log.add("runRecursion_" + start);
         Set<WordRedisModel> neighbors = redisTemplate.boundZSetOps(PropertyHelper
                 .getValue(Constant.CONFIG_PROPERTIES, Constant.WORDR_EDISKEY_PREFIX_KEY) + start).range(0, TOPNSIZE -
                 1);
         log.add("runRecursion_" + start + "_1");
         if (neighbors != null) {
-            LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector, allVector);
+            LinkedList<WordRedisModel> tempNeighbors = getSortedWordEntryList(neighbors, targetVector);
             for (WordRedisModel w : tempNeighbors) {
-                if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name, allVector) && !onPath.contains(w
+                if (!StringUtils.isEmpty(w.name) && !isDisSimilarity(start, w.name) && !onPath.contains(w
                         .name)) {
-                    float similarity = getSimilarity(start, w.getName(), allVector);
-                    generatePath(new PathNode(w.name, start, similarity), allVector);
+                    float similarity = getSimilarity(start, w.getName());
+                    generatePath(new PathNode(w.name, start, similarity));
                 }
             }
         }
@@ -201,36 +199,35 @@ public class PathServiceImpl implements PathService {
         log.writeToConsole();
     }
 
-    private boolean isDisSimilarity(String start, String target, Map<String, float[]> allVector) {
-        return getSimilarity(start, target, allVector) <= DISSIMILARITY_THRESHOLD;
+    private boolean isDisSimilarity(String start, String target) {
+        return getSimilarity(start, target) <= DISSIMILARITY_THRESHOLD;
     }
 
-    private boolean isSatisfied(String start, float[] targetVector, Map<String, float[]> allVector) {
-        if (getSimilarity(start, targetVector, allVector) > 2) {
+    private boolean isSatisfied(String start, float[] targetVector) {
+        if (getSimilarity(start, targetVector) > 2) {
             System.out.println("zhang");
         }
-        return getSimilarity(start, targetVector, allVector) >= SIMILARITY_THRESHOLD;
+        return getSimilarity(start, targetVector) >= SIMILARITY_THRESHOLD;
     }
 
-    private float getSimilarity(String start, String target, Map<String, float[]> allVector) {
-        float[] tVector = allVector.get(target);
-        return getSimilarity(start, tVector, allVector);
+    private float getSimilarity(String start, String target) {
+        float[] tVector = wordService.getModelMap().get(target);
+        return getSimilarity(start, tVector);
     }
 
-    private float getSimilarity(String start, float[] targetVector, Map<String, float[]> allVector) {
-        float[] startVector = allVector.get(start);
+    private float getSimilarity(String start, float[] targetVector) {
+        float[] startVector = wordService.getModelMap().get(start);
         float similarity = WordVectorHelper.getSimilarity(startVector, targetVector);
         return similarity;
     }
 
-    private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector,
-                                                              Map<String, float[]> allVector) {
+    private LinkedList<WordRedisModel> getSortedWordEntryList(Set<WordRedisModel> neighbors, float[] targetVector) {
         LinkedList<WordRedisModel> list = new LinkedList(neighbors);
         String key = Math.random() + "";
         log.add("getSortedWordEntryList_" + key + "_1");
         Collections.sort(list, (left, right) -> CommonHelper.compare(
-                WordVectorHelper.getSimilarity(allVector.get(right.name), targetVector),
-                WordVectorHelper.getSimilarity(allVector.get(left.name), targetVector)
+                WordVectorHelper.getSimilarity(wordService.getModelMap().get(right.name), targetVector),
+                WordVectorHelper.getSimilarity(wordService.getModelMap().get(left.name), targetVector)
                 )
         );
         log.add("getSortedWordEntryList_" + key + "_1");

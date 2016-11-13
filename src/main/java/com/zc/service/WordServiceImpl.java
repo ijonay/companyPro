@@ -74,6 +74,8 @@ public class WordServiceImpl implements WordService {
         wordService = wordServicetemp;
 
 
+//        loadWordVectorCollMaps();
+
 //        loadMaps();
 //        loadTopicMap();
         // loadWordMap();
@@ -91,7 +93,7 @@ public class WordServiceImpl implements WordService {
     @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
-            loadMaps();
+//            loadMaps();
             loadWordVectorCollMaps();
         }
         return modelMap;
