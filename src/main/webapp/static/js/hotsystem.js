@@ -1425,8 +1425,8 @@ function loadSvg(){
     			var data = data.data;
     			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
-    				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
+    				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(genderCon);
     				$this.parent().parent().find(".hot_echart_list").append(interestCon);
     				var genderCharts = echarts.init(genderCon.get(0));
@@ -1470,7 +1470,7 @@ function loadSvg(){
     				console.log(option1);
     				genderCharts.setOption(genderOption);
     				//受众学历分布
-    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(educationCon);
     				var educationCharts = echarts.init(educationCon.get(0));
     				var educationOption = $.extend(true,{},circleOption);
@@ -1507,7 +1507,8 @@ function loadSvg(){
                             show: true,
                             position: 'center',
                             textStyle: {
-                                fontSize: '20',
+                            	color:"#000",
+                                fontSize: '16',
                                 fontWeight: 'bold'
                             }
                         }
@@ -1559,12 +1560,17 @@ function loadSvg(){
     	        	        data : [
     	        	            {
     	        	                value : interestvals,
+    	        	                areaStyle: {
+    	                                normal: {
+    	                                    color: '#80D8DD'
+    	                                }
+    	                            }
     	        	            }
     	        	        ]
     	        	    }]
     	        	});
     	        	//年龄柱状图
-    	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;margin:5px 0;background:#fff;'></div>");
+    	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
     	        	var ageNewCharts = echarts.init(ageNewCon.get(0));
     	        	var ageNames = [];
