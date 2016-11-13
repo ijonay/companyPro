@@ -1423,6 +1423,17 @@ function loadSvg(){
     		success:function(data){
     			console.log(data);
     			var data = data.data;
+    			if(data == null){
+    				str = "<h1 style='position:relative;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</h1>";
+    					$this.parent().parent().find(".hot_echart_list").html(str);
+    					return;
+    				}
+    				var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
+    				if(dataLen < 1){
+    					str = "<h1 style='position:relative;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</h1>";
+    					$this.parent().parent().find(".hot_echart_list").html(str);
+    					return;
+    				}
     			//受众年龄画像
     			if(data && data.gender.length > 0){
     				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
@@ -1450,8 +1461,8 @@ function loadSvg(){
     				genderOption.series[0].data.push(JSON.parse(genderJson0));
     				var genderJson1 = JSON.stringify(data.gender[1]); 
     				genderOption.series[0].data.push(JSON.parse(genderJson1));
-    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value+"%";
-    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value+"%";
+    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
+    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
     				var label =  {
                         normal: {
                             show: true,
@@ -1471,6 +1482,7 @@ function loadSvg(){
     				console.log(genderOption);
     				console.log(option1);
     				genderCharts.setOption(genderOption);
+    				window.onresize = genderCharts.resize;
     				//受众学历分布
     				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(educationCon);
@@ -1492,9 +1504,6 @@ function loadSvg(){
     						educationMaxIndex = index;
     					}
     				})
-    				console.log("..............")
-    				console.log(educationMax);
-    				console.log(educationMaxIndex);
 //    				educationOption.legend.data.push(data.education[0].name+" "+data.education[0].value+"%");
 //    				educationOption.legend.data.push(data.education[1].name+" "+data.education[1].value+"%");
 //    				educationOption.series[0].name = "性别";
@@ -1521,9 +1530,8 @@ function loadSvg(){
 //    				}else{
 //    					genderOption.series[0].data[1].label = label;
 //    				}
-    				console.log(educationOption);
-    				console.log(option1);
     				educationCharts.setOption(educationOption);
+    				window.onresize=educationCharts.resize;
     				//兴趣雷达图
     				
     				var interestCharts = echarts.init(interestCon.get(0));
@@ -1579,7 +1587,7 @@ function loadSvg(){
     	        	        ]
     	        	    }]
     	        	});
-    	        	window.onresize = interestCharts.resize;
+    	        	window.onresize=interestCharts.resize;
     	        	//年龄柱状图
     	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
@@ -1643,9 +1651,9 @@ function loadSvg(){
     	            	        }
     	            	    ]
     	        	});
-    	        	
+    	        	window.onresize=ageNewCharts.resize;
     	        	//地图
-    	        	var mapDiv = $("<div class='pst Personas'  style='display:inline-block;width:20%;height:279px;background:#fff;'><p class='pos' style='background:#f00;z-index:9000;'>海外</p></div>");
+    	        	var mapDiv = $("<div class='pst Personas'  style='display:inline-block;width:27%;height:279px;background:#fff;'><p class='pos' style='background:#f00;z-index:9000;'>海外</p></div>");
     	        	var mapCon = $("<div style='width:100%;height:279px;'></div>");
     	        	
     	        	$this.parent().parent().find(".hot_echart_list").append(mapDiv);
@@ -1736,6 +1744,7 @@ function loadSvg(){
     	        	       
     	        	    ]
     	        	})
+    	        	window.onresize=mapCharts.resize;
     			}
     		},
     		error:function(){
