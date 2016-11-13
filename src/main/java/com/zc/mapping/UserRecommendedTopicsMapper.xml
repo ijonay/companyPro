@@ -28,6 +28,7 @@
                             <if test="orderIndex != null">
                     order_index,
                 </if>
+                    is_active,
                     </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
                             <if test="userId != null">
@@ -43,13 +44,14 @@
                             <if test="orderIndex != null">
                     #{orderIndex,jdbcType=INTEGER},
                 </if>
+                    1,
                     </trim>
     </insert>
-    <delete id="del" parameterType="java.lang.Integer">
-        delete from UserRecommentedTopics
-        where id =
-        #{id,jdbcType= INTEGER}
-    </delete>
+    <update id="del" parameterType="java.lang.Integer">
+        UPDATE  UserRecommentedTopics
+        set is_active = 0
+        where id = #{id, jdbcType= INTEGER}
+    </update>
     <update id="update" parameterType="com.zc.bean.UserRecommendedTopics">
         update UserRecommentedTopics
         <set>
@@ -76,6 +78,7 @@
         <include refid="Base_Column_List"/>
         from UserRecommentedTopics
         where id = #{id,jdbcType=INTEGER}
+        and is_active = 1
     </select>
 
     <select id="getUserHotTopicMessageList"  resultMap="ViewResultMap">
@@ -86,7 +89,8 @@
         INNER join users u on u.id = retopic.user_id
         INNER join topic t on t.id = retopic.topic_id
         where u.id = #{userId, jdbcType=INTEGER}
-        ORDER BY retopic.create_date desc
+        and retopic.is_active = 1
+        ORDER BY retopic.create_date asc
         limit 0,#{count, jdbcType=INTEGER}
 
     </select>
@@ -99,5 +103,10 @@
         <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
     </resultMap>
 
+    <update id="delAll" parameterType="java.lang.Integer">
+        UPDATE UserRecommentedTopics
+        set is_active = 0
+        where user_id = #{user_id, jdbcType=INTEGER}
+    </update>
 
 </mapper>
