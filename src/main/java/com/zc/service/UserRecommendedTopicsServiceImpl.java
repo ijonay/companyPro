@@ -125,7 +125,7 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
     }
 
     @Override
-    public boolean delAll(Integer userId){
-        return userRecommentedTopicsMapper.delAll(userId) > 0;
+    public boolean delAll(List<String> idList){
+        return userRecommentedTopicsMapper.delAll(idList) > 0;
     }
 }
