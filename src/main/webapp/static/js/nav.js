@@ -481,3 +481,11 @@ jQuery(document).ready(function ($) {
     "use strict";
     $('.bar-content').perfectScrollbar({suppressScrollX: true});
 });
+
+//输入框
+$('#nav_ser').on('input',function(){
+	$(this).css('color','rgba(255,255,255,.8)')
+});
+$('#nav_ser').on('focus',function(){
+	$(this).css('border','2px solid rgba(56,155,159,.5)');
+})
