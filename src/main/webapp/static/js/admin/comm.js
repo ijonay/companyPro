@@ -8,6 +8,20 @@
         }
     };
 
+    function checkActive() {
+        var items = location.href.split("/");
+        var item = items[items.length - 1];
+        if (item.indexOf("?") > -1) {
+            item = item.split("?")[0];
+        }
+        if (item.indexOf("#") > -1) {
+            item = item.split("#")[0];
+        }
+        comm.checkActive(item);
+    }
+
+    $(checkActive);
+
 }(window);
 
 
