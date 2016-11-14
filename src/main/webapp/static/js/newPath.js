@@ -182,7 +182,9 @@ function pageChange(up){
    $('#canvas').html('');
     raphealDraw(lineArray,nodeList,query,hotTopic); 
 }
-function raphealDraw(lineArray,nodeList,keyWord,hotTopic){    
+function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
+	alert($("#canvas").height());
+	alert($("#canvas").width());
     var paper = Raphael("canvas", '100%', '100%');
 //    var lineArray = [8,6,4,5,5];
     var lineArray = lineArray;
