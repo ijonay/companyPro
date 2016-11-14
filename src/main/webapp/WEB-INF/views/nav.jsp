@@ -15,17 +15,28 @@
         <li class="head-userinfo">
             <shiro:authenticated>
                 <div class="userName">
-                    <div class="name" title="${current_user.nickName}">${current_user.nickName}</div>
-                    <div class="company" title="知藏">知藏</div>
+                    <!--<div class="name" title="${current_user.nickName}">${current_user.nickName}</div>-->
+                    <div class="name">123456@heptax.com</div>
+                    <div class="company">用户信息</div>
                 </div>
             </shiro:authenticated>
         </li>
-        <li class="head-down"></li>
         <li class="head-pred"><a></a></li>
         <li class="head-notify"><a><span class="notify-count">6</span></a></li>
     </ul>
     <ul class="notify-list">
     </ul>
+    <div class="pnl-user">
+        <div class="top">
+            <div class="top-icon"></div>
+            <div class="top-info">
+                <div class="name">账号：123456@heptax.com</div>
+                <div>公司名称：</div>
+            </div>
+        </div>
+        <div class="user-btn">账号设置</div>
+        <div class="user-btn" onclick="logOut()">退出系统</div>
+    </div>
 </div>
 
 <div class="right-bar">

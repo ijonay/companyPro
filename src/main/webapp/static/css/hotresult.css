@@ -604,7 +604,6 @@ input[type=checkbox]:checked::after {
 	position:absolute;
 	top:240px;
 	left:34.5px;
-	background-image:url(../img/hot-prev.png);
 	background-repeat:no-repeat;
     background-position:center;
 }
@@ -614,13 +613,18 @@ input[type=checkbox]:checked::after {
     position:absolute;
     top:240px;
     right:34.5px;
-    background-image:url(../img/hot-next.png);
     background-repeat:no-repeat;
     background-position:center;
 }
+.hot-prev div,.hot-next div{
+	vertical-align:top;
+	margin-top:16px;
+	margin-left:13.5px;
+	width:24px;
+	height:44px;
+}
 .hot-prev:hover,.hot-next:hover{
-	opacity:0.5;
-	background-color:rgba(0,0,0,0.5);
+	background-color:rgba(0,0,0,0.2);
 }
 
 /*热点详情弹窗*/
