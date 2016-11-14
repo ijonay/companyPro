@@ -1986,3 +1986,22 @@ function loadSvg(){
 //    	}
 //    	
 //    })
+//滚动的时候固定热点详情头部
+$(window).scroll(function(){    
+	
+    if($(window).scrollTop()>180){
+    	$('#all_hot_bar').addClass('all_hot_bar_scroll');
+    }else{
+    	$('#all_hot_bar').removeClass('all_hot_bar_scroll');
+    };
+    
+   
+    if($(window).scrollTop()>1000){
+    	$('#comeback_hot_home').removeClass('hidecommon');
+    }else{
+    	$('#comeback_hot_home').addClass('hidecommon');
+    }
+});
+$('#comeback_hot_home').on('click',function(){
+	$(window).scrollTop(180)
+});   
