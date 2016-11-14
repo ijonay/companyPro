@@ -8,9 +8,12 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="salt" jdbcType="VARCHAR" property="salt"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <result column="isactive" jdbcType="BIT" property="isactive"/>
     </resultMap>
     <sql id="Base_Column_List">
-         id,  username,  nickname,  password,  salt,  avatar     </sql>
+        id,  username,  nickname,  password,  salt,  avatar,  company,  role,  isactive     </sql>
     <insert id="add" parameterType="com.zc.bean.Users"
             useGeneratedKeys="true" keyProperty="id">
         insert into users
@@ -30,6 +33,15 @@
             <if test="avatar != null">
                 avatar,
             </if>
+            <if test="company != null">
+                company,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="isactive != null">
+                isactive,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userName != null">
@@ -46,6 +58,15 @@
             </if>
             <if test="avatar != null">
                 #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="isactive != null">
+                #{isactive,jdbcType=BIT},
             </if>
         </trim>
     </insert>
@@ -72,6 +93,15 @@
             <if test="avatar != null">
                 avatar = #{avatar,jdbcType=VARCHAR},
             </if>
+            <if test="company != null">
+                company = #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                role = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="isactive != null">
+                isactive = #{isactive,jdbcType=BIT},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -81,8 +111,14 @@
         from users
         where id = #{id,jdbcType=INTEGER}
     </select>
-
-
+    <!--<select id="getAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from users-->
+    <!--</select>-->
+    <!--<delete id="delAll">-->
+    <!--delete from users-->
+    <!--</delete>-->
     <!--自定义-->
     <!-- 自定义 -->
     <select id="getByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -91,4 +127,12 @@
         FROM users
         WHERE username = #{userName, jdbcType=VARCHAR}
     </select>
+
+    <select id="getByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        where role = #{role,jdbcType=INTEGER}
+    </select>
+
 </mapper>
