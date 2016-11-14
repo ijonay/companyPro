@@ -60,7 +60,7 @@ templates.design = {};
     tmpl.push('{{for data}}');
     tmpl.push('<li data-id="{{:id}}">');
     tmpl.push('    <ul class="all_hot_list_top">');
-    tmpl.push('       <li><span  class="hot_circle_num">{{:#index+1}}</span></li>');
+    tmpl.push('       <li><span  class="hot_circle_num" style="{{if #index > 9 && #index < 99}}width:24px;height:24px;line-height:24px{{else #index ==99}}width:32px;height:32px;line-height:32px{{/if}}">{{:#index+1}}</span></li>');
     tmpl.push('       <li class="all_hot_top_topic"><p title={{:title}}>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
     tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}<div class="hot_img_arrow"></div></li>');
     tmpl.push('       <li>{{:prevailingTrend}}</li>');
@@ -120,6 +120,10 @@ templates.design = {};
             	str += '<div title="'+item+'">'+item+'</div>'
             })
             return str;
+        },
+        "circleReset":function(index){
+        	console.log(index);
+        	console.log(typeof index)
         }
     });
 })();

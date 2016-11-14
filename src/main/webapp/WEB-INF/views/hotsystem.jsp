@@ -102,7 +102,7 @@
    				<li>热点来源</li>
    				<li>热度</li>
    				<li>热点受众画像</li>
-   				<li>操作</li>
+   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
    			</ul>
    			<ul class="all_hot_list">
    				<li>
@@ -330,8 +330,9 @@
         </div>
         <div class="infoBottom">
             <img class="hotIcon" src="img/hotIcon.png">
-            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
+            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span>
             <div class="iconCon">
+                <span class="planText font14" style="float:left;line-height:22px">来源:</span>
 	            <img class="infoIcon" id="iconweibo" src="img/hot_weibo.png" alt="微博">
 	            <img class="infoIcon" id="iconwechat" src="img/hot_weixin.png" alt="微信">
 	            <img class="infoIcon" id="iconzhihu" src="img/hot_zhihu.png" alt="知乎">
