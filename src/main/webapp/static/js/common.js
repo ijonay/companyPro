@@ -267,7 +267,7 @@ function logOut(){
 		type:"get",
 		url:dataUrl.util.getLogOut(),
 		success:function(data){
-			console.log("logoutData: " + data);
+			window.location.href="user/login";
 		}
 	   
 	})
