@@ -264,7 +264,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             }
 
           if(k<lineArray[i]){
-            var cycle = paper.circle(lineList[k][0],lineList[k][1],7).animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4}, 200).data("lineNum",i);
+            var cycle = paper.circle(lineList[k][0],lineList[k][1],7).attr({cursor:"pointer"}).animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4}, 200).data("lineNum",i);
             st.push(cycle);
             currentCycle.push(cycle);
             paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
@@ -292,8 +292,10 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             		str += '<li class="fl libordercenter mr5"></li>';
             		str += '<li class="fl mr5 choice-keyword"><span></span>'+item.data("endText")+'</li>';        		
             	})
+            	
 //            	str += '<li class="fr computer-ok pointer">保存路径</li>';
             	$(".pathName").attr("data-str",str);
+            	$(".pathNum").html(pageNum*5+lineNum+1);
               },function(){
                 var _this_ = this;
                 isShow = false;
@@ -372,6 +374,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             	})
 //            	str += '<li class="fr computer-ok pointer">保存路径</li>';
             	$(".pathName").attr("data-str",str);
+            	$(".pathNum").html(pageNum*5+lineNum+1);
           },function(){
             var _this_ = this;
             isShow = false;

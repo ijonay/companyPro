@@ -1853,8 +1853,8 @@ function loadSvg(){
     	                            },
     	                            emphasis: { // 选中样式
     	                            	show: false,
-    	                                borderWidth: 1,
-    	                                borderColor: '#000',
+//    	                                borderWidth: 1,
+//    	                                borderColor: '#000',
     	                                areaColor: 'rgba(35, 158, 221,0.7)',
     	                                //color: '#f00',
     	                                label: {
