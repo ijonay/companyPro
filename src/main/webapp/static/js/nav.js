@@ -134,7 +134,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             url: dataUrl.util.delAllNotify(ids.join(",")),
             success: function(returnData) {
                 $(".notify-tab-list>li").remove();
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">没有通知</p>');
+                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
             },
             error: function() {
                 console.log('清空探索通知失败');
