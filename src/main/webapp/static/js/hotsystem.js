@@ -1960,7 +1960,7 @@ $(window).scroll(function(){
     	$('#all_hot_bar').removeClass('all_hot_bar_scroll');
     };
     
-    console.log($(window).scrollTop())
+   
     if($(window).scrollTop()>1000){
     	$('#comeback_hot_home').removeClass('hidecommon');
     }else{

@@ -15,7 +15,7 @@
 	    <div class="result_t_l fl">
 	    	<p>
 	    		<span class="corlor4a f14"></span>
-	    		<span class="corlor4a f14"><a href="hotsystem">首页</a></span>
+	    		<span class="corlor4a f14 pointer" onClick="window.location.href='hotsystem'">首页</span>
 	    		<span class="black f16 pst"></span>
 	    		<span class="black f16">探索结果</span>
 	    	</p>
