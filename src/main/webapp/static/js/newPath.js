@@ -185,7 +185,6 @@ function pageChange(up){
 function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
 	var height = $("#canvas").height();
 	var width = $("#canvas").width();
-	
     var paper = Raphael("canvas", '100%', '100%');
 //    var lineArray = [8,6,4,5,5];
     var lineArray = lineArray;
