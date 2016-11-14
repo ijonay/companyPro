@@ -37,7 +37,7 @@ div#canvas {
         </ul>
     </div>
     <div class="result-section">
-	        <div id="canvas" style="width:95%;height:100%;margin:0 auto;">
+	        <div id="canvas" style="width:100%;height:100%;margin:0 auto;">
 			    <div class="load-con ac" id="load-con">
 		        	<div class="load-container load3 fl">
 						<div class="loader"></div>
