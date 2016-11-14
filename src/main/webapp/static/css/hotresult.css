@@ -385,7 +385,7 @@ input[type=checkbox]:checked::after {
 .lable_c-d{cursor:pointer;position:absolute;background:url(../img/cook_li_del.png) no-repeat;width:14px;height:14px;right:3px;top:8px;}
 .lable_c-d:hover{background:url(../img/cook_li_del_hover.png);}
 .result_evet_div{margin-left:10px;margin-right:10px;}
-.result_filter{color:#fff;padding: 0 10px 0 28px;border-radius:2px;height:32px;line-height:32px;background-size: 16%;background:#389b9f url(../img/filtrate.png) no-repeat 7px center;}
+.result_filter{color:#fff;padding: 0 10px 0 10px;border-radius:2px;height:32px;line-height:32px;background-size: 16%;background:#389b9f }
 /*搜索结果*/
 .result-content{
 	position:relative;
@@ -679,6 +679,7 @@ input[type=checkbox]:checked::after {
     text-overflow:ellipsis;
     overflow:hidden;
     white-space:nowrap;
+    border-radius:2px;
 }
 .infoTitle{
     display: inline-block;

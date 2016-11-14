@@ -5,6 +5,24 @@ $('#nav_ser').val(word);
 console.log(urlLabel);
 
 function resSer() {
+	$('#result_evet_con').addClass('hidecommon');
+	$('#result_evet_persn').addClass('hidecommon');
+	$('#result_label_even i').remove();
+	$('#result_evet_persn i').remove();
+	$('#inp_data_person1').find('i').remove();
+	$('#inp_data_event').find('i').remove();
+	$('#inp_data_person1 div').addClass('hidecommon');
+	$('#inp_data_person1').addClass('hidecommon');
+	$('#inp_data_event').addClass('hidecommon');
+	$('#ser_dialog').find('.dialog_inp_num').text(0);
+	$('#ser_dialog').find('.dialog_inp_num').css('display','none');
+	$('#ser_dialog').find('input').prop('checked',false);
+	$('.dialog_inp_c').addClass('hidecommon');
+	$('.dislog_inp_con ul').addClass('hidecommon');
+	$('.dialog_tab').find('li').removeClass('cor389b9f');
+	$('.dialog_tab').find('li').removeClass('hot_arrow_up');
+	$('#hot_age1').val('');
+	$('#hot_age2').val('');
     var newWord=$.trim($('#nav_ser').val());
     if(newWord && word!=newWord){
         word=newWord;
@@ -16,7 +34,9 @@ function resSer() {
     }
 }
 $('.head-search').click(function() {//搜索按钮
-    resSer();
+    //resSer();
+	
+	resSer() ;
 });
 $('#nav_ser').keyup(function(event) {//搜索框回车
     if(event.keyCode == "13") {
