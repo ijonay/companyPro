@@ -66,8 +66,7 @@
 }
 .popCancle:hover{
 	color:#fff;
-	border-radius:16px;
-	background-color:#389b9f;
+	background-color:rgba(56, 155, 159,.7);
 	border:1px solid transparent;
 }
 .popOk{
@@ -79,11 +78,10 @@
     height:32px;
     line-height:32px;
     border-radius:2px;
-    background-color:#389b9f;
+    background-color:rgb(56, 155, 159);
     text-align:center;
     transition:all .3s;
 }
 .popOk:hover{
-	border-radius:16px;
-	
+	background-color:rgba(56, 155, 159,.7)
 }

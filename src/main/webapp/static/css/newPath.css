@@ -309,7 +309,7 @@ body{
 .load-con{width: 237px;opacity: 0.74;
     margin: 260px auto 0;
     height: 30px;font-size:18px}
-#prev-path ,#prev-next  {display:inline-block;box-sizing:border-box;border:1px solid #389b9f;border-radius:2px;padding:7px 17px;margin-top:-5px;border-radius:5px;font-size:14px;color:rgba(0,0,0,.8)} 
+#prev-path ,#prev-next  {display:inline-block;box-sizing:border-box;border:1px solid #389b9f;border-radius:2px;padding:7px 17px;margin-top:-5px;border-radius:2px;font-size:14px;color:rgba(0,0,0,.8)} 
 #prev-path:hover,#prev-next:hover{
 	background-color:#389b9f;
 	color:#fff;
