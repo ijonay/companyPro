@@ -2001,4 +2001,5 @@ $(window).scroll(function(){
 });
 $('#comeback_hot_home').on('click',function(){
 	$(window).scrollTop(180)
-});   
+}); 
+
