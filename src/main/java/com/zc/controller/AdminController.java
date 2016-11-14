@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 
-
     @RequestMapping("/index")
     public String index() {
         return "admin/index";
@@ -28,6 +27,11 @@ public class AdminController {
         return "admin/redisset";
     }
 
+    @RequestMapping("/manageruser")
+    public String manageruser(ModelMap model) {
+
+        return "admin/manageruser";
+    }
 
 
 }
