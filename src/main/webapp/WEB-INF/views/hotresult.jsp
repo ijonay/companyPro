@@ -159,6 +159,7 @@
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/pop.js"></script>
-
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/perfect-scrollbar.js"></script>
 </body>
 </html>

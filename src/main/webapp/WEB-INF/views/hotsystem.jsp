@@ -370,5 +370,7 @@ $.get('js/china.json', function (chinaJson) {
 <script id="allHotTmpl" type="text/x-jsrender">
 
 </script>
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/perfect-scrollbar.js"></script>
 </body>
 </html>

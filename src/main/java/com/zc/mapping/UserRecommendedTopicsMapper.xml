@@ -90,7 +90,7 @@
         INNER join topic t on t.id = retopic.topic_id
         where u.id = #{userId, jdbcType=INTEGER}
         and retopic.is_active = 1
-        ORDER BY retopic.create_date asc
+        ORDER BY retopic.create_date desc
         limit 0,#{count, jdbcType=INTEGER}
 
     </select>
