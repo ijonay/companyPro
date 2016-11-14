@@ -37,7 +37,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .right-bar .bar-tabs li{float:left;line-height:50px;margin-right:34px;color:#ccc;cursor:pointer;}
 .right-bar .bar-tabs li.active{color:rgba(0,0,0,1);}
 .right-bar .bar-tabs li.right-bar-close{float:right;margin-right:0px;color:#444;font-size:12px;}
-.right-bar .bar-tabs li.right-bar-close:hover{color:#01c9d6;}
+.right-bar .bar-tabs li.right-bar-close:hover{color:#389b9f;}
 .right-bar .bar-tabs li.notify-tab{position:relative;}
 .right-bar .bar-tabs li.notify-tab .notify-count{position:absolute;top:7px;right:-17px;width:16px;background-color:#389b9f;color:#fff;font-size:12px;line-height:16px;text-align:center;border-radius:50%;display:none;font-family:"Microsoft YaHei";}
 /*日历tab*/
@@ -117,7 +117,8 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .pnl-notify-tab .notify-tab-list li>a .hot-spot{color:#389b9f;}
 .pnl-notify-tab .notify-tab-list li>a .notify-close{display:inline-block;width:34px;text-align:right;margin:0 0 0 10px;}
 .notify-operate{height:60px;line-height:60px;padding:0 14px 0 18px;font-size:12px;color:#4a4a4a;background:#fff;position:absolute;bottom:0;left:0px;width:272px;z-index:99;}
-.notify-operate .clear-notify{color:#389b9f;cursor:pointer;}
+.notify-operate .clear-notify{color:#000;cursor:pointer;}
+.notify-operate .clear-notify:hover{color:#389b9f;}
 .notify-operate .relate-email .relate-title{opacity:0.5;vertical-align:top;margin-left:10px;display:none;}
 
 .notify-info{
