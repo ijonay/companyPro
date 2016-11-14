@@ -46,7 +46,19 @@ body{
     line-height: 44px;
 }
 
-
+.nav-banner_left span{margin-right:5px;}
+.nav-banner_left_icon{
+	border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
 .search-btn{
     color: #fff;
     display: inline-block;
