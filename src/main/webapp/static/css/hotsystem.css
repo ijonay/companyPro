@@ -454,49 +454,67 @@ body{
     overflow: hidden;
     white-space: nowrap
 }
+/*热点详情弹窗*/
 .alertCon{
     display:none;
     position:absolute;
     left:32%;
     top:35%;
-    width:386px;
-    height:128px;
+    width:418px;
+    height:144px;
     margin:0;
-    padding: 16px;
     box-sizing: border-box;
     background-color:#fff;
     border-radius: 2px;
+    -moz-box-shadow:0px 0px 16px rgba(0,0,0,.5);
+    -webkit-box-shadow:0px 0px 16px rgba(0,0,0,.5);
+    box-shadow:0px 0px 16px rgba(0,0,0,.5);
 }
 .portrait{
-    display: inline-block;
-    width:96px;
-    height:96px;
-    background-color:#eee;
+    float:left;
+    width:144px;
+    height:144px;
+    background-size:100%;
+    background-position:center;
     margin-right: 10px;
-    margin:0;
     padding: 0;
-    background-size:cover;
-    background-repeat:no-repeat;
-    background-position:center center;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
 }
 .info{
-    position: absolute;
-    top:16px;
-    display: inline-block;
-    width: 248px;
-    height:96px;
-    margin:0 0 0 10px;
-    padding: 0;
+    float:left;
+    width:264px;
+    padding:12px 12px 12px 0;
+    height:144px;
+    cursor:default;
 }
 .infoTop{
-    position: absolute;
     width:100%;
     height:22px;
-    /*background-color: blue*/
+}
+.hotAlertTag{
+    margin-top:8px;
+    font-size: 12px;
+    color:#4a4a4a;
+    display: inline-block;
+    width: 100%;
+    height:20px;
+    line-height:20px;
+}
+.hotAlertTag div{
+    background:#e8ebed;
+    padding:0 8px;
+    float:left;
+    margin-right:6px;
+    max-width:192px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    border-radius:2px;
 }
 .infoTitle{
     display: inline-block;
-    width:160px;
+    max-width:168px;
     height:22px;
     line-height: 22px;
     font-size: 18px;
@@ -521,15 +539,11 @@ body{
     cursor:pointer;
 }
 .hotInfo{
-    position: absolute;
-    top:44px;
-    font-size: 12px;;
-    display: inline-block;
+    margin-top:4px;
+    font-size: 12px;
     width: 100%;
-    padding: 0 0 12px 0;
-    cursor:pointer;
-    height:36px;
-    overflow:hidden;
+    height:32px;
+    overflow: hidden;
 }
 .infoText{
     overflow: hidden;
@@ -543,50 +557,40 @@ body{
     word-break: break-all;
 }
 .infoBottom{
-    position: absolute;
-    bottom:-1px;
     display: inline-block;    
-    width:248px;
+    width:100%;
     height:24px;
-    line-height:18px;
+    line-height:24px;
+    margin-top:8px;
 }
 .hotValue{
-    font-size: 24px;
-    margin: 0 5px 0 18px;
-    padding: 0;
-    line-height:32px;
-}
-.planText{
-    display: inline-block;
-    height: 12px;
-    font-size: 12px;
-    margin:0;
-    padding: 0; 
-}
-.infoSpace{
-    display: inline-block;
-    width: 45px;
+    font-size: 14px;
+    line-height:24px;
+    font-weight:bold;
 }
 .font14{
     font-size: 14px;
 }
-.iconCon{
-	display:inline-block;
-	width:88px;
-}
+
+
 .infoIcon{
+    line-height:24px;
+    float:right;
+}
+.iconCon a{
+    width:16px;
+    height:24px;
+    background-position:center;
+    background-repeat:no-repeat;
+    margin-left:5px;
+    display:inline-block;
     float:left;
-    bottom:0;
-    position:relative;
-    bottom:-2px;
-    margin: 0 0 0 4px;
-    padding: 0;
-    vertical-align:bottom;
 }
 .hotIcon{
-	vertical-align:bottom;
-	position:absolute;
-	bottom:0;
+    height:100%;
+    width:12px;
+    background:url(../img/hotIcon.png) no-repeat center 2.5px;
+    margin-right:5px;
 }
 .triangle{
     position: absolute;
@@ -876,23 +880,6 @@ body{
   border-left: 1px solid #389b9f;
   -webkit-transform-origin: 0 100%;
   border-radius:2px;
-}
-.hotAlertTag{
-	position:absolute;
-	top:22px;
-	height:20px;
-}
-
-.hotAlertTag div{
-	display:inline-block;
-	margin-right:6px;
-	line-height:20px;
-	padding:0 5px;
-	background:#ccc;
-	height:20px;
-	font-size:12px;
-	color:#4a4a4a;
-	border-radius:2px
 }
 #ser_btn_high::after {
   border-top: 1px solid #389b9f;
