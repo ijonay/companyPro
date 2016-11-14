@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -87,10 +88,13 @@ public class UserHotTopicMessageApi extends BaseApi{
     }
 
     @RequestMapping(value = "delAll")
-    public ApiResultModel deleteUserAllHotTopicMessage(){
+    public ApiResultModel deleteUserAllHotTopicMessage(
+            @RequestParam(value = "ids") String ids
+    ){
         ApiResultModel resultModel = new ApiResultModel();
         try{
-            if( userRecommendedTopicsService.delAll( CommonHelper.getCurrentUserId() ) ){
+            String[] idsArray = ids.split(",");
+            if( userRecommendedTopicsService.delAll(Arrays.asList( idsArray ) ) ){
                 resultModel.code(StatusCodeEnum.SUCCESS);
             }else{
                 resultModel.code(StatusCodeEnum.FAILED);

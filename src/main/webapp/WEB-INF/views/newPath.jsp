@@ -141,5 +141,7 @@ div#canvas {
 <script src="js/newPath.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/perfect-scrollbar.js"></script>
 </body>
 </html>

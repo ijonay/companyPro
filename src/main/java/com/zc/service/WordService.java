@@ -37,6 +37,13 @@ public interface WordService {
      */
     float[] getWordVectorsByCache(String key);
 
+    Map<String, float[]> getWordVectorsCollByCache();
+
+    /**
+     * 更新redis中的语料库集合信息 每调用一次更新一次redis
+     */
+    void cache_UpdateWordVerctorsToColl();
+
     /**
      * 更新redis中的语料库信息 每调用一次更新一次redis
      */

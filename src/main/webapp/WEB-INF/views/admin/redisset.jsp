@@ -39,7 +39,7 @@
 
                     Model.updateWordsToRedis(KD.Json.getString(KD.Form.getParams()), function (msg) {
                         if (msg.error.code == 0) {
-                            KD.showWarning("更新语料库到redis执行成功！");
+                            KD.showWarning("更新语料库键值对到redis执行成功！");
                         } else {
                             KD.showWarning(msg.error.message);
                         }
@@ -64,6 +64,17 @@
                     });
                 });
 
+                $("button.submit4").click(function () {
+
+                    Model.updateWordsCollToRedis(KD.Json.getString(KD.Form.getParams()), function (msg) {
+                        if (msg.error.code == 0) {
+                            KD.showWarning("更新语料库集合到redis执行成功！");
+                        } else {
+                            KD.showWarning(msg.error.message);
+                        }
+                    });
+                });
+
             });
         </script>
     </jsp:attribute>
@@ -74,7 +85,12 @@
                 <form class="form-horizontal">
                     <div class="form-group">
                             <%--<div class="col-sm-offset-2 col-sm-10">--%>
-                        <button type="button" class="btn btn-default submit1">更新语料库到redis</button>
+                        <button type="button" class="btn btn-default submit1">更新语料库键值对到redis</button>
+                            <%--</div>--%>
+                    </div>
+                    <div class="form-group">
+                            <%--<div class="col-sm-offset-2 col-sm-10">--%>
+                        <button type="button" class="btn btn-default submit4">更新语料库集合到redis</button>
                             <%--</div>--%>
                     </div>
                     <div class="form-group">

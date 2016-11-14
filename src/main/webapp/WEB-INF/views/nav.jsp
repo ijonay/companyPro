@@ -27,11 +27,13 @@
     <ul class="notify-list">
     </ul>
 </div>
+
 <div class="right-bar">
-    <ul class="bar-tabs">
+    <div class="bar-content">
+        <ul class="bar-tabs">
         <li class="pred-tab active">热点预告</li>
         <li class="notify-tab">探索通知<span class="notify-count">6</span></li>
-        <li class="right-bar-close"><img src="img/close-rightbar.png"></li>
+        <li class="right-bar-close">收起</li>
     </ul>
     <div class="pnl-pred-tab">
         <div class="pnl-calendar"></div>
@@ -56,12 +58,13 @@
         <ul class="notify-tab-list">
             
         </ul>
-        <div class="notify-operate">
-            <div class="relate-email fl">
-                <input type="checkbox" id="chk-email" class="chk-email" /><label for="chk-email" class="lb-email"><span class="lb-circle"></span></label>
-                <span class="relate-title">通知发送至邮箱</span>
-            </div>
-            <div class="clear-notify fr">清空通知</div>
-        </div>
     </div>
+    </div>
+    <div class="notify-operate">
+    <div class="relate-email fl">
+        <input type="checkbox" id="chk-email" class="chk-email" /><label for="chk-email" class="lb-email"><span class="lb-circle"></span></label>
+        <span class="relate-title">通知发送至邮箱</span>
+    </div>
+    <div class="clear-notify fr">清空通知</div>
+</div>
 </div>
