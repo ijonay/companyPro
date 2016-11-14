@@ -63,7 +63,7 @@
                         </div>
                         <div class="infoBottom">
                             <div class="hotIcon fl"></div>
-                            <div class="hotValue fl"></div><div class="planText fl">/热度</div>
+                            <div class="planText font14 fl">热度:</div><div class="hotValue fl"></div>
                             <div class="iconCon fr">
                                 <a target=" _blank" class="weibo-link" href="#" style="background-image:url(img/hot_weibo.png);"></a>
                                 <a target=" _blank" class="weixin-link" href="#" style="background-image:url(img/hot_weixin.png);display:none;"></a>

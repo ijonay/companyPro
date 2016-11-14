@@ -629,8 +629,8 @@ input[type=checkbox]:checked::after {
     position:absolute;
     left:32%;
     top:35%;
-    width:414px;
-    height:140px;
+    width:418px;
+    height:144px;
     margin:0;
     box-sizing: border-box;
     background-color:#fff;
@@ -641,8 +641,8 @@ input[type=checkbox]:checked::after {
 }
 .portrait{
     float:left;
-    width:140px;
-    height:140px;
+    width:144px;
+    height:144px;
     background-size:100%;
     background-position:center;
     margin-right: 10px;
@@ -653,8 +653,8 @@ input[type=checkbox]:checked::after {
 .info{
 	float:left;
 	width:264px;
-    padding:10px 10px 10px 0;
-    height:140px;
+    padding:12px 12px 12px 0;
+    height:144px;
     cursor:default;
 }
 .infoTop{
@@ -732,8 +732,9 @@ input[type=checkbox]:checked::after {
     margin-top:8px;
 }
 .hotValue{
-    font-size: 24px;
+    font-size: 14px;
     line-height:24px;
+    font-weight:bold;
 }
 .font14{
     font-size: 14px;
@@ -754,7 +755,7 @@ input[type=checkbox]:checked::after {
 .hotIcon{
     height:100%;
     width:12px;
-    background:url(../img/hotIcon.png) no-repeat center 3.5px;
+    background:url(../img/hotIcon.png) no-repeat center 2.5px;
     margin-right:5px;
 }
 /*搜索报错*/

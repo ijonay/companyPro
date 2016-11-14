@@ -329,15 +329,15 @@
             </div>            
         </div>
         <div class="infoBottom">
-            <img class="hotIcon" src="img/hotIcon.png">
-            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span>
-            <div class="iconCon">
-                <span class="planText font14" style="float:left;line-height:22px">来源:</span>
-	            <img class="infoIcon" id="iconweibo" src="img/hot_weibo.png" alt="微博">
-	            <img class="infoIcon" id="iconwechat" src="img/hot_weixin.png" alt="微信">
-	            <img class="infoIcon" id="iconzhihu" src="img/hot_zhihu.png" alt="知乎">
-	            <img class="infoIcon" id="iconbaidu" src="img/hot_baidu.png" alt="百度">
+            <div class="hotIcon fl"></div>
+            <span class="planText font14 fl">热度:</span><span class="hotValue fl">99</span>
+            <div class="iconCon fr">
+	            <a target=" _blank" id="iconweibo" class="weibo-link" href="javascript:;" style="background-image:url(img/hot_weibo.png);"></a>
+                <a target=" _blank" id="iconweibo" class="weixin-link" href="javascript:;" style="background-image:url(img/hot_weixin.png);"></a>
+                <a target=" _blank" id="iconweibo" class="zhihu-link" href="javascript:;" style="background-image:url(img/hot_zhihu.png);"></a>
+                <a target=" _blank" id="iconweibo" class="baidu-link" href="javascript:;" style="background-image:url(img/hot_baidu.png);"></a>
             </div>
+            <span class="planText font14 fr">来源:</span>
         </div>
     </div>
     <div class="triangle"></div>
