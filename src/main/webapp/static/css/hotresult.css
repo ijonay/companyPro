@@ -629,37 +629,40 @@ input[type=checkbox]:checked::after {
     position:absolute;
     left:32%;
     top:35%;
-    width:414px;
-    height:140px;
+    width:418px;
+    height:144px;
     margin:0;
     box-sizing: border-box;
     background-color:#fff;
     border-radius: 2px;
+    -moz-box-shadow:0px 0px 16px rgba(0,0,0,.5);
+    -webkit-box-shadow:0px 0px 16px rgba(0,0,0,.5);
+    box-shadow:0px 0px 16px rgba(0,0,0,.5);
 }
 .portrait{
-    display: inline-block;
-    width:140px;
-    height:140px;
+    float:left;
+    width:144px;
+    height:144px;
     background-size:100%;
     background-position:center;
     margin-right: 10px;
     padding: 0;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
 }
 .info{
-    position: absolute;
-    top:16px;
-    display: inline-block;
-    width: 246px;
-    height:108px;
+	float:left;
+	width:264px;
+    padding:12px 12px 12px 0;
+    height:144px;
+    cursor:default;
 }
 .infoTop{
-    position: absolute;
     width:100%;
     height:22px;
 }
 .hotLabel{
-    position: absolute;
-    top:27px;
+    margin-top:8px;
     font-size: 12px;
     color:#4a4a4a;
     display: inline-block;
@@ -669,13 +672,18 @@ input[type=checkbox]:checked::after {
 }
 .hotLabel div{
 	background:#e8ebed;
-	padding:0 8px;
-	float:left;
-	margin-right:6px;
+    padding:0 8px;
+    float:left;
+    margin-right:6px;
+    max-width:192px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    border-radius:2px;
 }
 .infoTitle{
     display: inline-block;
-    width:160px;
+    max-width:168px;
     height:22px;
     line-height: 22px;
     font-size: 18px;
@@ -700,13 +708,10 @@ input[type=checkbox]:checked::after {
     cursor:pointer;
 }
 .hotInfo{
-    position: absolute;
-    top:52px;
-    font-size: 12px;;
-    display: inline-block;
+    margin-top:4px;
+    font-size: 12px;
     width: 100%;
     height:32px;
-    cursor:pointer;
     overflow: hidden;
 }
 .infoText{
@@ -721,16 +726,16 @@ input[type=checkbox]:checked::after {
     word-break: break-all;
 }
 .infoBottom{
-	position: absolute;
-    bottom:0px;
-    display: inline-block;    
+	display: inline-block;    
     width:100%;
     height:24px;
     line-height:24px;
+    margin-top:8px;
 }
 .hotValue{
-    font-size: 24px;
+    font-size: 14px;
     line-height:24px;
+    font-weight:bold;
 }
 .font14{
     font-size: 14px;
@@ -751,7 +756,7 @@ input[type=checkbox]:checked::after {
 .hotIcon{
     height:100%;
     width:12px;
-    background:url(../img/hotIcon.png) no-repeat center;
+    background:url(../img/hotIcon.png) no-repeat center 2.5px;
     margin-right:5px;
 }
 /*搜索报错*/
@@ -759,9 +764,36 @@ input[type=checkbox]:checked::after {
 	width:100%;
 	height:520px;
 	position:relative;
-	display:none;
 	font-size:14px;
 }
+.result-loading{
+	font-size:14px;
+	color:#f1f1f1;
+	z-index: 999;
+    position: absolute;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+.result-loading .title{
+	position:absolute;
+	left:50%;
+	top:50%;
+	-webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+    
 .result-error .error-content{
 	position:absolute;
 	left:50%;
