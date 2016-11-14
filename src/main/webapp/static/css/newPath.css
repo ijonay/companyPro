@@ -306,7 +306,7 @@ body{
 .load-con{width: 237px;opacity: 0.74;
     margin: 260px auto 0;
     height: 30px;font-size:18px}
-#prev-path ,#prev-next  {border:1px solid #ccc;padding:7px 15px;margin-top:-5px;border-radius:5px;} 
+#prev-path ,#prev-next  {border:1px solid #ccc;padding:7px 15px;margin-top:-5px;border-radius:2px;} 
 #prev-path{margin-right:10px;}
 .disstate{background:#ccc;}
 /*翻页arrow*/
