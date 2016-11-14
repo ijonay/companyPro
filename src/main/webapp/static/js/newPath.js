@@ -182,20 +182,22 @@ function pageChange(up){
    $('#canvas').html('');
     raphealDraw(lineArray,nodeList,query,hotTopic); 
 }
-function raphealDraw(lineArray,nodeList,keyWord,hotTopic){    
+function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
+	var height = $("#canvas").height();
+	var width = $("#canvas").width();
     var paper = Raphael("canvas", '100%', '100%');
 //    var lineArray = [8,6,4,5,5];
     var lineArray = lineArray;
     var nodeList = nodeList;
     var theta = "";//角度
     var thetaArray = [];
-    var startPoint = [35,250];
-    var endPoint = [1000,250];
+    var startPoint = [115,height/2];
+    var endPoint = [width-115,height/2];
     var lines = [];
     var cycles = [];
     var linkImg = "";
     //y轴点
-    var hei = parseInt(450/(lineArray.length+1));
+    var hei = parseInt((height-25)/(lineArray.length+1));
     var st = paper.set();//画圆
     //文字超出处理
 //    var keyWord1 = "";

@@ -64,13 +64,10 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 						str += "<li data-id='"+item.id+"' title='"+ unescape(item.words) +"'>"+unescape(item.words)+"<span></span></li>"
 					})
 					$("#favorite_ul").html(str);
-				}
-					
 					if(returnData.data.length == 0){
 						$('.favorite_div').addClass('hidecommon');
 					}
-					
-				
+				}
 			},
 			error:function(){
 				console.log('获取常用失败');

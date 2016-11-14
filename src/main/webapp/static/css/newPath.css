@@ -5,21 +5,24 @@
 .header{background:#052e44;}
 .nav_ser{display:block;}
 .notify-list{display:none!important;} 
-html,body{
-	height:100%
+html{
+	height:100%;
+	margin:0!important;
+	padding:0!important
 }
 body{
 	margin-bottom:15px;
 	background-color:#F2F2F2;
+	height:97%;
 }
 .nav-menu-ul li:nth-child(11) a {
     background: #222;
     }
 .result-section{
-	padding:0 62px 0px 50px;
+	padding:0;
 	position:relative;
 	width:100%;
-	height:calc(100% - 130px);
+	height:calc(100% - 120px);
 }
 .result-section-img{
 	width:258px;height:27px;background:url(../img/hotspotstitle.png) no-repeat;margin-top:9px;
@@ -306,9 +309,14 @@ body{
 .load-con{width: 237px;opacity: 0.74;
     margin: 260px auto 0;
     height: 30px;font-size:18px}
-#prev-path ,#prev-next  {border:1px solid #ccc;padding:7px 15px;margin-top:-5px;border-radius:2px;} 
+#prev-path ,#prev-next  {display:inline-block;box-sizing:border-box;border:1px solid #389b9f;border-radius:2px;padding:7px 17px;margin-top:-5px;border-radius:5px;font-size:14px;color:rgba(0,0,0,.8)} 
+#prev-path:hover,#prev-next:hover{
+	background-color:#389b9f;
+	color:#fff;
+}
 #prev-path{margin-right:10px;}
-.disstate{background:#ccc;}
+.disstate{color:rgba(0,0,0,.3)!important;border:1px solid #eee!important;font-size:14px;}
+.disstate:hover{background-color:#fff!important;cursor:default}
 /*翻页arrow*/
 .arrowCon{
     position: absolute;
@@ -368,7 +376,7 @@ body{
 }
 .pathName{
     position: absolute;
-    width:60px;
+    width:77px;
     height:24px;
     font-size: 14px;
     color:#fff;
