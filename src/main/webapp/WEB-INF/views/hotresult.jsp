@@ -15,7 +15,7 @@
 	    <div class="result_t_l fl">
 	    	<p>
 	    		<span class="corlor4a f14">&lt;</span>
-	    		<span class="corlor4a f14">首页</span>
+	    		<a href="hotsystem" style="cursor:pointer" class="corlor4a f14">首页</a>
 	    		<span class="black f16 pst"></span>
 	    		<span class="black f16">探索结果</span>
 	    	</p>
