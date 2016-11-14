@@ -31,6 +31,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		if(val){
 			$('#favorite_set_btn').removeClass('hidecommon');
 		}else{
+			$('#ser_hint').addClass('hidecommon');
 			$('#favorite_set_btn').addClass('hidecommon');
 		}
 		
@@ -54,7 +55,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			url:dataUrl.util.getCommon(),
 			success:function(returnData){
 				console.log(returnData.data)
+				$('.favorite_div').removeClass('hidecommon');
 				if(returnData.data != null && returnData.error.code == 0){
+					
 					var str = "";
 					$.each(returnData.data,function(index,item){
 						if(index > 4) return;
@@ -62,6 +65,12 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					})
 					$("#favorite_ul").html(str);
 				}
+					
+					if(returnData.data.length == 0){
+						$('.favorite_div').addClass('hidecommon');
+					}
+					
+				
 			},
 			error:function(){
 				console.log('获取常用失败');
@@ -99,6 +108,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			success:function(returnData){
 				console.log(returnData.data.id);
 				if(returnData.error.code == 0){
+					$('.favorite_div').removeClass('hidecommon');
 					if(len>=5){
 						$('#favorite_ul').find('li').eq(4).remove();
 						$('#favorite_ul').prepend('<li data-id="'+returnData.data+'" title='+val+'>'+val+'<span></span></li>');
@@ -130,6 +140,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				console.log(returnData);
 				if(returnData.error.code == 0){
 					$this.parent().remove();
+					if($('#favorite_ul li').length == 0){
+						$('.favorite_div').addClass('hidecommon');
+					}
 				}
 			},
 			error:function(){
@@ -243,6 +256,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			
 		}
 	});
+	
 	
 	$('#ser_btn').on('click',function(){
 		var val = $.trim($('#ser_text').val());
@@ -1060,7 +1074,7 @@ function loadSvg(){
                     rectArray[index].attr({fill:"#2ad3da"}).animate({transform:"r45s1.2"})
                     textArray[index].animate({transform:"s1.2"})
                     hotArray[index].animate({transform:"s1.2"}) 
-                }        		
+                }
         	},function(){
                 if(canClick){
             		rectArray[index].attr({fill:"#389b9f"}).animate({transform:"r45"})
@@ -1164,8 +1178,15 @@ function loadSvg(){
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
             alertCon.show();
-    	}    	
+    	}else{
+        	$("#comeback_hot").click();
+        }
     }
+//    $(".papersvg").click(function(){
+//    	if(!canClick){
+//    		$("#comeback_hot").click()
+//    	}    	
+//    })
     $(document).on("click",".hot_relation,.infoConnect",function(){
     	var $this = $(this);
     	var index = $this.attr("data-index");
@@ -1285,9 +1306,14 @@ function loadSvg(){
     		title: {
                 text: '',
                 left: 'center',
-                top:15
+                top:15,
+                textStyle:{
+                	color:'#4a4a4a',
+                	fontFamily:'微软雅黑',
+                	fontSize:'16',
+                	fontWeight:'400'
+                }
             },
-            color:["#5ccfcd","#6faff4"],
             backgroundColor:"#fff",
             tooltip: {
                 trigger: 'item',
@@ -1337,57 +1363,7 @@ function loadSvg(){
                 }
             ]
     }
-    var option1 = {
-            title: {
-                text: '受众性别分布',
-                left: 'center'
-            },
-            backgroundColor:"#fff",
-            tooltip: {
-                trigger: 'item',
-                formatter: function (obj) {
-                    return obj.name.split(":")[0] + ": " + obj.percent + "%" 
-                },
-                backgroundColor:"rgba(255,255,255,0.5)",
-                borderColor:"#5ccfcd",
-                borderWidth:2,
-                textStyle:{
-                	color:"#000",
-                	fontFamily:"微软雅黑"
-                }
-            },
-            legend: {
-                orient: 'horizontal',
-                bottom:10,
-                data:['男 97%','女 3%'],
-                formatter: function (name) {
-                    return name.substr(0,1);
-                }
-            },
-            series: [
-                {
-                    name:'性别',
-                    color:["#5ccfcd","#6faff4"],
-                    type:'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,                    
-                    data:[
-                        {value:97, name:'男 97%',label: {
-                            normal: {
-                                show: true,
-                                position: 'center',
-                                textStyle: {
-                                    fontSize: '20',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        }},
-                        {value:3, name:'女 3%'}
-                    ]
-                }
-            ]
-    };
-  
+
  
     $(document).on('click','.all_hot_list_top_look',function(){
     	$('.all_hot_list_bot').css('display','none');
@@ -1423,60 +1399,77 @@ function loadSvg(){
     		success:function(data){
     			console.log(data);
     			var data = data.data;
+    			if(data == null){
+    				str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
+    					$this.parent().parent().find(".hot_echart_list").html(str);
+    					return;
+    				}
+    				var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
+    				if(dataLen < 1){
+    					str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
+    					$this.parent().parent().find(".hot_echart_list").html(str);
+    					return;
+    				}
     			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
-    				var interestCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
-    				$this.parent().parent().find(".hot_echart_list").append(genderCon);
-    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
+    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:16%;height:279px;background:#fff;'></div>");    				
+    				$this.parent().parent().find(".hot_echart_list").append(genderCon);    				
     				var genderCharts = echarts.init(genderCon.get(0));
     				
     				var genderOption = $.extend(true,{},circleOption);
     				genderOption.title.text = "受众性别分布";
+    				genderOption.color = ['#6faef5','#5bcecd'];
     				var max = 0;
     				var currentIndex = 0;
-//    				$.each(data.gender,function(index,item){
-//    					ageOption.legend.data.push(item.name+" "+item.value+"%");
-//    					if(max < item.value){
-//    						max = item.value;
-//    						currentIndex = index;
-//    					}    					
-//    				})
-
-    				genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
-    				genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
-    				genderOption.series[0].name = "性别";
-    				var genderJson0 = JSON.stringify(data.gender[0]); 
-    				genderOption.series[0].data.push(JSON.parse(genderJson0));
-    				var genderJson1 = JSON.stringify(data.gender[1]); 
-    				genderOption.series[0].data.push(JSON.parse(genderJson1));
-    				genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value+"%";
-    				genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value+"%";
+       				$.each(data.gender,function(index,item){
+                        genderOption.legend.data.push({name:item.name+" "+item.value.toFixed(2)+"%",icon:"circle"});
+       					var tempItem = JSON.stringify(item);
+                        tempItem = JSON.parse(tempItem);
+                        tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
+                        genderOption.series[0].data.push(tempItem);
+                        if(max > item.value){                          
+                        }else{
+                            max = item.value;
+                            currentIndex = index;
+                        }  					
+       				})                    
+    				// genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
+    				// genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
+    				// genderOption.series[0].name = "性别";
+    				// var genderJson0 = JSON.stringify(data.gender[0]); 
+    				// genderOption.series[0].data.push(JSON.parse(genderJson0));
+    				// var genderJson1 = JSON.stringify(data.gender[1]); 
+    				// genderOption.series[0].data.push(JSON.parse(genderJson1));
+    				// genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
+    				// genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
     				var label =  {
                         normal: {
                             show: true,
                             position: 'center',
                             textStyle: {
-                            	color:"#000",
-                                fontSize: '16',
-                                fontWeight: 'bold'
+                            	color:"#4a4a4a",
+                                fontSize: '14',
+                                fontWeight: '400'
                             }
                         }
                     }
-    				if(data.gender[0].value > data.gender[1].value){
-    					genderOption.series[0].data[0].label = label;
-    				}else{
-    					genderOption.series[0].data[1].label = label;
-    				}
-    				console.log(genderOption);
-    				console.log(option1);
+       				genderOption.series[0].data[currentIndex].label = label;
+    				// if(data.gender[0].value > data.gender[1].value){
+    				// 	genderOption.series[0].data[0].label = label;
+    				// }else{
+    				// 	genderOption.series[0].data[1].label = label;
+    				// }
     				genderCharts.setOption(genderOption);
+    				window.onresize = genderCharts.resize;
+    			}
+    			if(data && data.education.length > 0){
     				//受众学历分布
-    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:17%;height:279px;;background:#fff;'></div>");
+    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:16%;height:279px;;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(educationCon);
     				var educationCharts = echarts.init(educationCon.get(0));
     				var educationOption = $.extend(true,{},circleOption);
     				educationOption.title.text = "受众学历分布";
+    				educationOption.color = ['#ffd154','#6faef5','#5bcecd','#f28a3e','#e478ee','#f24747'];
     				var educationMax = 0;
     				var educationMaxIndex = 0;
     				educationOption.series[0].name = "学历分布";
@@ -1492,9 +1485,6 @@ function loadSvg(){
     						educationMaxIndex = index;
     					}
     				})
-    				console.log("..............")
-    				console.log(educationMax);
-    				console.log(educationMaxIndex);
 //    				educationOption.legend.data.push(data.education[0].name+" "+data.education[0].value+"%");
 //    				educationOption.legend.data.push(data.education[1].name+" "+data.education[1].value+"%");
 //    				educationOption.series[0].name = "性别";
@@ -1509,9 +1499,9 @@ function loadSvg(){
                             show: true,
                             position: 'center',
                             textStyle: {
-                            	color:"#000",
-                                fontSize: '16',
-                                fontWeight: 'bold'
+                            	color:"#4a4a4a",
+                                fontSize: '14',
+                                fontWeight: '400'
                             }
                         }
                     }
@@ -1521,66 +1511,79 @@ function loadSvg(){
 //    				}else{
 //    					genderOption.series[0].data[1].label = label;
 //    				}
-    				console.log(educationOption);
-    				console.log(option1);
     				educationCharts.setOption(educationOption);
+    				window.onresize=educationCharts.resize;
+    			}
     				//兴趣雷达图
-    				
-    				var interestCharts = echarts.init(interestCon.get(0));
-    				var interestvals = [];
-    	        	var interestnames = [];
-    	        	var interest =data.interest;
-    	        	$.each(interest,function(i,item){
-    	        		interestvals.push(item.value);
-    	        		interestnames.push({name:item.name});
-    	        	});
+    				if(data && data.interest.length > 0){
+						var interestCon = $("<div class='Personas' style='display:inline-block;width:21%;height:279px;background:#fff;'></div>");
+	    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
+	    				var interestCharts = echarts.init(interestCon.get(0));
+	    				var interestvals = [];
+	    	        	var interestnames = [];
+	    	        	var interest =data.interest;
+	    	        	$.each(interest,function(i,item){
+	    	        		interestvals.push(item.value);
+	    	        		interestnames.push({name:item.name});
+	    	        	});
+	    	        	
+	    	        	interestCharts.setOption({
+	    	        		color:['#ccc'],
+	    	        	    title: {
+	    	        	        text: '受众兴趣偏好',
+	    	        	        left:'center',
+	    	        	        top:15,
+	    	        	        textStyle:{
+	    	                    	color:'#4a4a4a',
+	    	                    	fontFamily:'微软雅黑',
+	    	                    	fontSize:'16',
+	    	                    	fontWeight:'400'
+	    	                    }
+	    	        	    },
+	    	        	    backgroundColor:"#fff",
+	    	        	    tooltip: {
+	    	        	    },
+	    	        	    
+	    	        	    radar: {
+	    	        	    	radius:'50%',
+	    	        	    	center:['50%','60%'],
+	    	        	    	splitArea: {
+	    	        	            areaStyle: {
+	    	        	                color: ['#fff', '#fff', '#fff', '#fff']
+	    	        	            }
+	    	        	        },
+	    	        	        nameGap:10,	    	        	        
+	    	        	        // shape: 'circle',
+	    	        	        indicator: interestnames,
+	    	        	        splitLine: {
+	        	                    lineStyle: {
+	        	                        color: '#ccc'
+	        	                    }
+	        	                },
+	        	                axisLine: {
+	        	                    show:false
+	        	                },
+	    	        	    },
+	    	        	    series: [{
+	    	        	        type: 'radar',
+	    	        	        data : [
+	    	        	            {
+	    	        	                value : interestvals,
+	    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
+	//    	        	                areaStyle: {
+	//    	                                normal: {
+	//    	                                    color: '#fff'
+	//    	                                }
+	//    	                            }
+	    	        	            }
+	    	        	        ]
+	    	        	    }]
+	    	        	});
+	    	        	window.onresize=interestCharts.resize;
+    				}
     	        	
-    	        	interestCharts.setOption({
-    	        		color:['#ccc'],
-    	        	    title: {
-    	        	        text: '受众兴趣偏好',
-    	        	        left:'center',
-    	        	        top:15
-    	        	    },
-    	        	    backgroundColor:"#fff",
-    	        	    tooltip: {},
-    	        	    
-    	        	    radar: {
-    	        	    	radius:'50%',
-    	        	    	center:['50%','60%'],
-    	        	    	splitArea: {
-    	        	            areaStyle: {
-    	        	                color: ['#fff', '#fff', '#fff', '#fff']
-    	        	            }
-    	        	        },
-    	        	        // shape: 'circle',
-    	        	        indicator: interestnames,
-    	        	        splitLine: {
-        	                    lineStyle: {
-        	                        color: '#ccc'
-        	                    }
-        	                },
-        	                axisLine: {
-        	                    show:false
-        	                },
-    	        	    },
-    	        	    series: [{
-    	        	        type: 'radar',
-    	        	        data : [
-    	        	            {
-    	        	                value : interestvals,
-    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
-//    	        	                areaStyle: {
-//    	                                normal: {
-//    	                                    color: '#fff'
-//    	                                }
-//    	                            }
-    	        	            }
-    	        	        ]
-    	        	    }]
-    	        	});
-    	        	window.onresize = interestCharts.resize;
     	        	//年龄柱状图
+    	        if(data && data.age.length > 0){
     	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     	        	$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
     	        	var ageNewCharts = echarts.init(ageNewCon.get(0));
@@ -1598,6 +1601,12 @@ function loadSvg(){
 	     	        	        text: '受众年龄分布',
 	     	        	        left:'center',
 	     	        	        top:15,
+	     	        	        textStyle:{
+	     	                  	color:'#4a4a4a',
+	     	                  	fontFamily:'微软雅黑',
+	     	                  	fontSize:'16',
+	     	                  	fontWeight:'400'
+	     	                  }
 	     	        	    },
     	            	    color: ['#3398DB'],
     	            	    tooltip : {
@@ -1643,27 +1652,69 @@ function loadSvg(){
     	            	        }
     	            	    ]
     	        	});
-    	        	
+    	        	window.onresize=ageNewCharts.resize;
+    	        }
     	        	//地图
-    	        	var mapDiv = $("<div class='pst Personas'  style='display:inline-block;width:20%;height:279px;background:#fff;'><p class='pos' style='background:#f00;z-index:9000;'>海外</p></div>");
-    	        	var mapCon = $("<div style='width:100%;height:279px;'></div>");
+    	        if(data && data.area.length > 0){
+    	        	var mapCon = $("<div class='Personas' style='margin-right:0;display:inline-block;width:28%;height:279px;background:#fff;'></div>");
     	        	
-    	        	$this.parent().parent().find(".hot_echart_list").append(mapDiv);
-    	        	mapDiv.append(mapCon);
+    	        	$this.parent().parent().find(".hot_echart_list").append(mapCon);
     	        	var mapCharts = echarts.init(mapCon.get(0));
     	        	var mapNames = [];
     	        	var mapVals = [];
-    	        	var mapChina =data.area;
+    	        	var mapChina = data.area;
+    	        	var map = {
+    	        			安徽省:'安徽',
+    	        			澳门特别行政区:'澳门',
+    	        			北京市:'北京',
+    	        			福建省:'福建',
+    	        			甘肃省:'甘肃',
+    	        			广东省:'广东',
+    	        			广西壮族自治区:'广西',
+    	        			贵州省:'贵州',
+    	        			海南省:'海南',
+    	        			河北省:'河北',
+    	        			河南省:'河南',
+    	        			黑龙江省:'黑龙江',
+    	        			湖北省:'湖北',
+    	        			湖南省:'湖南',
+    	        			吉林省:'吉林',
+    	        			江苏省:'江苏',
+    	        			江西省:'江西',
+    	        			辽宁省:'辽宁',
+    	        			内蒙古自治区:'内蒙古',
+    	        			宁夏回族自治区:'宁夏',
+    	        			青海省:'青海',
+    	        			山东省:'山东',
+    	        			山西省:'山西',
+    	        			陕西省:'陕西',
+    	        			上海市:'上海',
+    	        			四川省:'四川',
+    	        			台湾省:'台湾',
+    	        			天津市:'天津',
+    	        			西藏自治区:'西藏',
+    	        			香港特别行政区:'香港',
+    	        			新疆维吾尔自治区:'新疆',
+    	        			云南省:'云南',
+    	        			浙江省:'浙江',
+    	        			重庆市:'重庆',
+    	        	};
     	        	$.each(mapChina,function(i,item){
-    	        		//ageVals.push(item.value);
-    	        		mapVals.push({name:item.name,value:item.value});
+    	        		mapVals.push({name:map[item.name],value:item.value});
     	        	});
-    	        	console.log(mapVals)
+    	        	
     	        	mapCharts.setOption({
     	        		backgroundColor:"#fff",
     	        	    title : {
+    	        	    	top:15,
     	        	        text: '受众地区分布',
-    	        	        left: 'center'
+    	        	        left: 'center',
+    	        	        textStyle:{
+    	                    	color:'#4a4a4a',
+    	                    	fontFamily:'微软雅黑',
+    	                    	fontSize:'16',
+    	                    	fontWeight:'400'
+    	                    }
     	        	    },
     	        	    tooltip : {
     	        	        trigger: 'item'
@@ -1687,13 +1738,9 @@ function loadSvg(){
     	        	    },
     	        	    series : [
     	        	        {
-    	        	            name: '地区',
     	        	            type: 'map',
     	        	            mapType: 'china',
     	        	            roam: false,
-    	        	            markPoint:{itemStyle:{normal:{color:'#0ff'}}
-    	        	            	},
-    	        	        
     	        	            label: {
     	        	                normal: {
     	        	                    show: false
@@ -1727,16 +1774,17 @@ function loadSvg(){
     	                                }
     	                            }
     	                        },
-    	        	            data:[ {name: '北京',value: 1000},
-    	                        {name: '天津',value: 300},
-    	                        {name: '上海',value: 500},
-    	                        {name: '重庆',value: 600}]
+    	        	            data:mapVals
     	        	        },
     	        	    
     	        	       
     	        	    ]
     	        	})
+    	        	//mapOption.series[0].data = mapVals;
+    	        	//mapCharts.setOption(mapOption);
+    	        	window.onresize=mapCharts.resize;
     			}
+    			
     		},
     		error:function(){
     			console.log("获取受众画像失败");

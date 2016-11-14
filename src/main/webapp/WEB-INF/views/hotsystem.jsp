@@ -87,7 +87,7 @@
    <div style="width:100%;height:160px;bottom:0;">
        <div id="papersvg"></div>
    </div>
-   <div class="allHot pointer" id="allHot">全部热点</div>	
+   <div class="allHot pointer" id="allHot">更多热点</div>	
    
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">

@@ -23,6 +23,6 @@ public interface UserRecommentedTopicsMapper {
             @Param("userId") Integer userId,
             @Param("count") Integer count);
 
-    int delAll(Integer userId);
+    int delAll(@Param("idList") List<String> idList);
 
 }
