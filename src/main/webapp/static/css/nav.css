@@ -7,7 +7,10 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .header .header-right li{float:left;height:100%;cursor:pointer;}
 .header .header-right li a{width:36px;height:36px;display:inline-block;margin-top:12px;border-radius:50%;}
 .header .header-right li.nav_ser{width:240px;padding-top:12px;margin-right:30px;position:relative;}
-.header .header-right li.nav_ser input{border:0;width:240px;height:36px;padding:0 40px 0 10px;color:#000;opacity:0.8;font-family: "Microsoft YaHei";}
+.header .header-right li.nav_ser input{    background: rgba(255,255,255,0);border-radius: 50px;border:0;width:244px;height:36px;color:#fff;padding:0 40px 0 14px;margin-top:-2px;color:rgba(255,255,255,.2);line-height:36px;font-family: "Microsoft YaHei";border:2px solid rgba(255,255,255,.2)}
+.header .header-right li.nav_ser input:focus{
+	border-color:2px solid rgba(56,155,159,.5);
+}
 .header .header-right li.nav_ser .head-search{width:20px;height:20px;position:absolute;top:20px;right:10px;background:url(../img/head-search.png) no-repeat;}
 /* .header .header-right li.head-usericon a{background:#fff;} */
 .header .header-right li.head-usericon a{background:url(../img/nav_defalut.png) no-repeat;}
@@ -51,7 +54,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	padding-bottom:26px;
 	font-size:16px;
 	color:#01c9d6;
-	border-bottom:1px solid #ddd;
+	border-bottom:1px solid #eee;
 }
 .pnl-hots .hots-title .hots-add{
 	color:#444;
@@ -59,7 +62,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	cursor:pointer;
 	display:none;
 }
-.pnl-hots .hots-list li{font-size:14px;color:#000;line-height:14px;border-bottom:1px solid #ddd;padding-top:13px;cursor:pointer;}
+.pnl-hots .hots-list li{font-size:14px;color:#4a4a4a;line-height:14px;border-bottom:1px solid #eee;padding-top:13px;cursor:pointer;}
 .pnl-hots .hots-list li .content{margin-bottom:13px;display:inline-block;width:100%;}
 .pnl-hots .hots-list li .content .title{width:130px;float:left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .pnl-hots .hots-list li .content .date{width:58px;float:right;text-align:right;}
@@ -75,7 +78,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
     padding-bottom:26px;
     font-size:16px;
     color:#01c9d6;
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #eee;
 }
 .pnl-hots .detail-title .detail-return{
     color:#444;
@@ -83,7 +86,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
     cursor:pointer;
     font-size:12px;
 }
-.pnl-hots .hots-detail li{font-size:14px;color:#000;line-height:14px;border-bottom:1px solid #ddd;padding-top:13px;}
+.pnl-hots .hots-detail li{font-size:14px;color:#4a4a4a;line-height:14px;border-bottom:1px solid #eee;padding-top:13px;}
 .pnl-hots .hots-detail li .content{margin-bottom:13px;display:inline-block;width:100%;}
 .pnl-hots .hots-detail li .desc{
 	max-height:34px;
@@ -146,6 +149,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
     text-overflow:ellipsis;
     overflow:hidden;
     white-space:nowrap;
+    border-radius:2px;
 }
 .notify-infoTitle{
     display: inline-block;
@@ -199,8 +203,9 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
     margin-top:8px;
 }
 .notify-hotValue{
-    font-size: 24px;
+    font-size: 14px;
     line-height:24px;
+    font-weight:bold;
 }
 .notify-font14{
     font-size: 14px;
