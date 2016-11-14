@@ -1246,9 +1246,9 @@ function loadSvg(){
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
         for(var i=0,j=rectArray.length;i<j;i++){
-            rectArray[i].attr({cursor:"default"});
-            hotArray[i].attr({cursor:"default"});
-            textArray[i].attr({cursor:"default"});
+//            rectArray[i].attr({cursor:"default"});
+//            hotArray[i].attr({cursor:"default"});
+//            textArray[i].attr({cursor:"default"});
         }
 	   $('#ser_section').css('min-height',0);
 	   $('#ser_section').css('opacity',0);
@@ -1332,6 +1332,9 @@ function loadSvg(){
                 orient: 'horizontal',
                 bottom:20,
                 data:[],
+                textStyle:{
+                	fontFamily:"微软雅黑"
+                },
                 formatter: function (name) {
                     return name.split(" ")[0];
                 }
@@ -1412,7 +1415,7 @@ function loadSvg(){
     				}
     			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:16%;height:279px;background:#fff;'></div>");    				
+    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:14%;height:279px;background:#fff;'></div>");    				
     				$this.parent().parent().find(".hot_echart_list").append(genderCon);    				
     				var genderCharts = echarts.init(genderCon.get(0));
     				
@@ -1449,7 +1452,8 @@ function loadSvg(){
                             textStyle: {
                             	color:"#4a4a4a",
                                 fontSize: '14',
-                                fontWeight: '400'
+                                fontWeight: '400',
+                                fontFamily:'微软雅黑'
                             }
                         }
                     }
@@ -1464,7 +1468,7 @@ function loadSvg(){
     			}
     			if(data && data.education.length > 0){
     				//受众学历分布
-    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:16%;height:279px;;background:#fff;'></div>");
+    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:14%;height:279px;;background:#fff;'></div>");
     				$this.parent().parent().find(".hot_echart_list").append(educationCon);
     				var educationCharts = echarts.init(educationCon.get(0));
     				var educationOption = $.extend(true,{},circleOption);
@@ -1501,7 +1505,8 @@ function loadSvg(){
                             textStyle: {
                             	color:"#4a4a4a",
                                 fontSize: '14',
-                                fontWeight: '400'
+                                fontWeight: '400',
+                                fontFamily:'微软雅黑'
                             }
                         }
                     }
@@ -1511,22 +1516,30 @@ function loadSvg(){
 //    				}else{
 //    					genderOption.series[0].data[1].label = label;
 //    				}
+    				if(data.education.length>2){
+    					educationOption.legend.bottom = 8;
+    				}
     				educationCharts.setOption(educationOption);
     				window.onresize=educationCharts.resize;
     			}
     				//兴趣雷达图
     				if(data && data.interest.length > 0){
-						var interestCon = $("<div class='Personas' style='display:inline-block;width:21%;height:279px;background:#fff;'></div>");
+						var interestCon = $("<div class='Personas' style='display:inline-block;width:25%;height:279px;background:#fff;'></div>");
 	    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
 	    				var interestCharts = echarts.init(interestCon.get(0));
 	    				var interestvals = [];
 	    	        	var interestnames = [];
-	    	        	var interest =data.interest;
+	    	        	var interest = data.interest;
+	    	        	var max = 0;
+	    	        	$.each(interest,function(i,item){
+	    	        		if(max < item.value){
+	    	        			max = item.value
+	    	        		}
+	    	        	});
 	    	        	$.each(interest,function(i,item){
 	    	        		interestvals.push(item.value);
-	    	        		interestnames.push({name:item.name});
+	    	        		interestnames.push({name:item.name,max:max});
 	    	        	});
-	    	        	
 	    	        	interestCharts.setOption({
 	    	        		color:['#ccc'],
 	    	        	    title: {
@@ -1542,15 +1555,34 @@ function loadSvg(){
 	    	        	    },
 	    	        	    backgroundColor:"#fff",
 	    	        	    tooltip: {
+	    	        	    	formatter:function(a,b){
+	    	        	    		var array = [];
+	    	        	    		$.each(interest,function(i,item){
+	    	        	    			if(i<1){
+	    	        	    				array.push(item.name+":"+item.value.toFixed(2)+"%")
+	    	        	    			}else{
+	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2)+"%")
+	    	        	    			}	    		    	        		
+	    		    	        	});
+	    	        	    		return array.toString();
+	    	        	    	},
+	    	        	    	textStyle:{
+	    	        	    		fontFamily:"微软雅黑"
+	    	        	    	}
 	    	        	    },
 	    	        	    
 	    	        	    radar: {
-	    	        	    	radius:'50%',
-	    	        	    	center:['50%','60%'],
+	    	        	    	radius:'60%',
+	    	        	    	center:['50%','57.5%'],
 	    	        	    	splitArea: {
 	    	        	            areaStyle: {
 	    	        	                color: ['#fff', '#fff', '#fff', '#fff']
 	    	        	            }
+	    	        	        },
+	    	        	        name:{
+	    	        	        	textStyle:{
+	    	        	        		fontFamily:"微软雅黑"
+	    	        	        	}
 	    	        	        },
 	    	        	        nameGap:10,	    	        	        
 	    	        	        // shape: 'circle',
@@ -1566,6 +1598,18 @@ function loadSvg(){
 	    	        	    },
 	    	        	    series: [{
 	    	        	        type: 'radar',
+	    	        	        label:{
+	    	        	        	normal:{
+//	    	        	        		formatter:function(obj){
+//	    	    	        	    		console.log(obj)
+//	    	    	        	    		var array = [];
+//	    	    	        	    		$.each(obj.value,function(index,item){
+//	    	    	        	    			array.push(item.toFixed(2)+"%");
+//	    	    	        	    		})
+//	    	    	        	    		return array.toString();
+//	    	    	        	    	}
+	    	        	        	}
+	    	        	        },
 	    	        	        data : [
 	    	        	            {
 	    	        	                value : interestvals,
@@ -1592,7 +1636,7 @@ function loadSvg(){
     	        	var age =data.age;
     	        	$.each(age,function(i,item){
     	        		ageVals.push(item.value);
-    	        		ageNames.push(item.name);
+    	        		ageNames.push(item.name - 0);
     	        	});
     	        	
     	        	ageNewCharts.setOption({
@@ -1613,6 +1657,10 @@ function loadSvg(){
     	            	        trigger: 'axis',
     	            	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
     	            	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    	            	        },
+    	            	        formatter:function(obj){
+    	            	        	console.log(obj)
+    	            	        	return obj[0].name + "岁:"+obj[0].value.toFixed(2)+"%"
     	            	        }
     	            	    },
     	            	    grid: {
@@ -1717,7 +1765,15 @@ function loadSvg(){
     	                    }
     	        	    },
     	        	    tooltip : {
-    	        	        trigger: 'item'
+    	        	        trigger: 'item',
+    	        	        formatter:function(obj){
+    	        	        	console.log(obj)
+    	        	        	var a = "";
+    	        	        	if(obj.value){
+    	        	        		a += obj.value.toFixed(2) + "%";
+    	        	        	}
+    	        	        	return obj.name + ":" + a;
+    	        	        }
     	        	    },
 //    	        	    legend: {
 //    	        	        orient: 'vertical',

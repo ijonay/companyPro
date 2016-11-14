@@ -18,6 +18,7 @@ div#canvas {
 <body>
     <jsp:include page="nav.jsp" />
     <div class="nav-banner">
+
         <div class="fl nav-banner_left">
             <span style="color:#9c9c9c;cursor:pointer;"  onClick="window.location.href='hotsystem'">首页 </span>
             <span>&lt;</span>
@@ -31,8 +32,8 @@ div#canvas {
                 	<span id="prev-next" class="disstate">下一页</span>
                 </li>
        <!-- <li class="pointer color9c save-path-num pst"><span>已保存路径</span>
-            	<div class="pos save-p-n ac f12">5</div>  -->
-         </li>
+            	<div class="pos save-p-n ac f12">5</div> 
+         </li> -->
         </ul>
     </div>
     <div class="result-section">
