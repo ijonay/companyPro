@@ -122,7 +122,7 @@ div#canvas {
        	<li class="fr computer-ok pointer">保存路径</li>
     </ul>
     <div class="pathName disno">
-        路径2
+        选择路径<span class="pathNum">1</span>
     </div>
     
 <script src="lib/jquery-1.12.0.min.js"></script>
