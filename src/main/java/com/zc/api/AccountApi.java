@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,7 +60,7 @@ public class AccountApi extends BaseApi {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ApiResultModel register(@Valid RegisterModel model, BindingResult bindingResult) {
+    public ApiResultModel register(@RequestBody @Valid RegisterModel model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
@@ -81,9 +82,8 @@ public class AccountApi extends BaseApi {
     @RequestMapping(value = "loginout", method = RequestMethod.GET)
     public ApiResultModel loginOut() {
 
-
-
         return new ApiResultModel().data(usersService.loginOut());
+
 
     }
 }
