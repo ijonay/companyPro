@@ -594,8 +594,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,8);
-					var eventTemp2 = eventData.slice(8);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -703,10 +703,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					};
 					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'" '+flag+'>'+item.name+'</label>'
 				})
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 			}else{
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 			}
 			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">'+lenNum+'</span></li>');
 			
@@ -739,10 +739,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 						};
 						str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'" '+flag+'>'+item.name+'</label>'
 					})
-					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 				}else{
 					var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 				}
 				selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">'+lenNum+'</span></li>');
 				

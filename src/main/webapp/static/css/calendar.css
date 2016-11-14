@@ -95,10 +95,11 @@
 .calendar-views .days .new,
 .calendar-display:hover,
 .calendar-arrow span:hover {
-    color: #bbb;
-    font-size:14px;
 }
-
+.calendar-views .days .old,
+.calendar-views .days .new{
+	color:rgba(0,0,0,0.3);
+}
 .calendar-arrow span,
 .calendar-views .days li,
 .calendar-views .view-month li {
@@ -127,14 +128,37 @@
 }
 
 .calendar-arrow span {
-    font: 500 16px sans-serif;
-    font-weight: bold;
+    height: 56px;
+    width:5px;
+    display: inline-block;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:0.5;
+}
+.calendar-arrow span:hover{
+	opacity:1;
 }
 
 .calendar ol li {
     position: relative;
     float: left;
     text-align: center;
+}
+.calendar .week li{
+	padding-bottom:6px;
+	line-height:14px!important;
+}
+.calendar-views .week{
+	position:relative;
+}
+.calendar-views .week:before{
+	position: absolute;
+    top: 19px;
+    left: 11px;
+    width: 212px;
+    height: 1px;
+    border-bottom: 1px solid #ddd;
+    content: "";
 }
 .calendar .week li,
 .calendar .days li {

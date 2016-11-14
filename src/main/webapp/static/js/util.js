@@ -62,7 +62,9 @@ dataUrl.util = {
     delNotify:function(id){//单个删除通知
         return encodeURI('api/hotTopicMessage/del?id='+id);
     },
-    delAllNotify: encodeURI('api/hotTopicMessage/delAll')//删除所有通知
+    delAllNotify:function(id){
+        return encodeURI('api/hotTopicMessage/delAll?ids='+id)//删除所有通知
+    }
 }
 
 var chartsAttr = chartsAttr || {};

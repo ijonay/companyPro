@@ -28,9 +28,9 @@ div#canvas {
         
         <div class="nav-banner">
             <div class="fl">
-                <span style="color:#9c9c9c;cursor:pointer;"  onClick="window.location.href='hotspots'">&lt; 热点分析 </span>
+                <span style="color:#9c9c9c;cursor:pointer;"  onClick="window.location.href='hotsystem'">首页 </span>
                 <span style="cursor:pointer;" class="color9c" onClick="window.history.back(-1);"> &lt;探索结果</span>
-                <span>&lt;路径方案</span>
+                <span style="font-size:14px;">&lt;路径方案</span>
             </div>
             <ul class="fr nav-banner-ul">
                 

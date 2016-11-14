@@ -392,8 +392,8 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,8);
-					var eventTemp2 = eventData.slice(8);
+					var eventTemp = eventData.slice(0,9);
+					var eventTemp2 = eventData.slice(9);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -604,10 +604,10 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				$.each(childs,function(index,item){
 					str += '<label><input type="checkbox" data-id="'+item.id+'">'+item.name+'</label>'
 				})
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 			}else{
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 			}
 			selector2.append(str);
 		});
@@ -623,10 +623,10 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				$.each(childs,function(index,item){
 					str += '<label><input type="checkbox" data-id="'+item.id+'">'+item.name+'</label>'
 				})
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 			}else{
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
 			}
 			selector2.append(str);
 		});
@@ -1782,7 +1782,7 @@ function loadSvg(){
     	        	    visualMap: {
     	        	    	show:false,
     	                    inRange: {
-    	                        color: ['#a9d6fe','#619edd']
+    	                        color: ['#219edd','#619edd']
     	                    },
     	                    left:'right'
     	                },
@@ -1794,6 +1794,7 @@ function loadSvg(){
     	        	    },
     	        	    series : [
     	        	        {
+    	        	        	name: '',
     	        	            type: 'map',
     	        	            mapType: 'china',
     	        	            roam: false,
@@ -1815,7 +1816,7 @@ function loadSvg(){
     	                                    show: false
     	                                }
     	                            },
-    	                            emphasis: { // 也是选中样式
+    	                            emphasis: { // 选中样式
     	                            	show: false,
     	                                borderWidth: 1,
     	                                borderColor: '#fff',
