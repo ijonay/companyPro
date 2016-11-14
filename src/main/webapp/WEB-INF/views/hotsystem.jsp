@@ -91,12 +91,13 @@
    
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">
+   			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
    			<!-- <ul class="hot_ifo_title f18">
    			    <li class="hot_ifo_title_img fl"></li>
    				<li class="fl">全部热点</li>
    			</ul> -->
-   			<ul class="all_hot_bar">
+   			<ul class="all_hot_bar" id="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
    				<li>热点来源</li>
