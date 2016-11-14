@@ -92,8 +92,8 @@ public class WordServiceImpl implements WordService {
     @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
-//            loadMaps();
-            loadWordVectorCollMaps();
+            loadMaps();
+            //loadWordVectorCollMaps();
         }
         return modelMap;
     }
@@ -101,11 +101,13 @@ public class WordServiceImpl implements WordService {
     @Override
     public float[] getWordVectorsByCache(String key) {
 
-        String keyPrefix = PropertyHelper.getValue(Constant
-                        .CONFIG_PROPERTIES,
-                Constant.WORD_VECTORS_KEY_PREFIX);
+        return getModelMap().get(key);
 
-        return redisService.getCacheObject(keyPrefix + key);
+//        String keyPrefix = PropertyHelper.getValue(Constant
+//                        .CONFIG_PROPERTIES,
+//                Constant.WORD_VECTORS_KEY_PREFIX);
+//
+//        return redisService.getCacheObject(keyPrefix + key);
 
     }
 
@@ -128,8 +130,8 @@ public class WordServiceImpl implements WordService {
     @Deprecated
     private void loadMaps() {
         try {
-            modelMap = WordVectorHelper.loadModel(
-                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, getModelPath()));
+
+            modelMap = WordVectorHelper.loadModel(getModelPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
