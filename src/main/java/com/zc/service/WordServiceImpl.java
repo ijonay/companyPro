@@ -4,17 +4,16 @@ import com.alibaba.fastjson.JSON;
 import com.zc.WordRedisModel;
 import com.zc.bean.*;
 import com.zc.dao.WordDao;
+import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.*;
 import com.zc.utility.*;
+import com.zc.utility.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.EM;
@@ -165,25 +164,35 @@ public class WordServiceImpl implements WordService {
                                 .CONFIG_PROPERTIES,
                         Constant.WORD_VECTORS_KEY);
 
-                redisTemplate.execute(new SessionCallback() {
-                    @Override
-                    public Object execute(RedisOperations operations) throws DataAccessException {
+                try {
+                    redisTemplate.delete(key);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
-                        operations.multi();
+                redisTemplate.opsForValue().set(key, wordMap);
 
-                        operations.delete(key);
-
-                        operations.opsForValue().set(key, wordMap);
-
-                        return operations.exec();
-
-                    }
-                });
+//                redisTemplate.execute(new SessionCallback() {
+//                    @Override
+//                    public Object execute(RedisOperations operations) throws DataAccessException {
+//
+//                        operations.multi();
+//
+//                        operations.delete(key);
+//
+//                        operations.opsForValue().set(key, wordMap);
+//
+//                        return operations.exec();
+//
+//                    }
+//                });
 
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            throw new ServiceException(StatusCodeEnum.FAILED, ex.getMessage());
+
         }
 
     }
@@ -208,30 +217,42 @@ public class WordServiceImpl implements WordService {
 
                 long startTime = System.currentTimeMillis();
 
-                redisTemplate.execute(new SessionCallback() {
-                    @Override
-                    public Object execute(RedisOperations operations) throws DataAccessException {
+                try {
+                    redisTemplate.delete(keys);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
-                        operations.multi();
+                Map<String, float[]> wordMapTemp = new HashMap<String, float[]>();
 
-                        operations.delete(keys);
+                wordMap.forEach((k, v) -> wordMapTemp.put(keyPrefix + k, v));
 
+                redisTemplate.opsForValue().multiSet(wordMap);
 
-                        Map<String, float[]> wordMapTemp = new HashMap<String, float[]>();
-
-                        wordMap.forEach((k, v) -> wordMapTemp.put(keyPrefix + k, v));
-
-
-                        operations.opsForValue().multiSet(wordMapTemp);
-
-//                        wordMap.forEach((k, v) -> operations.opsForValue().set(PropertyHelper.getValue(Constant
-//                                        .CONFIG_PROPERTIES,
-//                                keyPrefix) + k, v v));
-
-                        return operations.exec();
-
-                    }
-                });
+//                redisTemplate.execute(new SessionCallback() {
+//                    @Override
+//                    public Object execute(RedisOperations operations) throws DataAccessException {
+//
+//                        operations.multi();
+//
+//                        operations.delete(keys);
+//
+//
+//                        Map<String, float[]> wordMapTemp = new HashMap<String, float[]>();
+//
+//                        wordMap.forEach((k, v) -> wordMapTemp.put(keyPrefix + k, v));
+//
+//
+//                        operations.opsForValue().multiSet(wordMapTemp);
+//
+////                        wordMap.forEach((k, v) -> operations.opsForValue().set(PropertyHelper.getValue(Constant
+////                                        .CONFIG_PROPERTIES,
+////                                keyPrefix) + k, v v));
+//
+//                        return operations.exec();
+//
+//                    }
+//                });
                 long endTime = System.currentTimeMillis();
 
                 System.out.println("当前开始时间为：" + readTime + "秒 执行入库开始时间为：" + startTime + "秒 结束时间为：" + endTime + "秒");
@@ -240,6 +261,7 @@ public class WordServiceImpl implements WordService {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            throw new ServiceException(StatusCodeEnum.FAILED, ex.getMessage());
         }
     }
 
@@ -282,6 +304,7 @@ public class WordServiceImpl implements WordService {
             logger.info("耗时:" + (System.currentTimeMillis() - start));
         } catch (IOException e) {
             e.printStackTrace();
+            throw new ServiceException(StatusCodeEnum.FAILED, e.getMessage());
         }
     }
 
@@ -371,6 +394,7 @@ public class WordServiceImpl implements WordService {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            throw new ServiceException(StatusCodeEnum.FAILED, e.getMessage());
         }
     }
 
