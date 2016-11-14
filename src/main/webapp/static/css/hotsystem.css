@@ -738,6 +738,7 @@ body{
 	margin-right:6px;margin-top:20px;line-height:20px;padding:0 5px;
 	background:#ccc;height:20px;font-size:12px;color:#4a4a4a;max-width:82px;text-overflow: ellipsis;
     overflow: hidden;
+    border-radius:2px;
     white-space: nowrap;
 }
 .all_hot_list_top_source div{float:left;margin-right:6px;cursor:pointer}
@@ -880,6 +881,7 @@ body{
 	top:22px;
 	height:20px;
 }
+
 .hotAlertTag div{
 	display:inline-block;
 	margin-right:6px;
@@ -889,6 +891,7 @@ body{
 	height:20px;
 	font-size:12px;
 	color:#4a4a4a;
+	border-radius:2px
 }
 #ser_btn_high::after {
   border-top: 1px solid #389b9f;

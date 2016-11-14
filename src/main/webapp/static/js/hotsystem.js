@@ -1536,6 +1536,7 @@ function loadSvg(){
 	    	        			max = item.value
 	    	        		}
 	    	        	});
+	    	        	max += 0.1;
 	    	        	$.each(interest,function(i,item){
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});
@@ -1634,11 +1635,23 @@ function loadSvg(){
     	        	var ageNames = [];
     	        	var ageVals = [];
     	        	var age =data.age;
+    	        	var trueData = [];
     	        	$.each(age,function(i,item){
-    	        		ageVals.push(item.value);
-    	        		ageNames.push(item.name - 0);
+    	        		var tempArray = [];
+    	        		
+    	        		if(item.name - 0 < 0){
+    	        			tempArray.push(0);
+    	        		}else if(item.name - 0 > 100){
+    	        			tempArray.push(100);
+    	        		}else{
+    	        			tempArray.push(item.name - 0);
+    	        		}
+    	        		tempArray.push(item.value);
+    	        		trueData.push(tempArray);
     	        	});
-    	        	
+    	        	console.log(trueData);
+    	        	trueData.sort(function(x,y){return x[0] - y[0]})
+    	        	console.log(trueData);
     	        	ageNewCharts.setOption({
     	        			backgroundColor:"#fff",
 	    	        		title: {
@@ -1659,9 +1672,12 @@ function loadSvg(){
     	            	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
     	            	        },
     	            	        formatter:function(obj){
-    	            	        	console.log(obj)
-    	            	        	return obj[0].name + "岁:"+obj[0].value.toFixed(2)+"%"
-    	            	        }
+    	            	        	return obj[0].data[0] + "岁:"+obj[0].data[1].toFixed(2)+"%"
+    	            	        },
+    	            	        textStyle:{
+        	        	        	fontFamily:"微软雅黑"
+        	        	        }
+//    	            	        formatter:'{c[0]}'
     	            	    },
     	            	    grid: {
     	            	        left: '3%',
@@ -1671,32 +1687,44 @@ function loadSvg(){
     	            	    },
     	            	    xAxis : [
     	            	        {
-    	            	            type : 'category',
-    	            	            data :ageNames ,
+    	            	            type : 'value',
+    	            	            name : "年龄",
+    	            	            nameLocation:"middle",
+    	            	            nameGap: -17,
+    	            	            scale:true,
     	            	            axisTick: {
     	            	                alignWithLabel: true
     	            	            },
     	            	            splitLine:false,
     	            	            axisLine:{
     	            	            	lineStyle:{color:'#ccc'}
+    	            	            },
+    	            	            axisTick:{
+    	            	            	show:false
     	            	            }
     	            	        }
     	            	    ],
     	            	    yAxis : [
     	            	        {
     	            	            type : 'value',
+    	            	            nameGap: 0,
     	            	            splitLine:false,
     	            	            axisLine:{
     	            	            	lineStyle:{color:'#ccc'}
+    	            	            },
+    	            	            axisLabel : {
+    	            	                formatter: '{value}%'
+    	            	            },
+    	            	            axisTick:{
+    	            	            	show:false
     	            	            }
     	            	        }
     	            	    ],
     	            	    series : [
     	            	        {
     	            	            name:'年龄',
-    	            	            type:'bar',
-    	            	            barWidth: '60%',
-    	            	            data:ageVals
+    	            	            type:'line',
+    	            	            data:trueData
     	            	        }
     	            	    ]
     	        	});
@@ -1773,6 +1801,9 @@ function loadSvg(){
     	        	        		a += obj.value.toFixed(2) + "%";
     	        	        	}
     	        	        	return obj.name + ":" + a;
+    	        	        },
+    	        	        textStyle:{
+    	        	        	fontFamily:"微软雅黑"
     	        	        }
     	        	    },
 //    	        	    legend: {
@@ -1798,6 +1829,10 @@ function loadSvg(){
     	        	            type: 'map',
     	        	            mapType: 'china',
     	        	            roam: false,
+    	        	            top:55,
+    	        	            scaleLimit:{
+    	        	            	min:1.1
+    	        	            },
     	        	            label: {
     	        	                normal: {
     	        	                    show: false
@@ -1809,8 +1844,8 @@ function loadSvg(){
 //    	        	           
     	        	            itemStyle: {
     	                            normal: {
-    	                                //borderWidth: 2,
-    	                               // borderColor: 'lightgreen',
+//    	                                borderWidth: 2,
+    	                                borderColor: '#fff',
     	                            	areaColor: '#a9d6fe',
     	                                label: {
     	                                    show: false
@@ -1819,8 +1854,8 @@ function loadSvg(){
     	                            emphasis: { // 选中样式
     	                            	show: false,
     	                                borderWidth: 1,
-    	                                borderColor: '#fff',
-    	                                areaColor: '#a9d6fe',
+    	                                borderColor: '#000',
+    	                                areaColor: 'rgba(35, 158, 221,0.7)',
     	                                //color: '#f00',
     	                                label: {
     	                                    textStyle: {
