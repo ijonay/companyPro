@@ -63,7 +63,7 @@
                         </div>
                         <div class="infoBottom">
                             <div class="hotIcon fl"></div>
-                            <div class="hotValue fl"></div><div class="planText fl">/热度</div>
+                            <div class="planText font14 fl">热度:</div><div class="hotValue fl"></div>
                             <div class="iconCon fr">
                                 <a target=" _blank" class="weibo-link" href="#" style="background-image:url(img/hot_weibo.png);"></a>
                                 <a target=" _blank" class="weixin-link" href="#" style="background-image:url(img/hot_weixin.png);display:none;"></a>
@@ -145,7 +145,7 @@
             <span class="fl">低</span>
         </div>
     </div>
-    
+    <div class="result-loading"><span class="title">探索结果加载中，请稍后……</span></div> 
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>

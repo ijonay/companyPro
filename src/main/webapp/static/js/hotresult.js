@@ -94,6 +94,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
             userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
         };
     } 
+    $(".result-loading").height($(document).height()).css("display","block");
     $.ajax({
         type: "post",
         contentType: 'application/json',
@@ -101,6 +102,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
         url: dataUrl.util.getResultList(clueWord, pageSize, currentPage),
         data:JSON.stringify(data),
         success: function(returnData) {
+            $(".result-loading").css("display","none");
             if(returnData.error.code == 0) {
             	console.log(returnData.data.data)
             	if(returnData.data.data.length == 0){
@@ -113,6 +115,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
                      $(".result-error").css("display","block");
             	}else{
 	                $(".result-content").css("display","block");
+	                $(".result-error").css("display","none");
 	                $("#canvas .topic").remove();
 	                $(".word").remove();
 	                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
@@ -614,8 +617,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					console.log('数据为空');
 				}else{
 					var eventData = returnData.EventClass;
-					var eventTemp = eventData.slice(0,9);
-					var eventTemp2 = eventData.slice(9);
+					var eventTemp = eventData.slice(0,8);
+					var eventTemp2 = eventData.slice(8);
 					var userData = [];
 					var child1 = JSON.stringify(returnData.Gender);
 					child1 = JSON.parse(child1);				
@@ -723,10 +726,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					};
 					str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'" '+flag+'>'+item.name+'</label>'
 				})
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}else{
 				var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
+				str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 			}
 			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">'+lenNum+'</span></li>');
 			
@@ -759,10 +762,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 						};
 						str += '<label><input type="checkbox" data-id="'+item.id+'" id="inp'+item.id+'" '+flag+'>'+item.name+'</label>'
 					})
-					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
+					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 				}else{
 					var str = '<ul class="hidecommon"> <li class="inp_ch_list fl">';
-					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox" style="margin-top:2px;">全选</label> </li> </ul>';
+					str += '</li> <li class="inp_select_all fr"> <label><input type="checkbox">全选</label> </li> </ul>';
 				}
 				selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">'+lenNum+'</span></li>');
 				
@@ -1270,8 +1273,15 @@ $(document).delegate(".edit-word","click",function(){
 }).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
     e ? e.stopPropagation() : event.cancelBubble = true;
     var hotInfo=$(this).data("info");
-    var left = $(this).position().left + $(this).width() / 2 - 207;
-    var top = $(this).position().top + $(this).find(".icon").height() + 16;
+    var _left=$(this).position().left;
+    var _top=$(this).position().top;
+    var width=$(this).width();
+    if(_left+width/2>1070/2){
+        left = _left-$(".alertCon").width()-10;
+    }else{
+        left = _left+width+10;
+    }
+    var top = (_top+$(this).height()/2) - $(".alertCon").height()/2;
     $(".alertCon").find(".infoTitle").text(hotInfo.title?hotInfo.title:"");
     $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
     $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
