@@ -43,12 +43,14 @@ $(".bar-tabs>li").on("click",function(){
         $(this).addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
         $(".notify-operate").css("display","none");
+        $(".bar-content").css("max-height","100%");
         $(".pnl-pred-tab").css("display","block");
         $(".right-bar").css("background","#fff");
     }else{//探索通知tab
         $(this).addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
         $(".notify-operate").css("display","block");
+        $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").css("background","#e8ebed");
     }
@@ -59,12 +61,14 @@ $(".header-right>li").on("click",function(){
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
         $(".notify-operate").css("display","none");
+        $(".bar-content").css("max-height","100%");
         $(".pnl-pred-tab").css("display","block");
         $(".right-bar").animate({"right":"0px"},500).css("background","#fff");
     }else if($(this).hasClass("head-notify")){//探索通知
         $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
         $(".notify-operate").css("display","block");
+        $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }
@@ -81,6 +85,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
     $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
     $(".pnl-notify-tab").css("display","block");
     $(".notify-operate").css("display","block");
+    $(".bar-content").css("max-height",$(window).height()-70);
     $(".pnl-pred-tab").css("display","none");
     $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     $(".notify-tab-list").find("li[data-id="+id+"]").trigger("click");
@@ -342,7 +347,7 @@ $.ajax({
     type: "get",
     contentType: 'application/json',
     dataType: "json",
-    url: dataUrl.util.getNotify(50),
+    url: dataUrl.util.getNotify(15),
     success: function(returnData) {
         if(returnData.error.code == 0&&returnData.data) {
             $(".notify-list").html("");
