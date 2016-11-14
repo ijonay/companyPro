@@ -31,8 +31,8 @@
                     <tr>
                         <td>{index}</td>
                         <td>{company}</td>
-                        <td>{username}</td>
-                        <td>删除|禁用</td>
+                        <td>{userName}</td>
+                        <td><a href="#" class="state" data-id="{id}">{isactive}</a>
                     </tr>
                     </tbody>
                 </table>
@@ -42,13 +42,21 @@
 
             $(function () {
                 function initData() {
-                    User.getUsers(function (data) {
-                        console.log(data);
+                    $.when(User.getUsers(function (data) {
                         var result = KD.Json.binderJson(data.data, "temp_Container");
-                        console.log(result);
                         $("#temp_Container").html(result);
+                    })).then(function () {
 
-                    });
+                        $("a.state").click(function () {
+
+                            var id = $(this).attr("data-id");
+                            alert(id);
+
+                        })
+
+
+                    })
+
                 }
 
                 initData();

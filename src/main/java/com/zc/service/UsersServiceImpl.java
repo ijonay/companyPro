@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -84,6 +85,24 @@ public class UsersServiceImpl implements UsersService {
         Users user = usersMapper.get(id);
         user.setIsactive(state);
         return usersMapper.update(user) > 0;
+    }
+
+    @Override
+    public Boolean changePassword(Integer id, String password) {
+
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(password);
+
+        Users record = usersMapper.get(id);
+
+        if (record == null) {
+            throw new ServiceException(StatusCodeEnum.SERVER_ERROR, "无此用户信息！");
+        }
+
+        PasswordHelper.encryptPassword(record);
+
+        return usersMapper.update(record) > 0;
+
     }
 
 
