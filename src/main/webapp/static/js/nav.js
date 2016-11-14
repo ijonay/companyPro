@@ -74,11 +74,11 @@ $(".header-right>li").on("click",function(e){
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }else if($(this).hasClass("head-userinfo")){//用户信息
         if($(".pnl-user").css("display")=="none"){
-            $(this).find(".company").css("background-image","url(img/down-arrow.png)");
+            $(this).find(".company").css("background-image","url(img/up-arrow.png)");
             $(".pnl-user").css("display","block");
             $(".notify-list").css("display","none");
         }else{
-            $(this).find(".company").css("background-image","url(img/up-arrow.png)");
+            $(this).find(".company").css("background-image","url(img/down-arrow.png)");
             $(".pnl-user").css("display","none");
         }
         
@@ -503,4 +503,11 @@ $(".hot-prev").mouseover(function(){
     $(this).find("div").css("background","url(img/hot-prev-hover.png)");
 }).mouseout(function(){
     $(this).find("div").css("background","url(img/hot-prev.png)");
+});
+//输入框
+$('#nav_ser').on('input',function(){
+	$(this).css('color','rgba(255,255,255,.8)')
+});
+$('#nav_ser').on('focus',function(){
+	$(this).css('border','2px solid rgba(56,155,159,.5)');
 })

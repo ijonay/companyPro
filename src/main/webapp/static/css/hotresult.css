@@ -382,8 +382,9 @@ input[type=checkbox]:checked::after {
     border-left: 1px solid #000;
     transform:rotate(-45deg);
 }
-.lable_c-d{cursor:pointer;position:absolute;background:url(../img/cook_li_del.png) no-repeat;width:14px;height:14px;right:3px;top:8px;}
-.lable_c-d:hover{background:url(../img/cook_li_del_hover.png);}
+.lable_c-d{cursor:pointer;position:absolute;background:url(../img/del_black.png) no-repeat;width:14px;height:14px;right:3px;top:11px;}
+#result_label_even .lable_c-d:hover{background:url(../img/del_bule.png) no-repeat;}
+#result_evet_persn .lable_c-d:hover{background:url(../img/del_green.png) no-repeat;}
 .result_evet_div{margin-left:10px;margin-right:10px;}
 .result_filter{color:#fff;padding: 0 10px 0 10px;border-radius:2px;height:32px;line-height:32px;background-size: 16%;background:#389b9f }
 /*搜索结果*/
@@ -639,9 +640,9 @@ input[type=checkbox]:checked::after {
     box-sizing: border-box;
     background-color:#fff;
     border-radius: 2px;
-    -moz-box-shadow:0px 0px 16px rgba(0,0,0,.5);
-    -webkit-box-shadow:0px 0px 16px rgba(0,0,0,.5);
-    box-shadow:0px 0px 16px rgba(0,0,0,.5);
+    -moz-box-shadow:0px 0px 18px rgba(0,0,0,.3);
+    -webkit-box-shadow:0px 0px 18px rgba(0,0,0,.3);
+    box-shadow:0px 0px 18px rgba(0,0,0,.3);
 }
 .portrait{
     float:left;

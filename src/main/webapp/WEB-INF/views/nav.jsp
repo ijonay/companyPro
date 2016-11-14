@@ -30,8 +30,8 @@
         <div class="top">
             <div class="top-icon"></div>
             <div class="top-info">
-                <div class="name">账号：123456@heptax.com</div>
-                <div>公司名称：</div>
+                <div class="name">123456@heptax.com</div>
+                <div>公司名称</div>
             </div>
         </div>
         <div class="user-btn">账号设置</div>

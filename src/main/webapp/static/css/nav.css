@@ -7,14 +7,17 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .header .header-right li{float:left;height:100%;cursor:pointer;}
 .header .header-right li a{width:36px;height:36px;display:inline-block;margin-top:12px;border-radius:50%;}
 .header .header-right li.nav_ser{width:240px;padding-top:12px;margin-right:30px;position:relative;}
-.header .header-right li.nav_ser input{border:0;width:240px;height:36px;padding:0 40px 0 10px;color:#000;opacity:0.8;font-family: "Microsoft YaHei";}
+.header .header-right li.nav_ser input{    background: rgba(255,255,255,0);border-radius: 50px;border:0;width:244px;height:36px;color:#fff;padding:0 40px 0 14px;margin-top:-2px;color:rgba(255,255,255,.2);line-height:36px;font-family: "Microsoft YaHei";border:2px solid rgba(255,255,255,.2)}
+.header .header-right li.nav_ser input:focus{
+	border-color:2px solid rgba(56,155,159,.5);
+}
 .header .header-right li.nav_ser .head-search{width:20px;height:20px;position:absolute;top:20px;right:10px;background:url(../img/head-search.png) no-repeat;}
 /* .header .header-right li.head-usericon a{background:#fff;} */
 .header .header-right li.head-usericon a{background:url(../img/nav_defalut.png) no-repeat;}
 .header .header-right li.head-userinfo{margin:0 12px;}
 .header .header-right li.head-userinfo .userName{margin-top:15px;width:98px;height:30px;}
 .header .header-right li.head-userinfo .userName .name{font-size:12px;color:rgba(255,255,255,.8);line-height:12px;margin-bottom:4px;width:98px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-.header .header-right li.head-userinfo .userName .company{font-size:14px;color:rgba(255,255,255,.8);line-height:14px;background:url(../img/up-arrow.png) no-repeat 89px center;}
+.header .header-right li.head-userinfo .userName .company{font-size:14px;color:rgba(255,255,255,.8);line-height:14px;background:url(../img/down-arrow.png) no-repeat 89px center;}
 .header .header-right li.head-pred{margin-right:18px;}
 .header .header-right li.head-pred a{background:url(../img/head-pred.png) no-repeat center;}
 .header .header-right li.head-notify a{background:url(../img/head-notify.png) no-repeat center;position:relative;}
@@ -67,7 +70,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
     white-space: nowrap;
 }
 .pnl-user .user-btn{
-	width:226px;
+	width:224px;
 	height:24px;
 	line-height:22px;
 	text-align:center;
