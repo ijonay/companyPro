@@ -124,16 +124,22 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
     });
 }).delegate(".clear-notify","click",function(e){//清空通知
     e ? e.stopPropagation() : event.cancelBubble = true;
-    $.ajax({
-        type: "delete",
-        url: dataUrl.util.delAllNotify,
-        success: function(returnData) {
-            console.log(returnData.error.message);
-        },
-        error: function() {
-            console.log('清空探索通知失败');
-        }
-    });
+    var ids=[];
+    $(".notify-tab-list>li").each(function(){
+        ids.push(parseInt($(this).data("id")));
+    })
+    if(ids.length>0){
+        $.ajax({
+            type: "delete",
+            url: dataUrl.util.delAllNotify(ids.join(",")),
+            success: function(returnData) {
+                $(".notify-tab-list>li").remove();
+            },
+            error: function() {
+                console.log('清空探索通知失败');
+            }
+        });
+    }
 });
 //点击任意地方关闭弹窗
 $(document).on('click',function(e){
@@ -242,7 +248,6 @@ function dispBottom(data){
 //显示预告列表data:数据，date:日期,type:当月还是当天
 function dispList(data,date,type){
     var dateArr=date.split("-");
-    var count=data.length;
     if(type=="all"){
         var txt=dateArr[0]+"年"+dateArr[1]+"月份热点预告";
         $(".pnl-hots").find(".hots-date").text(txt);
@@ -255,8 +260,7 @@ function dispList(data,date,type){
         $container=$(".pnl-hots").find(".detail-list").html("");
         $(".pnl-hots").find(".hots-detail").css("display","block");
         $(".pnl-hots").find(".hots-content").css("display","none");
-    } 
-    if(count>0){
+    }
         $.each(data,function(idx,item){
             var startDate=item.startDate;
             var endDate=item.endDate;
@@ -290,9 +294,6 @@ function dispList(data,date,type){
                 }
             }
         });
-    }else{
-        $container.html("<li class='error'>暂无热点预告</li>");
-    }
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
 }
 
