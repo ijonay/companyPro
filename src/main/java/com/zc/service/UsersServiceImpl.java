@@ -4,6 +4,7 @@ import com.zc.bean.Users;
 import com.zc.dao.UsersMapper;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.enumeration.UserBehaviorEnum;
+import com.zc.enumeration.UserRoleType;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.UserSessionModel;
 import com.zc.utility.PasswordHelper;
@@ -16,6 +17,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -31,8 +35,11 @@ public class UsersServiceImpl implements UsersService {
             throw new ServiceException(StatusCodeEnum.CLIENT_ERROR, "该用户已存在");
         }
 
+        record.setIsactive(true);
+        record.setRole(UserRoleType.USER.getValue());
 
         PasswordHelper.encryptPassword(record);
+
         return usersMapper.add(record) > 0;
     }
 
@@ -51,6 +58,12 @@ public class UsersServiceImpl implements UsersService {
         return usersMapper.get(id);
     }
 
+    //    @Override
+//    public List<Users > getAll() { return usersMapper.getAll();}
+//
+//    @Override
+//    public int delAll() { return usersMapper.delAll(); }
+
     @Override
     public Users getByUserName(String userName) {
         Users users = usersMapper.getByUserName(userName);
@@ -59,6 +72,37 @@ public class UsersServiceImpl implements UsersService {
         }
 
         return users;
+    }
+
+    @Override
+    public List<Users> getByRole(String role) {
+        return usersMapper.getByRole(role);
+    }
+
+    @Override
+    public Boolean updateUserState(Integer id, Boolean state) {
+
+        Users user = usersMapper.get(id);
+        user.setIsactive(state);
+        return usersMapper.update(user) > 0;
+    }
+
+    @Override
+    public Boolean changePassword(Integer id, String password) {
+
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(password);
+
+        Users record = usersMapper.get(id);
+
+        if (record == null) {
+            throw new ServiceException(StatusCodeEnum.SERVER_ERROR, "无此用户信息！");
+        }
+
+        PasswordHelper.encryptPassword(record);
+
+        return usersMapper.update(record) > 0;
+
     }
 
 

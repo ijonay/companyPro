@@ -11,12 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by 张镇强 on 2016/10/14 16:24.
@@ -59,7 +58,7 @@ public class AccountApi extends BaseApi {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ApiResultModel register(@Valid RegisterModel model, BindingResult bindingResult) {
+    public ApiResultModel register(@RequestBody @Valid RegisterModel model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
@@ -81,9 +80,22 @@ public class AccountApi extends BaseApi {
     @RequestMapping(value = "loginout", method = RequestMethod.GET)
     public ApiResultModel loginOut() {
 
-
-
         return new ApiResultModel().data(usersService.loginOut());
+
+
+    }
+
+    @RequestMapping(value = "{id}/changep", method = RequestMethod.POST)
+    public ApiResultModel changePass(@PathVariable("id") Integer userId,
+                                     @RequestParam(value = "password") String password) {
+
+
+        Objects.requireNonNull(password);
+        Objects.requireNonNull(userId);
+
+        ApiResultModel result = new ApiResultModel();
+
+        return result.data(usersService.changePassword(userId, password));
 
     }
 }

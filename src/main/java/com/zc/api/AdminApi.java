@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/admin/")
 public class AdminApi extends BaseApi {
 
-    private final Logger logger = LoggerFactory.getLogger(AccountApi.class);
+    private final Logger logger = LoggerFactory.getLogger(AdminApi.class);
 
     @Autowired
     private WordService wordService;
@@ -33,6 +33,7 @@ public class AdminApi extends BaseApi {
 
 
     }
+
 
     @RequestMapping(value = "updateWordToRediscoll", method = RequestMethod.POST)
     public ApiResultModel updateWordVectorsColltoRedis() {
