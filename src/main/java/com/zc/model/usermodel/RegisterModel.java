@@ -4,13 +4,15 @@ import com.zc.bean.Users;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
-import java.lang.annotation.Target;
 
 /**
  * Created by 张镇强 on 2016/10/21 15:43.
  */
 
 public class RegisterModel {
+
+
+    private String company;
     @NotBlank(message = "用户名不能为空")
     @Size(max = 20)
     private String userName;
@@ -31,6 +33,7 @@ public class RegisterModel {
         result.setUserName(this.userName);
         result.setPassword(this.password);
         result.setNickName(this.nickName);
+        result.setCompany(company);
 
         return result;
     }
@@ -67,4 +70,14 @@ public class RegisterModel {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+
 }

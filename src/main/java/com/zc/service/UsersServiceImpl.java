@@ -87,6 +87,7 @@ public class UsersServiceImpl implements UsersService {
         return usersMapper.update(user) > 0;
     }
 
+
     @Override
     public Boolean changePassword(Integer id, String password) {
 
