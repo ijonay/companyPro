@@ -9,7 +9,7 @@ dataUrl.util = {
     	return encodeURI("api/topicclass/getsearchitem");
     },
     getResultList: function (clueWord, pageSize, currentPage) {//获取话题列表
-        return "api/topic/getlist?clueWord=北京&pageSize=" + pageSize + "&currentPage=" + currentPage;
+        return encodeURI("api/topic/getlist?clueWord="+clueWord+"&pageSize=" + pageSize + "&currentPage=" + currentPage);
     },
     getPathInfo: function (startNode, endNode) {
         return localhostNewUrl + "api/paths/nodeRelations?startNode=" + startNode + "&endNode=" + endNode;
