@@ -12,6 +12,7 @@ public class HotTopicPredictionModel {
     private String startDate;
     private String endDate;
     private String note;
+    private String weiboUrl;
 
     public Integer getId() {
         return id;
@@ -51,5 +52,13 @@ public class HotTopicPredictionModel {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getWeiboUrl() {
+        return weiboUrl;
+    }
+
+    public void setWeiboUrl(String weiboUrl) {
+        this.weiboUrl = weiboUrl;
     }
 }
