@@ -1387,8 +1387,8 @@ function loadSvg(){
     	if($(this).parent().next().next().is('.hidecommon')){
     		$('.all_hot_list_top_look').css('color','#4a4a4a');
     		$(this).css('color','#389b9f');
-    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('点击查看');
-    		$(this).find('em').text('点击收起');
+    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('查看画像');
+    		$(this).find('em').text('收起画像');
     		$(this).parent().parent().parent().find(".hot_look_eye").css("background-image","url(img/hot_look_eye.png)");
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye_hover.png)');
     		$(this).parent().parent().parent().find(".hot_echart_list").addClass('hidecommon');
@@ -1407,7 +1407,7 @@ function loadSvg(){
         	$(this).parent().next().next().addClass('hidecommon');
         	$(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
     		$(this).css('color','#4a4a4a');
-    		$(this).find('em').text('点击查看');
+    		$(this).find('em').text('查看画像');
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
     	};
     	var $this = $(this);
