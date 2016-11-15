@@ -49,7 +49,7 @@ $(".bar-tabs>li").on("click",function(){
     }else{//探索通知tab
         $(this).addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
-        $(".notify-operate").css("display","block");
+        if($(".notify-tab-list>li").length>0) {$(".notify-operate").css("display","block")};
         $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").css("background","#e8ebed");
@@ -68,7 +68,7 @@ $(".header-right>li").on("click",function(e){
     }else if($(this).hasClass("head-notify")){//探索通知
         $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
-        $(".notify-operate").css("display","block");
+        if($(".notify-tab-list>li").length>0) {$(".notify-operate").css("display","block")};
         $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
@@ -234,6 +234,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
                 $(".notify-tab-list>li").remove();
                 $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
                 $(".notify-count").data("count",0).text("").css("display","none");
+                $('.clear-notify').css('display','none');
             },
             error: function() {
                 console.log('清空探索通知失败');
@@ -473,6 +474,7 @@ $.ajax({
             }else{
                 $(".notify-count").attr("data-count",0).text("").css("display","none");
                 $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $(".notify-operate").css("display","none");
             }
         }else{
         	$('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
