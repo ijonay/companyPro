@@ -5,7 +5,9 @@ import com.zc.model.usermodel.LoginModel;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.RegisterModel;
 import com.zc.service.UsersService;
+import com.zc.utility.CommonHelper;
 import com.zc.utility.ValidateHelper;
+import com.zc.utility.exception.ApiException;
 import com.zc.utility.response.ApiResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,15 +87,18 @@ public class AccountApi extends BaseApi {
 
     }
 
-    @RequestMapping(value = "{id}/changep", method = RequestMethod.POST)
-    public ApiResultModel changePass(@PathVariable("id") Integer userId,
-                                     @RequestParam(value = "password") String password) {
+    @RequestMapping(value = "changep", method = RequestMethod.POST)
+    public ApiResultModel changePass(@RequestParam(value = "password") String password) {
 
 
         Objects.requireNonNull(password);
-        Objects.requireNonNull(userId);
+
 
         ApiResultModel result = new ApiResultModel();
+
+        int userId = CommonHelper.getCurrentUserId();
+
+        if (userId < 1) throw new ApiException(StatusCodeEnum.FAILED, "未登录！");
 
         return result.data(usersService.changePassword(userId, password));
 
