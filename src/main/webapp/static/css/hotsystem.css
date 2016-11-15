@@ -442,14 +442,15 @@ body{
 .releateTag{
     height: 38px;
     line-height: 38px;
-    width:152px;
+    width:150px;
     font-size: 16px;
     padding-left:10px;
     vertical-align: top;
 }
 .selectTag{
     display: inline-block;
-    width:152px;
+    float:right;
+    width:150px;
     height: 40px;
     line-height: 40px;
     font-size: 16px;
