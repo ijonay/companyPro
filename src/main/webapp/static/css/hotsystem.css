@@ -446,6 +446,8 @@ body{
     font-size: 16px;
     padding-left:10px;
     vertical-align: top;
+    border:0;
+    border:1px solid #ccc;
 }
 .selectTag{
     display: inline-block;

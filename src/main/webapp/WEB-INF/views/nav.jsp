@@ -15,8 +15,8 @@
         <li class="head-userinfo">
             <shiro:authenticated>
                 <div class="userName">
-                    <div class="name" title="${current_user.nickName}">${current_user.nickName}</div>
-                    
+                    <!--<div class="name" title="${current_user.nickName}">${current_user.nickName}</div>-->
+                    <div class="name">123456@heptax.com</div>
                     <div class="company">公司名称</div>
                 </div>
             </shiro:authenticated>
