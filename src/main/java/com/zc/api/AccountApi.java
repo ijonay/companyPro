@@ -5,18 +5,19 @@ import com.zc.model.usermodel.LoginModel;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.RegisterModel;
 import com.zc.service.UsersService;
+import com.zc.utility.CommonHelper;
 import com.zc.utility.ValidateHelper;
+import com.zc.utility.exception.ApiException;
 import com.zc.utility.response.ApiResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by 张镇强 on 2016/10/14 16:24.
@@ -59,7 +60,7 @@ public class AccountApi extends BaseApi {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ApiResultModel register(@Valid RegisterModel model, BindingResult bindingResult) {
+    public ApiResultModel register(@RequestBody @Valid RegisterModel model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ValidateHelper.handleFieldValidateErrors(bindingResult);
         }
@@ -81,9 +82,25 @@ public class AccountApi extends BaseApi {
     @RequestMapping(value = "loginout", method = RequestMethod.GET)
     public ApiResultModel loginOut() {
 
-
-
         return new ApiResultModel().data(usersService.loginOut());
+
+
+    }
+
+    @RequestMapping(value = "changep", method = RequestMethod.POST)
+    public ApiResultModel changePass(@RequestParam(value = "password") String password) {
+
+
+        Objects.requireNonNull(password);
+
+
+        ApiResultModel result = new ApiResultModel();
+
+        int userId = CommonHelper.getCurrentUserId();
+
+        if (userId < 1) throw new ApiException(StatusCodeEnum.FAILED, "未登录！");
+
+        return result.data(usersService.changePassword(userId, password));
 
     }
 }

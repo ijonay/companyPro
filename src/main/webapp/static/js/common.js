@@ -155,12 +155,13 @@ function GetRequest() {
 } 
 //获取url中"#"符后的字符串
 function GetRequestLabel() { 
-    var url = location.hash; //获取url中"?"符后的字串 
+    var url = decodeURIComponent(location.hash);
     var theRequest=null;
     if (url.indexOf("#") != -1) { 
         var str = url.substr(1);
         theRequest=JSON.parse(str);
     }
+    console.log(theRequest);
     return theRequest; 
 } 
 
@@ -266,7 +267,7 @@ function logOut(){
 		type:"get",
 		url:dataUrl.util.getLogOut(),
 		success:function(data){
-			console.log("logoutData: " + data);
+			window.location.href="user/login";
 		}
 	   
 	})

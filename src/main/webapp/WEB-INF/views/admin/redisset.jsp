@@ -18,7 +18,6 @@
     <jsp:attribute name="footScript">
         <script type="text/javascript">
             $(function () {
-                comm.checkActive("redisset");
                 $("a.connId").click(function () {
                     $("span.connId").text($(this).text());
                     var id = $(this).attr("data-id");

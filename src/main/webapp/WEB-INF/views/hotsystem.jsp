@@ -12,7 +12,7 @@
     <jsp:include page="nav.jsp" />
    <div class="ser_section" id="ser_section">
    		<div class="ser_con row pst">
-			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
+			 <input type="text" placeholder="请输入探索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 
 			 <div class="ser_hint pos f14 cor389b9f hidecommon" id="ser_hint">
 			 	<p>请输入汉字、英文或数字</p>
@@ -33,7 +33,7 @@
    <div class="ser_dialog hidecommon" id="ser_dialog">
    		<div class="dialog_area corlor4a f18">
    			<div class="dialog_title">高级探索<span class="ser_dialog_close pointer"></span></div>
-   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">事件标签(按照热点事件标签筛选)</p>
+   			<p style="height:40px;font-size:16px;color:#4a4a4a;padding-left:20px;line-height:40px;font-weight:500;"><b style="color:#389b9f">事件标签</b>(按照热点事件标签筛选)</p>
    			<ul class="dialog_tab eventDialogTab f14 corlor4a">
    				
    			</ul>
@@ -51,7 +51,7 @@
    				
    			</div>
    			
-   			<p style="height:40px;font-size:16px;color:#000;padding-left:20px;line-height:40px;">受众特征(按照热点受众特征筛选)</p>
+   			<p style="height:40px;font-size:16px;color:#4a4a4a;margin:0px 20px;line-height:40px;border-top:1px solid #eee;font-weight:500;"><b style="color:#009944">受众特征</b>(按照热点受众特征筛选)</p>
    			
    			
    			<ul class="dialog_tab userDialogTab f14 corlor4a">
@@ -73,12 +73,12 @@
    					</li>
    				</ol>
    				
-   				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选标签</div>
+   				<div class="fl dialog_inp_del  pointer" id="dialog_inp_del">清空已选</div>
    				
    			</div>
    			
    			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
+   				<input type="text" placeholder="请输入探索关键字" maxlength="20" class="f16" id="dialog_ser_text">
 			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
    			</div>
    		
@@ -91,18 +91,19 @@
    
    <div class="all_hot hidecommon" id="all_hot">
    		<div class="all_hot_section" id="all_hot_section">
+   			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
    			<!-- <ul class="hot_ifo_title f18">
    			    <li class="hot_ifo_title_img fl"></li>
    				<li class="fl">全部热点</li>
    			</ul> -->
-   			<ul class="all_hot_bar">
+   			<ul class="all_hot_bar" id="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
    				<li>热点来源</li>
    				<li>热度</li>
    				<li>热点受众画像</li>
-   				<li>操作</li>
+   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
    			</ul>
    			<ul class="all_hot_list">
    				<li>
@@ -329,14 +330,15 @@
             </div>            
         </div>
         <div class="infoBottom">
-            <img class="hotIcon" src="img/hotIcon.png">
-            <span class="hotValue">99</span><span class="planText">/热度</span><span class="infoSpace"></span><span class="planText font14">来源:</span>
-            <div class="iconCon">
-	            <img class="infoIcon" id="iconweibo" src="img/hot_weibo.png" alt="微博">
-	            <img class="infoIcon" id="iconwechat" src="img/hot_weixin.png" alt="微信">
-	            <img class="infoIcon" id="iconzhihu" src="img/hot_zhihu.png" alt="知乎">
-	            <img class="infoIcon" id="iconbaidu" src="img/hot_baidu.png" alt="百度">
+            <div class="hotIcon fl"></div>
+            <span class="planText font14 fl">热度:</span><span class="hotValue fl">99</span>
+            <div class="iconCon fr">
+	            <a target=" _blank" id="iconweibo" class="weibo-link" href="javascript:;" style="background-image:url(img/hot_weibo.png);"></a>
+                <a target=" _blank" id="iconwechat" class="weixin-link" href="javascript:;" style="background-image:url(img/hot_weixin.png);"></a>
+                <a target=" _blank" id="iconzhihu" class="zhihu-link" href="javascript:;" style="background-image:url(img/hot_zhihu.png);"></a>
+                <a target=" _blank" id="iconbaidu" class="baidu-link" href="javascript:;" style="background-image:url(img/hot_baidu.png);"></a>
             </div>
+            <span class="planText font14 fr">来源:</span>
         </div>
     </div>
     <div class="triangle"></div>
@@ -370,5 +372,7 @@ $.get('js/china.json', function (chinaJson) {
 <script id="allHotTmpl" type="text/x-jsrender">
 
 </script>
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/perfect-scrollbar.js"></script>
 </body>
 </html>

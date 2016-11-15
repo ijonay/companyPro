@@ -46,6 +46,11 @@ public class AdminController {
         return "admin/redisset";
     }
 
+    @RequestMapping("/manageruser")
+    public String manageruser(ModelMap model) {
+
+        return "admin/manageruser";
+    }
 
     @RequestMapping("/managetopic")
     public String manageTopic(

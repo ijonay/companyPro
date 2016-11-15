@@ -14,7 +14,15 @@ $(".pnl-calendar").calendar({
         });
         dispList(tempData.result,getNowDate(date),"single");
     }
-});    
+});
+$(document).delegate(".hots-list>li","click",function(){//查看预告详情
+    if($(this).find(".desc").css("display")!="none"){
+        $(this).find(".desc").css("display","none");
+    }else{
+        $(this).siblings("li").find(".desc").css("display","none");
+        $(this).find(".desc").css("display","block");
+    }
+});
 
 /*邮箱开关按钮*/
 $(".lb-email").on("click",function(){
@@ -30,33 +38,139 @@ $(".lb-email").on("click",function(){
 /*tab切换*/
 $(".bar-tabs>li").on("click",function(){
     if($(this).hasClass("right-bar-close")){//关闭弹窗
-        $(".right-bar").animate({"right":"-292px"},500);
+        $(".right-bar").animate({"right":"-272px"},500);
     }else if($(this).hasClass("pred-tab")){//热点预告tab
         $(this).addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
+        $(".notify-operate").css("display","none");
+        $(".bar-content").css("max-height","100%");
         $(".pnl-pred-tab").css("display","block");
         $(".right-bar").css("background","#fff");
     }else{//探索通知tab
         $(this).addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
+        $(".notify-operate").css("display","block");
+        $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").css("background","#e8ebed");
     }
 });
 /*头部菜单栏*/
-$(".header-right>li").on("click",function(){
+$(".header-right>li").on("click",function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
     if($(this).hasClass("head-pred")){//热点预告
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
+        $(".notify-operate").css("display","none");
+        $(".bar-content").css("max-height","100%");
         $(".pnl-pred-tab").css("display","block");
         $(".right-bar").animate({"right":"0px"},500).css("background","#fff");
     }else if($(this).hasClass("head-notify")){//探索通知
         $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","block");
+        $(".notify-operate").css("display","block");
+        $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
+    }else if($(this).hasClass("head-userinfo")){//用户信息
+        if($(".pnl-user").css("display")=="none"){
+            $(this).find(".company").css("background-image","url(img/up-arrow.png)");
+            $(".pnl-user").css("display","block");
+            $(".notify-list").css("display","none");
+        }else{
+            $(this).find(".company").css("background-image","url(img/down-arrow.png)");
+            $(".pnl-user").css("display","none");
+        }
+        
     }
 });
+$(".user-set").on("click",function(){
+    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' placeholder='请输入公司名称'/></div>"+
+        "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
+        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
+        "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
+    var pop = new Pop({
+        width:"396px",
+        header:"账号设置",
+        content:content,
+        buttons:[{
+            type:"popCancle",
+            text:"取消"
+        },{
+            type:"popOk",
+            text:"确定",
+            callback:function(){
+                var companyName=$.trim($('.txt-companyname').val());
+                var oldPwd=$.trim($('.txt-oldpwd').val());
+                var newPwd=$.trim($('.txt-newpwd').val());
+                var confPwd=$.trim($('.txt-confpwd').val());
+                if(oldPwd!=""){
+                    if(newPwd==""){
+                        $('.txt-newpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-newpwd').removeClass("error");
+                    }
+                    if(confPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(newPwd!=""){
+                    if(oldPwd==""){
+                        $('.txt-oldpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-oldpwd').removeClass("error");
+                    }
+                    if(confPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(confPwd!=""){
+                    if(newPwd==""){
+                        $('.txt-newpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-newfpwd').removeClass("error");
+                    }
+                    if(oldPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(newPwd!=""&&confPwd!=""){
+                    if(newPwd!=confPwd){
+                        $('.conf-pwd').find(".info-erro").css("display","block");
+                        return;
+                    }else{
+                        $('.conf-pwd').find(".info-erro").css("display","none");
+                    }  
+                }
+                $.ajax({
+                    type:"post",
+                    url: dataUrl.util.updatePwd(newPwd),
+                    success: function(returnData) {
+                        if(returnData.error.code==0){
+                            window.location.href="user/login";
+                        }
+                    },
+                    error: function() {
+                        console.log('修改密码失败');
+                    }
+                });
+            }
+        }]
+    })
+    $(".popContent").css({"padding-top":"9px","padding-bottom":"6px"});
+})
 /*关闭通知*/
 $(document).delegate(".notify-list>li .notify-close","click",function(e){
     e ? e.stopPropagation() : event.cancelBubble = true;
@@ -68,6 +182,8 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
     var id=$(this).data("id");
     $(".bar-tabs>li.notify-tab").addClass("active").siblings(".pred-tab").removeClass("active");
     $(".pnl-notify-tab").css("display","block");
+    $(".notify-operate").css("display","block");
+    $(".bar-content").css("max-height",$(window).height()-70);
     $(".pnl-pred-tab").css("display","none");
     $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     $(".notify-tab-list").find("li[data-id="+id+"]").trigger("click");
@@ -96,7 +212,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
                 }else if(count<=10){
                     $(".notify-count").data("count",count-1).text(count-1).css("display","block");
                 }else{
-                    $(".notify-count").data("count",count-1).text("9+").css("display","block");
+                    $(".notify-count").data("count",count-1).text("···").css("display","block");
                 }
             }
         },
@@ -104,18 +220,26 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             console.log('删除探索通知失败');
         }
     });
-}).delegate(".clear-notify","click",function(e){//删除通知
+}).delegate(".clear-notify","click",function(e){//清空通知
     e ? e.stopPropagation() : event.cancelBubble = true;
-    $.ajax({
-        type: "delete",
-        url: dataUrl.util.delAllNotify,
-        success: function(returnData) {
-            console.log(returnData.error.message);
-        },
-        error: function() {
-            console.log('清空探索通知失败');
-        }
-    });
+    var ids=[];
+    $(".notify-tab-list>li").each(function(){
+        ids.push(parseInt($(this).data("id")));
+    })
+    if(ids.length>0){
+        $.ajax({
+            type: "delete",
+            url: dataUrl.util.delAllNotify(ids.join(",")),
+            success: function(returnData) {
+                $(".notify-tab-list>li").remove();
+                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $(".notify-count").data("count",0).text("").css("display","none");
+            },
+            error: function() {
+                console.log('清空探索通知失败');
+            }
+        });
+    }
 });
 //点击任意地方关闭弹窗
 $(document).on('click',function(e){
@@ -123,6 +247,7 @@ $(document).on('click',function(e){
         if($(window).width() - e.clientX > 277)
         $(".right-bar-close").trigger("click");
     }
+    $(".pnl-user").css("display","none");
 });
 //获取当前日期热点预告
 function getHotPred(date){
@@ -236,8 +361,7 @@ function dispList(data,date,type){
         $container=$(".pnl-hots").find(".detail-list").html("");
         $(".pnl-hots").find(".hots-detail").css("display","block");
         $(".pnl-hots").find(".hots-content").css("display","none");
-    } 
-    if(data){
+    }
         $.each(data,function(idx,item){
             var startDate=item.startDate;
             var endDate=item.endDate;
@@ -271,9 +395,6 @@ function dispList(data,date,type){
                 }
             }
         });
-    }else{
-        $container.html("<li class='error'>暂无热点预告</li>");
-    }
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
 }
 
@@ -332,27 +453,29 @@ $.ajax({
     success: function(returnData) {
         if(returnData.error.code == 0&&returnData.data) {
             $(".notify-list").html("");
-            var count=returnData.data.length;
+            var res=returnData.data
+            var count=res.length;
             if(count>0){
-                $(".notify-count").attr("data-count",count).text(count>9?"9+":count).css("display","block");
+                $(".notify-count").attr("data-count",count).text(count>9?"···":count).css("display","block");
+                $.each(res,function(idx,item){
+                    item.createDate=GetDateDiff(item.createDate);
+                    if(idx<3){
+                        $('<li data-id='+item.id+'><a><span class="dot-icon"></span>'+
+                        '<span class="hot-word">'+item.keyword+'-</span>'+
+                        '<span class="hot-spot">'+item.title+'</span><span class="time">'+item.createDate+'</span><span class="notify-close">&times;</span></a></li>')
+                        .appendTo($(".notify-list"));
+                    }
+                });
+                if($(".notify-list").find("li").length>0){
+                    $(".notify-list").css("display","block");
+                }
+                $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
             }else{
                 $(".notify-count").attr("data-count",0).text("").css("display","none");
+                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
             }
-            $.each(returnData.data,function(idx,item){
-                item.createDate=GetDateDiff(item.createDate);
-                if(idx<3){
-                    $('<li data-id='+item.id+'><a><span class="dot-icon"></span>'+
-                    '<span class="hot-word">'+item.keyword+'-</span>'+
-                    '<span class="hot-spot">'+item.title+'</span><span class="time">'+item.createDate+'</span><span class="notify-close">&times;</span></a></li>')
-                    .appendTo($(".notify-list"));
-                }
-            })
-            if($(".notify-list").find("li").length>0){
-                $(".notify-list").css("display","block");
-            }
-            $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
         }else{
-            $(".notify-tab-list").html("<li style='text-align:center;'><a>暂无通知</a></li>");
+        	$('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
             $(".notify-operate").css("display","none");
         }
     },
@@ -362,55 +485,59 @@ $.ajax({
 });
 //点击通知查看详情
 $(document).delegate(".notify-tab-list>li","click",function(){
-    $(this).siblings("li").find(".notify-info").css("display","none");
-    var id=$(this).data("id");
-    $detail=$(this).find(".notify-info").css("display","block");
-    $.ajax({
-        type: "get",
-        contentType: 'application/json',
-        dataType: "json",
-        url: dataUrl.util.getNotifyDetail(id),
-        success: function(returnData) {
-            if(returnData.error.code == 0&&returnData.data) {
-                var hotInfo=returnData.data;
-                $detail.find(".notify-infoTitle").text(hotInfo.title?hotInfo.title:"");
-                $detail.find(".notify-infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
-                $detail.find(".notify-infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
-                $detail.find(".notify-hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
-                $detail.find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
-                if(hotInfo.wechatUrl){
-                    $detail.find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","inline-block");
-                }else{
-                    $detail.find(".weixin-link").css("display","none");
+    if($(this).find(".notify-info").css("display")!="none"){
+        $(this).find(".notify-info").css("display","none");
+    }else{
+        $(this).siblings("li").find(".notify-info").css("display","none");
+        var id=$(this).data("id");
+        $detail=$(this).find(".notify-info").css("display","block");
+        $.ajax({
+            type: "get",
+            contentType: 'application/json',
+            dataType: "json",
+            url: dataUrl.util.getNotifyDetail(id),
+            success: function(returnData) {
+                if(returnData.error.code == 0&&returnData.data) {
+                    var hotInfo=returnData.data;
+                    $detail.find(".notify-infoTitle").text(hotInfo.title?hotInfo.title:"");
+                    $detail.find(".notify-infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
+                    $detail.find(".notify-infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
+                    $detail.find(".notify-hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
+                    $detail.find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
+                    if(hotInfo.wechatUrl){
+                        $detail.find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","inline-block");
+                    }else{
+                        $detail.find(".weixin-link").css("display","none");
+                    }
+                    if(hotInfo.zhihuUrl){
+                        $detail.find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","inline-block");
+                    }else{
+                        $detail.find(".zhihu-link").css("display","none");
+                    }
+                    if(hotInfo.baiduUrl){
+                        $detail.find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","inline-block");
+                    }else{
+                        $detail.find(".baidu-link").css("display","none");
+                    }
+                    var eventClass=hotInfo.eventClass;
+                    if(eventClass){
+                        var typeArr=$.trim(eventClass).split(",");
+                        $.each(typeArr,function(idx,val){
+                            if(idx>2) return false;
+                            $detail.find(".notify-hotLabel"+idx).text(val);
+                        });
+                    }else{
+                        $detail.find(".notify-hotLabel0").text("");
+                        $detail.find(".notify-hotLabel1").text("");
+                        $detail.find(".notify-hotLabel2").text("");
+                    }
                 }
-                if(hotInfo.zhihuUrl){
-                    $detail.find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","inline-block");
-                }else{
-                    $detail.find(".zhihu-link").css("display","none");
-                }
-                if(hotInfo.baiduUrl){
-                    $detail.find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","inline-block");
-                }else{
-                    $detail.find(".baidu-link").css("display","none");
-                }
-                var eventClass=hotInfo.eventClass;
-                if(eventClass){
-                    var typeArr=$.trim(eventClass).split(",");
-                    $.each(typeArr,function(idx,val){
-                        if(idx>2) return false;
-                        $detail.find(".notify-hotLabel"+idx).text(val);
-                    });
-                }else{
-                    $detail.find(".notify-hotLabel0").text("");
-                    $detail.find(".notify-hotLabel1").text("");
-                    $detail.find(".notify-hotLabel2").text("");
-                }
+            },
+            error: function() {
+                console.log('获取探索通知失败');
             }
-        },
-        error: function() {
-            console.log('获取探索通知失败');
-        }
-    });
+        });
+    }
 }).delegate(".notify-infoConnect","click",function(){
     var topicId=$(this).parents("li").data("topicId");
     var query=$(this).parents("li").find(".hot-word").text();
@@ -434,7 +561,40 @@ function GetDateDiff(startTime) {
     }else{
         var h=sTime.getHours();
         var m=sTime.getMinutes();
-        info=h+":"+m;
+        if(m<10){
+            info=h+":0"+m;
+        }else{
+            info=h+":"+m;
+        }
     }
     return info;
 }
+//点击logo返回首页
+$(".header-logo").on("click",function(){
+    var url=window.location.href;
+    if(url.indexOf("hotsystem")==-1){
+        window.location.href="hotsystem";
+    }
+});
+
+//滚动条
+jQuery(document).ready(function ($) {
+    "use strict";
+    $('.bar-content').perfectScrollbar({suppressScrollX: true});
+});
+
+$(".hot-next").mouseover(function(){
+    $(this).find("div").css("background","url(img/hot-next-hover.png)");
+}).mouseout(function(){
+    $(this).find("div").css("background","url(img/hot-next.png)");
+});
+$(".hot-prev").mouseover(function(){
+    $(this).find("div").css("background","url(img/hot-prev-hover.png)");
+}).mouseout(function(){
+    $(this).find("div").css("background","url(img/hot-prev.png)");
+});
+//输入框
+
+$(document).delegate(".info-erro .del","click",function(){
+    $(this).parents(".info-erro").css("display","none");
+});

@@ -26,7 +26,8 @@ var timeOut;
 var circleTimeout;
 var isShow = false;
 var prevNum = 0;
-function getPath(explore){
+function getPath(explore){	
+	$("#canvas").html('');
 	var hash = decodeURIComponent(location.hash);
 	hash = hash.substr(1)
 	var pathInfo = {};
@@ -182,20 +183,26 @@ function pageChange(up){
    $('#canvas').html('');
     raphealDraw(lineArray,nodeList,query,hotTopic); 
 }
-function raphealDraw(lineArray,nodeList,keyWord,hotTopic){    
+function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
+	var height = $("#canvas").height();
+	var width = $("#canvas").width();
+	var canvasRect = $("#canvas").get(0).getBoundingClientRect();
+//	height = canvasRect.bottom - canvasRect.top;
+	var bodyHeight = $("body").height();
+	var leftRightSpace = height*0.2 + 35;
     var paper = Raphael("canvas", '100%', '100%');
 //    var lineArray = [8,6,4,5,5];
     var lineArray = lineArray;
     var nodeList = nodeList;
     var theta = "";//角度
     var thetaArray = [];
-    var startPoint = [35,250];
-    var endPoint = [1000,250];
+    var startPoint = [leftRightSpace,height/2];
+    var endPoint = [width-leftRightSpace,height/2];
     var lines = [];
     var cycles = [];
     var linkImg = "";
     //y轴点
-    var hei = parseInt(450/(lineArray.length+1));
+    var hei = parseInt((height-25)/(lineArray.length+1));
     var st = paper.set();//画圆
     //文字超出处理
 //    var keyWord1 = "";
@@ -264,7 +271,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             }
 
           if(k<lineArray[i]){
-            var cycle = paper.circle(lineList[k][0],lineList[k][1],7).animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4}, 200).data("lineNum",i);
+            var cycle = paper.circle(lineList[k][0],lineList[k][1],7).attr({cursor:"pointer"}).animate({fill: "#9B9B9B", stroke: "#D8D8D8", "stroke-width": 4}, 200).data("lineNum",i);
             st.push(cycle);
             currentCycle.push(cycle);
             paper.text(lineList[k][0],lineList[k][1]+20,nodeList[i][k]).attr({"font-family":'微软雅黑',"font-size":"12px"});
@@ -292,8 +299,10 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             		str += '<li class="fl libordercenter mr5"></li>';
             		str += '<li class="fl mr5 choice-keyword"><span></span>'+item.data("endText")+'</li>';        		
             	})
+            	
 //            	str += '<li class="fr computer-ok pointer">保存路径</li>';
             	$(".pathName").attr("data-str",str);
+            	$(".pathNum").html(pageNum*5+lineNum+1);
               },function(){
                 var _this_ = this;
                 isShow = false;
@@ -372,6 +381,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
             	})
 //            	str += '<li class="fr computer-ok pointer">保存路径</li>';
             	$(".pathName").attr("data-str",str);
+            	$(".pathNum").html(pageNum*5+lineNum+1);
           },function(){
             var _this_ = this;
             isShow = false;
@@ -418,10 +428,28 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     	            text:"确定",
     	            callback:function(){
 //    	                $('#nav_ser').val($('.txt-word').val());
+    	            	
+//    	                $('#nav_ser').val($('.txt-word').val());
+    	            	var hash = decodeURIComponent(location.hash);
+    	            	hash = hash.substr(1)
+    	            	var pathInfo = {};
+    	            	var infoArray = hash.split("&");
+    	            	$.each(infoArray,function(index,item){
+    	            		var temp = item.split("=");
+    	            		pathInfo[temp[0]] = temp[1];
+    	            	})
+//    	            	var word = $('.txt-word').val();    	            	
+//    	            	 $(".bottom-choice").hide();
+//    	            	 pageNum = 0;
+//    	            	 var tempHash = decodeURIComponent(location.hash);
+//    	            	 location.hash = tempHash.replace(/keyWord/,word);
+    	            	
     	            	var word = $('.txt-word').val();    	            	
     	            	 $(".bottom-choice").hide();
     	            	 pageNum = 0;
-    	            	 location.hash = location.hash.split(keyWord).join(word);
+    	            	 var tempHash = decodeURIComponent(location.hash);
+    	            	 pathInfo.query = word;
+    	            	 location.hash = "query="+pathInfo.query+"&topicId="+pathInfo.topicId+"&hotTopic="+pathInfo.hotTopic;
     	            	 getPath();
     	            	 $("#prev-path").addClass("disstate");
     	            	 $("#prev-next").addClass("disstate");
@@ -601,12 +629,14 @@ $('.path-dialog,.bottom-choice').on('click',function(e){
 $('.choice-keyword').text(GetRequest('query').query);
 $('.choice-hot').text(GetRequest('query').hotTopic);
 $("#prev-path").click(function(){
+	$(".pathName").hide();
     if($(this).hasClass("disstate")){
         return;
     }
     pageChange(false);
 })
 $("#prev-next").click(function(){
+	$(".pathName").hide();
     if($(this).hasClass("disstate")){
         return;
     }
@@ -658,3 +688,11 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
     	}
     }
 })
+var setTime;
+window.onresize = function(){
+	clearTimeout(setTime);
+	setTime = setTimeout(function(){
+		getPath(false);
+	},500)
+	
+}

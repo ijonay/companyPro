@@ -18,10 +18,13 @@ div#canvas {
 <body>
     <jsp:include page="nav.jsp" />
     <div class="nav-banner">
-        <div class="fl">
-            <span style="color:#9c9c9c;cursor:pointer;"  onClick="window.location.href='hotspots'">&lt; 热点分析 </span>
-            <span style="cursor:pointer;" class="color9c" onClick="window.history.back(-1);"> &lt;探索结果</span>
-            <span>&lt;路径方案</span>
+
+        <div class="fl nav-banner_left">
+            <span style="color:#9c9c9c;cursor:pointer;"  onClick="window.location.href='hotsystem'">首页 </span>
+            <span>&lt;</span>
+            <span  class="color9c"> 探索结果</span>
+            <span class="nav-banner_left_icon"></span>
+            <span style="font-size:16px;">路径方案</span>
         </div>
         <ul class="fr nav-banner-ul">
         <li class="pointer color9c">
@@ -29,12 +32,12 @@ div#canvas {
                 	<span id="prev-next" class="disstate">下一页</span>
                 </li>
        <!-- <li class="pointer color9c save-path-num pst"><span>已保存路径</span>
-            	<div class="pos save-p-n ac f12">5</div>  -->
-         </li>
+            	<div class="pos save-p-n ac f12">5</div> 
+         </li> -->
         </ul>
     </div>
     <div class="result-section">
-	        <div id="canvas" style="width:1035px;height:500px;margin:0 auto;">
+	        <div id="canvas" style="width:100%;height:100%;margin:0 auto;">
 			    <div class="load-con ac" id="load-con">
 		        	<div class="load-container load3 fl">
 						<div class="loader"></div>
@@ -119,7 +122,7 @@ div#canvas {
        	<li class="fr computer-ok pointer">保存路径</li>
     </ul>
     <div class="pathName disno">
-        路径2
+        选择路径<span class="pathNum">1</span>
     </div>
     
 <script src="lib/jquery-1.12.0.min.js"></script>
@@ -139,5 +142,7 @@ div#canvas {
 <script src="js/newPath.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/perfect-scrollbar.js"></script>
 </body>
 </html>

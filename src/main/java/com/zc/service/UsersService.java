@@ -3,6 +3,8 @@ package com.zc.service;
 import com.zc.bean.Users;
 import com.zc.model.usermodel.LoginStatus;
 
+import java.util.List;
+
 public interface UsersService {
 
     boolean add(Users record);
@@ -13,7 +15,17 @@ public interface UsersService {
 
     Users get(Integer id);
 
+//    List<Users> getAll();
+//
+//    int delAll();
+
     Users getByUserName(String userName);
+
+    List<Users> getByRole(String role);
+
+    Boolean updateUserState(Integer id, Boolean state);
+
+    Boolean changePassword(Integer id, String password);
 
     /**
      * 获取登录状态

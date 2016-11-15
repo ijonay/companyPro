@@ -128,17 +128,17 @@
             '<div class="view view-date">',
             '<div class="calendar-hd">',
             '<div class="calendar-arrow calendar-arrow-left">',
-            '<span class="prev" title="上一月" data-calendar-arrow-date>{prev}</span>',
+            '<span class="prev" title="上一月" data-calendar-arrow-date style="background-image:url(img/left-arrow.png);"></span>',
             '</div>',
-            '<a href="javascript:;" data-calendar-display-date class="calendar-display" style="font-size:24px;color:#000;">',
+            '<a href="javascript:;" data-calendar-display-date class="calendar-display" style="font-size:19px;color:#000;">',
             '{yyyy}/<span class="m">{mm}</span>',
             '</a>',
             '<div class="calendar-arrow calendar-arrow-right">',
-            '<span class="next" title="下一月" data-calendar-arrow-date>{next}</span>',
+            '<span class="next" title="下一月" data-calendar-arrow-date style="background-image:url(img/right-arrow.png);"></span>',
             '</div>',
             '</div>',
             '<div class="calendar-ct">',
-            '<ol class="week" style="padding:0 25px 16px 25px;font-size:14px;color:#4a4a4a;background:#e8ebed;">{week}</ol>',
+            '<ol class="week" style="font-size:14px;color:#4a4a4a;background:#e8ebed;margin-bottom:14px;margin-left:18px;">{week}</ol>',
             '<ul class="date-items"></ul>',
             '</div>',
             '</div>',
@@ -324,7 +324,7 @@
             var dt = this.date,
                 idt = new Date(y, m - 1, d),
                 data = {
-                    w: (this.width-50) / 7,
+                    w: 33.5,
                     h: 48,
                     value: d
                 },
@@ -367,7 +367,7 @@
         getDaysHtml: function(y, m) {
             var year, month, firstWeek, daysNum, prevM, prevDiff,
                 dt = this.date,
-                $days = $('<ol class="days" style="padding:0px 25px 10px 25px;"></ol>');
+                $days = $('<ol class="days" style="margin-left:22px;"></ol>');
 
             if (isDate(y)) {
                 year = y.getFullYear();
@@ -410,8 +410,8 @@
                 weekArray = this.options.weekArray,
                 start = this.options.startWeek,
                 len = weekArray.length,
-                w = (this.width-50) / 7,
-                h = 14;
+                w = 34.2,
+                h = 20;
 
             for (var i = start; i < len; i++) {
                 week.push(WEEK_ITEM_TPL.repeat({

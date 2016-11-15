@@ -5,6 +5,24 @@ $('#nav_ser').val(word);
 console.log(urlLabel);
 
 function resSer() {
+	$('#result_evet_con').addClass('hidecommon');
+	$('#result_evet_persn').addClass('hidecommon');
+	$('#result_label_even i').remove();
+	$('#result_evet_persn i').remove();
+	$('#inp_data_person1').find('i').remove();
+	$('#inp_data_event').find('i').remove();
+	$('#inp_data_person1 div').addClass('hidecommon');
+	$('#inp_data_person1').addClass('hidecommon');
+	$('#inp_data_event').addClass('hidecommon');
+	$('#ser_dialog').find('.dialog_inp_num').text(0);
+	$('#ser_dialog').find('.dialog_inp_num').css('display','none');
+	$('#ser_dialog').find('input').prop('checked',false);
+	$('.dialog_inp_c').addClass('hidecommon');
+	$('.dislog_inp_con ul').addClass('hidecommon');
+	$('.dialog_tab').find('li').removeClass('cor389b9f');
+	$('.dialog_tab').find('li').removeClass('hot_arrow_up');
+	$('#hot_age1').val('');
+	$('#hot_age2').val('');
     var newWord=$.trim($('#nav_ser').val());
     if(newWord && word!=newWord){
         word=newWord;
@@ -16,7 +34,9 @@ function resSer() {
     }
 }
 $('.head-search').click(function() {//搜索按钮
-    resSer();
+    //resSer();
+	
+	resSer() ;
 });
 $('#nav_ser').keyup(function(event) {//搜索框回车
     if(event.keyCode == "13") {
@@ -74,6 +94,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
             userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
         };
     } 
+    $(".result-loading").height($(document).height()).css("display","block");
     $.ajax({
         type: "post",
         contentType: 'application/json',
@@ -81,6 +102,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
         url: dataUrl.util.getResultList(clueWord, pageSize, currentPage),
         data:JSON.stringify(data),
         success: function(returnData) {
+            $(".result-loading").css("display","none");
             if(returnData.error.code == 0) {
             	console.log(returnData.data.data)
             	if(returnData.data.data.length == 0){
@@ -93,6 +115,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
                      $(".result-error").css("display","block");
             	}else{
 	                $(".result-content").css("display","block");
+	                $(".result-error").css("display","none");
 	                $("#canvas .topic").remove();
 	                $(".word").remove();
 	                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
@@ -1149,7 +1172,7 @@ function drawWord(data) {
         }
         $item = $("<div class='topic' data-id="+item.id+"></div>")
             .data("info",item).appendTo($("#canvas"));
-        $("<span class='icon " + sizeClass + "'>"+prevailingTrend+"</span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
+        $("<span class='icon " + sizeClass + "'></span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
         var itemWidth = $item.width();
         var itemHeight = $item.height();
         if(itemWidth > 180) {
@@ -1250,8 +1273,15 @@ $(document).delegate(".edit-word","click",function(){
 }).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
     e ? e.stopPropagation() : event.cancelBubble = true;
     var hotInfo=$(this).data("info");
-    var left = $(this).position().left + $(this).width() / 2 - 207;
-    var top = $(this).position().top + $(this).find(".icon").height() + 16;
+    var _left=$(this).position().left;
+    var _top=$(this).position().top;
+    var width=$(this).width();
+    if(_left+width/2>1070/2){
+        left = _left-$(".alertCon").width()-10;
+    }else{
+        left = _left+width+10;
+    }
+    var top = (_top+$(this).height()/2) - $(".alertCon").height()/2;
     $(".alertCon").find(".infoTitle").text(hotInfo.title?hotInfo.title:"");
     $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
     $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");

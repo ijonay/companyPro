@@ -36,6 +36,7 @@
                 <!-- 对静态资源设置匿名访问 -->
 
                 /api/account/login = anon
+                /api/account/register =anon
                 /user/regist = anon
                 <!--/api/** = anon-->
                 <!-- 请求 logout地址，shiro去清除session -->
