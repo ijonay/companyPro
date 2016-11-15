@@ -91,22 +91,6 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 }
 .pnl-user:before{position:absolute;top:-10px;right:10px;width:0px;height:0px;border-left:10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #fff;content:""}
 
-.info-lab{
-	height:36px;
-	width:80px;
-	line-height:36px;
-	font-size:16px;
-	float:left;
-	margin-bottom:8px;
-}
-.info-txt{
-	height:36px;
-	width:275px;
-	margin-top:1px;
-	margin-bottom:8px;
-	border:1px solid #ddd;
-	padding:0 10px;
-}
 .pnl-info{padding:5px 0;}
 .set-info{
 	height:45px;
@@ -139,6 +123,9 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	padding-right:10px;
 	border-radius:2px;
 	font-size:12px;
+	-moz-box-shadow:0px 0px 18px rgba(0,0,0,.3);
+    -webkit-box-shadow:0px 0px 18px rgba(0,0,0,.3);
+    box-shadow:0px 0px 18px rgba(0,0,0,.3);
 }
 .info-erro:after{
     content:'';
@@ -163,6 +150,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	position:absolute;
 	top:0;
 	right:10px;
+	cursor:pointer;
 }
 .set-info input:focus{
 	border:1px solid #389b9f;
