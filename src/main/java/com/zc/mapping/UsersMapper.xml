@@ -125,7 +125,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM users
-        WHERE username = #{userName, jdbcType=VARCHAR}
+        WHERE username = #{userName, jdbcType=VARCHAR}   AND  isactive=TRUE
     </select>
 
     <select id="getByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
