@@ -7,11 +7,18 @@ import com.zc.model.topicsearch.SearchModel;
 import com.zc.service.TopicService;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -83,4 +90,46 @@ public class TopicApi extends BaseApi {
 
         return result;
     }
+
+    @RequestMapping(value = "inactive")
+    public ApiResultModel inactiveTopic(@RequestParam("id")
+                                            Integer id) {
+        Objects.requireNonNull(id);
+
+        ApiResultModel result = new ApiResultModel();
+        try{
+            if( topicService.inactiveTopic(id) ){
+                result.setStatusCode( StatusCodeEnum.SUCCESS );
+            }else{
+                result.setStatusCode( StatusCodeEnum.FAILED );
+            }
+        }catch (Exception e){
+            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "active")
+    public ApiResultModel activeTopic(@RequestParam("id")
+                                          Integer id) {
+        Objects.requireNonNull(id);
+
+        ApiResultModel result = new ApiResultModel();
+
+        try{
+            if( topicService.activeTopic(id) ){
+                result.setStatusCode( StatusCodeEnum.SUCCESS );
+            }else{
+                result.setStatusCode( StatusCodeEnum.FAILED );
+            }
+        }catch (Exception e){
+            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
 }

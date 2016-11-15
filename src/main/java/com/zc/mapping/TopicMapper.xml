@@ -114,6 +114,7 @@
             <if test="zhihuAvgAnswerNumber != null">
                 zhihu_avg_answer_number,
             </if>
+                is_active,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="title != null">
@@ -194,6 +195,7 @@
             <if test="zhihuAvgAnswerNumber != null">
                 #{zhihuAvgAnswerNumber,jdbcType=INTEGER},
             </if>
+                1,
         </trim>
     </insert>
     <delete id="del" parameterType="java.lang.Integer">
@@ -463,6 +465,7 @@
         </foreach>
     </insert>
     <select id="getAllCoordinates" resultType="java.util.HashMap">
+       <!-- SELECT id AS id, coordinate AS coordinate FROM topic where is_active = 1 -->
         SELECT id AS id, coordinate AS coordinate FROM topic
     </select>
     <select id="getByIdList" resultMap="BaseResultMap">
@@ -474,4 +477,28 @@
             #{item}
         </foreach>
     </select>
+
+    <update id="inactiveTopic" parameterType="java.lang.Integer" >
+      UPDATE  topic set is_active = 0 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="activeTopic" parameterType="java.lang.Integer" >
+        UPDATE  topic set is_active = 1 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getTopicsByKeyword" parameterType="java.lang.String" resultMap="manageTopicViewMap">
+        SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active
+        FROM topic
+        where title LIKE CONCAT( '%','${keyword}','%' )
+        ORDER by prevailing_trend DESC
+    </select>
+
+    <resultMap id="manageTopicViewMap" type="com.zc.model.TopicModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
+        <result column="is_active" jdbcType="INTEGER" property="isActive"/>
+
+    </resultMap>
+
 </mapper>

@@ -9,6 +9,7 @@
 <div class="col-sm-3 col-md-2 sidebar" id="leftContainer">
     <ul class="nav nav-sidebar">
         <li name="redisset"><a href="redisset" class="hasUrl">redis配置</a></li>
+        <li name="managetopic"><a href="/admin/managetopic" class="hasUrl">topic管理</a></li>
         <%--<li><a href="#">Reports</a></li>--%>
         <%--<li><a href="#">Analytics</a></li>--%>
         <%--<li><a href="#">Export</a></li>--%>
