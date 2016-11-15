@@ -7,7 +7,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .header .header-right li{float:left;height:100%;cursor:pointer;}
 .header .header-right li a{width:36px;height:36px;display:inline-block;margin-top:12px;border-radius:50%;}
 .header .header-right li.nav_ser{width:240px;padding-top:12px;margin-right:30px;position:relative;}
-.header .header-right li.nav_ser input{    background: rgba(255,255,255,0);border-radius: 50px;border:0;width:244px;height:34px;color:#fff;padding:0 40px 0 14px;margin-top:-2px;color:rgba(255,255,255,.2);line-height:34px;font-family: "Microsoft YaHei";border:1px solid rgba(255,255,255,.2)}
+.header .header-right li.nav_ser input{background: rgba(255,255,255,0);border-radius: 50px;border:0;width:244px;height:36px;color:#fff;padding:0 40px 0 14px;margin-top:-1px;color:rgba(255,255,255,.2);line-height:36px;font-family: "Microsoft YaHei";border:1px solid rgba(255,255,255,.2)}
 .header .header-right li.nav_ser input:focus{
 	border:2px solid rgba(56,155,159,.5);
 }
