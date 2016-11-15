@@ -26,7 +26,8 @@ var timeOut;
 var circleTimeout;
 var isShow = false;
 var prevNum = 0;
-function getPath(explore){
+function getPath(explore){	
+	$("#canvas").html('');
 	var hash = decodeURIComponent(location.hash);
 	hash = hash.substr(1)
 	var pathInfo = {};
@@ -690,8 +691,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 var setTime;
 window.onresize = function(){
 	clearTimeout(setTime);
-	setTime = setTimeout(function(){    		
-		$("#canvas").html('');
+	setTime = setTimeout(function(){
 		getPath(false);
 	},500)
 	
