@@ -687,3 +687,12 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
     	}
     }
 })
+var setTime;
+window.onresize = function(){
+	clearTimeout(setTime);
+	setTime = setTimeout(function(){    		
+		$("#canvas").html('');
+		getPath(false);
+	},500)
+	
+}
