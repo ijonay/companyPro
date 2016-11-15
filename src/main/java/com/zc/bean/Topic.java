@@ -11,7 +11,7 @@ import com.zc.model.TopicModel;
 
 import java.util.List;
 
-public class Topic {
+public class Topic implements java.io.Serializable{
 
 
     /**
@@ -638,6 +638,8 @@ public class Topic {
 
     private List<WordDataRelations> words;
 
+    private Integer isActie;
+
     public TopicModel getModel() {
 
         TopicModel model = new TopicModel();
@@ -671,6 +673,7 @@ public class Topic {
 
         model.setEventClass(eventClass);
 
+        model.setIsActive(isActie);
         return model;
     }
 
@@ -683,4 +686,11 @@ public class Topic {
         this.words = words;
     }
 
+    public Integer getIsActie() {
+        return isActie;
+    }
+
+    public void setIsActie(Integer isActie) {
+        this.isActie = isActie;
+    }
 }

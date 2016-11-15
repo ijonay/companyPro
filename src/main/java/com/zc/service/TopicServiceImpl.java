@@ -353,8 +353,8 @@ public class TopicServiceImpl implements TopicService {
 
                 }
             });
-
         }
+
     }
 
     @Override
@@ -457,4 +457,19 @@ public class TopicServiceImpl implements TopicService {
     }
 
 
+    public boolean inactiveTopic(Integer id){
+        return dao.inactiveTopic(id) > 0;
+    }
+
+    public boolean activeTopic(Integer id){
+        return dao.activeTopic(id) > 0;
+    }
+
+    public List<TopicModel> getTopicsByKeyword(String keyword){
+        return dao.getTopicsByKeyword(keyword);
+    }
+
+    public boolean update(Topic topic) {
+        return  dao.update(topic) > 0;
+    }
 }
