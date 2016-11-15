@@ -11,7 +11,7 @@ import org.apache.shiro.util.ByteSource;
  */
 public interface PasswordHelper {
     RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-    String algrithmName = "md5";
+    String algrithmName = "MD5";
     int hashInterations = 5;
 
     static void encryptPassword(Users user) {
