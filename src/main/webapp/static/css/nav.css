@@ -17,10 +17,11 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 }
 /* .header .header-right li.head-usericon a{background:#fff;} */
 .header .header-right li.head-usericon a{background:url(../img/nav_defalut.png) no-repeat;}
-.header .header-right li.head-userinfo{margin:0 12px;}
-.header .header-right li.head-userinfo .userName{margin-top:15px;width:98px;height:30px;}
-.header .header-right li.head-userinfo .userName .name{font-size:12px;color:rgba(255,255,255,.8);line-height:12px;margin-bottom:4px;width:98px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-.header .header-right li.head-userinfo .userName .company{font-size:14px;color:rgba(255,255,255,.8);line-height:14px;background:url(../img/down-arrow.png) no-repeat 89px center;}
+.header .header-right li.head-userinfo{margin:0 19px 0 10px;}
+.header .header-right li.head-userinfo .userName{margin-top:15px;max-width:122px;height:30px;opacity:0.8;}
+.header .header-right li.head-userinfo .userName:hover{opacity:1;}
+.header .header-right li.head-userinfo .userName .name{font-size:12px;color:rgba(255,255,255,.8);line-height:12px;margin-bottom:4px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.header .header-right li.head-userinfo .userName .company{font-size:14px;color:rgba(255,255,255,.8);line-height:14px;background:url(../img/down-arrow.png) no-repeat right center;padding-right:14px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .header .header-right li.head-pred{margin-right:18px;}
 .header .header-right li.head-pred a{background:url(../img/head-pred.png) no-repeat center;}
 .header .header-right li.head-notify a{background:url(../img/head-notify.png) no-repeat center;position:relative;}
@@ -36,36 +37,36 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .notify-list:before{position:absolute;top:-10px;right:8px;width:0px;height:0px;border-left:10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #fff;content:""}
 /*用户弹窗*/
 .pnl-user{
-	width:240px;
-	height:130px;
+	width:254px;
+	height:174px;
 	position:absolute;
 	background:#fff;
 	z-index:9999;
 	border-radius:2px;
 	top:61px;
-	right:134px;
-	padding:8px;
+	right:146px;
+	padding:14px;
 	display:none;
 }
 .pnl-user .top{
-	height:50px;
+	height:54px;
 	width:100%;
-	margin-bottom:10px;
+	margin-bottom:20px;
 }
 .pnl-user .top .top-icon{
-	width:50px;
-	height:50px;
+	width:54px;
+	height:54px;
 	border-radius:50%;
 	background:url(../img/userinfo-icon.png) no-repeat center;
 	float:left;
 }
 .pnl-user .top .top-info{
 	width:164px;
-	height:30px;
+	height:40px;
 	float:right;
-	font-size:12px;
+	font-size:14px;
 	color:#000;
-	margin-top:10px;
+	margin-top:7px;
 }
 .pnl-user .top .top-info .name{
 	text-overflow: ellipsis;
@@ -74,22 +75,24 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 }
 .pnl-user .user-btn{
 	width:224px;
-	height:24px;
-	line-height:24px;
+	height:32px;
+	line-height:30px;
 	text-align:center;
 	border:1px solid #ddd;
-	font-size:12px;
+	font-size:14px;
 	color:#4a4a4a;
-	margin-bottom:6px;
+	margin-bottom:8px;
 	border-radius:2px;
 	cursor:pointer;
-	border-radius:2px;
 }
 .pnl-user .user-btn:hover{
 	background:#389b9f;
 	color:#fff;
 }
-.pnl-user:before{position:absolute;top:-10px;right:10px;width:0px;height:0px;border-left:10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #fff;content:""}
+.pnl-user .user-logout{
+	margin-bottom:0px;
+}
+.pnl-user:before{position:absolute;top:-6px;right:10px;width:0px;height:0px;border-left:6px solid transparent;border-right: 6px solid transparent;border-bottom: 6px solid #fff;content:""}
 
 .pnl-info{padding:5px 0;}
 .set-info{
@@ -155,6 +158,10 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 }
 .set-info input:focus{
 	border:1px solid #389b9f;
+}
+input[type="text"]:disabled{
+	border:1px solid rgba(56,155,159,0.2);
+	background:none;
 }
 /*右边弹窗*/
 .right-bar{width:272px;height:100%;position:fixed;top:0;right:-272px;z-index:99;background:#fff;overflow:hidden;

@@ -15,9 +15,9 @@
         <li class="head-userinfo">
             <shiro:authenticated>
                 <div class="userName">
-                    <!--<div class="name" title="${current_user.nickName}">${current_user.nickName}</div>-->
-                    <div class="name">123456@heptax.com</div>
-                    <div class="company">用户信息</div>
+                    <div class="name" title="${current_user.nickName}">${current_user.nickName}</div>
+                    
+                    <div class="company">公司名称</div>
                 </div>
             </shiro:authenticated>
         </li>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="user-btn user-set">账号设置</div>
-        <div class="user-btn" onclick="logOut()">退出系统</div>
+        <div class="user-btn user-logout" onclick="logOut()">退出系统</div>
     </div>
 </div>
 
