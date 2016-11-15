@@ -478,6 +478,8 @@ input[type=checkbox]:checked::after {
     color:#fff;
     text-align:center;
     position:relative;
+    background:url(../img/result_hot.png) no-repeat center;
+    background-size:80%;
 }
 .topic .link{
 	white-space: nowrap;
