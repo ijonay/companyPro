@@ -34,7 +34,7 @@
                 <div>公司名称</div>
             </div>
         </div>
-        <div class="user-btn">账号设置</div>
+        <div class="user-btn user-set">账号设置</div>
         <div class="user-btn" onclick="logOut()">退出系统</div>
     </div>
 </div>

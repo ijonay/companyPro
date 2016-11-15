@@ -84,6 +84,97 @@ $(".header-right>li").on("click",function(e){
         
     }
 });
+$(".user-set").on("click",function(){
+//    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' placeholder='请输入公司名称'/></div>"+
+//        "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
+//        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
+//        "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
+    var content=$("<div class='info-lab'>公司名称：</div><input type='text' class='info-txt txt-companyname' placeholder='请输入公司名称'>")
+//    		"<div class='info-lab'>修改密码：</div><input type='password' class='info-txt txt-oldpwd' placeholder='请输入原密码'>")
+//    		"<div class='info-lab'></div><input type='password' class='info-txt txt-newpwd' placeholder='请输入新密码'>"+
+//    		"<div class='info-lab'>确认密码：</div><input type='password' class='info-txt txt-confpwd' placeholder='再次输入新密码'>")
+    var pop = new Pop({
+        width:"396px",
+        header:"账号设置",
+        content:content,
+        buttons:[{
+            type:"popCancle",
+            text:"取消"
+        },{
+            type:"popOk",
+            text:"确定",
+            callback:function(){
+                var companyName=$.trim($('.txt-companyname').val());
+                var oldPwd=$.trim($('.txt-oldpwd').val());
+                var newPwd=$.trim($('.txt-newpwd').val());
+                var confPwd=$.trim($('.txt-confpwd').val());
+                if(oldPwd!=""){
+                    if(newPwd==""){
+                        $('.txt-newpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-newpwd').removeClass("error");
+                    }
+                    if(confPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(newPwd!=""){
+                    if(oldPwd==""){
+                        $('.txt-oldpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-oldpwd').removeClass("error");
+                    }
+                    if(confPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(confPwd!=""){
+                    if(newPwd==""){
+                        $('.txt-newpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-newfpwd').removeClass("error");
+                    }
+                    if(oldPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(newPwd!=""&&confPwd!=""){
+                    if(newPwd!=confPwd){
+                        $('.conf-pwd').find(".info-erro").css("display","block");
+                        return;
+                    }else{
+                        $('.conf-pwd').find(".info-erro").css("display","none");
+                    }  
+                }
+                $.ajax({
+                    type:"post",
+                    url: dataUrl.util.updatePwd(newPwd),
+                    success: function(returnData) {
+                        if(returnData.error.code==0){
+                            window.location.href="user/login";
+                        }
+                    },
+                    error: function() {
+                        console.log('修改密码失败');
+                    }
+                });
+            }
+        }]
+    })
+    $(".popContent").css({"padding-top":"10px","padding-bottom":"6px"})
+})
 /*关闭通知*/
 $(document).delegate(".notify-list>li .notify-close","click",function(e){
     e ? e.stopPropagation() : event.cancelBubble = true;
@@ -510,6 +601,16 @@ $(".hot-prev").mouseover(function(){
 $('#nav_ser').on('input',function(){
 	$(this).css('color','rgba(255,255,255,.8)')
 });
+<<<<<<< HEAD
 //$('#nav_ser').on('focus',function(){
 //	$(this).css('border','2px solid rgba(56,155,159,.5)');
+=======
+$('#nav_ser').on('focus',function(){
+	$(this).css('border','2px solid rgba(56,155,159,.5)');
+})
+//$(document).delegate('.set-info input','focus',function(){
+//    $(this).css('border','1px solid #389b9f');
+//}).delegate('.set-info input','blur',function(){
+//    $(this).css('border','1px solid #ddd');
+>>>>>>> f84ecce5519a2251e940e161c3c0f20f5ff91176
 //})
