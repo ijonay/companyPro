@@ -105,7 +105,8 @@
     <select id="getHotTopicEventList" parameterType="java.lang.String" resultMap="ViewResultMap">
         select id, name,
          DATE_FORMAT(start_date,'%Y-%m-%d') as start_date,
-         DATE_FORMAT(end_date,'%Y-%m-%d') as end_date
+         DATE_FORMAT(end_date,'%Y-%m-%d') as end_date,
+         weibo_url
         from HotTopicPrediction
         where is_active = 1
         and DATE_FORMAT( STR_TO_DATE( #{dateStr,jdbcType=VARCHAR},'%Y-%m-%d'), '%Y-%m') &gt;= DATE_FORMAT(start_date,'%Y-%m')
@@ -118,6 +119,7 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
         <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="weibo_url" jdbcType="VARCHAR" property="weiboUrl"/>
     </resultMap>
 
 </mapper>
