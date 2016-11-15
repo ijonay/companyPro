@@ -1287,7 +1287,10 @@ function loadSvg(){
 		   opacity:0
 	   },500);
 	   $('#ser_section').css("height",'calc(100% - 272px)');
-	   $('.notify-list').css('display',"block");
+	   if($('.notify-list li').length >0){
+		   $('.notify-list').css('display',"block");
+	   };
+	   
 	   $('.nav_ser').delay("fast").fadeOut();
 	  
     }) 

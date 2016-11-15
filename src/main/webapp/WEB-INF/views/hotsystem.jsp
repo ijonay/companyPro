@@ -12,7 +12,7 @@
     <jsp:include page="nav.jsp" />
    <div class="ser_section" id="ser_section">
    		<div class="ser_con row pst">
-			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
+			 <input type="text" placeholder="请输入探索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 
 			 <div class="ser_hint pos f14 cor389b9f hidecommon" id="ser_hint">
 			 	<p>请输入汉字、英文或数字</p>
@@ -78,7 +78,7 @@
    			</div>
    			
    			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
+   				<input type="text" placeholder="请输入探索关键字" maxlength="20" class="f16" id="dialog_ser_text">
 			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
    			</div>
    		
