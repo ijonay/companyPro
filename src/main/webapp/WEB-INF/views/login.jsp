@@ -21,13 +21,10 @@
 </head>
 <body>
 <div class="login-background">
-    <img src="img/loginbg.png">
 </div>
-<div class="about">
-    <img src="img/about.png"><a href="#">关于Heptax</a>
-</div>
+
 <div class="login-logo">
-    <img src="img/vi.png">
+    <img src="img/zhiji_logo.png">
 </div>
 <form id="loginForm" action="user/login" method="post"
       class="login-form" autocomplete="off">
@@ -38,7 +35,7 @@
             <input type='password' name="password" placeholder="密码"/></li>
         <!--<li class="list-group-item"><input type='text' name="checkCode" placeholder="验证码" /></li>-->
     </ul>
-    <input id="loginBtn" type="submit" class="btn-login" value="登录Heptax">
+    <input id="loginBtn" type="submit" class="btn-login" value="登录">
     <a href="#" class="forget">忘记密码</a>
 </form>
 <div class="login-footer">Copyright © 北京知藏云道科技有限公司 Heptax Product
