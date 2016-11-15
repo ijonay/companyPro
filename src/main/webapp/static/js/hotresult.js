@@ -1172,7 +1172,7 @@ function drawWord(data) {
         }
         $item = $("<div class='topic' data-id="+item.id+"></div>")
             .data("info",item).appendTo($("#canvas"));
-        $("<span class='icon " + sizeClass + "'>"+prevailingTrend+"</span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
+        $("<span class='icon " + sizeClass + "'></span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
         var itemWidth = $item.width();
         var itemHeight = $item.height();
         if(itemWidth > 180) {
