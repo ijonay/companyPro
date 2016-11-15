@@ -120,7 +120,7 @@
    							<div></div><div></div><div></div><div></div>
    						</li>
    						<li>99</li>
-   						<li>点击查看</li>
+   						<li>查看画像</li>
    						<li class="hot_relation">关联此热点</li>
    						
    					</ul>
