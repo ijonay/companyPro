@@ -611,10 +611,11 @@ body{
 }
 /*热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 .allHot{
+	border-radius:2px;
 	position:absolute;
 	width:124px;
 	height:34px;
-	font-size:18px;
+	font-size:16px;
 	line-height:32px;
 	color:#eee;
 	text-align:center;

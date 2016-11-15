@@ -8,6 +8,7 @@
 package com.zc.dao;
 
 import com.zc.bean.Topic;
+import com.zc.model.TopicModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -46,4 +47,10 @@ public interface TopicDao {
     List<HashMap<Integer, String>> getAllCoordinates();
 
     List<Topic> getByIdList(@Param("list") List<Integer> idList);
+
+    int inactiveTopic(@Param("id") Integer id);
+
+    int activeTopic(@Param("id") Integer id);
+
+    List<TopicModel> getTopicsByKeyword(@Param("keyword") String keyword);
 }
