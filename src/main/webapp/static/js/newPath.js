@@ -185,14 +185,18 @@ function pageChange(up){
 function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
 	var height = $("#canvas").height();
 	var width = $("#canvas").width();
+	var canvasRect = $("#canvas").get(0).getBoundingClientRect();
+//	height = canvasRect.bottom - canvasRect.top;
+	var bodyHeight = $("body").height();
+	var leftRightSpace = height*0.2 + 35;
     var paper = Raphael("canvas", '100%', '100%');
 //    var lineArray = [8,6,4,5,5];
     var lineArray = lineArray;
     var nodeList = nodeList;
     var theta = "";//角度
     var thetaArray = [];
-    var startPoint = [115,height/2];
-    var endPoint = [width-115,height/2];
+    var startPoint = [leftRightSpace,height/2];
+    var endPoint = [width-leftRightSpace,height/2];
     var lines = [];
     var cycles = [];
     var linkImg = "";
@@ -423,10 +427,28 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     	            text:"确定",
     	            callback:function(){
 //    	                $('#nav_ser').val($('.txt-word').val());
+    	            	
+//    	                $('#nav_ser').val($('.txt-word').val());
+    	            	var hash = decodeURIComponent(location.hash);
+    	            	hash = hash.substr(1)
+    	            	var pathInfo = {};
+    	            	var infoArray = hash.split("&");
+    	            	$.each(infoArray,function(index,item){
+    	            		var temp = item.split("=");
+    	            		pathInfo[temp[0]] = temp[1];
+    	            	})
+//    	            	var word = $('.txt-word').val();    	            	
+//    	            	 $(".bottom-choice").hide();
+//    	            	 pageNum = 0;
+//    	            	 var tempHash = decodeURIComponent(location.hash);
+//    	            	 location.hash = tempHash.replace(/keyWord/,word);
+    	            	
     	            	var word = $('.txt-word').val();    	            	
     	            	 $(".bottom-choice").hide();
     	            	 pageNum = 0;
-    	            	 location.hash = location.hash.split(keyWord).join(word);
+    	            	 var tempHash = decodeURIComponent(location.hash);
+    	            	 pathInfo.query = word;
+    	            	 location.hash = "query="+pathInfo.query+"&topicId="+pathInfo.topicId+"&hotTopic="+pathInfo.hotTopic;
     	            	 getPath();
     	            	 $("#prev-path").addClass("disstate");
     	            	 $("#prev-next").addClass("disstate");
@@ -606,12 +628,14 @@ $('.path-dialog,.bottom-choice').on('click',function(e){
 $('.choice-keyword').text(GetRequest('query').query);
 $('.choice-hot').text(GetRequest('query').hotTopic);
 $("#prev-path").click(function(){
+	$(".pathName").hide();
     if($(this).hasClass("disstate")){
         return;
     }
     pageChange(false);
 })
 $("#prev-next").click(function(){
+	$(".pathName").hide();
     if($(this).hasClass("disstate")){
         return;
     }

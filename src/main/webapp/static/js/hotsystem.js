@@ -54,7 +54,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		    dataType:"json",
 			url:dataUrl.util.getCommon(),
 			success:function(returnData){
-				console.log(returnData.data)
 				$('.favorite_div').removeClass('hidecommon');
 				if(returnData.data != null && returnData.error.code == 0){
 					
@@ -96,14 +95,12 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		if(arrCon.contains(val)==true ){
 			return;
 		};
-		console.log(val);
 		var data = {searchWords:val};
 		$.ajax({
 			type:"post",
 			url:dataUrl.util.addCommon(),
 			data:data,
 			success:function(returnData){
-				console.log(returnData.data.id);
 				if(returnData.error.code == 0){
 					$('.favorite_div').removeClass('hidecommon');
 					if(len>=5){
@@ -134,7 +131,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			url:dataUrl.util.cancleCommon(),
 			data:data,
 			success:function(returnData){
-				console.log(returnData);
 				if(returnData.error.code == 0){
 					$this.parent().remove();
 					if($('#favorite_ul li').length == 0){
@@ -180,7 +176,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		    dataType:"json",
 			url:dataUrl.util.getSerHistory(),
 			success:function(returnData){
-				console.log(returnData.data)
 				if(returnData.data != null && returnData.error.code == 0){
 					var str = "";
 					$.each(returnData.data,function(index,item){
@@ -327,7 +322,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	$('#cook_ul').delegate('li span','click',function(e){
 		var $this = $(this);
 		var id = $(this).parent().data("id");
-		console.log(id)
 		e ? e.stopPropagation() : event.cancelBubble = true;	
 		var data = {"id":id};
 		$.ajax({
@@ -335,7 +329,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			url:dataUrl.util.cancleSerHistory(),
 			data:data,
 			success:function(returnData){
-				console.log(returnData);
 				if(returnData.error.code == 0){
 					$this.parent().remove();
 				}
@@ -383,7 +376,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		    dataType:"json",
 			url:dataUrl.util.getInpList(),
 			success:function(returnData){
-				console.log(returnData);
 				returnData = returnData.data;
 				if(returnData == null){
 					console.log('数据为空');
@@ -509,7 +501,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					if(ageVal2){
 						dataObj.Age.push(ageVal2)
 					}
-					console.log(dataObj)
 					var hash = JSON.stringify(dataObj);
 					window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
 				}else{
@@ -583,7 +574,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(ageVal2){
 					dataObj.Age.push(ageVal2)
 				}
-				console.log(dataObj)
 				var hash = JSON.stringify(dataObj);
 				window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
 			}else{
@@ -640,7 +630,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	$('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
 		var dataId = $(this).attr('data-id');
 		var num = Number($('.cor389b9f').find('span').text());
-		console.log(num)
 		var textCon = $(this).parent().text();
 		
 		if($(this).is(':checked')){
@@ -694,7 +683,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			var lenList = $('#inp_data_event').find('i').length;
 			$(inList).each(function(i,item){
 				if($(this).prop("checked")==false){
-					console.log($(this).parent().text());
 					$('#inp_data_event').removeClass('hidecommon');
 					$('#inp_data_event').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
 					
@@ -736,7 +724,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	$('.dialog_tab_person').delegate(' .inp_ch_list input','click',function(){
 		
 		var dataId = $(this).attr('data-id');
-		console.log(dataId);
 		var num = Number($('.cor389b9f').find('span').text());
 		var textCon = $(this).parent().text();
 		var textPar = $('.cor389b9f').find('em').text();
@@ -851,7 +838,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					}else if(textPar=='学历'){
 						$('#inp_data_person1 .person_education').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
 						var textStr = $('.person_education i:last').text();
-						console.log(textStr)
 						if(textStr.indexOf('、')>-1){
 							var newStr = textStr.substring(0,textStr.length-1)
 							$('.person_education i:last').text(newStr);
@@ -1010,19 +996,43 @@ var idArray = [1,2,3,4,5,6,7,8,9,10];
 var triangleStep = 35;
 var canClick = true;
 function loadSvg(){
-        var width = $("#papersvg").css("width");
+    var width = $("#papersvg").css("width");
     width = width.split("px")[0];
     paper = Raphael("papersvg",width,200);
     //paper.clear()
     var xArray = [];
     var yArray = [];
     var step = width/11;
+    var yMin = 100;
+    var yMax = 0;
     for(var i=1;i<11;i++){
         xArray.push(step*i)
-    };   
+    };
     for(var i=0;i<10;i++){
-        yArray.push(100-scoreArray[i])
+    	if(yMin > scoreArray[i]){
+    		yMin = scoreArray[i];
+    	}
+    	if(yMax < scoreArray[i]){
+    		yMax = scoreArray[i];
+    	}
     }
+//    $.each(yArray,function(index,item){
+//    	alert(item)
+//    	if(yMin > item){
+//    		yMin = item;
+//    	}
+//    	if(yMax < item){
+//    		yMax = item;
+//    	}
+//    })
+    var step = yMax - yMin;
+    step += 1;
+    for(var i=0;i<10;i++){
+        yArray.push(80 - (60/step)*(scoreArray[i] - yMin))
+    }
+    
+   
+    
     var baseLine = "M 0 65 R ";
     for(var i=0;i<xArray.length;i++){
         baseLine += xArray[i] + " 65 ";
@@ -1170,7 +1180,8 @@ function loadSvg(){
             $(".infoConnect").attr("data-index",index);
             $(".infoConnect").attr("data-topic",titleArray[index]);
             $(".infoIcon").hide();
-            $.each(formArray[index],function(index,item){            	
+            $(".iconCon a").hide();
+            $.each(formArray[index],function(index,item){
             	$("#icon"+item).show();
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
@@ -1195,7 +1206,6 @@ function loadSvg(){
     		var hotTopId = $this.attr("data-id");
 //    	}
     	topic = topic.replace(/#/g,"");
-    	console.log(topic);
     	if($(".selectTag")){
     		$(".selectTag").attr("title",topic);
     		$(".selectTag").html(topic)
@@ -1397,7 +1407,6 @@ function loadSvg(){
     		type:"get",
     		url:dataUrl.util.getPercentData($(this).attr("data-id")),
     		success:function(data){
-    			console.log(data);
     			var data = data.data;
     			if(data == null){
     				str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
@@ -1470,15 +1479,15 @@ function loadSvg(){
     				var educationCharts = echarts.init(educationCon.get(0));
     				var educationOption = $.extend(true,{},circleOption);
     				educationOption.title.text = "受众学历分布";
-    				educationOption.color = ['#ffd154','#6faef5','#5bcecd','#f28a3e','#e478ee','#f24747'];
+    				educationOption.color = ['#1f81c5','#15a9e0','#49c4d1','#3cbca0','#8eca6d','#54e6a0'];
     				var educationMax = 0;
     				var educationMaxIndex = 0;
     				educationOption.series[0].name = "学历分布";
     				$.each(data.education,function(index,item){
-    					educationOption.legend.data.push({name:item.name+" "+item.value+"%",icon:"circle"});
+    					educationOption.legend.data.push({name:item.name+" "+item.value.toFixed(2)+"%",icon:"circle"});
     					var tempItem = JSON.stringify(item);
     					tempItem = JSON.parse(tempItem);
-    					tempItem.name = item.name+" "+item.value+"%";
+    					tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
     					educationOption.series[0].data.push(tempItem);
     					if(educationMax > item.value){    						
     					}else{
@@ -1533,7 +1542,7 @@ function loadSvg(){
 	    	        			max = item.value
 	    	        		}
 	    	        	});
-	    	        	max += 0.1;
+	    	        	max += 0.2;
 	    	        	$.each(interest,function(i,item){
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});
@@ -1646,9 +1655,7 @@ function loadSvg(){
     	        		tempArray.push(item.value);
     	        		trueData.push(tempArray);
     	        	});
-    	        	console.log(trueData);
     	        	trueData.sort(function(x,y){return x[0] - y[0]})
-    	        	console.log(trueData);
     	        	ageNewCharts.setOption({
     	        			backgroundColor:"#fff",
 	    	        		title: {
@@ -1792,7 +1799,6 @@ function loadSvg(){
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	console.log(obj)
     	        	        	var a = "";
     	        	        	if(obj.value){
     	        	        		a += obj.value.toFixed(2) + "%";
@@ -1971,9 +1977,8 @@ function loadSvg(){
     	$(".all_hot_list_bot").hide();
     	$("#ulBottom"+index).show();
     	setTimeout(function(){
-    		console.log(index)
     		var a = $("#ulBottom"+index).offset().top;
-    		a -= 300;
+    		a -= 450;
     		$("html,body").animate({scrollTop:a},"slow");
     	},150)
     })
@@ -2000,6 +2005,6 @@ $(window).scroll(function(){
     }
 });
 $('#comeback_hot_home').on('click',function(){
-	$(window).scrollTop(180)
+	$('body').animate({scrollTop:"0px"},500)
 }); 
 
