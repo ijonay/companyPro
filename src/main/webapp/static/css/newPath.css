@@ -5,7 +5,7 @@
 .header{background:#052e44;}
 .nav_ser{display:block;}
 .notify-list{display:none!important;} 
-html,body{
+html{
 	height:100%;
 	margin:0!important;
 	padding:0!important
@@ -13,6 +13,7 @@ html,body{
 body{
 	margin-bottom:15px;
 	background-color:#F2F2F2;
+	height:97%
 }
 .nav-menu-ul li:nth-child(11) a {
     background: #222;
@@ -21,7 +22,7 @@ body{
 	padding:0;
 	position:relative;
 	width:100%;
-	height:calc(100% - 120px);
+	height:calc(100% - 130px);
 }
 .result-section-img{
 	width:258px;height:27px;background:url(../img/hotspotstitle.png) no-repeat;margin-top:9px;
