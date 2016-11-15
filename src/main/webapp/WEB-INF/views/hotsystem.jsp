@@ -73,7 +73,7 @@
    					</li>
    				</ol>
    				
-   				<div class="fl dialog_inp_del cor389b9f pointer" id="dialog_inp_del">清空已选</div>
+   				<div class="fl dialog_inp_del  pointer" id="dialog_inp_del">清空已选</div>
    				
    			</div>
    			
