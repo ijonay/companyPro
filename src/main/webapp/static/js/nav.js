@@ -56,7 +56,8 @@ $(".bar-tabs>li").on("click",function(){
     }
 });
 /*头部菜单栏*/
-$(".header-right>li").on("click",function(){
+$(".header-right>li").on("click",function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
     if($(this).hasClass("head-pred")){//热点预告
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
@@ -71,6 +72,16 @@ $(".header-right>li").on("click",function(){
         $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
+    }else if($(this).hasClass("head-userinfo")){//用户信息
+        if($(".pnl-user").css("display")=="none"){
+            $(this).find(".company").css("background-image","url(img/up-arrow.png)");
+            $(".pnl-user").css("display","block");
+            $(".notify-list").css("display","none");
+        }else{
+            $(this).find(".company").css("background-image","url(img/down-arrow.png)");
+            $(".pnl-user").css("display","none");
+        }
+        
     }
 });
 /*关闭通知*/
@@ -134,6 +145,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             url: dataUrl.util.delAllNotify(ids.join(",")),
             success: function(returnData) {
                 $(".notify-tab-list>li").remove();
+                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
             },
             error: function() {
                 console.log('清空探索通知失败');
@@ -147,6 +159,7 @@ $(document).on('click',function(e){
         if($(window).width() - e.clientX > 277)
         $(".right-bar-close").trigger("click");
     }
+    $(".pnl-user").css("display","none");
 });
 //获取当前日期热点预告
 function getHotPred(date){
@@ -482,6 +495,16 @@ jQuery(document).ready(function ($) {
     $('.bar-content').perfectScrollbar({suppressScrollX: true});
 });
 
+$(".hot-next").mouseover(function(){
+    $(this).find("div").css("background","url(img/hot-next-hover.png)");
+}).mouseout(function(){
+    $(this).find("div").css("background","url(img/hot-next.png)");
+});
+$(".hot-prev").mouseover(function(){
+    $(this).find("div").css("background","url(img/hot-prev-hover.png)");
+}).mouseout(function(){
+    $(this).find("div").css("background","url(img/hot-prev.png)");
+});
 //输入框
 $('#nav_ser').on('input',function(){
 	$(this).css('color','rgba(255,255,255,.8)')

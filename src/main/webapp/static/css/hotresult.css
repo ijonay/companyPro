@@ -57,13 +57,13 @@ input[type=checkbox]:checked::after {
 }
 .dialog_area{width:810px;padding-bottom:10px;background:#fff;margin:120px auto 0;}
 .dialog_title{height:40px;line-height:40px;background:#e8ebed;padding:0 20px;}
-.dialog_title span{width:14px;height:14px;float:right;background:url(../img/cook_li_del.png) no-repeat;margin-top:15px;}
-.dialog_title span:hover{background:url(../img/cook_li_del_hover.png) no-repeat;}
+.dialog_title span{width:8px;height:8px;float:right;background:url(../img/del_black.png) no-repeat;margin-top:15px;margin-right:-2px;}
+.dialog_title span:hover{background:url(../img/del_bule.png) no-repeat;}
 .dialog_tab{padding:0 0 0 20px;height:40px;line-height:40px;}
 .dialog_tab li span{display:none;}
 .dialog_tab li{float:left;margin-right:10px;cursor:pointer;background:url(../img/hot_arrow_down.png) no-repeat right center;padding-right:16px;}
 .dialog_tab li.hot_arrow_up{background:url(../img/hot_arrow_up.png) no-repeat center right;}
-.dialog_tab li span{width:16px;height:16px;border-radius:50%;background:#389b9f;color:#fff;font-size:12px;text-align:center;line-height:16px;top:-2px;right:-4px;}
+.dialog_tab li span{width:16px;height:16px;border-radius:50%;background:#389b9f;color:#fff;font-size:12px;text-align:center;line-height:16px;top:-2px;right:0px;}
 .dislog_inp_con ul{width:100%;height:70px;background:#e8ebed;padding:0 20px;position:relative;}
 .dislog_inp_con ul li{font-size:14px;}
 .dislog_inp_con ul li.inp_ch_list label{line-height:35px;width:98px;margin-bottom:0;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;margin-right:30px;float:left;}
@@ -93,7 +93,10 @@ input[type=checkbox]:checked::after {
 .dialog_inp_c_data::-webkit-scrollbar-corner {background-color: black;}
 .dialog_inp_c_data::-webkit-scrollbar {width: 3px;color: blue;}
 .dialog_inp_c_data #inp_data_event{border-radius:2px;font-size:14px;margin-bottom:8px;position:relative;float:left;padding:0px 38px 0px 12px;color:#4a4a4a;margin-right:10px;line-height:28px;line-height:28px;}
-.dialog_inp_c_data li span{top:10px;background:url(../img/favorite_close.png) no-repeat;cursor:pointer;position:absolute;width:8px;height:8px;right:12px;}
+.dialog_inp_c_data #inp_data_event span{top:10px;background:url(../img/del_black.png) no-repeat;cursor:pointer;position:absolute;width:8px;height:8px;right:12px;}
+.dialog_inp_c_data #inp_data_event span:hover{background:url(../img/del_bule.png) no-repeat;}
+.dialog_inp_c_data #inp_data_person1 span{top:10px;background:url(../img/del_black.png) no-repeat;cursor:pointer;position:absolute;width:8px;height:8px;right:12px;}
+.dialog_inp_c_data #inp_data_person1   span:hover{background:url(../img/del_green.png) no-repeat;}
 #inp_data_person1 div{border-radius:2px;font-size:14px;margin-bottom:4px;border:1px solid #009944;float:left;padding:0px 38px 0px 12px;color:#4a4a4a;margin-right:10px;line-height:30px;height:30px;}
 #inp_data_event{border:1px solid #389b9f;}
 .dialog_inp_del{margin-top:8px;margin-left:16px;}
@@ -605,9 +608,9 @@ input[type=checkbox]:checked::after {
 	position:absolute;
 	top:240px;
 	left:34.5px;
-	background-image:url(../img/hot-prev.png);
 	background-repeat:no-repeat;
     background-position:center;
+    border-radius:2px;
 }
 .hot-next{
     width:51px;
@@ -615,13 +618,19 @@ input[type=checkbox]:checked::after {
     position:absolute;
     top:240px;
     right:34.5px;
-    background-image:url(../img/hot-next.png);
     background-repeat:no-repeat;
     background-position:center;
+    border-radius:2px;
+}
+.hot-prev div,.hot-next div{
+	vertical-align:top;
+	margin-top:16px;
+	margin-left:13.5px;
+	width:24px;
+	height:44px;
 }
 .hot-prev:hover,.hot-next:hover{
-	opacity:0.5;
-	background-color:rgba(0,0,0,0.5);
+	background-color:rgba(0,0,0,0.2);
 }
 
 /*热点详情弹窗*/
@@ -636,9 +645,9 @@ input[type=checkbox]:checked::after {
     box-sizing: border-box;
     background-color:#fff;
     border-radius: 2px;
-    -moz-box-shadow:0px 0px 16px rgba(0,0,0,.5);
-    -webkit-box-shadow:0px 0px 16px rgba(0,0,0,.5);
-    box-shadow:0px 0px 16px rgba(0,0,0,.5);
+    -moz-box-shadow:0px 0px 18px rgba(0,0,0,.3);
+    -webkit-box-shadow:0px 0px 18px rgba(0,0,0,.3);
+    box-shadow:0px 0px 18px rgba(0,0,0,.3);
 }
 .portrait{
     float:left;

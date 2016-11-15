@@ -41,8 +41,8 @@
 	</div>    
     <div class="clearfix"></div>
     <div class="result-content">
-        <div class="hot-prev"></div>
-        <div class="hot-next"></div>
+        <div class="hot-prev"><div style="background:url(img/hot-prev.png);"></div></div>
+        <div class="hot-next"><div style="background:url(img/hot-next.png);"></div></div>
         <div class="result-section">
             <div id="canvas">
                 <div class='edit-word'></div>
