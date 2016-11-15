@@ -25,6 +25,7 @@ public interface UsersService {
 
     Boolean updateUserState(Integer id, Boolean state);
 
+
     Boolean changePassword(Integer id, String password);
 
     /**
