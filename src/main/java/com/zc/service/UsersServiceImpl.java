@@ -98,6 +98,7 @@ public class UsersServiceImpl implements UsersService {
         if (record == null) {
             throw new ServiceException(StatusCodeEnum.SERVER_ERROR, "无此用户信息！");
         }
+        record.setPassword(password);
 
         PasswordHelper.encryptPassword(record);
 
