@@ -26,7 +26,7 @@ var timeOut;
 var circleTimeout;
 var isShow = false;
 var prevNum = 0;
-function getPath(explore){
+function getPath(explore){	
 	var hash = decodeURIComponent(location.hash);
 	hash = hash.substr(1)
 	var pathInfo = {};
@@ -65,7 +65,7 @@ function getPath(explore){
                 console.log("数据为空");
                 return;
             };
-            $('#canvas').css('height','500px');
+//            $('#canvas').css('height','500px');
             var dataStr = JSON.stringify(data.data);
             Pages = JSON.parse(dataStr);
             if(Pages.length <= 4){
@@ -97,7 +97,6 @@ function getPath(explore){
                 nodeList.push(tempNode);
             });
            $('#load-con').addClass('hidecommon');
-           $('#canvas').html('');
             raphealDraw(lineArray,nodeList,query,hotTopic); 
             $('#search-btn').removeAttr("disabled"); 
         },
@@ -183,16 +182,22 @@ function pageChange(up){
     raphealDraw(lineArray,nodeList,query,hotTopic); 
 }
 function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
+    $('#canvas').html('');
 	var height = $("#canvas").height();
 	var width = $("#canvas").width();
+	var canvasRect = $("#canvas").get(0).getBoundingClientRect();
+	height = canvasRect.bottom - canvasRect.top;
+//	alert(height)
+	var bodyHeight = $("body").height();
+	var leftRightSpace = height*0.2 + 35;
     var paper = Raphael("canvas", '100%', '100%');
 //    var lineArray = [8,6,4,5,5];
     var lineArray = lineArray;
     var nodeList = nodeList;
     var theta = "";//角度
     var thetaArray = [];
-    var startPoint = [115,height/2];
-    var endPoint = [width-115,height/2];
+    var startPoint = [leftRightSpace,height/2];
+    var endPoint = [width-leftRightSpace,height/2];
     var lines = [];
     var cycles = [];
     var linkImg = "";
@@ -423,10 +428,28 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
     	            text:"确定",
     	            callback:function(){
 //    	                $('#nav_ser').val($('.txt-word').val());
+    	            	
+//    	                $('#nav_ser').val($('.txt-word').val());
+    	            	var hash = decodeURIComponent(location.hash);
+    	            	hash = hash.substr(1)
+    	            	var pathInfo = {};
+    	            	var infoArray = hash.split("&");
+    	            	$.each(infoArray,function(index,item){
+    	            		var temp = item.split("=");
+    	            		pathInfo[temp[0]] = temp[1];
+    	            	})
+//    	            	var word = $('.txt-word').val();    	            	
+//    	            	 $(".bottom-choice").hide();
+//    	            	 pageNum = 0;
+//    	            	 var tempHash = decodeURIComponent(location.hash);
+//    	            	 location.hash = tempHash.replace(/keyWord/,word);
+    	            	
     	            	var word = $('.txt-word').val();    	            	
     	            	 $(".bottom-choice").hide();
     	            	 pageNum = 0;
-    	            	 location.hash = location.hash.split(keyWord).join(word);
+    	            	 var tempHash = decodeURIComponent(location.hash);
+    	            	 pathInfo.query = word;
+    	            	 location.hash = "query="+pathInfo.query+"&topicId="+pathInfo.topicId+"&hotTopic="+pathInfo.hotTopic;
     	            	 getPath();
     	            	 $("#prev-path").addClass("disstate");
     	            	 $("#prev-next").addClass("disstate");
@@ -606,12 +629,14 @@ $('.path-dialog,.bottom-choice').on('click',function(e){
 $('.choice-keyword').text(GetRequest('query').query);
 $('.choice-hot').text(GetRequest('query').hotTopic);
 $("#prev-path").click(function(){
+	$(".pathName").hide();
     if($(this).hasClass("disstate")){
         return;
     }
     pageChange(false);
 })
 $("#prev-next").click(function(){
+	$(".pathName").hide();
     if($(this).hasClass("disstate")){
         return;
     }
@@ -663,3 +688,11 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
     	}
     }
 })
+var setTime;
+window.onresize = function(){
+	clearTimeout(setTime);
+	setTime = setTimeout(function(){
+		getPath(false);
+	},500)
+	
+}

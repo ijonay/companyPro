@@ -12,7 +12,7 @@
     <jsp:include page="nav.jsp" />
    <div class="ser_section" id="ser_section">
    		<div class="ser_con row pst">
-			 <input type="text" placeholder="请输入搜索关键字" maxlength="20" class="ser_text f16" id="ser_text">
+			 <input type="text" placeholder="请输入探索关键字" maxlength="20" class="ser_text f16" id="ser_text">
 
 			 <div class="ser_hint pos f14 cor389b9f hidecommon" id="ser_hint">
 			 	<p>请输入汉字、英文或数字</p>
@@ -78,7 +78,7 @@
    			</div>
    			
    			<div class="dialog_ser">
-   				<input type="text" placeholder="请输入搜索关键字" maxlength="20" class="f16" id="dialog_ser_text">
+   				<input type="text" placeholder="请输入探索关键字" maxlength="20" class="f16" id="dialog_ser_text">
 			 	<div class="pointer f16 ac fr" id="dialog_ser_to">探索</div>
    			</div>
    		
@@ -334,9 +334,9 @@
             <span class="planText font14 fl">热度:</span><span class="hotValue fl">99</span>
             <div class="iconCon fr">
 	            <a target=" _blank" id="iconweibo" class="weibo-link" href="javascript:;" style="background-image:url(img/hot_weibo.png);"></a>
-                <a target=" _blank" id="iconweibo" class="weixin-link" href="javascript:;" style="background-image:url(img/hot_weixin.png);"></a>
-                <a target=" _blank" id="iconweibo" class="zhihu-link" href="javascript:;" style="background-image:url(img/hot_zhihu.png);"></a>
-                <a target=" _blank" id="iconweibo" class="baidu-link" href="javascript:;" style="background-image:url(img/hot_baidu.png);"></a>
+                <a target=" _blank" id="iconwechat" class="weixin-link" href="javascript:;" style="background-image:url(img/hot_weixin.png);"></a>
+                <a target=" _blank" id="iconzhihu" class="zhihu-link" href="javascript:;" style="background-image:url(img/hot_zhihu.png);"></a>
+                <a target=" _blank" id="iconbaidu" class="baidu-link" href="javascript:;" style="background-image:url(img/hot_baidu.png);"></a>
             </div>
             <span class="planText font14 fr">来源:</span>
         </div>

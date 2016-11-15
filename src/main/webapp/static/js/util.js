@@ -9,7 +9,7 @@ dataUrl.util = {
     	return encodeURI("api/topicclass/getsearchitem");
     },
     getResultList: function (clueWord, pageSize, currentPage) {//获取话题列表
-        return encodeURI("api/topic/getlist?clueWord=" + clueWord + "&pageSize=" + pageSize + "&currentPage=" + currentPage);
+        return encodeURI("api/topic/getlist?clueWord="+clueWord+"&pageSize=" + pageSize + "&currentPage=" + currentPage);
     },
     getPathInfo: function (startNode, endNode) {
         return localhostNewUrl + "api/paths/nodeRelations?startNode=" + startNode + "&endNode=" + endNode;
@@ -64,6 +64,9 @@ dataUrl.util = {
     },
     delAllNotify:function(id){
         return encodeURI('api/hotTopicMessage/delAll?ids='+id)//删除所有通知
+    },
+    updatePwd:function(pwd){
+        return "api/account/changep?password="+pwd;
     }
 }
 

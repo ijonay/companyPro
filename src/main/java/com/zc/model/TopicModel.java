@@ -36,7 +36,7 @@ public class TopicModel {
     private String zhihuUrl;
     private Integer zhihuAvgAnswerNumber;
     private String eventClass;
-
+    private Integer isActive;
 
     /**
      * @return the id
@@ -252,5 +252,13 @@ public class TopicModel {
 
     public void setEventClass(String eventClass) {
         this.eventClass = eventClass;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 }

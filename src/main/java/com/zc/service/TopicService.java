@@ -67,5 +67,14 @@ public interface TopicService {
 
     Object getTopicPercentage(Integer topicId);
 
+    boolean inactiveTopic(Integer id);
+    boolean activeTopic(Integer id);
 
+    /**
+     * searching topics by keyword
+     * @param keyword
+     * @return
+     */
+    List<TopicModel> getTopicsByKeyword(String keyword);
+    boolean update(Topic topic);
 }
