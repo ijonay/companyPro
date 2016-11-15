@@ -49,7 +49,8 @@ public class HotTopicPrediction {
      */
     private Integer isActive;
     
-    
+    private String weiboUrl;
+
     /**
      * 设置 表的  id 字段值
      * 
@@ -192,4 +193,11 @@ public class HotTopicPrediction {
         this.note = note;
     }
 
+    public String getWeiboUrl() {
+        return weiboUrl;
+    }
+
+    public void setWeiboUrl(String weiboUrl) {
+        this.weiboUrl = weiboUrl;
+    }
 }
