@@ -627,7 +627,7 @@ body{
 .allHot:hover{
 	border-radius:17px;
 }
-.all_hot{padding-left:48px;padding-right:48px;width:100%;
+.all_hot{position:relative;padding-left:48px;padding-right:48px;width:100%;
  filter:alpha(opacity=0);-moz-opacity:0;opacity:0;
 /*  margin-top:100px; */
 }
@@ -672,6 +672,45 @@ body{
 }
 .all_hot_bar li:nth-child(6){
 	width:15%;text-align:center;
+}
+
+.upPage{
+	position:absolute;
+	top:-30px;
+	width:40px;
+	height:45px;
+	left:50%;
+	background-size:40px auto;
+	background-position:center center;
+	background-repeat:no-repeat;
+	transform:translate(-50%,0);
+	background-image:url(../img/upPage.png);
+	display:inline-block;
+	animation:upmove 1s ease infinite;
+	cursor:pointer;
+}
+@keyframes upmove
+{
+from {background-position:0 3px;}
+to {background-position:0 -6px;}
+}
+
+@-moz-keyframes upmove /* Firefox */
+{
+from {background-position:0 3px;}
+to {background-position:0 -6px;}
+}
+
+@-webkit-keyframes upmove /* Safari 和 Chrome */
+{
+from {background-position:0 3px;}
+to {background-position:0 -6px;}
+}
+
+@-o-keyframes upmove /* Opera */
+{
+from {background-position:0 3px;}
+to {background-position:0 -6px;}
 }
 .all_hot_list_top{height:60px;line-height:60px;background:#fff;padding-left:30px;border-bottom:1px solid #eee}
 .all_hot_list_top >li{float:left;} 
@@ -935,4 +974,7 @@ body{
 }
 .type-num  b{
 	font-size:14px;
+}
+.pointer{
+	cursor:pointer
 }
