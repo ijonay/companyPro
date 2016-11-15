@@ -146,6 +146,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             success: function(returnData) {
                 $(".notify-tab-list>li").remove();
                 $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $(".notify-count").data("count",0).text("").css("display","none");
             },
             error: function() {
                 console.log('清空探索通知失败');
@@ -384,10 +385,10 @@ $.ajax({
                 $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
             }else{
                 $(".notify-count").attr("data-count",0).text("").css("display","none");
-                $(".notify-tab-list").html("<li style='text-align:center;'><a>暂无通知</a></li>");
+                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
             }
         }else{
-            $(".notify-tab-list").html("<li style='text-align:center;'><a>暂无通知</a></li>");
+        	$('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
             $(".notify-operate").css("display","none");
         }
     },
@@ -509,6 +510,6 @@ $(".hot-prev").mouseover(function(){
 $('#nav_ser').on('input',function(){
 	$(this).css('color','rgba(255,255,255,.8)')
 });
-$('#nav_ser').on('focus',function(){
-	$(this).css('border','2px solid rgba(56,155,159,.5)');
-})
+//$('#nav_ser').on('focus',function(){
+//	$(this).css('border','2px solid rgba(56,155,159,.5)');
+//})
