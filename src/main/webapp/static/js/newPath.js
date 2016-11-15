@@ -27,7 +27,6 @@ var circleTimeout;
 var isShow = false;
 var prevNum = 0;
 function getPath(explore){	
-	$("#canvas").html('');
 	var hash = decodeURIComponent(location.hash);
 	hash = hash.substr(1)
 	var pathInfo = {};
@@ -66,7 +65,7 @@ function getPath(explore){
                 console.log("数据为空");
                 return;
             };
-            $('#canvas').css('height','500px');
+//            $('#canvas').css('height','500px');
             var dataStr = JSON.stringify(data.data);
             Pages = JSON.parse(dataStr);
             if(Pages.length <= 4){
@@ -98,7 +97,6 @@ function getPath(explore){
                 nodeList.push(tempNode);
             });
            $('#load-con').addClass('hidecommon');
-           $('#canvas').html('');
             raphealDraw(lineArray,nodeList,query,hotTopic); 
             $('#search-btn').removeAttr("disabled"); 
         },
@@ -184,10 +182,12 @@ function pageChange(up){
     raphealDraw(lineArray,nodeList,query,hotTopic); 
 }
 function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
+    $('#canvas').html('');
 	var height = $("#canvas").height();
 	var width = $("#canvas").width();
 	var canvasRect = $("#canvas").get(0).getBoundingClientRect();
-//	height = canvasRect.bottom - canvasRect.top;
+	height = canvasRect.bottom - canvasRect.top;
+//	alert(height)
 	var bodyHeight = $("body").height();
 	var leftRightSpace = height*0.2 + 35;
     var paper = Raphael("canvas", '100%', '100%');

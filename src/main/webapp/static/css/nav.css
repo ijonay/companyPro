@@ -7,7 +7,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 .header .header-right li{float:left;height:100%;cursor:pointer;}
 .header .header-right li a{width:36px;height:36px;display:inline-block;margin-top:12px;border-radius:50%;}
 .header .header-right li.nav_ser{width:240px;padding-top:12px;margin-right:30px;position:relative;}
-.header .header-right li.nav_ser input{    background: rgba(255,255,255,0);border-radius: 50px;border:0;width:244px;height:36px;color:#fff;padding:0 40px 0 14px;margin-top:-2px;color:rgba(255,255,255,.2);line-height:36px;font-family: "Microsoft YaHei";border:1px solid rgba(255,255,255,.2)}
+.header .header-right li.nav_ser input{background: rgba(255,255,255,0);border-radius: 50px;border:0;width:244px;height:36px;color:#fff;padding:0 40px 0 14px;margin-top:-1px;color:rgba(255,255,255,.2);line-height:36px;font-family: "Microsoft YaHei";border:1px solid rgba(255,255,255,.2)}
 .header .header-right li.nav_ser input:focus{
 	border:2px solid rgba(56,155,159,.5);
 }
@@ -56,7 +56,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	width:50px;
 	height:50px;
 	border-radius:50%;
-	background:#ddd;
+	background:url(../img/userinfo-icon.png) no-repeat center;
 	float:left;
 }
 .pnl-user .top .top-info{
@@ -100,6 +100,7 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	position:relative;
 }
 .set-info input{
+	border-radius:2px;
 	height:36px;
 	border:1px solid #ccc;
 	width:276px;
@@ -156,7 +157,13 @@ body,html{font-family:  "Microsoft YaHei"!important,"Arial";-webkit-font-smoothi
 	border:1px solid #389b9f;
 }
 /*右边弹窗*/
-.right-bar{width:272px;height:100%;position:fixed;top:0;right:-272px;z-index:99;background:#fff;overflow:hidden;}
+.right-bar{width:272px;height:100%;position:fixed;top:0;right:-272px;z-index:99;background:#fff;overflow:hidden;
+		   -moz-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+    	   -webkit-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+   		   -o-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+   		   -ms-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+   		   box-shadow:-2px 0px 18px rgba(0,0,0,.3);		
+}
 .bar-content{overflow:hidden;}
 .right-bar .bar-tabs{font-size:14px;color:rgba(0,0,0,0.5);height:50px;padding:0 32px 0 32px;background:#fff;}
 .right-bar .bar-tabs li{float:left;line-height:50px;margin-right:34px;color:#ccc;cursor:pointer;}

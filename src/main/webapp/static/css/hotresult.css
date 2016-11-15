@@ -479,8 +479,8 @@ input[type=checkbox]:checked::after {
     color:#fff;
     text-align:center;
     position:relative;
-    background:url(../img/result_hot.png) no-repeat center;
-    background-size:80%;
+    background:#a3a3a3 url(../img/result_hot.png) no-repeat center;
+    background-size:50%;
 }
 .topic .link{
 	white-space: nowrap;
@@ -529,7 +529,6 @@ input[type=checkbox]:checked::after {
     font-size: 18px;
 }
 .topic:hover .icon{
-	background-color: #2d9297;
 }
 .topic:hover .link{
 	font-weight:bold;

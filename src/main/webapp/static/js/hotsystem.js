@@ -1165,7 +1165,7 @@ function loadSvg(){
             var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
             var trianglePos = triangleStep * (index + 1);
             $(".triangle").css("left",trianglePos);
-            alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 144 + scrollY});
+            alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY});
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
 //            var divH = $(".hotInfo").height();
@@ -1212,7 +1212,7 @@ function loadSvg(){
     	}
         var content = "";
         content += '<input class="releateTag" autofocus placeholder="请输入关键字" />';
-        content += '<div style="display:inline-block;width:52px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
+        content += '<div style="display:inline-block;position:relative;left:2px;width:52px;height: 40px;background: url(img/link3.png) center center no-repeat;"></div>';
         content += '<div class="selectTag" title='+topic+'>'+topic+'</div>';
         var pop = new Pop({
             width:"422px",
@@ -1379,6 +1379,8 @@ function loadSvg(){
 
  
     $(document).on('click','.all_hot_list_top_look',function(){
+    	var $this = $(this)
+    	var index = $this.attr("data-id");
     	$('.all_hot_list_bot').css('display','none');
     	$('.hot_img_arrow').css("transform","rotate(0deg)");
     	
@@ -1392,7 +1394,14 @@ function loadSvg(){
     		$(this).parent().parent().parent().find(".hot_echart_list").addClass('hidecommon');
     		$(this).parent().next().next().removeClass('hidecommon');
     		$(this).parent().parent().parent().find(".hot_look_arrow").css("transform","rotate(0deg)");
-    		$(this).find(".hot_look_arrow").css("transform","rotate(180deg)")
+    		$(this).find(".hot_look_arrow").css("transform","rotate(180deg)");
+    		var rectTop = $("#ulBottom"+index).next().get(0).getBoundingClientRect();
+    		if(rectTop.top < 0){
+    			var a = $("#ulBottom"+index).offset().top;
+        		a -= rectTop.top + 450;
+        		$("html,body").animate({scrollTop:a},"slow");
+    		}
+    		
     	}else{
     		$(this).parent().next().next().addClass('hidecommon');
         	$(this).parent().next().next().addClass('hidecommon');
