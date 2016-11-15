@@ -375,6 +375,7 @@ function dispList(data,date,type){
             var startD=startDateArr[2];
             var endD=endDateArr[2];
             var currDate="";
+            var urlLink=item.weiboUrl?item.weiboUrl:"javascript:;";
             if(type!="all"&&(parseInt(dateArr[2])<parseInt(startD)||parseInt(dateArr[2])>parseInt(endD))) return;
             if(startD==endD){
                 currDate = m+"."+startD;
@@ -383,17 +384,9 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                if(item.note){
-                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span><span class='content desc'>"+item.note+"</span>");
-                }else{
-                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span>");
-                }
+                $container.find("li[data-index='"+currDate+"']").append("<a href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>");
             }else{
-                if(item.note){
-                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span><span class='content desc'>"+item.note+"</span></li>").appendTo($container);
-                }else{
-                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></li>").appendTo($container);
-                }
+                $("<li data-index="+currDate+"><a href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a></li>").appendTo($container);
             }
         });
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
