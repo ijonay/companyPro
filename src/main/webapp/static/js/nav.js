@@ -84,6 +84,80 @@ $(".header-right>li").on("click",function(e){
         
     }
 });
+$(".user-set").on("click",function(){
+    var content = $("<div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' placeholder='请输入公司名称'></div>"+
+        "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'></div>"+
+        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'></div>"+
+        "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'></div>"+
+        "<div class='set-info error'>两次输入密码不一致</div>");
+    var pop = new Pop({
+        width:"396px",
+        header:"账号设置",
+        content:content,
+        buttons:[{
+            type:"popCancle",
+            text:"取消"
+        },{
+            type:"popOk",
+            text:"确定",
+            callback:function(){
+                var companyName=$.trim($('.txt-companyname').val());
+                var oldPwd=$.trim($('.txt-oldpwd').val());
+                var newPwd=$.trim($('.txt-newpwd').val());
+                var confPwd=$.trim($('.txt-confpwd').val());
+                if(!companyName){
+                    $('.txt-companyname').addClass("info-erro");
+                    return;
+                }else{
+                    $('.txt-companyname').removeClass("info-erro");
+                } 
+                if(!oldPwd){
+                    $('.txt-oldpwd').addClass("info-erro");
+                    return;
+                }else{
+                    $('.txt-oldpwd').removeClass("info-erro");
+                }
+                if(!newPwd){
+                    $('.txt-newpwd').addClass("info-erro");
+                    return;
+                }else{
+                    $('.txt-newpwd').removeClass("info-erro");
+                }
+                if(!confPwd){
+                    $('.txt-confpwd').addClass("info-erro");
+                    return;
+                }else{
+                    $('.txt-confpwd').removeClass("info-erro");
+                } 
+                if(newPwd!=""&&confPwd!=""){
+                    if(newPwd!=confPwd){
+                        $('.txt-newpwd').addClass("info-erro");
+                        $('.txt-confpwd').addClass("info-erro");
+                        $(".error").css("display","block");
+                        return;
+                    }else{
+                        $('.txt-newpwd').removeClass("info-erro");
+                        $('.txt-confpwd').removeClass("info-erro");
+                        $(".error").css("display","none");
+                    }  
+                }
+                //
+                $.ajax({
+                    url: dataUrl.util.updatePwd(newPwd),
+                    success: function(returnData) {
+                        if(returnData.error.code==0){
+                            $(".popMask").remove();
+                        }
+                    },
+                    error: function() {
+                        console.log('修改密码失败');
+                    }
+                });
+            }
+        }]
+    })
+    $(".popContent").css({"padding-top":"10px","padding-bottom":"6px"})
+})
 /*关闭通知*/
 $(document).delegate(".notify-list>li .notify-close","click",function(e){
     e ? e.stopPropagation() : event.cancelBubble = true;
@@ -512,3 +586,8 @@ $('#nav_ser').on('input',function(){
 $('#nav_ser').on('focus',function(){
 	$(this).css('border','2px solid rgba(56,155,159,.5)');
 })
+//$(document).delegate('.set-info input','focus',function(){
+//    $(this).css('border','1px solid #389b9f');
+//}).delegate('.set-info input','blur',function(){
+//    $(this).css('border','1px solid #ddd');
+//})
