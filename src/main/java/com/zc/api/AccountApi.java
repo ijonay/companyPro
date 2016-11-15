@@ -1,11 +1,13 @@
 package com.zc.api;
 
+import com.zc.bean.Users;
 import com.zc.enumeration.StatusCodeEnum;
+import com.zc.enumeration.UserRoleType;
 import com.zc.model.usermodel.LoginModel;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.RegisterModel;
 import com.zc.service.UsersService;
-import com.zc.utility.CommonHelper;
+import com.zc.utility.EnumHelper;
 import com.zc.utility.ValidateHelper;
 import com.zc.utility.exception.ApiException;
 import com.zc.utility.response.ApiResultModel;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.zc.utility.CommonHelper.getCurrentUserId;
 
 /**
  * Created by 张镇强 on 2016/10/14 16:24.
@@ -72,6 +76,7 @@ public class AccountApi extends BaseApi {
             return resultModel;
         }
 
+
         if (!usersService.add(model.toEntity())) {
             resultModel.setStatusCode(StatusCodeEnum.FAILED);
         }
@@ -88,15 +93,33 @@ public class AccountApi extends BaseApi {
     }
 
     @RequestMapping(value = "changep", method = RequestMethod.POST)
-    public ApiResultModel changePass(@RequestParam(value = "password") String password) {
+    public ApiResultModel changePass(@RequestParam(value = "userId", required = false) Integer id, @RequestParam
+            (value =
+                    "password") String password) {
 
 
         Objects.requireNonNull(password);
 
-
         ApiResultModel result = new ApiResultModel();
 
-        int userId = CommonHelper.getCurrentUserId();
+        if (!(password.length() >= 8 && password.length() <= 25)) {
+            result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("密码格式不正确！");
+            return result;
+        }
+
+
+        int userId = getCurrentUserId();
+
+        if (!Objects.isNull(id)) {
+
+            Users users = usersService.get(userId);
+
+            UserRoleType type = EnumHelper.getEnumByValOrOrdinal(UserRoleType.class, users.getRole());
+            if (type == UserRoleType.ADMIN) {
+                userId = id;
+            }
+
+        }
 
         if (userId < 1) throw new ApiException(StatusCodeEnum.FAILED, "未登录！");
 
