@@ -85,11 +85,14 @@ $(".header-right>li").on("click",function(e){
     }
 });
 $(".user-set").on("click",function(){
-    var content = $("<div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' placeholder='请输入公司名称'></div>"+
-        "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'></div>"+
-        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'></div>"+
-        "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'></div>"+
-        "<div class='set-info error'>两次输入密码不一致</div>");
+//    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' placeholder='请输入公司名称'/></div>"+
+//        "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
+//        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
+//        "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
+    var content=$("<div class='info-lab'>公司名称：</div><input type='text' class='info-txt txt-companyname' placeholder='请输入公司名称'>")
+//    		"<div class='info-lab'>修改密码：</div><input type='password' class='info-txt txt-oldpwd' placeholder='请输入原密码'>")
+//    		"<div class='info-lab'></div><input type='password' class='info-txt txt-newpwd' placeholder='请输入新密码'>"+
+//    		"<div class='info-lab'>确认密码：</div><input type='password' class='info-txt txt-confpwd' placeholder='再次输入新密码'>")
     var pop = new Pop({
         width:"396px",
         header:"账号设置",
@@ -105,48 +108,62 @@ $(".user-set").on("click",function(){
                 var oldPwd=$.trim($('.txt-oldpwd').val());
                 var newPwd=$.trim($('.txt-newpwd').val());
                 var confPwd=$.trim($('.txt-confpwd').val());
-                if(!companyName){
-                    $('.txt-companyname').addClass("info-erro");
-                    return;
-                }else{
-                    $('.txt-companyname').removeClass("info-erro");
-                } 
-                if(!oldPwd){
-                    $('.txt-oldpwd').addClass("info-erro");
-                    return;
-                }else{
-                    $('.txt-oldpwd').removeClass("info-erro");
-                }
-                if(!newPwd){
-                    $('.txt-newpwd').addClass("info-erro");
-                    return;
-                }else{
-                    $('.txt-newpwd').removeClass("info-erro");
-                }
-                if(!confPwd){
-                    $('.txt-confpwd').addClass("info-erro");
-                    return;
-                }else{
-                    $('.txt-confpwd').removeClass("info-erro");
-                } 
-                if(newPwd!=""&&confPwd!=""){
-                    if(newPwd!=confPwd){
-                        $('.txt-newpwd').addClass("info-erro");
-                        $('.txt-confpwd').addClass("info-erro");
-                        $(".error").css("display","block");
+                if(oldPwd!=""){
+                    if(newPwd==""){
+                        $('.txt-newpwd').addClass("error");
                         return;
                     }else{
-                        $('.txt-newpwd').removeClass("info-erro");
-                        $('.txt-confpwd').removeClass("info-erro");
-                        $(".error").css("display","none");
+                        $('.txt-newpwd').removeClass("error");
+                    }
+                    if(confPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(newPwd!=""){
+                    if(oldPwd==""){
+                        $('.txt-oldpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-oldpwd').removeClass("error");
+                    }
+                    if(confPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(confPwd!=""){
+                    if(newPwd==""){
+                        $('.txt-newpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-newfpwd').removeClass("error");
+                    }
+                    if(oldPwd==""){
+                        $('.txt-confpwd').addClass("error");
+                        return;
+                    }else{
+                        $('.txt-confpwd').removeClass("error");
+                    }
+                }
+                if(newPwd!=""&&confPwd!=""){
+                    if(newPwd!=confPwd){
+                        $('.conf-pwd').find(".info-erro").css("display","block");
+                        return;
+                    }else{
+                        $('.conf-pwd').find(".info-erro").css("display","none");
                     }  
                 }
-                //
                 $.ajax({
+                    type:"post",
                     url: dataUrl.util.updatePwd(newPwd),
                     success: function(returnData) {
                         if(returnData.error.code==0){
-                            $(".popMask").remove();
+                            window.location.href="user/login";
                         }
                     },
                     error: function() {
