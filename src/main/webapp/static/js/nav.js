@@ -601,16 +601,9 @@ $(".hot-prev").mouseover(function(){
 $('#nav_ser').on('input',function(){
 	$(this).css('color','rgba(255,255,255,.8)')
 });
-<<<<<<< HEAD
-//$('#nav_ser').on('focus',function(){
-//	$(this).css('border','2px solid rgba(56,155,159,.5)');
-=======
-$('#nav_ser').on('focus',function(){
-	$(this).css('border','2px solid rgba(56,155,159,.5)');
-})
+
 //$(document).delegate('.set-info input','focus',function(){
 //    $(this).css('border','1px solid #389b9f');
 //}).delegate('.set-info input','blur',function(){
 //    $(this).css('border','1px solid #ddd');
->>>>>>> f84ecce5519a2251e940e161c3c0f20f5ff91176
 //})
