@@ -998,7 +998,7 @@ var canClick = true;
 function loadSvg(){
     var width = $("#papersvg").css("width");
     width = width.split("px")[0];
-    paper = Raphael("papersvg",width,200);
+    paper = Raphael("papersvg",width,160);
     //paper.clear()
     var xArray = [];
     var yArray = [];
@@ -1187,7 +1187,7 @@ function loadSvg(){
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
             alertCon.show();
     	}else{
-        	$("#comeback_hot").click();
+//        	$("#comeback_hot").click();
         }
     }
 //    $(".papersvg").click(function(){
@@ -1252,6 +1252,7 @@ function loadSvg(){
     })
 //热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
    $('#allHot').on('click',function(){
+	   $("#papersvg").addClass("pointer");
         for(var i=0,j=rectArray.length;i<j;i++){
 //            rectArray[i].attr({cursor:"default"});
 //            hotArray[i].attr({cursor:"default"});
@@ -1260,6 +1261,7 @@ function loadSvg(){
 	   $('#ser_section').css('min-height',0);
 	   $('#ser_section').css('opacity',0);
 	   canClick = false;
+	   $(".hot_echart_list").addClass('hidecommon');
 	   $('#allHot').addClass('hidecommon');
 	   $('#all_hot').removeClass('hidecommon');
 	   $('#all_hot').animate({
@@ -1292,7 +1294,7 @@ function loadSvg(){
 	   };
 	   
 	   $('.nav_ser').delay("fast").fadeOut();
-	  
+	   $("#papersvg").removeClass("pointer");
     }) 
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
@@ -1387,8 +1389,8 @@ function loadSvg(){
     	if($(this).parent().next().next().is('.hidecommon')){
     		$('.all_hot_list_top_look').css('color','#4a4a4a');
     		$(this).css('color','#389b9f');
-    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('点击查看');
-    		$(this).find('em').text('点击收起');
+    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('查看画像');
+    		$(this).find('em').text('收起画像');
     		$(this).parent().parent().parent().find(".hot_look_eye").css("background-image","url(img/hot_look_eye.png)");
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye_hover.png)');
     		$(this).parent().parent().parent().find(".hot_echart_list").addClass('hidecommon');
@@ -1407,7 +1409,7 @@ function loadSvg(){
         	$(this).parent().next().next().addClass('hidecommon');
         	$(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
     		$(this).css('color','#4a4a4a');
-    		$(this).find('em').text('点击查看');
+    		$(this).find('em').text('查看画像');
     		$(this).find('.hot_look_eye').css('background-image','url(img/hot_look_eye.png)');
     	};
     	var $this = $(this);
@@ -1791,10 +1793,17 @@ function loadSvg(){
     	        			浙江省:'浙江',
     	        			重庆市:'重庆',
     	        	};
+    	        	var mapMax = 0;
+    	        	var mapMin = 100;
     	        	$.each(mapChina,function(i,item){
     	        		mapVals.push({name:map[item.name],value:item.value});
+    	        		if(mapMax < item.value){
+    	        			mapMax = item.value
+    	        		}
+    	        		if(mapMin > item.value){
+    	        			mapMin = item.value
+    	        		}
     	        	});
-    	        	
     	        	mapCharts.setOption({
     	        		backgroundColor:"#fff",
     	        	    title : {
@@ -1811,9 +1820,13 @@ function loadSvg(){
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
+    	        	        	console.log(obj)
     	        	        	var a = "";
     	        	        	if(obj.value){
     	        	        		a += obj.value.toFixed(2) + "%";
+    	        	        	}
+    	        	        	if(isNaN(obj.value)){
+    	        	        		return obj.name + ":" + "0";
     	        	        	}
     	        	        	return obj.name + ":" + a;
     	        	        },
@@ -1827,8 +1840,10 @@ function loadSvg(){
 //    	        	    },
     	        	    visualMap: {
     	        	    	show:false,
+    	        	    	min:mapMin,
+    	        	    	max:mapMax,
     	                    inRange: {
-    	                        color: ['#219edd','#619edd']
+    	                        color: ['#6ab6e0','#1d73a2']
     	                    },
     	                    left:'right'
     	                },
@@ -1861,7 +1876,7 @@ function loadSvg(){
     	                            normal: {
 //    	                                borderWidth: 2,
     	                                borderColor: '#fff',
-    	                            	areaColor: '#a9d6fe',
+    	                            	areaColor: '#dbedf7',
     	                                label: {
     	                                    show: false
     	                                }
@@ -1870,7 +1885,7 @@ function loadSvg(){
     	                            	show: false,
 //    	                                borderWidth: 1,
 //    	                                borderColor: '#000',
-    	                                areaColor: 'rgba(35, 158, 221,0.7)',
+    	                                areaColor: '#166591',
     	                                //color: '#f00',
     	                                label: {
     	                                    textStyle: {
@@ -1914,7 +1929,10 @@ function loadSvg(){
             dataType: "json",
             url: dataUrl.util.getHotTopic(100),
             success: function(returnData) {
-            	if(returnData.error.code != 0) return;
+            	if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0){ 
+            		console.log("获取全部热点异常");
+            		return
+            	}
             	$(".all_hot_list").html(hotList2.render(returnData));
             	$('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
             },
@@ -1931,7 +1949,11 @@ function loadSvg(){
             dataType: "json",
             url: dataUrl.util.getTenHot(),
             success: function(returnData) {
-            	if(returnData.error.code != 0) return;
+            	if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0) {
+            		getAllHot(); 
+            		console.log("获取曲线热点异常");
+            		return;
+            	}
             	hotIdArray.length = 0;
             	imageArray.length = 0;
             	titleArray.length = 0;
@@ -1950,11 +1972,13 @@ function loadSvg(){
                 		titleArray.push(item.title);
                 		scoreArray.push(item.prevailingTrend);
                 		introArray.push(item.introduction);
-                		var eventClass = item.eventClass.split(",");
-                        var str = "";
-                        $.each(eventClass,function(index2,item2){
-                        	str += "<div>"+item2+"</div>"
-                        })
+                		if(item.eventClass){
+                		var str = "";
+                		var eventClass = item.eventClass.split(",");	                        
+	                        $.each(eventClass,function(index2,item2){
+	                        	str += "<div>"+item2+"</div>"
+	                        })
+                		}
                         tagArray[item.id] = str;
                 		var tempArray = [];
                 		if(item.baiduHitNum){
@@ -1987,6 +2011,7 @@ function loadSvg(){
     	var index = $(".infoConnect").attr("data-id");
     	$("#allHot").click();
     	$(".all_hot_list_bot").hide();
+    	$(".hot_echart_list").addClass('hidecommon');
     	$("#ulBottom"+index).show();
     	setTimeout(function(){
     		var a = $("#ulBottom"+index).offset().top;
@@ -2019,4 +2044,14 @@ $(window).scroll(function(){
 $('#comeback_hot_home').on('click',function(){
 	$('body').animate({scrollTop:"0px"},500)
 }); 
-
+$("#papersvg").on("click",function(e){
+	if(canClick){
+		return
+	}else{
+		$(this).removeClass("pointer");
+		$("#comeback_hot").click();
+	}
+})
+$(".upPage").on("click",function(){
+	$("#comeback_hot").click();
+})

@@ -85,7 +85,7 @@ $(".header-right>li").on("click",function(e){
     }
 });
 $(".user-set").on("click",function(){
-    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' placeholder='请输入公司名称'/></div>"+
+    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='北京知藏云道科技有限公司' disabled/></div>"+
         "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
         "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
         "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
@@ -249,6 +249,7 @@ $(document).on('click',function(e){
         $(".right-bar-close").trigger("click");
     }
     $(".pnl-user").css("display","none");
+    $(".userName").find(".company").css("background-image","url(img/down-arrow.png)");
 });
 //获取当前日期热点预告
 function getHotPred(date){
@@ -375,6 +376,7 @@ function dispList(data,date,type){
             var startD=startDateArr[2];
             var endD=endDateArr[2];
             var currDate="";
+            var urlLink=item.weiboUrl?item.weiboUrl:"javascript:;";
             if(type!="all"&&(parseInt(dateArr[2])<parseInt(startD)||parseInt(dateArr[2])>parseInt(endD))) return;
             if(startD==endD){
                 currDate = m+"."+startD;
@@ -383,17 +385,9 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                if(item.note){
-                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span><span class='content desc'>"+item.note+"</span>");
-                }else{
-                    $container.find("li[data-index='"+currDate+"']").append("<span class='content'><span class='title'>"+item.name+"</span></span>");
-                }
+                $container.find("li[data-index='"+currDate+"']").append("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>");
             }else{
-                if(item.note){
-                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span><span class='content desc'>"+item.note+"</span></li>").appendTo($container);
-                }else{
-                    $("<li data-index="+currDate+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></li>").appendTo($container);
-                }
+                $("<li data-index="+currDate+"><a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a></li>").appendTo($container);
             }
         });
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");

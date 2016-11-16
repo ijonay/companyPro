@@ -90,6 +90,7 @@
    <div class="allHot pointer" id="allHot">更多热点</div>	
    
    <div class="all_hot hidecommon" id="all_hot">
+   <span class="upPage"></span>
    		<div class="all_hot_section" id="all_hot_section">
    			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
@@ -103,7 +104,7 @@
    				<li>热点来源</li>
    				<li>热度</li>
    				<li>热点受众画像</li>
-   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
    			</ul>
    			<ul class="all_hot_list">
    				<li>
@@ -120,7 +121,7 @@
    							<div></div><div></div><div></div><div></div>
    						</li>
    						<li>99</li>
-   						<li>点击查看</li>
+   						<li>查看画像</li>
    						<li class="hot_relation">关联此热点</li>
    						
    					</ul>

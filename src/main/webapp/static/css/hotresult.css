@@ -529,6 +529,7 @@ input[type=checkbox]:checked::after {
     font-size: 18px;
 }
 .topic:hover .icon{
+    background-color: #389b9f;
 }
 .topic:hover .link{
 	font-weight:bold;
