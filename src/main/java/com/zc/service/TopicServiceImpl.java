@@ -459,12 +459,16 @@ public class TopicServiceImpl implements TopicService {
 
         }
 
-        Collections.sort(interestColl, (left, right) -> {
-            return Integer.parseInt(left.getValue() + "") - Integer.parseInt(right.getValue() + "");
-        });
+        result.put("interest", interestColl.stream().sorted((l, r) -> {
 
+            Double n = (Double.parseDouble(l.getValue() + "") - Double.parseDouble(r
+                    .getValue() +
+                    ""));
+            if (n.intValue() > 0) return -1;
+            else return 0;
 
-        result.put("interest", interestColl);
+        }).collect(Collectors.toList()));
+
 
         List<TopicAgeStatistics> age = topicAgeStatisticsService.getByTopicId(topicId);
 
