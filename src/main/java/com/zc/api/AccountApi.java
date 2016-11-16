@@ -63,6 +63,17 @@ public class AccountApi extends BaseApi {
         return result;
     }
 
+//    @RequestMapping(value = "info", method = RequestMethod.GET)
+//    public ApiResultModel getUserInfo(@CurrentUser) {
+//
+//
+//
+//        ApiResultModel result = new ApiResultModel();
+//
+//
+//        return result;
+//    }
+
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ApiResultModel register(@RequestBody @Valid RegisterModel model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
