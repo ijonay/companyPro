@@ -109,7 +109,7 @@ div#canvas {
         
     </div>
     <ul class="bottom-choice f14">
-       	<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>
+       <!-- 	<li class="fl" style="color:#000">当前路径&nbsp;:&nbsp;</li>
        	<li class="fl mr5 choice-keyword"><span></span>关键词</li>
        	<li class="fl libordercenter mr5"></li>
        	<li class="fl mr5"><span></span>节点</li>
@@ -119,7 +119,7 @@ div#canvas {
        	<li class="fl mr5"><span></span>节点</li>
        	<li class="fl libordercenter mr5"></li>
        	<li class="fl mr5 choice-hot"><span></span>热点</li>
-       	<li class="fr computer-ok pointer">保存路径</li>
+       	<li class="fr computer-ok pointer">保存路径</li> -->
     </ul>
     <div class="pathName disno">
         选择路径<span class="pathNum">1</span>

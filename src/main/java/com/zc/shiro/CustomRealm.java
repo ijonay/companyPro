@@ -45,6 +45,8 @@ public class CustomRealm extends AuthorizingRealm {
         return null;
     }
 
+
+
     /*
      *
      * bq zhanbq
@@ -65,8 +67,11 @@ public class CustomRealm extends AuthorizingRealm {
                 ByteSource dbsalt = ByteSource.Util.bytes(users.getUserName() + dbZcSalt);
                 SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
                         users.getUserName(), dbPassword, dbsalt, getName());
+
                 Subject subject = SecurityUtils.getSubject();
                 subject.getSession().setAttribute(Constants.CURRENT_USER, new UserSessionModel(users));
+
+
 
                 return simpleAuthenticationInfo;
             } else {

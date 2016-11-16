@@ -38,11 +38,14 @@ $('.head-search').click(function() {//搜索按钮
 	
 	resSer() ;
 });
-$('#nav_ser').keyup(function(event) {//搜索框回车
+$('#nav_ser').keyup(function(event) {//搜索框回车	
     if(event.keyCode == "13") {
         resSer();
     };
 });
+$("#nav_ser").focus(function(){
+	$(".alertCon").hide();
+})
 //换一批
 $(document).delegate('.hot-next','click', function() {//下一页
     var pageCount=$(this).attr("data-pageCount")?parseInt($(this).attr("data-pageCount")):0;

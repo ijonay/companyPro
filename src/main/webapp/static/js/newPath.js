@@ -167,7 +167,7 @@ function pageChange(up){
             lineArray.push(num)
         }
         $.each(item.nodes,function(index1,item1){
-            if(index1 == 0){                        
+            if(index1 == 0){
             }else{
                 tempNode.push(item1.name);  
             } 
@@ -234,7 +234,7 @@ function raphealDraw(lineArray,nodeList,keyWord,hotTopic){
         return;
     }
     for(var i=0,j=lineArray.length;i<j;i++){
-        var lineLen = parseInt(endPoint[0]/(lineArray[i]+1));//线长
+        var lineLen = parseInt(endPoint[0]/(lineArray[i]+1.5));//线长
         var lineList = [];
         for(var a=0,b=lineArray[i];a<b;a++){
             lineList.push([startPoint[0]+lineLen*(a+1),hei*(i+1)]);

@@ -107,7 +107,7 @@
    				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
    			</ul>
    			<ul class="all_hot_list">
-   				<li>
+   			<!-- <li>
    					<ul class="all_hot_list_top">
    						<li>
    							<span  class="hot_circle_num">1</span>
@@ -313,7 +313,7 @@
    					</ul>
    					
    				</li>
-   				
+   				-->
    			</ul>
    		</div>
    </div>
@@ -321,13 +321,13 @@
     <div class="portrait"></div>
     <div class="info">
         <div class="infoTop">
-            <div class="infoTitle">张雨绮结婚</div>
+            <div class="infoTitle"></div>
             <div class="infoConnect">关联此热点</div>
         </div>
         <div class="hotAlertTag"></div>
         <div class="hotInfo">
             <div class="infoText">
-                张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚
+                     
             </div>            
         </div>
         <div class="infoBottom">
@@ -345,10 +345,7 @@
     <div class="triangle"></div>
 </div>
 <ul class="cook_ul pos hidecommon" id="cook_ul">
-  		<li>手机2<span></span></li>
-		<li>苹果2<span></span></li>
-		<li>三星2<span></span></li>
-		<li>华为2<span></span></li>			
+  			
 </ul>
 
 <script src="lib/jquery-1.12.0.min.js"></script>

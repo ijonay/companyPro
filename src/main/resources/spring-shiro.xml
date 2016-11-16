@@ -33,6 +33,8 @@
                 /lib/** = anon
                 /css/** = anon
                 /fonts/** = anon
+                /upload/** = anon
+                /favicon.ico = anon
                 <!-- 对静态资源设置匿名访问 -->
 
                 /api/account/login = anon

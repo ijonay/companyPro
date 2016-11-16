@@ -112,6 +112,7 @@ public class TopicServiceImpl implements TopicService {
     public Page getListExt(String clueWord, SearchModel searchModel, Integer currentPage, Integer
             pageSize) {
 
+
         if (pageSize < 1 || currentPage < 1) {
             throw new ServiceException(StatusCodeEnum.CLIENT_ERROR, "分页参数错误");
         }

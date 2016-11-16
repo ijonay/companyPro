@@ -50,14 +50,14 @@
                     <div class="portrait"></div>
                     <div class="info">
                         <div class="infoTop">
-                            <div class="infoTitle">张雨绮结婚</div>
+                            <div class="infoTitle"></div>
                             <div class="infoConnect">关联此热点</div>
                         </div>
                         <div class="hotLabel">
                             
                         </div>
                         <div class="hotInfo">
-                            <div class="infoText">张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚张雨绮结婚</div>            
+                            <div class="infoText"></div>            
                         </div>
                         <div class="infoBottom">
                             <div class="hotIcon fl"></div>
