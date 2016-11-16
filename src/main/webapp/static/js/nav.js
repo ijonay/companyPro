@@ -57,7 +57,6 @@ $(".bar-tabs>li").on("click",function(){
 });
 /*头部菜单栏*/
 $(".header-right>li").on("click",function(e){
-    e ? e.stopPropagation() : event.cancelBubble = true;
     if($(this).hasClass("head-pred")){//热点预告
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
@@ -73,6 +72,7 @@ $(".header-right>li").on("click",function(e){
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }else if($(this).hasClass("head-userinfo")){//用户信息
+        e ? e.stopPropagation() : event.cancelBubble = true;
         if($(".pnl-user").css("display")=="none"){
             $(this).find(".company").css("background-image","url(img/up-arrow.png)");
             $(".pnl-user").css("display","block");
@@ -85,7 +85,8 @@ $(".header-right>li").on("click",function(e){
     }
 });
 $(".user-set").on("click",function(){
-    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='北京知藏云道科技有限公司' disabled/></div>"+
+    var company=$(".head-userinfo .company").text();
+    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='"+company+"' disabled/></div>"+
         "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
         "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
         "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
@@ -232,7 +233,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             url: dataUrl.util.delAllNotify(ids.join(",")),
             success: function(returnData) {
                 $(".notify-tab-list>li").remove();
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
                 $(".notify-count").data("count",0).text("").css("display","none");
                 $('.clear-notify').css('display','none');
             },
@@ -467,11 +468,11 @@ $.ajax({
                 $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
             }else{
                 $(".notify-count").attr("data-count",0).text("").css("display","none");
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
                 $(".notify-operate").css("display","none");
             }
         }else{
-        	$('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+        	$('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
             $(".notify-operate").css("display","none");
         }
     },
@@ -593,4 +594,21 @@ $(".hot-prev").mouseover(function(){
 
 $(document).delegate(".info-erro .del","click",function(){
     $(this).parents(".info-erro").css("display","none");
+});
+
+//获取当前用户信息
+$.ajax({
+    type: "get",
+    url: dataUrl.util.getUserInfo,
+    success: function(returnData) {
+        if(returnData.error.code == 0&&returnData.data){
+            res=returnData.data;
+            var userName=res.userName?res.userName:"";
+            var company=res.company?res.company:"";
+            $(".head-userinfo .name").text(userName);
+            $(".head-userinfo .company").text(company);
+            $(".pnl-user .name").text(userName);
+            $(".pnl-user .company").text(company);
+        }
+    }
 });

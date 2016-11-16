@@ -682,6 +682,7 @@ input[type=checkbox]:checked::after {
     width: 100%;
     height:20px;
     line-height:20px;
+    overflow:hidden;
 }
 .hotLabel div{
 	background:#e8ebed;
