@@ -85,7 +85,8 @@ $(".header-right>li").on("click",function(e){
     }
 });
 $(".user-set").on("click",function(){
-    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='北京知藏云道科技有限公司' disabled/></div>"+
+    var company=$(".head-userinfo .company").text();
+    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='"+company+"' disabled/></div>"+
         "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
         "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
         "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
@@ -593,4 +594,21 @@ $(".hot-prev").mouseover(function(){
 
 $(document).delegate(".info-erro .del","click",function(){
     $(this).parents(".info-erro").css("display","none");
+});
+
+//获取当前用户信息
+$.ajax({
+    type: "get",
+    url: dataUrl.util.getUserInfo,
+    success: function(returnData) {
+        if(returnData.error.code == 0&&returnData.data){
+            res=returnData.data;
+            var userName=res.userName?res.userName:"";
+            var company=res.company?res.company:"";
+            $(".head-userinfo .name").text(userName);
+            $(".head-userinfo .company").text(company);
+            $(".pnl-user .name").text(userName);
+            $(".pnl-user .company").text(company);
+        }
+    }
 });
