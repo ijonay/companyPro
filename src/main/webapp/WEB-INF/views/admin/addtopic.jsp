@@ -64,12 +64,18 @@
           </div>
 
           <div class="form-group">
-            <label for="topicLogoImgUrlLocal" class="col-sm-2 control-label">主照片</label>
+            <label for="topicLogoImgUrlLocal" class="col-sm-2 control-label">本地照片</label>
             <div class="col-sm-8">
               <input type="file" id="topicLogoImgUrlLocal" name="file">
             </div>
           </div>
 
+          <div class="form-group">
+            <label for="topicLogoImgUrl" class="col-sm-2 control-label">主照片URL</label>
+            <div class="col-sm-10">
+              <input type="text" name="logoImgUrl" class="form-control" id="topicLogoImgUrl" >
+            </div>
+          </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">来源</label>

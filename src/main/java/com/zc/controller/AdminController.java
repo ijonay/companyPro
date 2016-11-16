@@ -99,8 +99,8 @@ public class AdminController {
                         new BufferedOutputStream(new FileOutputStream(new File( filePath )));
                 buffStream.write(bytes);
                 buffStream.close();
-                String logoImageUrl = imageDir + fileName;
-                topic.setLogoImgUrl(logoImageUrl);
+                String logoImageUrlLocal = imageDir + fileName;
+                topic.setLogoImgUrlLocal(logoImageUrlLocal);
             }
 
             int flag = 0;
@@ -132,6 +132,9 @@ public class AdminController {
                 }
                 if(StringUtils.isNotBlank(topic.getBaiduUrl())){
                     topicDb.setBaiduUrl(topic.getBaiduUrl());
+                }
+                if(StringUtils.isNotBlank(topic.getLogoImgUrlLocal())){
+                    topicDb.setLogoImgUrlLocal(topic.getLogoImgUrlLocal());
                 }
                 if( topicService.update(topicDb) ){
                     flag = 1;
