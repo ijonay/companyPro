@@ -92,3 +92,10 @@
     }
     window.Pop = Pop;
 })(jQuery);
+$(document).on("click",".popMask",function(e){
+	if(e.target.className == "popMask"){
+		$(this).remove();
+	}	
+})
+$(document).on("click",".popWin",function(e){
+})

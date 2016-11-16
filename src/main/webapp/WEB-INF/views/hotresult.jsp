@@ -54,9 +54,7 @@
                             <div class="infoConnect">关联此热点</div>
                         </div>
                         <div class="hotLabel">
-                            <div class="hotLabel0"></div>
-                            <div class="hotLabel1"></div>
-                            <div class="hotLabel2"></div>
+                            
                         </div>
                         <div class="hotInfo">
                             <div class="infoText"></div>            
@@ -145,7 +143,32 @@
             <span class="fl">低</span>
         </div>
     </div>
-    <div class="result-loading"><span class="title">探索结果加载中，请稍后……</span></div> 
+<div class="result-loading">
+
+<div class="loadingcon">
+ 	<div class="result-loading1">
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+           
+	</div>
+	 <p class="title">探索结果加载中，请稍后……</p>
+</div>	 
+    
+	
+</div>
+	   
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>

@@ -67,7 +67,8 @@ dataUrl.util = {
     },
     updatePwd:function(pwd){
         return "api/account/changep?password="+pwd;
-    }
+    },
+    getUserInfo:"api/account/info"//获取用户信息
 }
 
 var chartsAttr = chartsAttr || {};
