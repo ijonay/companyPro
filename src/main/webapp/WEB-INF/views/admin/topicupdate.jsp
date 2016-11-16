@@ -43,7 +43,7 @@
           <label for="topicEventClass" class="col-sm-2 control-label">热点标签</label>
           <div class="col-sm-3">
             <input type="text"  class="form-control" id="topicEventClass"
-                   value="${topic.eventClass}"  >
+                   value="${topic.eventClass}"  name="eventClass">
           </div>
         </div>
 
