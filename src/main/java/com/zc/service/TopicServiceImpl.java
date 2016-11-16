@@ -13,6 +13,7 @@ import com.zc.bean.TopicFilterClass;
 import com.zc.dao.TopicDao;
 import com.zc.enumeration.DimensionEnum;
 import com.zc.enumeration.StatusCodeEnum;
+import com.zc.model.KeyValue;
 import com.zc.model.KeyValueCollection;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
@@ -439,14 +440,35 @@ public class TopicServiceImpl implements TopicService {
         List<TopicFilterClass> interest = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Interest
                 .getValue
                         ());
+
+        KeyValueCollection interestColl = new KeyValueCollection();
+
         if (interest.size() > 6) {
 
             interest = interest.stream().limit(6).collect(Collectors.toList());
+            interest.forEach(p -> {
+
+//                double r0 = (double) p.getScale() / (double) p.getTopicScaleTotal();
+//                double r1 = (double) p.getTopicScaleTotal() / (double) p.getScaleTotal();
+//                double r = (r0 / r1) * 10;
+
+                double r = (p.getPercentage() / p.getTopicPercentageTotal()) * 10;
+                r = r > 100 ? 100 : r;
+                interestColl.add(new KeyValue(p.getName(), r));
+            });
 
         }
-        KeyValueCollection interestColl = new KeyValueCollection(interest);
 
-        result.put("interest", interestColl);
+        result.put("interest", interestColl.stream().sorted((l, r) -> {
+
+            Double n = (Double.parseDouble(l.getValue() + "") - Double.parseDouble(r
+                    .getValue() +
+                    ""));
+            if (n.intValue() > 0) return -1;
+            else return 0;
+
+        }).collect(Collectors.toList()));
+
 
         List<TopicAgeStatistics> age = topicAgeStatisticsService.getByTopicId(topicId);
 
@@ -458,19 +480,19 @@ public class TopicServiceImpl implements TopicService {
     }
 
 
-    public boolean inactiveTopic(Integer id){
+    public boolean inactiveTopic(Integer id) {
         return dao.inactiveTopic(id) > 0;
     }
 
-    public boolean activeTopic(Integer id){
+    public boolean activeTopic(Integer id) {
         return dao.activeTopic(id) > 0;
     }
 
-    public List<TopicModel> getTopicsByKeyword(String keyword){
+    public List<TopicModel> getTopicsByKeyword(String keyword) {
         return dao.getTopicsByKeyword(keyword);
     }
 
     public boolean update(Topic topic) {
-        return  dao.update(topic) > 0;
+        return dao.update(topic) > 0;
     }
 }

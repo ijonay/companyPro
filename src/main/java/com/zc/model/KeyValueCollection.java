@@ -9,7 +9,7 @@ import java.util.*;
  * 通用Key,Value模板
  * Created by xyzhuzhou on 2016/11/11 0011 16:24:31.
  */
-public class KeyValueCollection extends ArrayList {
+public class KeyValueCollection extends ArrayList<KeyValue> {
 
 
     public KeyValueCollection() {
@@ -20,7 +20,7 @@ public class KeyValueCollection extends ArrayList {
 
         if (Objects.isNull(list)) return;
 
-        list.forEach(p -> this.add(new KeyValue(p.getName(), p.getPercentage() * 100)));
+        list.forEach(p -> this.add(new KeyValue(p.getName(), p.getTopicPercentageTotal() * 100)));
 
 
     }
