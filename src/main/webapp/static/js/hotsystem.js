@@ -1245,7 +1245,10 @@ function loadSvg(){
         },10)
     })
     $(document).on("click",function(e){
-    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
+    	if($(e.target).hasClass("ser_dialog")){
+    		$(".ser_dialog_close").click();
+    	}
+    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle")||$(e.target).hasClass("hotAlertTag")||$(e.target).hasClass("triangle")||$(e.target).hasClass("triangle")||$(e.target).hasClass("infoTop")||$(e.target).hasClass("info"))return;
     	alertCon.hide();
     })
     $(".infoBottom").on("click",function(e){
@@ -1358,6 +1361,7 @@ function loadSvg(){
                 {
                     name:'',
                     type:'pie',
+                    hoverAnimation:false,
                     label: {
                         normal: {
                             show: true,
