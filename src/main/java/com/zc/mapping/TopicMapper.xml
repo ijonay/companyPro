@@ -299,6 +299,7 @@
         select
         <include refid="Base_Column_List"/>
         from topic
+        WHERE is_active = 1
         ORDER BY
         prevailing_trend DESC
         limit #{count,jdbcType=INTEGER}
@@ -310,6 +311,7 @@
         select
         <include refid="Base_Column_List"/>
         from topic
+        WHERE is_active = 1
         ORDER BY
         prevailing_trend DESC
         limit #{allCount,jdbcType=INTEGER}
@@ -323,7 +325,7 @@
     </select>
     <select id="getList" resultMap="BaseResultMap">
         Select * from
-       topic
+       topic WHERE is_active = 1
         order by id
         LIMIT
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}

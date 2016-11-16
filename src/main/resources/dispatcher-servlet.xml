@@ -20,11 +20,15 @@
                                 expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
+
+
     <mvc:resources location="/static/img/" mapping="/img/**"></mvc:resources>
     <mvc:resources location="/static/css/" mapping="/css/**"></mvc:resources>
     <mvc:resources location="/static/js/" mapping="/js/**"></mvc:resources>
     <mvc:resources location="/static/lib/" mapping="/lib/**"></mvc:resources>
     <mvc:resources location="/static/fonts/" mapping="/fonts/**"></mvc:resources>
+    <mvc:resources location="/upload/" mapping="/upload/**"></mvc:resources>
+    <mvc:resources location="/favicon.ico" mapping="/favicon.ico"></mvc:resources>
     <mvc:resources location="/index.html" mapping="/index.html"></mvc:resources>
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
