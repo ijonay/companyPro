@@ -57,7 +57,6 @@ $(".bar-tabs>li").on("click",function(){
 });
 /*头部菜单栏*/
 $(".header-right>li").on("click",function(e){
-    e ? e.stopPropagation() : event.cancelBubble = true;
     if($(this).hasClass("head-pred")){//热点预告
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
@@ -73,6 +72,7 @@ $(".header-right>li").on("click",function(e){
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }else if($(this).hasClass("head-userinfo")){//用户信息
+        e ? e.stopPropagation() : event.cancelBubble = true;
         if($(".pnl-user").css("display")=="none"){
             $(this).find(".company").css("background-image","url(img/up-arrow.png)");
             $(".pnl-user").css("display","block");
@@ -232,7 +232,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             url: dataUrl.util.delAllNotify(ids.join(",")),
             success: function(returnData) {
                 $(".notify-tab-list>li").remove();
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
                 $(".notify-count").data("count",0).text("").css("display","none");
                 $('.clear-notify').css('display','none');
             },
@@ -467,11 +467,11 @@ $.ajax({
                 $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
             }else{
                 $(".notify-count").attr("data-count",0).text("").css("display","none");
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
                 $(".notify-operate").css("display","none");
             }
         }else{
-        	$('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+        	$('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
             $(".notify-operate").css("display","none");
         }
     },
