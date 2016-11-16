@@ -105,6 +105,8 @@
         <result column="scale" jdbcType="INTEGER" property="scale"/>
         <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
         <result column="name" jdbcType="DOUBLE" property="name"/>
+        <result column="topicScaleTotal" jdbcType="DOUBLE" property="topicScaleTotal"/>
+        <result column="topicPercentageTotal" jdbcType="DOUBLE" property="topicPercentageTotal"/>
         <result column="scaleTotal" jdbcType="DOUBLE" property="scaleTotal"/>
         <result column="percentageTotal" jdbcType="DOUBLE" property="percentageTotal"/>
     </resultMap>
@@ -113,8 +115,10 @@
     <select id="getByTopicIdAndType" resultMap="ClassResultMap">
         select
         tf.id,tf.filter_id,tf.topic_id,tf.scale,tf.percentage,
-        tc.name,tc.scale scaleTotal,tc.percentage percentageTotal
+        tc.name,tc.scale topicScaleTotal,tc.percentage topicPercentageTotal,
+        a.scaleTotal, a.percentageTotal
         from TopicFilter tf INNER JOIN TopicClass tc on tf.filter_id=tc.id
+        LEFT JOIN (SELECT SUM(scale) scaleTotal,SUM(percentage) percentageTotal from TopicClass where type=#{type,jdbcType=INTEGER})a  on 1=1
         where tf.topic_id = #{topicId,jdbcType=INTEGER} AND tc.type=#{type,jdbcType=INTEGER} ORDER  BY  tf.scale DESC
     </select>
 

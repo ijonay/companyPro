@@ -10,6 +10,10 @@ public class TopicFilterClass extends TopicFilter {
      */
     private String name;
 
+    private Integer topicScaleTotal;
+
+    private Double topicPercentageTotal;
+
     /**
      * scale ,所属表字段为TopicClass.scale
      */
@@ -42,5 +46,21 @@ public class TopicFilterClass extends TopicFilter {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getTopicScaleTotal() {
+        return topicScaleTotal;
+    }
+
+    public void setTopicScaleTotal(Integer topicScaleTotal) {
+        this.topicScaleTotal = topicScaleTotal;
+    }
+
+    public Double getTopicPercentageTotal() {
+        return topicPercentageTotal;
+    }
+
+    public void setTopicPercentageTotal(Double topicPercentageTotal) {
+        this.topicPercentageTotal = topicPercentageTotal;
     }
 }
