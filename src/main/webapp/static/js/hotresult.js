@@ -1311,16 +1311,17 @@ $(document).delegate(".edit-word","click",function(){
         $(".alertCon").find(".portrait").css("background-image","url(img/defaultIcon.png)");
     }
     var eventClass=hotInfo.eventClass;
+    $(".alertCon").find(".hotLabel").html("");
     if(eventClass){
         var typeArr=$.trim(eventClass).split(",");
         $.each(typeArr,function(idx,val){
             if(idx>2) return false;
-            $(".alertCon").find(".hotLabel"+idx).text(val);
+            if(idx==2){
+                $(".alertCon").find(".hotLabel").append("<div style='margin-right:0px;'>"+val+"</div>")
+            }else{
+                $(".alertCon").find(".hotLabel").append("<div>"+val+"</div>");
+            }
         });
-    }else{
-        $(".alertCon").find(".hotLabel0").text("");
-        $(".alertCon").find(".hotLabel1").text("");
-        $(".alertCon").find(".hotLabel2").text("");
     }
     $(".alertCon").css({
         'position': 'absolute',
