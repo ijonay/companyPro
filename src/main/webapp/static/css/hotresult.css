@@ -801,13 +801,25 @@ input[type=checkbox]:checked::after {
 /* 	left:50%; */
 /* 	top:50%; */
 	color:rgba(0,0,0,.3);
-	color:#000;
+	margin-top:16px;
 /* 	-webkit-transform: translate(-50%, -50%); */
 /*     -moz-transform: translate(-50%, -50%); */
 /*     -ms-transform: translate(-50%, -50%); */
 /*     -o-transform: translate(-50%, -50%); */
 /*     transform: translate(-50%, -50%); */
-    padding-top:66px;
+}
+.result-loading .loadingcon{
+	height:89px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	color:rgba(0,0,0,.3);
+	-webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding-top:15px;
 }
     
 .result-error .error-content{
@@ -831,13 +843,8 @@ input[type=checkbox]:checked::after {
 }
 
 /*结果加载*/
-.result-loading1{background:url(../img/resultloading.png) no-repeat center center;width:64px;height:64px;position: relative;left:50%;
-	top:50%;
-	-webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);}
+.result-loading1{background:url(../img/resultloading.png) no-repeat center center;width:64px;height:64px;position: relative;margin:0 auto;}
+	
 .result-loading1 span{position: absolute;}
 .result-loading1 span:nth-child(1){
      width:0px;height:3px;background: #389b9f;top:42px;left:4px;
