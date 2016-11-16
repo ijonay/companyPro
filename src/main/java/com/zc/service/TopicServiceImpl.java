@@ -456,7 +456,13 @@ public class TopicServiceImpl implements TopicService {
                 r = r > 100 ? 100 : r;
                 interestColl.add(new KeyValue(p.getName(), r));
             });
+
         }
+
+        Collections.sort(interestColl, (left, right) -> {
+            return Integer.parseInt(left.getValue() + "") - Integer.parseInt(right.getValue() + "");
+        });
+
 
         result.put("interest", interestColl);
 
