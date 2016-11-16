@@ -41,6 +41,7 @@ public class TopicApi extends BaseApi {
             return new ApiResultModel().data(topicService.getListExt(clueWord, searchModel, currentPage, pageSize));
 
         } catch (Exception e) {
+            e.printStackTrace();
             return new ApiResultModel(StatusCodeEnum.SERVER_ERROR,
                     e.getMessage() + "_" + e.getStackTrace());
         }
