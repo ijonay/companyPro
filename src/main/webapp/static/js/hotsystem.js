@@ -23,6 +23,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 });
 
 
+
 //搜索。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 	//设置为常用
 	$('#ser_text').on('input',function(e){
@@ -1295,6 +1296,8 @@ function loadSvg(){
 	   
 	   $('.nav_ser').delay("fast").fadeOut();
 	   $("#papersvg").removeClass("pointer");
+	   $(".all_hot_list_top_look").css("color",'rgb(74, 74, 74)');
+	   $(".hot_look_eye").css("background-image",'url("img/hot_look_eye.png")');
     }) 
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
