@@ -68,7 +68,7 @@ templates.design = {};
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation"><span>关联此热点</span></li>');
     tmpl.push('       <li class="hot_arrow"></li>');
     tmpl.push('     </ul>');
-    tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot">');
+    tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot" style="display:none">');
     tmpl.push('       <li class="li-first">');
     tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{else}}img/defaultIcon.png{{/if}})"></div></div>');
     tmpl.push('           <div class="type-content fl">');
@@ -114,12 +114,16 @@ templates.design = {};
     templates.design['tmplAllHotList'] = tmpl.join('\r\n');
     $.views.helpers({
         "addTag": function(eventClass) {
-            var tagArray = eventClass.split(",");
-            var str = "";
-            $.each(tagArray,function(index,item){
-            	str += '<div title="'+item+'">'+item+'</div>'
-            })
-            return str;
+        	if(eventClass){
+        		var tagArray = eventClass.split(",");
+                var str = "";
+                $.each(tagArray,function(index,item){
+                	str += '<div title="'+item+'">'+item+'</div>'
+                })
+                return str;
+        	}else{
+        		return "";
+        	}
         },
         "circleReset":function(index){
         	console.log(index);

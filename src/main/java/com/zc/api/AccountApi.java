@@ -6,7 +6,9 @@ import com.zc.enumeration.UserRoleType;
 import com.zc.model.usermodel.LoginModel;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.RegisterModel;
+import com.zc.model.usermodel.UserView;
 import com.zc.service.UsersService;
+import com.zc.utility.CommonHelper;
 import com.zc.utility.EnumHelper;
 import com.zc.utility.ValidateHelper;
 import com.zc.utility.exception.ApiException;
@@ -61,6 +63,24 @@ public class AccountApi extends BaseApi {
         result.setData(loginStatus.getLoginMessage());
 
         return result;
+    }
+
+    /**
+     * 获取当前用户信息
+     * <p>
+     * zhuzhzh 2016年11月16日16:20:11
+     *
+     * @return
+     */
+    @RequestMapping(value = "info", method = RequestMethod.GET)
+    public ApiResultModel getUserInfo() {
+
+
+        ApiResultModel result = new ApiResultModel();
+
+        Users users = usersService.get(CommonHelper.getCurrentUserId());
+
+        return result.data(new UserView(users));
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
