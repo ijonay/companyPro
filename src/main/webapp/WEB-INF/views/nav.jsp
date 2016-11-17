@@ -83,62 +83,62 @@
 <div class="pred-detail"><!-- pred-detail start -->
     <div class="detail-top">
         <div class="title">北京2022年冬季奥运会</div>
-        <div class="desc">描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息息描述信息描述信息息描述信息描述信息</div>
+        <div class="desc" style="display:none;">描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息描述信息息描述信息描述信息息描述信息描述信息</div>
     </div>
     <ul class="source-list">
         <li class="weibo"><!-- weibo start -->
             <div class="top" style="background-image:url(img/hot_weibo.png)">
                 <div class="fl">推荐微博：</div>
-                <div class="fl title"><a href="javascript:;">北京2022年冬季奥运会</a></div>
+                <div class="fl title"><a target='_blank' href="javascript:;">北京2022年冬季奥运会</a></div>
             </div>
             <div class="bottom">
                 <div class="left fl">
                     <div class="fl icon" style="background-image:url(img/weibo-share.png)"></div>
-                    <div class="fl">1000</div>
+                    <div class="fl share-count">1000</div>
                 </div>
                 <div class="middle fl">
                     <div class="fl icon" style="background-image:url(img/weibo-coment.png)"></div>
-                    <div class="fl">2890</div>
+                    <div class="fl coment-count">2890</div>
                 </div>
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/weibo-zan.png)"></div>
-                    <div class="fl">9800</div>
+                    <div class="fl zan-count">9800</div>
                 </div>
             </div>
         </li><!-- weibo end -->
         <li class="weixin"><!-- weixin start -->
             <div class="top" style="background-image:url(img/hot_weixin.png)">
                 <div class="fl">推荐文章：</div>
-                <div class="fl title"><a href="javascript:;">北京2022年冬季奥运会</a></div>
+                <div class="fl title"><a target='_blank' href="javascript:;">北京2022年冬季奥运会</a></div>
             </div>
             <div class="bottom">
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/weixin-view.png)"></div>
-                    <div class="fl">9800</div>
+                    <div class="fl view-count">9800</div>
                 </div>
             </div>
         </li><!-- weixin start -->
         <li class="baidu"><!-- baidu start -->
             <div class="top" style="background-image:url(img/hot_baidu.png)">
                 <div class="fl">搜索结果：</div>
-                <div class="fl title"><a href="javascript:;">北京2022年冬季奥运会</a></div>
+                <div class="fl title"><a target='_blank' href="javascript:;">北京2022年冬季奥运会</a></div>
             </div>
             <div class="bottom">
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/baidu-search.png)"></div>
-                    <div class="fl">9800</div>
+                    <div class="fl search-count">9800</div>
                 </div>
             </div>
         </li><!-- baidu end -->
         <li class="zhihu"><!-- zhihu start -->
             <div class="top" style="background-image:url(img/hot_zhihu.png)">
                 <div class="fl">推荐回答：</div>
-                <div class="fl title"><a href="javascript:;">北京2022年冬季奥运会</a></div>
+                <div class="fl title"><a target='_blank' href="javascript:;">北京2022年冬季奥运会</a></div>
             </div>
             <div class="bottom">
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/weibo-coment.png)"></div>
-                    <div class="fl">9800</div>
+                    <div class="fl answer-count">9800</div>
                 </div>
             </div>
         </li><!-- zhihu end -->

@@ -401,18 +401,18 @@ input[type="text"]:disabled{
     -o-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
     -ms-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
     box-shadow:-2px 0px 18px rgba(0,0,0,.3);
-    border-redius:2px;
+    border-radius:2px;
 }
 .pred-detail .detail-top{
     padding:20px 26px 20px 20px;
     max-height:116px;
     background:#eee;
+    border-radius:2px;
 }
 .pred-detail .detail-top .title{
     font-size:18px;
     color:#000;
     line-height:18px;
-    margin-bottom:14px;
     width:100%;
     overflow: hidden;
     white-space: nowrap;
@@ -431,11 +431,13 @@ input[type="text"]:disabled{
     -webkit-box-orient: vertical;
     box-orient: vertical;
     word-break: break-all;
+    margin-top:14px;
 }
 .pred-detail .source-list li{
     height:88px;
     padding:18px;
     border-bottom:1px solid #eee;
+    display:none;
 }
 .pred-detail .source-list li .top{
     height:16px;
