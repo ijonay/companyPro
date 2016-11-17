@@ -15,14 +15,18 @@ $(".pnl-calendar").calendar({
         dispList(tempData.result,getNowDate(date),"single");
     }
 });
-$(document).delegate(".hots-list>li","click",function(){//查看预告详情
-    if($(this).find(".desc").css("display")!="none"){
-        $(this).find(".desc").css("display","none");
-    }else{
-        $(this).siblings("li").find(".desc").css("display","none");
-        $(this).find(".desc").css("display","block");
-    }
+$(document).delegate(".hots-list>li>a,.detail-list>li>a","mouseover",function(){//查看预告详情
+    var info=$(this).data("info");
+    $(".pred-detail .detail-top .title").text(info.name?info.name:"");
+    $(".pred-detail").css("right","272px");
+}).delegate(".hots-list>li>a,.detail-list>li>a","mouseout",function(){//查看预告详情
+    $(".pred-detail").css("right","-272px");
 });
+$(".pred-detail").mouseover(function(){
+    $(this).css({"right":"272px"})
+}).mouseout(function(){
+    $(this).css({"right":"-272px"})
+})
 
 /*邮箱开关按钮*/
 $(".lb-email").on("click",function(){
@@ -386,9 +390,11 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                $container.find("li[data-index='"+currDate+"']").append("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>");
+                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>").data("info",item);
+                $container.find("li[data-index='"+currDate+"']").append($a);
             }else{
-                $("<li data-index="+currDate+"><a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a></li>").appendTo($container);
+                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
+                $("<li data-index="+currDate+"></li>").append($a).appendTo($container);
             }
         });
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
