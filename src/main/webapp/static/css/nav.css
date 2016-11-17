@@ -405,7 +405,7 @@ input[type="text"]:disabled{
 }
 .pred-detail .detail-top{
     padding:20px 26px 20px 20px;
-    max-height:116px;
+    max-height:128px;
     background:#eee;
     border-radius:2px;
 }
@@ -421,8 +421,8 @@ input[type="text"]:disabled{
 .pred-detail .detail-top .desc{
     font-size:14px;
     color:rgba(0,0,0,0.5);
-    line-height:14px;
-    max-height:42px;
+    line-height:18px;
+    max-height:54px;
     overflow: hidden;
     display: box;
     display: -webkit-box;
