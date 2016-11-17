@@ -72,7 +72,7 @@
 
           <div class="form-group">
             <label for="topicLogoImgUrl" class="col-sm-2 control-label">主照片URL</label>
-            <div class="col-sm-10">
+            <div class="col-sm-8">
               <input type="text" name="logoImgUrl" class="form-control" id="topicLogoImgUrl" >
             </div>
           </div>
