@@ -1068,7 +1068,13 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleArray[i]).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var titleSub = "";
+        	if(titleArray[i].length>12){
+        		titleSub = titleArray[i].substr(0,12)+"...";
+        	}else{
+        		titleSub = titleArray[i]
+        	}
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleSub).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"14",title:titleArray[i],opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0,cursor:"pointer"}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
         	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,scoreArray[i]).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
@@ -1245,7 +1251,10 @@ function loadSvg(){
         },10)
     })
     $(document).on("click",function(e){
-    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
+    	if($(e.target).hasClass("ser_dialog")){
+    		$(".ser_dialog_close").click();
+    	}
+    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle")||$(e.target).hasClass("hotAlertTag")||$(e.target).hasClass("triangle")||$(e.target).hasClass("triangle")||$(e.target).hasClass("infoTop")||$(e.target).hasClass("info"))return;
     	alertCon.hide();
     })
     $(".infoBottom").on("click",function(e){
@@ -1358,6 +1367,7 @@ function loadSvg(){
                 {
                     name:'',
                     type:'pie',
+                    hoverAnimation:false,
                     label: {
                         normal: {
                             show: true,

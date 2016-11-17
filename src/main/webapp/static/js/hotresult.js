@@ -1333,7 +1333,10 @@ $(document).delegate(".edit-word","click",function(){
 }).delegate(".alertCon", "click", function(e) {//弹窗内部防止冒泡
     e ? e.stopPropagation() : event.cancelBubble = true;
 });
-$(document).on('click', function() {//点击任意地方隐藏弹窗
+$(document).on('click', function(e) {//点击任意地方隐藏弹窗
+	if($(e.target).hasClass("ser_dialog")){
+		$(".ser_dialog_close").click();
+	}
     $('.alertCon').css('display', 'none');
 });
 //关联热点
