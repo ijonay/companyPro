@@ -51,12 +51,18 @@
           </div>
 
           <div class="form-group">
-            <label for="topicLogoImgUrlLocal" class="col-sm-2 control-label">主照片</label>
+            <label for="topicLogoImgUrlLocal" class="col-sm-2 control-label">本地照片</label>
             <div class="col-sm-8">
-              <img src="${topic.logoImgUrl}" id="topicLogoImgUrlLocal">
+              <img src="${topic.logoImgUrlLocal}" id="topicLogoImgUrlLocal">
             </div>
           </div>
 
+          <div class="form-group">
+            <label for="topicLogoImgUrl" class="col-sm-2 control-label">主照片URL</label>
+            <div class="col-sm-8">
+              <img src="${topic.logoImgUrl}" id="topicLogoImgUrl">
+            </div>
+          </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">来源</label>
