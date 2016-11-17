@@ -17,6 +17,11 @@ function pathSer(){
 	getPath(word);
 };
 $(document).ready(function(){
+	var a = location.search;
+	if(a){		
+	}else{
+		$(".explorePage").css("display","inline");
+	}
     getPath(false);
 })
 var Pages = [];
