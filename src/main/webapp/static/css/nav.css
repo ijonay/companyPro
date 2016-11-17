@@ -387,3 +387,91 @@ input[type="text"]:disabled{
     height: 14px;
     border-radius: 50%;
 }
+
+/*预告详情*/
+.pred-detail{
+    z-index:9;
+    width:272px;
+    background:#fff;
+    position:fixed;
+    bottom:0;
+    right:-272px;
+    -moz-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+    -webkit-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+    -o-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+    -ms-box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+    box-shadow:-2px 0px 18px rgba(0,0,0,.3);
+    border-radius:2px;
+}
+.pred-detail .detail-top{
+    padding:20px 26px 20px 20px;
+    max-height:128px;
+    background:#eee;
+    border-radius:2px;
+}
+.pred-detail .detail-top .title{
+    font-size:18px;
+    color:#000;
+    line-height:18px;
+    width:100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.pred-detail .detail-top .desc{
+    font-size:14px;
+    color:rgba(0,0,0,0.5);
+    line-height:18px;
+    max-height:54px;
+    overflow: hidden;
+    display: box;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    word-break: break-all;
+    margin-top:14px;
+}
+.pred-detail .source-list li{
+    height:88px;
+    padding:18px;
+    border-bottom:1px solid #eee;
+    display:none;
+}
+.pred-detail .source-list li .top{
+    height:16px;
+    width:100%;
+    background-repeat:no-repeat;
+    background-position:left center;
+    padding-left:26px;
+    line-height:16px;
+    font-size:14px;
+    color:#4a4a4a;
+    margin-bottom:21px;
+}
+.pred-detail .source-list li .top .title a{
+	display:inline-block;
+	font-size:14px;
+	width:140px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color:#389b9f;
+}
+.pred-detail .source-list li .bottom{
+	height:14px;
+	line-height:14px;
+}
+.pred-detail .source-list li .bottom>div{
+	width:75px;
+	overflow:hidden;
+	margin-right:5.5px;
+}
+.pred-detail .source-list li .bottom .icon{
+	background-repeat:no-repeat;
+	background-position:center;
+	width:14px;
+	height:14px;
+	margin-right:10px
+}
