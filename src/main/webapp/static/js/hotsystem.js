@@ -1237,7 +1237,7 @@ function loadSvg(){
                     if(query.trim() == ""){                    
                     }else{
 //                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
-                    	  window.location.href="newPath#query="+query+"&topicId="+hotTopId+"&hotTopic="+topic;
+                    	  window.location.href="newPath?index=0#query="+query+"&topicId="+hotTopId+"&hotTopic="+topic;
                     }               
                 }
             }]
@@ -1498,6 +1498,12 @@ function loadSvg(){
     				// }
     				genderCharts.setOption(genderOption);
     				window.onresize = genderCharts.resize;
+    			}else{
+        			var genderCon = $("<div class=Personas style='position:relative;display:inline-block;width:14%;height:279px;background:#fff;text-align:center'></div>");
+        			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众性别分布</span>")
+        			genderCon.append(a);
+                    genderCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+        			$this.parent().parent().find(".hot_echart_list").append(genderCon);
     			}
     			if(data && data.education.length > 0){
     				//受众学历分布
@@ -1554,6 +1560,12 @@ function loadSvg(){
     				}
     				educationCharts.setOption(educationOption);
     				window.onresize=educationCharts.resize;
+    			}else{
+    				var educationCon = $("<div class=Personas style='position:relative;display:inline-block;width:14%;height:279px;background:#fff;text-align:center'></div>");
+    				var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;left:50%;transform:translate(-50%,0);font-family:微软雅黑;font-size:16px;font-weight:400;'>受众学历分布</span>")
+    				educationCon.append(a);
+                    educationCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+    			    $this.parent().parent().find(".hot_echart_list").append(educationCon);
     			}
     				//兴趣雷达图
     				if(data && data.interest.length > 0){
@@ -1593,9 +1605,9 @@ function loadSvg(){
 	    	        	    		var array = [];
 	    	        	    		$.each(interest,function(i,item){
 	    	        	    			if(i<1){
-	    	        	    				array.push(item.name+":"+item.value.toFixed(2)+"%")
+	    	        	    				array.push(item.name+":"+item.value.toFixed(2))
 	    	        	    			}else{
-	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2)+"%")
+	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2))
 	    	        	    			}	    		    	        		
 	    		    	        	});
 	    	        	    		return array.toString();
@@ -1658,7 +1670,14 @@ function loadSvg(){
 	    	        	    }]
 	    	        	});
 	    	        	window.onresize=interestCharts.resize;
-    				}
+    				}else{
+            			var interestCon = $("<div class=Personas style='position:relative;display:inline-block;width:25%;height:279px;background:#fff;text-align:center'></div>");
+            			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;left:50%;transform:translate(-50%,0);font-size:16px;font-weight:400;'>受众兴趣偏好</span>")
+            			interestCon.append(a);
+            			interestCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+            			$this.parent().parent().find(".hot_echart_list").append(interestCon);
+            			
+        			}
     	        	
     	        	//年龄柱状图
     	        if(data && data.age.length > 0){
@@ -1760,7 +1779,13 @@ function loadSvg(){
     	            	    ]
     	        	});
     	        	window.onresize=ageNewCharts.resize;
-    	        }
+    	        }else{
+        			var ageNewCon = $("<div class=Personas style='position:relative;display:inline-block;width:17%;height:279px;background:#fff;text-align:center'></div>");
+        			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众年龄分布</span>")
+        			ageNewCon.append(a);
+                    ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+        			$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
+    			}
     	        	//地图
     	        if(data && data.area.length > 0){
     	        	var mapCon = $("<div class='Personas' style='margin-right:0;display:inline-block;width:28%;height:279px;background:#fff;'></div>");
@@ -1833,7 +1858,6 @@ function loadSvg(){
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	console.log(obj)
     	        	        	var a = "";
     	        	        	if(obj.value){
     	        	        		a += obj.value.toFixed(2) + "%";
@@ -1918,6 +1942,12 @@ function loadSvg(){
     	        	//mapOption.series[0].data = mapVals;
     	        	//mapCharts.setOption(mapOption);
     	        	window.onresize=mapCharts.resize;
+    			}else{
+        			var mapCon = $("<div style='position:relative;margin-right:0.5%;display:inline-block;width:28%;height:279px;background:#fff;text-align:center'></div>");
+        			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众地区分布</span>")
+        			mapCon.append(a);
+                    mapCon.append($("<span style=position:absolute;display:inline-block;color:#000;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+        			$this.parent().parent().find(".hot_echart_list").append(mapCon);
     			}
     			
     		},
