@@ -1194,8 +1194,9 @@ function loadSvg(){
             if(alertCon.css("display") != "none"){
             	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
             }else{
-            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY});
+            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
             	alertCon.show();
+            	alertCon.animate({opacity:1},500);
             }
             
     	}else{
