@@ -109,7 +109,7 @@ $(document).ajaxSuccess(function(event,xhr,options,exc){
     code  = JSON.parse(code);
     if(code.error){
        if(code.error.code != 0){
-           console.log(code.error.msg)
+           console.log(code.error.message)
        }
     }    
 });
