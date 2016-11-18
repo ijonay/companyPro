@@ -1171,8 +1171,7 @@ function loadSvg(){
             var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
             var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
             var trianglePos = triangleStep * (index + 1);
-            $(".triangle").css("left",trianglePos);
-            alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY});
+            $(".triangle").css("left",trianglePos);            
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
 //            var divH = $(".hotInfo").height();
@@ -1192,7 +1191,13 @@ function loadSvg(){
             	$("#icon"+item).show();
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
-            alertCon.show();
+            if(alertCon.css("display") != "none"){
+            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY},450);
+            }else{
+            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY});
+            	alertCon.show();
+            }
+            
     	}else{
 //        	$("#comeback_hot").click();
         }
