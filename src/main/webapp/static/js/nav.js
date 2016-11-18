@@ -15,14 +15,64 @@ $(".pnl-calendar").calendar({
         dispList(tempData.result,getNowDate(date),"single");
     }
 });
-$(document).delegate(".hots-list>li","click",function(){//查看预告详情
-    if($(this).find(".desc").css("display")!="none"){
-        $(this).find(".desc").css("display","none");
+$(document).delegate(".hots-list>li>a,.detail-list>li>a","mouseover",function(){//查看预告详情
+    var info=$(this).data("info");
+    $(".pred-detail .detail-top .title").text(info.name?info.name:"");
+    if(info.note){
+        $(".pred-detail .detail-top .desc").text(info.note).css("display","-webkit-box");
     }else{
-        $(this).siblings("li").find(".desc").css("display","none");
-        $(this).find(".desc").css("display","block");
+        $(".pred-detail .detail-top .desc").css("display","none");
     }
+    if(info.weiboUrl){
+        var $item=$(".pred-detail li.weibo").css("display","block");
+        $item.find(".title a").attr("href",info.weiboUrl).text(info.weiboTitle?info.weiboTitle:"");
+        if(info.weiboReadNum){
+            $item.find(".left").css("display","none");
+            $item.find(".middle").css("display","none");
+            $item.find(".right .icon").css("background-image","url(img/weixin-view.png)");
+            $item.find(".right .zan-count").text(info.weiboReadNum?info.weiboReadNum:0);
+        }else{
+            $item.find(".left").css("display","block").find(".share-count").text(info.weiboForwardNum?info.weiboForwardNum:0)
+            $item.find(".middle").css("display","block").find(".coment-count").text(info.weiboCommentsNum?info.weiboCommentsNum:0);
+            $item.find(".right .icon").css("background-image","url(img/weibo-zan.png)");
+            $item.find(".right .zan-count").text(info.weiboLoveNum?info.weiboLoveNum:0);
+        }
+    }else{
+        $(".pred-detail li.weibo").css("display","none");
+    }
+    if(info.weixinUrl){
+        var $item=$(".pred-detail li.weixin").css("display","block");
+        $item.find(".title a").attr("href",info.weixinUrl).text(info.weixinTitle?info.weixinTitle:"");
+        $item.find(".view-count").text(info.weixinReadNum?info.weixinReadNum:0);
+    }else{
+        $(".pred-detail li.weixin").css("display","none");
+    }
+    if(info.baiduUrl){
+        var $item=$(".pred-detail li.baidu").css("display","block");
+        $item.find(".title a").attr("href",info.baiduUrl).text(info.baiduSearchKeyword?info.baiduSearchKeyword:"");
+        $item.find(".search-count").text(info.baiduSearchNum?info.baiduSearchNum:0);
+    }else{
+        $(".pred-detail li.baidu").css("display","none");
+    }
+    if(info.zhihuUrl){
+        var $item=$(".pred-detail li.zhihu").css("display","block");
+        $item.find(".title a").attr("href",info.zhihuUrl).text(info.zhihuTitle?info.zhihuTitle:"");
+        $item.find(".answer-count").text(info.zhihuAnswerNum?info.zhihuAnswerNum:0);
+    }else{
+        $(".pred-detail li.zhihu").css("display","none");
+    }
+    $(".pred-detail").css("right","272px");
+}).delegate(".hots-list>li>a,.detail-list>li>a","mouseout",function(){//查看预告详情
+    $(".pred-detail").css("right","-272px");
 });
+$(".pred-detail").mouseover(function(){
+    $(this).css({"right":"272px"});
+}).mouseout(function(){
+    $(this).css({"right":"-272px"});
+}).click(function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
+    $(".right-bar").css({"right":"0px"});
+})
 
 /*邮箱开关按钮*/
 $(".lb-email").on("click",function(){
@@ -386,9 +436,11 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                $container.find("li[data-index='"+currDate+"']").append("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>");
+                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>").data("info",item);
+                $container.find("li[data-index='"+currDate+"']").append($a);
             }else{
-                $("<li data-index="+currDate+"><a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a></li>").appendTo($container);
+                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
+                $("<li data-index="+currDate+"></li>").append($a).appendTo($container);
             }
         });
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
