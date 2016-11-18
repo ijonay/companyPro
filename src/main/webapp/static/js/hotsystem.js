@@ -1587,7 +1587,8 @@ function loadSvg(){
 	    	        			max = item.value
 	    	        		}
 	    	        	});
-	    	        	max += 0.2;
+	    	        	console.log(max);
+	    	        	console.log(max.toFixed(2))
 	    	        	$.each(interest,function(i,item){
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});
