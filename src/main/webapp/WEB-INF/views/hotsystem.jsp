@@ -347,6 +347,26 @@
 <ul class="cook_ul pos hidecommon" id="cook_ul">
   			
 </ul>
+<div class="loadingcon">
+ 	<div class="result-loading1">
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+           
+	</div>
+	 <p class="title" style="font-size:14px;">受众画像加载中，请稍后……</p>
+</div>
 
 <script src="lib/jquery-1.12.0.min.js"></script>
 <script src="lib/jsrender.min.js"></script>
