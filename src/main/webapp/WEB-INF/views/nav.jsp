@@ -94,15 +94,15 @@
             <div class="bottom">
                 <div class="left fl">
                     <div class="fl icon" style="background-image:url(img/weibo-share.png)"></div>
-                    <div class="fl share-count">1000</div>
+                    <div class="fl count share-count">1000</div>
                 </div>
                 <div class="middle fl">
                     <div class="fl icon" style="background-image:url(img/weibo-coment.png)"></div>
-                    <div class="fl coment-count">2890</div>
+                    <div class="fl count coment-count">2890</div>
                 </div>
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/weibo-zan.png)"></div>
-                    <div class="fl zan-count">9800</div>
+                    <div class="fl count zan-count">9800</div>
                 </div>
             </div>
         </li><!-- weibo end -->
@@ -114,7 +114,7 @@
             <div class="bottom">
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/weixin-view.png)"></div>
-                    <div class="fl view-count">9800</div>
+                    <div class="fl count view-count">9800</div>
                 </div>
             </div>
         </li><!-- weixin start -->
@@ -126,7 +126,7 @@
             <div class="bottom">
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/baidu-search.png)"></div>
-                    <div class="fl search-count">9800</div>
+                    <div class="fl count search-count">9800</div>
                 </div>
             </div>
         </li><!-- baidu end -->
@@ -138,7 +138,7 @@
             <div class="bottom">
                 <div class="right fr" style="margin-right:0px;">
                     <div class="fl icon" style="background-image:url(img/weibo-coment.png)"></div>
-                    <div class="fl answer-count">9800</div>
+                    <div class="fl count answer-count">9800</div>
                 </div>
             </div>
         </li><!-- zhihu end -->
