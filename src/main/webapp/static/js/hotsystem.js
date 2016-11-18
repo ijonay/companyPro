@@ -1192,9 +1192,9 @@ function loadSvg(){
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
             if(alertCon.css("display") != "none"){
-            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY},450);
+            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
             }else{
-            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY});
+            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY});
             	alertCon.show();
             }
             
