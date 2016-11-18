@@ -614,6 +614,7 @@ input[type=checkbox]:checked::after {
 	background-repeat:no-repeat;
     background-position:center;
     border-radius:2px;
+    cursor:pointer;
 }
 .hot-next{
     width:51px;
@@ -624,6 +625,7 @@ input[type=checkbox]:checked::after {
     background-repeat:no-repeat;
     background-position:center;
     border-radius:2px;
+    cursor:pointer;
 }
 .hot-prev div,.hot-next div{
 	vertical-align:top;
@@ -632,7 +634,10 @@ input[type=checkbox]:checked::after {
 	width:24px;
 	height:44px;
 }
-.hot-prev:hover,.hot-next:hover{
+.hot-prev.disabled,.hot-next.disabled {
+    opacity:0.2;
+}
+.hot-prev.abled:hover,.hot-next.abled:hover{
 	background-color:rgba(0,0,0,0.2);
 }
 

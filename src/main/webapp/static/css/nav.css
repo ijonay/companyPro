@@ -475,3 +475,9 @@ input[type="text"]:disabled{
 	height:14px;
 	margin-right:10px
 }
+.pred-detail .source-list li .bottom .count{
+	max-width:50px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
