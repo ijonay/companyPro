@@ -1,6 +1,7 @@
 package com.zc.utility;
 
 import com.zc.bean.Users;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -23,5 +24,14 @@ public interface PasswordHelper {
                 hashInterations).toHex();
 
         user.setPassword(newPassword);
+    }
+
+    static boolean checkUserPassword(Users user,String password) {
+        String newPassword = new SimpleHash(
+                algrithmName,
+                password,
+                ByteSource.Util.bytes(user.getUserName() + user.getSalt()),
+                hashInterations).toHex();
+        return StringUtils.equals( newPassword, user.getPassword() );
     }
 }
