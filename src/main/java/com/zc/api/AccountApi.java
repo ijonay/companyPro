@@ -114,7 +114,7 @@ public class AccountApi extends BaseApi {
 
     }
 
-    @RequestMapping(value = "changep")
+    @RequestMapping(value = "changep", method = RequestMethod.POST)
     public ApiResultModel changePass(
             @RequestParam(value = "password") String password,
             @RequestParam(value = "passwordConfirm") String passwordConfirm,
@@ -126,18 +126,22 @@ public class AccountApi extends BaseApi {
 
         if (!(password.length() >= 8 && password.length() <= 25)) {
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("密码格式不正确！");
+            result.data(false);
             return result;
         }
         if(StringUtils.isBlank(password) || StringUtils.isBlank(passwordConfirm)){
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("新密码和确认密码均不能为空！");
+            result.data(false);
             return result;
         }
         if(!StringUtils.equals(password, passwordConfirm)){
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("新密码和确认密码请保持一致！");
+            result.data(false);
             return result;
         }
         if(StringUtils.isBlank(passwordOrig)){
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("请输入原始密码！");
+            result.data(false);
             return result;
         }
 
@@ -148,10 +152,11 @@ public class AccountApi extends BaseApi {
 
         if(!PasswordHelper.checkUserPassword(currentUser, passwordOrig)){
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("原始密码不正确，请重新输入！");
+            result.data(false);
             return result;
         }
 
-        currentUser.setPassword(passwordOrig);
+        currentUser.setPassword(password);
         PasswordHelper.encryptPassword(currentUser);
         if( usersService.update(currentUser) ){
             result.setStatusCode( StatusCodeEnum.SUCCESS );
