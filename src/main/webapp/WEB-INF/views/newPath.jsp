@@ -21,8 +21,10 @@ div#canvas {
 
         <div class="fl nav-banner_left">
             <span style="color:#9c9c9c;cursor:pointer;"  onClick="window.location.href='hotsystem'">首页 </span>
-            <span style="color:#9c9c9c;">&lt;</span>
-            <span  class="color9c pointer" onClick="window.location.href='hotresult'"> 探索结果</span>
+            <span class="explorePage" style="display:none">
+            	<span style="color:#9c9c9c;">&lt;</span>
+            	<span  class="color9c pointer" onClick="history.back()"> 探索结果</span>
+            </span>
             <span class="nav-banner_left_icon"></span>
             <span style="font-size:16px;">路径方案</span>
         </div>

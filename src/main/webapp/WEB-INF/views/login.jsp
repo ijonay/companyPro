@@ -78,7 +78,7 @@
     }
 
     function resetLoginButton() {
-        $('#loginBtn').attr('disabled', false).val('登录Heptax');
+        $('#loginBtn').attr('disabled', false).val('登录');
     }
 
     function setLoginButton() {

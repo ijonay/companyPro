@@ -106,7 +106,22 @@
         select id, name,
          DATE_FORMAT(start_date,'%Y-%m-%d') as start_date,
          DATE_FORMAT(end_date,'%Y-%m-%d') as end_date,
-         weibo_url
+         weibo_url,
+         weibo_title,
+         note,
+        weibo_read_num,
+        weibo_forward_num,
+        weibo_comments_num,
+        weibo_love_num,
+        weixin_title,
+        weixin_url,
+        weixin_read_num,
+        zhihu_title,
+        zhihu_url,
+        zhihu_answer_num,
+        baidu_search_keyword,
+        baidu_url,
+        baidu_search_num
         from HotTopicPrediction
         where is_active = 1
         and DATE_FORMAT( STR_TO_DATE( #{dateStr,jdbcType=VARCHAR},'%Y-%m-%d'), '%Y-%m') &gt;= DATE_FORMAT(start_date,'%Y-%m')
@@ -120,6 +135,21 @@
         <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
         <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
         <result column="weibo_url" jdbcType="VARCHAR" property="weiboUrl"/>
+        <result column="weibo_title" jdbcType="VARCHAR" property="weiboTitle"/>
+        <result column="weibo_read_num" jdbcType="VARCHAR" property="weiboReadNum"/>
+        <result column="weibo_forward_num" jdbcType="VARCHAR" property="weiboForwardNum"/>
+        <result column="weibo_comments_num" jdbcType="VARCHAR" property="weiboCommentsNum"/>
+        <result column="weibo_love_num" jdbcType="VARCHAR" property="weiboLoveNum"/>
+        <result column="weixin_title" jdbcType="VARCHAR" property="weixinTitle"/>
+        <result column="weixin_url" jdbcType="VARCHAR" property="weixinUrl"/>
+        <result column="weixin_read_num" jdbcType="VARCHAR" property="weixinReadNum"/>
+        <result column="zhihu_title" jdbcType="VARCHAR" property="zhihuTitle"/>
+        <result column="zhihu_url" jdbcType="VARCHAR" property="zhihuUrl"/>
+        <result column="zhihu_answer_num" jdbcType="VARCHAR" property="zhihuAnswerNum"/>
+        <result column="baidu_search_keyword" jdbcType="VARCHAR" property="baiduSearchKeyword"/>
+        <result column="baidu_url" jdbcType="VARCHAR" property="baiduUrl"/>
+        <result column="baidu_search_num" jdbcType="VARCHAR" property="baiduSearchNum"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
     </resultMap>
 
 </mapper>

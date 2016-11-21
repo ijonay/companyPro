@@ -15,14 +15,64 @@ $(".pnl-calendar").calendar({
         dispList(tempData.result,getNowDate(date),"single");
     }
 });
-$(document).delegate(".hots-list>li","click",function(){//查看预告详情
-    if($(this).find(".desc").css("display")!="none"){
-        $(this).find(".desc").css("display","none");
+$(document).delegate(".hots-list>li>a,.detail-list>li>a","mouseover",function(){//查看预告详情
+    var info=$(this).data("info");
+    $(".pred-detail .detail-top .title").text(info.name?info.name:"");
+    if(info.note){
+        $(".pred-detail .detail-top .desc").text(info.note).css("display","-webkit-box");
     }else{
-        $(this).siblings("li").find(".desc").css("display","none");
-        $(this).find(".desc").css("display","block");
+        $(".pred-detail .detail-top .desc").css("display","none");
     }
+    if(info.weiboUrl){
+        var $item=$(".pred-detail li.weibo").css("display","block");
+        $item.find(".title a").attr("href",info.weiboUrl).text(info.weiboTitle?info.weiboTitle:"");
+        if(info.weiboReadNum){
+            $item.find(".left").css("display","none");
+            $item.find(".middle").css("display","none");
+            $item.find(".right .icon").css("background-image","url(img/weixin-view.png)");
+            $item.find(".right .zan-count").text(info.weiboReadNum?info.weiboReadNum:0);
+        }else{
+            $item.find(".left").css("display","block").find(".share-count").text(info.weiboForwardNum?info.weiboForwardNum:0)
+            $item.find(".middle").css("display","block").find(".coment-count").text(info.weiboCommentsNum?info.weiboCommentsNum:0);
+            $item.find(".right .icon").css("background-image","url(img/weibo-zan.png)");
+            $item.find(".right .zan-count").text(info.weiboLoveNum?info.weiboLoveNum:0);
+        }
+    }else{
+        $(".pred-detail li.weibo").css("display","none");
+    }
+    if(info.weixinUrl){
+        var $item=$(".pred-detail li.weixin").css("display","block");
+        $item.find(".title a").attr("href",info.weixinUrl).text(info.weixinTitle?info.weixinTitle:"");
+        $item.find(".view-count").text(info.weixinReadNum?info.weixinReadNum:0);
+    }else{
+        $(".pred-detail li.weixin").css("display","none");
+    }
+    if(info.baiduUrl){
+        var $item=$(".pred-detail li.baidu").css("display","block");
+        $item.find(".title a").attr("href",info.baiduUrl).text(info.baiduSearchKeyword?info.baiduSearchKeyword:"");
+        $item.find(".search-count").text(info.baiduSearchNum?info.baiduSearchNum:0);
+    }else{
+        $(".pred-detail li.baidu").css("display","none");
+    }
+    if(info.zhihuUrl){
+        var $item=$(".pred-detail li.zhihu").css("display","block");
+        $item.find(".title a").attr("href",info.zhihuUrl).text(info.zhihuTitle?info.zhihuTitle:"");
+        $item.find(".answer-count").text(info.zhihuAnswerNum?info.zhihuAnswerNum:0);
+    }else{
+        $(".pred-detail li.zhihu").css("display","none");
+    }
+    $(".pred-detail").css("right","272px");
+}).delegate(".hots-list>li>a,.detail-list>li>a","mouseout",function(){//查看预告详情
+    $(".pred-detail").css("right","-272px");
 });
+$(".pred-detail").mouseover(function(){
+    $(this).css({"right":"272px"});
+}).mouseout(function(){
+    $(this).css({"right":"-272px"});
+}).click(function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
+    $(".right-bar").css({"right":"0px"});
+})
 
 /*邮箱开关按钮*/
 $(".lb-email").on("click",function(){
@@ -57,7 +107,6 @@ $(".bar-tabs>li").on("click",function(){
 });
 /*头部菜单栏*/
 $(".header-right>li").on("click",function(e){
-    e ? e.stopPropagation() : event.cancelBubble = true;
     if($(this).hasClass("head-pred")){//热点预告
         $(".bar-tabs>li.pred-tab").addClass("active").siblings(".notify-tab").removeClass("active");
         $(".pnl-notify-tab").css("display","none");
@@ -73,6 +122,7 @@ $(".header-right>li").on("click",function(e){
         $(".pnl-pred-tab").css("display","none");
         $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
     }else if($(this).hasClass("head-userinfo")){//用户信息
+        e ? e.stopPropagation() : event.cancelBubble = true;
         if($(".pnl-user").css("display")=="none"){
             $(this).find(".company").css("background-image","url(img/up-arrow.png)");
             $(".pnl-user").css("display","block");
@@ -85,9 +135,10 @@ $(".header-right>li").on("click",function(e){
     }
 });
 $(".user-set").on("click",function(){
-    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='北京知藏云道科技有限公司' disabled/></div>"+
+    var company=$(".head-userinfo .company").text();
+    var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='"+company+"' disabled/></div>"+
         "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
-        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
+        "<div class='set-info new-pwd'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/><div class='info-erro' style='display:none'>密码格式错误<div class='del'></div></div></div>"+
         "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
     var pop = new Pop({
         width:"396px",
@@ -104,47 +155,23 @@ $(".user-set").on("click",function(){
                 var oldPwd=$.trim($('.txt-oldpwd').val());
                 var newPwd=$.trim($('.txt-newpwd').val());
                 var confPwd=$.trim($('.txt-confpwd').val());
-                if(oldPwd!=""){
-                    if(newPwd==""){
-                        $('.txt-newpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-newpwd').removeClass("error");
-                    }
-                    if(confPwd==""){
-                        $('.txt-confpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-confpwd').removeClass("error");
-                    }
+                if(oldPwd==""){
+                    $('.txt-oldpwd').addClass("error");
+                    return;
+                }else{
+                    $('.txt-oldpwd').removeClass("error");
                 }
-                if(newPwd!=""){
-                    if(oldPwd==""){
-                        $('.txt-oldpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-oldpwd').removeClass("error");
-                    }
-                    if(confPwd==""){
-                        $('.txt-confpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-confpwd').removeClass("error");
-                    }
+                if(newPwd==""){
+                    $('.txt-newpwd').addClass("error");
+                    return;
+                }else{
+                    $('.txt-newpwd').removeClass("error");
                 }
-                if(confPwd!=""){
-                    if(newPwd==""){
-                        $('.txt-newpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-newfpwd').removeClass("error");
-                    }
-                    if(oldPwd==""){
-                        $('.txt-confpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-confpwd').removeClass("error");
-                    }
+                if(confPwd==""){
+                    $('.txt-confpwd').addClass("error");
+                    return;
+                }else{
+                    $('.txt-confpwd').removeClass("error");
                 }
                 if(newPwd!=""&&confPwd!=""){
                     if(newPwd!=confPwd){
@@ -154,12 +181,29 @@ $(".user-set").on("click",function(){
                         $('.conf-pwd').find(".info-erro").css("display","none");
                     }  
                 }
+                var data={
+                        "password":newPwd,
+                        "passwordConfirm":confPwd,
+                        "passwordOrig":oldPwd
+                };
                 $.ajax({
                     type:"post",
-                    url: dataUrl.util.updatePwd(newPwd),
+                    url: dataUrl.util.updatePwd,
+                    data:data,
                     success: function(returnData) {
                         if(returnData.error.code==0){
                             window.location.href="user/login";
+                        }else{
+                            if(returnData.error.message.indexOf("密码格式不正确")!=-1){
+                                $('.new-pwd').find(".info-erro").css("display","block");
+                            }else{
+                                $('.new-pwd').find(".info-erro").css("display","none");
+                            }
+                            if(returnData.error.message.indexOf("原始密码不正确，请重新输入！")!=-1){
+                                $('.set-pwd').find(".info-erro").css("display","block");
+                            }else{
+                                $('.set-pwd').find(".info-erro").css("display","none");
+                            }
                         }
                     },
                     error: function() {
@@ -232,7 +276,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
             url: dataUrl.util.delAllNotify(ids.join(",")),
             success: function(returnData) {
                 $(".notify-tab-list>li").remove();
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
                 $(".notify-count").data("count",0).text("").css("display","none");
                 $('.clear-notify').css('display','none');
             },
@@ -385,9 +429,11 @@ function dispList(data,date,type){
                 currDate = m+"."+startD+"-"+endD;
             }
             if($container.find("li[data-index='"+currDate+"']").length>0){
-                $container.find("li[data-index='"+currDate+"']").append("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>");
+                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>").data("info",item);
+                $container.find("li[data-index='"+currDate+"']").append($a);
             }else{
-                $("<li data-index="+currDate+"><a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a></li>").appendTo($container);
+                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
+                $("<li data-index="+currDate+"></li>").append($a).appendTo($container);
             }
         });
     if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
@@ -467,11 +513,11 @@ $.ajax({
                 $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
             }else{
                 $(".notify-count").attr("data-count",0).text("").css("display","none");
-                $('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
                 $(".notify-operate").css("display","none");
             }
         }else{
-        	$('.notify-tab-list').append('<p style="margin:200px 110px;">暂无通知</p>');
+        	$('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
             $(".notify-operate").css("display","none");
         }
     },
@@ -580,12 +626,16 @@ jQuery(document).ready(function ($) {
 });
 
 $(".hot-next").mouseover(function(){
-    $(this).find("div").css("background","url(img/hot-next-hover.png)");
+    if(!$(this).hasClass("disabled")){
+        $(this).find("div").css("background","url(img/hot-next-hover.png)");
+    }
 }).mouseout(function(){
     $(this).find("div").css("background","url(img/hot-next.png)");
 });
 $(".hot-prev").mouseover(function(){
-    $(this).find("div").css("background","url(img/hot-prev-hover.png)");
+    if(!$(this).hasClass("disabled")){
+        $(this).find("div").css("background","url(img/hot-prev-hover.png)");
+    }
 }).mouseout(function(){
     $(this).find("div").css("background","url(img/hot-prev.png)");
 });
@@ -593,4 +643,21 @@ $(".hot-prev").mouseover(function(){
 
 $(document).delegate(".info-erro .del","click",function(){
     $(this).parents(".info-erro").css("display","none");
+});
+
+//获取当前用户信息
+$.ajax({
+    type: "get",
+    url: dataUrl.util.getUserInfo,
+    success: function(returnData) {
+        if(returnData.error.code == 0&&returnData.data){
+            res=returnData.data;
+            var userName=res.userName?res.userName:"";
+            var company=res.company?res.company:"";
+            $(".head-userinfo .name").text(userName);
+            $(".head-userinfo .company").text(company);
+            $(".pnl-user .name").text(userName);
+            $(".pnl-user .company").text(company);
+        }
+    }
 });

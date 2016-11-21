@@ -1068,7 +1068,13 @@ function loadSvg(){
 //           paper.image("img/apple.png", xArray[i]-10, yArray[i]-10, 20, 20).attr({"opacity":0}).animate({"opacity":1,r:10},700,"easeInOut").click(function(){
 //                alert("aaa")
 //            });
-        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleArray[i]).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"14",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
+        	var titleSub = "";
+        	if(titleArray[i].length>12){
+        		titleSub = titleArray[i].substr(0,12)+"...";
+        	}else{
+        		titleSub = titleArray[i]
+        	}
+        	var textArrayItem = paper.text(xArray[i],yArray[i]+45,titleSub).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"14",title:titleArray[i],opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
            
             var rectArrayItem = paper.rect(xArray[i] - 12,yArray[i] + 3,0,0).attr({fill:"#389b9f",opacity:0,transform:"r45",width:24,height:24,"stroke-width":0,r:2,opacity:0,cursor:"pointer"}).data("index",i).animate({"opacity":1,transform:"r45"},700,"ease").click(function(e){nodeClick(e,this)});
         	var hotArrayItem = paper.text(xArray[i],yArray[i] + 15,scoreArray[i]).attr({"fill":'#fff',"font-family":'微软雅黑',"font-size":"16",opacity:0,cursor:"pointer"}).data("index",i).animate({opacity:1},700,"ease").click(function(e){nodeClick(e,this)});
@@ -1165,8 +1171,7 @@ function loadSvg(){
             var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
             var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
             var trianglePos = triangleStep * (index + 1);
-            $(".triangle").css("left",trianglePos);
-            alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY});
+            $(".triangle").css("left",trianglePos);            
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
 //            var divH = $(".hotInfo").height();
@@ -1186,7 +1191,14 @@ function loadSvg(){
             	$("#icon"+item).show();
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
-            alertCon.show();
+            if(alertCon.css("display") != "none"){
+            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
+            }else{
+            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
+            	alertCon.show();
+            	alertCon.animate({opacity:1},500);
+            }
+            
     	}else{
 //        	$("#comeback_hot").click();
         }
@@ -1231,7 +1243,7 @@ function loadSvg(){
                     if(query.trim() == ""){                    
                     }else{
 //                        window.location.href="path?query="+escape(query)+"&topicId="+topicId+"&hotTopic="+escape(topic);
-                    	  window.location.href="newPath#query="+query+"&topicId="+hotTopId+"&hotTopic="+topic;
+                    	  window.location.href="newPath?index=0#query="+query+"&topicId="+hotTopId+"&hotTopic="+topic;
                     }               
                 }
             }]
@@ -1245,7 +1257,10 @@ function loadSvg(){
         },10)
     })
     $(document).on("click",function(e){
-    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle"))return;
+    	if($(e.target).hasClass("ser_dialog")){
+    		$(".ser_dialog_close").click();
+    	}
+    	if($(e.target).hasClass("alertCon")||$(e.target).hasClass("portrait")||$(e.target).hasClass("infoTitle")||$(e.target).hasClass("hotAlertTag")||$(e.target).hasClass("triangle")||$(e.target).hasClass("triangle")||$(e.target).hasClass("infoTop")||$(e.target).hasClass("info"))return;
     	alertCon.hide();
     })
     $(".infoBottom").on("click",function(e){
@@ -1358,6 +1373,7 @@ function loadSvg(){
                 {
                     name:'',
                     type:'pie',
+                    hoverAnimation:false,
                     label: {
                         normal: {
                             show: true,
@@ -1417,23 +1433,25 @@ function loadSvg(){
     	};
     	var $this = $(this);
     	if($this.parent().parent().find(".Personas").length > 0){
-			console.log("已添加用户画像");
 			return;
 		}
+    	$this.parent().parent().find(".hot_echart_list").append($(".loadingcon").css("display","inline-block"));
     	$.ajax({
     		type:"get",
     		url:dataUrl.util.getPercentData($(this).attr("data-id")),
     		success:function(data){
+    			$(".loadingcon").css("display","none")
     			var data = data.data;
+    			var str = "";
     			if(data == null){
-    				str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
-    					$this.parent().parent().find(".hot_echart_list").html(str);
+    				str = "<p class='Personas' style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
+    					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
     				var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
     				if(dataLen < 1){
-    					str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
-    					$this.parent().parent().find(".hot_echart_list").html(str);
+    					str = "<p class='Personas' style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
+    					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
     			//受众年龄画像
@@ -1488,6 +1506,12 @@ function loadSvg(){
     				// }
     				genderCharts.setOption(genderOption);
     				window.onresize = genderCharts.resize;
+    			}else{
+        			var genderCon = $("<div class=Personas style='position:relative;display:inline-block;width:14%;height:279px;background:#fff;text-align:center'></div>");
+        			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众性别分布</span>")
+        			genderCon.append(a);
+                    genderCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+        			$this.parent().parent().find(".hot_echart_list").append(genderCon);
     			}
     			if(data && data.education.length > 0){
     				//受众学历分布
@@ -1544,6 +1568,12 @@ function loadSvg(){
     				}
     				educationCharts.setOption(educationOption);
     				window.onresize=educationCharts.resize;
+    			}else{
+    				var educationCon = $("<div class=Personas style='position:relative;display:inline-block;width:14%;height:279px;background:#fff;text-align:center'></div>");
+    				var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;left:50%;transform:translate(-50%,0);font-family:微软雅黑;font-size:16px;font-weight:400;'>受众学历分布</span>")
+    				educationCon.append(a);
+                    educationCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+    			    $this.parent().parent().find(".hot_echart_list").append(educationCon);
     			}
     				//兴趣雷达图
     				if(data && data.interest.length > 0){
@@ -1559,7 +1589,6 @@ function loadSvg(){
 	    	        			max = item.value
 	    	        		}
 	    	        	});
-	    	        	max += 0.2;
 	    	        	$.each(interest,function(i,item){
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});
@@ -1583,9 +1612,9 @@ function loadSvg(){
 	    	        	    		var array = [];
 	    	        	    		$.each(interest,function(i,item){
 	    	        	    			if(i<1){
-	    	        	    				array.push(item.name+":"+item.value.toFixed(2)+"%")
+	    	        	    				array.push(item.name+":"+item.value.toFixed(2))
 	    	        	    			}else{
-	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2)+"%")
+	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2))
 	    	        	    			}	    		    	        		
 	    		    	        	});
 	    	        	    		return array.toString();
@@ -1648,7 +1677,14 @@ function loadSvg(){
 	    	        	    }]
 	    	        	});
 	    	        	window.onresize=interestCharts.resize;
-    				}
+    				}else{
+            			var interestCon = $("<div class=Personas style='position:relative;display:inline-block;width:25%;height:279px;background:#fff;text-align:center'></div>");
+            			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;left:50%;transform:translate(-50%,0);font-size:16px;font-weight:400;'>受众兴趣偏好</span>")
+            			interestCon.append(a);
+            			interestCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+            			$this.parent().parent().find(".hot_echart_list").append(interestCon);
+            			
+        			}
     	        	
     	        	//年龄柱状图
     	        if(data && data.age.length > 0){
@@ -1750,7 +1786,13 @@ function loadSvg(){
     	            	    ]
     	        	});
     	        	window.onresize=ageNewCharts.resize;
-    	        }
+    	        }else{
+        			var ageNewCon = $("<div class=Personas style='position:relative;display:inline-block;width:17%;height:279px;background:#fff;text-align:center'></div>");
+        			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众年龄分布</span>")
+        			ageNewCon.append(a);
+                    ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+        			$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
+    			}
     	        	//地图
     	        if(data && data.area.length > 0){
     	        	var mapCon = $("<div class='Personas' style='margin-right:0;display:inline-block;width:28%;height:279px;background:#fff;'></div>");
@@ -1823,7 +1865,6 @@ function loadSvg(){
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	console.log(obj)
     	        	        	var a = "";
     	        	        	if(obj.value){
     	        	        		a += obj.value.toFixed(2) + "%";
@@ -1908,6 +1949,12 @@ function loadSvg(){
     	        	//mapOption.series[0].data = mapVals;
     	        	//mapCharts.setOption(mapOption);
     	        	window.onresize=mapCharts.resize;
+    			}else{
+        			var mapCon = $("<div style='position:relative;margin-right:0.5%;display:inline-block;width:28%;height:279px;background:#fff;text-align:center'></div>");
+        			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众地区分布</span>")
+        			mapCon.append(a);
+                    mapCon.append($("<span style=position:absolute;display:inline-block;color:#000;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+        			$this.parent().parent().find(".hot_echart_list").append(mapCon);
     			}
     			
     		},

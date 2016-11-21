@@ -74,6 +74,8 @@ history.pushState && window.addEventListener("popstate", function(e) {
     var currPage = GetRequest().currentPage; //拆分url得到”=”后面的参数 ;
         urlLabel = GetRequestLabel();//标签信息
     if(currWord&&currPage){
+        word=currWord;
+        nowPage=currPage;
         $('#nav_ser').val(currWord);
         getResult(currWord, 20, currPage,urlLabel);
     };
@@ -122,7 +124,18 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	                $("#canvas .topic").remove();
 	                $(".word").remove();
 	                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
-	                $(".hot-next").attr("data-pageCount",returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0);
+	                var pageCount=returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0;
+	                $(".hot-next").attr("data-pageCount",pageCount);
+	                if(nowPage<pageCount){
+	                    $(".hot-next").removeClass("disabled").addClass("abled");
+	                }else{
+	                    $(".hot-next").removeClass("abled").addClass("disabled");
+	                }
+	                if(nowPage>1){
+                        $(".hot-prev").removeClass("disabled").addClass("abled");
+                    }else{
+                        $(".hot-prev").removeClass("abled").addClass("disabled");
+                    }
 	                result = _.sortBy(returnData.data.data, function(item) {
 	                    return -item.score
 	                });
@@ -1311,16 +1324,17 @@ $(document).delegate(".edit-word","click",function(){
         $(".alertCon").find(".portrait").css("background-image","url(img/defaultIcon.png)");
     }
     var eventClass=hotInfo.eventClass;
+    $(".alertCon").find(".hotLabel").html("");
     if(eventClass){
         var typeArr=$.trim(eventClass).split(",");
         $.each(typeArr,function(idx,val){
             if(idx>2) return false;
-            $(".alertCon").find(".hotLabel"+idx).text(val);
+            if(idx==2){
+                $(".alertCon").find(".hotLabel").append("<div style='margin-right:0px;'>"+val+"</div>")
+            }else{
+                $(".alertCon").find(".hotLabel").append("<div>"+val+"</div>");
+            }
         });
-    }else{
-        $(".alertCon").find(".hotLabel0").text("");
-        $(".alertCon").find(".hotLabel1").text("");
-        $(".alertCon").find(".hotLabel2").text("");
     }
     $(".alertCon").css({
         'position': 'absolute',
@@ -1332,7 +1346,10 @@ $(document).delegate(".edit-word","click",function(){
 }).delegate(".alertCon", "click", function(e) {//弹窗内部防止冒泡
     e ? e.stopPropagation() : event.cancelBubble = true;
 });
-$(document).on('click', function() {//点击任意地方隐藏弹窗
+$(document).on('click', function(e) {//点击任意地方隐藏弹窗
+	if($(e.target).hasClass("ser_dialog")){
+		$(".ser_dialog_close").click();
+	}
     $('.alertCon').css('display', 'none');
 });
 //关联热点
