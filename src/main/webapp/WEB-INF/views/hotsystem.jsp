@@ -386,7 +386,7 @@ $.get('js/china.json', function (chinaJson) {
 <script src="js/hotsystem.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/pop.js"></script>
+<script src="js/dialog.js"></script>
 <script id="allHotTmpl" type="text/x-jsrender">
 
 </script>
