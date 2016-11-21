@@ -65,9 +65,8 @@ dataUrl.util = {
     delAllNotify:function(id){
         return encodeURI('api/hotTopicMessage/delAll?ids='+id)//删除所有通知
     },
-    updatePwd:function(pwd){
-        return "api/account/changep?password="+pwd;
-    },
+    updatePwd:"api/account/changep"
+    ,
     getUserInfo:"api/account/info"//获取用户信息
 }
 

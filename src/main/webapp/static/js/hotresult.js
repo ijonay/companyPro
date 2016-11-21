@@ -74,6 +74,8 @@ history.pushState && window.addEventListener("popstate", function(e) {
     var currPage = GetRequest().currentPage; //拆分url得到”=”后面的参数 ;
         urlLabel = GetRequestLabel();//标签信息
     if(currWord&&currPage){
+        word=currWord;
+        nowPage=currPage;
         $('#nav_ser').val(currWord);
         getResult(currWord, 20, currPage,urlLabel);
     };
@@ -122,7 +124,18 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	                $("#canvas .topic").remove();
 	                $(".word").remove();
 	                $("<div class='word wordwidth'>"+word+"</div>").appendTo($("#canvas"));
-	                $(".hot-next").attr("data-pageCount",returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0);
+	                var pageCount=returnData.data&&returnData.data.pageCount?returnData.data.pageCount:0;
+	                $(".hot-next").attr("data-pageCount",pageCount);
+	                if(nowPage<pageCount){
+	                    $(".hot-next").removeClass("disabled").addClass("abled");
+	                }else{
+	                    $(".hot-next").removeClass("abled").addClass("disabled");
+	                }
+	                if(nowPage>1){
+                        $(".hot-prev").removeClass("disabled").addClass("abled");
+                    }else{
+                        $(".hot-prev").removeClass("abled").addClass("disabled");
+                    }
 	                result = _.sortBy(returnData.data.data, function(item) {
 	                    return -item.score
 	                });
