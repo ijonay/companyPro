@@ -72,28 +72,21 @@ public class WordServiceImpl implements WordService {
         weiboService = weiboServicetemp;
         wordService = wordServicetemp;
 
+        String load = PropertyHelper.getValue(Constant
+                .CONFIG_PROPERTIES, Constant
+                .MODEL_LOAD);
 
-//        loadWordVectorCollMaps();
-
-//        loadMaps();
-//        loadTopicMap();
-        // loadWordMap();
-
-        // loadMaps();
-        // loadTopicMap();
-
+        if (!Objects.isNull(load) && Boolean.parseBoolean(load)) {
+            loadMaps();
+        }
 
     }
 
-    private void loadWordVectorCollMaps() {
-        modelMap = getWordVectorsCollByCache();
-    }
 
     @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
             loadMaps();
-            //loadWordVectorCollMaps();
         }
         return modelMap;
     }
@@ -679,10 +672,11 @@ public class WordServiceImpl implements WordService {
         String path = PropertyHelper.getValue(Constant
                 .CONFIG_PROPERTIES, Constant
                 .MODEL_BIN);
-        if (path.indexOf("\\") > -1 || path.indexOf("/") > -1) {
-            return path;
-        }
-        return this.getClass().getClassLoader().getResource(path).getPath();
+        return path;
+//        if (path.indexOf("\\") > -1 || path.indexOf("/") > -1) {
+//            return path;
+//        }
+//        return this.getClass().getClassLoader().getResource(path).getPath();
     }
 
 }

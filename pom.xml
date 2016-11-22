@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>zhicang</groupId>
     <artifactId>HotSpot</artifactId>
@@ -96,9 +96,9 @@
             <version>6.0.3</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>com.microsoft.sqlserver</groupId>-->
-            <!--<artifactId>sqljdbc4</artifactId>-->
-            <!--<version>4.0</version>-->
+        <!--<groupId>com.microsoft.sqlserver</groupId>-->
+        <!--<artifactId>sqljdbc4</artifactId>-->
+        <!--<version>4.0</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>log4j</groupId>
@@ -278,6 +278,25 @@
                     <!--<version>3.3</version> -->
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId> <!-- 官网给出的配置，没有配置 groupId，这里也不配置 -->
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- ID 标识，命名随意 -->
+                        <phase>package</phase> <!-- 绑定到 PACKAGE 生命周期阶段 -->
+                        <goals>
+                            <goal>single</goal>  <!-- 在 PACKAGE 生命周期阶段仅执行一次 -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor> <!-- 自定义打包的配置文件 -->
+                    </descriptors>
+                    <appendAssemblyId>false</appendAssemblyId> <!-- 设为 FALSE, 防止 WAR 包名加入 assembly.xml 中的 ID -->
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -298,4 +317,22 @@
             </resource>
         </resources>
     </build>
+
+    <profiles>
+        <profile> <!-- 可以通过 -P ID 来激活 -->
+            <id>PROD</id> <!-- ID 标识符 -->
+            <properties>
+                <env>PROD</env> <!-- properties 定义 key-value, 这里 key 是 env, value 是 PROD -->
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault> <!-- 默认激活 -->
+            </activation>
+        </profile>
+        <profile> <!-- 可以通过 -P ID 来激活 -->
+            <id>TEST</id> <!-- ID 标识符 -->
+            <properties>
+                <env>TEST</env> <!-- properties 定义 key-value, 这里 key 是 env, value 是 TEST -->
+            </properties>
+        </profile>
+    </profiles>
 </project>
