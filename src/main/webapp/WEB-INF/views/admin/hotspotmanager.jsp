@@ -72,10 +72,10 @@
                                 <div class="col-sm-9">
                                     <div class="input-group input-daterange">
                                         <input type="text" id="startDate" data-role="val" class="form-control"
-                                               value="2012-04-05">
+                                               value="2016-11-22">
                                         <span class="input-group-addon">to</span>
                                         <input type="text" id="endDate" data-role="val" class="form-control"
-                                               value="2012-04-19">
+                                               value="2016-11-30">
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +225,7 @@
 
                 $('.input-daterange input').each(function () {
                     $(this).datepicker({
-                        format: 'yyyy/mm/dd',
-                        startDate: '-0d'
+                        format: 'yyyy-mm-dd'
                     });
                 });
 
@@ -258,18 +257,21 @@
                         var result = KD.Json.binderJson(data.data, temp_Container);
                         $("#temp_Container").html(result).show();
                     })).then(function () {
-                        $("a.state").click(function () {
+                        $("a.state").click(function (e) {
+                            e.preventDefault();
                             var id = $(this).attr("data-id");
                             var val = ("1" == $(this).attr("data-val")) ? 0 : 1;
                             Hotspot.updateState(id, val, initData);
                         })
-                        $("a.del").click(function () {
+                        $("a.del").click(function (e) {
+                            e.preventDefault();
                             var id = $(this).attr("data-id");
                             if (confirm("确定要删除吗？"))
                                 Hotspot.updateState(id, 0, initData);
 //                                Hotspot.del(id, initData);
                         });
-                        $("a.edit").click(function () {
+                        $("a.edit").click(function (e) {
+                            e.preventDefault();
                             var id = $(this).attr("data-id");
                             Hotspot.get(id, function (data) {
                                 try {
@@ -290,8 +292,8 @@
                         })
                     });
 
-                    $(".addModel").click(function () {
-
+                    $(".addModel").click(function (e) {
+                        e.preventDefault();
                         if (curObj != null) {
                             $("input[data-role='val']").val("");
                         }
@@ -302,7 +304,8 @@
                     });
 
 
-                    $(".save").click(function () {
+                    $(".save").click(function (e) {
+                        e.preventDefault();
 //                        var vailData = [
 //                            {objId: "userName", defSubject: "用户名"}
 //                        ];
