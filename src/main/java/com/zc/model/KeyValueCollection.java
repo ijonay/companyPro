@@ -20,8 +20,8 @@ public class KeyValueCollection extends ArrayList<KeyValue> {
 
         if (Objects.isNull(list)) return;
 
-        list.forEach(p -> this.add(new KeyValue(p.getName(), p.getTopicPercentageTotal() * 100)));
-
+        //list.forEach(p -> this.add(new KeyValue(p.getName(), p.getTopicPercentageTotal() * 100)));
+        list.forEach(p -> this.add(new KeyValue(p.getName(), p.getPercentage() * 100)));
 
     }
 

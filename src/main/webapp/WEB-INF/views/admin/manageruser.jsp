@@ -137,8 +137,15 @@
                     });
 
                     $(".addUser").click(function () {
+
+                        if (curObj != null)
+                        {
+                            $("input[data-role='val']").val("");
+                            $("#password").val("1234567")
+                        }
+
                         curObj = null;
-                        $("input[data-role='val']").val("");
+
                         $('#myModal').modal();
                     });
 

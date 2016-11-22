@@ -17,4 +17,8 @@ public interface HotTopicPredictionService {
     HotTopicPrediction get(Integer id);
 
     List<HotTopicPredictionModel> getHotTopicEventList(String dateStr);
+
+    List<HotTopicPrediction> getAll();
+
+
 }
