@@ -68,7 +68,8 @@ public class UsersServiceImpl implements UsersService {
     public Users getByUserName(String userName) {
         Users users = usersMapper.getByUserName(userName);
         if (users == null) {
-            throw new ServiceException(StatusCodeEnum.SERVER_ERROR, "没有查询到userName=" + userName + "的用户信息");
+            //throw new ServiceException(StatusCodeEnum.SERVER_ERROR, "没有查询到userName=" + userName + "的用户信息");
+            throw new ServiceException(StatusCodeEnum.SERVER_ERROR, "用户不存在或已被禁用！");
         }
 
         return users;

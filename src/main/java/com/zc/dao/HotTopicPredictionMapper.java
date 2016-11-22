@@ -6,7 +6,7 @@ import com.zc.model.HotTopicPredictionModel;
 import java.util.List;
 
 /**
- * 
+ *
  */
 public interface HotTopicPredictionMapper {
 
@@ -19,5 +19,8 @@ public interface HotTopicPredictionMapper {
     int del(Integer id);
 
     List<HotTopicPredictionModel> getHotTopicEventList(String dateStr);
+
+    List<HotTopicPrediction> getAll();
+
 
 }
