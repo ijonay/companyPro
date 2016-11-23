@@ -132,5 +132,41 @@ public class TopicApi extends BaseApi {
         return result;
     }
 
+    @RequestMapping(value = "applymanual")
+    public ApiResultModel applyTopicManulStatus(@RequestParam("id")
+                                                 Integer id) {
+        Objects.requireNonNull(id);
 
+        ApiResultModel result = new ApiResultModel();
+        try{
+            if( topicService.applyManual(id) ){
+                result.setStatusCode( StatusCodeEnum.SUCCESS );
+            }else{
+                result.setStatusCode( StatusCodeEnum.FAILED );
+            }
+        }catch (Exception e){
+            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "cancelmanual")
+    public ApiResultModel cancelTopicManulStatus(@RequestParam("id")
+                                        Integer id) {
+        Objects.requireNonNull(id);
+
+        ApiResultModel result = new ApiResultModel();
+        try{
+            if( topicService.cancelManual(id) ){
+                result.setStatusCode( StatusCodeEnum.SUCCESS );
+            }else{
+                result.setStatusCode( StatusCodeEnum.FAILED );
+            }
+        }catch (Exception e){
+            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

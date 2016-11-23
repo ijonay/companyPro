@@ -640,6 +640,32 @@ public class Topic implements java.io.Serializable{
 
     private Integer isActie;
 
+/*
+    manual_prevailing_trend,
+    manual_event_class,
+    manual_createdate,
+    manual_updatedate,
+    manual_is_applied,
+    manual_introduction,
+    manual_topic_url,
+    manual_baidu_url,
+    manual_zhihu_url,
+    manual_wechat_url,
+*/
+
+    private String manualPrevailingTrend;
+    private String manualEventClass;
+    private String manualCreateDate;
+    private String manualUpdateDate;
+    private String manualIsApplied;
+    private String manualIntroduction;
+    private String manualTopicUrl;
+    private String manualBaiduUrl;
+    private String manualZhihuUrl;
+    private String manualWechatUrl;
+    private String manualTitle;
+    private String manualLogoImgUrl;
+
     public TopicModel getModel() {
 
         TopicModel model = new TopicModel();
@@ -692,5 +718,101 @@ public class Topic implements java.io.Serializable{
 
     public void setIsActie(Integer isActie) {
         this.isActie = isActie;
+    }
+
+    public String getManualPrevailingTrend() {
+        return manualPrevailingTrend;
+    }
+
+    public void setManualPrevailingTrend(String manualPrevailingTrend) {
+        this.manualPrevailingTrend = manualPrevailingTrend;
+    }
+
+    public String getManualEventClass() {
+        return manualEventClass;
+    }
+
+    public void setManualEventClass(String manualEventClass) {
+        this.manualEventClass = manualEventClass;
+    }
+
+    public String getManualCreateDate() {
+        return manualCreateDate;
+    }
+
+    public void setManualCreateDate(String manualCreateDate) {
+        this.manualCreateDate = manualCreateDate;
+    }
+
+    public String getManualUpdateDate() {
+        return manualUpdateDate;
+    }
+
+    public void setManualUpdateDate(String manualUpdateDate) {
+        this.manualUpdateDate = manualUpdateDate;
+    }
+
+    public String getManualIsApplied() {
+        return manualIsApplied;
+    }
+
+    public void setManualIsApplied(String manualIsApplied) {
+        this.manualIsApplied = manualIsApplied;
+    }
+
+    public String getManualIntroduction() {
+        return manualIntroduction;
+    }
+
+    public void setManualIntroduction(String manualIntroduction) {
+        this.manualIntroduction = manualIntroduction;
+    }
+
+    public String getManualTopicUrl() {
+        return manualTopicUrl;
+    }
+
+    public void setManualTopicUrl(String manualTopicUrl) {
+        this.manualTopicUrl = manualTopicUrl;
+    }
+
+    public String getManualBaiduUrl() {
+        return manualBaiduUrl;
+    }
+
+    public void setManualBaiduUrl(String manualBaiduUrl) {
+        this.manualBaiduUrl = manualBaiduUrl;
+    }
+
+    public String getManualZhihuUrl() {
+        return manualZhihuUrl;
+    }
+
+    public void setManualZhihuUrl(String manualZhihuUrl) {
+        this.manualZhihuUrl = manualZhihuUrl;
+    }
+
+    public String getManualWechatUrl() {
+        return manualWechatUrl;
+    }
+
+    public void setManualWechatUrl(String manualWechatUrl) {
+        this.manualWechatUrl = manualWechatUrl;
+    }
+
+    public String getManualTitle() {
+        return manualTitle;
+    }
+
+    public void setManualTitle(String manualTitle) {
+        this.manualTitle = manualTitle;
+    }
+
+    public String getManualLogoImgUrl() {
+        return manualLogoImgUrl;
+    }
+
+    public void setManualLogoImgUrl(String manualLogoImgUrl) {
+        this.manualLogoImgUrl = manualLogoImgUrl;
     }
 }

@@ -53,4 +53,11 @@ public interface TopicDao {
     int activeTopic(@Param("id") Integer id);
 
     List<TopicModel> getTopicsByKeyword(@Param("keyword") String keyword);
+
+    int applyManual(@Param("id") Integer id);
+
+    int cancelManual(@Param("id") Integer id);
+
+    int syncInsertTopic(Topic topic);
+
 }
