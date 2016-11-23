@@ -83,14 +83,17 @@
 
     <select id="getUserHotTopicMessageList"  resultMap="ViewResultMap">
 
-        SELECT retopic.id,retopic.keyword,retopic.topic_id,t.title,
-        DATE_FORMAT(retopic.create_date,'%Y-%m-%d %H:%i:%s') as create_date
+        SELECT id,keyword,topic_id,title,create_date from (
+        SELECT max(retopic.id) as id,retopic.keyword,retopic.topic_id,t.title,
+        DATE_FORMAT( max(retopic.create_date),'%Y-%m-%d %H:%i:%s') as create_date
         from UserRecommentedTopics retopic
         INNER join users u on u.id = retopic.user_id
         INNER join topic t on t.id = retopic.topic_id
-        where u.id = #{userId, jdbcType=INTEGER}
-        and retopic.is_active = 1
-        ORDER BY retopic.create_date desc
+        where retopic.is_active = 1
+        and u.id = #{userId, jdbcType=INTEGER}
+        and retopic.create_date > DATE_SUB(NOW(),INTERVAL 2 day)
+        GROUP BY retopic.topic_id, t.title, retopic.keyword ) t
+        ORDER BY create_date desc
         limit 0,#{count, jdbcType=INTEGER}
 
     </select>
