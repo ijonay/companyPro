@@ -138,10 +138,12 @@ public class PathServiceImpl implements PathService {
         log.add(start + "1");
         List<PathModel> result = new ArrayList<>();
         this.pathList.forEach(p -> {
+
+
             Set<Edge> edges = new HashSet<>();
             LinkedList<Node> nodes = new LinkedList<>();
             PathModel model = new PathModel(nodes, edges);
-            result.add(model);
+
             p.forEach(n -> {
                 if (!StringUtils.isEmpty(n.getPrevName())) {
                     edges.add(new Edge(n.getPrevName(), n.getName(), n.getSimilarity()));
@@ -149,6 +151,10 @@ public class PathServiceImpl implements PathService {
 
                 nodes.add(new Node(n.getName()));
             });
+
+            if (edges.size() < 1) return;
+
+            result.add(model);
 
         });
 
