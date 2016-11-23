@@ -20,7 +20,7 @@
     <jsp:body>
         <div class="container">
 
-            <form id="topicForm" action="<%=request.getContextPath()%>/admin/addtopic" class="form-horizontal"
+            <form id="topicForm" action="<c:out value="${pageContext.request.contextPath}"/>/admin/addtopic" class="form-horizontal"
                   role="form" enctype="multipart/form-data" method="post">
 
                 <div class="form-group">
