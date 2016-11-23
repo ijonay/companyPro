@@ -131,20 +131,6 @@ public class WordServiceImpl implements WordService {
     }
 
 
-    /**
-     * 刷新redis中语料库信息 如果redis不存在数据则重新加载数据如果有则不做任何操作
-     *
-     * @return
-     */
-    private void refreshMaps() {
-
-        String keyPrefix = Constant.WORD_VECTORS_KEY_PREFIX;
-        Set<String> keys = redisTemplate.keys(keyPrefix + "*");
-        if (keys.size() <= 0) {
-            cache_UpdateWordVectors();
-        }
-
-    }
 
     @Override
     public void cache_UpdateWordVerctorsToColl() {

@@ -7,18 +7,11 @@ import com.zc.model.topicsearch.SearchModel;
 import com.zc.service.TopicService;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,17 +27,14 @@ public class TopicApi extends BaseApi {
             @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
             @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
             @RequestBody(required = false) SearchModel searchModel) {
-        try {
-            if (pageSize <= 0 || currentPage <= 0)
-                return new ApiResultModel(null);
 
-            return new ApiResultModel().data(topicService.getListExt(clueWord, searchModel, currentPage, pageSize));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ApiResultModel(StatusCodeEnum.SERVER_ERROR,
-                    e.getMessage() + "_" + e.getStackTrace());
-        }
+        if (pageSize <= 0 || currentPage <= 0)
+            return new ApiResultModel(null);
+
+        return new ApiResultModel().data(topicService.getListExt(clueWord, searchModel, currentPage, pageSize));
+
+
     }
 
 
@@ -94,18 +84,18 @@ public class TopicApi extends BaseApi {
 
     @RequestMapping(value = "inactive")
     public ApiResultModel inactiveTopic(@RequestParam("id")
-                                            Integer id) {
+                                                Integer id) {
         Objects.requireNonNull(id);
 
         ApiResultModel result = new ApiResultModel();
-        try{
-            if( topicService.inactiveTopic(id) ){
-                result.setStatusCode( StatusCodeEnum.SUCCESS );
-            }else{
-                result.setStatusCode( StatusCodeEnum.FAILED );
+        try {
+            if (topicService.inactiveTopic(id)) {
+                result.setStatusCode(StatusCodeEnum.SUCCESS);
+            } else {
+                result.setStatusCode(StatusCodeEnum.FAILED);
             }
-        }catch (Exception e){
-            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+        } catch (Exception e) {
+            result.setStatusCode(StatusCodeEnum.SERVER_ERROR);
             e.printStackTrace();
         }
         return result;
@@ -113,19 +103,19 @@ public class TopicApi extends BaseApi {
 
     @RequestMapping(value = "active")
     public ApiResultModel activeTopic(@RequestParam("id")
-                                          Integer id) {
+                                              Integer id) {
         Objects.requireNonNull(id);
 
         ApiResultModel result = new ApiResultModel();
 
-        try{
-            if( topicService.activeTopic(id) ){
-                result.setStatusCode( StatusCodeEnum.SUCCESS );
-            }else{
-                result.setStatusCode( StatusCodeEnum.FAILED );
+        try {
+            if (topicService.activeTopic(id)) {
+                result.setStatusCode(StatusCodeEnum.SUCCESS);
+            } else {
+                result.setStatusCode(StatusCodeEnum.FAILED);
             }
-        }catch (Exception e){
-            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+        } catch (Exception e) {
+            result.setStatusCode(StatusCodeEnum.SERVER_ERROR);
             e.printStackTrace();
         }
 

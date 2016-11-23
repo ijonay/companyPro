@@ -21,16 +21,19 @@ import com.zc.model.topicsearch.SearchModel;
 import com.zc.utility.*;
 import com.zc.utility.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Lazy(false)
 public class TopicServiceImpl implements TopicService {
 
     @Autowired
@@ -46,6 +49,17 @@ public class TopicServiceImpl implements TopicService {
     @Autowired
     private TopicAgeStatisticsService topicAgeStatisticsService;
 
+    @PostConstruct
+    public void init() {
+
+        String load = PropertyHelper.getValue(Constant
+                .CONFIG_PROPERTIES, Constant.TOPIC_LOAD_TO_REDIS);
+
+        if (!Objects.isNull(load) && Boolean.parseBoolean(load)) {
+            cache_UpdateTopicVerctorToColl();
+        }
+
+    }
     /**
      * 获取词汇与热点话题的相似度
      *
@@ -296,7 +310,7 @@ public class TopicServiceImpl implements TopicService {
 
         String key = PropertyHelper.getValue(Constant
                         .CONFIG_PROPERTIES,
-                Constant.TOPICS_VECTORS_KEY_PREFIx);
+                Constant.TOPICS_VECTORS_KEY_PREFIX);
 
         List<String> keys = new ArrayList<>();
 
@@ -372,7 +386,7 @@ public class TopicServiceImpl implements TopicService {
 
                 String keyPrefix = PropertyHelper.getValue(Constant
                                 .CONFIG_PROPERTIES,
-                        Constant.TOPICS_VECTORS_KEY_PREFIx);
+                        Constant.TOPICS_VECTORS_KEY_PREFIX);
 
                 Set<String> keys = redisTemplate.keys(keyPrefix + "*");
 
