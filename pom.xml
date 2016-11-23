@@ -319,6 +319,7 @@
     </build>
 
     <profiles>
+        <!--正式产品环境        -->
         <profile> <!-- 可以通过 -P ID 来激活 -->
             <id>PROD</id> <!-- ID 标识符 -->
             <properties>
@@ -328,10 +329,18 @@
                 <activeByDefault>true</activeByDefault> <!-- 默认激活 -->
             </activation>
         </profile>
+        <!--内部测试环境 120       -->
         <profile> <!-- 可以通过 -P ID 来激活 -->
             <id>TEST</id> <!-- ID 标识符 -->
             <properties>
                 <env>TEST</env> <!-- properties 定义 key-value, 这里 key 是 env, value 是 TEST -->
+            </properties>
+        </profile>
+        <!--内部开发环境 101           -->
+        <profile> <!-- 可以通过 -P ID 来激活 -->
+            <id>DEV</id> <!-- ID 标识符 -->
+            <properties>
+                <env>DEV</env> <!-- properties 定义 key-value, 这里 key 是 env, value 是 DEV -->
             </properties>
         </profile>
     </profiles>

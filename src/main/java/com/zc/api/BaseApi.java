@@ -26,6 +26,7 @@ public class BaseApi {
     @ResponseBody
     public ApiResultModel exp(HttpServletRequest request, Exception ex) {
 
+
         request.setAttribute("ex", ex);
         ApiResultModel result = new ApiResultModel();
 
@@ -54,7 +55,7 @@ public class BaseApi {
                     new Object[]{exception.getErrorCode(),
                             exception.getMessage(), ex.getStackTrace()});
 
-            return result.code(StatusCodeEnum.WRONGPARAM);
+            return result.code(StatusCodeEnum.WRONGPARAM).message(exception.getMessage());
 
         } else {
             apiLogger.error("Exception message:{} stacktrace:{}",

@@ -12,6 +12,7 @@ public interface Constant {
     String SOLR_URL = "solr_url";
     String MODEL_BIN = "model_bin";
     String MODEL_LOAD = "model_load";
+    String TOPIC_LOAD_TO_REDIS="topic_load_to_redis";
 
     String SOLR_SEARCH_LENGTH_KEY = "solr_search_length";
     /**
@@ -36,6 +37,6 @@ public interface Constant {
     /**
      * 单个话题键前缀
      */
-    String TOPICS_VECTORS_KEY_PREFIx = "redis_topics_vectors_key_prefix";
+    String TOPICS_VECTORS_KEY_PREFIX = "redis_topics_vectors_key_prefix";
 
 }

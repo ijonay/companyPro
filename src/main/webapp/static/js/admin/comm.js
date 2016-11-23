@@ -6,6 +6,7 @@
         checkActive: function (name) {
             $("#leftContainer > ul > li[name='" + name + "']").addClass("active");
         }
+
     };
 
     function checkActive() {

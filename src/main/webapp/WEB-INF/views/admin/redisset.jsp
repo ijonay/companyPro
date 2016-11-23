@@ -82,26 +82,26 @@
         <div class="jumbotron">
             <div class="container">
                 <form class="form-horizontal">
-                    <div class="form-group">
-                            <%--<div class="col-sm-offset-2 col-sm-10">--%>
-                        <button type="button" class="btn btn-default submit1">更新语料库键值对到redis</button>
-                            <%--</div>--%>
-                    </div>
-                    <div class="form-group">
-                            <%--<div class="col-sm-offset-2 col-sm-10">--%>
-                        <button type="button" class="btn btn-default submit4">更新语料库集合到redis</button>
-                            <%--</div>--%>
-                    </div>
+                        <%--<div class="form-group">--%>
+                        <%--&lt;%&ndash;<div class="col-sm-offset-2 col-sm-10">&ndash;%&gt;--%>
+                        <%--<button type="button" class="btn btn-default submit1">更新语料库键值对到redis</button>--%>
+                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                        <%--</div>--%>
+                        <%--<div class="form-group">--%>
+                        <%--&lt;%&ndash;<div class="col-sm-offset-2 col-sm-10">&ndash;%&gt;--%>
+                        <%--<button type="button" class="btn btn-default submit4">更新语料库集合到redis</button>--%>
+                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                        <%--</div>--%>
                     <div class="form-group">
                             <%--<div class="col-sm-offset-2 col-sm-10">--%>
                         <button type="button" class="btn btn-default submit2">更新Topic坐标集合到redis单个键值中</button>
                             <%--</div>--%>
                     </div>
-                    <div class="form-group">
-                            <%--<div class="col-sm-offset-2 col-sm-10">--%>
-                        <button type="button" class="btn btn-default submit3">更新Topic坐标集合到redis</button>
-                            <%--</div>--%>
-                    </div>
+                        <%--<div class="form-group">--%>
+                        <%--&lt;%&ndash;<div class="col-sm-offset-2 col-sm-10">&ndash;%&gt;--%>
+                        <%--<button type="button" class="btn btn-default submit3">更新Topic坐标集合到redis</button>--%>
+                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                        <%--</div>--%>
                 </form>
             </div>
         </div>
