@@ -629,7 +629,7 @@
 
     <select id="syncInsertTopic" parameterType="com.zc.bean.Topic"  resultType="java.lang.Integer" >
         {
-            call sync_insert_topic(
+            call proc_sync_insert_topic(
               #{ title, mode=IN, jdbcType=VARCHAR },
               #{ prevailingTrend, mode=IN, jdbcType=INTEGER },
               #{ eventClass, mode=IN, jdbcType=VARCHAR },
