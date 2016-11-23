@@ -79,6 +79,7 @@
         <div class="bs-example">
 
             <button type="button" onclick="window.open('<c:out value="${pageContext.request.contextPath}"/>/admin/toaddtopic','_blank')"
+
                     class="btn btn-default">添加热点
             </button>
 
@@ -103,6 +104,7 @@
                                 <td>${topic.prevailingTrend}</td>
                                 <td>
                                     <a href="/admin/topicdetail/${topic.id}" target="_blank">详情</a>
+
                                     <a href="/admin/toupdatetopic/${topic.id}" target="_blank">修改</a>
                                     <a href="javascript:void(0)" onclick="updateTopicStatus('${topic.id}')"
                                        id="deleteLink_${topic.id}">
