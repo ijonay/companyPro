@@ -12,6 +12,7 @@ import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
 import com.zc.utility.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,4 +78,11 @@ public interface TopicService {
      */
     List<TopicModel> getTopicsByKeyword(String keyword);
     boolean update(Topic topic);
+
+    boolean applyManual(Integer id);
+
+    boolean cancelManual(Integer id);
+
+    int syncInsertTopic(Topic topic);
+
 }

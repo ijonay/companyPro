@@ -6,8 +6,7 @@
 <script type="text/javascript">
 
     function updateTopicStatus(id){
-        var status = $("#deleteLink_" + id).html();
-        alert(status);
+        var status = $.trim( $("#deleteLink_" + id).html() );
         var url = "";
         if( $.trim(status) == '取消删除' ){
             url = "/api/topic/active"
@@ -34,6 +33,34 @@
         })
     }
 
+    function updateManualStatus(id){
+        var status = $.trim( $("#manual_" + id).html() );
+        var url = "";
+        if( status == '应用干预' ){
+            url = "/api/topic/applymanual"
+        }else{
+            url = "/api/topic/cancelmanual";
+        }
+        url += "?id=" + id;
+        $.ajax({
+            url : url,
+            dataType : 'json',
+            success:function(data){
+                if(data.error.code == '0'){
+                    alert('操作成功.');
+                    if(status == '应用干预'){
+                        $("#manual_" + id).html("取消干预");
+                    }else{
+                        $("#manual_" + id).html("应用干预");
+                    }
+
+                }else{
+                    alert('操作失败.');
+                }
+            }
+        })
+    }
+
 </script>
 <t:template>
     <jsp:attribute name="script"></jsp:attribute>
@@ -50,7 +77,7 @@
 
             <div class="bs-example">
 
-                <button type="button" onclick="window.open('/admin/addtopic','_blank')" class="btn btn-default">添加热点</button>
+                <button type="button" onclick="window.open('/admin/toaddtopic','_blank')" class="btn btn-default">添加热点</button>
 
             </div>
 
@@ -73,15 +100,24 @@
                                         <td>${topic.prevailingTrend}</td>
                                         <td>
                                             <a href="/admin/topicdetail/${topic.id}" target="_blank">详情</a>
-                                            <a href="/admin/topicdetail/${topic.id}?action=update" target="_blank">修改</a>
+                                            <a href="/admin/toupdatetopic/${topic.id}" target="_blank">修改</a>
                                             <a href="javascript:void(0)" onclick="updateTopicStatus('${topic.id}')"
                                                id="deleteLink_${topic.id}">
-                                            <c:if test="${not empty topic.isActive && topic.isActive == 1}">
-                                                删除
-                                            </c:if>
-                                            <c:if test="${not empty topic.isActive && topic.isActive == 0}">
-                                                取消删除
-                                            </c:if>
+                                                    <c:if test="${not empty topic.isActive && topic.isActive == 1}">
+                                                        删除
+                                                    </c:if>
+                                                    <c:if test="${not empty topic.isActive && topic.isActive == 0}">
+                                                        取消删除
+                                                    </c:if>
+                                            </a>
+                                            <a href="javascript:void(0)" onclick="updateManualStatus('${topic.id}')"
+                                               id="manual_${topic.id}">
+                                                    <c:if test="${not empty topic.manualIsApplied && topic.manualIsApplied == 1}">
+                                                        取消干预
+                                                    </c:if>
+                                                    <c:if test="${empty topic.manualIsApplied || topic.manualIsApplied == 0}">
+                                                        应用干预
+                                                    </c:if>
                                             </a>
                                         </td>
                                     </tr>
