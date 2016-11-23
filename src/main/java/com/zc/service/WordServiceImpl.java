@@ -83,7 +83,6 @@ public class WordServiceImpl implements WordService {
     }
 
 
-    @Deprecated
     public Map<String, float[]> getModelMap() {
         if (modelMap == null) {
             loadMaps();
