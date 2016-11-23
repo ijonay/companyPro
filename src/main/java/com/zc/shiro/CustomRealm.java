@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Service
 public class CustomRealm extends AuthorizingRealm {
@@ -43,7 +44,8 @@ public class CustomRealm extends AuthorizingRealm {
 
         Users users = userService.getByUserName(userName);
 
-        simpleAuthorizationInfo.addRoles(Arrays.asList(users.getRole().split(",")));
+        if (Objects.nonNull(users) && Objects.nonNull(users.getRole()))
+            simpleAuthorizationInfo.addRoles(Arrays.asList(users.getRole().split(",")));
 
         return simpleAuthorizationInfo;
     }

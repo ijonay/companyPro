@@ -16,7 +16,7 @@
   <jsp:body>
       <div class="container">
 
-        <form id="topicForm" action="/api/topic/add" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
+        <form id="topicForm" action="<c:out value="${pageContext.request.contextPath}"/>/api/topic/add" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
 
           <div class="form-group">
             <label for="topicTitle" class="col-sm-2 control-label">热点名称</label>

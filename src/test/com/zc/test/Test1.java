@@ -27,7 +27,14 @@ public class Test1 extends BaseTest {
     @Test
     public void test2() {
 
-        System.out.println(String.join(",", app.getBeanDefinitionNames()));
+        String star = "小黄人";
+        String end = "警察";
+
+
+
+
+
+//        System.out.println(String.join(",", app.getBeanDefinitionNames()));
 
 //        ArrayList<Integer> item = new ArrayList<>();
 //        item.add(1);
