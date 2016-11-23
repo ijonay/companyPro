@@ -138,7 +138,7 @@ $(".user-set").on("click",function(){
     var company=$(".head-userinfo .company").text();
     var content = $("<div class='pnl-info'><div class='set-info company-name'>公司名称：<input type='text' class='txt-companyname' value='"+company+"' disabled/></div>"+
         "<div class='set-info set-pwd'>修改密码：<input type='password' class='txt-oldpwd' placeholder='请输入原密码'/><div class='info-erro' style='display:none'>原密码输入错误<div class='del'></div></div></div>"+
-        "<div class='set-info'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/></div>"+
+        "<div class='set-info new-pwd'><input type='password' class='txt-newpwd' placeholder='请输入新密码'/><div class='info-erro' style='display:none'>密码格式错误<div class='del'></div></div></div>"+
         "<div class='set-info conf-pwd'>确认密码：<input type='password' class='txt-confpwd' placeholder='再次输入新密码'/><div class='info-erro' style='display:none'>两次密码输入不一致<div class='del'></div></div></div></div>");
     var pop = new Pop({
         width:"396px",
@@ -155,47 +155,23 @@ $(".user-set").on("click",function(){
                 var oldPwd=$.trim($('.txt-oldpwd').val());
                 var newPwd=$.trim($('.txt-newpwd').val());
                 var confPwd=$.trim($('.txt-confpwd').val());
-                if(oldPwd!=""){
-                    if(newPwd==""){
-                        $('.txt-newpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-newpwd').removeClass("error");
-                    }
-                    if(confPwd==""){
-                        $('.txt-confpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-confpwd').removeClass("error");
-                    }
+                if(oldPwd==""){
+                    $('.txt-oldpwd').addClass("error");
+                    return;
+                }else{
+                    $('.txt-oldpwd').removeClass("error");
                 }
-                if(newPwd!=""){
-                    if(oldPwd==""){
-                        $('.txt-oldpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-oldpwd').removeClass("error");
-                    }
-                    if(confPwd==""){
-                        $('.txt-confpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-confpwd').removeClass("error");
-                    }
+                if(newPwd==""){
+                    $('.txt-newpwd').addClass("error");
+                    return;
+                }else{
+                    $('.txt-newpwd').removeClass("error");
                 }
-                if(confPwd!=""){
-                    if(newPwd==""){
-                        $('.txt-newpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-newfpwd').removeClass("error");
-                    }
-                    if(oldPwd==""){
-                        $('.txt-confpwd').addClass("error");
-                        return;
-                    }else{
-                        $('.txt-confpwd').removeClass("error");
-                    }
+                if(confPwd==""){
+                    $('.txt-confpwd').addClass("error");
+                    return;
+                }else{
+                    $('.txt-confpwd').removeClass("error");
                 }
                 if(newPwd!=""&&confPwd!=""){
                     if(newPwd!=confPwd){
@@ -205,12 +181,29 @@ $(".user-set").on("click",function(){
                         $('.conf-pwd').find(".info-erro").css("display","none");
                     }  
                 }
+                var data={
+                        "password":newPwd,
+                        "passwordConfirm":confPwd,
+                        "passwordOrig":oldPwd
+                };
                 $.ajax({
                     type:"post",
-                    url: dataUrl.util.updatePwd(newPwd),
+                    url: dataUrl.util.updatePwd,
+                    data:data,
                     success: function(returnData) {
                         if(returnData.error.code==0){
                             window.location.href="user/login";
+                        }else{
+                            if(returnData.error.message.indexOf("密码格式不正确")!=-1){
+                                $('.new-pwd').find(".info-erro").css("display","block");
+                            }else{
+                                $('.new-pwd').find(".info-erro").css("display","none");
+                            }
+                            if(returnData.error.message.indexOf("原始密码不正确，请重新输入！")!=-1){
+                                $('.set-pwd').find(".info-erro").css("display","block");
+                            }else{
+                                $('.set-pwd').find(".info-erro").css("display","none");
+                            }
                         }
                     },
                     error: function() {
@@ -633,12 +626,16 @@ jQuery(document).ready(function ($) {
 });
 
 $(".hot-next").mouseover(function(){
-    $(this).find("div").css("background","url(img/hot-next-hover.png)");
+    if(!$(this).hasClass("disabled")){
+        $(this).find("div").css("background","url(img/hot-next-hover.png)");
+    }
 }).mouseout(function(){
     $(this).find("div").css("background","url(img/hot-next.png)");
 });
 $(".hot-prev").mouseover(function(){
-    $(this).find("div").css("background","url(img/hot-prev-hover.png)");
+    if(!$(this).hasClass("disabled")){
+        $(this).find("div").css("background","url(img/hot-prev-hover.png)");
+    }
 }).mouseout(function(){
     $(this).find("div").css("background","url(img/hot-prev.png)");
 });

@@ -51,6 +51,11 @@ public class AdminController {
 
         return "admin/manageruser";
     }
+    @RequestMapping("/hotspotmanager")
+    public String hotspotManager(ModelMap model) {
+
+        return "admin/hotspotmanager";
+    }
 
     @RequestMapping("/managetopic")
     public String manageTopic(

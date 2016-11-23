@@ -15,6 +15,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
@@ -22,6 +23,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 @Service
 public class CustomRealm extends AuthorizingRealm {
@@ -31,30 +33,29 @@ public class CustomRealm extends AuthorizingRealm {
     @Resource
     private UsersService userService;
 
-    /*
-     *
-     * bq zhanbq
-     * 
-     * @see
-     * org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache
-     * .shiro.subject.PrincipalCollection) 2016年2月16日
-     */
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 
-        return null;
+
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+
+        String userName = (String) principalCollection.getPrimaryPrincipal();
+
+        Users users = userService.getByUserName(userName);
+
+        simpleAuthorizationInfo.addRoles(Arrays.asList(users.getRole().split(",")));
+
+        return simpleAuthorizationInfo;
     }
 
-
-
     /*
-     *
-     * bq zhanbq
-     * 
-     * @see
-     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.
-     * apache.shiro.authc.AuthenticationToken) 2016年2月16日
-     */
+         *
+         * bq zhanbq
+         *
+         * @see
+         * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.
+         * apache.shiro.authc.AuthenticationToken) 2016年2月16日
+         */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken authToken = (UsernamePasswordToken) token;
@@ -70,7 +71,6 @@ public class CustomRealm extends AuthorizingRealm {
 
                 Subject subject = SecurityUtils.getSubject();
                 subject.getSession().setAttribute(Constants.CURRENT_USER, new UserSessionModel(users));
-
 
 
                 return simpleAuthenticationInfo;

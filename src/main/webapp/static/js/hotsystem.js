@@ -1171,8 +1171,7 @@ function loadSvg(){
             var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
             var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
             var trianglePos = triangleStep * (index + 1);
-            $(".triangle").css("left",trianglePos);
-            alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 155 + scrollY});
+            $(".triangle").css("left",trianglePos);            
             $(".hotValue").html(scoreArray[index]);
             $(".infoTitle").html(titleArray[index]);
 //            var divH = $(".hotInfo").height();
@@ -1192,7 +1191,14 @@ function loadSvg(){
             	$("#icon"+item).show();
             })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
-            alertCon.show();
+            if(alertCon.css("display") != "none"){
+            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
+            }else{
+            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
+            	alertCon.show();
+            	alertCon.animate({opacity:1},500);
+            }
+            
     	}else{
 //        	$("#comeback_hot").click();
         }
@@ -1427,23 +1433,25 @@ function loadSvg(){
     	};
     	var $this = $(this);
     	if($this.parent().parent().find(".Personas").length > 0){
-			console.log("已添加用户画像");
 			return;
 		}
+    	$this.parent().parent().find(".hot_echart_list").append($(".loadingcon").css("display","inline-block"));
     	$.ajax({
     		type:"get",
     		url:dataUrl.util.getPercentData($(this).attr("data-id")),
     		success:function(data){
+    			$(".loadingcon").css("display","none")
     			var data = data.data;
+    			var str = "";
     			if(data == null){
-    				str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
-    					$this.parent().parent().find(".hot_echart_list").html(str);
+    				str = "<p class='Personas' style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
+    					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
     				var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
     				if(dataLen < 1){
-    					str = "<p style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
-    					$this.parent().parent().find(".hot_echart_list").html(str);
+    					str = "<p class='Personas' style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
+    					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
     			//受众年龄画像
@@ -1581,7 +1589,6 @@ function loadSvg(){
 	    	        			max = item.value
 	    	        		}
 	    	        	});
-	    	        	max += 0.2;
 	    	        	$.each(interest,function(i,item){
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});

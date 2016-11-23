@@ -41,7 +41,7 @@
 	</div>    
     <div class="clearfix"></div>
     <div class="result-content">
-        <div class="hot-prev"><div style="background:url(img/hot-prev.png);"></div></div>
+        <div class="hot-prev disabled"><div style="background:url(img/hot-prev.png);"></div></div>
         <div class="hot-next"><div style="background:url(img/hot-next.png);"></div></div>
         <div class="result-section">
             <div id="canvas">
@@ -181,7 +181,7 @@
 <script src="js/hotresult.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/pop.js"></script>
+<script src="js/dialog.js"></script>
 <script src="lib/jquery.mousewheel.js"></script>
 <script src="lib/perfect-scrollbar.js"></script>
 </body>

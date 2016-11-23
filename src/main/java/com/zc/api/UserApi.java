@@ -75,7 +75,7 @@ public class UserApi extends BaseApi {
 
         if (ParamHelper.isValidStr(user.getPassword())) {
             curUser.setPassword(user.getPassword());
-            PasswordHelper.encryptPassword(user);
+            PasswordHelper.encryptPassword(curUser);
         }
 
 

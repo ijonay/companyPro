@@ -2,66 +2,171 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.dao.HotTopicPredictionMapper">
     <resultMap id="BaseResultMap" type="com.zc.bean.HotTopicPrediction">
-                                    <id column="id" jdbcType="INTEGER" property="id"/>
-                                                <result column="operator_user_id" jdbcType="INTEGER" property="operatorUserId"/>
-                                                <result column="name" jdbcType="VARCHAR" property="name"/>
-                                                <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
-                                                <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-                                                <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
-                                                <result column="note" jdbcType="VARCHAR" property="note"/>
-                                                <result column="is_active" jdbcType="INTEGER" property="isActive"/>
-                        </resultMap>
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="operator_user_id" jdbcType="INTEGER" property="operatorUserId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="is_active" jdbcType="INTEGER" property="isActive"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="weibo_url" jdbcType="VARCHAR" property="weiboUrl"/>
+        <result column="weibo_title" jdbcType="VARCHAR" property="weiboTitle"/>
+        <result column="weibo_read_num" jdbcType="VARCHAR" property="weiboReadNum"/>
+        <result column="weibo_forward_num" jdbcType="VARCHAR" property="weiboForwardNum"/>
+        <result column="weibo_comments_num" jdbcType="VARCHAR" property="weiboCommentsNum"/>
+        <result column="weibo_love_num" jdbcType="VARCHAR" property="weiboLoveNum"/>
+        <result column="weixin_title" jdbcType="VARCHAR" property="weixinTitle"/>
+        <result column="weixin_url" jdbcType="VARCHAR" property="weixinUrl"/>
+        <result column="weixin_read_num" jdbcType="VARCHAR" property="weixinReadNum"/>
+        <result column="zhihu_title" jdbcType="VARCHAR" property="zhihuTitle"/>
+        <result column="zhihu_url" jdbcType="VARCHAR" property="zhihuUrl"/>
+        <result column="zhihu_answer_num" jdbcType="VARCHAR" property="zhihuAnswerNum"/>
+        <result column="baidu_search_keyword" jdbcType="VARCHAR" property="baiduSearchKeyword"/>
+        <result column="baidu_url" jdbcType="VARCHAR" property="baiduUrl"/>
+        <result column="baidu_search_num" jdbcType="VARCHAR" property="baiduSearchNum"/>
+    </resultMap>
     <sql id="Base_Column_List">
-         id,  operator_user_id,  name,  start_date,  create_date,  end_date,  note,  is_active     </sql>
+        id,  operator_user_id,  name,  start_date,  end_date,  note,  is_active,  create_date,  weibo_url,  weibo_title,  weibo_read_num,  weibo_forward_num,  weibo_comments_num,  weibo_love_num,  weixin_title,  weixin_url,  weixin_read_num,  zhihu_title,  zhihu_url,  zhihu_answer_num,  baidu_search_keyword,  baidu_url,  baidu_search_num     </sql>
     <insert id="add" parameterType="com.zc.bean.HotTopicPrediction"
             useGeneratedKeys="true" keyProperty="id">
         insert into HotTopicPrediction
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                            <if test="operatorUserId != null">
-                    operator_user_id,
-                </if>
-                            <if test="name != null">
-                    name,
-                </if>
-                            <if test="startDate != null">
-                    start_date,
-                </if>
-                            <if test="createDate != null">
-                    create_date,
-                </if>
-                            <if test="endDate != null">
-                    end_date,
-                </if>
-                            <if test="note != null">
-                    note,
-                </if>
-                            <if test="isActive != null">
-                    is_active,
-                </if>
-                    </trim>
+            <if test="operatorUserId != null">
+                operator_user_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="startDate != null">
+                start_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+            <if test="isActive != null">
+                is_active,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="weiboUrl != null">
+                weibo_url,
+            </if>
+            <if test="weiboTitle != null">
+                weibo_title,
+            </if>
+            <if test="weiboReadNum != null">
+                weibo_read_num,
+            </if>
+            <if test="weiboForwardNum != null">
+                weibo_forward_num,
+            </if>
+            <if test="weiboCommentsNum != null">
+                weibo_comments_num,
+            </if>
+            <if test="weiboLoveNum != null">
+                weibo_love_num,
+            </if>
+            <if test="weixinTitle != null">
+                weixin_title,
+            </if>
+            <if test="weixinUrl != null">
+                weixin_url,
+            </if>
+            <if test="weixinReadNum != null">
+                weixin_read_num,
+            </if>
+            <if test="zhihuTitle != null">
+                zhihu_title,
+            </if>
+            <if test="zhihuUrl != null">
+                zhihu_url,
+            </if>
+            <if test="zhihuAnswerNum != null">
+                zhihu_answer_num,
+            </if>
+            <if test="baiduSearchKeyword != null">
+                baidu_search_keyword,
+            </if>
+            <if test="baiduUrl != null">
+                baidu_url,
+            </if>
+            <if test="baiduSearchNum != null">
+                baidu_search_num,
+            </if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                            <if test="operatorUserId != null">
-                    #{operatorUserId,jdbcType=INTEGER},
-                </if>
-                            <if test="name != null">
-                    #{name,jdbcType=VARCHAR},
-                </if>
-                            <if test="startDate != null">
-                    #{startDate,jdbcType=TIMESTAMP},
-                </if>
-                            <if test="createDate != null">
-                    #{createDate,jdbcType=TIMESTAMP},
-                </if>
-                            <if test="endDate != null">
-                    #{endDate,jdbcType=TIMESTAMP},
-                </if>
-                            <if test="note != null">
-                    #{note,jdbcType=VARCHAR},
-                </if>
-                            <if test="isActive != null">
-                    #{isActive,jdbcType=INTEGER},
-                </if>
-                    </trim>
+            <if test="operatorUserId != null">
+                #{operatorUserId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null">
+                #{isActive,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="weiboUrl != null">
+                #{weiboUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboTitle != null">
+                #{weiboTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboReadNum != null">
+                #{weiboReadNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboForwardNum != null">
+                #{weiboForwardNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboCommentsNum != null">
+                #{weiboCommentsNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboLoveNum != null">
+                #{weiboLoveNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weixinTitle != null">
+                #{weixinTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="weixinUrl != null">
+                #{weixinUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="weixinReadNum != null">
+                #{weixinReadNum,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuTitle != null">
+                #{zhihuTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuUrl != null">
+                #{zhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuAnswerNum != null">
+                #{zhihuAnswerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduSearchKeyword != null">
+                #{baiduSearchKeyword,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduUrl != null">
+                #{baiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduSearchNum != null">
+                #{baiduSearchNum,jdbcType=VARCHAR},
+            </if>
+        </trim>
     </insert>
     <delete id="del" parameterType="java.lang.Integer">
         delete from HotTopicPrediction
@@ -71,28 +176,73 @@
     <update id="update" parameterType="com.zc.bean.HotTopicPrediction">
         update HotTopicPrediction
         <set>
-                            <if test="operatorUserId != null">
-                    operator_user_id = #{operatorUserId,jdbcType=INTEGER},
-                </if>
-                            <if test="name != null">
-                    name = #{name,jdbcType=VARCHAR},
-                </if>
-                            <if test="startDate != null">
-                    start_date = #{startDate,jdbcType=TIMESTAMP},
-                </if>
-                            <if test="createDate != null">
-                    create_date = #{createDate,jdbcType=TIMESTAMP},
-                </if>
-                            <if test="endDate != null">
-                    end_date = #{endDate,jdbcType=TIMESTAMP},
-                </if>
-                            <if test="note != null">
-                    note = #{note,jdbcType=VARCHAR},
-                </if>
-                            <if test="isActive != null">
-                    is_active = #{isActive,jdbcType=INTEGER},
-                </if>
-                    </set>
+            <if test="operatorUserId != null">
+                operator_user_id = #{operatorUserId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null">
+                is_active = #{isActive,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="weiboUrl != null">
+                weibo_url = #{weiboUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboTitle != null">
+                weibo_title = #{weiboTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboReadNum != null">
+                weibo_read_num = #{weiboReadNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboForwardNum != null">
+                weibo_forward_num = #{weiboForwardNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboCommentsNum != null">
+                weibo_comments_num = #{weiboCommentsNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboLoveNum != null">
+                weibo_love_num = #{weiboLoveNum,jdbcType=VARCHAR},
+            </if>
+            <if test="weixinTitle != null">
+                weixin_title = #{weixinTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="weixinUrl != null">
+                weixin_url = #{weixinUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="weixinReadNum != null">
+                weixin_read_num = #{weixinReadNum,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuTitle != null">
+                zhihu_title = #{zhihuTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuUrl != null">
+                zhihu_url = #{zhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuAnswerNum != null">
+                zhihu_answer_num = #{zhihuAnswerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduSearchKeyword != null">
+                baidu_search_keyword = #{baiduSearchKeyword,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduUrl != null">
+                baidu_url = #{baiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduSearchNum != null">
+                baidu_search_num = #{baiduSearchNum,jdbcType=VARCHAR},
+            </if>
+        </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
     <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -100,6 +250,13 @@
         <include refid="Base_Column_List"/>
         from HotTopicPrediction
         where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from HotTopicPrediction
+        where is_active=1 ORDER BY create_date DESC
     </select>
 
     <select id="getHotTopicEventList" parameterType="java.lang.String" resultMap="ViewResultMap">

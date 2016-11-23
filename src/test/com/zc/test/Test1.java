@@ -6,11 +6,10 @@ import com.zc.service.RedisServiceImpl;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by xyzhuzhou on 2016/10/26 0026 16:29:12.
@@ -22,17 +21,20 @@ public class Test1 extends BaseTest {
 
     @Resource
     private RedisTemplate<String, WordRedisModel> redisTemplate;
-
+    @Resource
+    ApplicationContext app;
 
     @Test
     public void test2() {
 
-        ArrayList<Integer> item = new ArrayList<>();
-        item.add(1);
-        item.add(2);
+        System.out.println(String.join(",", app.getBeanDefinitionNames()));
 
-
-        String string = Arrays.toString(item.toArray()).replaceAll("[\\[\\]]", "");
+//        ArrayList<Integer> item = new ArrayList<>();
+//        item.add(1);
+//        item.add(2);
+//
+//
+//        String string = Arrays.toString(item.toArray()).replaceAll("[\\[\\]]", "");
 
 //        topicFilterMapper.getTopicIds(null);
         System.out.println("aaaaaaaaaaaaaaa");
