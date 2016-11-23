@@ -29,9 +29,28 @@
         <result column="zhihu_title" jdbcType="VARCHAR" property="zhihuTitle"/>
         <result column="zhihu_url" jdbcType="VARCHAR" property="zhihuUrl"/>
         <result column="zhihu_avg_answer_number" jdbcType="INTEGER" property="zhihuAvgAnswerNumber"/>
+        <result column="manual_prevailing_trend" jdbcType="INTEGER" property="manualPrevailingTrend"/>
+        <result column="manual_event_class" jdbcType="VARCHAR"  property="manualEventClass"/>
+        <result column="manual_createdate" jdbcType="TIMESTAMP"  property="manualCreateDate"/>
+        <result column="manual_updatedate" jdbcType="TIMESTAMP"  property="manualUpdateDate"/>
+        <result column="manual_is_applied" jdbcType="INTEGER" property="manualIsApplied"/>
+        <result column="manual_introduction" jdbcType="VARCHAR" property="manualIntroduction"/>
+        <result column="manual_topic_url" jdbcType="VARCHAR" property="manualTopicUrl"/>
+        <result column="manual_baidu_url" jdbcType="VARCHAR" property="manualBaiduUrl"/>
+        <result column="manual_zhihu_url" jdbcType="VARCHAR" property="manualZhihuUrl"/>
+        <result column="manual_wechat_url" jdbcType="VARCHAR" property="manualWechatUrl"/>
+        <result column="manual_title" jdbcType="VARCHAR" property="manualTitle"/>
+        <result column="manual_logo_img_url" jdbcType="VARCHAR" property="manualLogoImgUrl"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,  title,  readnum,  topicurl,  keywords,  logourl,  coordinate,  readnumtrendgrowth,  relationdesc,  topictype,  event_class,  introduction,  topic_region,  labels,  id_backup,  logo_img_url,  logo_img_url_local,  prevailing_trend,  wechat_url,  wechat_title,  wechat_avg_read_num,  baidu_title,  baidu_url,  baidu_hit_num,  zhihu_title,  zhihu_url,  zhihu_avg_answer_number     </sql>
+        id,  title,  readnum,  topicurl,  keywords,  logourl,  coordinate,  readnumtrendgrowth,
+        relationdesc,  topictype,  event_class,  introduction,  topic_region,  labels,  id_backup,
+        logo_img_url,  logo_img_url_local,  prevailing_trend,  wechat_url,  wechat_title,  wechat_avg_read_num,
+        baidu_title,  baidu_url,  baidu_hit_num,  zhihu_title,  zhihu_url,  zhihu_avg_answer_number,
+        manual_prevailing_trend,  manual_event_class, manual_is_applied,
+        manual_introduction, manual_topic_url, manual_baidu_url,  manual_zhihu_url, manual_wechat_url,
+        manual_title, manual_logo_img_url
+    </sql>
     <insert id="add" parameterType="com.zc.bean.Topic"
             useGeneratedKeys="true" keyProperty="id">
         insert into topic
@@ -115,6 +134,39 @@
                 zhihu_avg_answer_number,
             </if>
                 is_active,
+            <if test="manualPrevailingTrend != null">
+                manual_prevailing_trend,
+            </if>
+            <if test="manualEventClass != null">
+                manual_event_class,
+            </if>
+                manual_createdate,
+                manual_updatedate,
+            <if test="manualIsApplied != null">
+                manual_is_applied,
+            </if>
+            <if test="manualIntroduction != null">
+                manual_introduction,
+            </if>
+            <if test="manualTopicUrl != null">
+                manual_topic_url,
+            </if>
+            <if test="manualBaiduUrl != null">
+                manual_baidu_url,
+            </if>
+            <if test="manualZhihuUrl != null">
+                manual_zhihu_url,
+            </if>
+            <if test="manualWechatUrl != null">
+                manual_wechat_url,
+            </if>
+            <if test="manualTitle != null">
+                manual_title,
+            </if>
+            <if test="manualLogoImgUrl != null">
+                manual_logo_img_url,
+            </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="title != null">
@@ -196,6 +248,38 @@
                 #{zhihuAvgAnswerNumber,jdbcType=INTEGER},
             </if>
                 1,
+            <if test="manualPrevailingTrend != null">
+                #{manualPrevailingTrend,jdbcType=INTEGER},
+            </if>
+            <if test="manualEventClass != null">
+                #{manualEventClass,jdbcType=VARCHAR},
+            </if>
+                sysdate(),
+                sysdate(),
+            <if test="manualIsApplied != null">
+                #{manualIsApplied,jdbcType=INTEGER},
+            </if>
+            <if test="manualIntroduction != null">
+                #{manualIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTopicUrl != null">
+                #{manualTopicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualBaiduUrl != null">
+                #{manualBaiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualZhihuUrl != null">
+                #{manualZhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualWechatUrl != null">
+                #{manualWechatUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTitle != null">
+                #{manualTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="manualLogoImgUrl != null">
+                #{manualLogoImgUrl,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <delete id="del" parameterType="java.lang.Integer">
@@ -284,6 +368,38 @@
             <if test="zhihuAvgAnswerNumber != null">
                 zhihu_avg_answer_number = #{zhihuAvgAnswerNumber,jdbcType=INTEGER},
             </if>
+            <if test="manualPrevailingTrend != null">
+                manual_prevailing_trend = #{manualPrevailingTrend,jdbcType=INTEGER},
+            </if>
+            <if test="manualEventClass != null">
+                manual_event_class = #{manualEventClass,jdbcType=VARCHAR},
+            </if>
+                manual_updatedate = sysdate(),
+            <if test="manualIsApplied != null">
+                manual_is_applied = #{manualIsApplied,jdbcType=INTEGER},
+            </if>
+            <if test="manualIntroduction != null">
+                manual_introduction = #{manualIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTopicUrl != null">
+                manual_topic_url = #{manualTopicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualBaiduUrl != null">
+                manual_baidu_url = #{manualBaiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualZhihuUrl != null">
+                manual_zhihu_url = #{manualZhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualWechatUrl != null">
+                manual_wechat_url = #{manualWechatUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTitle != null">
+                manual_title = #{manualTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="manualLogoImgUrl != null">
+                manual_logo_img_url = #{manualLogoImgUrl,jdbcType=VARCHAR},
+            </if>
+
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -298,7 +414,7 @@
     <select id="getHotTopic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from topic
+        from view_topic
         WHERE is_active = 1
         ORDER BY
         prevailing_trend DESC
@@ -310,7 +426,7 @@
         from (
         select
         <include refid="Base_Column_List"/>
-        from topic
+        from view_topic
         WHERE is_active = 1
         ORDER BY
         prevailing_trend DESC
@@ -325,7 +441,7 @@
     </select>
     <select id="getList" resultMap="BaseResultMap">
         Select * from
-       topic WHERE is_active = 1
+        view_topic WHERE is_active = 1
         order by id
         LIMIT
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
@@ -334,7 +450,7 @@
         Select 1 AS datatype,
         <include refid="Base_Column_List"></include>
         from
-        topic
+        view_topic
         order by id
         LIMIT
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
@@ -354,7 +470,7 @@
         <result column="topictype" jdbcType="VARCHAR" property="topicType"/>
         <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
 
-        <!-- <collection property="words" ofType="com.zc.bean.WordDataRelations"> 
+        <!-- <collection property="words" ofType="com.zc.bean.WordDataRe lations">
             id用于定义主表的唯一标识，是从表识别主表主键的唯一标识，column是结果集对应的字段名 <id property="id" column="id" 
             /> result是普通属性，其他解释同上 <result property="word" column="word" /> </collection> -->
         <collection property="words" ofType="com.zc.bean.WordDataRelations"
@@ -473,7 +589,7 @@
     <select id="getByIdList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM topic
+        FROM view_topic
         WHERE id IN
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             #{item}
@@ -481,7 +597,7 @@
     </select>
 
     <update id="inactiveTopic" parameterType="java.lang.Integer" >
-      UPDATE  topic set is_active = 0 WHERE id = #{id,jdbcType=INTEGER}
+        UPDATE  topic set is_active = 0 WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
     <update id="activeTopic" parameterType="java.lang.Integer" >
@@ -489,8 +605,8 @@
     </update>
 
     <select id="getTopicsByKeyword" parameterType="java.lang.String" resultMap="manageTopicViewMap">
-        SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active
-        FROM topic
+        SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active,ifnull(manual_is_applied,0) as manual_is_applied
+        FROM  view_topic
         where title LIKE CONCAT( '%','${keyword}','%' )
         ORDER by prevailing_trend DESC
     </select>
@@ -500,7 +616,35 @@
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
         <result column="is_active" jdbcType="INTEGER" property="isActive"/>
-
+        <result column="manual_is_applied" jdbcType="INTEGER" property="manualIsApplied"/>
     </resultMap>
+
+    <update id="applyManual" parameterType="java.lang.Integer" >
+        UPDATE  topic set manual_is_applied = 1 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="cancelManual" parameterType="java.lang.Integer" >
+        UPDATE  topic set manual_is_applied = 0 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="syncInsertTopic" parameterType="com.zc.bean.Topic"  resultType="java.lang.Integer" >
+        {
+            call proc_sync_insert_topic(
+              #{ title, mode=IN, jdbcType=VARCHAR },
+              #{ prevailingTrend, mode=IN, jdbcType=INTEGER },
+              #{ eventClass, mode=IN, jdbcType=VARCHAR },
+              #{ introduction, mode=IN, jdbcType=VARCHAR },
+              #{ logoImgUrlLocal, mode=IN, jdbcType=VARCHAR },
+              #{ logoImgUrl, mode=IN, jdbcType=VARCHAR },
+              #{ topicUrl, mode=IN, jdbcType=VARCHAR },
+              #{ wechatTitle, mode=IN, jdbcType=VARCHAR },
+              #{ wechatUrl, mode=IN, jdbcType=VARCHAR },
+              #{ zhihuTitle, mode=IN, jdbcType=VARCHAR },
+              #{ zhihuUrl, mode=IN, jdbcType=VARCHAR },
+              #{ baiduTitle, mode=IN, jdbcType=VARCHAR },
+              #{ baiduUrl, mode=IN, jdbcType=VARCHAR }
+            )
+        }
+    </select>
 
 </mapper>

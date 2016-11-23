@@ -509,4 +509,16 @@ public class TopicServiceImpl implements TopicService {
     public boolean update(Topic topic) {
         return dao.update(topic) > 0;
     }
+
+    public boolean applyManual(Integer id){
+        return dao.applyManual(id) > 0;
+    }
+
+    public boolean cancelManual(Integer id){
+        return dao.cancelManual(id) > 0;
+    }
+
+    public int syncInsertTopic(Topic topic){
+        return  dao.syncInsertTopic(topic);
+    }
 }

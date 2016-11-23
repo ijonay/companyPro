@@ -5,12 +5,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <script>
+
   function closePage(){
     window.close();
   }
 
-  if(window.location.href.indexOf("success=false") > 0){
-    alert("操作失败，请重试!");
+  if( '${success}'=='false' ){
+    alert("操作失败，请修改后重新提交!");
   }
 
 </script>
@@ -19,9 +20,7 @@
   <jsp:body>
     <div class="container">
 
-      <form id="topicForm" action="/admin/updatetopic" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
-
-        <input type="hidden" name="id" value="${topic.id}"/>
+      <form id="topicForm" action="/admin/addtopic" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
 
         <div class="form-group">
           <label for="topicTitle" class="col-sm-2 control-label">热点名称</label>
@@ -47,9 +46,9 @@
         </div>
 
         <div class="form-group">
-          <label for="topicIntroducation" class="col-sm-2 control-label">热点描述</label>
+          <label for="manualIntroduction" class="col-sm-2 control-label">热点描述</label>
           <div class="col-sm-8">
-              <textarea class="form-control" name="manualIntroduction" id="topicIntroducation" rows="3"  >
+              <textarea class="form-control" name="manualIntroduction" id="manualIntroduction" rows="3"  >
                   ${topic.manualIntroduction}
               </textarea>
           </div>
@@ -63,10 +62,10 @@
         </div>
 
         <div class="form-group">
-        <label for="topicLogoImgUrl" class="col-sm-2 control-label">主照片URL</label>
+        <label for="manualLogoImgUrl" class="col-sm-2 control-label">主照片URL</label>
         <div class="col-sm-8">
           <input type="text" name="manualLogoImgUrl" value="${topic.manualLogoImgUrl}"
-                 class="form-control" id="topicLogoImgUrl" >
+                 class="form-control" id="manualLogoImgUrl" >
         </div>
       </div>
 

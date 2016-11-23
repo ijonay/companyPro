@@ -33,33 +33,33 @@
   <jsp:body>
       <div class="container">
 
-        <form id="topicForm" action="/admin/submittopic" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
+        <form id="topicForm" action="/admin/addtopic" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
 
           <div class="form-group">
             <label for="topicTitle" class="col-sm-2 control-label">热点名称</label>
             <div class="col-sm-8">
-              <input type="text" name="title" class="form-control" id="topicTitle" >
+              <input type="text" name="manualTitle" class="form-control" id="topicTitle" >
             </div>
           </div>
 
           <div class="form-group">
             <label for="prevailingTrend" class="col-sm-2 control-label">热点热度</label>
             <div class="col-sm-8">
-              <input type="text" name="prevailingTrend" class="form-control" id="prevailingTrend" >
+              <input type="text" name="manualPrevailingTrend" class="form-control" id="prevailingTrend" >
             </div>
           </div>
 
           <div class="form-group">
             <label for="topicEventClass" class="col-sm-2 control-label">热点标签</label>
             <div class="col-sm-8">
-              <input type="text" name="eventClass" class="form-control" id="topicEventClass" >
+              <input type="text" name="manualEventClass" class="form-control" id="topicEventClass" >
             </div>
           </div>
 
           <div class="form-group">
-            <label for="topicIntroducation" class="col-sm-2 control-label">热点描述</label>
+            <label for="topicIntroduction" class="col-sm-2 control-label">热点描述</label>
             <div class="col-sm-8">
-              <textarea class="form-control" name="introducation" id="topicIntroducation" rows="3"></textarea>
+              <textarea class="form-control" name="manualIntroduction" id="topicIntroduction" rows="3"></textarea>
             </div>
           </div>
 
@@ -73,7 +73,7 @@
           <div class="form-group">
             <label for="topicLogoImgUrl" class="col-sm-2 control-label">主照片URL</label>
             <div class="col-sm-8">
-              <input type="text" name="logoImgUrl" class="form-control" id="topicLogoImgUrl" >
+              <input type="text" name="manualLogoImgUrl" class="form-control" id="topicLogoImgUrl" >
             </div>
           </div>
 
@@ -87,28 +87,28 @@
           <div class="form-group">
             <label for="topicSourceWeibo" class="col-sm-2 control-label">微博</label>
             <div class="col-sm-8">
-              <input type="text" name="topicUrl" class="form-control" id="topicSourceWeibo" >
+              <input type="text" name="manualTopicUrl" class="form-control" id="topicSourceWeibo" >
             </div>
           </div>
 
           <div class="form-group">
             <label for="topicSourceWeChat" class="col-sm-2 control-label">微信</label>
             <div class="col-sm-8">
-              <input type="text" name="wechatUrl" class="form-control" id="topicSourceWeChat" >
+              <input type="text" name="manualWechatUrl" class="form-control" id="topicSourceWeChat" >
             </div>
           </div>
 
           <div class="form-group">
             <label for="topicSourceZhihu" class="col-sm-2 control-label">知乎</label>
             <div class="col-sm-8">
-              <input type="text" name="zhihuUrl" class="form-control" id="topicSourceZhihu" >
+              <input type="text" name="manualZhihuUrl" class="form-control" id="topicSourceZhihu" >
             </div>
           </div>
 
           <div class="form-group">
             <label for="topicSourceBaidu" class="col-sm-2 control-label">百度</label>
             <div class="col-sm-8">
-              <input type="text" name="baiduUrl" class="form-control" id="topicSourceBaidu" >
+              <input type="text" name="manualBaiduUrl" class="form-control" id="topicSourceBaidu" >
             </div>
           </div>
 
