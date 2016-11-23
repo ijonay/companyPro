@@ -66,7 +66,8 @@
     <jsp:attribute name="script"></jsp:attribute>
     <jsp:body>
 
-        <form class="form-inline" role="form" action="/admin/managetopic">
+        <form class="form-inline" role="form"
+              action="<c:out value="${pageContext.request.contextPath}"/>/admin/managetopic">
             <div class="form-group">
                 <input type="text" class="form-control" value="${keyword}" name="keyword" placeholder="请输入搜索关键字">
             </div>
@@ -77,7 +78,8 @@
 
         <div class="bs-example">
 
-            <button type="button" onclick="window.open('/admin/toaddtopic','_blank')"
+            <button type="button" onclick="window.open('<c:out value="${pageContext.request.contextPath}"/>/admin/toaddtopic','_blank')"
+
                     class="btn btn-default">添加热点
             </button>
 
