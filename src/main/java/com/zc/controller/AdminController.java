@@ -45,7 +45,11 @@ public class AdminController {
 
         return "admin/redisset";
     }
+    @RequestMapping("/pathsearch")
+    public String pathsearch(ModelMap model) {
 
+        return "admin/pathsearch";
+    }
     @RequestMapping("/manageruser")
     public String manageruser(ModelMap model) {
 

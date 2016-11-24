@@ -11,6 +11,7 @@ import java.util.*;
  */
 public class KeyValueCollection extends ArrayList<KeyValue> {
 
+    private String temp;
 
     public KeyValueCollection() {
 
@@ -36,5 +37,13 @@ public class KeyValueCollection extends ArrayList<KeyValue> {
                 .getPercentage() * 100)));
 
 
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 }

@@ -11,13 +11,11 @@ import com.zc.utility.response.ApiResultModel;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by 张镇强 on 2016/8/23 14:39.
@@ -69,6 +67,18 @@ public class PathApi extends BaseApi {
         ApiResultModel resultModel = new ApiResultModel(relations, StatusCodeEnum.SUCCESS);
 
         return resultModel;
+    }
+
+    @RequestMapping(value = "pathsearch", method = RequestMethod.GET)
+    public ApiResultModel getPathSearch(@RequestParam("start") String start, @RequestParam("end") String end) {
+
+        Objects.requireNonNull(start);
+        Objects.requireNonNull(end);
+
+        ApiResultModel result = new ApiResultModel();
+
+        return result.data(pathService.getPathSearch(start, end));
+
     }
 
     public static class PathParamWrapper {
