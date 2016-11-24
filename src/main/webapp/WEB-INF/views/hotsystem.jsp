@@ -331,15 +331,14 @@
             </div>            
         </div>
         <div class="infoBottom">
-            <div class="hotIcon fl"></div>
-            <span class="planText font14 fl">热度:</span><span class="hotValue fl">99</span>
-            <div class="iconCon fr">
-	            <a target=" _blank" id="iconweibo" class="weibo-link" href="javascript:;" style="background-image:url(img/hot_weibo.png);"></a>
-                <a target=" _blank" id="iconwechat" class="weixin-link" href="javascript:;" style="background-image:url(img/hot_weixin.png);"></a>
-                <a target=" _blank" id="iconzhihu" class="zhihu-link" href="javascript:;" style="background-image:url(img/hot_zhihu.png);"></a>
-                <a target=" _blank" id="iconbaidu" class="baidu-link" href="javascript:;" style="background-image:url(img/hot_baidu.png);"></a>
+            <div class="hotLeft fl">  
+                <div class="hotIcon fl"></div>
+                <div class="font14 fl">热度:</div>
+                <div class="hotValue fl"></div>
+                <div class="hotTrend fl"></div>
             </div>
-            <span class="planText font14 fr">来源:</span>
+            <div class="iconCon font14 fr">受众画像 </div>
+            <div class="planText font14 fl">热点详情</div>
         </div>
     </div>
     <div class="triangle"></div>

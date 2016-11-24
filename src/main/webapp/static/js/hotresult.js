@@ -1343,6 +1343,7 @@ $(document).delegate(".edit-word","click",function(){
         'z-index': 9999,
         'display': 'block'
     });
+    $(".planText").css("margin-left",(262-80-72-$(".hotLeft").width())/2);
 }).delegate(".alertCon", "click", function(e) {//弹窗内部防止冒泡
     e ? e.stopPropagation() : event.cancelBubble = true;
 });

@@ -1,6 +1,9 @@
 package com.zc.utility;
 
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xyzhuzhou on 2016/11/12 0012 12:20:59.
@@ -16,6 +19,7 @@ public class EffectLog {
 
     public EffectLog(String processName) {
         this.processName = processName;
+        add("Start!");
     }
 
     public void add(Object itemName) {
@@ -25,8 +29,6 @@ public class EffectLog {
 
     public void writeToConsole() {
 
-        if (true)
-            return;
 
         Couter couter = new Couter();
 
@@ -59,18 +61,26 @@ public class EffectLog {
 
             list.add(lineLog);
 
-            System.out.println(lineLog);
-
-
             couter.add();
 
 
         }
 
+        list.forEach(System.out::println);
+        System.out.println("*****************************************************");
+
 
         try {
             list.add("*************************************************************");
-            FileHelper.write("d:\\1.txt", list);
+
+            String path = this.getClass().getClassLoader().getResource("/").getPath();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            String fileName = dateFormat.format(new Date()) + ".txt";
+
+            FileHelper.write(path + "/effectlog/" + fileName, list);
+
         } catch (Exception ex) {
 
         }

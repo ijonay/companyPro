@@ -60,15 +60,14 @@
                             <div class="infoText"></div>            
                         </div>
                         <div class="infoBottom">
-                            <div class="hotIcon fl"></div>
-                            <div class="planText font14 fl">热度:</div><div class="hotValue fl"></div>
-                            <div class="iconCon fr">
-                                <a target=" _blank" class="weibo-link" href="#" style="background-image:url(img/hot_weibo.png);"></a>
-                                <a target=" _blank" class="weixin-link" href="#" style="background-image:url(img/hot_weixin.png);display:none;"></a>
-                                <a target=" _blank" class="zhihu-link" href="#" style="background-image:url(img/hot_zhihu.png);display:none;"></a>
-                                <a target=" _blank" class="baidu-link" href="#" style="background-image:url(img/hot_baidu.png);display:none;"></a>
+                            <div class="hotLeft fl">  
+                                <div class="hotIcon fl"></div>
+                                <div class="font14 fl">热度:</div>
+                                <div class="hotValue fl"></div>
+                                <div class="hotTrend fl"></div>
                             </div>
-                            <div class="planText font14 fr">来源:</div>
+                            <div class="iconCon font14 fr">受众画像 </div>
+                            <div class="planText font14 fl">热点详情</div>
                         </div>
                     </div>
                 </div><!-- 弹窗end -->

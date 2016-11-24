@@ -647,7 +647,7 @@ input[type=checkbox]:checked::after {
     position:absolute;
     left:32%;
     top:35%;
-    width:418px;
+    width:428px;
     height:144px;
     margin:0;
     box-sizing: border-box;
@@ -667,10 +667,11 @@ input[type=checkbox]:checked::after {
     padding: 0;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
+    cursor:pointer;
 }
 .info{
 	float:left;
-	width:264px;
+	width:274px;
     padding:12px 12px 12px 0;
     height:144px;
     cursor:default;
@@ -694,7 +695,7 @@ input[type=checkbox]:checked::after {
     padding:0 8px;
     float:left;
     margin-right:6px;
-    max-width:192px;
+    max-width:91px;
     text-overflow:ellipsis;
     overflow:hidden;
     white-space:nowrap;
@@ -702,13 +703,14 @@ input[type=checkbox]:checked::after {
 }
 .infoTitle{
     display: inline-block;
-    max-width:168px;
+    max-width:178px;
     height:22px;
     line-height: 22px;
     font-size: 18px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    cursor:pointer;
 }
 .infoConnect{
     float: right;
@@ -732,6 +734,7 @@ input[type=checkbox]:checked::after {
     width: 100%;
     height:32px;
     overflow: hidden;
+    cursor:pointer;
 }
 .infoText{
     overflow: hidden;
@@ -763,14 +766,30 @@ input[type=checkbox]:checked::after {
     line-height:24px;
     float:right;
 }
-.iconCon a{
-    width:16px;
+.hotLeft{
+	height:24px;
+	cursor:pointer;
+}
+.iconCon{
     height:24px;
-    background-position:center;
-    background-repeat:no-repeat;
-    margin-left:5px;
-    display:inline-block;
-    float:left;
+    width:80px;
+    background:url(../img/card-chart.png) no-repeat left center;
+    padding-left:24px;
+    cursor:pointer;
+}
+.planText{
+	height:24px;
+	width:72px;
+    background:url(../img/card-detail.png) no-repeat left center;
+    padding-left:16px;
+    margin-left:15.5px;
+    cursor:pointer;
+}
+.hotTrend{
+	height:24px;
+	width:7px;
+	background:url(../img/card-up.png) no-repeat center;
+	margin-left:5px;
 }
 .hotIcon{
     height:100%;

@@ -1186,10 +1186,10 @@ function loadSvg(){
             $(".infoConnect").attr("data-index",index);
             $(".infoConnect").attr("data-topic",titleArray[index]);
             $(".infoIcon").hide();
-            $(".iconCon a").hide();
-            $.each(formArray[index],function(index,item){
-            	$("#icon"+item).show();
-            })
+//            $(".iconCon a").hide();
+//            $.each(formArray[index],function(index,item){
+//            	$("#icon"+item).show();
+//            })
             $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
             if(alertCon.css("display") != "none"){
             	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
@@ -1198,7 +1198,7 @@ function loadSvg(){
             	alertCon.show();
             	alertCon.animate({opacity:1},500);
             }
-            
+            $(".planText").css("margin-left",(262-80-72-$(".hotLeft").width())/2);
     	}else{
 //        	$("#comeback_hot").click();
         }
