@@ -101,9 +101,10 @@
    			<ul class="all_hot_bar" id="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
-   				<li>热点来源</li>
    				<li>热度</li>
-   				<li>热点受众画像</li>
+				<li>热点来源</li> 
+   				
+<!--    				<li>热点受众画像</li> -->
    				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
    			</ul>
    			<ul class="all_hot_list">
