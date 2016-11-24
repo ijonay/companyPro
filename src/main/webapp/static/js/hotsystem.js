@@ -1004,16 +1004,17 @@ function loadSvg(){
     var xArray = [];
     var yArray = [];
     var step = width/11;
-    var yMin = 100;
+    var yMin = 200;
     var yMax = 0;
     for(var i=1;i<11;i++){
         xArray.push(step*i)
     };
     for(var i=0;i<10;i++){
-    	if(yMin > scoreArray[i]){
+    	if(yMin > (scoreArray[i]-0)){
     		yMin = scoreArray[i];
     	}
-    	if(yMax < scoreArray[i]){
+    	console.log(yMin);
+    	if(yMax < (scoreArray[i]-0)){
     		yMax = scoreArray[i];
     	}
     }
@@ -2109,10 +2110,19 @@ $(".hotDetailInfo").on("click",function(){
 	$(".hotInfo").click();
 })
 $(".userProfile").on("click",function(){
-	var index = $(".infoConnect").attr("data-id");
+	var itemIndex = $(".infoConnect").attr("data-id");
 	$("#allHot").click();
 	$(".all_hot_list_bot").hide();
 	$(".hot_echart_list").addClass('hidecommon');
-	var ele = $("#ulBottom"+index).prev().find("all_hot_list_top_look");
-	console.log(ele)
+	$.each($(".all_hot_list_top_look"),function(index,item){
+		var a = $(item).parent().next().attr("id");
+		if(a == ("ulBottom"+itemIndex)){
+			$(item).click();
+			setTimeout(function(){
+	    		var a = $("#ulBottom"+itemIndex).next().offset().top;
+	    		a -= 450;
+	    		$("html,body").animate({scrollTop:a},"slow");
+	    	},250)
+		}
+	})
 })
