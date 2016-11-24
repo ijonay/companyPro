@@ -3,6 +3,7 @@ package zc.test;
 import com.alibaba.fastjson.JSON;
 import com.zc.BaseTest;
 import com.zc.WordRedisModel;
+import com.zc.model.path.ValModel;
 import com.zc.service.RedisServiceImpl;
 import com.zc.service.WordService;
 import com.zc.utility.CommonHelper;
@@ -16,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by xyzhuzhou on 2016/10/26 0026 16:29:12.
@@ -72,26 +72,52 @@ public class Test1 extends BaseTest {
         List<Map.Entry<String, ValModel>> list = new ArrayList<>(mapResult.entrySet());
 
         Collections.sort(list, (o1, o2) ->
-                CommonHelper.compare(o1.getValue().getSimilarity(),
-                        o2.getValue().getSimilarity())
+                CommonHelper.compare(o2.getValue().getSimilarity(),
+                        o1.getValue().getSimilarity())
         );
+        effectLog.add("sort by similarity");
 
         Map.Entry<String, ValModel> endItem = list.stream().filter(p -> p.getKey().equals(end)).findFirst().get();
 
+        effectLog.add("get endItem similarity");
 
-        List<Map.Entry<String, ValModel>> result = null;
+        List<Map.Entry<String, ValModel>> result = new ArrayList<>();
 
         if (Objects.nonNull(endItem)) {
 
-            result = list.stream().filter(p -> (p.getValue().getSimilarity() >= endItem.getValue().getSimilarity()) &&
-                    (p.getValue().getSimilarity() > 0))
-                    .collect(Collectors.toList());
+            for (int i = 1; i < list.size(); i++) {
+
+                Map.Entry<String, ValModel> item = list.get(i);
+
+                if (item.getValue().getSimilarity() >= endItem.getValue().getSimilarity() && item.getValue()
+                        .getSimilarity
+                                () > 0) {
+
+                    item.getValue().setVal(null);
+
+                    result.add(item);
+
+                } else {
+                    break;
+                }
+
+                if (item.getKey().equals(end)) break;
+
+            }
+
+
+//            result = list.stream().filter(p -> (p.getValue().getSimilarity() >= endItem.getValue().getSimilarity()) &&
+//                    (p.getValue().getSimilarity() > 0)
+//            )
+//                    .collect(Collectors.toList());
+
+            effectLog.add("get last result");
 
         }
 
         System.out.println("*******************************");
 
-        if (Objects.nonNull(result)) {
+        if (result.size() > 0) {
 
             System.out.println(result.size());
 
@@ -109,6 +135,8 @@ public class Test1 extends BaseTest {
             System.out.println("无结果！");
 
         }
+
+        effectLog.writeToConsole();
 
 
 //        final ValModel similarity = new ValModel();
@@ -191,36 +219,3 @@ public class Test1 extends BaseTest {
 //    }
 }
 
-class ValModel {
-
-    public ValModel() {
-    }
-
-    public ValModel(float[] val) {
-        this.val = val;
-    }
-
-    public ValModel(float[] val, float similarity) {
-        this.val = val;
-        this.similarity = similarity;
-    }
-
-    private float[] val;
-    private float similarity;
-
-    public float[] getVal() {
-        return val;
-    }
-
-    public void setVal(float[] val) {
-        this.val = val;
-    }
-
-    public float getSimilarity() {
-        return similarity;
-    }
-
-    public void setSimilarity(float similarity) {
-        this.similarity = similarity;
-    }
-}

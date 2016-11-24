@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="col-sm-3 col-md-2 sidebar" id="leftContainer">
     <ul class="nav nav-sidebar">
+        <li name="pathsearch"><a href="admin/pathsearch" class="hasUrl">路径探索</a></li>
         <li name="manageruser"><a href="admin/manageruser" class="hasUrl">用户管理</a></li>
         <li name="managetopic"><a href="admin/managetopic" class="hasUrl">topic管理</a></li>
         <li name="hotspotmanager"><a href="admin/hotspotmanager" class="hasUrl">热点预告</a></li>
