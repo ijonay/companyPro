@@ -2105,3 +2105,14 @@ $("#papersvg").on("click",function(e){
 $(".upPage").on("click",function(){
 	$("#comeback_hot").click();
 })
+$(".hotDetailInfo").on("click",function(){
+	$(".hotInfo").click();
+})
+$(".userProfile").on("click",function(){
+	var index = $(".infoConnect").attr("data-id");
+	$("#allHot").click();
+	$(".all_hot_list_bot").hide();
+	$(".hot_echart_list").addClass('hidecommon');
+	var ele = $("#ulBottom"+index).prev().find("all_hot_list_top_look");
+	console.log(ele)
+})

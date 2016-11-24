@@ -337,8 +337,8 @@
                 <div class="hotValue fl"></div>
                 <div class="hotTrend fl"></div>
             </div>
-            <div class="iconCon font14 fr">受众画像 </div>
-            <div class="planText font14 fl">热点详情</div>
+            <div class="iconCon font14 fr userProfile">受众画像 </div>
+            <div class="planText font14 fl hotDetailInfo">热点详情</div>
         </div>
     </div>
     <div class="triangle"></div>
