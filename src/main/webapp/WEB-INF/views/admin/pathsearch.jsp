@@ -123,7 +123,13 @@
             $(function () {
                 KD.Global.setEnterBtn("#explore");
                 var flag = true;
+                var temp_Container = $("#temp_Container").html();
+                var array = [];
                 $("#startWord").keyup(function () {
+                    endFlag = false;
+                    start = "";
+                    end = "";
+                    array = [];
                     var val = $(this).val();
                     var val1 = $("#start").val();
                     if (KD.isNull(val1) || flag == true) {
@@ -157,8 +163,7 @@
                     }
                 });
 
-                var temp_Container = $("#temp_Container").html();
-                var array = [];
+
 
                 $(".savePath").click(bindPath);
 
@@ -172,19 +177,32 @@
                         {objId: "end", defSubject: "下一个目标"}
                     ];
                     var flag = KD.Form.validateField(vailData, KD.ShowDialog.showWarning);
+                    if ($("#start").val() == $("#end").val()) {
+
+                        KD.showWarning("当前节点与下一个目标不能相同！");
+                        return;
+                    }
                     if (flag) {
 
                         var jsonData = KD.Form.getParams();
                         console.log(jsonData);
                         KD.get("../api/paths/pathsearch", jsonData, function (data) {
-
+                            if (data.error.code != 0) {
+                                KD.showWarning(data.error.message);
+                                return;
+                            }
                             endFlag = true;
                             console.log(data);
-                            var result = KD.Json.binderJson(data.data.vals, temp_Container);
-                            $("#temp_Container").html(result).parent().show();
+                            if (data.data.vals.length > 0) {
+                                var result = KD.Json.binderJson(data.data.vals, temp_Container);
+                                $("#temp_Container").html(result).parent().show();
+                            } else {
+                                $("#temp_Container").html("");
+                            }
                             if (data.data.error) {
                                 KD.showWarning(data.data.error);
                             }
+
                             bindPath();
                         });
                     }
