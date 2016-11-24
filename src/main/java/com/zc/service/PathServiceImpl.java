@@ -4,9 +4,13 @@ import com.zc.WordRedisModel;
 import com.zc.bean.Topic;
 import com.zc.bean.Weibo;
 import com.zc.dao.WeiboDao;
+import com.zc.enumeration.StatusCodeEnum;
+import com.zc.model.KeyValue;
+import com.zc.model.KeyValueCollection;
 import com.zc.model.path.*;
 import com.zc.model.weibo.WeiboItemModel;
 import com.zc.utility.*;
+import com.zc.utility.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -122,6 +126,88 @@ public class PathServiceImpl implements PathService {
 //        long span = System.currentTimeMillis() - start;
 //        System.out.println(span);
 //        return nodeRelations;
+    }
+
+    @Override
+    public HashMap<String, Object> getPathSearch(String start, String end) {
+
+        Objects.requireNonNull(start);
+        Objects.requireNonNull(end);
+
+        EffectLog effectLog = new EffectLog("getPathSearch");
+
+
+        float[] startVectors = wordService.getWordVectorsByCache(start);
+        float[] endVectors = wordService.getWordVectorsByCache(end);
+
+        effectLog.add("loadVectors");
+
+        if (Objects.isNull(startVectors)) {
+
+            throw new ServiceException(StatusCodeEnum.FAILED, "当前节点值无效！");
+
+        }
+        if (Objects.isNull(endVectors)) {
+
+            throw new ServiceException(StatusCodeEnum.FAILED, "输入目标值无效！");
+        }
+
+        Map<String, float[]> modelMap = wordService.getModelMap();
+
+        Map<String, ValModel> mapResult = new HashMap<>();
+
+        modelMap.forEach((k, v) -> mapResult.put(k, new ValModel(v, WordVectorHelper.getSimilarity(startVectors,
+                v))));
+
+        effectLog.add("getSimilarity");
+
+        List<Map.Entry<String, ValModel>> list = new ArrayList<>(mapResult.entrySet());
+
+        Collections.sort(list, (o1, o2) ->
+                CommonHelper.compare(o2.getValue().getSimilarity(),
+                        o1.getValue().getSimilarity())
+        );
+        effectLog.add("sort by similarity");
+
+        Map.Entry<String, ValModel> endItem = list.stream().filter(p -> p.getKey().equals(end)).findFirst().get();
+
+        effectLog.add("get endItem similarity");
+
+        KeyValueCollection result = new KeyValueCollection();
+
+        HashMap<String, Object> resultMap = new HashMap<>();
+
+        if (Objects.nonNull(endItem)) {
+
+            for (int i = 1; i < list.size(); i++) {
+
+                Map.Entry<String, ValModel> item = list.get(i);
+
+                if (item.getValue().getSimilarity() >= endItem.getValue().getSimilarity() && item.getValue()
+                        .getSimilarity
+                                () > 0) {
+
+                    item.getValue().setVal(null);
+                    result.add(new KeyValue(item.getKey(), item.getValue().getSimilarity()));
+
+                    if (i >= 3000) {
+                        resultMap.put("error", "显示结果超出3000个 目前默认展示出前3000个结果！");
+                        break;
+                    }
+
+                } else {
+                    break;
+                }
+
+                if (item.getKey().equals(end)) break;
+
+            }
+
+            effectLog.add("get last result");
+
+        }
+        resultMap.put("vals", result);
+        return resultMap;
     }
 
     //region helper method
