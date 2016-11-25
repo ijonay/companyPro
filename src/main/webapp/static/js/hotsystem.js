@@ -1281,6 +1281,7 @@ function loadSvg(){
 	   $(".all_hot_list_bot").hide();
 	   $(".all_hot_list_bot:eq(0)").show();
 	   $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
+	   $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
    	   $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
    }); 
    //返回首页
@@ -1307,7 +1308,11 @@ function loadSvg(){
 	   $("#papersvg").removeClass("pointer");
 	   $(".all_hot_list_top_look").css("color",'rgb(74, 74, 74)');
 	   $(".hot_look_eye").css("background-image",'url("img/card-chart.png")');
+	   $(".hot_look_arrow").css("transform","rotate(0deg)");
+	   $(".hot_img_arrow").css("transform","rotate(0deg)");
 	   $(".hot_look_detail").css("background-image",'url("img/card-detail.png")');
+	   $(".all_hot_list_top_source").find('em').css("color",'#4a4a4a');
+	   $(".all_hot_list_top_look").find('em').css("color",'#4a4a4a');
     }) 
       var circleOption = {
     		title: {
@@ -1381,12 +1386,14 @@ function loadSvg(){
     $(document).on('click','.all_hot_list_top_source',function(){
     	$('.all_hot_list_top_look').css('color','#4a4a4a');
     	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
+    	//$('.all_hot_list_top_look').find('em').css("color",'#389b9f');
     	$('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
     	$('.hot_echart_list').addClass('hidecommon');
     	if($(this).parent().next().css('display') == 'block'){
     		$(this).parent().next().hide();
     		$(this).find(".hot_img_arrow").css("transform","rotate(0deg)");
     		$(this).find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
+    		$(this).find('em').css('color','#4a4a4a');
     	}else{
     		$(this).parent().parent().parent().find(".all_hot_list_bot").hide();
         	$(this).parent().next().show();
@@ -1394,7 +1401,8 @@ function loadSvg(){
         	$(this).find(".hot_img_arrow").css("transform","rotate(180deg)");
         	$(this).parent().parent().parent().find(".hot_look_detail").css("background-image","url(img/card-detail.png)");
     		$(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
-        	
+    		$(this).parent().parent().parent().find('em').css("color","#4a4a4a");
+    		$(this).find('em').css('color','#389b9f');
     	};    	
     });
   
@@ -1404,10 +1412,11 @@ function loadSvg(){
     	var index = $this.attr("data-id");
     	$('.all_hot_list_bot').css('display','none');
     	$('.hot_img_arrow').css("transform","rotate(0deg)");
+    	$('.all_hot_list_top_source').find('em').css('color','#4a4a4a');
     	$('.all_hot_list_top_source').find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
     	if($(this).parent().next().next().is('.hidecommon')){
-    		$('.all_hot_list_top_look').css('color','#4a4a4a');
-    		$(this).css('color','#389b9f');
+    		$('.all_hot_list_top_look').find('em').css('color','#4a4a4a');
+    		$(this).find('em').css('color','#389b9f');
 //    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('查看画像');
 //    		$(this).find('em').text('收起画像');
     		$(this).parent().parent().parent().find(".hot_look_eye").css("background-image","url(img/card-chart.png)");
@@ -1427,7 +1436,7 @@ function loadSvg(){
     		$(this).parent().next().next().addClass('hidecommon');
         	$(this).parent().next().next().addClass('hidecommon');
         	$(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
-    		$(this).css('color','#4a4a4a');
+        	$('.all_hot_list_top_look').find('em').css('color','#4a4a4a');
 //    		$(this).find('em').text('查看画像');
     		$(this).find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
     	};
@@ -1986,6 +1995,7 @@ function loadSvg(){
             	$(".all_hot_list").html(hotList2.render(returnData));
             	$('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
             	$('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
+//            	$('.all_hot_list_top_source:first').find('.em').css("color","url(img/card-detail-hover.png)");
             },
             error: function() {
                 console.log('获取热点失败');
