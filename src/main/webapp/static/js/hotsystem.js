@@ -1018,15 +1018,6 @@ function loadSvg(){
     		yMax = scoreArray[i];
     	}
     }
-//    $.each(yArray,function(index,item){
-//    	alert(item)
-//    	if(yMin > item){
-//    		yMin = item;
-//    	}
-//    	if(yMax < item){
-//    		yMax = item;
-//    	}
-//    })
     var step = yMax - yMin;
     step += 1;
     for(var i=0;i<10;i++){
