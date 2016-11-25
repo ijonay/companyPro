@@ -170,6 +170,7 @@
 </div>
 	<ul class="all_hot_list"></ul>
 	<jsp:include page="foot.jsp" />
+	<script src="js/dialog.js"></script>
     <script src="js/hotresult.js"></script>
 </body>
 </html>

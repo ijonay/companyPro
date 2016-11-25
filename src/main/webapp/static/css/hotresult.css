@@ -833,7 +833,7 @@ input[type=checkbox]:checked::after {
 /*     -o-transform: translate(-50%, -50%); */
 /*     transform: translate(-50%, -50%); */
 }
-.result-loading .loadingcon{
+.loadingcon{
 	height:89px;
 	position:absolute;
 	left:50%;
@@ -1056,7 +1056,12 @@ input[type=checkbox]:checked::after {
    
    
 /*热点详情*/
-.all_hot_list{position:fixed;bottom:0;width:100%;background:#f1f1f1;z-index:9;min-width:1200px;}
+.all_hot_list{position:fixed;bottom:0;width:100%;background:#f1f1f1;z-index:11;min-width:1200px;display:none;
+    -moz-box-shadow: 0px -2px 18px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0px -2px 18px rgba(0,0,0,.3);
+    -o-box-shadow: 0px -2px 18px rgba(0,0,0,.3);
+    -ms-box-shadow: 0px -2px 18px rgba(0,0,0,.3);
+    box-shadow: 0px -2px 18px rgba(0,0,0,.3);}
 .all_hot_list_top li.hot_sort,.all_hot_list_top li.all_hot_list_top_source1,.all_hot_list_top li.hot_trend{display:none;}
 .all_hot_list_top li.hot_relation{float:left!important;}
 .all_hot_list_top li.all_hot_list_top_source{text-align:center;}
