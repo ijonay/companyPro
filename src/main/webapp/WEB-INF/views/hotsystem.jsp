@@ -5,6 +5,7 @@
 <head>
 <jsp:include page="head.jsp" />
 <link rel="stylesheet" href="css/hotsystem.css">
+<link rel="stylesheet" href="css/hotComponents.css">
 <link rel="stylesheet" type="text/css" href="css/pop.css">
 <title>热点分析</title>
 </head>
@@ -101,9 +102,10 @@
    			<ul class="all_hot_bar" id="all_hot_bar">
    				<li>排名</li>
    				<li>热点名称</li>
-   				<li>热点来源</li>
    				<li>热度</li>
-   				<li>热点受众画像</li>
+				<li>热点来源</li> 
+   				
+<!--    				<li>热点受众画像</li> -->
    				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
    			</ul>
    			<ul class="all_hot_list">
@@ -367,29 +369,11 @@
 	 <p class="title" style="font-size:14px;">受众画像加载中，请稍后……</p>
 </div>
 
-<script src="lib/jquery-1.12.0.min.js"></script>
-<script src="lib/jsrender.min.js"></script>
-<script src="lib/bootstrap.min.js"></script>
-<script src="lib/underscore-min.js"></script>
-<script src="js/common.js"></script>
-<script src="lib/jquery.cookie.js"></script>
+<jsp:include page="foot.jsp" />
 <script src="js/raphael.js"></script>
-<script src="js/templates.js"></script>
-<script src="js/util.js"></script>
-<script src="lib/echarts.js"></script>
-<script>
-$.get('js/china.json', function (chinaJson) {
-    echarts.registerMap('china', chinaJson);
-});
-</script>
 <script src="js/hotsystem.js"></script>
-<script src="js/calendar.js"></script>
-<script src="js/nav.js"></script>
 <script src="js/dialog.js"></script>
-<script id="allHotTmpl" type="text/x-jsrender">
+<script id="allHotTmpl" type="text/x-jsrender"></script>
 
-</script>
-<script src="lib/jquery.mousewheel.js"></script>
-<script src="lib/perfect-scrollbar.js"></script>
 </body>
 </html>
