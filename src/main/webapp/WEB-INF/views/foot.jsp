@@ -45,12 +45,18 @@
 </SCRIPT>
 
 <script src="lib/jsrender.min.js"></script>
-
 <script src="lib/underscore-min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
-<script src="lib/jquery-ui.min.js"></script>
-<script src="lib/jquery.touch-punch.min.js"></script>
-<script src="lib/jquery.resizable.js"></script>
 <script src="js/common.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/util.js"></script>
+<script src="lib/echarts.js"></script>
+<script>
+$.get('js/china.json', function (chinaJson) {
+    echarts.registerMap('china', chinaJson);
+});
+</script>
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/perfect-scrollbar.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/nav.js"></script>

@@ -62,11 +62,12 @@ templates.design = {};
     tmpl.push('    <ul class="all_hot_list_top">');
     tmpl.push('       <li><span  class="hot_circle_num" style="{{if #index > 9 && #index < 99}}width:24px;height:24px;line-height:24px{{else #index ==99}}width:32px;height:32px;line-height:32px{{/if}}">{{:#index+1}}</span></li>');
     tmpl.push('       <li class="all_hot_top_topic"><p title={{:title}}>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
-    tmpl.push('       <li class="all_hot_list_top_source"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}<div class="hot_img_arrow"></div></li>');
     tmpl.push('       <li>{{:prevailingTrend}}</li>');
-    tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>点击查看</em><span class="hot_look_arrow"></span></li>');
-    tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation"><span>关联此热点</span></li>');
-    tmpl.push('       <li class="hot_arrow"></li>');
+    tmpl.push('       <li class="all_hot_list_top_source1"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}<div class="hot_img_arrow"></div></li>');
+    tmpl.push('       <li class="all_hot_list_top_source"><span class="hot_look_detail"></span><em>热点详细</em><span class="hot_img_arrow"></span></li>');
+    tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>受众画像</em><span class="hot_look_arrow"></span></li>');
+    tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation" style="float:right;margin-right:20px;"><span>关联此热点</span></li>');
+//    tmpl.push('       <li class="hot_arrow"></li>');
     tmpl.push('     </ul>');
     tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot" style="display:none">');
     tmpl.push('       <li class="li-first">');
@@ -106,6 +107,17 @@ templates.design = {};
     tmpl.push('           <span class="type-num fl">前10个问题的平均回答：<b>{{:zhihuAvgAnswerNumber}}</b></span>');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
+    
+    tmpl.push('     <div class="hot_near_list">');
+    tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
+    tmpl.push('    	    <div class="hot_near_con">');
+    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称1</em><i>88</i></p>');
+    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称2热点名称2</em><i>818</i></p>');
+    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称3称2</em><i>100</i></p>');
+    tmpl.push('     	</div>');
+    tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
+    tmpl.push('     </div>')
+
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
     tmpl.push('     </div>');
