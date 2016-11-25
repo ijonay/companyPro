@@ -772,9 +772,9 @@ input[type=checkbox]:checked::after {
 }
 .iconCon{
     height:24px;
-    width:80px;
+    width:75px;
     background:url(../img/card-chart.png) no-repeat left center;
-    padding-left:24px;
+    padding-left:19px;
     cursor:pointer;
 }
 .planText{
@@ -1053,3 +1053,13 @@ input[type=checkbox]:checked::after {
        95%{width:0px;}
        100%{width:10px;}
    }
+   
+   
+/*热点详情*/
+.all_hot_list{position:fixed;bottom:0;width:100%;background:#f1f1f1;z-index:9;min-width:1200px;}
+.all_hot_list_top li.hot_sort,.all_hot_list_top li.all_hot_list_top_source1,.all_hot_list_top li.hot_trend{display:none;}
+.all_hot_list_top li.hot_relation{float:left!important;}
+.all_hot_list_top li.all_hot_list_top_source{text-align:center;}
+.all_hot_list_top li.close_detail{height:100%;width:8px;background:url(../img/del_black.png) no-repeat center;}
+.all_hot_list_top{padding-right:30px;}
+.all_hot_list_top li.all_hot_top_topic{width:67%!important;}

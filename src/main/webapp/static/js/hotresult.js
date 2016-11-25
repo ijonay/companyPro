@@ -1298,6 +1298,7 @@ $(document).delegate(".edit-word","click",function(){
         left = _left+width+10;
     }
     var top = (_top+$(this).height()/2) - $(".alertCon").height()/2;
+    $(".alertCon").data("info",hotInfo);
     $(".alertCon").find(".infoTitle").text(hotInfo.title?hotInfo.title:"");
     $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
     $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
@@ -1343,7 +1344,7 @@ $(document).delegate(".edit-word","click",function(){
         'z-index': 9999,
         'display': 'block'
     });
-    $(".planText").css("margin-left",(262-80-72-$(".hotLeft").width())/2);
+    $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
 }).delegate(".alertCon", "click", function(e) {//弹窗内部防止冒泡
     e ? e.stopPropagation() : event.cancelBubble = true;
 });
@@ -1368,3 +1369,51 @@ $(".infoConnect").on("click",function(){
 function clearChat(a){
 	a.value=a.value.replace(/[^\d]/g,'')
 }
+
+//查看热点详情
+$(".portrait,.infoTitle,.hotInfo,.hotLeft,.planText").on("click",function(){
+    var info=$(this).parents(".alertCon").data("info");
+    var $li = $.templates(templates.design["tmplAllHotList"]);
+    $(".all_hot_list").html($li.render({data:[info]}));
+    $(".all_hot_list_top li.hot_relation").after("<li class='close_detail'></li>")
+});
+$(document).on('click','.all_hot_list_top_source',function(){//点击详情中热点详情按钮
+    $('.all_hot_list_top_look').css('color','#4a4a4a');
+    $('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
+    $('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
+    $('.hot_echart_list').addClass('hidecommon');
+    if($(this).parent().next().css('display') == 'block'){
+        $(this).parent().next().hide();
+        $(this).find(".hot_img_arrow").css("transform","rotate(0deg)");
+        $(this).find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
+        $(this).css('color','#4a4a4a');
+    }else{
+        $(this).parent().next().show();
+        $(this).find(".hot_img_arrow").css("transform","rotate(180deg)");
+        $(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
+        $(this).css('color','#389b9f');
+        
+    };      
+});
+$(document).on('click','.all_hot_list_top_look',function(){//点击详情中受众画像按钮
+    $('.all_hot_list_bot').css('display','none');
+    $('.hot_img_arrow').css("transform","rotate(0deg)");
+    $('.all_hot_list_top_source').find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
+    if($(this).parent().next().next().is('.hidecommon')){
+        $(this).css('color','#389b9f');
+        $(this).find('.hot_look_eye').css('background-image','url(img/card-chart-hover.png)');
+        $(this).parent().next().next().removeClass('hidecommon');
+        $(this).find(".hot_look_arrow").css("transform","rotate(180deg)");
+        var rectTop = $("#ulBottom"+index).next().get(0).getBoundingClientRect();
+        if(rectTop.top < 0){
+            var a = $("#ulBottom"+index).offset().top;
+            a -= rectTop.top + 450;
+            $("html,body").animate({scrollTop:a},"slow");
+        }
+    }else{
+        $(this).parent().next().next().addClass('hidecommon');
+        $(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
+        $(this).css('color','#4a4a4a');
+        $(this).find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
+    };
+});
