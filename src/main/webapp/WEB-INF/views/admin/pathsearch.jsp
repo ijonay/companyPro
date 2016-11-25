@@ -97,8 +97,8 @@
 
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-5" style="height: 500px;overflow: hidden;overflow-y:auto;">
-                        <table class="table table-striped" style="display: none;" id="result">
+                    <div style="height: 500px;overflow-y:auto;">
+                        <table class="table table-striped " style="display: none;" id="result">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -109,7 +109,7 @@
                             <tbody id="temp_Container">
                             <tr>
                                 <td>{index}</td>
-                                <td>{name}</td>
+                                <td style="width:100px;">{name}</td>
                                 <td>{value}</td>
                             </tr>
                             </tbody>
@@ -164,11 +164,10 @@
                 });
 
 
-
                 $(".savePath").click(bindPath);
 
                 $(".explore").click(function () {
-
+                    $("#end").blur();
                     getResult();
                 });
                 function getResult() {

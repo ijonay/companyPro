@@ -292,41 +292,43 @@
                         })
                     });
 
-                    $(".addModel").click(function (e) {
-                        e.preventDefault();
-                        if (curObj != null) {
-                            $("input[data-role='val']").val("");
-                        }
-
-                        curObj = null;
-
-                        $('#myModal').modal();
-                    });
 
 
-                    $(".save").click(function (e) {
-                        e.preventDefault();
+
+
+
+                }
+                $(".addModel").click(function (e) {
+                    e.preventDefault();
+                    if (curObj != null) {
+                        $("input[data-role='val']").val("");
+                    }
+
+                    curObj = null;
+
+                    $('#myModal').modal();
+                });
+                $(".save").click(function (e) {
+                    e.preventDefault();
 //                        var vailData = [
 //                            {objId: "userName", defSubject: "用户名"}
 //                        ];
 //                        var flag = KD.Form.validateField(vailData, KD.ShowDialog.showWarning);
 //                        if (flag) {
-                        var jsonData = KD.Form.getParams();
-                        jsonData = $.extend({}, curObj, jsonData);
-                        Hotspot.edit(KD.Json.getString(jsonData), function (data) {
-                            if (data.error.code == 0) {
-                                initData();
-                                KD.showWarning("操作成功！");
-                                $('#myModal').modal("hide");
-                            } else {
-                                KD.showWarning(data.error.message);
-                            }
-                        })
+                    var jsonData = KD.Form.getParams();
+                    jsonData = $.extend({}, curObj, jsonData);
+                    Hotspot.edit(KD.Json.getString(jsonData), function (data) {
+                        if (data.error.code == 0) {
+                            initData();
+                            KD.showWarning("操作成功！");
+                            $("input[data-role='val']").val("");
+                            $('#myModal').modal("hide");
+                        } else {
+                            KD.showWarning(data.error.message);
+                        }
+                    })
 //                        }
-                    });
-
-                }
-
+                });
                 initData();
 
             });
