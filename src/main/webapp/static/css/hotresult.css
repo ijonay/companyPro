@@ -1065,6 +1065,7 @@ input[type=checkbox]:checked::after {
 .all_hot_list_top li.hot_sort,.all_hot_list_top li.all_hot_list_top_source1,.all_hot_list_top li.hot_trend{display:none;}
 .all_hot_list_top li.hot_relation{float:left!important;}
 .all_hot_list_top li.all_hot_list_top_source{text-align:center;}
-.all_hot_list_top li.close_detail{height:100%;width:8px;background:url(../img/del_black.png) no-repeat center;}
+.all_hot_list_top li.close_detail{height:100%;width:8px;background:url(../img/del_black.png) no-repeat center;cursor:pointer;}
+.all_hot_list_top li.close_detail:hover{background:url(../img/del_bule.png) no-repeat center;}
 .all_hot_list_top{padding-right:30px;}
 .all_hot_list_top li.all_hot_top_topic{width:67%!important;}

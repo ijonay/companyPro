@@ -62,9 +62,11 @@ templates.design = {};
     tmpl.push('    <ul class="all_hot_list_top">');
     tmpl.push('       <li class="hot_sort"><span  class="hot_circle_num" style="{{if #index > 9 && #index < 99}}width:24px;height:24px;line-height:24px{{else #index ==99}}width:32px;height:32px;line-height:32px{{/if}}">{{:#index+1}}</span></li>');
     tmpl.push('       <li class="all_hot_top_topic"><p title={{:title}}>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
+
     tmpl.push('       <li class="hot_trend">{{:prevailingTrend}}</li>');
-    tmpl.push('       <li class="all_hot_list_top_source1"><div class="weiboIcon"></div>{{if wechatAvgReadNum}}<div class="weixinIcon"></div>{{/if}}{{if baiduHitNum}}<div class="baiduinIcon"></div>{{/if}}{{if zhihuAvgAnswerNumber}}<div class="zhihuIcon"></div>{{/if}}<div class="hot_img_arrow"></div></li>');
-    tmpl.push('       <li class="all_hot_list_top_source"><span class="hot_look_detail"></span><em>热点详细</em><span class="hot_img_arrow"></span></li>');
+    tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatAvgReadNum}}<a target="_blank" href={{:wechatUrl}}><div class="weixinIcon"></div></a>{{/if}}{{if baiduHitNum}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuAvgAnswerNumber}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
+    tmpl.push('       <li class="all_hot_list_top_source"><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
+
     tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>受众画像</em><span class="hot_look_arrow"></span></li>');
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation" style="float:right;margin-right:20px;"><span>关联此热点</span></li>');
 //    tmpl.push('       <li class="hot_arrow"></li>');

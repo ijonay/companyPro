@@ -1391,8 +1391,15 @@ function loadSvg(){
 
     //切换效果
     $('.all_hot_list_bot:not(":first")').css('display','none');
-  
-    $(document).on('click','.all_hot_list_top_source',function(){
+    $(document).on('click','.all_hot_list_top',function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+    	var $this = $(this);
+    	var child = $this.children();
+    	child[4].click();
+    })
+    
+    $(document).on('click','.all_hot_list_top_source',function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
     	$('.all_hot_list_top_look').css('color','#4a4a4a');
     	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
     	//$('.all_hot_list_top_look').find('em').css("color",'#389b9f');
@@ -1416,7 +1423,8 @@ function loadSvg(){
     });
   
  
-    $(document).on('click','.all_hot_list_top_look',function(){
+    $(document).on('click','.all_hot_list_top_look',function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
     	var $this = $(this)
     	var index = $this.attr("data-id");
     	$('.all_hot_list_bot').css('display','none');
