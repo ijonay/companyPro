@@ -1199,7 +1199,7 @@ function loadSvg(){
             	alertCon.show();
             	alertCon.animate({opacity:1},500);
             }
-            $(".planText").css("margin-left",(262-80-72-$(".hotLeft").width())/2);
+            $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
     	}else{
 //        	$("#comeback_hot").click();
         }
