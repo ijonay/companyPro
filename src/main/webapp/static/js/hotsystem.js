@@ -1018,15 +1018,6 @@ function loadSvg(){
     		yMax = scoreArray[i];
     	}
     }
-//    $.each(yArray,function(index,item){
-//    	alert(item)
-//    	if(yMin > item){
-//    		yMin = item;
-//    	}
-//    	if(yMax < item){
-//    		yMax = item;
-//    	}
-//    })
     var step = yMax - yMin;
     step += 1;
     for(var i=0;i<10;i++){
@@ -1772,6 +1763,8 @@ function loadSvg(){
     	            	        {
     	            	            type : 'value',
     	            	            name : "年龄",
+    	            	            min:12,
+    	            	            max:60,
     	            	            nameLocation:"middle",
     	            	            nameGap: -17,
     	            	            scale:true,
@@ -1910,7 +1903,7 @@ function loadSvg(){
 //    	        	    },
     	        	    visualMap: {
     	        	    	show:false,
-    	        	    	min:mapMin,
+    	        	    	min:0,
     	        	    	max:mapMax,
     	                    inRange: {
     	                        color: ['#6ab6e0','#1d73a2']
