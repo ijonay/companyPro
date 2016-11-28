@@ -1763,6 +1763,8 @@ function loadSvg(){
     	            	        {
     	            	            type : 'value',
     	            	            name : "年龄",
+    	            	            min:12,
+    	            	            max:60,
     	            	            nameLocation:"middle",
     	            	            nameGap: -17,
     	            	            scale:true,
