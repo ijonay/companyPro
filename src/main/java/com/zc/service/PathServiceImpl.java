@@ -1,13 +1,15 @@
 package com.zc.service;
 
 import com.zc.WordRedisModel;
+import com.zc.bean.TempWordAttr;
 import com.zc.bean.Topic;
 import com.zc.bean.Weibo;
+import com.zc.dao.TempWordAttrMapper;
 import com.zc.dao.WeiboDao;
 import com.zc.enumeration.StatusCodeEnum;
-import com.zc.model.KeyValue;
-import com.zc.model.KeyValueCollection;
+import com.zc.model.MapModel;
 import com.zc.model.path.*;
+import com.zc.model.path.PathModel;
 import com.zc.model.weibo.WeiboItemModel;
 import com.zc.utility.*;
 import com.zc.utility.exception.ServiceException;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by 张镇强 on 2016/8/16 16:02.
@@ -42,6 +45,9 @@ public class PathServiceImpl implements PathService {
 
     @Autowired
     private ZCRedisService<float[]> redisService;
+
+    @Autowired
+    private TempWordAttrMapper tempWordAttrMapper;
 
 
     //endregion
@@ -129,7 +135,7 @@ public class PathServiceImpl implements PathService {
     }
 
     @Override
-    public HashMap<String, Object> getPathSearch(String start, String end) {
+    public HashMap<String, Object> getPathSearch(String start, String end, Integer frequency) {
 
         Objects.requireNonNull(start);
         Objects.requireNonNull(end);
@@ -173,7 +179,7 @@ public class PathServiceImpl implements PathService {
 
         effectLog.add("get endItem similarity");
 
-        KeyValueCollection result = new KeyValueCollection();
+        List<MapModel<String, Object>> result = new ArrayList<>();
 
         HashMap<String, Object> resultMap = new HashMap<>();
 
@@ -187,13 +193,16 @@ public class PathServiceImpl implements PathService {
                         .getSimilarity
                                 () > 0) {
 
-                    item.getValue().setVal(null);
-                    result.add(new KeyValue(item.getKey(), item.getValue().getSimilarity()));
+                    result.add(new MapModel<String, Object>()
+                            .addModel("similarity", item.getValue().getSimilarity())
+                            .addModel("key", item.getKey())
+                    );
 
-                    if (i >= 3000) {
-                        resultMap.put("error", "显示结果超出3000个 目前默认展示出前3000个结果！");
-                        break;
-                    }
+
+//                    if (i >= 3000) {
+//                        resultMap.put("error", "显示结果超出3000个 目前默认展示出前3000个结果！");
+//                        break;
+//                    }
 
                 } else {
                     break;
@@ -206,7 +215,28 @@ public class PathServiceImpl implements PathService {
             effectLog.add("get last result");
 
         }
-        resultMap.put("vals", result);
+
+        if (result.size() > 0) {
+
+            List<String> wordList = result.stream().map(p -> p.get("key")
+                    .toString())
+                    .collect
+                            (Collectors.toList());
+
+            List<TempWordAttr> words = tempWordAttrMapper.getCollByWords(wordList);
+
+
+            words.stream().filter(p -> p.getNum() > frequency).forEach(p ->
+                    result.stream().filter(q -> q.get("key").toString().equals(p.getName())).findFirst().get()
+                            .addModel("attr", p.getAttr())
+                            .addModel("num", p.getNum())
+
+            );
+
+        }
+
+        resultMap.put("vals", result.stream().limit(3000).collect(Collectors.toList()));
+
         return resultMap;
     }
 
