@@ -10,12 +10,23 @@ import java.util.List;
  */
 public class EffectLog {
 
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
     /**
      * 程序名称
      */
     private String processName;
     private List<Object> keys = new ArrayList<>();
     private List<Long> vals = new ArrayList<>();
+
+    public EffectLog() {
+    }
 
     public EffectLog(String processName) {
         this.processName = processName;

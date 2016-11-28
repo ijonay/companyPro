@@ -10,5 +10,6 @@
 <link rel="stylesheet" href="<%=path%>/css/bootstrap.min.css">
 <script src="<%=path%>/lib/jquery-1.12.0.min.js"></script>
 <script src="<%=path%>/lib/bootstrap.min.js"></script>
+<script src="<%=path%>/lib/jsrender.min.js"></script>
 <script src="<%=path%>/lib/KD1.3.2.min.js"></script>
 <script src="<%=path%>/js/admin/comm.js"></script>

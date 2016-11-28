@@ -22,7 +22,7 @@ public interface PathService {
      * @param end
      * @return
      */
-    HashMap<String, Object> getPathSearch(String start, String end);
+    HashMap<String, Object> getPathSearch(String start, String end, Integer frequency);
 
 
 }

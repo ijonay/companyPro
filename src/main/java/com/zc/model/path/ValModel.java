@@ -18,6 +18,8 @@ public class ValModel {
 
     private float[] val;
     private float similarity;
+    private String attr;
+    private Long num;
 
     public float[] getVal() {
         return val;
@@ -33,5 +35,21 @@ public class ValModel {
 
     public void setSimilarity(float similarity) {
         this.similarity = similarity;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
+
+    public Long getNum() {
+        return num;
+    }
+
+    public void setNum(Long num) {
+        this.num = num;
     }
 }
