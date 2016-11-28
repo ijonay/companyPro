@@ -3,7 +3,7 @@ getHotPred(getNowDate(new Date()));
 //热点预测日历
 $(".pnl-calendar").calendar({
     width: 272,
-    height: 277,
+    height: 322,
     data: [],
     onSelected: function(view, date, data) {
         var day=parseInt($(this).data("index"));

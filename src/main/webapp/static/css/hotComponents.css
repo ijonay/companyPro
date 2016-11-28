@@ -1,4 +1,6 @@
 /*热点详细信息。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
+@CHARSET "UTF-8";
+em,i,b{font-style:normal!important;font-weight:500!important;}
 .allHot{
 	border-radius:2px;
 	position:absolute;
@@ -63,7 +65,7 @@
 	width:15%;text-align:center;
 }
 
-.all_hot_list_top{height:60px;line-height:60px;background:#fff;padding-left:30px;border-bottom:1px solid #eee}
+.all_hot_list_top{height:60px;line-height:60px;background:#fff;padding-left:30px;border-bottom:1px solid #eee;}
 .all_hot_list_top >li{float:left;} 
 .all_hot_list_top li:nth-child(1){
 	width:28px;margin-right:22px;font-size:18px;
@@ -73,6 +75,9 @@
 }
 .all_hot_list_top li:nth-child(3){
 	width:5%;
+	color: #ed5e20;
+    font-size: 24px;
+    height:100%;
 }
 /* .all_hot_list_top li:nth-child(3) .hot_img_arrow{
 	background:url(../img/hot_arrow_down.png) no-repeat center center;width: 20px;
@@ -137,7 +142,7 @@
 }
 
 /* ui新样式    */
-.hot_near_list{background:#eff4f5;height:50px;padding-left:40px;padding-right:40px;padding-top:15px;}
+.hot_near_list{background:#eff4f5;height:50px;padding-left:30px;padding-right:40px;padding-top:15px;}
 .hot_near_list div{display:inline-block;}
 .hot_near{color:#4a4a4a;margin-right:14px;}
 .hot_near_list .hot_near_all{float:right;cursor: pointer;font-size:14px;color:#4a4a4a;}
