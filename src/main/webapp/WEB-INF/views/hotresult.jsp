@@ -162,7 +162,7 @@
             <span></span>
            
 	</div>
-	 <p class="title">探索结果加载中，请稍后……</p>
+	 <p class="title">探索结果加载中，请稍候……</p>
 </div>	 
     
 	

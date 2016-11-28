@@ -1893,7 +1893,7 @@ function loadSvg(){
 //    	        	    },
     	        	    visualMap: {
     	        	    	show:false,
-    	        	    	min:mapMin,
+    	        	    	min:0,
     	        	    	max:mapMax,
     	                    inRange: {
     	                        color: ['#6ab6e0','#1d73a2']

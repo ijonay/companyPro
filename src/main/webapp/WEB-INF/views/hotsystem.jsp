@@ -366,7 +366,7 @@
             <span></span>
            
 	</div>
-	 <p class="title" style="font-size:14px;">受众画像加载中，请稍后……</p>
+	 <p class="title" style="font-size:14px;">受众画像加载中，请稍候……</p>
 </div>
 
 <jsp:include page="foot.jsp" />
