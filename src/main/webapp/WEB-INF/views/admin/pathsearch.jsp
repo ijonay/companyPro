@@ -60,7 +60,13 @@
                             <input type="text" class="form-control" id="endWord">
                         </div>
                     </div>
-
+                    <div class="form-group col-sm-4">
+                        <label for="frequency" class="col-sm-5 control-label">词频阈值：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="frequency" value="2000"
+                                   onkeyup="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-12" style="margin: 10px 0 20px;border-bottom: 1px solid #eee;"></div>
                 <div class="col-sm-12" style="display: none">
@@ -97,20 +103,24 @@
 
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-5" style="height: 500px;overflow: hidden;overflow-y:auto;">
-                        <table class="table table-striped" style="display: none;" id="result">
+                    <div style="height: 500px;overflow-y:auto;">
+                        <table class="table table-striped " style="display: none;" id="result">
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>词名称</th>
                                 <th>相似度</th>
+                                <th>词性</th>
+                                <th>词频</th>
                             </tr>
                             </thead>
                             <tbody id="temp_Container">
                             <tr>
-                                <td>{index}</td>
-                                <td>{name}</td>
-                                <td>{value}</td>
+                                <td>{{:(#index+1)}}</td>
+                                <td style="width:100px;">{{:key}}</td>
+                                <td>{{:similarity}}</td>
+                                <td>{{:attr}}</td>
+                                <td>{{:num}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -164,11 +174,10 @@
                 });
 
 
-
                 $(".savePath").click(bindPath);
 
                 $(".explore").click(function () {
-
+                    $("#end").blur();
                     getResult();
                 });
                 function getResult() {
@@ -194,8 +203,10 @@
                             endFlag = true;
                             console.log(data);
                             if (data.data.vals.length > 0) {
-                                var result = KD.Json.binderJson(data.data.vals, temp_Container);
-                                $("#temp_Container").html(result).parent().show();
+
+
+//                                var result = KD.Json.binderJson(data.data.vals, temp_Container);
+                                $("#temp_Container").html($.templates(temp_Container).render(data.data.vals)).parent().show();
                             } else {
                                 $("#temp_Container").html("");
                             }
