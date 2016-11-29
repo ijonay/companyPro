@@ -1013,7 +1013,7 @@ function loadSvg(){
     	if(yMin > (scoreArray[i]-0)){
     		yMin = scoreArray[i];
     	}
-    	console.log(yMin);
+    	//console.log(yMin);
     	if(yMax < (scoreArray[i]-0)){
     		yMax = scoreArray[i];
     	}
@@ -1283,6 +1283,13 @@ function loadSvg(){
 	   $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
 	   $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
    	   $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
+	   
+		$('.type-article').each(function(){
+				var str = $(this).text();
+				if(str.length>20){
+					$(this).attr('title',str);
+				}
+		});
    }); 
    //返回首页
     $('#comeback_hot').on('click',function(){
@@ -2005,6 +2012,7 @@ function loadSvg(){
             		return
             	}
             	$(".all_hot_list").html(hotList2.render(returnData));
+            	
             	$('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
             	$('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
 //            	$('.all_hot_list_top_source:first').find('.em').css("color","url(img/card-detail-hover.png)");
@@ -2147,4 +2155,15 @@ $(".userProfile").on("click",function(){
 	    	},250)
 		}
 	})
-})
+});
+//截取字符串
+//strJieQu('.type-article');
+//function strJieQu(ele){
+//	$(ele).each(function(){
+//		var $this = $(this);
+//		var str = $this.text();
+//		if(str.length>20){
+//			$this.attr('title',str);
+//		}
+//	})
+//}

@@ -1398,6 +1398,12 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
         $(this).find(".hot_img_arrow").css("transform","rotate(180deg)");
         $(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
         $(this).css('color','#389b9f');
+        $('.type-article').each(function(){
+			var str = $(this).text();
+			if(str.length>20){
+				$(this).attr('title',str);
+			}
+        });
     };      
 });
 $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受众画像按钮
