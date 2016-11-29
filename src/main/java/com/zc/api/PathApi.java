@@ -70,14 +70,17 @@ public class PathApi extends BaseApi {
     }
 
     @RequestMapping(value = "pathsearch", method = RequestMethod.GET)
-    public ApiResultModel getPathSearch(@RequestParam("start") String start, @RequestParam("end") String end) {
+    public ApiResultModel getPathSearch(@RequestParam("start") String start, @RequestParam("end") String end,
+                                        @RequestParam(value = "frequency", required = false, defaultValue = "2000")
+                                                Integer
+                                                frequency) {
 
         Objects.requireNonNull(start);
         Objects.requireNonNull(end);
 
         ApiResultModel result = new ApiResultModel();
 
-        return result.data(pathService.getPathSearch(start, end));
+        return result.data(pathService.getPathSearch(start, end, frequency));
 
     }
 
