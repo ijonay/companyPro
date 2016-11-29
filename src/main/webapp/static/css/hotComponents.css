@@ -235,7 +235,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 }
 /*热点详情*/
 .all_hot_list_bot{
-	position:relative;
+	position:relative;background:#eff4f5;
 }
 .all_hot_list_bot:before{
 	position:absolute;

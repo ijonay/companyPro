@@ -1730,7 +1730,9 @@ function loadSvg(){
     	        			tempArray.push(item.name - 0);
     	        		}
     	        		tempArray.push(item.value);
-    	        		trueData.push(tempArray);
+    	        		if((tempArray[0] - 0) > 12 && (tempArray[0] - 0)< 60){
+        	        		trueData.push(tempArray);    	        			
+    	        		}
     	        	});
     	        	trueData.sort(function(x,y){return x[0] - y[0]})
     	        	ageNewCharts.setOption({
