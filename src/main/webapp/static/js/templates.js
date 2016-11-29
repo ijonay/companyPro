@@ -5,7 +5,7 @@
  **/
 var templates = templates || {};
 templates.design = {};
-(function() {
+(function () {
     tmpl = [];
     tmpl.push('{{for data.sheets}}');
     tmpl.push('<li>');
@@ -14,7 +14,7 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplSheetList'] = tmpl.join('\r\n');
-    
+
     tmpl = [];
     tmpl.push('{{for data}}');
     tmpl.push('<li data-topicId={{:topicId}} data-id={{:id}}>');
@@ -29,7 +29,7 @@ templates.design = {};
     tmpl.push('         <div class="notify-infoTop">');
     tmpl.push('             <div class="notify-infoTitle"></div>');
     tmpl.push('             <div class="notify-infoConnect">关联此热点</div>');
-    tmpl.push(          '</div>');
+    tmpl.push('</div>');
     tmpl.push('         <div class="notify-hotLabel">');
     tmpl.push('             <div class="notify-hotLabel0"></div>');
     tmpl.push('             <div class="notify-hotLabel1"></div>');
@@ -53,9 +53,9 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplNotifyList'] = tmpl.join('\r\n');
-    
+
 })();
-(function() {
+(function () {
     tmpl = [];
     tmpl.push('{{for data}}');
     tmpl.push('<li data-id="{{:id}}">');
@@ -109,16 +109,16 @@ templates.design = {};
     tmpl.push('           {{if zhihuAvgAnswerNumber}}<span class="type-num fl">前10个问题的平均回答：<b>{{:zhihuAvgAnswerNumber}}</b></span>{{/if}}');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
-    
-    tmpl.push('     <div class="hot_near_list">');
-    tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
-    tmpl.push('    	    <div class="hot_near_con">');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称1</em><i>88</i></p>');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称2热点名称2</em><i>818</i></p>');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称3称2</em><i>100</i></p>');
-    tmpl.push('     	</div>');
-    tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
-    tmpl.push('     </div>')
+
+    // tmpl.push('     <div class="hot_near_list">');
+    // tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
+    // tmpl.push('    	    <div class="hot_near_con">');
+    // tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称1</em><i>88</i></p>');
+    // tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称2热点名称2</em><i>818</i></p>');
+    // tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称3称2</em><i>100</i></p>');
+    // tmpl.push('     	</div>');
+    // tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
+    // tmpl.push('     </div>')
 
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
@@ -127,21 +127,21 @@ templates.design = {};
     tmpl.push('{{/for}}');
     templates.design['tmplAllHotList'] = tmpl.join('\r\n');
     $.views.helpers({
-        "addTag": function(eventClass) {
-        	if(eventClass){
-        		var tagArray = eventClass.split(",");
+        "addTag": function (eventClass) {
+            if (eventClass) {
+                var tagArray = eventClass.split(",");
                 var str = "";
-                $.each(tagArray,function(index,item){
-                	str += '<div title="'+item+'">'+item+'</div>'
+                $.each(tagArray, function (index, item) {
+                    str += '<div title="' + item + '">' + item + '</div>'
                 })
                 return str;
-        	}else{
-        		return "";
-        	}
+            } else {
+                return "";
+            }
         },
-        "circleReset":function(index){
-        	console.log(index);
-        	console.log(typeof index)
+        "circleReset": function (index) {
+            console.log(index);
+            console.log(typeof index)
         }
     });
 })();
