@@ -64,16 +64,13 @@ public final class WordVectorHelper {
     @SuppressWarnings("finally")
     public static Map<String, float[]> loadModel(String modelPath)
             throws NumberFormatException, IOException {
-        Map<String, float[]> wordMap = new HashMap<String, float[]>();
+        Map<String, float[]> wordMap = new HashMap<>();
         DataInputStream dis = null;
         BufferedInputStream bis = null;
         double len = 0;
         float vector = 0;
         try {
-            ResourceLoader resourceLoader = new DefaultResourceLoader();
-            InputStream inputStream = resourceLoader.getResource(modelPath)
-                    .getInputStream();
-            bis = new BufferedInputStream(inputStream);
+            bis = new BufferedInputStream(new FileInputStream(modelPath));
             dis = new DataInputStream(bis);
             // //读取词数
             int words = Integer.parseInt(readString(dis));

@@ -1,7 +1,6 @@
 package com.zc.api;
 
 import java.util.List;
-import java.util.Map;
 
 import com.zc.enumeration.StatusCodeEnum;
 
@@ -11,14 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zc.bean.Topic;
-import com.zc.model.ApiResultModel;
+import com.zc.utility.response.ApiResultModel;
 import com.zc.model.TopicModel;
 import com.zc.model.VertexEdgeModel;
-import com.zc.service.TopicService;
 import com.zc.service.WordService;
-import com.zc.tempbean.CleanContent;
-import com.zc.tempservice.CleanContentService;
 import com.zc.utility.ResourceDict;
 
 /**
@@ -26,35 +21,17 @@ import com.zc.utility.ResourceDict;
  */
 @RestController
 @RequestMapping("/api/")
-public class WordAPI {
+public class WordAPI extends BaseApi {
     @Autowired
     private WordService wordService;
 
-    @Autowired
-    private TopicService topicService;
-
-    @Autowired
-    private CleanContentService weiboService;
-    private WordAPI() {
-    }
-
-    // private static final HashMap<String, WordModel> MODEL_DICT = new
-    // HashMap<String, WordModel>() {{
-    // put("warcraft", new WordModel("warcraft", "魔兽世界",
-    // "classpath:dataset/vectors.bin.Douban.WarCraft"));
-    // put("ring", new WordModel("ring", "指环王",
-    // "classpath:dataset/vectors.bin.Douban.Ring"));
-    // put("crazyanimal", new WordModel("crazyanimal", "疯狂动物城",
-    // "classpath:dataset/vectors.bin.Douban.CrazyAnimal"));
-    // }};
-
-    @RequestMapping("models")
-    public ApiResultModel getModels() {
-        ApiResultModel resultModel = new ApiResultModel(
-                ResourceDict.MODEL_DICT.values());
-
-        return resultModel;
-    }
+//    @RequestMapping("models")
+//    public ApiResultModel getModels() {
+//        ApiResultModel resultModel = new ApiResultModel(
+//                ResourceDict.MODEL_DICT.values());
+//
+//        return resultModel;
+//    }
 
     @RequestMapping("words/{model}")
     public ApiResultModel getWords(
@@ -70,7 +47,7 @@ public class WordAPI {
         try {
             VertexEdgeModel words = wordService.getWords(model, clueWord, topN,
                     relevancy, length);
-            return new ApiResultModel(words);
+            return new ApiResultModel(words, StatusCodeEnum.SUCCESS);
         } catch (Exception e) {
             return new ApiResultModel(StatusCodeEnum.SERVER_ERROR, e.getMessage() + "_"
                     + e.getStackTrace());
@@ -85,27 +62,11 @@ public class WordAPI {
         try {
             List<TopicModel> result = wordService
                     .getTopicSimilarity(clueWord);
-            return new ApiResultModel(result);
+            return new ApiResultModel(result, StatusCodeEnum.SUCCESS);
 
         } catch (Exception e) {
             return new ApiResultModel(StatusCodeEnum.SERVER_ERROR, e.getMessage() + "_"
                     + e.getStackTrace());
         }
     }
-
-    @RequestMapping("words/test")
-    public ApiResultModel test() {
-        Topic topic = new Topic();
-        topic.setTitle("xixi");
-        topic.setCoordinate("hahhhahahh");
-        topicService.add(topic);
-        return new ApiResultModel(null);
-    }
-    
-    @RequestMapping("words/test1")
-    public ApiResultModel test1() {
-        List<CleanContent>list=weiboService.getList(10, 10,100);
-        return new ApiResultModel(list);
-    }
-
 }

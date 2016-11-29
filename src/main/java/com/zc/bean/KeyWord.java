@@ -11,6 +11,7 @@ public class KeyWord {
     private String word;
     private float score;
     private float weight;
+    private float[]coordinate;
 
     /**
      * @return the word
@@ -55,5 +56,13 @@ public class KeyWord {
      */
     public void setWeight(float weight) {
         this.weight = weight;
+    }
+
+    public float[] getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(float[] coordinate) {
+        this.coordinate = coordinate;
     }
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicClassMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.TopicClass">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="topic_type" jdbcType="VARCHAR" property="topicType"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,  type,  name,  topic_type,  parent_id,  keywords,  scale,  percentage     </sql>
+    <insert id="add" parameterType="com.zc.bean.TopicClass"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into TopicClass
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                type,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="topicType != null">
+                topic_type,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="scale != null">
+                scale,
+            </if>
+            <if test="percentage != null">
+                percentage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="topicType != null">
+                #{topicType,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="scale != null">
+                #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                #{percentage,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from TopicClass
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.TopicClass">
+        update TopicClass
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="topicType != null">
+                topic_type = #{topicType,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="scale != null">
+                scale = #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                percentage = #{percentage,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicClass
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--<select id="getAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from TopicClass-->
+    <!--</select>-->
+    <!--<delete id="delAll">-->
+    <!--delete from TopicClass-->
+    <!--</delete>-->
+
+
+
+    <select id="getByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicClass
+        where parent_id = #{parentId,jdbcType=INTEGER}
+    </select>
+    <select id="getByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicClass
+        where type = #{type,jdbcType=INTEGER}
+    </select>
+</mapper>

@@ -55,10 +55,12 @@
                 for (var i = 0; i < data.length; i++) {
                     var content = '';
                     for (var j = 0; j < data[i].length; j++) {
+                        var t = data[i][j];
+                        console.log(t);
                         if (j != data[i].length - 1) {
-                            content += data[i][j] + '->';
+                            content += t.similarity + '-' + t.name + '->';
                         } else {
-                            content += data[i][j];
+                            content += t.similarity + '-' + t.name;
                         }
                     }
                     li += '<li>' + content + '</li>';

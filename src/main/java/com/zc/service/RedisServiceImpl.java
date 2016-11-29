@@ -1,46 +1,48 @@
 package com.zc.service;
 
-import com.zc.model.WordEntry;
-import com.zc.model.WordRedisModel;
-import com.zc.utility.ResourceDict;
-import com.zc.utility.WordVectorHelper;
-import org.apache.commons.lang3.StringUtils;
+import com.zc.WordRedisModel;
+import org.apache.commons.lang3.NotImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by 张镇强 on 2016/8/29 16:56.
  */
 @Service
 public class RedisServiceImpl implements RedisService {
+    private static Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
+
+
     @Autowired
     private RedisTemplate<String, WordRedisModel> redisTemplate;
     @Resource(name = "redisTemplate")
     private ListOperations<String, WordRedisModel> listOps;
-    private final String WORDREDISKEY = "topicanalysis:word:";
+    @Resource(name = "redisTemplate")
+    private ListOperations<String, String> testListOps;
 
     public void add() {
-//        listOps.leftPush(key, word);
-
-        String modelName = "doubanweibo1";
-        try {
-            Map<String, float[]> wordMap = WordVectorHelper.loadModel(ResourceDict.MODEL_DICT.get(modelName).getModelPath());
-            Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
-            int count = 1;
-            long start = System.currentTimeMillis();
-            for (Map.Entry<String, float[]> entry : wordSet) {
+        throw new NotImplementedException("不运行");
+//        try {
+//
+//            Map<String, float[]> wordMap =
+//                    WordVectorHelper.loadModel(
+//                    PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.MODEL_BIN));
+//
+//            Set<Map.Entry<String, float[]>> wordSet = wordMap.entrySet();
+//            int count = 1;
+//            long start = System.currentTimeMillis();
+//            for (Map.Entry<String, float[]> entry : wordSet) {
 //                String name = entry.getKey();
-//                if (StringUtils.isEmpty(name)) {
+//
+//                if (StringHelper.isEmpty(name)) {
 //                    continue;
 //                }
 //                Set<WordEntry> neighbors =
@@ -52,20 +54,21 @@ public class RedisServiceImpl implements RedisService {
 //
 //                neighbors.forEach(n -> {
 //                    WordRedisModel w = new WordRedisModel(n.name, n.score);
-////                    listOps.rightPush(WORDREDISKEY + name, w);
-////                    redisTemplate.boundZSetOps(WORDREDISKEY + name).add(w, n.score);
+//                    redisTemplate.boundZSetOps(Constant.WORDR_EDISKEY_PREFIX_KEY + name).add(w, n.score);
 //                });
 //
 //
 //                if (count++ % 100 == 0) {
 //                    System.out.println("-----------:" + count + "||" + (System.currentTimeMillis() - start));
+//                    logger.info("-----------:" + count + "||" + (System.currentTimeMillis() - start));
 //                }
-            }
-
-            System.out.println("耗时:" + (System.currentTimeMillis() - start));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//            }
+//
+//            System.out.println("耗时:" + (System.currentTimeMillis() - start));
+//            logger.info("耗时:" + (System.currentTimeMillis() - start));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -82,5 +85,14 @@ public class RedisServiceImpl implements RedisService {
             long span = System.currentTimeMillis() - s;
             System.out.println(span);
         }
+    }
+
+    public void testadd() {
+//        listOps.leftPush(key, word);
+        int count = 1;
+        long start = System.currentTimeMillis();
+        testListOps.rightPush("test1", "张镇强");
+
+        System.out.println("耗时:" + (System.currentTimeMillis() - start));
     }
 }

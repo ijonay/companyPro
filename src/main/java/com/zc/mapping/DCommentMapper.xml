@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.DCommentMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.DComment">
+                                    <id column="id" jdbcType="INTEGER" property="id"/>
+                                                <result column="filmno" jdbcType="INTEGER" property="filmNo"/>
+                                                <result column="rating" jdbcType="INTEGER" property="rating"/>
+                                                <result column="vote" jdbcType="INTEGER" property="vote"/>
+                                                <result column="content" jdbcType="VARCHAR" property="content"/>
+                                                <result column="userLink" jdbcType="VARCHAR" property="userLink"/>
+                                                <result column="commentId" jdbcType="INTEGER" property="commentId"/>
+                                                <result column="datetime" jdbcType="TIMESTAMP" property="dateTime"/>
+                                                <result column="nickname" jdbcType="VARCHAR" property="nickName"/>
+                        </resultMap>
+    <sql id="Base_Column_List">
+         id,  filmno,  rating,  vote,  content,  userLink,  commentId,  datetime,  nickname     </sql>
+    <insert id="add" parameterType="com.zc.bean.DComment"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into d_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                            <if test="filmNo != null">
+                    filmno,
+                </if>
+                            <if test="rating != null">
+                    rating,
+                </if>
+                            <if test="vote != null">
+                    vote,
+                </if>
+                            <if test="content != null">
+                    content,
+                </if>
+                            <if test="userLink != null">
+                    userLink,
+                </if>
+                            <if test="commentId != null">
+                    commentId,
+                </if>
+                            <if test="dateTime != null">
+                    datetime,
+                </if>
+                            <if test="nickName != null">
+                    nickname,
+                </if>
+                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                            <if test="filmNo != null">
+                    #{filmNo,jdbcType=INTEGER},
+                </if>
+                            <if test="rating != null">
+                    #{rating,jdbcType=INTEGER},
+                </if>
+                            <if test="vote != null">
+                    #{vote,jdbcType=INTEGER},
+                </if>
+                            <if test="content != null">
+                    #{content,jdbcType=VARCHAR},
+                </if>
+                            <if test="userLink != null">
+                    #{userLink,jdbcType=VARCHAR},
+                </if>
+                            <if test="commentId != null">
+                    #{commentId,jdbcType=INTEGER},
+                </if>
+                            <if test="dateTime != null">
+                    #{dateTime,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="nickName != null">
+                    #{nickName,jdbcType=VARCHAR},
+                </if>
+                    </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from d_comment
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.DComment">
+        update d_comment
+        <set>
+                            <if test="filmNo != null">
+                    filmno = #{filmNo,jdbcType=INTEGER},
+                </if>
+                            <if test="rating != null">
+                    rating = #{rating,jdbcType=INTEGER},
+                </if>
+                            <if test="vote != null">
+                    vote = #{vote,jdbcType=INTEGER},
+                </if>
+                            <if test="content != null">
+                    content = #{content,jdbcType=VARCHAR},
+                </if>
+                            <if test="userLink != null">
+                    userLink = #{userLink,jdbcType=VARCHAR},
+                </if>
+                            <if test="commentId != null">
+                    commentId = #{commentId,jdbcType=INTEGER},
+                </if>
+                            <if test="dateTime != null">
+                    datetime = #{dateTime,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="nickName != null">
+                    nickname = #{nickName,jdbcType=VARCHAR},
+                </if>
+                    </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from d_comment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>

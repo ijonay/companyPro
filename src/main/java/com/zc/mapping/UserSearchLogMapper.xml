@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zc.dao.UserSearchLogMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.UserSearchLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="session_id" jdbcType="VARCHAR" property="sessionId"/>
+        <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
+        <result column="is_active" jdbcType="INTEGER" property="isActive"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, session_id, keyword, is_active, create_date
+    </sql>
+    <insert id="add" parameterType="com.zc.bean.UserSearchLog"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into UserSearchLog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="sessionId != null">
+                session_id,
+            </if>
+            <if test="keyword != null">
+                keyword,
+            </if>
+                is_active,
+                create_date,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="sessionId != null">
+                #{sessionId,jdbcType=VARCHAR},
+            </if>
+            <if test="keyword != null">
+                #{keyword,jdbcType=VARCHAR},
+            </if>
+                1,
+                SYSDATE(),
+        </trim>
+    </insert>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update UserSearchLog
+        set  is_active = 0
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getUserSearchLogList"  resultMap="ViewResultMap">
+        SELECT
+        id, keyword
+        FROM UserSearchLog
+        WHERE user_id = #{userId, jdbcType=INTEGER}
+        and is_active = 1
+        order by create_date DESC
+        limit 0,#{count, jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="ViewResultMap" type="com.zc.model.UserSearchLogModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
+        <result column="topic_id" jdbcType="VARCHAR" property="topicId"/>
+
+    </resultMap>
+
+</mapper>

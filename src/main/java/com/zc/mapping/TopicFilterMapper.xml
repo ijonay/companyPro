@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicFilterMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.TopicFilter">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="filter_id" jdbcType="INTEGER" property="filterId"/>
+        <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,  filter_id,  topic_id,  scale,  percentage     </sql>
+
+
+    <insert id="add" parameterType="com.zc.bean.TopicFilter"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into TopicFilter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="filterId != null">
+                filter_id,
+            </if>
+            <if test="topicId != null">
+                topic_id,
+            </if>
+            <if test="scale != null">
+                scale,
+            </if>
+            <if test="percentage != null">
+                percentage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="filterId != null">
+                #{filterId,jdbcType=INTEGER},
+            </if>
+            <if test="topicId != null">
+                #{topicId,jdbcType=INTEGER},
+            </if>
+            <if test="scale != null">
+                #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                #{percentage,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from TopicFilter
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.TopicFilter">
+        update TopicFilter
+        <set>
+            <if test="filterId != null">
+                filter_id = #{filterId,jdbcType=INTEGER},
+            </if>
+            <if test="topicId != null">
+                topic_id = #{topicId,jdbcType=INTEGER},
+            </if>
+            <if test="scale != null">
+                scale = #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                percentage = #{percentage,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicFilter
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--<select id="getAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from TopicFilter-->
+    <!--</select>-->
+    <!--<delete id="delAll">-->
+    <!--delete from TopicFilter-->
+    <!--</delete>-->
+
+
+    <select id="getTopicIds" resultType="Integer">
+
+        ${searchModel.getExistsSql("SELECT topic_id  from TopicFilter t#i  INNER JOIN TopicClass tc ON t#i.filter_id = tc.id  where   filter_id in(#fids) #where  #exists "
+                                    ," And (t#i.percentage/tc.percentage)>1 "
+                                    ," And t#i.percentage > tc.percentage "
+                                    ," AND EXISTS(#tempSql AND t#i.topic_id=t#j.topic_id) "
+                                    ," SELECT topic_id FROM ( SELECT topic_id, SUM(percentage) curPercentage FROM TopicAgeStatistics ta WHERE 1=1 #dateWhere GROUP BY topic_id ) a
+  INNER  JOIN ( SELECT SUM(percentage) allPercentage FROM UserAgeStatictics ua WHERE 1=1 #dateWhere ) b ON 1 = 1 WHERE ( curPercentage / allPercentage ) &gt;= 1  #where"
+                                    ," AND year_of_birth &gt;=(YEAR(CURDATE()) - #max) "
+                                    ," AND year_of_birth &lt;=(YEAR(CURDATE()) - #min) "
+                                    ," AND topic_id in(#other)  ")}
+
+
+    </select>
+
+    <resultMap id="ClassResultMap" type="com.zc.bean.TopicFilterClass">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="filter_id" jdbcType="INTEGER" property="filterId"/>
+        <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+        <result column="name" jdbcType="DOUBLE" property="name"/>
+        <result column="topicScaleTotal" jdbcType="DOUBLE" property="topicScaleTotal"/>
+        <result column="topicPercentageTotal" jdbcType="DOUBLE" property="topicPercentageTotal"/>
+        <result column="scaleTotal" jdbcType="DOUBLE" property="scaleTotal"/>
+        <result column="percentageTotal" jdbcType="DOUBLE" property="percentageTotal"/>
+    </resultMap>
+
+
+    <select id="getByTopicIdAndType" resultMap="ClassResultMap">
+        select
+        tf.id,tf.filter_id,tf.topic_id,tf.scale,tf.percentage,
+        tc.name,tc.scale topicScaleTotal,tc.percentage topicPercentageTotal,
+        a.scaleTotal, a.percentageTotal
+        from TopicFilter tf INNER JOIN TopicClass tc on tf.filter_id=tc.id
+        LEFT JOIN (SELECT SUM(scale) scaleTotal,SUM(percentage) percentageTotal from TopicClass where type=#{type,jdbcType=INTEGER})a  on 1=1
+        where tf.topic_id = #{topicId,jdbcType=INTEGER} AND tc.type=#{type,jdbcType=INTEGER} ORDER  BY  tf.scale DESC
+    </select>
+
+
+</mapper>

@@ -2,94 +2,492 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zc.dao.TopicDao">
     <resultMap id="BaseResultMap" type="com.zc.bean.Topic">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
-        <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="readnum" jdbcType="VARCHAR" property="readNum"/>
+        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl"/>
+        <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
+        <result column="logourl" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
+        <result column="readnumtrendgrowth" jdbcType="INTEGER" property="readNumTrendGrowth"/>
+        <result column="relationdesc" jdbcType="VARCHAR" property="relationDesc"/>
+        <result column="topictype" jdbcType="VARCHAR" property="topicType"/>
+        <result column="event_class" jdbcType="VARCHAR" property="eventClass"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="topic_region" jdbcType="VARCHAR" property="topicRegion"/>
+        <result column="labels" jdbcType="VARCHAR" property="labels"/>
+        <result column="id_backup" jdbcType="INTEGER" property="idBackup"/>
+        <result column="logo_img_url" jdbcType="VARCHAR" property="logoImgUrl"/>
+        <result column="logo_img_url_local" jdbcType="VARCHAR" property="logoImgUrlLocal"/>
+        <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
+        <result column="wechat_url" jdbcType="VARCHAR" property="wechatUrl"/>
+        <result column="wechat_title" jdbcType="VARCHAR" property="wechatTitle"/>
+        <result column="wechat_avg_read_num" jdbcType="INTEGER" property="wechatAvgReadNum"/>
+        <result column="baidu_title" jdbcType="VARCHAR" property="baiduTitle"/>
+        <result column="baidu_url" jdbcType="VARCHAR" property="baiduUrl"/>
+        <result column="baidu_hit_num" jdbcType="INTEGER" property="baiduHitNum"/>
+        <result column="zhihu_title" jdbcType="VARCHAR" property="zhihuTitle"/>
+        <result column="zhihu_url" jdbcType="VARCHAR" property="zhihuUrl"/>
+        <result column="zhihu_avg_answer_number" jdbcType="INTEGER" property="zhihuAvgAnswerNumber"/>
+        <result column="manual_prevailing_trend" jdbcType="INTEGER" property="manualPrevailingTrend"/>
+        <result column="manual_event_class" jdbcType="VARCHAR"  property="manualEventClass"/>
+        <result column="manual_createdate" jdbcType="TIMESTAMP"  property="manualCreateDate"/>
+        <result column="manual_updatedate" jdbcType="TIMESTAMP"  property="manualUpdateDate"/>
+        <result column="manual_is_applied" jdbcType="INTEGER" property="manualIsApplied"/>
+        <result column="manual_introduction" jdbcType="VARCHAR" property="manualIntroduction"/>
+        <result column="manual_topic_url" jdbcType="VARCHAR" property="manualTopicUrl"/>
+        <result column="manual_baidu_url" jdbcType="VARCHAR" property="manualBaiduUrl"/>
+        <result column="manual_zhihu_url" jdbcType="VARCHAR" property="manualZhihuUrl"/>
+        <result column="manual_wechat_url" jdbcType="VARCHAR" property="manualWechatUrl"/>
+        <result column="manual_title" jdbcType="VARCHAR" property="manualTitle"/>
+        <result column="manual_logo_img_url" jdbcType="VARCHAR" property="manualLogoImgUrl"/>
     </resultMap>
-    <sql id="uniqueQuery">id =#{id,jdbcType=INTEGER}</sql>
-    <sql id="tableName">topic</sql>
     <sql id="Base_Column_List">
-        id, title, coordinate,keywords
+        id,  title,  readnum,  topicurl,  keywords,  logourl,  coordinate,  readnumtrendgrowth,
+        relationdesc,  topictype,  event_class,  introduction,  topic_region,  labels,  id_backup,
+        logo_img_url,  logo_img_url_local,  prevailing_trend,  wechat_url,  wechat_title,  wechat_avg_read_num,
+        baidu_title,  baidu_url,  baidu_hit_num,  zhihu_title,  zhihu_url,  zhihu_avg_answer_number,
+        manual_prevailing_trend,  manual_event_class, manual_is_applied,
+        manual_introduction, manual_topic_url, manual_baidu_url,  manual_zhihu_url, manual_wechat_url,
+        manual_title, manual_logo_img_url
     </sql>
-    <sql id="checkColumnNull">
-        <if test="id != null">
-            id,
-        </if>
-        <if test="title != null">
-            title,
-        </if>
-        <if test="coordinate != null">
-            coordinate
-        </if>
-        <if test="keywords != null">
-            keywords
-        </if>
-    </sql>
-    <sql id="checkPropertyNull">
-        <if test="id != null">
-            #{id,jdbcType=INTEGER},
-        </if>
-        <if test="title != null">
-            #{title,jdbcType=VARCHAR},
-        </if>
-        <if test="coordinate != null">
-            #{coordinate,jdbcType=VARCHAR}
-        </if>
-        <if test="keywords != null">
-            #{keywords,jdbcType=VARCHAR}
-        </if>
-    </sql>
-    <insert id="add" useGeneratedKeys="true" keyProperty="id"
-        parameterType="com.zc.bean.Topic">
-        insert into
-        <include refid="tableName" />
+    <insert id="add" parameterType="com.zc.bean.Topic"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into topic
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="checkColumnNull" />
+            <if test="title != null">
+                title,
+            </if>
+            <if test="readNum != null">
+                readnum,
+            </if>
+            <if test="topicUrl != null">
+                topicurl,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="logoUrl != null">
+                logourl,
+            </if>
+            <if test="coordinate != null">
+                coordinate,
+            </if>
+            <if test="readNumTrendGrowth != null">
+                readnumtrendgrowth,
+            </if>
+            <if test="relationDesc != null">
+                relationdesc,
+            </if>
+            <if test="topicType != null">
+                topictype,
+            </if>
+            <if test="eventClass != null">
+                event_class,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="topicRegion != null">
+                topic_region,
+            </if>
+            <if test="labels != null">
+                labels,
+            </if>
+            <if test="idBackup != null">
+                id_backup,
+            </if>
+            <if test="logoImgUrl != null">
+                logo_img_url,
+            </if>
+            <if test="logoImgUrlLocal != null">
+                logo_img_url_local,
+            </if>
+            <if test="prevailingTrend != null">
+                prevailing_trend,
+            </if>
+            <if test="wechatUrl != null">
+                wechat_url,
+            </if>
+            <if test="wechatTitle != null">
+                wechat_title,
+            </if>
+            <if test="wechatAvgReadNum != null">
+                wechat_avg_read_num,
+            </if>
+            <if test="baiduTitle != null">
+                baidu_title,
+            </if>
+            <if test="baiduUrl != null">
+                baidu_url,
+            </if>
+            <if test="baiduHitNum != null">
+                baidu_hit_num,
+            </if>
+            <if test="zhihuTitle != null">
+                zhihu_title,
+            </if>
+            <if test="zhihuUrl != null">
+                zhihu_url,
+            </if>
+            <if test="zhihuAvgAnswerNumber != null">
+                zhihu_avg_answer_number,
+            </if>
+                is_active,
+            <if test="manualPrevailingTrend != null">
+                manual_prevailing_trend,
+            </if>
+            <if test="manualEventClass != null">
+                manual_event_class,
+            </if>
+                manual_createdate,
+                manual_updatedate,
+            <if test="manualIsApplied != null">
+                manual_is_applied,
+            </if>
+            <if test="manualIntroduction != null">
+                manual_introduction,
+            </if>
+            <if test="manualTopicUrl != null">
+                manual_topic_url,
+            </if>
+            <if test="manualBaiduUrl != null">
+                manual_baidu_url,
+            </if>
+            <if test="manualZhihuUrl != null">
+                manual_zhihu_url,
+            </if>
+            <if test="manualWechatUrl != null">
+                manual_wechat_url,
+            </if>
+            <if test="manualTitle != null">
+                manual_title,
+            </if>
+            <if test="manualLogoImgUrl != null">
+                manual_logo_img_url,
+            </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="checkPropertyNull" />
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="readNum != null">
+                #{readNum,jdbcType=VARCHAR},
+            </if>
+            <if test="topicUrl != null">
+                #{topicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="logoUrl != null">
+                #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="coordinate != null">
+                #{coordinate,jdbcType=VARCHAR},
+            </if>
+            <if test="readNumTrendGrowth != null">
+                #{readNumTrendGrowth,jdbcType=INTEGER},
+            </if>
+            <if test="relationDesc != null">
+                #{relationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="topicType != null">
+                #{topicType,jdbcType=VARCHAR},
+            </if>
+            <if test="eventClass != null">
+                #{eventClass,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="topicRegion != null">
+                #{topicRegion,jdbcType=VARCHAR},
+            </if>
+            <if test="labels != null">
+                #{labels,jdbcType=VARCHAR},
+            </if>
+            <if test="idBackup != null">
+                #{idBackup,jdbcType=INTEGER},
+            </if>
+            <if test="logoImgUrl != null">
+                #{logoImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="logoImgUrlLocal != null">
+                #{logoImgUrlLocal,jdbcType=VARCHAR},
+            </if>
+            <if test="prevailingTrend != null">
+                #{prevailingTrend,jdbcType=INTEGER},
+            </if>
+            <if test="wechatUrl != null">
+                #{wechatUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatTitle != null">
+                #{wechatTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatAvgReadNum != null">
+                #{wechatAvgReadNum,jdbcType=INTEGER},
+            </if>
+            <if test="baiduTitle != null">
+                #{baiduTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduUrl != null">
+                #{baiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduHitNum != null">
+                #{baiduHitNum,jdbcType=INTEGER},
+            </if>
+            <if test="zhihuTitle != null">
+                #{zhihuTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuUrl != null">
+                #{zhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuAvgAnswerNumber != null">
+                #{zhihuAvgAnswerNumber,jdbcType=INTEGER},
+            </if>
+                1,
+            <if test="manualPrevailingTrend != null">
+                #{manualPrevailingTrend,jdbcType=INTEGER},
+            </if>
+            <if test="manualEventClass != null">
+                #{manualEventClass,jdbcType=VARCHAR},
+            </if>
+                sysdate(),
+                sysdate(),
+            <if test="manualIsApplied != null">
+                #{manualIsApplied,jdbcType=INTEGER},
+            </if>
+            <if test="manualIntroduction != null">
+                #{manualIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTopicUrl != null">
+                #{manualTopicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualBaiduUrl != null">
+                #{manualBaiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualZhihuUrl != null">
+                #{manualZhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualWechatUrl != null">
+                #{manualWechatUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTitle != null">
+                #{manualTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="manualLogoImgUrl != null">
+                #{manualLogoImgUrl,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from topic
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.Topic">
+        update topic
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="readNum != null">
+                readnum = #{readNum,jdbcType=VARCHAR},
+            </if>
+            <if test="topicUrl != null">
+                topicurl = #{topicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="logoUrl != null">
+                logourl = #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="coordinate != null">
+                coordinate = #{coordinate,jdbcType=VARCHAR},
+            </if>
+            <if test="readNumTrendGrowth != null">
+                readnumtrendgrowth = #{readNumTrendGrowth,jdbcType=INTEGER},
+            </if>
+            <if test="relationDesc != null">
+                relationdesc = #{relationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="topicType != null">
+                topictype = #{topicType,jdbcType=VARCHAR},
+            </if>
+            <if test="eventClass != null">
+                event_class = #{eventClass,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="topicRegion != null">
+                topic_region = #{topicRegion,jdbcType=VARCHAR},
+            </if>
+            <if test="labels != null">
+                labels = #{labels,jdbcType=VARCHAR},
+            </if>
+            <if test="idBackup != null">
+                id_backup = #{idBackup,jdbcType=INTEGER},
+            </if>
+            <if test="logoImgUrl != null">
+                logo_img_url = #{logoImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="logoImgUrlLocal != null">
+                logo_img_url_local = #{logoImgUrlLocal,jdbcType=VARCHAR},
+            </if>
+            <if test="prevailingTrend != null">
+                prevailing_trend = #{prevailingTrend,jdbcType=INTEGER},
+            </if>
+            <if test="wechatUrl != null">
+                wechat_url = #{wechatUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatTitle != null">
+                wechat_title = #{wechatTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatAvgReadNum != null">
+                wechat_avg_read_num = #{wechatAvgReadNum,jdbcType=INTEGER},
+            </if>
+            <if test="baiduTitle != null">
+                baidu_title = #{baiduTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduUrl != null">
+                baidu_url = #{baiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="baiduHitNum != null">
+                baidu_hit_num = #{baiduHitNum,jdbcType=INTEGER},
+            </if>
+            <if test="zhihuTitle != null">
+                zhihu_title = #{zhihuTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuUrl != null">
+                zhihu_url = #{zhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="zhihuAvgAnswerNumber != null">
+                zhihu_avg_answer_number = #{zhihuAvgAnswerNumber,jdbcType=INTEGER},
+            </if>
+            <if test="manualPrevailingTrend != null">
+                manual_prevailing_trend = #{manualPrevailingTrend,jdbcType=INTEGER},
+            </if>
+            <if test="manualEventClass != null">
+                manual_event_class = #{manualEventClass,jdbcType=VARCHAR},
+            </if>
+                manual_updatedate = sysdate(),
+            <if test="manualIsApplied != null">
+                manual_is_applied = #{manualIsApplied,jdbcType=INTEGER},
+            </if>
+            <if test="manualIntroduction != null">
+                manual_introduction = #{manualIntroduction,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTopicUrl != null">
+                manual_topic_url = #{manualTopicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualBaiduUrl != null">
+                manual_baidu_url = #{manualBaiduUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualZhihuUrl != null">
+                manual_zhihu_url = #{manualZhihuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualWechatUrl != null">
+                manual_wechat_url = #{manualWechatUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="manualTitle != null">
+                manual_title = #{manualTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="manualLogoImgUrl != null">
+                manual_logo_img_url = #{manualLogoImgUrl,jdbcType=VARCHAR},
+            </if>
 
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from
-        <include refid="tableName" />
-        where
-        <include refid="uniqueQuery" />
+        <include refid="Base_Column_List"/>
+        from topic
+        where id = #{id,jdbcType=INTEGER}
     </select>
+
+
+    <select id="getHotTopic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from view_topic
+        WHERE is_active = 1
+        ORDER BY
+        prevailing_trend DESC
+        limit #{count,jdbcType=INTEGER}
+    </select>
+    <select id="getRandomHotTopic" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from (
+        select
+        <include refid="Base_Column_List"/>
+        from view_topic
+        WHERE is_active = 1
+        ORDER BY
+        prevailing_trend DESC
+        limit #{allCount,jdbcType=INTEGER}
+        )a ORDER BY
+        RAND() LIMIT #{count,jdbcType=INTEGER}
+    </select>
+
     <select id="getItemCount" resultType="java.lang.Integer">
         select count(1) from
-        <include refid="tableName"></include>
+       topic
     </select>
     <select id="getList" resultMap="BaseResultMap">
         Select * from
-        <include refid="tableName"></include>
+        view_topic WHERE is_active = 1
         order by id
         LIMIT
         #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
-    <delete id="del" parameterType="java.lang.Integer">
-        delete from
-        <include refid="tableName" />
-        where
-        <include refid="uniqueQuery" />
-    </delete>
-    <update id="update" parameterType="com.zc.bean.Topic">
-        update
-        <include refid="tableName" />
-        <set>
-            <include refid="checkPropertyNull" />
-        </set>
-        <include refid="uniqueQuery" />
-    </update>
+    <select id="getTopicWordList" resultMap="BaseResultWordMap">
+        Select 1 AS datatype,
+        <include refid="Base_Column_List"></include>
+        from
+        view_topic
+        order by id
+        LIMIT
+        #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <resultMap id="BaseResultWordMap" type="com.zc.bean.Topic">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
+        <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
+        <result column="logourl" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="readnum" jdbcType="VARCHAR" property="readNum"/>
+        <result column="readnumtrendgrowth" jdbcType="VARCHAR"
+                property="readNumTrendGrowth"/>
+        <result column="relationdesc" jdbcType="VARCHAR"
+                property="relationDesc"/>
+        <result column="topicurl" jdbcType="VARCHAR" property="topicUrl"/>
+        <result column="topictype" jdbcType="VARCHAR" property="topicType"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+
+        <!-- <collection property="words" ofType="com.zc.bean.WordDataRe lations">
+            id用于定义主表的唯一标识，是从表识别主表主键的唯一标识，column是结果集对应的字段名 <id property="id" column="id" 
+            /> result是普通属性，其他解释同上 <result property="word" column="word" /> </collection> -->
+        <collection property="words" ofType="com.zc.bean.WordDataRelations"
+                    column="{datatype=datatype,dataid=id}" select="com.zc.dao.WordDataRelationsDao.get">
+            <id property="id" column="id"/>
+            <result column="wordid" property="wordId"></result>
+            <result column="score" property="score"></result>
+            <association property="word" javaType="com.zc.bean.Word"
+                         column="wordId" select="com.zc.dao.WordDao.get"/>
+        </collection>
+
+    </resultMap>
     <update id="batchUpdate">
         <foreach collection="list" item="item" index="index"
-            separator=";">
+                 separator=";">
             update
-            <include refid="tableName" />
+            topic
             <set>
                 coordinate='${item.coordinate}'
             </set>
@@ -98,13 +496,13 @@
     </update>
     <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
         insert into
-        <include refid="tableName" />
+        topic
         (
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         )
         values
         <foreach collection="list" item="item" index="i"
-            separator=",">
+                 separator=",">
             (
             <choose>
                 <when test="item.id==null">null
@@ -133,7 +531,120 @@
                 <when test="item.keywords!=null">'${item.keywords}'
                 </when>
             </choose>
+
+            <choose>
+                <when test="item.logoUrl==null">null
+                </when>
+                <when test="item.logoUrl!=null">'${item.logoUrl}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.readNum==null">null
+                </when>
+                <when test="item.readNum!=null">'${item.readNum}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.readNumTrendGrowth==null">null
+                </when>
+                <when test="item.readNumTrendGrowth!=null">'${item.readNumTrendGrowth}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.relationDesc==null">null
+                </when>
+                <when test="item.relationDesc!=null">'${item.relationDesc}'
+                </when>
+            </choose>
+            <choose>
+                <when test="item.topicUrl==null">null
+                </when>
+                <when test="item.topicUrl!=null">'${item.topicUrl}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.topicType==null">null
+                </when>
+                <when test="item.topicType!=null">'${item.topicType}'
+                </when>
+            </choose>
+            ,
+            <choose>
+                <when test="item.introduction==null">null
+                </when>
+                <when test="item.introduction!=null">'${item.introduction}'
+                </when>
+            </choose>
             )
         </foreach>
     </insert>
+    <select id="getAllCoordinates" resultType="java.util.HashMap">
+        SELECT id AS id, coordinate AS coordinate FROM topic where is_active = 1
+       <!-- SELECT id AS id, coordinate AS coordinate FROM topic -->
+    </select>
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM view_topic
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="inactiveTopic" parameterType="java.lang.Integer" >
+        UPDATE  topic set is_active = 0 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="activeTopic" parameterType="java.lang.Integer" >
+        UPDATE  topic set is_active = 1 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getTopicsByKeyword" parameterType="java.lang.String" resultMap="manageTopicViewMap">
+        SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active,ifnull(manual_is_applied,0) as manual_is_applied
+        FROM  view_topic
+        where title LIKE CONCAT( '%','${keyword}','%' )
+        ORDER by prevailing_trend DESC
+    </select>
+
+    <resultMap id="manageTopicViewMap" type="com.zc.model.TopicModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
+        <result column="is_active" jdbcType="INTEGER" property="isActive"/>
+        <result column="manual_is_applied" jdbcType="INTEGER" property="manualIsApplied"/>
+    </resultMap>
+
+    <update id="applyManual" parameterType="java.lang.Integer" >
+        UPDATE  topic set manual_is_applied = 1 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="cancelManual" parameterType="java.lang.Integer" >
+        UPDATE  topic set manual_is_applied = 0 WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="syncInsertTopic" parameterType="com.zc.bean.Topic"  resultType="java.lang.Integer" >
+        {
+            call proc_sync_insert_topic(
+              #{ title, mode=IN, jdbcType=VARCHAR },
+              #{ prevailingTrend, mode=IN, jdbcType=INTEGER },
+              #{ eventClass, mode=IN, jdbcType=VARCHAR },
+              #{ introduction, mode=IN, jdbcType=VARCHAR },
+              #{ logoImgUrlLocal, mode=IN, jdbcType=VARCHAR },
+              #{ logoImgUrl, mode=IN, jdbcType=VARCHAR },
+              #{ topicUrl, mode=IN, jdbcType=VARCHAR },
+              #{ wechatTitle, mode=IN, jdbcType=VARCHAR },
+              #{ wechatUrl, mode=IN, jdbcType=VARCHAR },
+              #{ zhihuTitle, mode=IN, jdbcType=VARCHAR },
+              #{ zhihuUrl, mode=IN, jdbcType=VARCHAR },
+              #{ baiduTitle, mode=IN, jdbcType=VARCHAR },
+              #{ baiduUrl, mode=IN, jdbcType=VARCHAR }
+            )
+        }
+    </select>
+
 </mapper>
