@@ -471,6 +471,46 @@ input[type=checkbox]:checked::after {
     opacity: 0;
     cursor:pointer;
 }
+.topic .sizeClass4 .iconCircle{
+    position:absolute;
+    top:-9px;
+    left:-9px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #2d9297;
+    border-radius:50%;
+    display:none;
+}
+.topic .sizeClass3 .iconCircle{
+    position:absolute;
+    top:-9px;
+    left:-9px;
+    width: 54px;
+    height: 54px;
+    border: 1px solid #2d9297;
+    border-radius:50%;
+    display:none;
+}
+.topic .sizeClass2 .iconCircle{
+    position:absolute;
+    top:-9px;
+    left:-9px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #2d9297;
+    border-radius:50%;
+    display:none;
+}
+.topic .sizeClass1 .iconCircle{
+    position:absolute;
+    top:-9px;
+    left:-9px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #2d9297;
+    border-radius:50%;
+    display:none;
+}
 .topic .icon {
     border-radius: 50%;
     background-color: #a3a3a3;
@@ -528,7 +568,7 @@ input[type=checkbox]:checked::after {
     line-height:42px;
     font-size: 18px;
 }
-.topic:hover .icon{
+/*.topic:hover .icon{
     background-color: #389b9f;
 }
 .topic:hover .link{
@@ -573,7 +613,7 @@ input[type=checkbox]:checked::after {
     border: 1px solid #2d9297;
     border-radius:50%;
     content:"";
-}
+}*/
 /*页面底部*/
 .result-bottom{
 	height:60px;
@@ -1069,3 +1109,11 @@ input[type=checkbox]:checked::after {
 .all_hot_list_top li.close_detail:hover{background:url(../img/del_bule.png) no-repeat center;}
 .all_hot_list_top{padding-right:30px;}
 .all_hot_list_top li.all_hot_top_topic{width:67%!important;}
+.all_hot_top_topic .hot_num{
+	float:left;
+	color: #ed5e20;
+    font-size: 24px;
+    margin-right:10px;
+    background:url(../img/hotIcon.png) no-repeat left 20.5px;
+    padding-left:17px;
+}

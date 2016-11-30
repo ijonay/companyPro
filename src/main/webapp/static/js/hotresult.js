@@ -1188,7 +1188,7 @@ function drawWord(data) {
         }
         $item = $("<div class='topic' data-id="+item.id+"></div>")
             .data("info",item).appendTo($("#canvas"));
-        $("<span class='icon " + sizeClass + "'></span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
+        $("<span class='icon " + sizeClass + "'><div class='iconCircle'></div></span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
         var itemWidth = $item.width();
         var itemHeight = $item.height();
         if(itemWidth > 180) {
@@ -1253,16 +1253,22 @@ function hitTest(elem, pointArr) {
 };
 //hover事件
 $(document).delegate('.topic','mouseover',function(){
-    if($(this).find('.link').hasClass("word-ellipsis")){
-        $(this).css("z-index","9").find('.link').removeClass("word-ellipsis").css({"width":"auto"});
-        $(this).css("left",$(this).position().left-($(this).width()-180)/2)
+    if(!$(this).hasClass("active")){
+        $(this).find(".icon").css("background-color","#389b9f").find(".iconCircle").css("display","block");
+        $(this).find(".link").css("font-weight","bold");
+        if($(this).find('.link').hasClass("word-ellipsis")){
+            $(this).css("z-index","9").find('.link').removeClass("word-ellipsis").css({"width":"auto"});
+            $(this).css("left",$(this).position().left-($(this).width()-180)/2)
+        }
     }
-});
-
-$(document).delegate('.topic','mouseout',function(){
-    if($(this).find('.link').width()>180){
-        $(this).css("left",$(this).position().left+($(this).width()-180)/2)
-        $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+}).delegate('.topic','mouseout',function(){
+    if(!$(this).hasClass("active")){
+        $(this).find(".icon").css("background-color","#a3a3a3").find(".iconCircle").css("display","none");
+        $(this).find(".link").css("font-weight","normal");
+        if($(this).find('.link').width()>180){
+            $(this).css("left",$(this).position().left+($(this).width()-180)/2)
+            $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+        }
     }
 });
 
@@ -1288,6 +1294,17 @@ $(document).delegate(".edit-word","click",function(){
     });
 }).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
     e ? e.stopPropagation() : event.cancelBubble = true;
+    var $activeItem=$(this).siblings("div.active");
+    if($activeItem.length>0){
+        $activeItem.removeClass("active")
+        $activeItem.find(".icon").css("background-color","#a3a3a3").find(".iconCircle").css("display","none");
+        $activeItem.find(".link").css("font-weight","normal");
+        if($activeItem.find('.link').width()>180){
+            $activeItem.css("left",$activeItem.position().left+($activeItem.width()-180)/2)
+            $activeItem.css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+        }
+    }
+    $(this).addClass("active");
     var hotInfo=$(this).data("info");
     var _left=$(this).position().left;
     var _top=$(this).position().top;
@@ -1355,6 +1372,16 @@ $(document).on('click', function(e) {//点击任意地方隐藏弹窗
 		$(".ser_dialog_close").click();
 	}
     $('.alertCon').css('display', 'none');
+    var $activeItem=$(".topic.active");
+    if($activeItem.length>0){
+        $activeItem.removeClass("active")
+        $activeItem.find(".icon").css("background-color","#a3a3a3").find(".iconCircle").css("display","none");
+        $activeItem.find(".link").css("font-weight","normal");
+        if($activeItem.find('.link').width()>180){
+            $activeItem.css("left",$activeItem.position().left+($activeItem.width()-180)/2)
+            $activeItem.css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+        }
+    }
     $('.all_hot_list').css('display', 'none');
 });
 //关联热点
@@ -1968,10 +1995,20 @@ var circleOption = {
 function initData($detail){//初始化详情弹窗
     var info=$detail.parents(".alertCon").data("info");
     var $li = $.templates(templates.design["tmplAllHotList"]);
+    var hotNum=info.prevailingTrend?info.prevailingTrend:0;
     $(".all_hot_list").html($li.render({data:[info]}));
+    $("<sapn class='hot_num'>"+hotNum+"</span>").prependTo($(".all_hot_list_top li.all_hot_top_topic"));
     $(".all_hot_list_top li.hot_relation").after("<li class='close_detail'></li>");
     $(".all_hot_list").css("display","block");   
 }
-$(document).delegate(".close_detail","click",function(){
+$(document).delegate(".close_detail","click",function(){//关闭热点详情
     $(".all_hot_list").css("display","none");
-})
+}).delegate(".all_hot_list_top .hot_relation","click",function(){//关联该热点
+    var id=parseInt($(this).data("id"));
+    var topic=$(this).data("topic");
+    if(topic.substr(0,1) == "#" && topic.substr(-1) == "#"){
+        topic = topic.split("#");
+        topic = topic[1];
+    }
+    window.location.href='newPath#query='+word+'&topicId='+id+"&hotTopic="+topic;
+});
