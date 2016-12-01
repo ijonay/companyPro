@@ -631,8 +631,6 @@ $(".header-logo").on("click",function(){
     }
 });
 
-
-
 $(".hot-next").mouseover(function(){
     if(!$(this).hasClass("disabled")){
         $(this).find("div").css("background","url(img/hot-next-hover.png)");

@@ -40,6 +40,7 @@ public class EffectLog {
 
     public void writeToConsole() {
 
+        if (true) return;
 
         Couter couter = new Couter();
 
