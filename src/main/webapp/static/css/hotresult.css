@@ -568,52 +568,6 @@ input[type=checkbox]:checked::after {
     line-height:42px;
     font-size: 18px;
 }
-/*.topic:hover .icon{
-    background-color: #389b9f;
-}
-.topic:hover .link{
-	font-weight:bold;
-}
-.topic:hover .sizeClass4:before{
-    position:absolute;
-    top:-9px;
-    left:-9px;
-    width: 60px;
-    height: 60px;
-    border: 1px solid #2d9297;
-    border-radius:50%;
-    content:"";
-}
-.topic:hover .sizeClass3:before{
-    position:absolute;
-    top:-9px;
-    left:-9px;
-    width: 54px;
-    height: 54px;
-    border: 1px solid #2d9297;
-    border-radius:50%;
-    content:"";
-}
-.topic:hover .sizeClass2:before{
-    position:absolute;
-    top:-9px;
-    left:-9px;
-    width: 48px;
-    height: 48px;
-    border: 1px solid #2d9297;
-    border-radius:50%;
-    content:"";
-}
-.topic:hover .sizeClass1:before{
-    position:absolute;
-    top:-9px;
-    left:-9px;
-    width: 42px;
-    height: 42px;
-    border: 1px solid #2d9297;
-    border-radius:50%;
-    content:"";
-}*/
 /*页面底部*/
 .result-bottom{
 	height:60px;
