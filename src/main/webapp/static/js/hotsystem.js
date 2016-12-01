@@ -2156,14 +2156,28 @@ $(".userProfile").on("click",function(){
 		}
 	})
 });
-//截取字符串
-//strJieQu('.type-article');
-//function strJieQu(ele){
-//	$(ele).each(function(){
-//		var $this = $(this);
-//		var str = $this.text();
-//		if(str.length>20){
-//			$this.attr('title',str);
-//		}
-//	})
-//}
+//更新记录
+$('#record-btn-index').on('click',function(){
+	$('.record-div').show();
+});
+$('#record-btn-log').on('click',function(){
+	$('.record-con1').hide();
+	$('.record-con2').show();
+});
+$('#record-btn-near').on('click',function(){
+	$('.record-con2').hide();
+	$('.record-con1').show();
+});
+
+$('.record-con2 .record-ul li').on('click',function(){
+	var index = $(this).index();
+	$('.record-con1').find('ul').addClass('hidecommon');
+	$('.record-con1').find('ul').eq(index).removeClass('hidecommon');
+	$('.record-con2').hide();
+	$('.record-con1').show();
+})
+
+$('.record-btn-b-r').on('click',function(){
+	$('.record-div').hide();
+})
+
