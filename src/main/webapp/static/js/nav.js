@@ -623,6 +623,7 @@ $(".header-logo").on("click",function(){
 jQuery(document).ready(function ($) {
     "use strict";
     $('.bar-content').perfectScrollbar({suppressScrollX: true});
+    //$('.record-ul').perfectScrollbar({suppressScrollY: false,suppressScrollX: true});
 });
 
 $(".hot-next").mouseover(function(){
