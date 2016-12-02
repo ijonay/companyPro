@@ -226,7 +226,7 @@ public class PathServiceImpl implements PathService {
             List<TempWordAttr> words = tempWordAttrMapper.getCollByWords(wordList);
 
 
-            words.stream().filter(p -> p.getNum() > frequency).forEach(p ->
+            words.stream().filter(p -> p.getNum() >= frequency).forEach(p ->
                     result.stream().filter(q -> q.get("key").toString().equals(p.getName())).findFirst().get()
                             .addModel("attr", p.getAttr())
                             .addModel("num", p.getNum())
@@ -235,7 +235,10 @@ public class PathServiceImpl implements PathService {
 
         }
 
-        resultMap.put("vals", result.stream().limit(3000).collect(Collectors.toList()));
+
+        resultMap.put("vals",
+                result.stream().filter(p -> Objects.nonNull(p.get("num"))).limit(3000).collect(Collectors.toList())
+        );
 
         return resultMap;
     }
