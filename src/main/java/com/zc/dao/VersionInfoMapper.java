@@ -1,6 +1,5 @@
 package com.zc.dao;
 
-
 import com.zc.bean.VersionInfo;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,7 +20,7 @@ public interface VersionInfoMapper {
     int del(Integer id);
 
     List<VersionInfo> getColl(@Param("top") Integer top);
-
+//
 //    int delAll();
 
 }

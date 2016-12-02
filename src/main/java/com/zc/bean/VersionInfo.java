@@ -19,6 +19,11 @@ public class VersionInfo {
     private String name;
     
     /**
+     *  introduction ,所属表字段为version_info.introduction
+     */
+    private String introduction;
+    
+    /**
      *  description ,所属表字段为version_info.description
      */
     private String description;
@@ -75,6 +80,25 @@ public class VersionInfo {
      */
     public String getName() {
         return  name;
+    }
+    
+    /**
+     * 设置 表的  introduction 字段值
+     * 
+     * @param introduction
+     *            将值赋予 version_info.introduction
+     */
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    /**
+     * 获取  表的  introduction 字段
+     * 
+     * @return version_info.introduction
+     */
+    public String getIntroduction() {
+        return  introduction;
     }
     
     /**

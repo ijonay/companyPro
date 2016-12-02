@@ -4,19 +4,23 @@
     <resultMap id="BaseResultMap" type="com.zc.bean.VersionInfo">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="version" jdbcType="VARCHAR" property="version"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="creator" jdbcType="VARCHAR" property="creator"/>
     </resultMap>
     <sql id="Base_Column_List">
-         id,  name,  description,  version,  create_time,  creator     </sql>
+         id,  name,  introduction,  description,  version,  create_time,  creator     </sql>
     <insert id="add" parameterType="com.zc.bean.VersionInfo"
             useGeneratedKeys="true" keyProperty="id">
         insert into version_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">
                 name,
+            </if>
+            <if test="introduction != null">
+                introduction,
             </if>
             <if test="description != null">
                 description,
@@ -34,6 +38,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=VARCHAR},
             </if>
             <if test="description != null">
                 #{description,jdbcType=VARCHAR},
@@ -59,6 +66,9 @@
         <set>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
             </if>
             <if test="description != null">
                 description = #{description,jdbcType=VARCHAR},
