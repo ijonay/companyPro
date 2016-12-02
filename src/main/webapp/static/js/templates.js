@@ -116,7 +116,7 @@ templates.design = {};
     //tmpl.push('           {{if baiduHitNum}}<span class="type-num fl">搜索结果数：<b>{{:baiduHitNum}}</b></span>{{/if}}');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
-    tmpl.push('   {{if baiduUrl}}');
+    tmpl.push('   {{if zhihuUrl}}');
     tmpl.push('       <li>');
     tmpl.push('           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>');
     tmpl.push('           <span class="type-title zhihu-color fl">知乎</span>');
