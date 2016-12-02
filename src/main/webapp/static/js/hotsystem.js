@@ -47,6 +47,17 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
 //添加常用
+	function deleteRepetion(arr)
+	{
+		var n = []; //一个新的临时数组
+		for(var i = 0; i < arr.length; i++) //遍历当前数组
+		{
+			//如果当前数组的第i已经保存进了临时数组，那么跳过，
+			//否则把当前项push到临时数组里面
+			if (n.indexOf(unescape(arr[i])) == -1) n.push(unescape(arr[i]));
+		}
+		return n;
+	}
 	function getCommon(){
 		$("#favorite_ul").empty();
 		$.ajax({
@@ -59,10 +70,20 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(returnData.data != null && returnData.error.code == 0){
 					
 					var str = "";
+					var arr = [];
 					$.each(returnData.data,function(index,item){
 						if(index > 4) return;
-						str += "<li data-id='"+item.id+"' title='"+ unescape(item.words) +"'>"+unescape(item.words)+"<span></span></li>"
+						arr.push(item.words);
+					});
+					console.log(arr)
+					console.log(deleteRepetion(arr))
+					$.each(returnData.data,function(index,item){
+						//arr.push(item.keyword);
+						if(index > 4) return;
+						str += "<li data-id='"+item.id+"' title='"+ deleteRepetion(arr)[index] +"'>"+deleteRepetion(arr)[index]+"<span></span></li>"
+						//str += "<li data-id='"+item.id+"'>"+item+"<span></span></li>"
 					})
+					
 					$("#favorite_ul").html(str);
 					if(returnData.data.length == 0){
 						$('.favorite_div').addClass('hidecommon');
@@ -168,6 +189,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		//$('#cook_ul').addClass('hidecommon');
 	});
 	//获取历史记录
+	
 	getSetHistory()
 	function getSetHistory(){
 		$("#cook_ul").empty();
@@ -179,8 +201,14 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			success:function(returnData){
 				if(returnData.data != null && returnData.error.code == 0){
 					var str = "";
+					var arr = [];
 					$.each(returnData.data,function(index,item){
-						str += "<li data-id='"+item.id+"'>"+unescape(item.keyword)+"<span></span></li>"
+						arr.push(item.keyword);
+					});
+					$.each(returnData.data,function(index,item){
+						//arr.push(item.keyword);
+						
+						str += "<li data-id='"+item.id+"'>"+deleteRepetion(arr)[index]+"<span></span></li>"
 					})
 					$("#cook_ul").html(str);
 				}

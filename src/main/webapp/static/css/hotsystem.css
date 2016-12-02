@@ -876,7 +876,7 @@ to {background-position:0 -6px;}
 /* 更新记录 开始 */
 	#record-btn-index{width:32px;height:32px;background:#389b9f url(../img/record-btn-index.png) no-repeat center center;left:0;top:50%;margin-top:-16px;position:absolute;border-radius: 0 50px 50px 0;cursor:pointer;}
 
-	.record-div{position:fixed;width:100%;height:100%;background:rgba(0,0,0,.4);top:0;left:0;z-index:99;}
+	.record-div{overflow:hidden;position:fixed;width:100%;height:100%;background:rgba(0,0,0,.4);top:0;left:0;z-index:99;}
 	.record-con1{border-radius:2px;background:#fff;width:810px;position:absolute;left:50%;top:50%;transform:translateX(-50%) translateY(-50%);-webkit-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);-moz-transform:translateX(-50%) translateY(-50%);-o-transform:translateX(-50%) translateY(-50%);}
 	
 	.record-con1 .record-nav{height:136px;background:url(../img/record-nav1.png) no-repeat center 24px;}
