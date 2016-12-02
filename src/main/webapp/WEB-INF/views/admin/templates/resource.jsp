@@ -13,3 +13,4 @@
 <script src="<%=path%>/lib/jsrender.min.js"></script>
 <script src="<%=path%>/lib/KD1.3.2.min.js"></script>
 <script src="<%=path%>/js/admin/comm.js"></script>
+<script src="<%=path%>/js/admin/command.js"></script>
