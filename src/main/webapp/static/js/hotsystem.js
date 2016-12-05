@@ -2220,8 +2220,13 @@ $(".userProfile").on("click",function(){
 //更新记录
 
 $('#record-btn-index').on('click',function(){
-	$('.record-div').css({'width':'100%','height':'100%','top':0})
+	$('.record-div').css({'width':'100%','height':'100%','top':0});
+	$('.record-con2').hide();
+	$('.record-con1').show();
+	$('.record-con1').find('ul').addClass('hidecommon');
+	$('.record-con1').find('ul').eq(0).removeClass('hidecommon');
 	$('.record-div').show();
+
 });
 $('#record-btn-log').on('click',function(){
 	$('.record-con1').hide();
@@ -2241,11 +2246,9 @@ $('.record-con2 .record-ul').delegate('li','click',function(){
 })
 
 $('.record-btn-b-r').on('click',function(){
-	//$('.record-div').hide();
 	var top = $("#record-btn-index").offset().top;
 	var eleHeight = $('.record-con1').height();
 	$('.record-div').animate({'left': 0,'top': top+10,'width':0,'height':0},500);
 	$('.record-div').delay(500).hide(0);
-	//$('.record-con1').css({'width':810+'px','height':450+'px'});
 })
 
