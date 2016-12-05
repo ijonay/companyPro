@@ -55,6 +55,39 @@ templates.design = {};
     templates.design['tmplNotifyList'] = tmpl.join('\r\n');
 
 })();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+	tmpl.push('{{if #index == 1}}<ul class="record-ul">{{else}}<ul class="record-ul hidecommon">{{/if}}');
+	tmpl.push('<div>');
+	tmpl.push('<p>{{:name}}</p>');
+	tmpl.push('<p>{{:~addTag2(createTime)}}</p>');
+	tmpl.push('</div>');
+	tmpl.push('<li>');
+	tmpl.push('<p>{{:version}}</p>');
+	tmpl.push('<p>{{:description}}</p>');
+	tmpl.push('</li>');
+	tmpl.push('</ul>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplRecordList'] = tmpl.join('\r\n');
+	  $.views.helpers({
+	        "addTag2": function (createTime) {
+	            if (createTime) {
+	            	 return new Date(parseInt(createTime)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+	            }
+	        }
+	    });
+})();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+	tmpl.push('<li>');
+	tmpl.push('<p>{{:name}}<i class="fr f14 corlor4a">{{:~addTag2(createTime)}}</i></p>');
+	tmpl.push('<p>{{:introduction}}</p>');
+	tmpl.push('</li>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplRecordList2'] = tmpl.join('\r\n');
+})();
 (function () {
     tmpl = [];
     tmpl.push('{{for data}}');
@@ -77,7 +110,7 @@ templates.design = {};
     tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{else}}img/defaultIcon.png{{/if}})"></div></div>');
     tmpl.push('           <div class="type-content fl">');
     tmpl.push('               <div style="line-height:18px;"><span class="content-article">热点概述</span></div>');
-    tmpl.push('               <div class="content-desc">{{:introduction}}</div>')
+    tmpl.push('               <div class="content-desc" title="{{:introduction}}">{{:introduction}}</div>')
     tmpl.push('           </div>')
     tmpl.push('       </li>');
     tmpl.push('       <li>');
@@ -86,7 +119,7 @@ templates.design = {};
     tmpl.push('           <span class="type-article fl word-ellipsis">微博话题：<a target="_blank" href={{:topicUrl}}>{{:title}}</a></span>');
     tmpl.push('           {{if readNum}}<span class="type-num fl">阅读量：<b>{{:readNum}}</b></span>{{/if}}');
     tmpl.push('       </li>');
-    tmpl.push('   {{if wechatAvgReadNum}}');
+    tmpl.push('   {{if wechatUrl}}');
     tmpl.push('       <li>');
     tmpl.push('           <div class="type-icon fl"></div>');
     tmpl.push('            <span class="type-title weixin-color fl">微信</span>');
@@ -101,7 +134,7 @@ templates.design = {};
    // tmpl.push('           {{if wechatAvgReadNum}}<span class="type-num fl">相关文章数：<b>{{:wechatAvgReadNum}}</b></span>{{/if}}');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
-    tmpl.push('   {{if baiduHitNum}}');
+    tmpl.push('   {{if baiduUrl}}');
     tmpl.push('       <li>');
     tmpl.push('           <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>');
     tmpl.push('           <span class="type-title baidu-color fl">百度</span>');
@@ -116,7 +149,7 @@ templates.design = {};
     //tmpl.push('           {{if baiduHitNum}}<span class="type-num fl">搜索结果数：<b>{{:baiduHitNum}}</b></span>{{/if}}');
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
-    tmpl.push('   {{if zhihuAvgAnswerNumber}}');
+    tmpl.push('   {{if zhihuUrl}}');
     tmpl.push('       <li>');
     tmpl.push('           <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>');
     tmpl.push('           <span class="type-title zhihu-color fl">知乎</span>');
@@ -164,8 +197,6 @@ templates.design = {};
             }
         },
         "circleReset": function (index) {
-            console.log(index);
-            console.log(typeof index)
         }
     });
 })();
