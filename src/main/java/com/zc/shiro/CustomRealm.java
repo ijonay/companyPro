@@ -80,6 +80,7 @@ public class CustomRealm extends AuthorizingRealm {
                 return null;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
