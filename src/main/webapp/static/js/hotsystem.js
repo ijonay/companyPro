@@ -420,10 +420,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(returndata == null){
 					console.log('数据为空');
 				}else{
-					console.log(returndata)
-					console.log(recordList.render(returndata))
 					$("#record-ul-con").html(recordList.render(returndata));
-					
 					$("#record-ul-2").html(recordList2.render(returndata));
 				}
 				

@@ -73,7 +73,7 @@ templates.design = {};
 	  $.views.helpers({
 	        "addTag2": function (createTime) {
 	            if (createTime) {
-	            	return newDate.toLocaleDateString(createTime)
+	            	 return new Date(parseInt(createTime)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
 	            }
 	        }
 	    });
