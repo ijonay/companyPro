@@ -4,10 +4,12 @@ package com.zc.api;/**
 
 import com.zc.bean.VersionInfo;
 import com.zc.service.VersionInfoService;
+import com.zc.utility.page.Page;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -20,6 +22,21 @@ public class ProjectInfoApi {
 
     @Autowired
     private VersionInfoService versioninfo;
+
+
+    @RequestMapping(value = "versions/page", method = RequestMethod.GET)
+    public ApiResultModel getVersionsByPage(@RequestParam(name = "PageIndex", defaultValue = "1") Integer PageIndex,
+                                            @RequestParam(name = "PageSize", defaultValue = "10") Integer PageSize) {
+
+
+        ApiResultModel result = new ApiResultModel();
+
+        Page page = new Page(PageIndex, PageSize);
+
+        result.data(versioninfo.getCollByPage(page));
+
+        return result;
+    }
 
     /**
      * 获取所有版本信息
@@ -50,13 +67,20 @@ public class ProjectInfoApi {
     }
 
     @RequestMapping(value = "version", method = RequestMethod.POST)
-    public ApiResultModel addVersion(@RequestBody VersionInfo model) {
+    public ApiResultModel addOrUpdateVersion(@RequestBody VersionInfo model) {
 
 
         ApiResultModel result = new ApiResultModel();
 
-        result.data(versioninfo.add(model));
+        if (Objects.nonNull(model.getId()) && model.getId() > 0) {
 
+            result.data(versioninfo.update(model));
+        } else {
+
+            model.setCreateTime(new Date());
+
+            result.data(versioninfo.add(model));
+        }
         return result;
     }
 

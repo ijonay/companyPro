@@ -1,13 +1,12 @@
 package com.zc.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.zc.bean.VersionInfo;
 import com.zc.dao.VersionInfoMapper;
+import com.zc.utility.page.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class VersionInfoServiceImpl implements VersionInfoService {
@@ -38,6 +37,13 @@ public class VersionInfoServiceImpl implements VersionInfoService {
     @Override
     public List<VersionInfo> getColl(Integer top) {
         return versionInfoMapper.getColl(top);
+    }
+
+    @Override
+    public Page getCollByPage(Page page) {
+
+        return page.data(versionInfoMapper.getCollByPage(page));
+
     }
 //    @Override
 //    public int delAll() { return versionInfoMapper.delAll(); }
