@@ -11,8 +11,7 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
-import com.zc.utility.Page;
-import org.apache.ibatis.annotations.Param;
+import com.zc.utility.page.Page;
 
 import java.util.HashMap;
 import java.util.List;

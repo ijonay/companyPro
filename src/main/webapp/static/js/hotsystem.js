@@ -1013,7 +1013,7 @@ function loadSvg(){
     	if(yMin > (scoreArray[i]-0)){
     		yMin = scoreArray[i];
     	}
-    	console.log(yMin);
+    	//console.log(yMin);
     	if(yMax < (scoreArray[i]-0)){
     		yMax = scoreArray[i];
     	}
@@ -1283,6 +1283,13 @@ function loadSvg(){
 	   $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
 	   $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
    	   $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
+	   
+		$('.type-article').each(function(){
+				var str = $(this).text();
+				if(str.length>20){
+					$(this).attr('title',str);
+				}
+		});
    }); 
    //返回首页
     $('#comeback_hot').on('click',function(){
@@ -2005,6 +2012,7 @@ function loadSvg(){
             		return
             	}
             	$(".all_hot_list").html(hotList2.render(returnData));
+            	
             	$('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
             	$('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
 //            	$('.all_hot_list_top_source:first').find('.em').css("color","url(img/card-detail-hover.png)");
@@ -2147,4 +2155,39 @@ $(".userProfile").on("click",function(){
 	    	},250)
 		}
 	})
+});
+//更新记录
+
+$('#record-btn-index').on('click',function(){
+	$('.record-div').css({'width':'100%','height':'100%','top':0});
+	$('.record-con2').hide();
+	$('.record-con1').show();
+	$('.record-con1').find('ul').addClass('hidecommon');
+	$('.record-con1').find('ul').eq(0).removeClass('hidecommon');
+	$('.record-div').show();
+
+});
+$('#record-btn-log').on('click',function(){
+	$('.record-con1').hide();
+	$('.record-con2').show();
+});
+$('#record-btn-near').on('click',function(){
+	$('.record-con2').hide();
+	$('.record-con1').show();
+});
+
+$('.record-con2 .record-ul li').on('click',function(){
+	var index = $(this).index();
+	$('.record-con1').find('ul').addClass('hidecommon');
+	$('.record-con1').find('ul').eq(index).removeClass('hidecommon');
+	$('.record-con2').hide();
+	$('.record-con1').show();
 })
+
+$('.record-btn-b-r').on('click',function(){
+	var top = $("#record-btn-index").offset().top;
+	var eleHeight = $('.record-con1').height();
+	$('.record-div').animate({'left': 0,'top': top+10,'width':0,'height':0},500);
+	$('.record-div').delay(500).hide(0);
+})
+
