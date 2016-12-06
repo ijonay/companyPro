@@ -405,8 +405,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	//获取更新
 	var recordList = $.templates(templates.design["tmplRecordList"]);
-	var recordList2 = $.templates(templates.design["tmplRecordList2"]);
-	recordLog();
+	var recordList2 = $.templates(templates.design["tmplRecordList2"]);	
 	
 	function recordLog(){
 		$.ajax({
@@ -423,7 +422,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					$("#record-ul-con").html(recordList.render(returndata));
 					$("#record-ul-2").html(recordList2.render(returndata));
 				}
-				
 			},
 			error:function(){
 				console.log('获取标签列表失败');
@@ -1214,7 +1212,8 @@ function loadSvg(){
     	clearTimeout(setTime);
     	setTime = setTimeout(function(){    		
     		$("#papersvg").html('');
-            loadSvg();
+    		viewCount = 0;
+            loadSvg();            
     	},500)
     };
     function showAlert(t){
@@ -2197,6 +2196,29 @@ function loadSvg(){
             }
         });
     }
+    function getUpdateInfo(){
+    	var data = {
+    		from:'home'
+    	}
+    	$.ajax({
+    	    type: "get",
+    	    url: dataUrl.util.getUserInfo,
+    	    data:data,
+    	    success: function(returnData) {
+    	        if(returnData.error.code == 0 && returnData.data){
+    	            res=returnData.data;
+    	            console.log(res)
+    	            if(res.hasProjUpdate){
+    	            	$('#record-btn-index').click();
+    	            }
+    	            if(res.firstUserAccount){
+    	            	
+    	            }
+    	        }
+    	    }
+    	});
+    }
+    
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')
     }
@@ -2273,6 +2295,9 @@ $(".userProfile").on("click",function(){
 //更新记录
 
 $('#record-btn-index').on('click',function(){
+	if($("#record-ul-2").children().length == 0){
+		recordLog();
+	}
 	$('.record-div').css({'width':'100%','height':'100%','top':0});
 	$('.record-con2').hide();
 	$('.record-con1').show();
@@ -2304,4 +2329,20 @@ $('.record-btn-b-r').on('click',function(){
 	$('.record-div').animate({'left': 0,'top': top+10,'width':0,'height':0},500);
 	$('.record-div').delay(500).hide(0);
 })
-
+window.onload = function(){
+	getUpdateInfo();
+}
+function loadJS(src, callback){
+    var script = document.createElement('script');
+    var head = document.getElementsByTagName('head')[0];
+    var loaded;
+    script.src = src;
+    script.onload = script.onreadystatechange = function(){
+        if(!loaded && (!script.readyState || /loaded|complete/.test(script.readyState))){
+            script.onload = script.onreadystatechange = null;
+            loaded = true;
+            callback();
+        }
+    }
+    head.appendChild(script);
+}
