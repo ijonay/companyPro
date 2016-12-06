@@ -17,7 +17,6 @@ public interface TopicTrendService {
     
     TopicTrend get(Integer id);
 
-
     List<TopicTrend> getColl(Integer top);
 
     List<TopicTrendModel> getTopicTrendHistory(@Param("id") Integer id);
