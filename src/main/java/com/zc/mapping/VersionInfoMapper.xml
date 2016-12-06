@@ -100,6 +100,11 @@
             limit #{top,jdbcType=INTEGER}
         </if>
     </select>
+    <select id="getCollByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from version_info
+    </select>
     <!--<delete id="delAll">-->
     <!--delete from version_info-->
     <!--</delete>-->

@@ -1,16 +1,14 @@
 package com.zc.service;
 
-import com.zc.bean.HotTopic;
 import com.zc.bean.Topic;
 import com.zc.bean.UserFavoriteSearchItem;
-import com.zc.model.TopicModel;
-import com.zc.model.UserRecommendedTopicModel;
-import com.zc.utility.Page;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.zc.bean.UserRecommendedTopics;
 import com.zc.dao.UserRecommentedTopicsMapper;
+import com.zc.model.TopicModel;
+import com.zc.model.UserRecommendedTopicModel;
+import com.zc.utility.page.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 

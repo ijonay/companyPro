@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL MAP Config 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="callSettersOnNulls" value="true"/>
+    </settings>
+    <typeHandlers>
+        <!-- javaType="com.zc.enumeration.CardSourceEnum" -->
+        <!-- <typeHandler handler="com.zc.enumeration.ZCEnumTypeHandler" 
+            javaType="java.lang.Enum"/> -->
+    </typeHandlers>
+    <plugins>
+        <plugin interceptor="com.zc.utility.page.PageInterceptor">
+            <!-- 默认使用MySqlPageDriver实现 -->
+            <!--<property name="pageDriver" value="com.zc.utility.page.MySqlPageDriver"-->
+            <!--/>-->
+            <!-- 两类匹配 第一种以参数匹配（属性缺省值为useParam）自动检测方法中是否包含PageHelper参数 第二种
+                以正则匹配方法名（例如：.*ByPage$） -->
+            <!-- <property name="funcRegex" value=".*ByPage$" /> -->
+        </plugin>
+    </plugins>
+</configuration>
+ 

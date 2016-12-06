@@ -5,9 +5,6 @@ import com.zc.dao.TempWordAttrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-
 
 @Service
 public class TempWordAttrServiceImpl implements TempWordAttrService {
@@ -35,13 +32,7 @@ public class TempWordAttrServiceImpl implements TempWordAttrService {
         return tempWordAttrMapper.get(id);
     }
 
-    @Override
-    public List<TempWordAttr> getCollByWords(List<String> words) {
 
-        Objects.requireNonNull(words);
-
-        return tempWordAttrMapper.getCollByWords(words);
-    }
 //   @Override
 //   public List<TempWordAttr> getColl(Integer top) {
 //       return tempWordAttrMapper.getColl(top);
