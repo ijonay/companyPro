@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicTrendMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.TopicTrend">
+                                    <id column="id" jdbcType="INTEGER" property="id"/>
+                                                <result column="topic_url" jdbcType="VARCHAR" property="topicUrl"/>
+                                                <result column="crawl_dt" jdbcType="TIMESTAMP" property="crawlDt"/>
+                                                <result column="read_num" jdbcType="VARCHAR" property="readNum"/>
+                                                <result column="read_num_dec" jdbcType="INTEGER" property="readNumDec"/>
+                                                <result column="discussion_num" jdbcType="VARCHAR" property="discussionNum"/>
+                                                <result column="fans_num" jdbcType="VARCHAR" property="fansNum"/>
+                                                <result column="logo_img_url" jdbcType="VARCHAR" property="logoImgUrl"/>
+                                                <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
+                                                <result column="insert_date" jdbcType="TIMESTAMP" property="insertDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+         id,  topic_url,  crawl_dt,  read_num,  read_num_dec,  discussion_num,  fans_num,  logo_img_url,  prevailing_trend,  insert_date     </sql>
+    <insert id="add" parameterType="com.zc.bean.TopicTrend"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into topictrend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                            <if test="topicUrl != null">
+                    topic_url,
+                </if>
+                            <if test="crawlDt != null">
+                    crawl_dt,
+                </if>
+                            <if test="readNum != null">
+                    read_num,
+                </if>
+                            <if test="readNumDec != null">
+                    read_num_dec,
+                </if>
+                            <if test="discussionNum != null">
+                    discussion_num,
+                </if>
+                            <if test="fansNum != null">
+                    fans_num,
+                </if>
+                            <if test="logoImgUrl != null">
+                    logo_img_url,
+                </if>
+                            <if test="prevailingTrend != null">
+                    prevailing_trend,
+                </if>
+                            <if test="insertDate != null">
+                    insert_date,
+                </if>
+                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                            <if test="topicUrl != null">
+                    #{topicUrl,jdbcType=VARCHAR},
+                </if>
+                            <if test="crawlDt != null">
+                    #{crawlDt,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="readNum != null">
+                    #{readNum,jdbcType=VARCHAR},
+                </if>
+                            <if test="readNumDec != null">
+                    #{readNumDec,jdbcType=INTEGER},
+                </if>
+                            <if test="discussionNum != null">
+                    #{discussionNum,jdbcType=VARCHAR},
+                </if>
+                            <if test="fansNum != null">
+                    #{fansNum,jdbcType=VARCHAR},
+                </if>
+                            <if test="logoImgUrl != null">
+                    #{logoImgUrl,jdbcType=VARCHAR},
+                </if>
+                            <if test="prevailingTrend != null">
+                    #{prevailingTrend,jdbcType=INTEGER},
+                </if>
+                            <if test="insertDate != null">
+                    #{insertDate,jdbcType=TIMESTAMP},
+                </if>
+                    </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from topictrend
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.TopicTrend">
+        update topictrend
+        <set>
+                            <if test="topicUrl != null">
+                    topic_url = #{topicUrl,jdbcType=VARCHAR},
+                </if>
+                            <if test="crawlDt != null">
+                    crawl_dt = #{crawlDt,jdbcType=TIMESTAMP},
+                </if>
+                            <if test="readNum != null">
+                    read_num = #{readNum,jdbcType=VARCHAR},
+                </if>
+                            <if test="readNumDec != null">
+                    read_num_dec = #{readNumDec,jdbcType=INTEGER},
+                </if>
+                            <if test="discussionNum != null">
+                    discussion_num = #{discussionNum,jdbcType=VARCHAR},
+                </if>
+                            <if test="fansNum != null">
+                    fans_num = #{fansNum,jdbcType=VARCHAR},
+                </if>
+                            <if test="logoImgUrl != null">
+                    logo_img_url = #{logoImgUrl,jdbcType=VARCHAR},
+                </if>
+                            <if test="prevailingTrend != null">
+                    prevailing_trend = #{prevailingTrend,jdbcType=INTEGER},
+                </if>
+                            <if test="insertDate != null">
+                    insert_date = #{insertDate,jdbcType=TIMESTAMP},
+                </if>
+                    </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from topictrend
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getColl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from topictrend
+        <if test="top != null">
+            limit #{top,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getTopicTrendHistory" parameterType="java.lang.Integer" resultMap="BaseModelResultMap">
+        SELECT tt.id, DATE_FORMAT(tt.insert_date,'%Y-%m-%d %H:%i:%s') as insert_date, tt.prevailing_trend
+        FROM webcrawler.topictrend tt
+        INNER JOIN webcrawler.topicinfo ti on tt.topic_url = ti.topic_url
+        where ti.id = #{id,jdbcType= INTEGER}
+        and tt.prevailing_trend is not null
+	    ORDER BY insert_date ASC
+    </select>
+
+    <resultMap id="BaseModelResultMap"  type="com.zc.model.TopicTrendModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="insert_date" jdbcType="VARCHAR" property="insertDate"/>
+        <result column="prevailing_trend" jdbcType="VARCHAR" property="prevailingTrend"/>
+    </resultMap>
+
+</mapper>

@@ -297,19 +297,23 @@ public class PathServiceImpl implements PathService {
 
         log.add("generatePath_" + start.getName());
 
-        if (path.size() <= MAX_PATHLENGTH) {
-            if (isSatisfied(start.getName(), targetVector)) {
-                LinkedList<PathNode> tempPath = new LinkedList<>();
-                tempPath.addAll(path);
-                this.pathList.add(tempPath);
-                if (isFirst) {
-                    isFirst = false;
+        if (isSatisfied(start.getName(), targetVector)) {
+            LinkedList<PathNode> tempPath = new LinkedList<>();
+            tempPath.addAll(path);
+            this.pathList.add(tempPath);
+            if (isFirst) {
+                isFirst = false;
+                if( path.size() < MAX_PATHLENGTH ){
                     runRecursion(start.getName(), this.targetVector);
                 }
-            } else {
+
+            }
+        } else {
+            if ( path.size() < MAX_PATHLENGTH ) {
                 runRecursion(start.getName(), this.targetVector);
             }
         }
+
         log.add("generatePath_end");
         path.pop();
         onPath.remove(start.getName());
