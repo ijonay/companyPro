@@ -55,6 +55,39 @@ templates.design = {};
     templates.design['tmplNotifyList'] = tmpl.join('\r\n');
 
 })();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+	tmpl.push('{{if #index == 1}}<ul class="record-ul">{{else}}<ul class="record-ul hidecommon">{{/if}}');
+	tmpl.push('<div>');
+	tmpl.push('<p>{{:name}}</p>');
+	tmpl.push('<p>{{:~addTag2(createTime)}}</p>');
+	tmpl.push('</div>');
+	tmpl.push('<li>');
+	tmpl.push('<p>{{:version}}</p>');
+	tmpl.push('<p>{{:description}}</p>');
+	tmpl.push('</li>');
+	tmpl.push('</ul>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplRecordList'] = tmpl.join('\r\n');
+	  $.views.helpers({
+	        "addTag2": function (createTime) {
+	            if (createTime) {
+	            	 return new Date(parseInt(createTime)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+	            }
+	        }
+	    });
+})();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+	tmpl.push('<li>');
+	tmpl.push('<p>{{:name}}<i class="fr f14 corlor4a">{{:~addTag2(createTime)}}</i></p>');
+	tmpl.push('<p>{{:introduction}}</p>');
+	tmpl.push('</li>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplRecordList2'] = tmpl.join('\r\n');
+})();
 (function () {
     tmpl = [];
     tmpl.push('{{for data}}');
@@ -164,8 +197,6 @@ templates.design = {};
             }
         },
         "circleReset": function (index) {
-            console.log(index);
-            console.log(typeof index)
         }
     });
 })();

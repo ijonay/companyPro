@@ -47,6 +47,25 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
 //添加常用
+	function deleteRepetion(arr)
+	{
+		var n = []; //一个新的临时数组
+		for(var i = 0; i < arr.length; i++) //遍历当前数组
+		{
+			//如果当前数组的第i已经保存进了临时数组，那么跳过，
+			//否则把当前项push到临时数组里面
+			var hasExit = false;
+			$.each(n,function(index,item){
+				if(item.name == unescape(arr[i].name)){
+					hasExit = true
+				}
+			})
+			if(!hasExit){
+				n.push({id:arr[i].id,name:unescape(arr[i].name)});
+			}
+		}
+		return n;
+	}
 	function getCommon(){
 		$("#favorite_ul").empty();
 		$.ajax({
@@ -59,10 +78,16 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(returnData.data != null && returnData.error.code == 0){
 					
 					var str = "";
+					var arr = [];
 					$.each(returnData.data,function(index,item){
 						if(index > 4) return;
-						str += "<li data-id='"+item.id+"' title='"+ unescape(item.words) +"'>"+unescape(item.words)+"<span></span></li>"
-					})
+						arr.push({id:item.id,name:item.words});
+					});
+					var newArr = deleteRepetion(arr);
+					$.each(newArr,function(index,item){
+						str += "<li data-id='"+item.id+"' title='"+ unescape(item.name) +"'>"+unescape(item.name)+"<span></span></li>"
+						
+					});
 					$("#favorite_ul").html(str);
 					if(returnData.data.length == 0){
 						$('.favorite_div').addClass('hidecommon');
@@ -168,6 +193,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		//$('#cook_ul').addClass('hidecommon');
 	});
 	//获取历史记录
+	
 	getSetHistory()
 	function getSetHistory(){
 		$("#cook_ul").empty();
@@ -179,9 +205,16 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			success:function(returnData){
 				if(returnData.data != null && returnData.error.code == 0){
 					var str = "";
+					var arr = [];
 					$.each(returnData.data,function(index,item){
-						str += "<li data-id='"+item.id+"'>"+unescape(item.keyword)+"<span></span></li>"
-					})
+						arr.push({id:item.id,name:item.keyword});
+						//str += "<li data-id='"+item.id+"'>"+unescape(item.keyword)+"<span></span></li>"
+					});
+					var newArr = deleteRepetion(arr);
+					$.each(newArr,function(index,item){
+						//str += "<li data-id='"+item.id+"' title='"+ unescape(item.name) +"'>"+unescape(item.name)+"<span></span></li>"
+						str += "<li data-id='"+item.id+"'>"+unescape(item.name)+"<span></span></li>"
+					});
 					$("#cook_ul").html(str);
 				}
 			},
@@ -370,6 +403,34 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			$(this).addClass('hot_arrow_up');
 		}
 	});
+	//获取更新
+	var recordList = $.templates(templates.design["tmplRecordList"]);
+	var recordList2 = $.templates(templates.design["tmplRecordList2"]);
+	recordLog();
+	
+	function recordLog(){
+		$.ajax({
+			type:"get",
+			contentType: 'application/json',
+		    dataType:"json",
+			url:'api/proinfo/versions',
+			success:function(returnData){
+				var str = '';
+				returndata = returnData;
+				if(returndata == null){
+					console.log('数据为空');
+				}else{
+					$("#record-ul-con").html(recordList.render(returndata));
+					$("#record-ul-2").html(recordList2.render(returndata));
+				}
+				
+			},
+			error:function(){
+				console.log('获取标签列表失败');
+			}
+		});
+	}
+	
 	function labelList(){
 		$.ajax({
 			type:"get",
@@ -996,7 +1057,10 @@ var alertCon = $(".alertCon");
 var idArray = [1,2,3,4,5,6,7,8,9,10];
 var triangleStep = 35;
 var canClick = true;
+var viewCount = 0;
+var maxNode = 0;
 function loadSvg(){
+	viewCount++;
     var width = $("#papersvg").css("width");
     width = width.split("px")[0];
     paper = Raphael("papersvg",width,160);
@@ -1016,6 +1080,7 @@ function loadSvg(){
     	//console.log(yMin);
     	if(yMax < (scoreArray[i]-0)){
     		yMax = scoreArray[i];
+    		maxNode = i;
     	}
     }
     var step = yMax - yMin;
@@ -1073,6 +1138,9 @@ function loadSvg(){
         	textArray[i] = textArrayItem;
         	rectArray[i] = rectArrayItem;
         	hotArray[i] = hotArrayItem;
+        	if(maxNode == i){
+        		maxNode = rectArrayItem;
+        	}
         }
         rectArray.forEach(function(item,index){
         	item.hover(function(){
@@ -1119,6 +1187,9 @@ function loadSvg(){
                 }
         	})
         })
+        if(viewCount == 1){
+        	showAlert(maxNode)
+        }        
 //        for(var i=0;i<rectArray.length;i++){
 //        	rectArray[i].hover(function(){
 //        		textArray[i].animate({"font-size":"18"},700,"ease");
@@ -1131,6 +1202,7 @@ function loadSvg(){
 //        	});
 //        }
 }
+    
 };
     var setTime;
     window.onresize=function(){
@@ -1145,52 +1217,94 @@ function loadSvg(){
             loadSvg();
     	},500)
     };
+    function showAlert(t){
+    	 var index = t.data("index");
+         var scrollY = window.scrollY;
+         if(scrollY == undefined){
+             scrollY = window.pageYOffset
+         }
+         var scrollX = window.scrollX;
+         if(scrollX == undefined){
+             scrollX = window.pageXOffset
+         }
+         var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
+         var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
+         if(viewCount == 1){
+        	 Y -= 8;
+        	 X += 9;
+         }
+         var trianglePos = triangleStep * (index + 1);
+         $(".triangle").css("left",trianglePos);
+         $(".hotValue").html(scoreArray[index]);
+         $(".infoTitle").html(titleArray[index]);
+
+         $(".portrait").css("background-image","url("+imageArray[index]+")");
+         $(".infoText").html(introArray[index]);
+         $(".infoText").attr("title",introArray[index]);
+         $(".infoConnect").attr("data-id",hotIdArray[index]);
+         $(".infoConnect").attr("data-index",index);
+         $(".infoConnect").attr("data-topic",titleArray[index]);
+         $(".infoIcon").hide();
+//        
+
+         $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
+         if(alertCon.css("display") != "none"){
+         	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
+         }else{
+         	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
+         	alertCon.show();
+         	alertCon.animate({opacity:1},500);
+         }
+         $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
+         viewCount++;
+    }
     function nodeClick(e,t){
     	$('#cook_ul').addClass('hidecommon');
     	if(canClick){
     		e ? e.stopPropagation() : event.cancelBubble = true;
-            var index = t.data("index");
-            var scrollY = window.scrollY;
-            if(scrollY == undefined){
-                scrollY = window.pageYOffset
-            }
-            var scrollX = window.scrollX;
-            if(scrollX == undefined){
-                scrollX = window.pageXOffset
-            }
-            var jqObj = $("rectArray[index].node");
-            var offset = jqObj.offset();
-            var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
-            var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
-            var trianglePos = triangleStep * (index + 1);
-            $(".triangle").css("left",trianglePos);            
-            $(".hotValue").html(scoreArray[index]);
-            $(".infoTitle").html(titleArray[index]);
-//            var divH = $(".hotInfo").height();
-//            var $p = $(".infoConnect");
-//            while ($p.outerHeight() > divH) {
-//                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
-//            };
-            $(".portrait").css("background-image","url("+imageArray[index]+")");
-            $(".infoText").html(introArray[index]);
-            $(".infoText").attr("title",introArray[index]);
-            $(".infoConnect").attr("data-id",hotIdArray[index]);
-            $(".infoConnect").attr("data-index",index);
-            $(".infoConnect").attr("data-topic",titleArray[index]);
-            $(".infoIcon").hide();
-//            $(".iconCon a").hide();
-//            $.each(formArray[index],function(index,item){
-//            	$("#icon"+item).show();
-//            })
-            $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
-            if(alertCon.css("display") != "none"){
-            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
-            }else{
-            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
-            	alertCon.show();
-            	alertCon.animate({opacity:1},500);
-            }
-            $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
+    		showAlert(t);
+//            var index = t.data("index");
+//            var scrollY = window.scrollY;
+//            if(scrollY == undefined){
+//                scrollY = window.pageYOffset
+//            }
+//            var scrollX = window.scrollX;
+//            if(scrollX == undefined){
+//                scrollX = window.pageXOffset
+//            }
+//            var jqObj = $("rectArray[index].node");
+//            var offset = jqObj.offset();
+//            var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
+//            var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
+//            var trianglePos = triangleStep * (index + 1);
+//            $(".triangle").css("left",trianglePos);            
+//            $(".hotValue").html(scoreArray[index]);
+//            $(".infoTitle").html(titleArray[index]);
+////            var divH = $(".hotInfo").height();
+////            var $p = $(".infoConnect");
+////            while ($p.outerHeight() > divH) {
+////                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+////            };
+//            $(".portrait").css("background-image","url("+imageArray[index]+")");
+//            $(".infoText").html(introArray[index]);
+//            $(".infoText").attr("title",introArray[index]);
+//            $(".infoConnect").attr("data-id",hotIdArray[index]);
+//            $(".infoConnect").attr("data-index",index);
+//            $(".infoConnect").attr("data-topic",titleArray[index]);
+//            $(".infoIcon").hide();
+////            $(".iconCon a").hide();
+////            $.each(formArray[index],function(index,item){
+////            	$("#icon"+item).show();
+////            })
+//            $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
+//            if(alertCon.css("display") != "none"){
+//            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
+//            }else{
+//            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
+//            	alertCon.show();
+//            	alertCon.animate({opacity:1},500);
+//            }
+//            $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
     	}else{
 //        	$("#comeback_hot").click();
         }
@@ -2176,7 +2290,7 @@ $('#record-btn-near').on('click',function(){
 	$('.record-con1').show();
 });
 
-$('.record-con2 .record-ul li').on('click',function(){
+$('.record-con2 .record-ul').delegate('li','click',function(){
 	var index = $(this).index();
 	$('.record-con1').find('ul').addClass('hidecommon');
 	$('.record-con1').find('ul').eq(index).removeClass('hidecommon');
