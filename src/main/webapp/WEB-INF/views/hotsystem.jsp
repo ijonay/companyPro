@@ -15,13 +15,13 @@
    <!-- 用户引导 开始-->
    	   <div class="hot-user-guide">
    	   <div style="width:100%;height:100%;position:relative;">
-   	   		<div class="hot-user-tep1 pos"></div>
-   	   		<div class="hot-user-tep2 pos"></div>
-   	   		<div class="hot-user-tep3 pos"></div>
-   	   		<div class="hot-user-tep4 pos"></div>
-   	   		<div class="hot-user-tep5 pos"></div>
-   	   		<div class="hot-user-tep6 pos"></div>
-   	   		<div class="hot-user-tep7 pos"></div>
+   	   		<div class="hot-user-tep1 pos pointer"></div>
+   	   		<div class="hot-user-tep2 pos pointer"></div>
+   	   		<div class="hot-user-tep3 pos pointer"></div>
+   	   		<div class="hot-user-tep4 pos pointer"></div>
+   	   		<div class="hot-user-tep5 pos pointer"></div>
+   	   		<div class="hot-user-tep6 pos pointer"></div>
+   	   		<div class="hot-user-tep7 pos pointer"></div>
    	   	</div>	
    	   </div>
    <!-- 用户引导 结束-->

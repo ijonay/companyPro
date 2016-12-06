@@ -2346,3 +2346,49 @@ function loadJS(src, callback){
     }
     head.appendChild(script);
 }
+
+//用户引导/
+
+$('.hot-user-guide').show();
+$('.hot-user-tep1').show();
+$('.hot-user-tep1').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	$('.hot-user-tep1').hide();
+	$('.hot-user-tep2').show();
+});
+$('.hot-user-tep2').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	$('.hot-user-tep2').hide();
+	$('.hot-user-tep3').show();
+});
+$('.hot-user-tep3').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	var left = parseInt($('.alertCon').css('left')),
+    top = parseInt($('.alertCon').css('top'));
+	$('.hot-user-tep3').hide();
+	$('.hot-user-tep4').css({'left':left+170,'top':top-170});
+	$('.hot-user-tep4').show();
+});
+$('.hot-user-tep4').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	var left = parseInt($('.alertCon').css('left')),
+    	top = parseInt($('.alertCon').css('top'));
+	$('.hot-user-tep5').css({'left':left+65,'top':top+100});
+	$('.hot-user-tep4').hide();
+	$('.hot-user-tep5').show();
+});
+$('.hot-user-tep5').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	$('.hot-user-tep5').hide();
+	$('.hot-user-tep6').show();
+});
+$('.hot-user-tep6').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	$('.hot-user-tep6').hide();
+	$('.hot-user-tep7').show();
+});
+$('.hot-user-tep7').on('click',function(e){
+	e ? e.stopPropagation() : event.cancelBubble = true;
+	$('.hot-user-tep7').hide();
+	$('.hot-user-guide').hide();
+});
