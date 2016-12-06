@@ -23,12 +23,12 @@ public class UserView {
     /**
      * 是否是否初始化账号
      */
-    private boolean firstUserAccount;
+    private boolean firstUserAccount = false;
 
     /**
      * 是否含有系统更新
      */
-    private boolean hasProjUpdate;
+    private boolean hasProjUpdate = false;
 
 
     /**

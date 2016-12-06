@@ -6,6 +6,7 @@ import com.zc.model.usermodel.LoginModel;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.RegisterModel;
 import com.zc.model.usermodel.UserView;
+import com.zc.service.UserMessageService;
 import com.zc.service.UsersService;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.PasswordHelper;
@@ -35,6 +36,8 @@ public class AccountApi extends BaseApi {
 
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private UserMessageService userMessageService;
 
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -73,17 +76,23 @@ public class AccountApi extends BaseApi {
      * @return
      */
     @RequestMapping(value = "info", method = RequestMethod.GET)
-    public ApiResultModel getUserInfo() {
+    public ApiResultModel getUserInfo(@RequestParam(value = "first", required = false) boolean first) {
 
 
         ApiResultModel result = new ApiResultModel();
 
         Users users = usersService.get(CommonHelper.getCurrentUserId());
 
+
         UserView userView = new UserView(users);
 
+        if (first) {
 
+            userView.setFirstUserAccount(userMessageService.changeUserInitState(users.getId()));
 
+        }
+
+        userView.setHasProjUpdate(userMessageService.getProjUpdateMsg(users.getId()));
 
 
         return result.data(userView);

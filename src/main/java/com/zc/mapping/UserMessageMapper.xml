@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.UserMessageMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.UserMessage">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="message_id" jdbcType="INTEGER" property="messageId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="read_time" jdbcType="TIMESTAMP" property="readTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+         id,  message_id,  user_id,  create_time,  read_time     </sql>
+    <insert id="add" parameterType="com.zc.bean.UserMessage"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into User_Message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">
+                message_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="readTime != null">
+                read_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">
+                #{messageId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="readTime != null">
+                #{readTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from User_Message
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.UserMessage">
+        update User_Message
+        <set>
+            <if test="messageId != null">
+                message_id = #{messageId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="readTime != null">
+                read_time = #{readTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from User_Message
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getColl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from User_Message
+        <if test="top != null">
+            limit #{top,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--<select id="getByFields" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from User_Message-->
+    <!--where 1=1-->
+
+    <!--<if test="messageId != null">-->
+    <!--AND message_id = #{messageId,jdbcType=INTEGER}-->
+    <!--</if>-->
+
+    <!--<if test="userId != null">-->
+    <!--AND user_id = #{userId,jdbcType=INTEGER}-->
+    <!--</if>-->
+
+    <!--<if test="createTime != null">-->
+    <!--AND create_time = #{createTime,jdbcType=TIMESTAMP}-->
+    <!--</if>-->
+
+    <!--<if test="readTime != null">-->
+    <!--AND read_time = #{readTime,jdbcType=TIMESTAMP}-->
+    <!--</if>-->
+
+    <!--</select>-->
+
+    <!--<select id="getCollByPage" resultMap="BaseResultMap">-->
+    <!--    select-->
+    <!--    <include refid="Base_Column_List"/>-->
+    <!--    from User_Message-->
+    <!--</select>-->
+
+    <!--<delete id="delAll">-->
+    <!--delete from User_Message-->
+    <!--</delete>-->
+
+
+    <select id="getByUserAndMsg" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from User_Message
+        where 1=1
+        AND message_id = #{messageId,jdbcType=INTEGER} AND user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+</mapper>
