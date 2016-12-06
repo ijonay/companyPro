@@ -2,14 +2,12 @@ package com.zc.api;
 
 import com.zc.bean.Users;
 import com.zc.enumeration.StatusCodeEnum;
-import com.zc.enumeration.UserRoleType;
 import com.zc.model.usermodel.LoginModel;
 import com.zc.model.usermodel.LoginStatus;
 import com.zc.model.usermodel.RegisterModel;
 import com.zc.model.usermodel.UserView;
 import com.zc.service.UsersService;
 import com.zc.utility.CommonHelper;
-import com.zc.utility.EnumHelper;
 import com.zc.utility.PasswordHelper;
 import com.zc.utility.ValidateHelper;
 import com.zc.utility.exception.ApiException;
@@ -82,7 +80,13 @@ public class AccountApi extends BaseApi {
 
         Users users = usersService.get(CommonHelper.getCurrentUserId());
 
-        return result.data(new UserView(users));
+        UserView userView = new UserView(users);
+
+
+
+
+
+        return result.data(userView);
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -119,7 +123,7 @@ public class AccountApi extends BaseApi {
             @RequestParam(value = "password") String password,
             @RequestParam(value = "passwordConfirm") String passwordConfirm,
             @RequestParam(value = "passwordOrig") String passwordOrig
-                                     ) {
+    ) {
         Objects.requireNonNull(password);
 
         ApiResultModel result = new ApiResultModel();
@@ -129,28 +133,28 @@ public class AccountApi extends BaseApi {
             result.data(false);
             return result;
         }
-        if(StringUtils.isBlank(password) || StringUtils.isBlank(passwordConfirm)){
+        if (StringUtils.isBlank(password) || StringUtils.isBlank(passwordConfirm)) {
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("新密码和确认密码均不能为空！");
             result.data(false);
             return result;
         }
-        if(!StringUtils.equals(password, passwordConfirm)){
+        if (!StringUtils.equals(password, passwordConfirm)) {
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("新密码和确认密码请保持一致！");
             result.data(false);
             return result;
         }
-        if(StringUtils.isBlank(passwordOrig)){
+        if (StringUtils.isBlank(passwordOrig)) {
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("请输入原始密码！");
             result.data(false);
             return result;
         }
 
         Users currentUser = usersService.get(getCurrentUserId());
-        if(currentUser == null){
+        if (currentUser == null) {
             throw new ApiException(StatusCodeEnum.FAILED, "未登录！");
         }
 
-        if(!PasswordHelper.checkUserPassword(currentUser, passwordOrig)){
+        if (!PasswordHelper.checkUserPassword(currentUser, passwordOrig)) {
             result.setStatusCode(StatusCodeEnum.WRONGPARAM).setMessage("原始密码不正确，请重新输入！");
             result.data(false);
             return result;
@@ -158,8 +162,8 @@ public class AccountApi extends BaseApi {
 
         currentUser.setPassword(password);
         PasswordHelper.encryptPassword(currentUser);
-        if( usersService.update(currentUser) ){
-            result.setStatusCode( StatusCodeEnum.SUCCESS );
+        if (usersService.update(currentUser)) {
+            result.setStatusCode(StatusCodeEnum.SUCCESS);
             return result.data(true);
         }
 
