@@ -428,6 +428,10 @@
         <include refid="Base_Column_List"/>
         from view_topic
         WHERE is_active = 1
+        and (
+            (manual_is_applied=1 and manual_event_class NOT REGEXP '影视宣传|综艺节目') or
+            (event_class NOT REGEXP '影视宣传|综艺节目')
+        )
         ORDER BY
         prevailing_trend DESC
         limit #{allCount,jdbcType=INTEGER}

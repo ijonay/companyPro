@@ -162,7 +162,7 @@ public class Page {
     private Integer pageNumber = 1;
     private Integer pageSize = 10;
     private Integer pageCount;
-    private Integer totalCount;
+    private Integer totalCount = 0;
 
     private PageDriver pageDriver;
     private Integer maxPageSize = 200;
