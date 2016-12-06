@@ -6,7 +6,7 @@ package com.zc.model;
 public class TopicTrendModel {
 
     private String id;
-    private String insertDate;
+    private String createDate;
     private String prevailingTrend;
 
     public String getPrevailingTrend() {
@@ -17,12 +17,12 @@ public class TopicTrendModel {
         this.prevailingTrend = prevailingTrend;
     }
 
-    public String getInsertDate() {
-        return insertDate;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setInsertDate(String insertDate) {
-        this.insertDate = insertDate;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public String getId() {
