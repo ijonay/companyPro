@@ -36,6 +36,7 @@ public class UserApi extends BaseApi {
 
     }
 
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ApiResultModel getUser(@PathVariable("id") Integer id) {
 

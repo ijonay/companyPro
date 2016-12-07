@@ -67,7 +67,9 @@ dataUrl.util = {
     },
     updatePwd:"api/account/changep"
     ,
-    getUserInfo:"api/account/info"//获取用户信息
+    getUserInfo:"api/account/info",//获取用户信息
+    getVersionsInfo:"api/proinfo/versions",//获取版本信息
+    updateStateChange:'api/proinfo/updatestate'
 }
 
 var chartsAttr = chartsAttr || {};

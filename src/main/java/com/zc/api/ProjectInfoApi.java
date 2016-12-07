@@ -3,7 +3,9 @@ package com.zc.api;/**
  */
 
 import com.zc.bean.VersionInfo;
+import com.zc.service.UserMessageService;
 import com.zc.service.VersionInfoService;
+import com.zc.utility.CommonHelper;
 import com.zc.utility.page.Page;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,23 @@ public class ProjectInfoApi {
 
     @Autowired
     private VersionInfoService versioninfo;
+    @Autowired
+    private UserMessageService userMessageService;
 
+
+    @RequestMapping(value = "updatestate", method = RequestMethod.POST)
+    public ApiResultModel changeProjUpdateState() {
+
+
+        ApiResultModel result = new ApiResultModel();
+
+        int userId = CommonHelper.getCurrentUserId();
+
+        if (userId > 0)
+            result.data(userMessageService.changeProjUpdateState(userId));
+
+        return result;
+    }
 
     @RequestMapping(value = "versions/page", method = RequestMethod.GET)
     public ApiResultModel getVersionsByPage(@RequestParam(name = "PageIndex", defaultValue = "1") Integer PageIndex,

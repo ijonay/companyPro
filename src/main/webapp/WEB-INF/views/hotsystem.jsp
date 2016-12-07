@@ -12,6 +12,20 @@
 <body>
  
    <jsp:include page="nav.jsp" />
+   <!-- 用户引导 开始-->
+   	   <div class="hot-user-guide">
+   	   <div style="width:100%;height:100%;position:relative;">
+   	   		<div class="hot-user-tep1 pos pointer"></div>
+   	   		<div class="hot-user-tep2 pos pointer"></div>
+   	   		<div class="hot-user-tep3 pos pointer"></div>
+   	   		<div class="hot-user-tep4 pos pointer"></div>
+   	   		<div class="hot-user-tep5 pos pointer"></div>
+   	   		<div class="hot-user-tep6 pos pointer"></div>
+   	   		<div class="hot-user-tep7 pos pointer"></div>
+   	   	</div>	
+   	   </div>
+   <!-- 用户引导 结束-->
+   
 	<!-- 更新记录 开始-->
 	<div class="record-div">
 		<div class="record-con1">
@@ -36,7 +50,7 @@
 			
 			<div class="record-btn-b">
 				<div class="record-btn-b-l" id="record-btn-log">查看更新记录</div>
-				<div class="record-btn-b-r">我知道啦</div>
+				<div class="record-btn-b-r" onclick='updateStateChange()'>我知道啦</div>
 			</div>
 		</div>
 		
@@ -50,7 +64,7 @@
 <!-- 					<p>更新通知名称</p> -->
 <!-- 					<p>2016.11.30  13:01</p> -->
 <!-- 				</div> -->
-				<li>
+			<!--	<li>
 					<p>1.功能名称<i class="fr f14 corlor4a">2016.11.30  13:01</i></p>
 					<p>更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容
 					        更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容；
@@ -79,13 +93,13 @@
 					<p>更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容
 					        更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容更新内容；
 					</p>
-				</li>
+				</li>-->
 				
 			</ul>
 			
 			<div class="record-btn-b">
 				<div class="record-btn-b-l" id="record-btn-near">最近更新</div>
-				<div class="record-btn-b-r">关闭</div>
+				<div class="record-btn-b-r" onclick='updateStateChange()'>关闭</div>
 			</div>
 		</div>
 		

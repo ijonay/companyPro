@@ -1,12 +1,9 @@
 package com.zc.jobs;
 
-import com.zc.bean.UserRecommendedTopics;
-import com.zc.service.TopicService;
 import com.zc.service.UserRecommendedTopicsService;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.SchedulerContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 

@@ -405,15 +405,14 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	//获取更新
 	var recordList = $.templates(templates.design["tmplRecordList"]);
-	var recordList2 = $.templates(templates.design["tmplRecordList2"]);
-	recordLog();
+	var recordList2 = $.templates(templates.design["tmplRecordList2"]);	
 	
 	function recordLog(){
 		$.ajax({
 			type:"get",
 			contentType: 'application/json',
 		    dataType:"json",
-			url:'api/proinfo/versions',
+			url:dataUrl.util.getVersionsInfo,
 			success:function(returnData){
 				var str = '';
 				returndata = returnData;
@@ -423,7 +422,6 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 					$("#record-ul-con").html(recordList.render(returndata));
 					$("#record-ul-2").html(recordList2.render(returndata));
 				}
-				
 			},
 			error:function(){
 				console.log('获取标签列表失败');
@@ -1214,7 +1212,8 @@ function loadSvg(){
     	clearTimeout(setTime);
     	setTime = setTimeout(function(){    		
     		$("#papersvg").html('');
-            loadSvg();
+    		viewCount = 0;
+            loadSvg();            
     	},500)
     };
     function showAlert(t){
@@ -2197,6 +2196,75 @@ function loadSvg(){
             }
         });
     }
+    var updateState = true;
+    function getUpdateInfo(){
+    	var data = {
+    		first:true
+    	}
+    	$.ajax({
+    	    type: "get",
+    	    url: dataUrl.util.getUserInfo,
+    	    data:data,
+    	    success: function(returnData) {
+    	        if(returnData.error.code == 0 && returnData.data){
+    	            res=returnData.data;
+    	            if(res.firstUserAccount){
+    	            	//用户引导/
+    	            	$('.hot-user-guide').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            	});
+    	            	$('.hot-user-guide').show();
+    	            	$('.hot-user-tep1').show();
+    	            	$('.hot-user-tep1').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep1').hide();
+    	            		$('.hot-user-tep2').show();
+    	            	});
+    	            	$('.hot-user-tep2').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep2').hide();
+    	            		$('.hot-user-tep3').show();
+    	            	});
+    	            	$('.hot-user-tep3').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		var left = parseInt($('.alertCon').css('left')),
+    	            	    top = parseInt($('.alertCon').css('top'));
+    	            		$('.hot-user-tep3').hide();
+    	            		$('.hot-user-tep4').css({'left':left+170,'top':top-170});
+    	            		$('.hot-user-tep4').show();
+    	            	});
+    	            	$('.hot-user-tep4').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		var left = parseInt($('.alertCon').css('left')),
+    	            	    	top = parseInt($('.alertCon').css('top'));
+    	            		$('.hot-user-tep5').css({'left':left+65,'top':top+100});
+    	            		$('.hot-user-tep4').hide();
+    	            		$('.hot-user-tep5').show();
+    	            	});
+    	            	$('.hot-user-tep5').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep5').hide();
+    	            		$('.hot-user-tep6').show();
+    	            	});
+    	            	$('.hot-user-tep6').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep6').hide();
+    	            		$('.hot-user-tep7').show();
+    	            	});
+    	            	$('.hot-user-tep7').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep7').hide();
+    	            		$('.hot-user-guide').hide();
+    	            	});
+    	            }else if(res.hasProjUpdate){
+    	            	$('#record-btn-index').click();
+    	            }
+    	            updateState = res.hasProjUpdate;
+    	        }
+    	    }
+    	});
+    }
+    
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')
     }
@@ -2273,6 +2341,9 @@ $(".userProfile").on("click",function(){
 //更新记录
 
 $('#record-btn-index').on('click',function(){
+	if($("#record-ul-2").children().length == 0){
+		recordLog();
+	}
 	$('.record-div').css({'width':'100%','height':'100%','top':0});
 	$('.record-con2').hide();
 	$('.record-con1').show();
@@ -2304,4 +2375,37 @@ $('.record-btn-b-r').on('click',function(){
 	$('.record-div').animate({'left': 0,'top': top+10,'width':0,'height':0},500);
 	$('.record-div').delay(500).hide(0);
 })
+window.onload = function(){
+	getUpdateInfo();
+}
+function loadJS(src, callback){
+    var script = document.createElement('script');
+    var head = document.getElementsByTagName('head')[0];
+    var loaded;
+    script.src = src;
+    script.onload = script.onreadystatechange = function(){
+        if(!loaded && (!script.readyState || /loaded|complete/.test(script.readyState))){
+            script.onload = script.onreadystatechange = null;
+            loaded = true;
+            callback();
+        }
+    }
+    head.appendChild(script);
+}
 
+function updateStateChange(){
+	if(updateState){		
+		$.ajax({
+			type:"post",
+	//		contentType: 'application/json',
+	//	    dataType:"json",
+			url:dataUrl.util.updateStateChange,
+			success:function(returnData){
+				
+			},
+			error:function(){
+				console.log('更改更新通知状态失败');
+			}
+		});
+	}
+}

@@ -18,6 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,6 +38,8 @@ public class UsersServiceImpl implements UsersService {
 
         record.setIsactive(true);
         record.setRole(UserRoleType.USER.getValue());
+
+        record.setCreateTime(new Date());
 
         PasswordHelper.encryptPassword(record);
 
