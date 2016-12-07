@@ -2196,9 +2196,10 @@ function loadSvg(){
             }
         });
     }
+    var updateState = true;
     function getUpdateInfo(){
     	var data = {
-    		from:'home'
+    		first:true
     	}
     	$.ajax({
     	    type: "get",
@@ -2258,7 +2259,7 @@ function loadSvg(){
     	            }else if(res.hasProjUpdate){
     	            	$('#record-btn-index').click();
     	            }
-    	            
+    	            updateState = res.hasProjUpdate;
     	        }
     	    }
     	});
@@ -2392,4 +2393,19 @@ function loadJS(src, callback){
     head.appendChild(script);
 }
 
-
+function updateStateChange(){
+	if(updateState){		
+		$.ajax({
+			type:"post",
+	//		contentType: 'application/json',
+	//	    dataType:"json",
+			url:dataUrl.util.updateStateChange,
+			success:function(returnData){
+				
+			},
+			error:function(){
+				console.log('更改更新通知状态失败');
+			}
+		});
+	}
+}

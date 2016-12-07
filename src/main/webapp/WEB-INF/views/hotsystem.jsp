@@ -50,7 +50,7 @@
 			
 			<div class="record-btn-b">
 				<div class="record-btn-b-l" id="record-btn-log">查看更新记录</div>
-				<div class="record-btn-b-r">我知道啦</div>
+				<div class="record-btn-b-r" onclick='updateStateChange()'>我知道啦</div>
 			</div>
 		</div>
 		
@@ -99,7 +99,7 @@
 			
 			<div class="record-btn-b">
 				<div class="record-btn-b-l" id="record-btn-near">最近更新</div>
-				<div class="record-btn-b-r">关闭</div>
+				<div class="record-btn-b-r" onclick='updateStateChange()'>关闭</div>
 			</div>
 		</div>
 		
