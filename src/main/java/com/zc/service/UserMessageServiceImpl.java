@@ -5,7 +5,9 @@ import com.zc.bean.UserMessage;
 import com.zc.bean.Users;
 import com.zc.dao.MessageMapper;
 import com.zc.dao.UserMessageMapper;
+import com.zc.enumeration.StatusCodeEnum;
 import com.zc.enumeration.UserMessageTypeEnum;
+import com.zc.utility.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +105,14 @@ public class UserMessageServiceImpl implements UserMessageService {
 
         Message message = getLastMsgByTypeAndCreateTime(UserMessageTypeEnum.SystemUpdate, user
                 .getCreateTime());
+
+        if (Objects.isNull(message))
+            throw new ServiceException(StatusCodeEnum.FAILED, "无项目更新信息！");
+
+        UserMessage byUserAndMsg = userMessageMapper.getByUserAndMsg(message.getId(), userId);
+
+        if (Objects.nonNull(byUserAndMsg) && byUserAndMsg.getId() > 0) return false;
+
 
         UserMessage model = new UserMessage();
         model.setCreateTime(new Date());
