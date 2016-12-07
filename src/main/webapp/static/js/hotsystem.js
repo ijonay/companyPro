@@ -2206,7 +2206,7 @@ function loadSvg(){
     	    data:data,
     	    success: function(returnData) {
     	        if(returnData.error.code == 0 && returnData.data){
-    	            res=returnData.data;
+    	            var  res=returnData.data;
     	            if(res.firstUserAccount){
     	            	//用户引导/
     	            	$('.hot-user-guide').on('click',function(e){
