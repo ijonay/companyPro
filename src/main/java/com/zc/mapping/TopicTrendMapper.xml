@@ -4,7 +4,8 @@
 
     <select id="getTopicTrendHistory" parameterType="java.lang.Integer" resultMap="BaseModelResultMap">
 
-        SELECT id, DATE_FORMAT(createdate,'%Y-%m-%d %H:%i:%s') as createdate, tt.prevailing_trend
+        SELECT id, DATE_FORMAT(createdate,'%Y-%m-%d %H:00:00') as createdate,
+        tt.prevailing_trend
         FROM topictrendhistory tt
         where topic_id = #{id,jdbcType= INTEGER}
         and prevailing_trend is not null
