@@ -1392,11 +1392,10 @@ function loadSvg(){
 	   $('.notify-list').css('display',"none");
 	   $('.nav_ser').delay("fast").fadeIn();
 	   $(".all_hot_list_bot").hide();
-	   $(".all_hot_list_bot:eq(0)").show();
 	   $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
 	   $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
    	   $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
-	   
+   	   $('.all_hot_list_top_source:first').click();
 		$('.type-article').each(function(){
 				var str = $(this).text();
 				if(str.length>20){
@@ -1530,7 +1529,125 @@ function loadSvg(){
     		$(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
     		$(this).parent().parent().parent().find('em').css("color","#4a4a4a");
     		$(this).find('em').css('color','#389b9f');
-    	};    	
+    	};  
+    	var _this = $(this);
+    	 if(_this.parent().next().find(".bot_right .Prend").length > 0){
+    	        return;
+    	    }
+    	 _this.parent().next().find(".bot_right").html("");
+    	    $.ajax({
+    	        type:"get",
+    	        url:"api/topicTrend/history/"+$(this).data("id"),
+    	        success:function(returndata){
+    	            if(returndata && returndata.data.length > 0){
+    	                var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
+    	                _this.parent().next().find(".bot_right").append(ageNewCon);
+    	                //console.log(_this.parent().next().find(".bot_right").height())
+    	               // console.log(ageNewCon.get(0).width())
+    	                var prendNewCharts = echarts.init(ageNewCon.get(0));
+    	                var names = _.pluck(returndata.data, 'createDate');
+    	                var vals = _.pluck(returndata.data, 'prevailingTrend');
+    	                var option = {
+    	                        backgroundColor:"#fff",
+    	                        title: {
+    	                            text: '热点热度走势',
+    	                            left:'center',
+    	                            top:15,
+    	                            textStyle:{
+    	                            color:'#4a4a4a',
+    	                            fontFamily:'微软雅黑',
+    	                            fontSize:'16',
+    	                            fontWeight:'400'
+    	                          }
+    	                        },
+    	                        color: ['#3398DB'],
+    	                        tooltip : {
+    	                            trigger: 'axis',
+    	                            formatter:'{b}:{c}'
+    	                        },
+    	                        grid: {
+    	                            left: '3%',
+    	                            right: '4%',
+    	                            bottom: '40',
+    	                            containLabel: true
+    	                        },
+    	                        dataZoom: [
+    	                            {
+    	                                show: true,
+    	                                realtime: true,
+    	                                start:100-(Math.floor(8/names.length*100)),
+    	                                end: 100,
+    	                                height:20
+    	                            },
+    	                            {
+    	                                type: 'inside',
+    	                                realtime: true,
+    	                                start: 100-(Math.floor(8/names.length*100)),
+    	                                end: 100,
+    	                            }
+    	                        ],
+    	                        xAxis : [
+    	                            {
+    	                                type : 'category',
+    	                                name : "时间",
+    	                                nameLocation:"middle",
+    	                                nameGap: -17,
+    	                                scale:true,
+    	                                axisTick: {
+    	                                    alignWithLabel: true
+    	                                },
+    	                                splitLine:false,
+    	                                axisLine:{
+    	                                    lineStyle:{color:'#ccc'}
+    	                                },
+    	                                axisTick:{
+    	                                    show:false
+    	                                },
+    	                                data : names.map(function (str) {
+    	                                    return str.replace(' ', '\n')
+    	                                })
+    	                            }
+    	                        ],
+    	                        yAxis : [
+    	                            {
+    	                                type : 'value',
+    	                                nameGap: 0,
+    	                                splitLine:false,
+    	                                axisLine:{
+    	                                    lineStyle:{color:'#ccc'}
+    	                                },
+    	                                axisLabel : {
+    	                                    formatter: '{value}'
+    	                                },
+    	                                axisTick:{
+    	                                    show:false
+    	                                }
+    	                            }
+    	                        ],
+    	                        series: [
+    	                            {
+    	                                name:'时间',
+    	                                type:'line',
+    	                                lineStyle: {
+    	                                    normal: {
+    	                                        width: 1
+    	                                    }
+    	                                },
+    	                                data:vals
+    	                            }
+    	                        ]
+    	                    };
+    	                prendNewCharts.setOption(option);
+    	                window.onresize=prendNewCharts.resize;
+    	            }else{
+    	                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:17%;height:279px;background:#fff;text-align:center'></div>");
+    	                var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
+    	                ageNewCon.append(a);
+    	                ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+    	                $(".bot_right").append(ageNewCon);
+    	            }
+    	        }
+    	    });
     });
   
  
@@ -2207,7 +2324,7 @@ function loadSvg(){
     	    data:data,
     	    success: function(returnData) {
     	        if(returnData.error.code == 0 && returnData.data){
-    	            res=returnData.data;
+    	            var  res=returnData.data;
     	            if(res.firstUserAccount){
     	            	//用户引导/
     	            	$('.hot-user-guide').on('click',function(e){
@@ -2275,7 +2392,7 @@ function loadSvg(){
     	$("#allHot").click();
     	$(".all_hot_list_bot").hide();
     	$(".hot_echart_list").addClass('hidecommon');
-    	$("#ulBottom"+index).show();
+    	$("#ulBottom"+index).prev().find('.all_hot_list_top_source').click();
     	setTimeout(function(){
     		var a = $("#ulBottom"+index).offset().top;
     		a -= 450;
