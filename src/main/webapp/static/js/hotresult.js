@@ -1431,7 +1431,122 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
 				$(this).attr('title',str);
 			}
         });
-    };      
+    };
+    if($(".bot_right").find(".Prend").length > 0){
+        return;
+    }
+    $(".bot_right").html("");
+    $.ajax({
+        type:"get",
+        url:"api/topicTrend/history/"+$(this).data("id"),
+        success:function(returndata){
+            if(returndata && returndata.data.length > 0){
+                var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
+                $(".bot_right").append(ageNewCon);
+                var prendNewCharts = echarts.init(ageNewCon.get(0));
+                var names = _.pluck(returndata.data, 'createDate');
+                var vals = _.pluck(returndata.data, 'prevailingTrend');
+                var option = {
+                        backgroundColor:"#fff",
+                        title: {
+                            text: '热点热度走势',
+                            left:'center',
+                            top:15,
+                            textStyle:{
+                            color:'#4a4a4a',
+                            fontFamily:'微软雅黑',
+                            fontSize:'16',
+                            fontWeight:'400'
+                          }
+                        },
+                        color: ['#3398DB'],
+                        tooltip : {
+                            trigger: 'axis',
+                            formatter:'{b}:{c}'
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '40',
+                            containLabel: true
+                        },
+                        dataZoom: [
+                            {
+                                show: true,
+                                realtime: true,
+                                start:100-(Math.floor(8/names.length*100)),
+                                end: 100,
+                                height:20
+                            },
+                            {
+                                type: 'inside',
+                                realtime: true,
+                                start: 100-(Math.floor(8/names.length*100)),
+                                end: 100,
+                            }
+                        ],
+                        xAxis : [
+                            {
+                                type : 'category',
+                                name : "时间",
+                                nameLocation:"middle",
+                                nameGap: -17,
+                                scale:true,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                splitLine:false,
+                                axisLine:{
+                                    lineStyle:{color:'#ccc'}
+                                },
+                                axisTick:{
+                                    show:false
+                                },
+                                data : names.map(function (str) {
+                                    return str.replace(' ', '\n')
+                                })
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                nameGap: 0,
+                                splitLine:false,
+                                axisLine:{
+                                    lineStyle:{color:'#ccc'}
+                                },
+                                axisLabel : {
+                                    formatter: '{value}'
+                                },
+                                axisTick:{
+                                    show:false
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name:'时间',
+                                type:'line',
+                                lineStyle: {
+                                    normal: {
+                                        width: 1
+                                    }
+                                },
+                                data:vals
+                            }
+                        ]
+                    };
+                prendNewCharts.setOption(option);
+                window.onresize=prendNewCharts.resize;
+            }else{
+                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:17%;height:279px;background:#fff;text-align:center'></div>");
+                var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
+                ageNewCon.append(a);
+                ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+                $(".bot_right").append(ageNewCon);
+            }
+        }
+    });
 });
 $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受众画像按钮
     $('.all_hot_list_bot').css('display','none');

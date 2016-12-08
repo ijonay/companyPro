@@ -98,7 +98,7 @@ templates.design = {};
 
     tmpl.push('       <li class="hot_trend">{{:prevailingTrend}}</li>');
     tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatUrl}}<a target="_blank" href={{:wechatUrl}}><div class="weixinIcon"></div></a>{{/if}}{{if baiduUrl}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuUrl}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
-    tmpl.push('       <li class="all_hot_list_top_source"><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
+    tmpl.push('       <li class="all_hot_list_top_source" data-id={{:id}}><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
 
     tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>受众画像</em><span class="hot_look_arrow"></span></li>');
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation" style="float:right;margin-right:20px;"><span>关联此热点</span></li>');
