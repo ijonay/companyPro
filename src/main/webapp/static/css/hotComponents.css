@@ -142,7 +142,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 }
 
 /* ui新样式    */
-.hot_near_list{background:#eff4f5;height:50px;padding-left:30px;padding-right:40px;padding-top:15px;}
+.hot_near_list{background:#eff4f5;height:50px;margin-left:30px;margin-right:40px;padding-top:15px;border-top:1px solid #dee1e3;}
 .hot_near_list div{display:inline-block;}
 .hot_near{color:#4a4a4a;margin-right:14px;}
 .hot_near_list .hot_near_all{float:right;cursor: pointer;font-size:14px;color:#4a4a4a;}
@@ -290,9 +290,12 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	height:42px;
 	line-height:42px;
 	background:#eff4f5;
-	border-bottom:1px solid #dee1e3;
-	padding:0 32px;
+	margin:0 32px;
 	font-size:14px;
+	border-bottom:1px solid #dee1e3;
+}
+.all_hot_list_bot li:last-child{
+	border-bottom:0px;
 }
 .all_hot_list_bot li .type-icon{
 	width:18px;
@@ -369,4 +372,10 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	font-size:14px;
 }
 .bot_left{width:calc(100% - 390px); }
-.bot_right {width:350px;height:252px;background:#fff;margin-right:40px;}
+.bot_right {
+	width:350px;
+	height: 228px;
+    background: #fff;
+    margin-right: 40px;
+    margin-top: 12px;
+    margin-bottom: 12px;}
