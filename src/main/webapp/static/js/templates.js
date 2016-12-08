@@ -165,7 +165,7 @@ templates.design = {};
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
     tmpl.push('	   </div>');
-    tmpl.push('	   <div class="bot_right fr">1231231图1231231图像1231231图像1231231图像1231231图像1231231图像1231231图像1231231图像1231231图像像');
+    tmpl.push('	   <div class="bot_right fr">');
     tmpl.push('	   </div>');
     tmpl.push('	   <div class="clearfix"></div>');
     tmpl.push('     <div class="hot_near_list">');
