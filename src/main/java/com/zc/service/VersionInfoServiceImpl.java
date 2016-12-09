@@ -1,22 +1,40 @@
 package com.zc.service;
 
+import com.zc.bean.Message;
 import com.zc.bean.VersionInfo;
 import com.zc.dao.VersionInfoMapper;
+import com.zc.enumeration.UserMessageTypeEnum;
 import com.zc.utility.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
+
 public class VersionInfoServiceImpl implements VersionInfoService {
 
     @Autowired
     private VersionInfoMapper versionInfoMapper;
+    @Autowired
+    private MessageService messageService;
 
     @Override
+    @Transactional
     public boolean add(VersionInfo record) {
-        return versionInfoMapper.add(record) > 0;
+
+        boolean flag = versionInfoMapper.add(record) > 0;
+
+        Message message = new Message();
+        message.setCreateTime(new Date());
+        message.setSender(UserMessageTypeEnum.SystemUpdate.name());
+        message.setReceiver("all");
+        message.setType(UserMessageTypeEnum.SystemUpdate.getValue());
+        messageService.add(message);
+
+        return flag;
     }
 
     @Override

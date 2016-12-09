@@ -52,9 +52,11 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public boolean getUserInitState(Integer userId) {
+        Message lastMsgByTypeAndCreateTime = getLastMsgByTypeAndCreateTime
+                (UserMessageTypeEnum.UserGuide, null);
 
-        UserMessage byUserAndMsg = userMessageMapper.getByUserAndMsg(getLastMsgByTypeAndCreateTime
-                (UserMessageTypeEnum.UserGuide, null).getId(), userId);
+        if (Objects.isNull(lastMsgByTypeAndCreateTime)) return false;
+        UserMessage byUserAndMsg = userMessageMapper.getByUserAndMsg(lastMsgByTypeAndCreateTime.getId(), userId);
 
         return (Objects.isNull(byUserAndMsg) || Objects.isNull(byUserAndMsg.getId()));
 
@@ -62,6 +64,11 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public boolean changeUserInitState(Integer userId) {
+
+        Message lastMsgByTypeAndCreateTime = getLastMsgByTypeAndCreateTime
+                (UserMessageTypeEnum.UserGuide, null);
+
+        if (Objects.isNull(lastMsgByTypeAndCreateTime)) return false;
 
         boolean flag = getUserInitState(userId);
 
