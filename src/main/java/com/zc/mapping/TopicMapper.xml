@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zc.dao.TopicDao">
+<mapper namespace="com.zc.dao.TopicDao"> 
     <resultMap id="BaseResultMap" type="com.zc.bean.Topic">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
@@ -51,6 +51,16 @@
         manual_introduction, manual_topic_url, manual_baidu_url,  manual_zhihu_url, manual_wechat_url,
         manual_title, manual_logo_img_url
     </sql>
+    
+    <select id="getTopHotTopic" resultMap="BaseResultMap" parameterType="map">
+    select
+        <include refid="Base_Column_List"/>
+        from view_topic where id != #{id,jdbcType=INTEGER} and  event_class !="其他" and  event_class LIKE 
+	(select substring_index( CONCAT(event_class,','),',',1 )  from view_topic where id = #{id,jdbcType=INTEGER})
+    order by prevailing_trend desc
+    limit #{count,jdbcType=INTEGER}
+    </select>
+   
     <insert id="add" parameterType="com.zc.bean.Topic"
             useGeneratedKeys="true" keyProperty="id">
         insert into topic
@@ -608,13 +618,19 @@
         UPDATE  topic set is_active = 1 WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="getTopicsByKeyword" parameterType="java.lang.String" resultMap="manageTopicViewMap">
+    <select id="getTopicsByKeyword" parameterType="Map"  resultMap="manageTopicViewMap">
         SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active,ifnull(manual_is_applied,0) as manual_is_applied
         FROM  view_topic
-        where title LIKE CONCAT( '%','${keyword}','%' )
+      <where>  1=1
+          <if test="keyword != '' ">  
+        and title LIKE "%"#{keyword}"%"    
+        </if>
+       <if test="keywordTitle != '' ">  
+       and manual_title LIKE  "%"#{keywordTitle}"%" 
+       </if>  
+       </where>
         ORDER by prevailing_trend DESC
     </select>
-
     <resultMap id="manageTopicViewMap" type="com.zc.model.TopicModel">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>

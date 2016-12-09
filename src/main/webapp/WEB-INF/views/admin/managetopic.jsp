@@ -69,7 +69,10 @@
         <form class="form-inline" role="form"
               action="<c:out value="${pageContext.request.contextPath}"/>/admin/managetopic">
             <div class="form-group">
-                <input type="text" class="form-control" value="${keyword}" name="keyword" placeholder="请输入搜索关键字">
+                <input type="text" class="form-control" value="${keyword}" name="keyword" placeholder="请输入Title搜索关键字">
+            </div>
+             <div class="form-group">
+                <input type="text" class="form-control" value="${keyword_title}" name="keyword_title" placeholder="请输入ManualTitle关键字">
             </div>
             <button type="submit" class="btn btn-default">搜索</button>
         </form>

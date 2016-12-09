@@ -1,9 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags/admin"
-%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags/admin"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="${pageContext.request.contextPath}/lib/jquery-1.12.0.min.js"></script>
 
+<script type="text/javascript">
+ $(function(){
+	 $("#topicSourceWeibo").change(function(){
+		 var url=$("#topicSourceWeibo").val();
+			if(url.indexOf("?") > 0){
+			$("#weibolabel").attr("hidden",false);
+			} else{
+			$("#weibolabel").attr("hidden",true);
+		}
+	});
+ })
+</script>
 <script>
     function closePage() {
         window.close();
@@ -87,6 +99,7 @@
                         <div class="col-sm-8">
                             <input type="text" name="manualTopicUrl" class="form-control" id="topicSourceWeibo"
                                    value="${topic.manualTopicUrl}">
+                                   <label hidden="ture" id="weibolabel" Style="color:red" >URL地址后面不能携带参数！</label>
                         </div>
                     </div>
 
@@ -177,6 +190,7 @@
                         <div class="col-sm-8">
                             <input type="text" name="manualTopicUrl" class="form-control" id="topicSourceWeibo"
                                    value="${topic.topicUrl}">
+                             
                         </div>
                     </div>
 
