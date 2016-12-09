@@ -1,4 +1,5 @@
 //头部。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+var hotsystem_flag=true;
 $('#nav-head-search').on('click',function(){
 	var val = $.trim($('#nav_ser').val());
 	if(val){
@@ -1395,7 +1396,7 @@ function loadSvg(){
 	   $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
 	   $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
    	   $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
-   	   $('.all_hot_list_top_source:first').click();
+   	   if(hotsystem_flag) $('.all_hot_list_top_source:first').click();
 		$('.type-article').each(function(){
 				var str = $(this).text();
 				if(str.length>20){
@@ -2414,6 +2415,7 @@ function loadSvg(){
     }
     $(".hotInfo").on("click",function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
+    	hotsystem_flag=false;
 //    	var index = $(".infoConnect").attr("data-index");
     	var index = $(".infoConnect").attr("data-id");
     	$("#allHot").click();
@@ -2466,6 +2468,7 @@ $(".hotDetailInfo").on("click",function(){
 	$(".hotInfo").click();
 })
 $(".userProfile").on("click",function(){
+    hotsystem_flag=false;
 	var itemIndex = $(".infoConnect").attr("data-id");
 	$("#allHot").click();
 	$(".all_hot_list_bot").hide();
