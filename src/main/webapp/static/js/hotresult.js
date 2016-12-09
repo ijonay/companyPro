@@ -1563,7 +1563,7 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
                 prendNewCharts.setOption(option);
                 window.onresize=prendNewCharts.resize;
             }else{
-                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:17%;height:279px;background:#fff;text-align:center'></div>");
+                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:100%;height:100%;background:#fff;text-align:center'></div>");
                 var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
                 ageNewCon.append(a);
                 ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
