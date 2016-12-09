@@ -13,8 +13,10 @@ import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
 import com.zc.utility.page.Page;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface TopicService {
     float getSimilarity(List<TopicWordModel> list);
@@ -71,11 +73,12 @@ public interface TopicService {
     boolean activeTopic(Integer id);
 
     /**
-     * searching topics by keyword
+     *  searching topics by keyword, keyword_title
      * @param keyword
+     * @param keyword_title
      * @return
      */
-    List<TopicModel> getTopicsByKeyword(String keyword);
+    List<TopicModel> getTopicsByKeyword(String keyword,String keywordTitle);
     boolean update(Topic topic);
 
     boolean applyManual(Integer id);
@@ -83,5 +86,12 @@ public interface TopicService {
     boolean cancelManual(Integer id);
 
     int syncInsertTopic(Topic topic);
+
+	ArrayList<TopicModel> getTopHotTopic(Map map);
+	
+	
+	
+	
+	
 
 }

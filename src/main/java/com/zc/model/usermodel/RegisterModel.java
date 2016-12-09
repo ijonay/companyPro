@@ -14,10 +14,10 @@ public class RegisterModel {
 
     private String company;
     @NotBlank(message = "用户名不能为空")
-    @Size(max = 100)
+    @Size(max = 20)
     private String userName;
 
-    @Size(max = 100)
+    @Size(max = 20)
     private String nickName;
     @NotBlank(message = "密码不能为空")
     @Size(min = 8, max = 25)
