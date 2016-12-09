@@ -171,11 +171,9 @@ templates.design = {};
     tmpl.push('     <div class="hot_near_list">');
     tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
     tmpl.push('    	    <div class="hot_near_con">');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称1</em><i>88</i></p>');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称2热点名称2</em><i>818</i></p>');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称3称2</em><i>100</i></p>');
+    
     tmpl.push('     	</div>');
-    tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
+    //tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');

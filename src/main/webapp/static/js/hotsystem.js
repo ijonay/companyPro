@@ -1507,7 +1507,8 @@ function loadSvg(){
     	var child = $this.children();
     	child[4].click();
     })
-    
+     //var hotTopicSimilar = $.templates(templates.design["tmplHotTopticSimilar"]); 
+    	// var recordList2 = $.templates(templates.design["tmplRecordList2"]);
     $(document).on('click','.all_hot_list_top_source',function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
     	$('.all_hot_list_top_look').css('color','#4a4a4a');
@@ -1531,13 +1532,39 @@ function loadSvg(){
     		$(this).find('em').css('color','#389b9f');
     	};  
     	var _this = $(this);
-    	 if(_this.parent().next().find(".bot_right .Prend").length > 0){
+    	var Dataids = _this.data("id");
+    	if(_this.parent().next().find(".bot_right .Prend").length > 0){
     	        return;
-    	    }
+    	 };
+    	if(_this.parent().next().find(".hot_near_con .p").length > 0){
+ 	        return;
+ 	    };
+	     $(".hot_near_con").html('');	
+    	 $.ajax({
+ 	        type:"get",
+ 	        url:dataUrl.util.getHotNearTrend(Dataids),
+ 	        success:function(returndata){
+ 	        	var str = '';
+ 	        	console.log(returndata)
+ 	        	if(returndata.length == 0){
+ 	        		
+ 	        		str+= '暂无数据';
+ 	        		$(".hot_near_con").html(str);
+ 	        	}else{
+ 	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
+ 	        		$.each(returndata,function(i,item){
+ 	        		str+= '<p><em class="word-ellipsis" title="item.title">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
+ 	        		});
+ 	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
+ 	        		$(".hot_near_con").html(str);
+ 	        		}
+ 	        	
+ 	        	}
+ 	        });
     	 _this.parent().next().find(".bot_right").html("");
     	    $.ajax({
     	        type:"get",
-    	        url:"api/topicTrend/history/"+$(this).data("id"),
+    	        url:dataUrl.util.getHotTrend(Dataids),
     	        success:function(returndata){
     	            if(returndata && returndata.data.length > 0){
     	                var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
