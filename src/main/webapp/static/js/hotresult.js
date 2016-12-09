@@ -1432,13 +1432,37 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
 			}
         });
     };
+    var Dataids = $(this).data("id");
     if($(".bot_right").find(".Prend").length > 0){
         return;
-    }
+    };
     $(".bot_right").html("");
+    if($(".hot_near_con").find("p").length > 0){
+	        return;
+	 };
+     $(".hot_near_con").html('');
+     $.ajax({
+	        type:"get",
+	        url:dataUrl.util.getHotNearTrend(Dataids),
+	        success:function(returndata){
+	        	var str = '';
+	        	if(returndata.length == 0){
+	        		str+= '暂无数据';
+	        		$(".hot_near_con").html(str);
+	        	}else{
+	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
+	        		$.each(returndata,function(i,item){
+	        		str+= '<p><em class="word-ellipsis" title="item.title">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
+	        		});
+	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
+	        		$(".hot_near_con").html(str);
+	        		}
+	        	
+	        	}
+	 });
     $.ajax({
         type:"get",
-        url:"api/topicTrend/history/"+$(this).data("id"),
+        url:dataUrl.util.getHotTrend(Dataids),
         success:function(returndata){
             if(returndata && returndata.data.length > 0){
                 var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");

@@ -929,7 +929,7 @@ to {background-position:0 -6px;}
 .hot-user-guide{width:100%;height:100%;background:rgba(0,0,0,.4);position:fixed;left:0;top:0;z-index:10000;min-width:1200px;display:none;}
 .hot-user-tep1{width:357px;height:191px;background:url(../img/user-tep1.png) no-repeat;top:35px;left:400px;z-index:10001;display:none;}
 .hot-user-tep2{width:357px;height:203px;background:url(../img/user-tep2.png) no-repeat;top:260px;right:290px;z-index:10001;display:none;}
-.hot-user-tep3{width:357px;height:215px;background:url(../img/user-tep3.png) no-repeat;top:320px;rleft:190px;z-index:10001;display:none;}
+.hot-user-tep3{width:357px;height:215px;background:url(../img/user-tep3.png) no-repeat;bottom:140px;left:190px;z-index:10001;display:none;}
 .hot-user-tep4{width:357px;height:221px;background:url(../img/user-tep4.png) no-repeat;z-index:10001;display:none;}
 .hot-user-tep5{width:397px;height:223px;background:url(../img/user-tep5.png) no-repeat;z-index:10001;display:none;}
 .hot-user-tep6{width:357px;height:200px;background:url(../img/user-tep6.png) no-repeat;top:47px;right:6px;z-index:10001;display:none;}
