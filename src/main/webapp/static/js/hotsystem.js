@@ -1545,7 +1545,7 @@ function loadSvg(){
  	        url:dataUrl.util.getHotNearTrend(Dataids),
  	        success:function(returndata){
  	        	var str = '';
- 	        	console.log(returndata)
+ 	        	//console.log(returndata)
  	        	if(returndata.length == 0){
  	        		
  	        		str+= '暂无数据';
@@ -1553,7 +1553,7 @@ function loadSvg(){
  	        	}else{
  	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
  	        		$.each(returndata,function(i,item){
- 	        		str+= '<p><em class="word-ellipsis" title="item.title">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
+ 	        		str+= '<p><em class="word-ellipsis" title="'+item.title+'">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
  	        		});
  	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
  	        		$(".hot_near_con").html(str);
