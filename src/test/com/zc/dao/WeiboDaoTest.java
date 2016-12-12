@@ -33,7 +33,7 @@ public class WeiboDaoTest extends BaseTest {
 
     @After
     public void tearDown() {
-//        Assert.assertTrue(dao.del(initId) == 1);
+//        Assert.assertTrue(dao.delByTypeAndTriggerId(initId) == 1);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class WeiboDaoTest extends BaseTest {
 
     @Test
     public void delTest() {
-//        int delRes = dao.del(initId);
+//        int delRes = dao.delByTypeAndTriggerId(initId);
 //        Assert.assertTrue(delRes == 1);
     }
 }
