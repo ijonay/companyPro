@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zc.dao.TopicDao"> 
+<mapper namespace="com.zc.dao.TopicDao">
     <resultMap id="BaseResultMap" type="com.zc.bean.Topic">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
@@ -30,9 +30,9 @@
         <result column="zhihu_url" jdbcType="VARCHAR" property="zhihuUrl"/>
         <result column="zhihu_avg_answer_number" jdbcType="INTEGER" property="zhihuAvgAnswerNumber"/>
         <result column="manual_prevailing_trend" jdbcType="INTEGER" property="manualPrevailingTrend"/>
-        <result column="manual_event_class" jdbcType="VARCHAR"  property="manualEventClass"/>
-        <result column="manual_createdate" jdbcType="TIMESTAMP"  property="manualCreateDate"/>
-        <result column="manual_updatedate" jdbcType="TIMESTAMP"  property="manualUpdateDate"/>
+        <result column="manual_event_class" jdbcType="VARCHAR" property="manualEventClass"/>
+        <result column="manual_createdate" jdbcType="TIMESTAMP" property="manualCreateDate"/>
+        <result column="manual_updatedate" jdbcType="TIMESTAMP" property="manualUpdateDate"/>
         <result column="manual_is_applied" jdbcType="INTEGER" property="manualIsApplied"/>
         <result column="manual_introduction" jdbcType="VARCHAR" property="manualIntroduction"/>
         <result column="manual_topic_url" jdbcType="VARCHAR" property="manualTopicUrl"/>
@@ -51,16 +51,16 @@
         manual_introduction, manual_topic_url, manual_baidu_url,  manual_zhihu_url, manual_wechat_url,
         manual_title, manual_logo_img_url
     </sql>
-    
+
     <select id="getTopHotTopic" resultMap="BaseResultMap" parameterType="map">
-    select
+        select
         <include refid="Base_Column_List"/>
-        from view_topic where id != #{id,jdbcType=INTEGER} and  event_class !="其他" and  event_class LIKE 
-	(select substring_index( CONCAT(event_class,','),',',1 )  from view_topic where id = #{id,jdbcType=INTEGER})
-    order by prevailing_trend desc
-    limit #{count,jdbcType=INTEGER}
+        from view_topic where id != #{id,jdbcType=INTEGER} and event_class !="其他" and event_class LIKE
+        (select substring_index( CONCAT(event_class,','),',',1 ) from view_topic where id = #{id,jdbcType=INTEGER})
+        order by prevailing_trend desc
+        limit #{count,jdbcType=INTEGER}
     </select>
-   
+
     <insert id="add" parameterType="com.zc.bean.Topic"
             useGeneratedKeys="true" keyProperty="id">
         insert into topic
@@ -143,15 +143,15 @@
             <if test="zhihuAvgAnswerNumber != null">
                 zhihu_avg_answer_number,
             </if>
-                is_active,
+            is_active,
             <if test="manualPrevailingTrend != null">
                 manual_prevailing_trend,
             </if>
             <if test="manualEventClass != null">
                 manual_event_class,
             </if>
-                manual_createdate,
-                manual_updatedate,
+            manual_createdate,
+            manual_updatedate,
             <if test="manualIsApplied != null">
                 manual_is_applied,
             </if>
@@ -257,15 +257,15 @@
             <if test="zhihuAvgAnswerNumber != null">
                 #{zhihuAvgAnswerNumber,jdbcType=INTEGER},
             </if>
-                1,
+            1,
             <if test="manualPrevailingTrend != null">
                 #{manualPrevailingTrend,jdbcType=INTEGER},
             </if>
             <if test="manualEventClass != null">
                 #{manualEventClass,jdbcType=VARCHAR},
             </if>
-                sysdate(),
-                sysdate(),
+            sysdate(),
+            sysdate(),
             <if test="manualIsApplied != null">
                 #{manualIsApplied,jdbcType=INTEGER},
             </if>
@@ -384,7 +384,7 @@
             <if test="manualEventClass != null">
                 manual_event_class = #{manualEventClass,jdbcType=VARCHAR},
             </if>
-                manual_updatedate = sysdate(),
+            manual_updatedate = sysdate(),
             <if test="manualIsApplied != null">
                 manual_is_applied = #{manualIsApplied,jdbcType=INTEGER},
             </if>
@@ -439,8 +439,8 @@
         from view_topic
         WHERE is_active = 1
         and (
-            (manual_is_applied=1 and manual_event_class NOT REGEXP '影视宣传|综艺节目') or
-            (event_class NOT REGEXP '影视宣传|综艺节目')
+        (manual_is_applied=1 and manual_event_class NOT REGEXP '影视宣传|综艺节目') or
+        (event_class NOT REGEXP '影视宣传|综艺节目')
         )
         ORDER BY
         prevailing_trend DESC
@@ -598,7 +598,7 @@
     </insert>
     <select id="getAllCoordinates" resultType="java.util.HashMap">
         SELECT id AS id, coordinate AS coordinate FROM topic where is_active = 1
-       <!-- SELECT id AS id, coordinate AS coordinate FROM topic -->
+        <!-- SELECT id AS id, coordinate AS coordinate FROM topic -->
     </select>
     <select id="getByIdList" resultMap="BaseResultMap">
         SELECT
@@ -610,25 +610,26 @@
         </foreach>
     </select>
 
-    <update id="inactiveTopic" parameterType="java.lang.Integer" >
+    <update id="inactiveTopic" parameterType="java.lang.Integer">
         UPDATE  topic set is_active = 0 WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="activeTopic" parameterType="java.lang.Integer" >
+    <update id="activeTopic" parameterType="java.lang.Integer">
         UPDATE  topic set is_active = 1 WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="getTopicsByKeyword" parameterType="Map"  resultMap="manageTopicViewMap">
-        SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active,ifnull(manual_is_applied,0) as manual_is_applied
-        FROM  view_topic
-      <where>  1=1
-          <if test="keyword != '' ">  
-        and title LIKE "%"#{keyword}"%"    
-        </if>
-       <if test="keywordTitle != '' ">  
-       and manual_title LIKE  "%"#{keywordTitle}"%" 
-       </if>  
-       </where>
+    <select id="getTopicsByKeyword" parameterType="Map" resultMap="manageTopicViewMap">
+        SELECT id AS id, title,prevailing_trend,ifnull(is_active,1) as is_active,ifnull(manual_is_applied,0) as
+        manual_is_applied
+        FROM view_topic
+        <where>1=1
+            <if test="keyword != '' ">
+                and title LIKE "%"#{keyword}"%"
+            </if>
+            <if test="keywordTitle != '' ">
+                and manual_title LIKE "%"#{keywordTitle}"%"
+            </if>
+        </where>
         ORDER by prevailing_trend DESC
     </select>
     <resultMap id="manageTopicViewMap" type="com.zc.model.TopicModel">
@@ -639,15 +640,15 @@
         <result column="manual_is_applied" jdbcType="INTEGER" property="manualIsApplied"/>
     </resultMap>
 
-    <update id="applyManual" parameterType="java.lang.Integer" >
+    <update id="applyManual" parameterType="java.lang.Integer">
         UPDATE  topic set manual_is_applied = 1 WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="cancelManual" parameterType="java.lang.Integer" >
+    <update id="cancelManual" parameterType="java.lang.Integer">
         UPDATE  topic set manual_is_applied = 0 WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="syncInsertTopic" parameterType="com.zc.bean.Topic"  resultType="java.lang.Integer" >
+    <select id="syncInsertTopic" parameterType="com.zc.bean.Topic" resultType="java.lang.Integer">
         {
             call proc_sync_insert_topic(
               #{ title, mode=IN, jdbcType=VARCHAR },

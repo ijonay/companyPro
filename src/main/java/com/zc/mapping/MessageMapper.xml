@@ -8,9 +8,12 @@
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="expred_time" jdbcType="TIMESTAMP" property="expredTime"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="trigger_id" jdbcType="INTEGER" property="triggerId"/>
     </resultMap>
     <sql id="Base_Column_List">
-         id,  sender,  receiver,  type,  create_time,  expred_time     </sql>
+        id,  sender,  receiver,  type,  create_time,  expred_time,  title,  content,  trigger_id     </sql>
     <insert id="add" parameterType="com.zc.bean.Message"
             useGeneratedKeys="true" keyProperty="id">
         insert into Message
@@ -30,6 +33,15 @@
             <if test="expredTime != null">
                 expred_time,
             </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="triggerId != null">
+                trigger_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="sender != null">
@@ -46,6 +58,15 @@
             </if>
             <if test="expredTime != null">
                 #{expredTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="triggerId != null">
+                #{triggerId,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -71,6 +92,15 @@
             </if>
             <if test="expredTime != null">
                 expred_time = #{expredTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="triggerId != null">
+                trigger_id = #{triggerId,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -116,6 +146,18 @@
     <!--        <if test="expredTime != null">-->
     <!--          AND  expred_time = #{expredTime,jdbcType=TIMESTAMP}-->
     <!--        </if>-->
+    <!--    -->
+    <!--        <if test="title != null">-->
+    <!--          AND  title = #{title,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="content != null">-->
+    <!--          AND  content = #{content,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="triggerId != null">-->
+    <!--          AND  trigger_id = #{triggerId,jdbcType=INTEGER}-->
+    <!--        </if>-->
     <!--            -->
     <!--</select>              -->
 
@@ -138,7 +180,14 @@
         <if test="createTime != null">
             AND create_time &gt; #{createTime,jdbcType=TIMESTAMP}
         </if>
+        AND (expred_time IS NULL)
         ORDER BY create_time DESC
     </select>
+    <delete id="delByTypeAndTriggerId">
+        delete from Message
+        where type = #{type,jdbcType=INTEGER}
+        AND  trigger_id = #{triggerId,jdbcType=INTEGER}
+    </delete>
+
 
 </mapper>

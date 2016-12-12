@@ -119,7 +119,7 @@
                             var val = !("true" == $(this).attr("data-val"));
                             User.updateState(id, val, initData);
                         })
-                        $("a.del").click(function () {
+                        $("a.delByTypeAndTriggerId").click(function () {
                             var id = $(this).attr("data-id");
                             User.del(id, initData);
                         });

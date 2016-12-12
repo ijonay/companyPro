@@ -18,7 +18,7 @@ public interface MessageMapper {
 
     int update(Message record);
 
-    int del(Integer id);
+    int delByTypeAndTriggerId(Integer id);
 
     List<Message> getColl(@Param("top") Integer top);
 
@@ -35,5 +35,7 @@ public interface MessageMapper {
 
 
     List<Message> getByType(@Param("type") Integer type, @Param("createTime") Date createTime);
+
+    int delByTypeAndTriggerId(@Param("type") Integer type, @Param("triggerId") Integer triggerId);
 
 }

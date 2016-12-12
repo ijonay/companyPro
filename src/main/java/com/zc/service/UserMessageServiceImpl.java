@@ -134,7 +134,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     private Message getLastMsgByTypeAndCreateTime(UserMessageTypeEnum type, Date createTime) {
         List<Message> msgList = messageMapper.getByType(type.getValue(), createTime);
         if (msgList.size() > 0)
-            return msgList.get(msgList.size() - 1);
+            return msgList.get(0);
         return null;
     }
 
