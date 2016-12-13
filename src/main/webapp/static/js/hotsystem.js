@@ -1565,7 +1565,16 @@ function loadSvg(){
        	                        color: ['#3398DB'],
        	                        tooltip : {
        	                            trigger: 'axis',
-       	                            formatter:'{b}:{c}'
+       	                            padding:[5,10],
+       	                            formatter:function(obj){
+       	                            	return '热度：'+obj[0].value+'</br>'+obj[0].name.substr(0,16)
+       	                            },
+       	                            axisPointer:{
+       	                            	type:'line',
+       	                            	lineStyle:{
+       	                            		color:'#00b1c5'
+       	                            	}
+       	                            }
        	                        },
        	                        grid: {
        	                            left: '3%',
@@ -1579,7 +1588,11 @@ function loadSvg(){
        	                                realtime: true,
        	                                start:100-(Math.floor(8/names.length*100)),
        	                                end: 100,
-       	                                height:20
+       	                                height:20,
+       	                                fillerColor:'rgba(91, 206, 205,0.8)',
+       	                                handleStyle: {
+       	                                 color: '#00b1c5'
+       	                                }
        	                            },
        	                            {
        	                                type: 'inside',
@@ -1600,10 +1613,11 @@ function loadSvg(){
        	                                },
        	                                splitLine:false,
        	                                axisLine:{
-       	                                    lineStyle:{color:'#ccc'}
+       	                                    lineStyle:{color:'#ccc'},
+       	                                    onZero:true
        	                                },
        	                                axisTick:{
-       	                                    show:false
+       	                                    show:true
        	                                },
        	                                data : names.map(function (str) {
        	                                    return str.replace(' ', '\n')
@@ -1634,6 +1648,18 @@ function loadSvg(){
        	                                    normal: {
        	                                        width: 1
        	                                    }
+       	                                },
+       	                                symbol:'circle',
+       	                                symbolSize:6,
+       	                                itemStyle:{
+       	                                	normal:{
+       	                                		color:'#00b1c5'
+       	                                	}
+       	                                },
+       	                                areaStyle:{
+       	                                	normal:{
+       	                                		color:'rgba(91, 206, 205,0.8)'
+       	                                	}
        	                                },
        	                                data:vals
        	                            }
@@ -2496,7 +2522,7 @@ $('#record-btn-index').on('click',function(){
 	$('.record-con2').hide();
 	$('.record-con1').show();
 	$('.record-con1').find('ul').addClass('hidecommon');
-	$('.record-con1').find('ul').eq(0).removeClass('hidecommon');
+	$('.record-con1').find('ul').removeClass('hidecommon');
 	$('.record-div').show();
 
 });

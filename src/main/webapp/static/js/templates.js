@@ -58,7 +58,7 @@ templates.design = {};
 (function(){
 	tmpl = [];
     tmpl.push('{{for data}}');
-	tmpl.push('{{if #index == 1}}<ul class="record-ul">{{else}}<ul class="record-ul hidecommon">{{/if}}');
+	tmpl.push('{{if #index == 0}}<ul class="record-ul">{{else}}<ul class="record-ul hidecommon">{{/if}}');
 	tmpl.push('<div>');
 	tmpl.push('<p>{{:name}}</p>');
 	tmpl.push('<p>{{:~addTag2(createTime)}}</p>');
