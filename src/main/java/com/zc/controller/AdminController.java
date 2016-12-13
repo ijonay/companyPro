@@ -69,6 +69,7 @@ public class AdminController {
         return "admin/hotspotmanager";
     }
 
+
     /**
      * Created by zhuzhzh .
      */
@@ -81,22 +82,23 @@ public class AdminController {
 
     }
 
-    @RequestMapping("/managetopic")
-    public String manageTopic(
-            @RequestParam(value = "keyword", required = false, defaultValue = "")
-                    String keyword, Model model
-    ) {
-        if (StringUtils.isNoneBlank(keyword)) {
-            model.addAttribute("keyword", keyword);
-            List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword);
-            if (topicModelList != null && topicModelList.size() > 0) {
+@RequestMapping("/managetopic")
+public String manageTopic(
+        @RequestParam(value = "keyword", required = false, defaultValue = "")
+        String keyword,@RequestParam(value = "keywordTitle", required = false, defaultValue = "")
+        String keywordTitle,Model model
+){
+    if(StringUtils.isNoneBlank(keyword) ){
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("keywordTitle", keywordTitle);
+        List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword,keywordTitle);
+        if( topicModelList!=null && topicModelList.size() > 0 ){
                 model.addAttribute("topicModelList", topicModelList);
             }
         }
 
         return "admin/managetopic";
     }
-
     @RequestMapping("/toaddtopic")
     public String addTopic() {
         return "admin/addtopic";

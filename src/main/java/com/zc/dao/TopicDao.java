@@ -11,8 +11,10 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface TopicDao {
     Integer add(Topic topic);
@@ -51,13 +53,19 @@ public interface TopicDao {
     int inactiveTopic(@Param("id") Integer id);
 
     int activeTopic(@Param("id") Integer id);
-
-    List<TopicModel> getTopicsByKeyword(@Param("keyword") String keyword);
+    
+    List<TopicModel> getTopicsByKeyword(Map map);
 
     int applyManual(@Param("id") Integer id);
 
     int cancelManual(@Param("id") Integer id);
 
     int syncInsertTopic(Topic topic);
+    
+	ArrayList<TopicModel> getTopHotTopic(Map map);
+	
+	
+
+	
 
 }

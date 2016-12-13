@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,22 @@ public class TopicApi extends BaseApi {
 
         return new ApiResultModel().data(topicService.getListExt(clueWord, searchModel, currentPage, pageSize));
 
+    }
+    /**
+     * 获取相似热点推荐(默认3个)
+     * @param id
+     * @param count
+     * @return
+     */
+    @RequestMapping(value = "getSimilarTopicList", method = RequestMethod.GET)
+    public List<TopicModel> getTopHotTopic( 
+            @RequestParam(value = "id") Integer id,
+            @RequestParam(value = "count", required = false, defaultValue = "3") int count
+            ) {
+              Map<String,Object> map=new HashMap<String,Object>();
+              map.put("id", id);
+              map.put("count", count);
+        return  topicService.getTopHotTopic(map);
 
     }
 

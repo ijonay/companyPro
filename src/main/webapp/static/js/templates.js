@@ -55,6 +55,39 @@ templates.design = {};
     templates.design['tmplNotifyList'] = tmpl.join('\r\n');
 
 })();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+	tmpl.push('{{if #index == 0}}<ul class="record-ul">{{else}}<ul class="record-ul hidecommon">{{/if}}');
+	tmpl.push('<div>');
+	tmpl.push('<p>{{:name}}</p>');
+	tmpl.push('<p>{{:~addTag2(createTime)}}</p>');
+	tmpl.push('</div>');
+	tmpl.push('<li>');
+	tmpl.push('<p>{{:version}}</p>');
+	tmpl.push('<p>{{:description}}</p>');
+	tmpl.push('</li>');
+	tmpl.push('</ul>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplRecordList'] = tmpl.join('\r\n');
+	  $.views.helpers({
+	        "addTag2": function (createTime) {
+	            if (createTime) {
+	            	 return new Date(parseInt(createTime)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");      
+	            }
+	        }
+	    });
+})();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+	tmpl.push('<li>');
+	tmpl.push('<p>{{:name}}<i class="fr f14 corlor4a">{{:~addTag2(createTime)}}</i></p>');
+	tmpl.push('<p>{{:introduction}}</p>');
+	tmpl.push('</li>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplRecordList2'] = tmpl.join('\r\n');
+})();
 (function () {
     tmpl = [];
     tmpl.push('{{for data}}');
@@ -65,7 +98,7 @@ templates.design = {};
 
     tmpl.push('       <li class="hot_trend">{{:prevailingTrend}}</li>');
     tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatUrl}}<a target="_blank" href={{:wechatUrl}}><div class="weixinIcon"></div></a>{{/if}}{{if baiduUrl}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuUrl}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
-    tmpl.push('       <li class="all_hot_list_top_source"><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
+    tmpl.push('       <li class="all_hot_list_top_source" data-id={{:id}}><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
 
     tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>受众画像</em><span class="hot_look_arrow"></span></li>');
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation" style="float:right;margin-right:20px;"><span>关联此热点</span></li>');
@@ -132,17 +165,15 @@ templates.design = {};
     tmpl.push('       </li>');
     tmpl.push('   {{/if}}');
     tmpl.push('	   </div>');
-    tmpl.push('	   <div class="bot_right fr">1231231图1231231图像1231231图像1231231图像1231231图像1231231图像1231231图像1231231图像1231231图像像');
+    tmpl.push('	   <div class="bot_right fr">');
     tmpl.push('	   </div>');
     tmpl.push('	   <div class="clearfix"></div>');
     tmpl.push('     <div class="hot_near_list">');
     tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
     tmpl.push('    	    <div class="hot_near_con">');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称1</em><i>88</i></p>');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称2热点名称2</em><i>818</i></p>');
-    tmpl.push('    	    <p><em class="word-ellipsis" title="热点名称1">热点名称3称2</em><i>100</i></p>');
+    
     tmpl.push('     	</div>');
-    tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
+    //tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
@@ -164,8 +195,6 @@ templates.design = {};
             }
         },
         "circleReset": function (index) {
-            console.log(index);
-            console.log(typeof index)
         }
     });
 })();
