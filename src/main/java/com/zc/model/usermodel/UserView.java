@@ -19,6 +19,18 @@ public class UserView {
      */
     private String company;
 
+
+    /**
+     * 是否是否初始化账号
+     */
+    private boolean firstUserAccount = false;
+
+    /**
+     * 是否含有系统更新
+     */
+    private boolean hasProjUpdate = false;
+
+
     /**
      * @创建人 zhuzhzh @创建时间 2016年6月2日 下午3:31:24
      */
@@ -77,4 +89,19 @@ public class UserView {
         return company;
     }
 
+    public boolean isFirstUserAccount() {
+        return firstUserAccount;
+    }
+
+    public void setFirstUserAccount(boolean firstUserAccount) {
+        this.firstUserAccount = firstUserAccount;
+    }
+
+    public boolean isHasProjUpdate() {
+        return hasProjUpdate;
+    }
+
+    public void setHasProjUpdate(boolean hasProjUpdate) {
+        this.hasProjUpdate = hasProjUpdate;
+    }
 }

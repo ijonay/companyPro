@@ -63,7 +63,7 @@
                     <div class="form-group col-sm-4">
                         <label for="frequency" class="col-sm-5 control-label">词频阈值：</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="frequency" value="2000"
+                            <input type="text" class="form-control" id="frequency" value="5000"
                                    onkeyup="this.value=this.value.replace(/\D/g,'')" data-role="val">
                         </div>
                     </div>

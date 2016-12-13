@@ -11,9 +11,10 @@
         <result column="company" jdbcType="VARCHAR" property="company"/>
         <result column="role" jdbcType="VARCHAR" property="role"/>
         <result column="isactive" jdbcType="BIT" property="isactive"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,  username,  nickname,  password,  salt,  avatar,  company,  role,  isactive     </sql>
+        id,  username,  nickname,  password,  salt,  avatar,  company,  role,  isactive,  create_time     </sql>
     <insert id="add" parameterType="com.zc.bean.Users"
             useGeneratedKeys="true" keyProperty="id">
         insert into users
@@ -42,6 +43,9 @@
             <if test="isactive != null">
                 isactive,
             </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userName != null">
@@ -67,6 +71,9 @@
             </if>
             <if test="isactive != null">
                 #{isactive,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -102,6 +109,9 @@
             <if test="isactive != null">
                 isactive = #{isactive,jdbcType=BIT},
             </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -111,11 +121,23 @@
         from users
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <!--<select id="getAll" resultMap="BaseResultMap">-->
-    <!--select-->
-    <!--<include refid="Base_Column_List"/>-->
-    <!--from users-->
+
+    <select id="getColl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        <if test="top != null">
+            limit #{top,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+    <!--<select id="getCollByPage" resultMap="BaseResultMap">-->
+    <!--    select-->
+    <!--    <include refid="Base_Column_List"/>-->
+    <!--    from users-->
     <!--</select>-->
+
     <!--<delete id="delAll">-->
     <!--delete from users-->
     <!--</delete>-->
@@ -125,7 +147,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM users
-        WHERE username = #{userName, jdbcType=VARCHAR}   AND  isactive=1
+        WHERE username = #{userName, jdbcType=VARCHAR} AND isactive=1
     </select>
 
     <select id="getByRole" parameterType="java.lang.String" resultMap="BaseResultMap">

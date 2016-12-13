@@ -70,6 +70,7 @@
         <foreach collection="words" open="(" close=")" index="index" item="item" separator=",">
             #{item,jdbcType=VARCHAR}
         </foreach>
+        and num &gt;=#{frequency,jdbcType=INTEGER}
     </select>
 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicTrendMapper">
+
+    <select id="getTopicTrendHistory" parameterType="java.lang.Integer" resultMap="BaseModelResultMap">
+
+        SELECT id, DATE_FORMAT(createdate,'%Y-%m-%d %H:00:00') as createdate,
+        tt.prevailing_trend
+        FROM topictrendhistory tt
+        where topic_id = #{id,jdbcType= INTEGER}
+        and prevailing_trend is not null
+        ORDER BY createdate ASC
+
+    </select>
+
+    <resultMap id="BaseModelResultMap"  type="com.zc.model.TopicTrendModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="createdate" jdbcType="VARCHAR" property="createDate"/>
+        <result column="prevailing_trend" jdbcType="INTEGER" property="prevailingTrend"/>
+    </resultMap>
+
+</mapper>

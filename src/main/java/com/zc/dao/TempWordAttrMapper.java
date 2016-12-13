@@ -5,6 +5,7 @@ import com.zc.bean.TempWordAttr;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface TempWordAttrMapper {
 
     int del(Integer id);
 
-    List<TempWordAttr> getCollByWords(@Param("words") List<String> words);
+    List<TempWordAttr> getCollByWords(@Param("words") Set<String> words, @Param("frequency") Integer frequency);
 
 //    List<TempWordAttr> getColl(Integer top);
 //

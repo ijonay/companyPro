@@ -18,8 +18,12 @@ import com.zc.model.KeyValueCollection;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
-import com.zc.utility.*;
+import com.zc.utility.CommonHelper;
+import com.zc.utility.Constant;
+import com.zc.utility.PropertyHelper;
+import com.zc.utility.WordVectorHelper;
 import com.zc.utility.exception.ServiceException;
+import com.zc.utility.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
@@ -502,10 +506,14 @@ public class TopicServiceImpl implements TopicService {
         return dao.activeTopic(id) > 0;
     }
 
-    public List<TopicModel> getTopicsByKeyword(String keyword) {
-        return dao.getTopicsByKeyword(keyword);
-    }
-
+    
+    @Override
+	public List<TopicModel> getTopicsByKeyword(String keyword, String keywordTitle) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("keyword", keyword);
+		map.put("keywordTitle", keywordTitle);
+		return dao.getTopicsByKeyword(map);
+	}
     public boolean update(Topic topic) {
         return dao.update(topic) > 0;
     }
@@ -521,4 +529,10 @@ public class TopicServiceImpl implements TopicService {
     public int syncInsertTopic(Topic topic){
         return  dao.syncInsertTopic(topic);
     }
+	
+	@Override
+	public ArrayList<TopicModel> getTopHotTopic(Map map) {
+		return dao.getTopHotTopic(map);
+	}
+	
 }

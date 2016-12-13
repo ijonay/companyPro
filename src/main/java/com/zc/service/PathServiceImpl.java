@@ -7,7 +7,6 @@ import com.zc.bean.Weibo;
 import com.zc.dao.TempWordAttrMapper;
 import com.zc.dao.WeiboDao;
 import com.zc.enumeration.StatusCodeEnum;
-import com.zc.model.MapModel;
 import com.zc.model.path.*;
 import com.zc.model.path.PathModel;
 import com.zc.model.weibo.WeiboItemModel;
@@ -179,9 +178,13 @@ public class PathServiceImpl implements PathService {
 
         effectLog.add("get endItem similarity");
 
-        List<MapModel<String, Object>> result = new ArrayList<>();
+
+//        List<MapModel<String, Object>> result = new ArrayList<>();
+
+        LinkedHashMap<String, HashMap<String, Object>> result1 = new LinkedHashMap<>();
 
         HashMap<String, Object> resultMap = new HashMap<>();
+
 
         if (Objects.nonNull(endItem)) {
 
@@ -193,16 +196,12 @@ public class PathServiceImpl implements PathService {
                         .getSimilarity
                                 () > 0) {
 
-                    result.add(new MapModel<String, Object>()
-                            .addModel("similarity", item.getValue().getSimilarity())
-                            .addModel("key", item.getKey())
-                    );
+                    HashMap<String, Object> r = new HashMap<>();
 
+                    r.put("similarity", item.getValue().getSimilarity());
+                    r.put("key", item.getKey());
 
-//                    if (i >= 3000) {
-//                        resultMap.put("error", "显示结果超出3000个 目前默认展示出前3000个结果！");
-//                        break;
-//                    }
+                    result1.put(item.getKey(), r);
 
                 } else {
                     break;
@@ -216,29 +215,41 @@ public class PathServiceImpl implements PathService {
 
         }
 
-        if (result.size() > 0) {
-
-            List<String> wordList = result.stream().map(p -> p.get("key")
-                    .toString())
-                    .collect
-                            (Collectors.toList());
-
-            List<TempWordAttr> words = tempWordAttrMapper.getCollByWords(wordList);
+        List<HashMap<String, Object>> result = new ArrayList<>();
 
 
-            words.stream().filter(p -> p.getNum() >= frequency).forEach(p ->
-                    result.stream().filter(q -> q.get("key").toString().equals(p.getName())).findFirst().get()
-                            .addModel("attr", p.getAttr())
-                            .addModel("num", p.getNum())
+        if (result1.size() > 0) {
 
-            );
+            Set<String> keys = result1.keySet();
+
+            List<TempWordAttr> words = tempWordAttrMapper.getCollByWords(keys, frequency);
+
+            Map<String, TempWordAttr> collect = new HashMap<>();
+
+            for (TempWordAttr item : words) {
+
+                if (!collect.containsKey(item.getName()))
+                    collect.put(item.getName(), item);
+
+            }
+
+            keys.retainAll(collect.keySet());
+
+            for (String key : keys) {
+
+                HashMap<String, Object> item = result1.get(key);
+                TempWordAttr tempWordAttr = collect.get(key);
+                item.put("attr", tempWordAttr.getAttr());
+                item.put("num", tempWordAttr.getNum());
+
+                result.add(item);
+
+            }
+
 
         }
 
-
-        resultMap.put("vals",
-                result.stream().filter(p -> Objects.nonNull(p.get("num"))).limit(3000).collect(Collectors.toList())
-        );
+        resultMap.put("vals", result.stream().limit(3000).collect(Collectors.toList()));
 
         return resultMap;
     }
@@ -286,19 +297,23 @@ public class PathServiceImpl implements PathService {
 
         log.add("generatePath_" + start.getName());
 
-        if (path.size() <= MAX_PATHLENGTH) {
-            if (isSatisfied(start.getName(), targetVector)) {
-                LinkedList<PathNode> tempPath = new LinkedList<>();
-                tempPath.addAll(path);
-                this.pathList.add(tempPath);
-                if (isFirst) {
-                    isFirst = false;
+        if (isSatisfied(start.getName(), targetVector)) {
+            LinkedList<PathNode> tempPath = new LinkedList<>();
+            tempPath.addAll(path);
+            this.pathList.add(tempPath);
+            if (isFirst) {
+                isFirst = false;
+                if( path.size() < MAX_PATHLENGTH ){
                     runRecursion(start.getName(), this.targetVector);
                 }
-            } else {
+
+            }
+        } else {
+            if ( path.size() < MAX_PATHLENGTH ) {
                 runRecursion(start.getName(), this.targetVector);
             }
         }
+
         log.add("generatePath_end");
         path.pop();
         onPath.remove(start.getName());

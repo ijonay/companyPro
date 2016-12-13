@@ -62,12 +62,20 @@ dataUrl.util = {
     delNotify:function(id){//单个删除通知
         return encodeURI('api/hotTopicMessage/del?id='+id);
     },
+    getHotTrend:function(id){//热点走势
+        return 'api/topicTrend/history/'+id;
+    },
+    getHotNearTrend:function(id){//相似热点
+        return 'api/topic/getSimilarTopicList?id='+id;
+    },
     delAllNotify:function(id){
         return encodeURI('api/hotTopicMessage/delAll?ids='+id)//删除所有通知
     },
     updatePwd:"api/account/changep"
     ,
-    getUserInfo:"api/account/info"//获取用户信息
+    getUserInfo:"api/account/info",//获取用户信息
+    getVersionsInfo:"api/proinfo/versions",//获取版本信息
+    updateStateChange:'api/proinfo/updatestate'
 }
 
 var chartsAttr = chartsAttr || {};

@@ -1,8 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags/admin"
-%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags/admin"%>
+<script src="../lib/jquery-1.12.0.min.js"></script>
 
+<script type="text/javascript">
+ $(function(){
+	 $("#topicSourceWeibo").change(function(){
+		 var url=$("#topicSourceWeibo").val();
+			if(url.indexOf("?") > 0){
+			$("#weibolabel").attr("hidden",false);
+			} else{
+				$("#weibolabel").attr("hidden",true);
+				}
+	});
+ })
+</script>
 <t:template>
     <jsp:attribute name="script"></jsp:attribute>
     <jsp:body>
@@ -60,11 +72,12 @@
                         <label class="col-sm-4 control-label">(以下链接至少填写1个)</label>
                     </div>
                 </div>
-
                 <div class="form-group">
+                   
                     <label for="topicSourceWeibo" class="col-sm-2 control-label">微博</label>
                     <div class="col-sm-8">
-                        <input type="text" name="manualTopicUrl" class="form-control" id="topicSourceWeibo">
+                        <input type="text" name="manualTopicUrl" class="form-control" id="topicSourceWeibo"  >
+                        <label hidden="ture" id="weibolabel" Style="color:red" >URL地址后面不能携带参数！</label>
                     </div>
                 </div>
 

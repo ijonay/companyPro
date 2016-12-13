@@ -1188,7 +1188,7 @@ function drawWord(data) {
         }
         $item = $("<div class='topic' data-id="+item.id+"></div>")
             .data("info",item).appendTo($("#canvas"));
-        $("<span class='icon " + sizeClass + "'></span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
+        $("<span class='icon " + sizeClass + "'><div class='iconCircle'></div></span><span class='link " + fontClass + "'>" + item.title + "</span>").appendTo($item);
         var itemWidth = $item.width();
         var itemHeight = $item.height();
         if(itemWidth > 180) {
@@ -1253,16 +1253,22 @@ function hitTest(elem, pointArr) {
 };
 //hover事件
 $(document).delegate('.topic','mouseover',function(){
-    if($(this).find('.link').hasClass("word-ellipsis")){
-        $(this).css("z-index","9").find('.link').removeClass("word-ellipsis").css({"width":"auto"});
-        $(this).css("left",$(this).position().left-($(this).width()-180)/2)
+    if(!$(this).hasClass("active")){
+        $(this).find(".icon").css("background-color","#389b9f").find(".iconCircle").css("display","block");
+        $(this).find(".link").css("font-weight","bold");
+        if($(this).find('.link').hasClass("word-ellipsis")){
+            $(this).css("z-index","9").find('.link').removeClass("word-ellipsis").css({"width":"auto"});
+            $(this).css("left",$(this).position().left-($(this).width()-180)/2)
+        }
     }
-});
-
-$(document).delegate('.topic','mouseout',function(){
-    if($(this).find('.link').width()>180){
-        $(this).css("left",$(this).position().left+($(this).width()-180)/2)
-        $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+}).delegate('.topic','mouseout',function(){
+    if(!$(this).hasClass("active")){
+        $(this).find(".icon").css("background-color","#a3a3a3").find(".iconCircle").css("display","none");
+        $(this).find(".link").css("font-weight","normal");
+        if($(this).find('.link').width()>180){
+            $(this).css("left",$(this).position().left+($(this).width()-180)/2)
+            $(this).css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+        }
     }
 });
 
@@ -1288,6 +1294,17 @@ $(document).delegate(".edit-word","click",function(){
     });
 }).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
     e ? e.stopPropagation() : event.cancelBubble = true;
+    var $activeItem=$(this).siblings("div.active");
+    if($activeItem.length>0){
+        $activeItem.removeClass("active")
+        $activeItem.find(".icon").css("background-color","#a3a3a3").find(".iconCircle").css("display","none");
+        $activeItem.find(".link").css("font-weight","normal");
+        if($activeItem.find('.link').width()>180){
+            $activeItem.css("left",$activeItem.position().left+($activeItem.width()-180)/2)
+            $activeItem.css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+        }
+    }
+    $(this).addClass("active");
     var hotInfo=$(this).data("info");
     var _left=$(this).position().left;
     var _top=$(this).position().top;
@@ -1355,6 +1372,16 @@ $(document).on('click', function(e) {//点击任意地方隐藏弹窗
 		$(".ser_dialog_close").click();
 	}
     $('.alertCon').css('display', 'none');
+    var $activeItem=$(".topic.active");
+    if($activeItem.length>0){
+        $activeItem.removeClass("active")
+        $activeItem.find(".icon").css("background-color","#a3a3a3").find(".iconCircle").css("display","none");
+        $activeItem.find(".link").css("font-weight","normal");
+        if($activeItem.find('.link').width()>180){
+            $activeItem.css("left",$activeItem.position().left+($activeItem.width()-180)/2)
+            $activeItem.css("z-index","0").find('.link').css("width","180px").addClass("word-ellipsis");
+        }
+    }
     $('.all_hot_list').css('display', 'none');
 });
 //关联热点
@@ -1398,7 +1425,178 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
         $(this).find(".hot_img_arrow").css("transform","rotate(180deg)");
         $(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
         $(this).css('color','#389b9f');
-    };      
+        $('.type-article').each(function(){
+			var str = $(this).text();
+			if(str.length>20){
+				$(this).attr('title',str);
+			}
+        });
+    };
+    var Dataids = $(this).data("id");
+    if($(".bot_right").find(".Prend").length <= 0){
+    	$(".bot_right").html("");
+        $.ajax({
+            type:"get",
+            url:dataUrl.util.getHotTrend(Dataids),
+            success:function(returndata){
+                if(returndata && returndata.data.length > 0){
+                    var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
+                    $(".bot_right").append(ageNewCon);
+                    var prendNewCharts = echarts.init(ageNewCon.get(0));
+                    var names = _.pluck(returndata.data, 'createDate');
+                    var vals = _.pluck(returndata.data, 'prevailingTrend');
+                    var option = {
+                            backgroundColor:"#fff",
+                            title: {
+                                text: '热点热度走势',
+                                left:'center',
+                                top:15,
+                                textStyle:{
+                                color:'#4a4a4a',
+                                fontFamily:'微软雅黑',
+                                fontSize:'16',
+                                fontWeight:'400'
+                              }
+                            },
+                            color: ['#3398DB'],
+                            tooltip : {
+                                trigger: 'axis',
+                                padding:[5,10],
+   	                            formatter:function(obj){
+   	                            	return '热度：'+obj[0].value+'</br>'+obj[0].name.substr(0,16)
+   	                            },
+   	                            axisPointer:{
+   	                            	type:'line',
+   	                            	lineStyle:{
+   	                            		color:'#00b1c5'
+   	                            	}
+   	                            }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '40',
+                                containLabel: true
+                            },
+                            dataZoom: [
+                                {
+                                    show: true,
+                                    realtime: true,
+                                    start:100-(Math.floor(8/names.length*100)),
+                                    end: 100,
+                                    height:20,
+                                    fillerColor:'rgba(91, 206, 205,0.8)',
+   	                                handleStyle: {
+   	                                 color: '#00b1c5'
+   	                                }
+                                },
+                                {
+                                    type: 'inside',
+                                    realtime: true,
+                                    start: 100-(Math.floor(8/names.length*100)),
+                                    end: 100,
+                                }
+                            ],
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    name : "时间",
+                                    nameLocation:"middle",
+                                    nameGap: -17,
+                                    scale:true,
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    },
+                                    splitLine:false,
+                                    axisLine:{
+                                        lineStyle:{color:'#ccc'},
+                                        onZero:true
+                                    },
+                                    axisTick:{
+                                        show:true
+                                    },
+                                    data : names.map(function (str) {
+                                        return str.replace(' ', '\n')
+                                    })
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value',
+                                    nameGap: 0,
+                                    splitLine:false,
+                                    axisLine:{
+                                        lineStyle:{color:'#ccc'}
+                                    },
+                                    axisLabel : {
+                                        formatter: '{value}'
+                                    },
+                                    axisTick:{
+                                        show:false
+                                    }
+                                }
+                            ],
+                            series: [
+                                {
+                                    name:'时间',
+                                    type:'line',
+                                    lineStyle: {
+                                        normal: {
+                                            width: 1
+                                        }
+                                    },
+                                    symbol:'circle',
+   	                                symbolSize:6,
+   	                                itemStyle:{
+   	                                	normal:{
+   	                                		color:'#00b1c5'
+   	                                	}
+   	                                },
+   	                                areaStyle:{
+   	                                	normal:{
+   	                                		color:'rgba(91, 206, 205,0.8)'
+   	                                	}
+   	                                },
+                                    data:vals
+                                }
+                            ]
+                        };
+                    prendNewCharts.setOption(option);
+                    window.onresize=prendNewCharts.resize;
+                }else{
+                    var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:100%;height:100%;background:#fff;text-align:center'></div>");
+                    var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
+                    ageNewCon.append(a);
+                    ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+                    $(".bot_right").append(ageNewCon);
+                }
+            }
+        });
+    };
+    
+    if($(".hot_near_con").find("p").length <= 0){
+    	 $(".hot_near_con").html('');
+         $.ajax({
+    	        type:"get",
+    	        url:dataUrl.util.getHotNearTrend(Dataids),
+    	        success:function(returndata){
+    	        	var str = '';
+    	        	if(returndata.length == 0){
+    	        		str+= '暂无数据';
+    	        		$(".hot_near_con").html(str);
+    	        	}else{
+    	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
+    	        		$.each(returndata,function(i,item){
+    	        		str+= '<p><em class="word-ellipsis" title="'+item.title+'">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
+    	        		});
+    	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
+    	        		$(".hot_near_con").html(str);
+    	        		}
+    	        	
+    	        	}
+    	 });
+	 };
+   
 });
 $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受众画像按钮
     $('.all_hot_list_bot').css('display','none');
@@ -1962,10 +2160,20 @@ var circleOption = {
 function initData($detail){//初始化详情弹窗
     var info=$detail.parents(".alertCon").data("info");
     var $li = $.templates(templates.design["tmplAllHotList"]);
+    var hotNum=info.prevailingTrend?info.prevailingTrend:0;
     $(".all_hot_list").html($li.render({data:[info]}));
+    $("<sapn class='hot_num'>"+hotNum+"</span>").prependTo($(".all_hot_list_top li.all_hot_top_topic"));
     $(".all_hot_list_top li.hot_relation").after("<li class='close_detail'></li>");
     $(".all_hot_list").css("display","block");   
 }
-$(document).delegate(".close_detail","click",function(){
+$(document).delegate(".close_detail","click",function(){//关闭热点详情
     $(".all_hot_list").css("display","none");
-})
+}).delegate(".all_hot_list_top .hot_relation","click",function(){//关联该热点
+    var id=parseInt($(this).data("id"));
+    var topic=$(this).data("topic");
+    if(topic.substr(0,1) == "#" && topic.substr(-1) == "#"){
+        topic = topic.split("#");
+        topic = topic[1];
+    }
+    window.location.href='newPath#query='+word+'&topicId='+id+"&hotTopic="+topic;
+});

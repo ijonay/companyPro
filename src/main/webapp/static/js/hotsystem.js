@@ -1,4 +1,5 @@
 //头部。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+var hotsystem_flag=true;
 $('#nav-head-search').on('click',function(){
 	var val = $.trim($('#nav_ser').val());
 	if(val){
@@ -47,6 +48,25 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		$('#favorite_set_btn').addClass('hidecommon');
 	});
 //添加常用
+	function deleteRepetion(arr)
+	{
+		var n = []; //一个新的临时数组
+		for(var i = 0; i < arr.length; i++) //遍历当前数组
+		{
+			//如果当前数组的第i已经保存进了临时数组，那么跳过，
+			//否则把当前项push到临时数组里面
+			var hasExit = false;
+			$.each(n,function(index,item){
+				if(item.name == unescape(arr[i].name)){
+					hasExit = true
+				}
+			})
+			if(!hasExit){
+				n.push({id:arr[i].id,name:unescape(arr[i].name)});
+			}
+		}
+		return n;
+	}
 	function getCommon(){
 		$("#favorite_ul").empty();
 		$.ajax({
@@ -59,10 +79,16 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				if(returnData.data != null && returnData.error.code == 0){
 					
 					var str = "";
+					var arr = [];
 					$.each(returnData.data,function(index,item){
 						if(index > 4) return;
-						str += "<li data-id='"+item.id+"' title='"+ unescape(item.words) +"'>"+unescape(item.words)+"<span></span></li>"
-					})
+						arr.push({id:item.id,name:item.words});
+					});
+					var newArr = deleteRepetion(arr);
+					$.each(newArr,function(index,item){
+						str += "<li data-id='"+item.id+"' title='"+ unescape(item.name) +"'>"+unescape(item.name)+"<span></span></li>"
+						
+					});
 					$("#favorite_ul").html(str);
 					if(returnData.data.length == 0){
 						$('.favorite_div').addClass('hidecommon');
@@ -168,6 +194,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 		//$('#cook_ul').addClass('hidecommon');
 	});
 	//获取历史记录
+	
 	getSetHistory()
 	function getSetHistory(){
 		$("#cook_ul").empty();
@@ -179,9 +206,16 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			success:function(returnData){
 				if(returnData.data != null && returnData.error.code == 0){
 					var str = "";
+					var arr = [];
 					$.each(returnData.data,function(index,item){
-						str += "<li data-id='"+item.id+"'>"+unescape(item.keyword)+"<span></span></li>"
-					})
+						arr.push({id:item.id,name:item.keyword});
+						//str += "<li data-id='"+item.id+"'>"+unescape(item.keyword)+"<span></span></li>"
+					});
+					var newArr = deleteRepetion(arr);
+					$.each(newArr,function(index,item){
+						//str += "<li data-id='"+item.id+"' title='"+ unescape(item.name) +"'>"+unescape(item.name)+"<span></span></li>"
+						str += "<li data-id='"+item.id+"'>"+unescape(item.name)+"<span></span></li>"
+					});
 					$("#cook_ul").html(str);
 				}
 			},
@@ -370,6 +404,32 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			$(this).addClass('hot_arrow_up');
 		}
 	});
+	//获取更新
+	var recordList = $.templates(templates.design["tmplRecordList"]);
+	var recordList2 = $.templates(templates.design["tmplRecordList2"]);	
+	
+	function recordLog(){
+		$.ajax({
+			type:"get",
+			contentType: 'application/json',
+		    dataType:"json",
+			url:dataUrl.util.getVersionsInfo,
+			success:function(returnData){
+				var str = '';
+				returndata = returnData;
+				if(returndata == null){
+					console.log('数据为空');
+				}else{
+					$("#record-ul-con").html(recordList.render(returndata));
+					$("#record-ul-2").html(recordList2.render(returndata));
+				}
+			},
+			error:function(){
+				console.log('获取标签列表失败');
+			}
+		});
+	}
+	
 	function labelList(){
 		$.ajax({
 			type:"get",
@@ -996,7 +1056,10 @@ var alertCon = $(".alertCon");
 var idArray = [1,2,3,4,5,6,7,8,9,10];
 var triangleStep = 35;
 var canClick = true;
+var viewCount = 0;
+var maxNode = 0;
 function loadSvg(){
+	viewCount++;
     var width = $("#papersvg").css("width");
     width = width.split("px")[0];
     paper = Raphael("papersvg",width,160);
@@ -1013,9 +1076,10 @@ function loadSvg(){
     	if(yMin > (scoreArray[i]-0)){
     		yMin = scoreArray[i];
     	}
-    	console.log(yMin);
+    	//console.log(yMin);
     	if(yMax < (scoreArray[i]-0)){
     		yMax = scoreArray[i];
+    		maxNode = i;
     	}
     }
     var step = yMax - yMin;
@@ -1073,6 +1137,9 @@ function loadSvg(){
         	textArray[i] = textArrayItem;
         	rectArray[i] = rectArrayItem;
         	hotArray[i] = hotArrayItem;
+        	if(maxNode == i){
+        		maxNode = rectArrayItem;
+        	}
         }
         rectArray.forEach(function(item,index){
         	item.hover(function(){
@@ -1119,6 +1186,9 @@ function loadSvg(){
                 }
         	})
         })
+        if(viewCount == 1){
+        	showAlert(maxNode)
+        }        
 //        for(var i=0;i<rectArray.length;i++){
 //        	rectArray[i].hover(function(){
 //        		textArray[i].animate({"font-size":"18"},700,"ease");
@@ -1131,6 +1201,7 @@ function loadSvg(){
 //        	});
 //        }
 }
+    
 };
     var setTime;
     window.onresize=function(){
@@ -1142,55 +1213,98 @@ function loadSvg(){
     	clearTimeout(setTime);
     	setTime = setTimeout(function(){    		
     		$("#papersvg").html('');
-            loadSvg();
+    		viewCount = 0;
+            loadSvg();            
     	},500)
     };
+    function showAlert(t){
+    	if(canClick){
+	    	 var index = t.data("index");
+	         var scrollY = window.scrollY;
+	         if(scrollY == undefined){
+	             scrollY = window.pageYOffset
+	         }
+	         var scrollX = window.scrollX;
+	         if(scrollX == undefined){
+	             scrollX = window.pageXOffset
+	         }
+	         var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
+	         var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
+	         if(viewCount == 1){
+	        	 Y -= 8;
+	        	 X += 9;
+	         }
+	         var trianglePos = triangleStep * (index + 1);
+	         $(".triangle").css("left",trianglePos);
+	         $(".hotValue").html(scoreArray[index]);
+	         $(".infoTitle").html(titleArray[index]);
+	
+	         $(".portrait").css("background-image","url("+imageArray[index]+")");
+	         $(".infoText").html(introArray[index]);
+	         $(".infoText").attr("title",introArray[index]);
+	         $(".infoConnect").attr("data-id",hotIdArray[index]);
+	         $(".infoConnect").attr("data-index",index);
+	         $(".infoConnect").attr("data-topic",titleArray[index]);
+	         $(".infoIcon").hide();	
+	         $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
+	         if(alertCon.css("display") != "none"){
+	         	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
+	         }else{
+	         	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
+	         	alertCon.show();
+	         	alertCon.animate({opacity:1},500);
+	         }
+	         $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
+	         viewCount++;
+    	}
+    }
     function nodeClick(e,t){
     	$('#cook_ul').addClass('hidecommon');
     	if(canClick){
     		e ? e.stopPropagation() : event.cancelBubble = true;
-            var index = t.data("index");
-            var scrollY = window.scrollY;
-            if(scrollY == undefined){
-                scrollY = window.pageYOffset
-            }
-            var scrollX = window.scrollX;
-            if(scrollX == undefined){
-                scrollX = window.pageXOffset
-            }
-            var jqObj = $("rectArray[index].node");
-            var offset = jqObj.offset();
-            var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
-            var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
-            var trianglePos = triangleStep * (index + 1);
-            $(".triangle").css("left",trianglePos);            
-            $(".hotValue").html(scoreArray[index]);
-            $(".infoTitle").html(titleArray[index]);
-//            var divH = $(".hotInfo").height();
-//            var $p = $(".infoConnect");
-//            while ($p.outerHeight() > divH) {
-//                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
-//            };
-            $(".portrait").css("background-image","url("+imageArray[index]+")");
-            $(".infoText").html(introArray[index]);
-            $(".infoText").attr("title",introArray[index]);
-            $(".infoConnect").attr("data-id",hotIdArray[index]);
-            $(".infoConnect").attr("data-index",index);
-            $(".infoConnect").attr("data-topic",titleArray[index]);
-            $(".infoIcon").hide();
-//            $(".iconCon a").hide();
-//            $.each(formArray[index],function(index,item){
-//            	$("#icon"+item).show();
-//            })
-            $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
-            if(alertCon.css("display") != "none"){
-            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
-            }else{
-            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
-            	alertCon.show();
-            	alertCon.animate({opacity:1},500);
-            }
-            $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
+    		showAlert(t);    		
+//            var index = t.data("index");
+//            var scrollY = window.scrollY;
+//            if(scrollY == undefined){
+//                scrollY = window.pageYOffset
+//            }
+//            var scrollX = window.scrollX;
+//            if(scrollX == undefined){
+//                scrollX = window.pageXOffset
+//            }
+//            var jqObj = $("rectArray[index].node");
+//            var offset = jqObj.offset();
+//            var X = rectArray[index].node.getBoundingClientRect().left + document.documentElement.scrollLeft;
+//            var Y = rectArray[index].node.getBoundingClientRect().top + document.documentElement.scrollTop;
+//            var trianglePos = triangleStep * (index + 1);
+//            $(".triangle").css("left",trianglePos);            
+//            $(".hotValue").html(scoreArray[index]);
+//            $(".infoTitle").html(titleArray[index]);
+////            var divH = $(".hotInfo").height();
+////            var $p = $(".infoConnect");
+////            while ($p.outerHeight() > divH) {
+////                $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+////            };
+//            $(".portrait").css("background-image","url("+imageArray[index]+")");
+//            $(".infoText").html(introArray[index]);
+//            $(".infoText").attr("title",introArray[index]);
+//            $(".infoConnect").attr("data-id",hotIdArray[index]);
+//            $(".infoConnect").attr("data-index",index);
+//            $(".infoConnect").attr("data-topic",titleArray[index]);
+//            $(".infoIcon").hide();
+////            $(".iconCon a").hide();
+////            $.each(formArray[index],function(index,item){
+////            	$("#icon"+item).show();
+////            })
+//            $(".hotAlertTag").html(tagArray[hotIdArray[index]]);
+//            if(alertCon.css("display") != "none"){
+//            	alertCon.animate({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY},450);
+//            }else{
+//            	alertCon.css({left:X - trianglePos + 12 + scrollX,top:Y - 160 + scrollY,opacity:0});
+//            	alertCon.show();
+//            	alertCon.animate({opacity:1},500);
+//            }
+//            $(".planText").css("margin-left",(262-75-72-$(".hotLeft").width())/2);
     	}else{
 //        	$("#comeback_hot").click();
         }
@@ -1279,14 +1393,21 @@ function loadSvg(){
 	   $('.notify-list').css('display',"none");
 	   $('.nav_ser').delay("fast").fadeIn();
 	   $(".all_hot_list_bot").hide();
-	   $(".all_hot_list_bot:eq(0)").show();
 	   $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
 	   $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
    	   $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
+   	   if(hotsystem_flag) $('.all_hot_list_top_source:first').click();
+		$('.type-article').each(function(){
+				var str = $(this).text();
+				if(str.length>20){
+					$(this).attr('title',str);
+				}
+		});
    }); 
    //返回首页
     $('#comeback_hot').on('click',function(){
        canClick = true;
+       hotsystem_flag=true;
        for(var i=0,j=rectArray.length;i<j;i++){
            rectArray[i].attr({cursor:"pointer"});
            hotArray[i].attr({cursor:"pointer"});
@@ -1388,7 +1509,8 @@ function loadSvg(){
     	var child = $this.children();
     	child[4].click();
     })
-    
+     //var hotTopicSimilar = $.templates(templates.design["tmplHotTopticSimilar"]); 
+    	// var recordList2 = $.templates(templates.design["tmplRecordList2"]);
     $(document).on('click','.all_hot_list_top_source',function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
     	$('.all_hot_list_top_look').css('color','#4a4a4a');
@@ -1410,7 +1532,177 @@ function loadSvg(){
     		$(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
     		$(this).parent().parent().parent().find('em').css("color","#4a4a4a");
     		$(this).find('em').css('color','#389b9f');
-    	};    	
+    	};  
+    	var _this = $(this);
+    	var Dataids = _this.data("id");
+    	if(_this.parent().next().find(".bot_right .Prend").length <= 0){
+       	 _this.parent().next().find(".bot_right").html("");
+       	    $.ajax({
+       	        type:"get",
+       	        url:dataUrl.util.getHotTrend(Dataids),
+       	        success:function(returndata){
+       	            if(returndata && returndata.data.length > 0){
+       	                var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
+       	                _this.parent().next().find(".bot_right").append(ageNewCon);
+       	                //console.log(_this.parent().next().find(".bot_right").height())
+       	               // console.log(ageNewCon.get(0).width())
+       	                var prendNewCharts = echarts.init(ageNewCon.get(0));
+       	                var names = _.pluck(returndata.data, 'createDate');
+       	                var vals = _.pluck(returndata.data, 'prevailingTrend');
+       	                var option = {
+       	                        backgroundColor:"#fff",
+       	                        title: {
+       	                            text: '热点热度走势',
+       	                            left:'center',
+       	                            top:15,
+       	                            textStyle:{
+       	                            color:'#4a4a4a',
+       	                            fontFamily:'微软雅黑',
+       	                            fontSize:'16',
+       	                            fontWeight:'400'
+       	                          }
+       	                        },
+       	                        color: ['#3398DB'],
+       	                        tooltip : {
+       	                            trigger: 'axis',
+       	                            padding:[5,10],
+       	                            formatter:function(obj){
+       	                            	return '热度：'+obj[0].value+'</br>'+obj[0].name.substr(0,16)
+       	                            },
+       	                            axisPointer:{
+       	                            	type:'line',
+       	                            	lineStyle:{
+       	                            		color:'#00b1c5'
+       	                            	}
+       	                            }
+       	                        },
+       	                        grid: {
+       	                            left: '3%',
+       	                            right: '4%',
+       	                            bottom: '40',
+       	                            containLabel: true
+       	                        },
+       	                        dataZoom: [
+       	                            {
+       	                                show: true,
+       	                                realtime: true,
+       	                                start:100-(Math.floor(8/names.length*100)),
+       	                                end: 100,
+       	                                height:20,
+       	                                fillerColor:'rgba(91, 206, 205,0.8)',
+       	                                handleStyle: {
+       	                                 color: '#00b1c5'
+       	                                }
+       	                            },
+       	                            {
+       	                                type: 'inside',
+       	                                realtime: true,
+       	                                start: 100-(Math.floor(8/names.length*100)),
+       	                                end: 100,
+       	                            }
+       	                        ],
+       	                        xAxis : [
+       	                            {
+       	                                type : 'category',
+       	                                name : "时间",
+       	                                nameLocation:"middle",
+       	                                nameGap: -17,
+       	                                scale:true,
+       	                                axisTick: {
+       	                                    alignWithLabel: true
+       	                                },
+       	                                splitLine:false,
+       	                                axisLine:{
+       	                                    lineStyle:{color:'#ccc'},
+       	                                    onZero:true
+       	                                },
+       	                                axisTick:{
+       	                                    show:true
+       	                                },
+       	                                data : names.map(function (str) {
+       	                                    return str.replace(' ', '\n')
+       	                                })
+       	                            }
+       	                        ],
+       	                        yAxis : [
+       	                            {
+       	                                type : 'value',
+       	                                nameGap: 0,
+       	                                splitLine:false,
+       	                                axisLine:{
+       	                                    lineStyle:{color:'#ccc'}
+       	                                },
+       	                                axisLabel : {
+       	                                    formatter: '{value}'
+       	                                },
+       	                                axisTick:{
+       	                                    show:false
+       	                                }
+       	                            }
+       	                        ],
+       	                        series: [
+       	                            {
+       	                                name:'时间',
+       	                                type:'line',
+       	                                lineStyle: {
+       	                                    normal: {
+       	                                        width: 1
+       	                                    }
+       	                                },
+       	                                symbol:'circle',
+       	                                symbolSize:6,
+       	                                itemStyle:{
+       	                                	normal:{
+       	                                		color:'#00b1c5'
+       	                                	}
+       	                                },
+       	                                areaStyle:{
+       	                                	normal:{
+       	                                		color:'rgba(91, 206, 205,0.8)'
+       	                                	}
+       	                                },
+       	                                data:vals
+       	                            }
+       	                        ]
+       	                    };
+       	                prendNewCharts.setOption(option);
+       	                window.onresize=prendNewCharts.resize;
+       	            }else{
+       	                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:100%;height:100%;background:#fff;text-align:center'></div>");
+       	                var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
+       	                ageNewCon.append(a);
+       	                ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+       	                _this.parent().next().find(".bot_right").append(ageNewCon);
+       	            }
+       	        }
+       	    });
+    	 };
+    	
+    	if(_this.parent().next().find(".hot_near_con .p").length <= 0){
+    		 $(".hot_near_con").html('');
+        	 $.ajax({
+     	        type:"get",
+     	        url:dataUrl.util.getHotNearTrend(Dataids),
+     	        success:function(returndata){
+     	        	var str = '';
+     	        	//console.log(returndata)
+     	        	if(returndata.length == 0){
+     	        		
+     	        		str+= '暂无数据';
+     	        		_this.parent().next().find(".hot_near_con").html(str);
+     	        	}else{
+     	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
+     	        		$.each(returndata,function(i,item){
+     	        		str+= '<p><em class="word-ellipsis" title="'+item.title+'">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
+     	        		});
+     	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
+     	        		_this.parent().next().find(".hot_near_con").html(str);
+     	        		}
+     	        	
+     	        	}
+     	        });
+ 	    };
+	    
     });
   
  
@@ -2005,6 +2297,7 @@ function loadSvg(){
             		return
             	}
             	$(".all_hot_list").html(hotList2.render(returnData));
+            	
             	$('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
             	$('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
 //            	$('.all_hot_list_top_source:first').find('.em').css("color","url(img/card-detail-hover.png)");
@@ -2075,17 +2368,87 @@ function loadSvg(){
             }
         });
     }
+    var updateState = true;
+    function getUpdateInfo(){
+    	var data = {
+    		first:true
+    	}
+    	$.ajax({
+    	    type: "get",
+    	    url: dataUrl.util.getUserInfo,
+    	    data:data,
+    	    success: function(returnData) {
+    	        if(returnData.error.code == 0 && returnData.data){
+    	            var  res=returnData.data;
+    	            if(res.firstUserAccount){
+    	            	//用户引导/
+    	            	$('.hot-user-guide').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            	});
+    	            	$('.hot-user-guide').show();
+    	            	$('.hot-user-tep1').show();
+    	            	$('.hot-user-tep1').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep1').hide();
+    	            		$('.hot-user-tep2').show();
+    	            	});
+    	            	$('.hot-user-tep2').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep2').hide();
+    	            		$('.hot-user-tep3').show();
+    	            	});
+    	            	$('.hot-user-tep3').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		var left = parseInt($('.alertCon').css('left')),
+    	            	    top = parseInt($('.alertCon').css('top'));
+    	            		$('.hot-user-tep3').hide();
+    	            		$('.hot-user-tep4').css({'left':left+170,'top':top-170});
+    	            		$('.hot-user-tep4').show();
+    	            	});
+    	            	$('.hot-user-tep4').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		var left = parseInt($('.alertCon').css('left')),
+    	            	    	top = parseInt($('.alertCon').css('top'));
+    	            		$('.hot-user-tep5').css({'left':left+65,'top':top+100});
+    	            		$('.hot-user-tep4').hide();
+    	            		$('.hot-user-tep5').show();
+    	            	});
+    	            	$('.hot-user-tep5').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep5').hide();
+    	            		$('.hot-user-tep6').show();
+    	            	});
+    	            	$('.hot-user-tep6').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep6').hide();
+    	            		$('.hot-user-tep7').show();
+    	            	});
+    	            	$('.hot-user-tep7').on('click',function(e){
+    	            		e ? e.stopPropagation() : event.cancelBubble = true;
+    	            		$('.hot-user-tep7').hide();
+    	            		$('.hot-user-guide').hide();
+    	            	});
+    	            }else if(res.hasProjUpdate){
+    	            	$('#record-btn-index').click();
+    	            }
+    	            updateState = res.hasProjUpdate;
+    	        }
+    	    }
+    	});
+    }
+    
     function clearChat(a){
     	a.value=a.value.replace(/[^\d]/g,'')
     }
     $(".hotInfo").on("click",function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
+    	hotsystem_flag=false;
 //    	var index = $(".infoConnect").attr("data-index");
     	var index = $(".infoConnect").attr("data-id");
     	$("#allHot").click();
     	$(".all_hot_list_bot").hide();
     	$(".hot_echart_list").addClass('hidecommon');
-    	$("#ulBottom"+index).show();
+    	$("#ulBottom"+index).prev().find('.all_hot_list_top_source').click();
     	setTimeout(function(){
     		var a = $("#ulBottom"+index).offset().top;
     		a -= 450;
@@ -2132,6 +2495,7 @@ $(".hotDetailInfo").on("click",function(){
 	$(".hotInfo").click();
 })
 $(".userProfile").on("click",function(){
+    hotsystem_flag=false;
 	var itemIndex = $(".infoConnect").attr("data-id");
 	$("#allHot").click();
 	$(".all_hot_list_bot").hide();
@@ -2147,4 +2511,75 @@ $(".userProfile").on("click",function(){
 	    	},250)
 		}
 	})
+});
+//更新记录
+
+$('#record-btn-index').on('click',function(){
+	if($("#record-ul-2").children().length == 0){
+		recordLog();
+	}
+	$('.record-div').css({'width':'100%','height':'100%','top':0});
+	$('.record-con2').hide();
+	$('.record-con1').show();
+	$('.record-con1').find('ul').addClass('hidecommon');
+	$('.record-con1').find('ul').removeClass('hidecommon');
+	$('.record-div').show();
+
+});
+$('#record-btn-log').on('click',function(){
+	$('.record-con1').hide();
+	$('.record-con2').show();
+});
+$('#record-btn-near').on('click',function(){
+	$('.record-con2').hide();
+	$('.record-con1').show();
+});
+
+$('.record-con2 .record-ul').delegate('li','click',function(){
+	var index = $(this).index();
+	$('.record-con1').find('ul').addClass('hidecommon');
+	$('.record-con1').find('ul').eq(index).removeClass('hidecommon');
+	$('.record-con2').hide();
+	$('.record-con1').show();
 })
+
+$('.record-btn-b-r').on('click',function(){
+	var top = $("#record-btn-index").offset().top;
+	var eleHeight = $('.record-con1').height();
+	$('.record-div').animate({'left': 0,'top': top+10,'width':0,'height':0},500);
+	$('.record-div').delay(500).hide(0);
+})
+window.onload = function(){
+	getUpdateInfo();
+}
+function loadJS(src, callback){
+    var script = document.createElement('script');
+    var head = document.getElementsByTagName('head')[0];
+    var loaded;
+    script.src = src;
+    script.onload = script.onreadystatechange = function(){
+        if(!loaded && (!script.readyState || /loaded|complete/.test(script.readyState))){
+            script.onload = script.onreadystatechange = null;
+            loaded = true;
+            callback();
+        }
+    }
+    head.appendChild(script);
+}
+
+function updateStateChange(){
+	if(updateState){		
+		$.ajax({
+			type:"post",
+	//		contentType: 'application/json',
+	//	    dataType:"json",
+			url:dataUrl.util.updateStateChange,
+			success:function(returnData){
+				
+			},
+			error:function(){
+				console.log('更改更新通知状态失败');
+			}
+		});
+	}
+}
