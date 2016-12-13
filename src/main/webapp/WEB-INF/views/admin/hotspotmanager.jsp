@@ -263,12 +263,12 @@
                             var val = ("1" == $(this).attr("data-val")) ? 0 : 1;
                             Hotspot.updateState(id, val, initData);
                         })
-                        $("a.del").click(function (e) {
+                        $("a.delByTypeAndTriggerId").click(function (e) {
                             e.preventDefault();
                             var id = $(this).attr("data-id");
                             if (confirm("确定要删除吗？"))
                                 Hotspot.updateState(id, 0, initData);
-//                                Hotspot.del(id, initData);
+//                                Hotspot.delByTypeAndTriggerId(id, initData);
                         });
                         $("a.edit").click(function (e) {
                             e.preventDefault();

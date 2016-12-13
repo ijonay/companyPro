@@ -3,8 +3,6 @@ package com.zc.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.zc.utility.page.Page;
 
 import com.zc.bean.Message;
 import com.zc.dao.MessageMapper;
@@ -22,7 +20,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public boolean del(Integer id) {
-        return messageMapper.del(id) > 0;
+        return messageMapper.delByTypeAndTriggerId(id) > 0;
     }
 
     @Override
