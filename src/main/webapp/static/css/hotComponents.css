@@ -141,18 +141,167 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
     display: inline-block;
 }
 
-/* ui新样式    */
-.hot_near_list{background:#eff4f5;height:50px;margin-left:30px;margin-right:40px;padding-top:15px;border-top:1px solid #dee1e3;}
-.hot_near_list div{display:inline-block;}
-.hot_near{color:#4a4a4a;margin-right:14px;}
-.hot_near_list .hot_near_all{float:right;cursor: pointer;font-size:14px;color:#4a4a4a;}
-.hot_near_all span{color:#ccc;margin-left:2px;}
-.hot_near_con p{display:inline;margin-right:10px;font-size:14px;background:#fff;padding:3px 14px;border-radius:50px;max-width:124px;line-height:12px;}
-.hot_near_con p em{color:#4a4a4a;margin-right:10px;max-width:100px;display:inline-block;}
-.hot_near_con p em:hover{color:#389b9f;}
-.hot_near_con p i{color:#ed5e20;}
+/* 相似热点    */
+.hot_near_list{background:#eff4f5;margin-left:30px;margin-right:40px;padding-top:15px;border-top:1px solid #dee1e3;}
+.hot_near_list .hot_near_list_head{height:18px;line-height:18px;color:#4a4a4a;}
+.hot_near_list .hot_near_list_head .hot_near_refresh{cursor:pointer;}
+.hot_near_list .hot_near_list_head .hot_near_refresh:hover{color:rgb(56, 155, 159);}
+.hot_near_list .hot_near_con{height:159px;margin-top:15px;padding-bottom:15px;overflow:hidden;position:relative;}
+.hot_near_list .hot_near_con .near_error{
+	font-size:16px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%);
+    -moz-transform:translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+    -o-transform:translate(-50%,-50%);
+}
+.hot_near_list .hot_near_con .hot_near_pnl{
+    max-width:428px;
+    width: -o-calc((100% - 10px)/3);
+    width: calc-moz-((100% - 10px)/3);
+    width: calc-ms-((100% - 10px)/3);
+    width: -webkit-calc((100% - 10px)/3);
+    width: calc((100% - 10px)/3);
+    height:144px;
+    margin-right:5px;
+    box-sizing: border-box;
+    background-color:#fff;
+    border-radius: 2px;
+    display:inline-block;
+    float:left;
+}
+.hot_near_list .hot_near_con .hot_near_pnl:last-child{margin-right:0px;}
+.hot_near_list .hot_near_con .hot_near_pnl .near_portrait{
+    float:left;
+    width:144px;
+    height:144px;
+    background-size:100%;
+    background-position:center;
+    margin-right: 10px;
+    padding: 0;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_info{
+    float:left;
+    max-width:274px;
+    width: -o-calc(100% - 154px);
+    width: calc-moz-(100% - 154px);
+    width: calc-ms-(100% - 154px);
+    width: -webkit-calc(100% - 154px);
+    width: calc(100% - 154px);
+    padding:12px 12px 12px 0;
+    height:144px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_infoTop{
+    width:100%;
+    height:22px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_infoTitle{
+    float:left;
+    display: inline-block;
+    max-width:178px;
+    width: -o-calc(100% - 80px);
+    width: calc-moz-(100% - 80px);
+    width: calc-ms-(100% - 80px);
+    width: -webkit-calc(100% - 80px);
+    width: calc(100% - 80px);
+    height:22px;
+    line-height: 22px;
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_infoConnect{
+    float: right;
+    display: inline-block;
+    width: 80px;
+    height: 22px;
+    line-height: 12px;
+    font-size: 12px;
+    margin:0;
+    padding:5px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 11px;
+    background-color: #389b9f;
+    color:#fff;
+    cursor:pointer;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_hotLabel{
+    margin-top:8px;
+    font-size: 12px;
+    color:#4a4a4a;
+    display: inline-block;
+    width: 100%;
+    height:20px;
+    line-height:20px;
+    overflow:hidden;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_hotLabel div{
+    background:#e8ebed;
+    padding:0 8px;
+    float:left;
+    margin-right:6px;
+    max-width:91px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    border-radius:2px;
+}
 
-
+.hot_near_list .hot_near_con .hot_near_pnl .near_hotInfo{
+    margin-top:4px;
+    font-size: 12px;
+    width: 100%;
+    height:32px;
+    overflow: hidden;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_infoText{
+    overflow: hidden;
+    display: box;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    line-height: 17px;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    word-break: break-all;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_infoBottom{
+    display: inline-block;    
+    width:100%;
+    height:24px;
+    line-height:24px;
+    margin-top:8px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_hotIcon{
+    height:100%;
+    width:12px;
+    background:url(../img/hotIcon.png) no-repeat center;
+    margin-right:5px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_hotValue{
+    font-size: 14px;
+    line-height:24px;
+    font-weight:bold;
+}
+.font14{
+    font-size: 14px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_iconCon a{
+    width:16px;
+    height:24px;
+    background-position:center;
+    background-repeat:no-repeat;
+    margin-left:5px;
+    display:inline-block;
+    float:left;
+}
 
 /* echart */
 .hot_echart_list{position:relative;/*height:300px;*/background:#EEF3F4;color:#fff;padding:10px 20px;/*text-align:center*/}
