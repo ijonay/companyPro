@@ -1675,26 +1675,25 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
         });
     };
     
-    if($(".hot_near_con").find("p").length <= 0){
-    	 $(".hot_near_con").html('');
+    if($(".hot_near_con").find(".pnlNear").length <= 0){
          $.ajax({
     	        type:"get",
     	        url:dataUrl.util.getHotNearTrend(Dataids),
     	        success:function(returndata){
-    	        	var str = '';
     	        	if(returndata.length == 0){
-    	        		str+= '暂无数据';
-    	        		$(".hot_near_con").html(str);
+    	        		$(".hot_near_con").html("<div class='pnlNear near_error'>暂无数据</div>");
     	        	}else{
-    	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
-    	        		$.each(returndata,function(i,item){
-    	        		str+= '<p><em class="word-ellipsis" title="'+item.title+'">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
-    	        		});
-    	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
-    	        		$(".hot_near_con").html(str);
-    	        		}
-    	        	
+    	        	    $.each(returndata,function(idx,item){
+    	        	        var typeArr=[];
+    	        	        if(item.eventClass){
+    	        	            typeArr=item.eventClass.split(",");
+    	        	        }
+    	        	        item.eventClass=typeArr
+    	        	    })
+    	        	    var $item = $.templates(templates.design["tmplHotNear"]);
+    	        		$(".hot_near_con").html($item.render({data:returndata}));
     	        	}
+    	        }
     	 });
 	 };
    
@@ -2269,7 +2268,7 @@ function initData($detail){//初始化详情弹窗
 }
 $(document).delegate(".close_detail","click",function(){//关闭热点详情
     $(".all_hot_list").css("display","none");
-}).delegate(".all_hot_list_top .hot_relation","click",function(){//关联该热点
+}).delegate(".all_hot_list_top .hot_relation,.near_infoConnect","click",function(){//关联该热点
     var id=parseInt($(this).data("id"));
     var topic=$(this).data("topic");
     if(topic.substr(0,1) == "#" && topic.substr(-1) == "#"){

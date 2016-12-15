@@ -1388,7 +1388,7 @@ function loadSvg(){
 //    		$("#comeback_hot").click()
 //    	}    	
 //    })
-    $(document).on("click",".hot_relation,.infoConnect",function(){
+    $(document).on("click",".hot_relation,.infoConnect,.near_infoConnect",function(){
     	var $this = $(this);
     	var index = $this.attr("data-index");
 //    	if(index < 10){
@@ -1752,30 +1752,27 @@ function loadSvg(){
        	    });
     	 };
     	
-    	if(_this.parent().next().find(".hot_near_con .p").length <= 0){
-    		 $(".hot_near_con").html('');
-        	 $.ajax({
-     	        type:"get",
-     	        url:dataUrl.util.getHotNearTrend(Dataids),
-     	        success:function(returndata){
-     	        	var str = '';
-     	        	//console.log(returndata)
-     	        	if(returndata.length == 0){
-     	        		
-     	        		str+= '暂无数据';
-     	        		_this.parent().next().find(".hot_near_con").html(str);
-     	        	}else{
-     	        		//str += '<div class="hot_near_list"><div class="hot_near f16">相似热点推荐：</div><div class="hot_near_con">';
-     	        		$.each(returndata,function(i,item){
-     	        		str+= '<p><em class="word-ellipsis" title="'+item.title+'">'+item.title+'</em><i>'+item.prevailingTrend+'</i></p>'
-     	        		});
-     	        		//str+= '</div><div class="hot_near_all">查看全部<span>></span></div></div>';
-     	        		_this.parent().next().find(".hot_near_con").html(str);
-     	        		}
-     	        	
-     	        	}
-     	        });
- 	    };
+    	if(_this.parent().next().find(".hot_near_con .pnlNear").length <= 0){
+    	    $.ajax({
+                type:"get",
+                url:dataUrl.util.getHotNearTrend(Dataids),
+                success:function(returndata){
+                    if(returndata.length == 0){
+                        _this.parent().next().find(".hot_near_con").html("<div class='pnlNear near_error'>暂无数据</div>");
+                    }else{
+                        $.each(returndata,function(idx,item){
+                            var typeArr=[];
+                            if(item.eventClass){
+                                typeArr=item.eventClass.split(",");
+                            }
+                            item.eventClass=typeArr
+                        })
+                        var $item = $.templates(templates.design["tmplHotNear"]);
+                        _this.parent().next().find(".hot_near_con").html($item.render({data:returndata}));
+                    }
+                }
+    	    });
+ 	    }
 	    
     });
   
