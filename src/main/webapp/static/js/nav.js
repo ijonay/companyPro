@@ -593,7 +593,7 @@ $(document).delegate(".notify-tab-list>li","click",function(){
         });
     }
 }).delegate(".notify-infoConnect","click",function(){
-    var topicId=$(this).parents("li").data("topicId");
+    var topicId=$(this).parents("li").data("topicid");
     var query=$(this).parents("li").find(".hot-word").text();
     var hotTopic=$(this).parents("li").find(".hot-spot").text();
     window.location.href='newPath#query='+query+'&topicId='+topicId+"&hotTopic="+hotTopic;
