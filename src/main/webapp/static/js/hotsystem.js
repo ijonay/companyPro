@@ -376,9 +376,11 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+	labelList();
+	$('#ser_dialog').removeClass('hidecommon');
 	$('#ser_btn_high').on('click',function(){
-		labelList();
-		$('#ser_dialog').removeClass('hidecommon');
+//		labelList();
+//		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
 	$('.dialog_area .ser_dialog_close').on('click',function(){
@@ -498,75 +500,76 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	//高级探索弹窗搜索
 	$('#dialog_ser_text').keyup(function(event){
 		if(event.keyCode == "13") {
-			var val = $.trim($('#dialog_ser_text').val());
-				if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
-					var dataObj = {
-							Even:[],
-							Area:[],
-							Age:[],
-							Education:[],
-							Gender:[],
-							UserClass:[]
-					};
-					if($('#inp_data_event').is('.hidecommon')){
-					}else{
-						var list = $('#inp_data_event').find('i');
-						$(list).each(function(i,item){
-							var dataId = $(this).attr('data-id');
-							var dataText = $(this).text();
-							dataObj.Even.push({id:dataId,name:dataText})
-						});
-					};
-					if($('.person_sec').is('.hidecommon')){
-					}else{
-						var list = $('.person_sec').find('i');
-						$(list).each(function(i,item){
-							var dataId = $(this).attr('data-id');
-							var dataText = $(this).text();
-							dataObj.Gender.push({id:dataId,name:dataText})
-						});
-					};
-					
-					if($('.person_area').is('.hidecommon')){
-					}else{
-						var list = $('.person_area').find('i');
-						$(list).each(function(i,item){
-							var dataId = $(this).attr('data-id');
-							var dataText = $(this).text();
-							dataObj.Area.push({id:dataId,name:dataText})
-						});
-					};
-					if($('.person_education').is('.hidecommon')){
-					}else{
-						var list = $('.person_education').find('i');
-						$(list).each(function(i,item){
-							var dataId = $(this).attr('data-id');
-							var dataText = $(this).text();
-							dataObj.Education.push({id:dataId,name:dataText})
-						});
-					};
-					if($('.person_interest').is('.hidecommon')){
-					}else{
-						var list = $('.person_interest').find('i');
-						$(list).each(function(i,item){
-							var dataId = $(this).attr('data-id');
-							var dataText = $(this).text();
-							dataObj.UserClass.push({id:dataId,name:dataText})
-						});
-					};
-					var ageVal1 = $('#hot_age1').val(),
-						ageVal2 = $('#hot_age2').val();
-					if(ageVal1){
-						dataObj.Age.push(ageVal1)
-					}
-					if(ageVal2){
-						dataObj.Age.push(ageVal2)
-					}
-					var hash = JSON.stringify(dataObj);
-					window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
-				}else{
-					return;
-				};
+			$('#dialog_ser_to').click();
+//			var val = $.trim($('#dialog_ser_text').val());
+//				if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+//					var dataObj = {
+//							Even:[],
+//							Area:[],
+//							Age:[],
+//							Education:[],
+//							Gender:[],
+//							UserClass:[]
+//					};
+//					if($('#inp_data_event').is('.hidecommon')){
+//					}else{
+//						var list = $('#inp_data_event').find('i');
+//						$(list).each(function(i,item){
+//							var dataId = $(this).attr('data-id');
+//							var dataText = $(this).text();
+//							dataObj.Even.push({id:dataId,name:dataText})
+//						});
+//					};
+//					if($('.person_sec').is('.hidecommon')){
+//					}else{
+//						var list = $('.person_sec').find('i');
+//						$(list).each(function(i,item){
+//							var dataId = $(this).attr('data-id');
+//							var dataText = $(this).text();
+//							dataObj.Gender.push({id:dataId,name:dataText})
+//						});
+//					};
+//					
+//					if($('.person_area').is('.hidecommon')){
+//					}else{
+//						var list = $('.person_area').find('i');
+//						$(list).each(function(i,item){
+//							var dataId = $(this).attr('data-id');
+//							var dataText = $(this).text();
+//							dataObj.Area.push({id:dataId,name:dataText})
+//						});
+//					};
+//					if($('.person_education').is('.hidecommon')){
+//					}else{
+//						var list = $('.person_education').find('i');
+//						$(list).each(function(i,item){
+//							var dataId = $(this).attr('data-id');
+//							var dataText = $(this).text();
+//							dataObj.Education.push({id:dataId,name:dataText})
+//						});
+//					};
+//					if($('.person_interest').is('.hidecommon')){
+//					}else{
+//						var list = $('.person_interest').find('i');
+//						$(list).each(function(i,item){
+//							var dataId = $(this).attr('data-id');
+//							var dataText = $(this).text();
+//							dataObj.UserClass.push({id:dataId,name:dataText})
+//						});
+//					};
+//					var ageVal1 = $('#hot_age1').val(),
+//						ageVal2 = $('#hot_age2').val();
+//					if(ageVal1){
+//						dataObj.Age.push(ageVal1)
+//					}
+//					if(ageVal2){
+//						dataObj.Age.push(ageVal2)
+//					}
+//					var hash = JSON.stringify(dataObj);
+//					window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
+//				}else{
+//					return;
+//				};
 		};	
 	});
 	
@@ -575,12 +578,23 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			if(val&&val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
 				var dataObj = {
 						Even:[],
+						newtag:[],
 						Area:[],
 						Age:[],
 						Education:[],
 						Gender:[],
 						UserClass:[]
 				};
+				if($('#person_new_tag').is('.hidecommon')){
+				}else{
+					var list = $('#person_new_tag').find('i');
+					$(list).each(function(i,item){
+						var dataId = $(this).attr('data-id');
+						var dataText = $(this).text();
+						dataObj.newtag.push({id:dataId,name:dataText})
+					});
+				};
+				
 				if($('#inp_data_event').is('.hidecommon')){
 				}else{
 					var list = $('#inp_data_event').find('i');
@@ -662,6 +676,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	};
 	
 	function fillDataBot(selector,selector2,data){
+		
 		selector.append('<li>年龄</li>');
 		$.each(data,function(index,item){
 			selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
@@ -684,8 +699,65 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 				'</div></ul>')
 	};
 
-
-
+	//受众新标签点击
+	$('#userDialog_tag').delegate('li input','click',function(){
+		var dataId = $(this).attr('data-id');
+		if($(this).is(':checked')){
+			$(this).parent().css('color','#f00');
+			$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i>');
+			$('.person_new_tag').removeClass('hidecommon');
+			$('#inp_data_person1').removeClass('hidecommon');
+			$('.dialog_inp_c').removeClass('hidecommon');
+		}else{
+			var len = $('#person_new_tag').find('i').length;
+			$(this).parent().css('color','#4a4a4a');
+			$('#person_new_tag i').each(function(i,item){
+				if($(this).attr('data-id') == dataId){
+					$(this).remove();
+				}
+			});
+			if(len<=1){
+				$('.person_new_tag').addClass('hidecommon');
+			};
+			var len1 = $('#inp_data_event').find('i').length;
+			
+			var len2 = $('#inp_data_person1').find('i').length;
+			if(len2<1){
+				$('#inp_data_person1').addClass('hidecommon');
+			}
+			if(len1<1&&len2<1){
+				$('.dialog_inp_c').addClass('hidecommon');
+			};
+			
+		}
+		
+	});
+	//删除受众新标签
+	$('#person_new_tag').delegate('span','click',function(){
+		var dataId = $(this).parent().attr('data-id');
+		$(this).parent().remove();
+		$('#userDialog_tag li input').each(function(){
+			
+			var _this = $(this);
+			if(_this.attr('data-id') == dataId){
+				_this.prop("checked", false);
+				_this.parent().css('color','#4a4a4a');
+			}
+		})
+		var len = $('#person_new_tag').find('i').length;
+		if(len<1){
+			$('#person_new_tag').addClass('hidecommon');
+		}
+		var len1 = $('#inp_data_event').find('i').length;
+		var len2 = $('#inp_data_person1').find('i').length;
+		if(len2<1){
+			$('#inp_data_person1').addClass('hidecommon');
+		}
+		if(len1<1&&len2<1){
+			$('.dialog_inp_c').addClass('hidecommon');
+		};
+		
+	});
 	
 	//事件标签点击
 	$('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
@@ -1028,6 +1100,8 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	dialogInit();
 	function dialogInit(){
+		$('#userDialog_tag').find('input').prop('checked',false);
+		$('#userDialog_tag').find('label').css('color','#4a4a4a');
 		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
 		$('#inp_data_person1 div').addClass('hidecommon');

@@ -29,7 +29,9 @@
 	    	
 	    	<div class="result_evet_persn hidecommon" id="result_evet_persn">
 	    		<div class="cor094" style="margin-right:10px;">受众特征:</div>
+	    		
 	    		<ul class="corlor4a">
+	    			<p class="ac fl" id="result_label_newtag"></p>
 	    			<li class="label_border labele_Gender width74 pst ac word-ellipsis" id="result_label_gender"><span class="lable_c-d"></span></li>
 	    			<li class="label_border labele_Age width74 pst ac word-ellipsis" id="result_label_age"><span class="lable_c-d"></span></li>
 	    			<li class="label_border labele_Education width74 pst ac word-ellipsis" id="result_label_education"><span class="lable_c-d"></span></li>
@@ -104,7 +106,15 @@
    			
    			<p style="height:40px;font-size:16px;color:#4a4a4a;margin:0 20px;line-height:40px;border-top:1px solid #eee;"><b style="color:#009944">受众特征</b>(按照热点受众特征筛选)</p>
    			
-   			
+   			<ul class="userDialog_tag" id="userDialog_tag">
+	   				<li><label>宅男腐女<input type="checkbox" data-id="1"></label></li>
+	   				<li><label>职场新人<input type="checkbox" data-id="2"></label></li>
+	   				<li><label>家庭主妇<input type="checkbox" data-id="3"></label></li>
+	   				<li><label>时尚达人<input type="checkbox" data-id="4"></label></li>
+	   				<li><label>互联网精英<input type="checkbox" data-id="5"></label></li>
+	   				<li><label>体育迷<input type="checkbox" data-id="6"></label></li>
+	   				<li><label>背包客<input type="checkbox" data-id="7"></label></li>
+   			</ul>
    			<ul class="dialog_tab userDialogTab f14 corlor4a">
    				
    			</ul>
@@ -118,6 +128,7 @@
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event" class="hidecommon"><span></span></li>
    					<li id="inp_data_person1" class="hidecommon">
+   						<p class="person_new_tag hidecommon" id="person_new_tag"></p>
    						<div class="person_sec pst hidecommon"><span></span></div>
    						<div class="person_education pst hidecommon"><span></span></div>
    						<div class="person_area pst hidecommon"><span></span></div>
