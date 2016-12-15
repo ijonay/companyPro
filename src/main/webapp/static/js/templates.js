@@ -53,7 +53,39 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplNotifyList'] = tmpl.join('\r\n');
-
+    
+    tmpl=[];
+    tmpl.push('{{for data}}');
+    tmpl.push('<div class="pnlNear hot_near_pnl">');
+    tmpl.push('    <div class="near_portrait" style="background-image: url({{if logoImgUrl}}{{>logoImgUrl}}{{else}}img/defaultIcon.png{{/if}});"></div>');
+    tmpl.push('    <div class="near_info">');
+    tmpl.push('         <div class="near_infoTop">');
+    tmpl.push('             <div class="near_infoTitle">{{:title}}</div>');
+    tmpl.push('             <div class="near_infoConnect" data-id="{{>id}}" data-topic="{{>title}}">关联此热点</div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="near_hotLabel">');
+    tmpl.push('         {{for eventClass}}');
+    tmpl.push('             <div>{{:#data}}</div>');
+    tmpl.push('         {{/for}}')
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="near_hotInfo">');
+    tmpl.push('             <div class="near_infoText">{{:introduction}}</div>');          
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="near_infoBottom">');
+    tmpl.push('             <div class="near_hotIcon fl"></div>');
+    tmpl.push('             <div class="fl font14">热度:</div><div class="near_hotValue font14 fl">{{if prevailingTrend}}{{:prevailingTrend}}{{else}}0{{/if}}</div>');
+    tmpl.push('             <div class="near_iconCon fr">');
+    tmpl.push('                 {{if topicUrl}}<a target=" _blank" class="weibo-link" href="{{>topicUrl}}" style="background-image:url(img/hot_weibo.png);"></a>{{/if}}');
+    tmpl.push('                 {{if wechatUrl}}<a target=" _blank" class="weixin-link" href="{{>wechatUrl}}" style="background-image:url(img/hot_weixin.png);"></a>{{/if}}');
+    tmpl.push('                 {{if zhihuUrl}}<a target=" _blank" class="zhihu-link" href="{{>zhihuUrl}}" style="background-image:url(img/hot_zhihu.png);"></a>{{/if}}');
+    tmpl.push('                 {{if baiduUrl}}<a target=" _blank" class="baidu-link" href="{{>baiduUrl}}" style="background-image:url(img/hot_baidu.png);"></a>{{/if}}');
+    tmpl.push('             </div>');
+    tmpl.push('             <div class="font14 fr">来源:</div>');
+    tmpl.push('         </div>');
+    tmpl.push('     </div>');
+    tmpl.push('</div>')
+    tmpl.push('{{/for}}');
+    templates.design['tmplHotNear'] = tmpl.join('\r\n');
 })();
 (function(){
 	tmpl = [];
@@ -169,11 +201,11 @@ templates.design = {};
     tmpl.push('	   </div>');
     tmpl.push('	   <div class="clearfix"></div>');
     tmpl.push('     <div class="hot_near_list">');
-    tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
-    tmpl.push('    	    <div class="hot_near_con">');
-    
-    tmpl.push('     	</div>');
-    //tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
+    tmpl.push('         <div class="hot_near_list_head f16">');
+    tmpl.push('     	   <div class="hot_near_title fl">相似热点推荐：</div>');
+    tmpl.push('     	   <div class="hot_near_refresh fr">换一批</div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="hot_near_con"></div>');
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
