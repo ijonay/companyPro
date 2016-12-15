@@ -155,7 +155,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 
 
 /* echart */
-.hot_echart_list{position:relative;height:300px;background:#EEF3F4;color:#fff;padding:10px 20px;text-align:center}
+.hot_echart_list{position:relative;/*height:300px;*/background:#EEF3F4;color:#fff;padding:10px 20px;/*text-align:center*/}
 
 .hot_echart_list:before{
 	position:absolute;
@@ -379,3 +379,73 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
     margin-right: 40px;
     margin-top: 12px;
     margin-bottom: 12px;}
+    
+    /*
+    新受众画像
+    */
+.newPicCon{
+    width:100%;
+    height:520px;
+}
+.chartsLeftCon{
+	display:inline-block;
+	width:51%;
+	height:100%;
+}
+.leftTopCon{
+	display:inline-block;
+	width:100%;
+	height:39%;
+}
+.leftBottomCon{
+	display:inline-block;
+	width:100%;
+	height:59%;
+	margin-top:1.1%;
+}
+.sexCon{
+	position:relative;
+	display:inline-block;
+	width:31%;
+	height:100%;
+	margin-right:2%;
+}
+.sexCon:hover{
+	box-shadow: 1px 1px 3px #333;
+}
+.ageCon{
+	position:relative;
+	display:inline-block;
+	width:67%;
+	height:100%;
+}
+.ageCon:hover{
+	box-shadow: 1px 1px 3px #333;
+}
+.eduCon{
+	position:relative;
+	display:inline-block;
+	width:31%;
+	height:100%;
+	margin-right:2%;
+}
+.eduCon:hover{
+	box-shadow: 1px 1px 3px #333;
+}
+.areaCon{
+	position:relative;
+	display:inline-block;
+	width:67%;
+	height:100%;	
+}
+.areaCon:hover{
+	box-shadow: 1px 1px 3px #333;
+}
+.chartsRightCon{
+	position:relative;
+	display:inline-block;
+	height:100%;
+	width:48%;
+	margin-left:1%;
+	background-color:blue
+}

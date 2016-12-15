@@ -177,6 +177,7 @@ templates.design = {};
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
+    tmpl.push('<div class="newPicCon"><div class="chartsLeftCon"><div class="leftTopCon"><div class="sexCon"></div><div class="ageCon"></div></div><div class="leftBottomCon"><div class="eduCon"></div><div class="areaCon"></div></div></div><div class="chartsRightCon"></div></div>')
     tmpl.push('     </div>');
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
