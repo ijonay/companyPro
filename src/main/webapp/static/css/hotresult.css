@@ -639,37 +639,56 @@ input[type=checkbox]:checked::after {
 
 /*ui新需求高级探索开始。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 #result_label_newtag i{
-	border: 1px solid #4a4a4a;
+	//border: 1px solid #4a4a4a;
     border-radius: 2px;
-    padding: 0px 18px 0 5px;
+    padding: 1px 18px 1px 5px;
     display: inline-block;
     margin-right:10px;
     position: relative;
+    background:#389b9f;
+    color:#fff;
 }
-#result_label_newtag i:hover{
-	border-color:#389b9f;
+#result_label_newtag span{
+	background: url(../img/del_white.png) no-repeat;
 }
+#result_label_newtag span.lable_c-d:hover{
+	background: url(../img/del_black.png) no-repeat;
+}
+/* #result_label_newtag i:hover{ */
+/* 	border-color:#389b9f; */
+/* } */
 .userDialog_tag {height:40px;padding-left:20px;}
 
-.userDialog_tag li{float:left;margin-right:10px;}
+
+.userDialog_tag li{float:left;
+    margin-right: 10px;
+    }
+.userDialog_tag li label{
+	background: #c5c5c5;
+    padding: 3px 8px;
+    font-size: 14px;
+    border-radius: 2px;
+	color:#fff;
+	margin:0;
+}    
 .userDialog_tag li input{display:none;}
 .person_new_tag i{
 	margin-right:10px;
-	border: 1px solid #389b9f;
+	background:#389b9f;
     border-radius: 2px;
 	margin-bottom: 4px;
     position: relative;
     float: left;
-    padding: 0px 38px 0px 12px;
-    color: #4a4a4a;
+    padding: 1px 38px 1px 12px;
+    color: #fff;
     margin-right: 10px;
     min-height: 28px;
     line-height: 28px;
     font-size: 14px;
 }
-.person_new_tag i span{
+#inp_data_person1 .person_new_tag i span{
 	top: 10px;
-    background: url(../img/del_black.png) no-repeat;
+    background: url(../img/del_white.png) no-repeat;
     cursor: pointer;
     position: absolute;
     width: 8px;
@@ -677,8 +696,8 @@ input[type=checkbox]:checked::after {
     right: 12px;
     border-radius: 2px;
 }
-.person_new_tag i span:hover{
-	background: url(../img/del_bule.png) no-repeat;
+#inp_data_person1 .person_new_tag i span:hover{
+	background: url(../img/del_black.png) no-repeat;
 }
 /*ui新需求高级探索结束。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 .alertCon{

@@ -190,7 +190,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		    	$('#userDialog_tag input').each(function(){
 		    		if($(this).attr('data-id') == item.id){
 		    			$(this).prop('checked',true);
-		    			$(this).parent().css('color','#f00');
+		    			$(this).parent().css('background-color','#389b9f');
 		    		}
 		    	})
 			});
@@ -331,6 +331,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			$('#result_label_age').addClass('hidecommon');
 		}else{
 			if(ageSelect.length ==1){
+				//$('#result_label_age').attr('title',ageSelect[0]+'岁')
 				$('#result_label_age').append('<i>'+ageSelect[0]+'岁</i>');
 			}
 			if(ageSelect.length ==2){
@@ -621,7 +622,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	
 	$('#result_filter').on('click',function(){
-		$('#userDialog_tag').find('label').css('color','#4a4a4a')
+		$('#userDialog_tag').find('label').css('background-color','#c5c5c5');
 		$('#ser_dialog').find('input').prop('checked',false);
 		$('#ser_dialog').find('.dialog_inp_num').text('0');
 		$('#ser_dialog').find('.dialog_inp_num').css('display','none'); 
@@ -839,14 +840,14 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			$('#userDialog_tag').delegate('li input','click',function(){
 				var dataId = $(this).attr('data-id');
 				if($(this).is(':checked')){
-					$(this).parent().css('color','#f00');
+					$(this).parent().css('background-color','#389b9f');
 					$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i>');
 					$('.person_new_tag').removeClass('hidecommon');
 					$('#inp_data_person1').removeClass('hidecommon');
 					$('.dialog_inp_c').removeClass('hidecommon');
 				}else{
 					var len = $('#person_new_tag').find('i').length;
-					$(this).parent().css('color','#4a4a4a');
+					$(this).parent().css('background-color','#c5c5c5');
 					$('#person_new_tag i').each(function(i,item){
 						if($(this).attr('data-id') == dataId){
 							$(this).remove();
@@ -877,7 +878,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					var _this = $(this);
 					if(_this.attr('data-id') == dataId){
 						_this.prop("checked", false);
-						_this.parent().css('color','#4a4a4a');
+						_this.parent().css('background-color','#c5c5c5');
 					}
 				})
 				var len = $('#person_new_tag').find('i').length;
@@ -1245,7 +1246,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	//dialogInit();
 	function dialogInit(){
 		$('#userDialog_tag').find('input').prop('checked',false);
-		$('#userDialog_tag').find('label').css('color','#4a4a4a');
+		$('#userDialog_tag').find('label').css('background-color','#c5c5c5');
 		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
 		$('#inp_data_person1 div').addClass('hidecommon');

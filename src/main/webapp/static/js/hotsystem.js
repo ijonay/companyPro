@@ -376,11 +376,9 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	
 //高级搜索弹窗。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
-	labelList();
-	$('#ser_dialog').removeClass('hidecommon');
 	$('#ser_btn_high').on('click',function(){
-//		labelList();
-//		$('#ser_dialog').removeClass('hidecommon');
+		labelList();
+		$('#ser_dialog').removeClass('hidecommon');
 	});
 	
 	$('.dialog_area .ser_dialog_close').on('click',function(){
@@ -703,14 +701,14 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	$('#userDialog_tag').delegate('li input','click',function(){
 		var dataId = $(this).attr('data-id');
 		if($(this).is(':checked')){
-			$(this).parent().css('color','#f00');
+			$(this).parent().css('background-color','#389b9f');
 			$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i>');
 			$('.person_new_tag').removeClass('hidecommon');
 			$('#inp_data_person1').removeClass('hidecommon');
 			$('.dialog_inp_c').removeClass('hidecommon');
 		}else{
 			var len = $('#person_new_tag').find('i').length;
-			$(this).parent().css('color','#4a4a4a');
+			$(this).parent().css('background-color','#c5c5c5');
 			$('#person_new_tag i').each(function(i,item){
 				if($(this).attr('data-id') == dataId){
 					$(this).remove();
@@ -741,7 +739,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 			var _this = $(this);
 			if(_this.attr('data-id') == dataId){
 				_this.prop("checked", false);
-				_this.parent().css('color','#4a4a4a');
+				_this.parent().css('background-color','#c5c5c5');
 			}
 		})
 		var len = $('#person_new_tag').find('i').length;
@@ -1101,7 +1099,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	dialogInit();
 	function dialogInit(){
 		$('#userDialog_tag').find('input').prop('checked',false);
-		$('#userDialog_tag').find('label').css('color','#4a4a4a');
+		$('#userDialog_tag').find('label').css('background-color','#c5c5c5');
 		$('#inp_data_person1').find('i').remove();
 		$('#inp_data_event').find('i').remove();
 		$('#inp_data_person1 div').addClass('hidecommon');
