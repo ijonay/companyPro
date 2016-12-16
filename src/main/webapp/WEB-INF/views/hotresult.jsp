@@ -30,7 +30,7 @@
 	    	<div class="result_evet_persn hidecommon" id="result_evet_persn">
 	    		<div class="cor094" style="margin-right:10px;">受众特征:</div>
 	    		
-	    		<ul class="corlor4a">
+	    		<ul class="corlor4a" style="max-width: 600px; overflow-y: auto; height: 32px;margin-right: 10px;">
 	    			<p class="ac fl" id="result_label_newtag"></p>
 	    			<li class="label_border labele_Gender width74 pst ac word-ellipsis" id="result_label_gender"><span class="lable_c-d"></span></li>
 	    			<li class="label_border labele_Age width74 pst ac word-ellipsis" id="result_label_age"><span class="lable_c-d"></span></li>
