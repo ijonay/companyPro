@@ -598,7 +598,6 @@
     </insert>
     <select id="getAllCoordinates" resultType="java.util.HashMap">
         SELECT id AS id, coordinate AS coordinate FROM topic where is_active = 1
-        <!-- SELECT id AS id, coordinate AS coordinate FROM topic -->
     </select>
     <select id="getByIdList" resultMap="BaseResultMap">
         SELECT
