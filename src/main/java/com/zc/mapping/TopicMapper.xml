@@ -55,7 +55,7 @@
     <select id="getTopHotTopic" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        from view_topic where id != #{id,jdbcType=INTEGER} and event_class !="其他" and event_class LIKE
+        from view_topic where is_active = 1 AND id != #{id,jdbcType=INTEGER} and event_class != '其他' and event_class LIKE
         (select substring_index( CONCAT(event_class,','),',',1 ) from view_topic where id = #{id,jdbcType=INTEGER})
         order by prevailing_trend desc
         limit #{count,jdbcType=INTEGER}
