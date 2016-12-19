@@ -1684,8 +1684,13 @@ function loadSvg(){
                 url:dataUrl.util.getHotNearTrend(Dataids),
                 success:function(returndata){
                     if(returndata.length == 0){
-                        _this.parent().next().find(".hot_near_con").html("<div class='pnlNear near_error'>暂无数据</div>");
+                        _this.parent().next().find(".hot_near_con").css("display","none");
+                        _this.parent().next().find(".near_error").css("display","block");
+                        _this.parent().next().find(".hot_near_refresh").css("display","none");
                     }else{
+                        _this.parent().next().find(".hot_near_con").css("display","block");
+                        _this.parent().next().find(".near_error").css("display","none");
+                        _this.parent().next().find(".hot_near_refresh").css("display","block");
                         $.each(returndata,function(idx,item){
                             var typeArr=[];
                             if(item.eventClass){
