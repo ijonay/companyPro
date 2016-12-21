@@ -42,6 +42,8 @@
     Beijing China
 </div>
 <script src="lib/jquery-1.12.0.min.js"></script>
+<script src="lib/KD1.3.2.min.js"></script>
+<script src="js/userAction.js"></script>
 <script>
     $('#username').focus();
     function loginFailed(data) {
