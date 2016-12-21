@@ -11,6 +11,7 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
@@ -69,6 +69,12 @@ public class AdminController {
         return "admin/hotspotmanager";
     }
 
+    @RequestMapping("/UserActionLog")
+    public String UserActionLog(ModelMap model) {
+
+        return "admin/UserActionLog";
+    }
+
 
     /**
      * Created by zhuzhzh .
@@ -82,23 +88,24 @@ public class AdminController {
 
     }
 
-@RequestMapping("/managetopic")
-public String manageTopic(
-        @RequestParam(value = "keyword", required = false, defaultValue = "")
-        String keyword,@RequestParam(value = "keywordTitle", required = false, defaultValue = "")
-        String keywordTitle,Model model
-){
-    if(StringUtils.isNoneBlank(keyword) ){
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("keywordTitle", keywordTitle);
-        List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword,keywordTitle);
-        if( topicModelList!=null && topicModelList.size() > 0 ){
+    @RequestMapping("/managetopic")
+    public String manageTopic(
+            @RequestParam(value = "keyword", required = false, defaultValue = "")
+                    String keyword, @RequestParam(value = "keywordTitle", required = false, defaultValue = "")
+                    String keywordTitle, Model model
+    ) {
+        if (StringUtils.isNoneBlank(keyword)) {
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("keywordTitle", keywordTitle);
+            List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword, keywordTitle);
+            if (topicModelList != null && topicModelList.size() > 0) {
                 model.addAttribute("topicModelList", topicModelList);
             }
         }
 
         return "admin/managetopic";
     }
+
     @RequestMapping("/toaddtopic")
     public String addTopic() {
         return "admin/addtopic";
