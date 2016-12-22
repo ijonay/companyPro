@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.UserActionLogMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.UserActionLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="opera_name" jdbcType="VARCHAR" property="operaName"/>
+        <result column="info" jdbcType="VARCHAR" property="info"/>
+        <result column="path_name" jdbcType="VARCHAR" property="pathName"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+         id,  type,  user_id,  user_name,  opera_name,  info,  path_name,  url,  create_time     </sql>
+    <insert id="add" parameterType="com.zc.bean.UserActionLog"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into UserActionLog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                type,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="operaName != null">
+                opera_name,
+            </if>
+            <if test="info != null">
+                info,
+            </if>
+            <if test="pathName != null">
+                path_name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="operaName != null">
+                #{operaName,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="pathName != null">
+                #{pathName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from UserActionLog
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.UserActionLog">
+        update UserActionLog
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="operaName != null">
+                opera_name = #{operaName,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="pathName != null">
+                path_name = #{pathName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from UserActionLog
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getColl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from UserActionLog
+        <if test="top != null">
+            limit #{top,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!-- <select id="getByFields" resultMap="BaseResultMap">-->
+    <!--    select-->
+    <!--    <include refid="Base_Column_List"/>-->
+    <!--    from UserActionLog-->
+    <!--    where 1=1-->
+    <!--    -->
+    <!--        <if test="type != null">-->
+    <!--          AND  type = #{type,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="userId != null">-->
+    <!--          AND  user_id = #{userId,jdbcType=INTEGER}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="userName != null">-->
+    <!--          AND  user_name = #{userName,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="operaName != null">-->
+    <!--          AND  opera_name = #{operaName,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="info != null">-->
+    <!--          AND  info = #{info,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="pathName != null">-->
+    <!--          AND  path_name = #{pathName,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="url != null">-->
+    <!--          AND  url = #{url,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="createTime != null">-->
+    <!--          AND  create_time = #{createTime,jdbcType=TIMESTAMP}-->
+    <!--        </if>-->
+    <!--            -->
+    <!--</select>              -->
+
+    <select id="getCollByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from UserActionLog ORDER BY create_time DESC
+    </select>
+
+    <!--<delete id="delAll">-->
+    <!--delete from UserActionLog-->
+    <!--</delete>-->
+</mapper>
