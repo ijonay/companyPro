@@ -1501,208 +1501,212 @@ var circleOption = {
     ]
 }
 
-//切换效果
-$('.all_hot_list_bot:not(":first")').css('display','none');
-$(document).on('click','.all_hot_list_top',function(e){
-    e ? e.stopPropagation() : event.cancelBubble = true;
-    var $this = $(this);
-    var child = $this.children();
-    child[4].click();
-})
-//var hotTopicSimilar = $.templates(templates.design["tmplHotTopticSimilar"]);
-// var recordList2 = $.templates(templates.design["tmplRecordList2"]);
-$(document).on('click','.all_hot_list_top_source',function(e){
-    e ? e.stopPropagation() : event.cancelBubble = true;
-    $('.all_hot_list_top_look').css('color','#4a4a4a');
-    $('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
-    //$('.all_hot_list_top_look').find('em').css("color",'#389b9f');
-    $('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
-    $('.hot_echart_list').addClass('hidecommon');
-    if($(this).parent().next().css('display') == 'block'){
-        $(this).parent().next().hide();
-        $(this).find(".hot_img_arrow").css("transform","rotate(0deg)");
-        $(this).find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
-        $(this).find('em').css('color','#4a4a4a');
-    }else{
-        $(this).parent().parent().parent().find(".all_hot_list_bot").hide();
-        $(this).parent().next().show();
-        $(this).parent().parent().parent().find(".hot_img_arrow").css("transform","rotate(0deg)");
-        $(this).find(".hot_img_arrow").css("transform","rotate(180deg)");
-        $(this).parent().parent().parent().find(".hot_look_detail").css("background-image","url(img/card-detail.png)");
-        $(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
-        $(this).parent().parent().parent().find('em').css("color","#4a4a4a");
-        $(this).find('em').css('color','#389b9f');
-    };
-    var _this = $(this);
-    var Dataids = _this.data("id");
-    if(_this.parent().next().find(".bot_right .Prend").length <= 0){
-        _this.parent().next().find(".bot_right").html("");
-        $.ajax({
-            type:"get",
-            url:dataUrl.util.getHotTrend(Dataids),
-            success:function(returndata){
-                if(returndata && returndata.data.length > 0){
-                    var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
-                    _this.parent().next().find(".bot_right").append(ageNewCon);
-                    //console.log(_this.parent().next().find(".bot_right").height())
-                    // console.log(ageNewCon.get(0).width())
-                    var prendNewCharts = echarts.init(ageNewCon.get(0));
-                    var names = _.pluck(returndata.data, 'createDate');
-                    var vals = _.pluck(returndata.data, 'prevailingTrend');
-                    var option = {
-                        backgroundColor:"#fff",
-                        title: {
-                            text: '热点热度走势',
-                            left:'center',
-                            top:15,
-                            textStyle:{
-                                color:'#4a4a4a',
-                                fontFamily:'微软雅黑',
-                                fontSize:'16',
-                                fontWeight:'400'
+    //切换效果
+    $('.all_hot_list_bot:not(":first")').css('display','none');
+    $(document).on('click','.all_hot_list_top',function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+    	var $this = $(this);
+    	var child = $this.children();
+    	child[4].click();
+    })
+     //var hotTopicSimilar = $.templates(templates.design["tmplHotTopticSimilar"]); 
+    	// var recordList2 = $.templates(templates.design["tmplRecordList2"]);
+    $(document).on('click','.all_hot_list_top_source',function(e){
+    	e ? e.stopPropagation() : event.cancelBubble = true;
+    	$('.all_hot_list_top_look').css('color','#4a4a4a');
+    	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
+    	//$('.all_hot_list_top_look').find('em').css("color",'#389b9f');
+    	$('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
+    	$('.hot_echart_list').addClass('hidecommon');
+    	if($(this).parent().next().css('display') == 'block'){
+    		$(this).parent().next().hide();
+    		$(this).find(".hot_img_arrow").css("transform","rotate(0deg)");
+    		$(this).find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
+    		$(this).find('em').css('color','#4a4a4a');
+    	}else{
+    		$(this).parent().parent().parent().find(".all_hot_list_bot").hide();
+        	$(this).parent().next().show();
+        	$(this).parent().parent().parent().find(".hot_img_arrow").css("transform","rotate(0deg)");
+        	$(this).find(".hot_img_arrow").css("transform","rotate(180deg)");
+        	$(this).parent().parent().parent().find(".hot_look_detail").css("background-image","url(img/card-detail.png)");
+    		$(this).find('.hot_look_detail').css('background-image','url(img/card-detail-hover.png)');
+    		$(this).parent().parent().parent().find('em').css("color","#4a4a4a");
+    		$(this).find('em').css('color','#389b9f');
+    	};  
+    	var _this = $(this);
+    	var Dataids = _this.data("id");
+    	if(_this.parent().next().find(".bot_right .Prend").length <= 0){
+       	 _this.parent().next().find(".bot_right").html("");
+       	    $.ajax({
+       	        type:"get",
+       	        url:dataUrl.util.getHotTrend(Dataids),
+       	        success:function(returndata){
+       	            if(returndata && returndata.data.length > 0){
+       	                var ageNewCon = $("<div class='Prend' style='display:inline-block;width:100%;height:100%;background:#fff;'></div>");
+       	                _this.parent().next().find(".bot_right").append(ageNewCon);
+       	                //console.log(_this.parent().next().find(".bot_right").height())
+       	               // console.log(ageNewCon.get(0).width())
+       	                var prendNewCharts = echarts.init(ageNewCon.get(0));
+       	                var names = _.pluck(returndata.data, 'createDate');
+       	                var vals = _.pluck(returndata.data, 'prevailingTrend');
+       	                var option = {
+       	                        backgroundColor:"#fff",
+       	                        title: {
+       	                            text: '热点热度走势',
+       	                            left:'center',
+       	                            top:15,
+       	                            textStyle:{
+       	                            color:'#4a4a4a',
+       	                            fontFamily:'微软雅黑',
+       	                            fontSize:'16',
+       	                            fontWeight:'400'
+       	                          }
+       	                        },
+       	                        color: ['#3398DB'],
+       	                        tooltip : {
+       	                            trigger: 'axis',
+       	                            padding:[5,10],
+       	                            formatter:function(obj){
+       	                            	return '热度：'+obj[0].value+'</br>'+obj[0].name.substr(0,16)
+       	                            },
+       	                            axisPointer:{
+       	                            	type:'line',
+       	                            	lineStyle:{
+       	                            		color:'#00b1c5'
+       	                            	}
+       	                            }
+       	                        },
+       	                        grid: {
+       	                            left: '3%',
+       	                            right: '4%',
+       	                            bottom: '40',
+       	                            containLabel: true
+       	                        },
+       	                        dataZoom: [
+       	                            {
+       	                                show: true,
+       	                                realtime: true,
+       	                                start:100-(Math.floor(8/names.length*100)),
+       	                                end: 100,
+       	                                height:20,
+       	                                fillerColor:'rgba(91, 206, 205,0.8)',
+       	                                handleStyle: {
+       	                                 color: '#00b1c5'
+       	                                }
+       	                            },
+       	                            {
+       	                                type: 'inside',
+       	                                realtime: true,
+       	                                start: 100-(Math.floor(8/names.length*100)),
+       	                                end: 100,
+       	                            }
+       	                        ],
+       	                        xAxis : [
+       	                            {
+       	                                type : 'category',
+       	                                name : "时间",
+       	                                nameLocation:"middle",
+       	                                nameGap: -17,
+       	                                scale:true,
+       	                                axisTick: {
+       	                                    alignWithLabel: true
+       	                                },
+       	                                splitLine:false,
+       	                                axisLine:{
+       	                                    lineStyle:{color:'#ccc'},
+       	                                    onZero:true
+       	                                },
+       	                                axisTick:{
+       	                                    show:true
+       	                                },
+       	                                data : names.map(function (str) {
+       	                                    return str.replace(' ', '\n')
+       	                                })
+       	                            }
+       	                        ],
+       	                        yAxis : [
+       	                            {
+       	                                type : 'value',
+       	                                nameGap: 0,
+       	                                splitLine:false,
+       	                                axisLine:{
+       	                                    lineStyle:{color:'#ccc'}
+       	                                },
+       	                                axisLabel : {
+       	                                    formatter: '{value}'
+       	                                },
+       	                                axisTick:{
+       	                                    show:false
+       	                                }
+       	                            }
+       	                        ],
+       	                        series: [
+       	                            {
+       	                                name:'时间',
+       	                                type:'line',
+       	                                lineStyle: {
+       	                                    normal: {
+       	                                        width: 1
+       	                                    }
+       	                                },
+       	                                symbol:'circle',
+       	                                symbolSize:6,
+       	                                itemStyle:{
+       	                                	normal:{
+       	                                		color:'#00b1c5'
+       	                                	}
+       	                                },
+       	                                areaStyle:{
+       	                                	normal:{
+       	                                		color:'rgba(91, 206, 205,0.8)'
+       	                                	}
+       	                                },
+       	                                data:vals
+       	                            }
+       	                        ]
+       	                    };
+       	                prendNewCharts.setOption(option);
+       	                window.onresize=prendNewCharts.resize;
+       	            }else{
+       	                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:100%;height:100%;background:#fff;text-align:center'></div>");
+       	                var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
+       	                ageNewCon.append(a);
+       	                ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+       	                _this.parent().next().find(".bot_right").append(ageNewCon);
+       	            }
+       	        }
+       	    });
+    	 };
+    	
+    	if(_this.parent().next().find(".hot_near_con .pnlNear").length <= 0){
+    	    $.ajax({
+                type:"get",
+                url:dataUrl.util.getHotNearTrend(Dataids),
+                success:function(returndata){
+                    if(returndata.length == 0){
+                        _this.parent().next().find(".hot_near_con").css("display","none");
+                        _this.parent().next().find(".near_error").css("display","block");
+                        _this.parent().next().find(".hot_near_refresh").css("display","none");
+                    }else{
+                        _this.parent().next().find(".hot_near_con").css("display","block");
+                        _this.parent().next().find(".near_error").css("display","none");
+                        _this.parent().next().find(".hot_near_refresh").css("display","block");
+                        $.each(returndata,function(idx,item){
+                            var typeArr=[];
+                            if(item.eventClass){
+                                typeArr=item.eventClass.split(",");
                             }
-                        },
-                        color: ['#3398DB'],
-                        tooltip : {
-                            trigger: 'axis',
-                            padding:[5,10],
-                            formatter:function(obj){
-                                return '热度：'+obj[0].value+'</br>'+obj[0].name.substr(0,16)
-                            },
-                            axisPointer:{
-                                type:'line',
-                                lineStyle:{
-                                    color:'#00b1c5'
-                                }
-                            }
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '40',
-                            containLabel: true
-                        },
-                        dataZoom: [
-                            {
-                                show: true,
-                                realtime: true,
-                                start:100-(Math.floor(8/names.length*100)),
-                                end: 100,
-                                height:20,
-                                fillerColor:'rgba(91, 206, 205,0.8)',
-                                handleStyle: {
-                                    color: '#00b1c5'
-                                }
-                            },
-                            {
-                                type: 'inside',
-                                realtime: true,
-                                start: 100-(Math.floor(8/names.length*100)),
-                                end: 100,
-                            }
-                        ],
-                        xAxis : [
-                            {
-                                type : 'category',
-                                name : "时间",
-                                nameLocation:"middle",
-                                nameGap: -17,
-                                scale:true,
-                                axisTick: {
-                                    alignWithLabel: true
-                                },
-                                splitLine:false,
-                                axisLine:{
-                                    lineStyle:{color:'#ccc'},
-                                    onZero:true
-                                },
-                                axisTick:{
-                                    show:true
-                                },
-                                data : names.map(function (str) {
-                                    return str.replace(' ', '\n')
-                                })
-                            }
-                        ],
-                        yAxis : [
-                            {
-                                type : 'value',
-                                nameGap: 0,
-                                splitLine:false,
-                                axisLine:{
-                                    lineStyle:{color:'#ccc'}
-                                },
-                                axisLabel : {
-                                    formatter: '{value}'
-                                },
-                                axisTick:{
-                                    show:false
-                                }
-                            }
-                        ],
-                        series: [
-                            {
-                                name:'时间',
-                                type:'line',
-                                lineStyle: {
-                                    normal: {
-                                        width: 1
-                                    }
-                                },
-                                symbol:'circle',
-                                symbolSize:6,
-                                itemStyle:{
-                                    normal:{
-                                        color:'#00b1c5'
-                                    }
-                                },
-                                areaStyle:{
-                                    normal:{
-                                        color:'rgba(91, 206, 205,0.8)'
-                                    }
-                                },
-                                data:vals
-                            }
-                        ]
-                    };
-                    prendNewCharts.setOption(option);
-                    window.onresize=prendNewCharts.resize;
-                }else{
-                    var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:100%;height:100%;background:#fff;text-align:center'></div>");
-                    var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
-                    ageNewCon.append(a);
-                    ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
-                    _this.parent().next().find(".bot_right").append(ageNewCon);
+                            item.eventClass=typeArr
+                        })
+                        var $item = $.templates(templates.design["tmplHotNear"]);
+                        _this.parent().next().find(".hot_near_con").html($item.render({data:returndata}));
+                    }
                 }
-            }
-        });
-    };
-
-    if(_this.parent().next().find(".hot_near_con .pnlNear").length <= 0){
-        $.ajax({
-            type:"get",
-            url:dataUrl.util.getHotNearTrend(Dataids),
-            success:function(returndata){
-                if(returndata.length == 0){
-                    _this.parent().next().find(".hot_near_con").html("<div class='pnlNear near_error'>暂无数据</div>");
-                }else{
-                    $.each(returndata,function(idx,item){
-                        var typeArr=[];
-                        if(item.eventClass){
-                            typeArr=item.eventClass.split(",");
-                        }
-                        item.eventClass=typeArr
-                    })
-                    var $item = $.templates(templates.design["tmplHotNear"]);
-                    _this.parent().next().find(".hot_near_con").html($item.render({data:returndata}));
-                }
-            }
-        });
-    }
-
-});
-
-
+    	    });
+ 	    }
+	    
+    });
+    
 $(document).on('click','.all_hot_list_top_look',function(e){
     e ? e.stopPropagation() : event.cancelBubble = true;
     var $this = $(this)
