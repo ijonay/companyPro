@@ -7,25 +7,31 @@
  */
 package com.zc.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,6 +75,50 @@ public class AdminController {
         return "admin/hotspotmanager";
     }
 
+    @RequestMapping("/UserActionLog")
+    public String UserActionLog(ModelMap model) {
+
+        return "admin/UserActionLog";
+    }
+
+    @RequestMapping(value = "/test")
+    @ResponseBody
+    public String test() throws IOException {
+        Integer topicId = 66;
+
+        String keyword = "郭敬明";
+
+
+        String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
+
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpGet httpGet = new HttpGet(labels_url);
+
+//        org.apache.http.client.methods.HttpUriRequest
+
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+
+        try {
+
+            String s = EntityUtils.toString(response.getEntity(), "gb2312");
+
+
+            JSONObject jsonObject = JSON.parseObject(s);
+            JSONArray htmls = jsonObject.getJSONArray("htmls");
+
+            return htmls.toString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+
+        }
+        return "test";
+    }
+
 
     /**
      * Created by zhuzhzh .
@@ -82,23 +132,24 @@ public class AdminController {
 
     }
 
-@RequestMapping("/managetopic")
-public String manageTopic(
-        @RequestParam(value = "keyword", required = false, defaultValue = "")
-        String keyword,@RequestParam(value = "keywordTitle", required = false, defaultValue = "")
-        String keywordTitle,Model model
-){
-    if(StringUtils.isNoneBlank(keyword) ){
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("keywordTitle", keywordTitle);
-        List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword,keywordTitle);
-        if( topicModelList!=null && topicModelList.size() > 0 ){
+    @RequestMapping("/managetopic")
+    public String manageTopic(
+            @RequestParam(value = "keyword", required = false, defaultValue = "")
+                    String keyword, @RequestParam(value = "keywordTitle", required = false, defaultValue = "")
+                    String keywordTitle, Model model
+    ) {
+        if (StringUtils.isNoneBlank(keyword)) {
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("keywordTitle", keywordTitle);
+            List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword, keywordTitle);
+            if (topicModelList != null && topicModelList.size() > 0) {
                 model.addAttribute("topicModelList", topicModelList);
             }
         }
 
         return "admin/managetopic";
     }
+
     @RequestMapping("/toaddtopic")
     public String addTopic() {
         return "admin/addtopic";

@@ -1580,8 +1580,13 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
     	        url:dataUrl.util.getHotNearTrend(Dataids),
     	        success:function(returndata){
     	        	if(returndata.length == 0){
-    	        		$(".hot_near_con").html("<div class='pnlNear near_error'>暂无数据</div>");
+    	        	    $(".hot_near_con").css("display","none");
+    	        		$(".near_error").css("display","block");
+    	        		$(".hot_near_refresh").css("display","none");
     	        	}else{
+    	        	    $(".hot_near_con").css("display","block");
+    	        	    $(".near_error").css("display","none");
+                        $(".hot_near_refresh").css("display","block");
     	        	    $.each(returndata,function(idx,item){
     	        	        var typeArr=[];
     	        	        if(item.eventClass){

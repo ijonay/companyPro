@@ -143,58 +143,49 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 
 /* 相似热点    */
 .hot_near_list{background:#eff4f5;margin-left:30px;margin-right:40px;padding-top:15px;border-top:1px solid #dee1e3;}
-.hot_near_list .hot_near_list_head{height:18px;line-height:18px;color:#4a4a4a;}
+.hot_near_list .hot_near_list_head{height:33px;line-height:18px;color:#4a4a4a;padding-bottom:15px;}
 .hot_near_list .hot_near_list_head .hot_near_refresh{cursor:pointer;}
 .hot_near_list .hot_near_list_head .hot_near_refresh:hover{color:rgb(56, 155, 159);}
-.hot_near_list .hot_near_con{height:159px;margin-top:15px;padding-bottom:15px;overflow:hidden;position:relative;}
-.hot_near_list .hot_near_con .near_error{
-	font-size:16px;
-	position:absolute;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
-    -ms-transform:translate(-50%,-50%);
-    -moz-transform:translate(-50%,-50%);
-    -webkit-transform:translate(-50%,-50%);
-    -o-transform:translate(-50%,-50%);
-}
+.hot_near_list .hot_near_con{padding-bottom:15px;overflow:hidden;display:none;}
 .hot_near_list .hot_near_con .hot_near_pnl{
     max-width:428px;
-    width: -o-calc((100% - 10px)/3);
-    width: calc-moz-((100% - 10px)/3);
-    width: calc-ms-((100% - 10px)/3);
-    width: -webkit-calc((100% - 10px)/3);
-    width: calc((100% - 10px)/3);
-    height:144px;
-    margin-right:5px;
+    width: -o-calc((100% - 20px)/3);
+    width: calc-moz-((100% - 20px)/3);
+    width: calc-ms-((100% - 20px)/3);
+    width: -webkit-calc((100% - 20px)/3);
+    width: calc((100% - 20px)/3);
+    height:136px;
+    margin-right:10px;
     box-sizing: border-box;
     background-color:#fff;
     border-radius: 2px;
     display:inline-block;
     float:left;
+    padding:12px;
 }
 .hot_near_list .hot_near_con .hot_near_pnl:last-child{margin-right:0px;}
 .hot_near_list .hot_near_con .hot_near_pnl .near_portrait{
     float:left;
-    width:144px;
-    height:144px;
+    width:46px;
+    height:46px;
     background-size:100%;
     background-position:center;
     margin-right: 10px;
     padding: 0;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
+    margin-top:2px;
+}
+.hot_near_list .hot_near_con .hot_near_pnl .near_topRight{
+	float:left;
+    width: -o-calc(100% - 56px);
+    width: calc-moz-(100% - 56px);
+    width: calc-ms-(100% - 56px);
+    width: -webkit-calc(100% - 56px);
+    width: calc(100% - 56px);
+    height:48px;
 }
 .hot_near_list .hot_near_con .hot_near_pnl .near_info{
-    float:left;
-    max-width:274px;
-    width: -o-calc(100% - 154px);
-    width: calc-moz-(100% - 154px);
-    width: calc-ms-(100% - 154px);
-    width: -webkit-calc(100% - 154px);
-    width: calc(100% - 154px);
-    padding:12px 12px 12px 0;
-    height:144px;
+    width: 100%;
+    height:48px;
 }
 .hot_near_list .hot_near_con .hot_near_pnl .near_infoTop{
     width:100%;
@@ -203,7 +194,6 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 .hot_near_list .hot_near_con .hot_near_pnl .near_infoTitle{
     float:left;
     display: inline-block;
-    max-width:178px;
     width: -o-calc(100% - 80px);
     width: calc-moz-(100% - 80px);
     width: calc-ms-(100% - 80px);
@@ -228,12 +218,12 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
     box-sizing: border-box;
     text-align: center;
     border-radius: 11px;
-    background-color: #389b9f;
-    color:#fff;
+    border:1px solid #389b9f ;
+    color:#389b9f;
     cursor:pointer;
 }
 .hot_near_list .hot_near_con .hot_near_pnl .near_hotLabel{
-    margin-top:8px;
+    margin-top:6px;
     font-size: 12px;
     color:#4a4a4a;
     display: inline-block;
@@ -255,7 +245,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 }
 
 .hot_near_list .hot_near_con .hot_near_pnl .near_hotInfo{
-    margin-top:4px;
+    margin-top:8px;
     font-size: 12px;
     width: 100%;
     height:32px;
@@ -275,8 +265,8 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 .hot_near_list .hot_near_con .hot_near_pnl .near_infoBottom{
     display: inline-block;    
     width:100%;
-    height:24px;
-    line-height:24px;
+    height:16px;
+    line-height:16px;
     margin-top:8px;
 }
 .hot_near_list .hot_near_con .hot_near_pnl .near_hotIcon{
@@ -287,7 +277,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 }
 .hot_near_list .hot_near_con .hot_near_pnl .near_hotValue{
     font-size: 14px;
-    line-height:24px;
+    line-height:16px;
     font-weight:bold;
 }
 .font14{
@@ -295,7 +285,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 }
 .hot_near_list .hot_near_con .hot_near_pnl .near_iconCon a{
     width:16px;
-    height:24px;
+    height:16px;
     background-position:center;
     background-repeat:no-repeat;
     margin-left:5px;
