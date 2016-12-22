@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.TopicUserInterestStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.zc.bean.TopicUserInterestStatistics">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+        <result column="class_id" jdbcType="INTEGER" property="classId"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+        <result column="tgi" jdbcType="DOUBLE" property="tgi"/>
+        <result column="interest_strength" jdbcType="DOUBLE" property="interestStrength"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+         id,  topic_id,  class_id,  scale,  percentage,  tgi,  interest_strength     </sql>
+    <insert id="add" parameterType="com.zc.bean.TopicUserInterestStatistics"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into TopicUserInterestStatistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="topicId != null">
+                topic_id,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="scale != null">
+                scale,
+            </if>
+            <if test="percentage != null">
+                percentage,
+            </if>
+            <if test="tgi != null">
+                tgi,
+            </if>
+            <if test="interestStrength != null">
+                interest_strength,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="topicId != null">
+                #{topicId,jdbcType=INTEGER},
+            </if>
+            <if test="classId != null">
+                #{classId,jdbcType=INTEGER},
+            </if>
+            <if test="scale != null">
+                #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                #{percentage,jdbcType=DOUBLE},
+            </if>
+            <if test="tgi != null">
+                #{tgi,jdbcType=DOUBLE},
+            </if>
+            <if test="interestStrength != null">
+                #{interestStrength,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        delete from TopicUserInterestStatistics
+        where id =
+        #{id,jdbcType= INTEGER}
+    </delete>
+    <update id="update" parameterType="com.zc.bean.TopicUserInterestStatistics">
+        update TopicUserInterestStatistics
+        <set>
+            <if test="topicId != null">
+                topic_id = #{topicId,jdbcType=INTEGER},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=INTEGER},
+            </if>
+            <if test="scale != null">
+                scale = #{scale,jdbcType=INTEGER},
+            </if>
+            <if test="percentage != null">
+                percentage = #{percentage,jdbcType=DOUBLE},
+            </if>
+            <if test="tgi != null">
+                tgi = #{tgi,jdbcType=DOUBLE},
+            </if>
+            <if test="interestStrength != null">
+                interest_strength = #{interestStrength,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicUserInterestStatistics
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getColl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from TopicUserInterestStatistics
+        <if test="top != null">
+            limit #{top,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!-- <select id="getByFields" resultMap="BaseResultMap">-->
+    <!--    select-->
+    <!--    <include refid="Base_Column_List"/>-->
+    <!--    from TopicUserInterestStatistics-->
+    <!--    where 1=1-->
+    <!--    -->
+    <!--        <if test="topicId != null">-->
+    <!--          AND  topic_id = #{topicId,jdbcType=INTEGER}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="classId != null">-->
+    <!--          AND  class_id = #{classId,jdbcType=INTEGER}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="scale != null">-->
+    <!--          AND  scale = #{scale,jdbcType=INTEGER}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="percentage != null">-->
+    <!--          AND  percentage = #{percentage,jdbcType=DOUBLE}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="tgi != null">-->
+    <!--          AND  tgi = #{tgi,jdbcType=DOUBLE}-->
+    <!--        </if>-->
+    <!--    -->
+    <!--        <if test="interestStrength != null">-->
+    <!--          AND  interest_strength = #{interestStrength,jdbcType=DOUBLE}-->
+    <!--        </if>-->
+    <!--            -->
+    <!--</select>              -->
+
+    <!--<select id="getCollByPage" resultMap="BaseResultMap">-->
+    <!--    select-->
+    <!--    <include refid="Base_Column_List"/>-->
+    <!--    from TopicUserInterestStatistics-->
+    <!--</select>-->
+
+    <!--<delete id="delAll">-->
+    <!--delete from TopicUserInterestStatistics-->
+    <!--</delete>-->
+
+    <resultMap id="ClassResultMap" type="com.zc.bean.TopicUserInterestModel">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="topic_id" jdbcType="INTEGER" property="topicId"/>
+        <result column="class_id" jdbcType="INTEGER" property="classId"/>
+        <result column="scale" jdbcType="INTEGER" property="scale"/>
+        <result column="percentage" jdbcType="DOUBLE" property="percentage"/>
+        <result column="tgi" jdbcType="DOUBLE" property="tgi"/>
+        <result column="interest_strength" jdbcType="DOUBLE" property="interestStrength"/>
+        <result column="name" jdbcType="VARCHAR" property="className"/>
+    </resultMap>
+    <select id="getCollByTopicId" parameterType="java.lang.Integer" resultMap="ClassResultMap">
+        select
+        ti.*,tc.name
+        from TopicUserInterestStatistics ti join TopicClass tc on ti.class_id=tc.id
+        WHERE topic_id= #{topicId,jdbcType=INTEGER}
+    </select>
+</mapper>
