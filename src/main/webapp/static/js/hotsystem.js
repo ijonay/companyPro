@@ -1671,7 +1671,7 @@ function loadSvg(){
        	                var ageNewCon = $("<div class=Prend style='position:relative;display:inline-block;width:100%;height:100%;background:#fff;text-align:center'></div>");
        	                var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>热点热度走势</span>")
        	                ageNewCon.append(a);
-       	                ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+       	                ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
        	                _this.parent().next().find(".bot_right").append(ageNewCon);
        	            }
        	        }
@@ -1702,7 +1702,8 @@ function loadSvg(){
 	    
     });
   
- 
+    //用户画像颜色
+	var color = ['#1f81c5','#15a9e0','#49c4d1','#3cbca0','#8eca6d','#54e6a0'];
     $(document).on('click','.all_hot_list_top_look',function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
     	var $this = $(this)
@@ -1756,13 +1757,15 @@ function loadSvg(){
     				}
     				var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
     				if(dataLen < 1){
-    					str = "<p class='Personas' style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
+    					$this.parent().parent().find(".hot_echart_list").empty();
+    					str = "<p class='Personas' style='position:absolute;font-size:16px;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
     					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
     			//受众年龄画像
     			if(data && data.gender.length > 0){
-    				var ele = $this.parent().parent().find(".hot_echart_list").find(".sexCon").get(0);    				
+    				var ele = $this.parent().parent().find(".hot_echart_list").find(".sexCon").get(0);
+    				$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
     				var genderCharts = echarts.init(ele);
     				var genderOption = {
     				        title: {
@@ -1776,6 +1779,7 @@ function loadSvg(){
     			                	fontWeight:'400'
     			                }
     				        },
+    				        color:color,
             			backgroundColor:"#fff",
     				    tooltip : {
     				        trigger: 'axis',
@@ -1915,13 +1919,14 @@ function loadSvg(){
         			var genderCon = $this.parent().parent().find(".hot_echart_list").find(".sexCon");
         			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众性别分布</span>")
         			genderCon.append(a);
-                    genderCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+                    genderCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
 //        			$this.parent().parent().find(".hot_echart_list").append(genderCon);
     			}
     			if(data && data.education.length > 0){
     				//受众学历分布
 //    				var educationCon = $("<div  class='Personas' style='display:inline-block;width:14%;height:279px;;background:#fff;'></div>");
     				var ele = $this.parent().parent().find(".hot_echart_list").find('.eduCon').get(0);
+    				$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
     				var educationCharts = echarts.init(ele);
     				var educationOption = $.extend(true,{},circleOption);
     				educationOption.title.text = "受众学历分布";
@@ -1977,14 +1982,15 @@ function loadSvg(){
     				var educationCon = $this.parent().parent().find(".hot_echart_list").find('.eduCon');
     				var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;left:50%;transform:translate(-50%,0);font-family:微软雅黑;font-size:16px;font-weight:400;'>受众学历分布</span>")
     				educationCon.append(a);
-                    educationCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+                    educationCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
 //    			    $this.parent().parent().find(".hot_echart_list").append(educationCon);
     			}
     				//兴趣雷达图
     				if(data && data.interest.length > 0){
-						var interestCon = $("<div class='Personas' style='display:inline-block;width:25%;height:279px;background:#fff;'></div>");
-	    				$this.parent().parent().find(".hot_echart_list").append(interestCon);
-	    				var interestCharts = echarts.init(interestCon.get(0));
+//						var interestCon = $("<div class='Personas' style='display:inline-block;width:25%;height:279px;background:#fff;'></div>");
+	    				var ele = $this.parent().parent().find(".hot_echart_list").find(".chartsRightCon").get(0);
+	    				$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
+	    				var interestCharts = echarts.init(ele);
 	    				var interestvals = [];
 	    	        	var interestnames = [];
 	    	        	var interest = data.interest;
@@ -1998,8 +2004,8 @@ function loadSvg(){
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});
 	    	        	});
-	    	        	interestCharts.setOption({
-	    	        		color:['#ccc'],
+						var interestOption = {
+							color:['#ccc'],
 	    	        	    title: {
 	    	        	        text: '受众兴趣偏好',
 	    	        	        left:'center',
@@ -2011,83 +2017,175 @@ function loadSvg(){
 	    	                    	fontWeight:'400'
 	    	                    }
 	    	        	    },
+	    	        	    color:color,
 	    	        	    backgroundColor:"#fff",
-	    	        	    tooltip: {
-	    	        	    	formatter:function(a,b){
-	    	        	    		var array = [];
-	    	        	    		$.each(interest,function(i,item){
-	    	        	    			if(i<1){
-	    	        	    				array.push(item.name+":"+item.value.toFixed(2))
-	    	        	    			}else{
-	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2))
-	    	        	    			}	    		    	        		
-	    		    	        	});
-	    	        	    		return array.toString();
-	    	        	    	},
-	    	        	    	textStyle:{
+						    tooltip: {
+						        trigger: 'axis',
+						        textStyle:{
 	    	        	    		fontFamily:"微软雅黑"
 	    	        	    	}
-	    	        	    },
+						    },
+						    dataZoom: [
+   	                            {
+   	                                show: true,
+   	                                realtime: true,
+   	                                start:0,
+   	                                end: 100,
+   	                                width:20,
+   	                                right:20,
+   	                                orient:'vertical',
+   	                                fillerColor:'rgba(91, 206, 205,0.8)',
+   	                                handleStyle: {
+   	                                 color: '#00b1c5'
+   	                                }
+   	                            },
+   	                            {
+   	                                type: 'inside',
+   	                                realtime: true,
+   	                                orient:'vertical',
+   	                                start: 0,
+   	                                end: 100,
+   	                            }
+   	                        ],
+						    legend: {
+						        data:['蒸发量','平均温度'],
+						        bottom:15,
+						        left:30
+						    },
+						    yAxis:[{
+						            type: 'category',
+						            data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+						        }],
+						    xAxis: [
+						        {
+						            type: 'value',
+						            name: '水量',
+						            min: 0,
+						            max: 250,
+						            interval: 50,
+						            axisLabel: {
+						                formatter: '{value} ml'
+						            }
+						        },
+						        {
+						            type: 'value',
+						            name: '温度',
+						            show:false,
+						            min: 0,
+						            max: 25,
+						            interval: 5,
+						            axisLabel: {
+						                formatter: '{value} °C'
+						            }
+						        }
+						    ],
+						    series: [
+						        {
+						            name:'蒸发量',
+						            type:'bar',
+						            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+						        },
+						        {
+						            name:'平均温度',
+						            type:'line',
+						            xAxisIndex: 1,
+						            smooth:true,
+						            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+						        }
+						    ]
+						};
+						interestCharts.setOption(interestOption)
+
+// 	    	        	interestCharts.setOption({
+// 	    	        		color:['#ccc'],
+// 	    	        	    title: {
+// 	    	        	        text: '受众兴趣偏好',
+// 	    	        	        left:'center',
+// 	    	        	        top:15,
+// 	    	        	        textStyle:{
+// 	    	                    	color:'#4a4a4a',
+// 	    	                    	fontFamily:'微软雅黑',
+// 	    	                    	fontSize:'16',
+// 	    	                    	fontWeight:'400'
+// 	    	                    }
+// 	    	        	    },
+// 	    	        	    backgroundColor:"#fff",
+// 	    	        	    tooltip: {
+// 	    	        	    	formatter:function(a,b){
+// 	    	        	    		var array = [];
+// 	    	        	    		$.each(interest,function(i,item){
+// 	    	        	    			if(i<1){
+// 	    	        	    				array.push(item.name+":"+item.value.toFixed(2))
+// 	    	        	    			}else{
+// 	    	        	    				array.push("<br>"+item.name+":"+item.value.toFixed(2))
+// 	    	        	    			}	    		    	        		
+// 	    		    	        	});
+// 	    	        	    		return array.toString();
+// 	    	        	    	},
+// 	    	        	    	textStyle:{
+// 	    	        	    		fontFamily:"微软雅黑"
+// 	    	        	    	}
+// 	    	        	    },
 	    	        	    
-	    	        	    radar: {
-	    	        	    	radius:'60%',
-	    	        	    	center:['50%','57.5%'],
-	    	        	    	splitArea: {
-	    	        	            areaStyle: {
-	    	        	                color: ['#fff', '#fff', '#fff', '#fff']
-	    	        	            }
-	    	        	        },
-	    	        	        name:{
-	    	        	        	textStyle:{
-	    	        	        		fontFamily:"微软雅黑"
-	    	        	        	}
-	    	        	        },
-	    	        	        nameGap:10,	    	        	        
-	    	        	        // shape: 'circle',
-	    	        	        indicator: interestnames,
-	    	        	        splitLine: {
-	        	                    lineStyle: {
-	        	                        color: '#ccc'
-	        	                    }
-	        	                },
-	        	                axisLine: {
-	        	                    show:false
-	        	                },
-	    	        	    },
-	    	        	    series: [{
-	    	        	        type: 'radar',
-	    	        	        label:{
-	    	        	        	normal:{
-//	    	        	        		formatter:function(obj){
-//	    	    	        	    		console.log(obj)
-//	    	    	        	    		var array = [];
-//	    	    	        	    		$.each(obj.value,function(index,item){
-//	    	    	        	    			array.push(item.toFixed(2)+"%");
-//	    	    	        	    		})
-//	    	    	        	    		return array.toString();
-//	    	    	        	    	}
-	    	        	        	}
-	    	        	        },
-	    	        	        data : [
-	    	        	            {
-	    	        	                value : interestvals,
-	    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
-	//    	        	                areaStyle: {
-	//    	                                normal: {
-	//    	                                    color: '#fff'
-	//    	                                }
-	//    	                            }
-	    	        	            }
-	    	        	        ]
-	    	        	    }]
-	    	        	});
+// 	    	        	    radar: {
+// 	    	        	    	radius:'60%',
+// 	    	        	    	center:['50%','57.5%'],
+// 	    	        	    	splitArea: {
+// 	    	        	            areaStyle: {
+// 	    	        	                color: ['#fff', '#fff', '#fff', '#fff']
+// 	    	        	            }
+// 	    	        	        },
+// 	    	        	        name:{
+// 	    	        	        	textStyle:{
+// 	    	        	        		fontFamily:"微软雅黑"
+// 	    	        	        	}
+// 	    	        	        },
+// 	    	        	        nameGap:10,	    	        	        
+// 	    	        	        // shape: 'circle',
+// 	    	        	        indicator: interestnames,
+// 	    	        	        splitLine: {
+// 	        	                    lineStyle: {
+// 	        	                        color: '#ccc'
+// 	        	                    }
+// 	        	                },
+// 	        	                axisLine: {
+// 	        	                    show:false
+// 	        	                },
+// 	    	        	    },
+// 	    	        	    series: [{
+// 	    	        	        type: 'radar',
+// 	    	        	        label:{
+// 	    	        	        	normal:{
+// //	    	        	        		formatter:function(obj){
+// //	    	    	        	    		console.log(obj)
+// //	    	    	        	    		var array = [];
+// //	    	    	        	    		$.each(obj.value,function(index,item){
+// //	    	    	        	    			array.push(item.toFixed(2)+"%");
+// //	    	    	        	    		})
+// //	    	    	        	    		return array.toString();
+// //	    	    	        	    	}
+// 	    	        	        	}
+// 	    	        	        },
+// 	    	        	        data : [
+// 	    	        	            {
+// 	    	        	                value : interestvals,
+// 	    	        	                itemStyle: {normal: {areaStyle: {type: 'default',color:'#5ccfcd'}}},
+// 	//    	        	                areaStyle: {
+// 	//    	                                normal: {
+// 	//    	                                    color: '#fff'
+// 	//    	                                }
+// 	//    	                            }
+// 	    	        	            }
+// 	    	        	        ]
+// 	    	        	    }]
+// 	    	        	});
 	    	        	window.onresize=interestCharts.resize;
     				}else{
-            			var interestCon = $("<div class=Personas style='position:relative;display:inline-block;width:25%;height:279px;background:#fff;text-align:center'></div>");
+            			var interestCon = $this.parent().parent().find(".hot_echart_list").find(".chartsRightCon");
             			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;left:50%;transform:translate(-50%,0);font-size:16px;font-weight:400;'>受众兴趣偏好</span>")
             			interestCon.append(a);
-            			interestCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
-            			$this.parent().parent().find(".hot_echart_list").append(interestCon);
+            			interestCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+//            			$this.parent().parent().find(".hot_echart_list").append(interestCon);
             			
         			}
     	        	
@@ -2095,6 +2193,7 @@ function loadSvg(){
     	        if(data && data.age.length > 0){
 //    	        	var ageNewCon = $("<div class='Personas' style='display:inline-block;width:17%;height:279px;background:#fff;'></div>");
     	        	var ele = $this.parent().parent().find(".hot_echart_list").find(".ageCon").get(0);
+    	        	$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
     	        	var ageNewCharts = echarts.init(ele);
     	        	var ageNames = [];
     	        	var ageVals = [];
@@ -2129,7 +2228,7 @@ function loadSvg(){
 	     	                  	fontWeight:'400'
 	     	                  }
 	     	        	    },
-    	            	    color: ['#3398DB'],
+	     	        	   color:color,
     	            	    tooltip : {
     	            	        trigger: 'axis',
     	            	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -2200,7 +2299,7 @@ function loadSvg(){
         			var ageNewCon = $this.parent().parent().find(".hot_echart_list").find(".ageCon");
         			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众年龄分布</span>")
         			ageNewCon.append(a);
-                    ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+                    ageNewCon.append($("<span style=position:absolute;color:#000;display:inline-block;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
 //        			$this.parent().parent().find(".hot_echart_list").append(ageNewCon);
     			}
     	        	//地图
@@ -2208,6 +2307,7 @@ function loadSvg(){
 //    	        	var mapCon = $("<div class='Personas' style='margin-right:0;display:inline-block;width:28%;height:279px;background:#fff;'></div>");
     	        	
     	        	var ele = $this.parent().parent().find(".hot_echart_list").find(".areaCon").get(0);
+    	        	$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
     	        	var mapCharts = echarts.init(ele);
     	        	var mapNames = [];
     	        	var mapVals = [];
@@ -2272,6 +2372,13 @@ function loadSvg(){
     	                    	fontWeight:'400'
     	                    }
     	        	    },
+    	        	    color:color,
+    	        	    legend:{
+    	        	    	orient: 'vertical',
+    	        	    	right: 'right',
+    	        	    	bottom:25,
+    	        	    	data:['占比']
+    	        	    },
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
@@ -2309,7 +2416,7 @@ function loadSvg(){
     	        	    },
     	        	    series : [
     	        	        {
-    	        	        	name: '',
+    	        	        	name: '占比',
     	        	            type: 'map',
     	        	            mapType: 'china',
     	        	            roam: false,
@@ -2363,7 +2470,7 @@ function loadSvg(){
         			var mapCon = $this.parent().parent().find(".hot_echart_list").find(".areaCon");
         			var a = $("<span style='position:absolute;display:inline-block;top:15px;width:97px;color:#4a4a4a;font-family:微软雅黑;font-size:16px;left:50%;transform:translate(-50%,0);font-weight:400;'>受众地区分布</span>")
         			mapCon.append(a);
-                    mapCon.append($("<span style=position:absolute;display:inline-block;color:#000;top:132px;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
+                    mapCon.append($("<span style=position:absolute;display:inline-block;color:#000;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
 //        			$this.parent().parent().find(".hot_echart_list").append(mapCon);
     			}
     			

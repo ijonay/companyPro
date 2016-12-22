@@ -304,7 +304,7 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 }
 
 /* echart */
-.hot_echart_list{position:relative;/*height:300px;*/background:#EEF3F4;color:#fff;padding:10px 20px;/*text-align:center*/}
+.hot_echart_list{position:relative;min-height:300px;background:#EEF3F4;color:#fff;padding:10px 20px;/*text-align:center*/}
 
 .hot_echart_list:before{
 	position:absolute;
@@ -558,6 +558,9 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	width:31%;
 	height:100%;
 	margin-right:2%;
+	background-color:#fff;
+	border-radius:2px;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3)
 }
 .sexCon:hover{
 	box-shadow: 1px 1px 3px #333;
@@ -567,6 +570,9 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	display:inline-block;
 	width:67%;
 	height:100%;
+	background-color:#fff;
+	border-radius:2px;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3)
 }
 .ageCon:hover{
 	box-shadow: 1px 1px 3px #333;
@@ -577,6 +583,9 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	width:31%;
 	height:100%;
 	margin-right:2%;
+	background-color:#fff;
+	border-radius:2px;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3)
 }
 .eduCon:hover{
 	box-shadow: 1px 1px 3px #333;
@@ -585,7 +594,10 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	position:relative;
 	display:inline-block;
 	width:67%;
-	height:100%;	
+	height:100%;
+	background-color:#fff;
+	border-radius:2px;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3)
 }
 .areaCon:hover{
 	box-shadow: 1px 1px 3px #333;
@@ -596,5 +608,10 @@ em,i,b{font-style:normal!important;font-weight:500!important;}
 	height:100%;
 	width:48%;
 	margin-left:1%;
-	background-color:blue
+	background-color:#fff;
+	border-radius:2px;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3)
+}
+.chartsRightCon:hover{
+	box-shadow: 1px 1px 3px #333;
 }
