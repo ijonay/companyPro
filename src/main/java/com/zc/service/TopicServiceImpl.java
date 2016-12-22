@@ -10,7 +10,9 @@ package com.zc.service;
 import com.zc.bean.Topic;
 import com.zc.bean.TopicAgeStatistics;
 import com.zc.bean.TopicFilterClass;
+import com.zc.bean.TopicUserInterestModel;
 import com.zc.dao.TopicDao;
+import com.zc.dao.TopicUserInterestStatisticsMapper;
 import com.zc.enumeration.DimensionEnum;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.KeyValue;
@@ -52,6 +54,8 @@ public class TopicServiceImpl implements TopicService {
     private TopicFilterService topicFilterService;
     @Autowired
     private TopicAgeStatisticsService topicAgeStatisticsService;
+    @Autowired
+    private TopicUserInterestStatisticsMapper topicUserInterestStatisticsMapper;
 
     @PostConstruct
     public void init() {
@@ -64,6 +68,7 @@ public class TopicServiceImpl implements TopicService {
         }
 
     }
+
     /**
      * 获取词汇与热点话题的相似度
      *
@@ -461,6 +466,11 @@ public class TopicServiceImpl implements TopicService {
 
         KeyValueCollection interestColl = new KeyValueCollection();
 
+        List<TopicUserInterestModel> topicUserInterestModels = topicUserInterestStatisticsMapper.getCollByTopicId
+                (topicId);
+
+        result.put("userInterest", topicUserInterestModels);
+
         if (interest.size() > 6) {
 
             interest = interest.stream().limit(6).collect(Collectors.toList());
@@ -506,33 +516,34 @@ public class TopicServiceImpl implements TopicService {
         return dao.activeTopic(id) > 0;
     }
 
-    
+
     @Override
-	public List<TopicModel> getTopicsByKeyword(String keyword, String keywordTitle) {
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("keyword", keyword);
-		map.put("keywordTitle", keywordTitle);
-		return dao.getTopicsByKeyword(map);
-	}
+    public List<TopicModel> getTopicsByKeyword(String keyword, String keywordTitle) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("keyword", keyword);
+        map.put("keywordTitle", keywordTitle);
+        return dao.getTopicsByKeyword(map);
+    }
+
     public boolean update(Topic topic) {
         return dao.update(topic) > 0;
     }
 
-    public boolean applyManual(Integer id){
+    public boolean applyManual(Integer id) {
         return dao.applyManual(id) > 0;
     }
 
-    public boolean cancelManual(Integer id){
+    public boolean cancelManual(Integer id) {
         return dao.cancelManual(id) > 0;
     }
 
-    public int syncInsertTopic(Topic topic){
-        return  dao.syncInsertTopic(topic);
+    public int syncInsertTopic(Topic topic) {
+        return dao.syncInsertTopic(topic);
     }
-	
-	@Override
-	public ArrayList<TopicModel> getTopHotTopic(Map map) {
-		return dao.getTopHotTopic(map);
-	}
-	
+
+    @Override
+    public ArrayList<TopicModel> getTopHotTopic(Map map) {
+        return dao.getTopHotTopic(map);
+    }
+
 }
