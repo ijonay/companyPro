@@ -701,12 +701,18 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	$('#userDialog_tag').delegate('li input','click',function(){
 		var dataId = $(this).attr('data-id');
 		if($(this).is(':checked')){
+			$(".dislog_inp_con").find('input').attr('disabled',true);
+			$(this).parent().parent().parent().find('input').prop('checked',false);
+			$(this).prop('checked',true);
+			$(this).parent().parent().parent().find('label').css('background-color','#c5c5c5');
 			$(this).parent().css('background-color','#389b9f');
+			$('.person_new_tag').html('');
 			$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i>');
 			$('.person_new_tag').removeClass('hidecommon');
 			$('#inp_data_person1').removeClass('hidecommon');
 			$('.dialog_inp_c').removeClass('hidecommon');
 		}else{
+			$(".dislog_inp_con").find('input').attr('disabled',false);
 			var len = $('#person_new_tag').find('i').length;
 			$(this).parent().css('background-color','#c5c5c5');
 			$('#person_new_tag i').each(function(i,item){
@@ -732,6 +738,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	//删除受众新标签
 	$('#person_new_tag').delegate('span','click',function(){
+		$(".dislog_inp_con").find('input').attr('disabled',false);
 		var dataId = $(this).parent().attr('data-id');
 		$(this).parent().remove();
 		$('#userDialog_tag li input').each(function(){
@@ -1098,6 +1105,7 @@ $('#nav_ser').keyup(function(event) {//搜索框回车
 	});
 	dialogInit();
 	function dialogInit(){
+		$(".dislog_inp_con").find('input').attr('disabled',false);
 		$('#userDialog_tag').find('input').prop('checked',false);
 		$('#userDialog_tag').find('label').css('background-color','#c5c5c5');
 		$('#inp_data_person1').find('i').remove();
