@@ -7,31 +7,35 @@
  */
 package com.zc.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
 import com.zc.utility.HttpClientHelper;
 import org.apache.commons.lang3.StringUtils;
+//import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller
@@ -73,6 +77,50 @@ public class AdminController {
         return "admin/hotspotmanager";
     }
 
+    @RequestMapping("/UserActionLog")
+    public String UserActionLog(ModelMap model) {
+
+        return "admin/UserActionLog";
+    }
+
+  /*  @RequestMapping(value = "/test")
+    @ResponseBody
+    public Object test() throws IOException {
+        Integer topicId = 66;
+
+        String keyword = "郭敬明";
+
+
+        String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
+
+        Pattern pattern = Pattern.compile("<a href=\"/topic/(\\d*)\" class=\"name-link\" data-highlight>(.*?)</a>");
+
+        String s = EntityUtils.toString(HttpClientHelper.get(labels_url));
+
+        JSONObject jsonObject = JSON.parseObject(s);
+        JSONArray htmls = jsonObject.getJSONArray("htmls");
+
+
+        List<String> arr = new ArrayList<>();
+        if (htmls.size() > 0) {
+            htmls.forEach(p -> {
+                Matcher matcher = pattern.matcher(p.toString());
+                if (matcher.find()) {
+                    arr.add(matcher.group(1));
+                    arr.add(matcher.group(2));
+
+                    String subLabel_url = String.format("https://www.zhihu.com/topic/%s/organize/entire", matcher
+                            .group(1));
+
+//                    HttpClientHelper.post(subLabel_url);
+                }
+            });
+        }
+
+
+        return arr;
+    }
+        */
 
     /**
      * Created by zhuzhzh .
@@ -103,6 +151,7 @@ public class AdminController {
 
         return "admin/managetopic";
     }
+
     @RequestMapping("/toaddtopic")
     public String addTopic() {
         return "admin/addtopic";
