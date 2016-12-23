@@ -2378,12 +2378,12 @@ var circleOption = {
     	                    }
     	        	    },
     	        	    color:color,
-    	        	    legend:{
-    	        	    	orient: 'vertical',
-    	        	    	right: 'right',
-    	        	    	bottom:25,
-    	        	    	data:['占比']
-    	        	    },
+//    	        	    legend:{
+//    	        	    	orient: 'vertical',
+//    	        	    	right: 'right',
+//    	        	    	bottom:25,
+//    	        	    	data:['占比']
+//    	        	    },
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){

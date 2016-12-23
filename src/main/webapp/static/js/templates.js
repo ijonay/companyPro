@@ -206,7 +206,7 @@ templates.design = {};
     tmpl.push('         <div class="hot_near_list_head f16">');
     tmpl.push('     	   <div class="hot_near_title fl">相似热点推荐：</div>');
     tmpl.push('            <div class="pnlNear near_error fl" style="display:none;">暂无数据</div>');
-    tmpl.push('     	   <div class="hot_near_refresh fr" style="display:none;">换一批</div>');
+    tmpl.push('     	   <div class="hot_near_refresh fr" style="display:none;"></div>');
     tmpl.push('         </div>');
     tmpl.push('         <div class="hot_near_con"></div>');
     tmpl.push('     </div>');
