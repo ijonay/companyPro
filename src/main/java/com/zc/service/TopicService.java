@@ -12,6 +12,7 @@ import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
 import com.zc.utility.page.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,10 +89,14 @@ public interface TopicService {
     int syncInsertTopic(Topic topic);
 
 	ArrayList<TopicModel> getTopHotTopic(Map map);
-	
-	
-	
-	
-	
 
+    Topic getTopicByTitle(String title);
+
+    List<String> getChildrenTopicNames(@Param("topicName")String topicName);
+
+    List<String> getTopicRepeatedWordList(Topic topic,List<String> childrenTopicNames);
+
+
+
+	
 }

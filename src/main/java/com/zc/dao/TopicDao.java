@@ -63,9 +63,9 @@ public interface TopicDao {
     int syncInsertTopic(Topic topic);
     
 	ArrayList<TopicModel> getTopHotTopic(Map map);
-	
-	
 
-	
+    Topic getTopicByTitle(@Param("title")String title);
+
+    List<String> getChildrenTopicNames(@Param("topicName")String topicName);
 
 }

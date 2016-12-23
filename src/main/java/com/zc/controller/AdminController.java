@@ -14,12 +14,9 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
+import com.zc.utility.HttpClientHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+//import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +29,13 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller
@@ -81,9 +83,9 @@ public class AdminController {
         return "admin/UserActionLog";
     }
 
-    @RequestMapping(value = "/test")
+  /*  @RequestMapping(value = "/test")
     @ResponseBody
-    public String test() throws IOException {
+    public Object test() throws IOException {
         Integer topicId = 66;
 
         String keyword = "郭敬明";
@@ -91,34 +93,34 @@ public class AdminController {
 
         String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
 
+        Pattern pattern = Pattern.compile("<a href=\"/topic/(\\d*)\" class=\"name-link\" data-highlight>(.*?)</a>");
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String s = EntityUtils.toString(HttpClientHelper.get(labels_url));
 
-        HttpGet httpGet = new HttpGet(labels_url);
-
-//        org.apache.http.client.methods.HttpUriRequest
-
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-
-        try {
-
-            String s = EntityUtils.toString(response.getEntity(), "gb2312");
+        JSONObject jsonObject = JSON.parseObject(s);
+        JSONArray htmls = jsonObject.getJSONArray("htmls");
 
 
-            JSONObject jsonObject = JSON.parseObject(s);
-            JSONArray htmls = jsonObject.getJSONArray("htmls");
+        List<String> arr = new ArrayList<>();
+        if (htmls.size() > 0) {
+            htmls.forEach(p -> {
+                Matcher matcher = pattern.matcher(p.toString());
+                if (matcher.find()) {
+                    arr.add(matcher.group(1));
+                    arr.add(matcher.group(2));
 
-            return htmls.toString();
+                    String subLabel_url = String.format("https://www.zhihu.com/topic/%s/organize/entire", matcher
+                            .group(1));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            response.close();
-
+//                    HttpClientHelper.post(subLabel_url);
+                }
+            });
         }
-        return "test";
-    }
 
+
+        return arr;
+    }
+        */
 
     /**
      * Created by zhuzhzh .
@@ -135,14 +137,14 @@ public class AdminController {
     @RequestMapping("/managetopic")
     public String manageTopic(
             @RequestParam(value = "keyword", required = false, defaultValue = "")
-                    String keyword, @RequestParam(value = "keywordTitle", required = false, defaultValue = "")
-                    String keywordTitle, Model model
-    ) {
-        if (StringUtils.isNoneBlank(keyword)) {
-            model.addAttribute("keyword", keyword);
-            model.addAttribute("keywordTitle", keywordTitle);
-            List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword, keywordTitle);
-            if (topicModelList != null && topicModelList.size() > 0) {
+            String keyword,@RequestParam(value = "keywordTitle", required = false, defaultValue = "")
+            String keywordTitle,Model model
+    ){
+    if(StringUtils.isNoneBlank(keyword) ){
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("keywordTitle", keywordTitle);
+        List<TopicModel> topicModelList = topicService.getTopicsByKeyword(keyword,keywordTitle);
+        if( topicModelList!=null && topicModelList.size() > 0 ){
                 model.addAttribute("topicModelList", topicModelList);
             }
         }
@@ -322,6 +324,73 @@ public class AdminController {
         }
         model.addAttribute("topic", topic);
         return "admin/topicdetail";
+    }
+
+    @RequestMapping(value = "/zhihupath/search")
+    public String toZhihuPathSearch(){
+        return "admin/zhihupath";
+    }
+
+    @RequestMapping(value = "/zhihupath/result")
+    public String searchZhiHuResult(
+            @RequestParam(value = "keyword", defaultValue = ""  )
+            String keyword,
+            @RequestParam(value = "title",  defaultValue = "")
+            String title,Model model
+            ){
+        Objects.requireNonNull(keyword);
+        Objects.requireNonNull(title);
+
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("title",title);
+
+        Topic topic = topicService.getTopicByTitle(title);
+        if( topic == null || StringUtils.isBlank(topic.getKeywords()) ){
+            model.addAttribute("topicKeywords", "无");
+            model.addAttribute("topicTitle","未找到");
+        }else{
+            model.addAttribute("topicKeywords", topic.getKeywords());
+            model.addAttribute("topicTitle",topic.getTitle());
+        }
+
+        List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
+
+        List<String> childrenTopicNames = new ArrayList<String>();
+        if(!zhiHuTopicsList.isEmpty()){
+            model.addAttribute( "zhiHuTopicsList",zhiHuTopicsList.toString() );
+            String theFirstTopic = zhiHuTopicsList.get(0);
+            model.addAttribute( "zhiHuFirstTopic",  theFirstTopic);
+            childrenTopicNames = topicService.getChildrenTopicNames(theFirstTopic);
+            if(childrenTopicNames.isEmpty()){
+                childrenTopicNames.add( theFirstTopic );
+                model.addAttribute("childrenTopicNames", "无");
+            }else{
+                model.addAttribute("childrenTopicNames", childrenTopicNames.toString());
+            }
+        }
+
+        if( !childrenTopicNames.isEmpty() && !Objects.isNull(topic)  ){
+
+            childrenTopicNames = childrenTopicNames.stream().map(String :: trim).collect(Collectors.toList());
+
+            List<String> repeatedWordList = topicService.getTopicRepeatedWordList(topic, childrenTopicNames);
+
+
+            if ( repeatedWordList.isEmpty() ) {
+                model.addAttribute("success", "false");
+                model.addAttribute("repeatedWordList", "无");
+            }else{
+                model.addAttribute("success", "true");
+                model.addAttribute("repeatedWordList", repeatedWordList);
+            }
+
+        }else{
+            model.addAttribute("success", "false");
+            model.addAttribute( "repeatedWordList","无" );
+            model.addAttribute( "zhihuTopics","无" );
+        }
+
+        return "admin/zhihupath";
     }
 
 }

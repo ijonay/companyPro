@@ -7,10 +7,8 @@
  */
 package com.zc.service;
 
-import com.zc.bean.Topic;
-import com.zc.bean.TopicAgeStatistics;
-import com.zc.bean.TopicFilterClass;
-import com.zc.bean.TopicUserInterestModel;
+import com.zc.bean.*;
+import com.zc.dao.TopicAreaStatisticsMapper;
 import com.zc.dao.TopicDao;
 import com.zc.dao.TopicUserInterestStatisticsMapper;
 import com.zc.enumeration.DimensionEnum;
@@ -20,12 +18,10 @@ import com.zc.model.KeyValueCollection;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
-import com.zc.utility.CommonHelper;
-import com.zc.utility.Constant;
-import com.zc.utility.PropertyHelper;
-import com.zc.utility.WordVectorHelper;
+import com.zc.utility.*;
 import com.zc.utility.exception.ServiceException;
 import com.zc.utility.page.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
@@ -56,6 +52,8 @@ public class TopicServiceImpl implements TopicService {
     private TopicAgeStatisticsService topicAgeStatisticsService;
     @Autowired
     private TopicUserInterestStatisticsMapper topicUserInterestStatisticsMapper;
+    @Autowired
+    private TopicAreaStatisticsMapper topicAreaStatisticsMapper;
 
     @PostConstruct
     public void init() {
@@ -460,9 +458,17 @@ public class TopicServiceImpl implements TopicService {
 
         result.put("area", areaColl);
 
+
+        List<TopicAreaModel> areaTgiList = topicAreaStatisticsMapper.getCollByTopicId(topicId);
+
+        KeyValueCollection areaTgiColl = new KeyValueCollection(areaTgiList, true);
+
+        result.put("areaTgi", areaTgiColl);
+
         List<TopicFilterClass> interest = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Interest
                 .getValue
                         ());
+
 
         KeyValueCollection interestColl = new KeyValueCollection();
 
@@ -541,9 +547,33 @@ public class TopicServiceImpl implements TopicService {
         return dao.syncInsertTopic(topic);
     }
 
+	
+	@Override
+	public ArrayList<TopicModel> getTopHotTopic(Map map) {
+		return dao.getTopHotTopic(map);
+	}
+
     @Override
-    public ArrayList<TopicModel> getTopHotTopic(Map map) {
-        return dao.getTopHotTopic(map);
+    public Topic getTopicByTitle(String title){
+        return dao.getTopicByTitle(title);
+    }
+
+    @Override
+    public List<String> getChildrenTopicNames(@Param("topicName")  String topicName){
+        return dao.getChildrenTopicNames(topicName);
+    }
+
+    @Override
+    public List<String> getTopicRepeatedWordList(Topic topic,List<String> childrenTopicNames){
+        List<String> resultList = new ArrayList<String>();
+        Set<String> childrenTopicNamesSet = new HashSet<String>(childrenTopicNames);
+        String topicKeywordStr = topic.getKeywords();
+        String[] tkwList = topicKeywordStr.split(",");
+        Set<String> topicKwSet = new HashSet<String>(Arrays.asList(tkwList));
+        topicKwSet = topicKwSet.stream().map(String :: trim).collect(Collectors.toSet());
+        childrenTopicNamesSet.retainAll(topicKwSet);
+        resultList.addAll(childrenTopicNamesSet);
+        return resultList;
     }
 
 }

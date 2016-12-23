@@ -1,9 +1,13 @@
 package com.zc.model;
 
 import com.zc.bean.TopicAgeStatistics;
+import com.zc.bean.TopicAreaModel;
 import com.zc.bean.TopicFilterClass;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 通用Key,Value模板
@@ -23,6 +27,14 @@ public class KeyValueCollection extends ArrayList<KeyValue> {
 
         //list.forEach(p -> this.add(new KeyValue(p.getName(), p.getTopicPercentageTotal() * 100)));
         list.forEach(p -> this.add(new KeyValue(p.getName(), p.getPercentage() * 100)));
+
+    }
+
+    public KeyValueCollection(List<TopicAreaModel> list,boolean flag) {
+
+        if (Objects.isNull(list)) return;
+
+        list.forEach(p -> this.add(new KeyValue(p.getClassName(), p.getTgi())));
 
     }
 
