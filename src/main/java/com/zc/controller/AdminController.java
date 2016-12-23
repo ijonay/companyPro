@@ -14,11 +14,8 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
+import com.zc.utility.HttpClientHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +29,11 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller
@@ -83,7 +83,7 @@ public class AdminController {
 
     @RequestMapping(value = "/test")
     @ResponseBody
-    public String test() throws IOException {
+    public Object test() throws IOException {
         Integer topicId = 66;
 
         String keyword = "郭敬明";
@@ -91,32 +91,32 @@ public class AdminController {
 
         String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
 
+        Pattern pattern = Pattern.compile("<a href=\"/topic/(\\d*)\" class=\"name-link\" data-highlight>(.*?)</a>");
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String s = EntityUtils.toString(HttpClientHelper.get(labels_url));
 
-        HttpGet httpGet = new HttpGet(labels_url);
-
-//        org.apache.http.client.methods.HttpUriRequest
-
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-
-        try {
-
-            String s = EntityUtils.toString(response.getEntity(), "gb2312");
+        JSONObject jsonObject = JSON.parseObject(s);
+        JSONArray htmls = jsonObject.getJSONArray("htmls");
 
 
-            JSONObject jsonObject = JSON.parseObject(s);
-            JSONArray htmls = jsonObject.getJSONArray("htmls");
+        List<String> arr = new ArrayList<>();
+        if (htmls.size() > 0) {
+            htmls.forEach(p -> {
+                Matcher matcher = pattern.matcher(p.toString());
+                if (matcher.find()) {
+                    arr.add(matcher.group(1));
+                    arr.add(matcher.group(2));
 
-            return htmls.toString();
+                    String subLabel_url = String.format("https://www.zhihu.com/topic/%s/organize/entire", matcher
+                            .group(1));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            response.close();
-
+//                    HttpClientHelper.post(subLabel_url);
+                }
+            });
         }
-        return "test";
+
+
+        return arr;
     }
 
 

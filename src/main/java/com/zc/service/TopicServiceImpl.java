@@ -7,10 +7,8 @@
  */
 package com.zc.service;
 
-import com.zc.bean.Topic;
-import com.zc.bean.TopicAgeStatistics;
-import com.zc.bean.TopicFilterClass;
-import com.zc.bean.TopicUserInterestModel;
+import com.zc.bean.*;
+import com.zc.dao.TopicAreaStatisticsMapper;
 import com.zc.dao.TopicDao;
 import com.zc.dao.TopicUserInterestStatisticsMapper;
 import com.zc.enumeration.DimensionEnum;
@@ -56,6 +54,8 @@ public class TopicServiceImpl implements TopicService {
     private TopicAgeStatisticsService topicAgeStatisticsService;
     @Autowired
     private TopicUserInterestStatisticsMapper topicUserInterestStatisticsMapper;
+    @Autowired
+    private TopicAreaStatisticsMapper topicAreaStatisticsMapper;
 
     @PostConstruct
     public void init() {
@@ -460,9 +460,17 @@ public class TopicServiceImpl implements TopicService {
 
         result.put("area", areaColl);
 
+
+        List<TopicAreaModel> areaTgiList = topicAreaStatisticsMapper.getCollByTopicId(topicId);
+
+        KeyValueCollection areaTgiColl = new KeyValueCollection(areaTgiList, true);
+
+        result.put("areaTgi", areaTgiColl);
+
         List<TopicFilterClass> interest = topicFilterService.getByTopicIdAndType(topicId, DimensionEnum.Interest
                 .getValue
                         ());
+
 
         KeyValueCollection interestColl = new KeyValueCollection();
 
