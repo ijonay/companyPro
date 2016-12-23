@@ -14,10 +14,12 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
-import com.zc.utility.HttpClientHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.client.fluent.Request;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,8 +30,9 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -39,6 +42,11 @@ import java.util.regex.Pattern;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    ApplicationContext context;
+    @Autowired
+    SqlSessionFactory sqlSessionFactory;
 
     @Autowired
     TopicService topicService;
@@ -83,40 +91,42 @@ public class AdminController {
 
     @RequestMapping(value = "/test")
     @ResponseBody
-    public Object test() throws IOException {
+    public Object test() throws Exception {
         Integer topicId = 66;
 
-        String keyword = "郭敬明";
+        String keyword = "科比";
 
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+
+            PreparedStatement pstmt = sqlSession.getConnection().prepareStatement("");
+
+            ResultSet resultSet = pstmt.executeQuery();
+        }
 
         String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
 
-        Pattern pattern = Pattern.compile("<a href=\"/topic/(\\d*)\" class=\"name-link\" data-highlight>(.*?)</a>");
-
-        String s = EntityUtils.toString(HttpClientHelper.get(labels_url));
+        String s = Request.Get(labels_url).execute().returnContent().asString();
 
         JSONObject jsonObject = JSON.parseObject(s);
         JSONArray htmls = jsonObject.getJSONArray("htmls");
 
+        LinkedHashMap<String, String> result = new LinkedHashMap<>();
 
-        List<String> arr = new ArrayList<>();
         if (htmls.size() > 0) {
+
+            Pattern pattern = Pattern.compile("<a href=\"/topic/(\\d*)\" class=\"name-link\" data-highlight>(.*?)</a>");
+
             htmls.forEach(p -> {
                 Matcher matcher = pattern.matcher(p.toString());
                 if (matcher.find()) {
-                    arr.add(matcher.group(1));
-                    arr.add(matcher.group(2));
-
-                    String subLabel_url = String.format("https://www.zhihu.com/topic/%s/organize/entire", matcher
-                            .group(1));
-
-//                    HttpClientHelper.post(subLabel_url);
+                    result.put(matcher.group(1), matcher.group(2));
                 }
             });
+
         }
 
 
-        return arr;
+        return result;
     }
 
 
