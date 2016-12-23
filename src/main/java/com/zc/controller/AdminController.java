@@ -11,6 +11,8 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
+import com.zc.utility.HttpClientHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -82,12 +86,12 @@ public class AdminController {
 
     }
 
-@RequestMapping("/managetopic")
-public String manageTopic(
-        @RequestParam(value = "keyword", required = false, defaultValue = "")
-        String keyword,@RequestParam(value = "keywordTitle", required = false, defaultValue = "")
-        String keywordTitle,Model model
-){
+    @RequestMapping("/managetopic")
+    public String manageTopic(
+            @RequestParam(value = "keyword", required = false, defaultValue = "")
+            String keyword,@RequestParam(value = "keywordTitle", required = false, defaultValue = "")
+            String keywordTitle,Model model
+    ){
     if(StringUtils.isNoneBlank(keyword) ){
         model.addAttribute("keyword", keyword);
         model.addAttribute("keywordTitle", keywordTitle);
@@ -271,6 +275,73 @@ public String manageTopic(
         }
         model.addAttribute("topic", topic);
         return "admin/topicdetail";
+    }
+
+    @RequestMapping(value = "/zhihupath/search")
+    public String toZhihuPathSearch(){
+        return "admin/zhihupath";
+    }
+
+    @RequestMapping(value = "/zhihupath/result")
+    public String searchZhiHuResult(
+            @RequestParam(value = "keyword", defaultValue = ""  )
+            String keyword,
+            @RequestParam(value = "title",  defaultValue = "")
+            String title,Model model
+            ){
+        Objects.requireNonNull(keyword);
+        Objects.requireNonNull(title);
+
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("title",title);
+
+        Topic topic = topicService.getTopicByTitle(title);
+        if( topic == null || StringUtils.isBlank(topic.getKeywords()) ){
+            model.addAttribute("topicKeywords", "无");
+            model.addAttribute("topicTitle","未找到");
+        }else{
+            model.addAttribute("topicKeywords", topic.getKeywords());
+            model.addAttribute("topicTitle",topic.getTitle());
+        }
+
+        List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
+
+        List<String> childrenTopicNames = new ArrayList<String>();
+        if(!zhiHuTopicsList.isEmpty()){
+            model.addAttribute( "zhiHuTopicsList",zhiHuTopicsList.toString() );
+            String theFirstTopic = zhiHuTopicsList.get(0);
+            model.addAttribute( "zhiHuFirstTopic",  theFirstTopic);
+            childrenTopicNames = topicService.getChildrenTopicNames(theFirstTopic);
+            if(childrenTopicNames.isEmpty()){
+                childrenTopicNames.add( theFirstTopic );
+                model.addAttribute("childrenTopicNames", "无");
+            }else{
+                model.addAttribute("childrenTopicNames", childrenTopicNames.toString());
+            }
+        }
+
+        if( !childrenTopicNames.isEmpty() && !Objects.isNull(topic)  ){
+
+            childrenTopicNames = childrenTopicNames.stream().map(String :: trim).collect(Collectors.toList());
+
+            List<String> repeatedWordList = topicService.getTopicRepeatedWordList(topic, childrenTopicNames);
+
+
+            if ( repeatedWordList.isEmpty() ) {
+                model.addAttribute("success", "false");
+                model.addAttribute("repeatedWordList", "无");
+            }else{
+                model.addAttribute("success", "true");
+                model.addAttribute("repeatedWordList", repeatedWordList);
+            }
+
+        }else{
+            model.addAttribute("success", "false");
+            model.addAttribute( "repeatedWordList","无" );
+            model.addAttribute( "zhihuTopics","无" );
+        }
+
+        return "admin/zhihupath";
     }
 
 }

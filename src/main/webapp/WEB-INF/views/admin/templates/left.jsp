@@ -12,6 +12,7 @@
         <li name="manageruser"><a href="admin/manageruser" class="hasUrl">用户管理</a></li>
         <li name="managetopic"><a href="admin/managetopic" class="hasUrl">topic管理</a></li>
         <li name="hotspotmanager"><a href="admin/hotspotmanager" class="hasUrl">热点预告</a></li>
+        <li name="zhihupath"><a href="admin/zhihupath/search" class="hasUrl">知乎路径</a></li>
         <li name="version"><a href="admin/version" class="hasUrl">版本管理</a></li>
         <li name="redisset"><a href="admin/redisset" class="hasUrl">redis配置</a></li>
         <%--<li><a href="#">Reports</a></li>--%>
