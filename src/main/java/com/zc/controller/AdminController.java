@@ -14,9 +14,9 @@ import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
+import com.zc.utility.HttpClientHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -30,13 +30,10 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -96,12 +93,6 @@ public class AdminController {
 
         String keyword = "科比";
 
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-
-            PreparedStatement pstmt = sqlSession.getConnection().prepareStatement("");
-
-            ResultSet resultSet = pstmt.executeQuery();
-        }
 
         String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
 
@@ -128,7 +119,6 @@ public class AdminController {
 
         return result;
     }
-
 
     /**
      * Created by zhuzhzh .
@@ -332,6 +322,73 @@ public class AdminController {
         }
         model.addAttribute("topic", topic);
         return "admin/topicdetail";
+    }
+
+    @RequestMapping(value = "/zhihupath/search")
+    public String toZhihuPathSearch() {
+        return "admin/zhihupath";
+    }
+
+    @RequestMapping(value = "/zhihupath/result")
+    public String searchZhiHuResult(
+            @RequestParam(value = "keyword", defaultValue = "")
+                    String keyword,
+            @RequestParam(value = "title", defaultValue = "")
+                    String title, Model model
+    ) {
+        Objects.requireNonNull(keyword);
+        Objects.requireNonNull(title);
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("title", title);
+
+        Topic topic = topicService.getTopicByTitle(title);
+        if (topic == null || StringUtils.isBlank(topic.getKeywords())) {
+            model.addAttribute("topicKeywords", "无");
+            model.addAttribute("topicTitle", "未找到");
+        } else {
+            model.addAttribute("topicKeywords", topic.getKeywords());
+            model.addAttribute("topicTitle", topic.getTitle());
+        }
+
+        List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
+
+        List<String> childrenTopicNames = new ArrayList<String>();
+        if (!zhiHuTopicsList.isEmpty()) {
+            model.addAttribute("zhiHuTopicsList", zhiHuTopicsList.toString());
+            String theFirstTopic = zhiHuTopicsList.get(0);
+            model.addAttribute("zhiHuFirstTopic", theFirstTopic);
+            childrenTopicNames = topicService.getChildrenTopicNames(theFirstTopic);
+            if (childrenTopicNames.isEmpty()) {
+                childrenTopicNames.add(theFirstTopic);
+                model.addAttribute("childrenTopicNames", "无");
+            } else {
+                model.addAttribute("childrenTopicNames", childrenTopicNames.toString());
+            }
+        }
+
+        if (!childrenTopicNames.isEmpty() && !Objects.isNull(topic)) {
+
+            childrenTopicNames = childrenTopicNames.stream().map(String::trim).collect(Collectors.toList());
+
+            List<String> repeatedWordList = topicService.getTopicRepeatedWordList(topic, childrenTopicNames);
+
+
+            if (repeatedWordList.isEmpty()) {
+                model.addAttribute("success", "false");
+                model.addAttribute("repeatedWordList", "无");
+            } else {
+                model.addAttribute("success", "true");
+                model.addAttribute("repeatedWordList", repeatedWordList);
+            }
+
+        } else {
+            model.addAttribute("success", "false");
+            model.addAttribute("repeatedWordList", "无");
+            model.addAttribute("zhihuTopics", "无");
+        }
+
+        return "admin/zhihupath";
     }
 
 }

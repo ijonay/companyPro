@@ -667,4 +667,16 @@
         }
     </select>
 
+    <select id="getTopicByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from view_topic
+        where title = '${title}'
+        limit 1
+    </select>
+
+    <select id="getChildrenTopicNames" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT child FROM zhihutopictree where parent = '${topicName}';
+    </select>
+
 </mapper>
