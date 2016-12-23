@@ -1749,7 +1749,7 @@ var circleOption = {
     	$this.parent().parent().find(".hot_echart_list").append($(".loadingcon").css("display","inline-block"));
     	$.ajax({
     		type:"get",
-    		url:dataUrl.util.getPercentData($(this).attr("data-id")),
+    		url:dataUrl.util.getPercentData($this.attr("data-id")),
     		success:function(data){
     			$(".loadingcon").css("display","none")
     			var data = data.data;
@@ -1990,15 +1990,18 @@ var circleOption = {
 //    			    $this.parent().parent().find(".hot_echart_list").append(educationCon);
     			}
     				//兴趣雷达图
-    				if(data && data.interest.length > 0){
+    				if(data && data.userInterest.length > 0){
 //						var interestCon = $("<div class='Personas' style='display:inline-block;width:25%;height:279px;background:#fff;'></div>");
 	    				var ele = $this.parent().parent().find(".hot_echart_list").find(".chartsRightCon").get(0);
 	    				$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
 	    				var interestCharts = echarts.init(ele);
 	    				var interestvals = [];
 	    	        	var interestnames = [];
-	    	        	var interest = data.interest;
+	    	        	var interest = data.userInterest;
 	    	        	var max = 0;
+	    	        	var yData = [];
+	    	        	var persentData = [];
+	    	        	var tgiData = [];
 	    	        	$.each(interest,function(i,item){
 	    	        		if(max < item.value){
 	    	        			max = item.value
@@ -2008,6 +2011,14 @@ var circleOption = {
 	    	        		interestvals.push(item.value);
 	    	        		interestnames.push({name:item.name,max:max});
 	    	        	});
+	    	        	$.each(interest,function(i,item){
+	    	        		yData.push(item.className);
+	    	        		persentData.push(item.percentage);
+	    	        		tgiData.push(item.tgi);    	        		
+	    	        	});
+	    	        	console.log(yData);
+	    	        	console.log(persentData);
+	    	        	console.log(tgiData);
 						var interestOption = {
 							color:['#ccc'],
 	    	        	    title: {
@@ -2025,6 +2036,9 @@ var circleOption = {
 	    	        	    backgroundColor:"#fff",
 						    tooltip: {
 						        trigger: 'axis',
+						        axisPointer: {
+									type: 'shadow'
+								},
 						        textStyle:{
 	    	        	    		fontFamily:"微软雅黑"
 	    	        	    	}
@@ -2042,59 +2056,46 @@ var circleOption = {
    	                                handleStyle: {
    	                                 color: '#00b1c5'
    	                                }
-   	                            },
-   	                            {
-   	                                type: 'inside',
-   	                                realtime: true,
-   	                                orient:'vertical',
-   	                                start: 0,
-   	                                end: 100,
    	                            }
    	                        ],
 						    legend: {
-						        data:['蒸发量','平均温度'],
+						        data:['占比','TGI'],
 						        bottom:15,
 						        left:30
 						    },
 						    yAxis:[{
 						            type: 'category',
-						            data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+						            data: yData
 						        }],
 						    xAxis: [
 						        {
 						            type: 'value',
-						            name: '水量',
-						            min: 0,
-						            max: 250,
-						            interval: 50,
+						            name: '比例',
 						            axisLabel: {
-						                formatter: '{value} ml'
+						                formatter: '{value}'
 						            }
 						        },
 						        {
 						            type: 'value',
-						            name: '温度',
+						            name: 'TGI',
 						            show:false,
-						            min: 0,
-						            max: 25,
-						            interval: 5,
 						            axisLabel: {
-						                formatter: '{value} °C'
+						                formatter: '{value}'
 						            }
 						        }
 						    ],
 						    series: [
 						        {
-						            name:'蒸发量',
+						            name:'占比',
 						            type:'bar',
-						            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+						            xAxisIndex: 1,
+						            data:persentData
 						        },
 						        {
-						            name:'平均温度',
+						            name:'TGI',
 						            type:'line',
-						            xAxisIndex: 1,
 						            smooth:true,
-						            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+						            data:tgiData
 						        }
 						    ]
 						};
