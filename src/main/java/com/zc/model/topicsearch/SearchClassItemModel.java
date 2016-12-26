@@ -17,7 +17,8 @@ public class SearchClassItemModel {
 
         setId(model.getId());
         setName(model.getName());
-
+        setDescription(model.getDescription());
+        setRule(model.getRule());
     }
 
     /**
@@ -29,6 +30,15 @@ public class SearchClassItemModel {
      * 类别名称
      */
     private String name;
+    /**
+     * description description ,所属表字段为TopicClass.description
+     */
+    private String description;
+
+    /**
+     * rule rule ,所属表字段为TopicClass.rule
+     */
+    private String rule;
 
     /**
      * 子集
@@ -58,5 +68,21 @@ public class SearchClassItemModel {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
     }
 }
