@@ -42,6 +42,7 @@ public class TopicClassApi extends BaseApi {
         maps.put(SearchTypeEnum.Gender.name(), getSearchClassByType(SearchTypeEnum.Gender));
         maps.put(SearchTypeEnum.Area.name(), getSearchClassByType(SearchTypeEnum.Area));
         maps.put(SearchTypeEnum.Education.name(), getSearchClassByType(SearchTypeEnum.Education));
+        maps.put(SearchTypeEnum.Circle.name(), getSearchClassByType(SearchTypeEnum.Circle));
 
         return result.data(maps);
 
