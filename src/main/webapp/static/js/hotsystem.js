@@ -1567,13 +1567,11 @@ var circleOption = {
        	                            trigger: 'axis',
        	                            padding:[5,10],
        	                            formatter:function(obj){
-       	                            	return '热度：'+obj[0].value+'</br>'+obj[0].name.substr(0,16)
+       	                            	console.log(obj)
+       	                            	return '热度：'+obj.value+'</br>'+obj.name.substr(0,16)
        	                            },
        	                            axisPointer:{
-       	                            	type:'line',
-       	                            	lineStyle:{
-       	                            		color:'#00b1c5'
-       	                            	}
+       	                            	type:'cross'
        	                            }
        	                        },
        	                        grid: {
@@ -2050,6 +2048,7 @@ var circleOption = {
    	                                start:0,
    	                                end: 100,
    	                                width:20,
+   	                                height:'390px',
    	                                right:20,
    	                                orient:'vertical',
    	                                fillerColor:'rgba(91, 206, 205,0.8)',
