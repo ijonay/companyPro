@@ -7,11 +7,31 @@ package com.zc.enumeration;
 public enum SearchTypeEnum {
 
 
-    UserClass(1),
+    /**
+     * 用户兴趣分类
+     */
+    //UserClass(1),
+    UserClass(6),//2016年12月26日14:38:57 更改新的用户分类规则
+    /**
+     * 事件分类
+     */
     EventClass(2),
+    /**
+     * 性别
+     */
     Gender(3),
+    /**
+     * 地区
+     */
     Area(4),
-    Education(5);
+    /**
+     * 学历
+     */
+    Education(5),
+    /**
+     * 圈层
+     */
+    Circle(7);
 
 
     public int getValue() {
