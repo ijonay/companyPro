@@ -1567,7 +1567,6 @@ var circleOption = {
        	                            trigger: 'axis',
        	                            padding:[5,10],
        	                            formatter:function(obj){
-       	                            	console.log(obj)
        	                            	return '热度：'+obj.value+'</br>'+obj.name.substr(0,16)
        	                            },
        	                            axisPointer:{
@@ -2000,6 +1999,7 @@ var circleOption = {
 	    	        	var yData = [];
 	    	        	var persentData = [];
 	    	        	var tgiData = [];
+	    	        	var strongData = [];
 	    	        	$.each(interest,function(i,item){
 	    	        		if(max < item.value){
 	    	        			max = item.value
@@ -2011,12 +2011,10 @@ var circleOption = {
 	    	        	});
 	    	        	$.each(interest,function(i,item){
 	    	        		yData.push(item.className);
-	    	        		persentData.push(item.percentage);
-	    	        		tgiData.push(item.tgi);    	        		
+	    	        		persentData.push(item.percentage*100);
+	    	        		tgiData.push(item.tgi);
+	    	        		strongData.push(item.interestStrength);
 	    	        	});
-	    	        	console.log(yData);
-	    	        	console.log(persentData);
-	    	        	console.log(tgiData);
 						var interestOption = {
 							color:['#ccc'],
 	    	        	    title: {
@@ -2039,6 +2037,24 @@ var circleOption = {
 								},
 						        textStyle:{
 	    	        	    		fontFamily:"微软雅黑"
+	    	        	    	},
+	    	        	    	formatter:function(obj){
+	    	        	    		var itemName;
+	    	        	    		var str="";
+	    	        	    		$.each(obj,function(index,item){
+	    	        	    			if(index == 0){
+	    	        	    				itemName = item.name;
+	    	        	    				str += item.seriesName+':'+item.data+'%'+' <br>'	
+	    	        	    			}
+	    	        	    			if(index == 1){
+	    	        	    				str += item.seriesName+':'+item.data+' <br>'	
+	    	        	    			}
+	    	        	    			if(index == 1){
+	    	        	    				str += item.seriesName+':'+item.data	
+	    	        	    			}
+	    	        	    		})
+	    	        	    		str = ' ' + itemName + '<br>' + str;
+	    	        	    		return str;
 	    	        	    	}
 						    },
 						    dataZoom: [
@@ -2058,7 +2074,7 @@ var circleOption = {
    	                            }
    	                        ],
 						    legend: {
-						        data:['占比','TGI'],
+						        data:['占比','TGI','强度'],
 						        bottom:15,
 						        left:30
 						    },
@@ -2095,6 +2111,12 @@ var circleOption = {
 						            type:'line',
 						            smooth:true,
 						            data:tgiData
+						        },
+						        {
+						            name:'强度',
+						            type:'line',
+						            smooth:true,
+						            data:strongData
 						        }
 						    ]
 						};
@@ -2730,7 +2752,7 @@ $('#record-btn-index').on('click',function(){
     $('.record-con2').hide();
     $('.record-con1').show();
     $('.record-con1').find('ul').addClass('hidecommon');
-    $('.record-con1').find('ul').removeClass('hidecommon');
+    $('.record-con1').find('ul:eq(0)').removeClass('hidecommon');
     $('.record-div').show();
 
 });
