@@ -11,8 +11,10 @@
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd">
     <!-- 自动扫描 -->
     <context:component-scan base-package="com.zc">
-        <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"/>
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/>-->
     </context:component-scan>
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
@@ -63,19 +65,18 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!--<bean id="tempDataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
-          <!--destroy-method="close">-->
-        <!--<property name="driverClassName" value="${msdriver}"/>-->
-        <!--<property name="url" value="${msurl}"/>-->
-        <!--<property name="username" value="${msusername}"/>-->
-        <!--<property name="password" value="${mspassword}"/>-->
+    <!--destroy-method="close">-->
+    <!--<property name="driverClassName" value="${msdriver}"/>-->
+    <!--<property name="url" value="${msurl}"/>-->
+    <!--<property name="username" value="${msusername}"/>-->
+    <!--<property name="password" value="${mspassword}"/>-->
     <!--</bean>-->
     <!--&lt;!&ndash; spring和MyBatis完美整合，不需要mybatis的配置映射文件 &ndash;&gt;-->
     <!--<bean id="tempSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
-        <!--<property name="dataSource" ref="tempDataSource"/>-->
-        <!--&lt;!&ndash; 自动扫描mapping.xml文件 &ndash;&gt;-->
-        <!--<property name="mapperLocations" value="classpath*:com/zc/tempmapping/*.xml"></property>-->
+    <!--<property name="dataSource" ref="tempDataSource"/>-->
+    <!--&lt;!&ndash; 自动扫描mapping.xml文件 &ndash;&gt;-->
+    <!--<property name="mapperLocations" value="classpath*:com/zc/tempmapping/*.xml"></property>-->
     <!--</bean>-->
-
 
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
@@ -106,32 +107,32 @@
 
     <!--quartz job-->
     <!-- For times when you need more complex processing, passing data to the scheduled job -->
-    <bean name="userRecommandedTopicsJob" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <bean name="userRecommandedTopicsJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="Durability" value="true"/>
-        <property name="jobClass" value="com.zc.jobs.UserRecommandedTopicsJob" />
-    <!-- <property name="jobDataMap">
-            <map>
-                <entry key="anotherBean" value-ref="anotherBean" />
-            </map>
-        </property>
-        <property name="durability" value="true" /> -->
+        <property name="jobClass" value="com.zc.jobs.UserRecommandedTopicsJob"/>
+        <!-- <property name="jobDataMap">
+                <map>
+                    <entry key="anotherBean" value-ref="anotherBean" />
+                </map>
+            </property>
+            <property name="durability" value="true" /> -->
     </bean>
 
-    <bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail" ref="userRecommandedTopicsJob" />
-        <property name="cronExpression" value="0 0 0/1,* * * ?" />
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userRecommandedTopicsJob"/>
+        <property name="cronExpression" value="0 0 0/1,* * * ?"/>
     </bean>
 
-    <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="jobDetails">
             <list>
-                <ref bean="userRecommandedTopicsJob" />
+                <ref bean="userRecommandedTopicsJob"/>
             </list>
         </property>
 
         <property name="triggers">
             <list>
-                <ref bean="cronTrigger" />
+                <ref bean="cronTrigger"/>
             </list>
         </property>
 
