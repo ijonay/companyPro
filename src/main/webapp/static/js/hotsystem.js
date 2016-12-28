@@ -406,7 +406,7 @@ $('.dialog_tab').delegate('li','click',function(){
 });
 //获取更新
 var recordList = $.templates(templates.design["tmplRecordList"]);
-var recordList2 = $.templates(templates.design["tmplRecordList2"]);
+var recordList2 = $.templates(templates.design["tmplRecordList2"]); 
 
 function recordLog(){
     $.ajax({
@@ -446,32 +446,32 @@ function labelList(){
                 var eventTemp2 = eventData.slice(9);
                 var userData = [];
                 var child1 = JSON.stringify(returnData.Gender);
-                child1 = JSON.parse(child1);
+                child1 = JSON.parse(child1);                
                 var obj1 = {
-                    id:'Gender',
-                    name:"性别",
-                    childs:child1
+                        id:'Gender',
+                        name:"性别",
+                        childs:child1
                 }
                 var child2 = JSON.stringify(returnData.Education);
-                child2 = JSON.parse(child2);
+                child2 = JSON.parse(child2);                
                 var obj2 = {
-                    id:'Education',
-                    name:"学历",
-                    childs:child2
+                        id:'Education',
+                        name:"学历",
+                        childs:child2
                 }
                 var child3 = JSON.stringify(returnData.Area);
-                child3 = JSON.parse(child3);
+                child3 = JSON.parse(child3);                
                 var obj3 = {
-                    id:'Area',
-                    name:"地区",
-                    childs:child3
+                        id:'Area',
+                        name:"地区",
+                        childs:child3
                 }
                 var child4 = JSON.stringify(returnData.UserClass);
-                child4 = JSON.parse(child4);
+                child4 = JSON.parse(child4);                
                 var obj4 = {
-                    id:'UserClass',
-                    name:"兴趣",
-                    childs:child4
+                        id:'UserClass',
+                        name:"兴趣",
+                        childs:child4
                 }
                 userData.push(obj1);
                 userData.push(obj2);
@@ -483,11 +483,14 @@ function labelList(){
                 $(".eventTab2").empty();
                 $(".userDialogTab").empty();
                 $(".personTab").empty();
+                $('#userDialog_tag').empty();
                 fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
                 fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
+                fillTagData($("#userDialog_tag"),returnData.Circle);
+             
                 fillDataBot($(".userDialogTab"),$(".personTab"),userData);
             }
-
+            
         },
         error:function(){
             console.log('获取标签列表失败');
@@ -498,16 +501,41 @@ function labelList(){
 //高级探索弹窗搜索
 $('#dialog_ser_text').keyup(function(event){
     if(event.keyCode == "13") {
-        var val = $.trim($('#dialog_ser_text').val());
-        if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
+        $('#dialog_ser_to').click();
+    };  
+});
+
+$('#dialog_ser_to').on('click',function(){
+    var val = $.trim($('#dialog_ser_text').val());
+        if(val&&val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
             var dataObj = {
-                Even:[],
-                Area:[],
-                Age:[],
-                Education:[],
-                Gender:[],
-                UserClass:[]
+                    Even:[],
+                    newtag:[],
+                    Area:[],
+                    Age:[],
+                    Education:[],
+                    Gender:[],
+                    UserClass:[]
             };
+            
+            if($('#person_new_tag').is('.hidecommon')){
+            }else{
+                var list = $('#person_new_tag').find('i');
+                $(list).each(function(i,item){
+                    var dataId = $(this).attr('data-id');
+                    var dataText = $(this).text();
+                    dataObj.newtag.push({id:dataId,name:dataText})
+                });
+                var nextagtext = JSON.parse(JSON.parse($('#person_new_tag').find('div').text()));
+                dataObj.Gender = nextagtext.sex;
+                dataObj.Education = nextagtext.education;
+                dataObj.UserClass = nextagtext.interest;
+//                var ageVal3 = $('#hot_age1').val(),
+//                ageVal4 = $('#hot_age2').val();
+//                dataObj.Age.push(ageVal3);
+//                dataObj.Age.push(ageVal4);
+            };
+            
             if($('#inp_data_event').is('.hidecommon')){
             }else{
                 var list = $('#inp_data_event').find('i');
@@ -526,7 +554,7 @@ $('#dialog_ser_text').keyup(function(event){
                     dataObj.Gender.push({id:dataId,name:dataText})
                 });
             };
-
+            
             if($('.person_area').is('.hidecommon')){
             }else{
                 var list = $('.person_area').find('i');
@@ -567,81 +595,12 @@ $('#dialog_ser_text').keyup(function(event){
         }else{
             return;
         };
-    };
 });
-
-$('#dialog_ser_to').on('click',function(){
-    var val = $.trim($('#dialog_ser_text').val());
-    if(val&&val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
-        var dataObj = {
-            Even:[],
-            Area:[],
-            Age:[],
-            Education:[],
-            Gender:[],
-            UserClass:[]
-        };
-        if($('#inp_data_event').is('.hidecommon')){
-        }else{
-            var list = $('#inp_data_event').find('i');
-            $(list).each(function(i,item){
-                var dataId = $(this).attr('data-id');
-                var dataText = $(this).text();
-                dataObj.Even.push({id:dataId,name:dataText})
-            });
-        };
-        if($('.person_sec').is('.hidecommon')){
-        }else{
-            var list = $('.person_sec').find('i');
-            $(list).each(function(i,item){
-                var dataId = $(this).attr('data-id');
-                var dataText = $(this).text();
-                dataObj.Gender.push({id:dataId,name:dataText})
-            });
-        };
-
-        if($('.person_area').is('.hidecommon')){
-        }else{
-            var list = $('.person_area').find('i');
-            $(list).each(function(i,item){
-                var dataId = $(this).attr('data-id');
-                var dataText = $(this).text();
-                dataObj.Area.push({id:dataId,name:dataText})
-            });
-        };
-        if($('.person_education').is('.hidecommon')){
-        }else{
-            var list = $('.person_education').find('i');
-            $(list).each(function(i,item){
-                var dataId = $(this).attr('data-id');
-                var dataText = $(this).text();
-                dataObj.Education.push({id:dataId,name:dataText})
-            });
-        };
-        if($('.person_interest').is('.hidecommon')){
-        }else{
-            var list = $('.person_interest').find('i');
-            $(list).each(function(i,item){
-                var dataId = $(this).attr('data-id');
-                var dataText = $(this).text();
-                dataObj.UserClass.push({id:dataId,name:dataText})
-            });
-        };
-        var ageVal1 = $('#hot_age1').val(),
-            ageVal2 = $('#hot_age2').val();
-        if(ageVal1){
-            dataObj.Age.push(ageVal1)
-        }
-        if(ageVal2){
-            dataObj.Age.push(ageVal2)
-        }
-        var hash = JSON.stringify(dataObj);
-        window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
-    }else{
-        return;
-    };
-});
-
+function  fillTagData(selectortag,data){
+	 $.each(data,function(index,item){
+		 selectortag.append('<li><label>'+item.name+'<input type="checkbox" data-id="'+item.id+'"></label><div style="display:none">'+JSON.stringify(item.rule)+'</div></li>');
+	 })
+}
 function fillData(selector,selector2,data){
     //selector.append('<li>年龄</li>');
     $.each(data,function(index,item){
@@ -662,6 +621,7 @@ function fillData(selector,selector2,data){
 };
 
 function fillDataBot(selector,selector2,data){
+    
     selector.append('<li>年龄</li>');
     $.each(data,function(index,item){
         selector.append('<li class="pst"><em  data-id="'+item.id+'" >'+item.name+'</em><span class="pos dialog_inp_num">0</span></li>');
@@ -679,20 +639,161 @@ function fillDataBot(selector,selector2,data){
         selector2.append(str);
     });
     selector2.prepend('<ul class="hot_dia_age hidecommon" id="hot_dia_age"><div class="age_dia_con">'+
-        '<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1"><b>岁</b><b>至</b>'+
-        '<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2"><b>岁</b>'+
-        '</div></ul>')
+            '<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1"><b>岁</b><b>至</b>'+
+            '<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2"><b>岁</b>'+
+            '</div></ul>')
 };
 
-
-
+//受众新标签点击
+$('#userDialog_tag').delegate('li input','click',function(){
+    var dataId = $(this).attr('data-id');
+    var distext = $(this).parent().next().text();
+    if($(this).is(':checked')){
+        
+        $(this).parent().parent().parent().find('label').css('background-color','#c5c5c5');
+        $(this).parent().css('background-color','#389b9f');
+        $('.person_new_tag').html('');
+        
+        $('#inp_data_event i').remove();
+        $('#inp_data_event').addClass('hidecommon');
+        $('.person_sec i').remove();
+        $('.person_sec').addClass('hidecommon');
+        $('.person_education i').remove();
+        $('.person_education').addClass('hidecommon');
+        $('.person_area i').remove();
+        $('.person_area').addClass('hidecommon');
+        $('.person_interest i').remove();
+        $('.person_interest').addClass('hidecommon');
+        var input1 = $('#ser_dialog').find('input');
+        var input2 = $('#userDialog_tag').find('input');
+        $(input1).not(input2).prop('checked',false);
+        $('.dialog_inp_num').text(0);
+        $('.dialog_inp_num').css('display','none');
+		$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>');
+		
+		var newText = JSON.parse(JSON.parse(distext));
+		var lensex = newText.sex.length;
+		if(lensex>0){
+			$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(lensex);
+			$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','block')
+		}
+		
+		$.each(newText.sex,function(i,item){
+			if(item == 208){
+				$('#dialog-bottom-new ul').eq(1).find('input').eq(0).prop('checked',true);
+			}else{
+				$('#dialog-bottom-new ul').eq(1).find('input').eq(1).prop('checked',true);
+			}
+		})
+		var leneducation = newText.education.length;
+		if(leneducation>0){
+			$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(leneducation);
+			$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','block');
+		};
+		var bot2 = $('#dialog-bottom-new ul').eq(2).find('input');
+		var _that = $(this);
+		$.each(newText.education,function(i,item){
+			$(bot2).each(function(){
+				if($(this).attr('data-id') == item){
+					$(this).prop('checked',true);
+				}
+			})
+		});
+		
+		var leninterest = newText.interest.length;
+		if(leninterest>0){
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(leninterest);
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','block');
+		};
+		var bot4 = $('#dialog-bottom-new ul').eq(4).find('input');
+		$.each(newText.interest,function(i,item){
+			$(bot4).each(function(){
+				if($(this).attr('data-id') == item){
+					$(this).prop('checked',true);
+				}
+			})
+		});
+		$.each(newText.age,function(i,item){
+			
+		});
+		$('#hot_age1').val(newText.age[0]);
+		$('#hot_age2').val(newText.age[1]);
+		
+		$(".dislog_inp_con").find('input').attr('disabled',true);
+        $(this).parent().parent().parent().find('input').prop('checked',false);
+        $(this).prop('checked',true);
+		$('.person_new_tag').removeClass('hidecommon');
+        $('#inp_data_person1').removeClass('hidecommon');
+        $('.dialog_inp_c').removeClass('hidecommon');
+    }else{
+    	$('#dialog-bottom-new').find('input').prop('checked',false);
+    	$('.dialog_inp_num').text(0);
+    	$('.dialog_inp_num').css('display','none');
+        $(".dislog_inp_con").find('input').attr('disabled',false);
+        var len = $('#person_new_tag').find('i').length;
+        $(this).parent().css('background-color','#c5c5c5');
+        $('#person_new_tag i').each(function(i,item){
+            if($(this).attr('data-id') == dataId){
+                $(this).remove();
+            }
+        });
+        if(len<=1){
+            $('.person_new_tag').addClass('hidecommon');
+        };
+        var len1 = $('#inp_data_event').find('i').length;
+        
+        var len2 = $('#inp_data_person1').find('i').length;
+        if(len2<1){
+            $('#inp_data_person1').addClass('hidecommon');
+        }
+        if(len1<1&&len2<1){
+            $('.dialog_inp_c').addClass('hidecommon');
+        };
+        
+    }
+    
+});
+//删除受众新标签
+$('#person_new_tag').delegate('span','click',function(){
+	$('#dialog-bottom-new').find('input').prop('checked',false);
+	$('.dialog_inp_num').text(0);
+	$('.dialog_inp_num').css('display','none');
+	$('#hot_age1').val('');
+	$('#hot_age2').val('');
+    $(".dislog_inp_con").find('input').attr('disabled',false);
+ 
+    var dataId = $(this).parent().attr('data-id');
+    $(this).parent().remove();
+    $('#userDialog_tag li input').each(function(){
+        
+        var _this = $(this);
+        if(_this.attr('data-id') == dataId){
+            _this.prop("checked", false);
+            _this.parent().css('background-color','#c5c5c5');
+        }
+    })
+    var len = $('#person_new_tag').find('i').length;
+    if(len<1){
+        $('#person_new_tag').addClass('hidecommon');
+    }
+    var len1 = $('#inp_data_event').find('i').length;
+    var len2 = $('#inp_data_person1').find('i').length;
+    if(len2<1){
+        $('#inp_data_person1').addClass('hidecommon');
+    }
+    if(len1<1&&len2<1){
+        $('.dialog_inp_c').addClass('hidecommon');
+    };
+    
+    
+});
 
 //事件标签点击
 $('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
     var dataId = $(this).attr('data-id');
     var num = Number($('.cor389b9f').find('span').text());
     var textCon = $(this).parent().text();
-
+    
     if($(this).is(':checked')){
         $('.cor389b9f').find('span').css('display','block');
         $('.cor389b9f').find('span').text(num+1);
@@ -702,8 +803,8 @@ $('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
             var newStr = textStr.substring(0,textStr.length-1);
             $('#inp_data_event i:last').text(newStr);
         }
-
-
+        
+        
         $('.dialog_inp_c').removeClass('hidecommon');
         $('#inp_data_event').removeClass('hidecommon');
     }else{
@@ -715,7 +816,7 @@ $('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
         if(len <=1){
             $('#inp_data_event').addClass('hidecommon');
         }
-
+        
         $('#inp_data_event i').each(function(i,item){
             if($(this).attr('data-id') == dataId){
                 $(this).remove();
@@ -726,7 +827,7 @@ $('.dialog_tab_event').delegate('.inp_ch_list input','click',function(){
             var newStr = textStr.substring(0,textStr.length-1);
             $('#inp_data_event i:last').text(newStr);
         }
-
+        
         var len1 = $('#inp_data_event').find('i').length;
         var len2 = $('#inp_data_person1').find('i').length;
         if(len1<1&&len2<1){
@@ -746,7 +847,7 @@ $('.dialog_tab_event').delegate('.inp_select_all input','click',function(){
             if($(this).prop("checked")==false){
                 $('#inp_data_event').removeClass('hidecommon');
                 $('#inp_data_event').prepend('<i data-id='+$(this).attr('data-id')+'>'+$(this).parent().text()+'、</i>');
-
+                
             }
         });
         var textStr = $('#inp_data_event i:last').text();
@@ -754,7 +855,7 @@ $('.dialog_tab_event').delegate('.inp_select_all input','click',function(){
             var newStr = textStr.substring(0,textStr.length-1);
             $('#inp_data_event i:last').text(newStr);
         }
-
+        
         $(this).parent().parent().prev().find('input').prop("checked", true);
         $('.cor389b9f').find('span').css('display','block')
         $('.cor389b9f').find('span').text(len);
@@ -783,12 +884,12 @@ $('.dialog_tab_event').delegate('.inp_select_all input','click',function(){
 
 //人群标签点击
 $('.dialog_tab_person').delegate(' .inp_ch_list input','click',function(){
-
+    
     var dataId = $(this).attr('data-id');
     var num = Number($('.cor389b9f').find('span').text());
     var textCon = $(this).parent().text();
     var textPar = $('.cor389b9f').find('em').text();
-
+    
     if($(this).is(':checked')){
         $('.cor389b9f').find('span').css('display','block');
         $('.cor389b9f').find('span').text(num+1);
@@ -826,8 +927,8 @@ $('.dialog_tab_person').delegate(' .inp_ch_list input','click',function(){
             }
             $('.person_interest').removeClass('hidecommon');
         }
-
-
+        
+        
         $('.dialog_inp_c').removeClass('hidecommon');
         $('#inp_data_person1').removeClass('hidecommon');
     }else{
@@ -865,7 +966,7 @@ $('.dialog_tab_person').delegate(' .inp_ch_list input','click',function(){
         if(leninterest<1){
             $('.person_interest').addClass('hidecommon');
         }
-
+        
         var len1 = $('#inp_data_event').find('i').length;
         var len2 = $('#inp_data_person1').find('i').length;
         if(len1<1&&len2<1){
@@ -882,8 +983,8 @@ $('.dialog_tab_person').delegate('.inp_select_all input','click',function(){
         $('.dialog_inp_c').removeClass('hidecommon');
         $('#inp_data_person1').removeClass('hidecommon');
         var lenList = $('#inp_data_person1').find('i').length;
-
-
+        
+        
         $(inList).each(function(i,item){
             if($(this).prop("checked")==false){
                 //console.log($(this).parent().text());
@@ -922,12 +1023,12 @@ $('.dialog_tab_person').delegate('.inp_select_all input','click',function(){
                     };
                     $('.person_interest').removeClass('hidecommon');
                 }
-
-
+                
+                
             }
         });
 
-
+        
         $(this).parent().parent().prev().find('input').prop("checked", true);
         $('.cor389b9f').find('span').css('display','block')
         $('.cor389b9f').find('span').text(len);
@@ -967,7 +1068,7 @@ $('.dialog_tab_person').delegate('.inp_select_all input','click',function(){
         if(leninterest<1){
             $('.person_interest').addClass('hidecommon');
         }
-
+        
         var len1 = $('#inp_data_event').find('i').length;
         var len2 = $('#inp_data_person1').find('i').length;
         if(len1<1&&len2<1){
@@ -1012,10 +1113,10 @@ $('#inp_data_person1 span').on('click',function(){
         $('.userDialogTab li').eq(4).find('.dialog_inp_num').text(0);
         $('.personTab').find('ul').eq(4).find('input').prop("checked",false);
     }
-
-//		$('.dialog_tab_person').find('input').prop("checked",false);
-//		$('.dialog_tab_person').prev().find('.dialog_inp_num').text(0);
-//		$('.dialog_tab_person').prev().find('.dialog_inp_num').css('display','none');
+    
+//  $('.dialog_tab_person').find('input').prop("checked",false);
+//  $('.dialog_tab_person').prev().find('.dialog_inp_num').text(0);
+//  $('.dialog_tab_person').prev().find('.dialog_inp_num').css('display','none');
     var len1 = $('#inp_data_event').find('i').length;
     var len2 = $('#inp_data_person1').find('i').length;
     if(len1<1&&len2<1){
@@ -1028,6 +1129,9 @@ $('#dialog_inp_del').on('click',function(){
 });
 dialogInit();
 function dialogInit(){
+    $(".dislog_inp_con").find('input').attr('disabled',false);
+    $('#userDialog_tag').find('input').prop('checked',false);
+    $('#userDialog_tag').find('label').css('background-color','#c5c5c5');
     $('#inp_data_person1').find('i').remove();
     $('#inp_data_event').find('i').remove();
     $('#inp_data_person1 div').addClass('hidecommon');
