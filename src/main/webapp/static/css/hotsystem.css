@@ -457,6 +457,7 @@ input[type=checkbox]:checked::after {
 }
 #inp_data_person1 .person_new_tag i span{
 	top: 10px;
+
     background: url(../img/del_white.png) no-repeat;
     cursor: pointer;
     position: absolute;

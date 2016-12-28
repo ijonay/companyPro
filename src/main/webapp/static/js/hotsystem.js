@@ -646,6 +646,7 @@ $('#userDialog_tag').delegate('li input','click',function(){
         $(this).parent().parent().parent().find('label').css('background-color','#c5c5c5');
         $(this).parent().css('background-color','#389b9f');
         $('.person_new_tag').html('');
+        
         $('#inp_data_event i').remove();
         $('#inp_data_event').addClass('hidecommon');
         $('.person_sec i').remove();
@@ -663,6 +664,7 @@ $('#userDialog_tag').delegate('li input','click',function(){
         $('.dialog_inp_num').css('display','none');
 		
         $('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>');
+
         $('.person_new_tag').removeClass('hidecommon');
         $('#inp_data_person1').removeClass('hidecommon');
         $('.dialog_inp_c').removeClass('hidecommon');

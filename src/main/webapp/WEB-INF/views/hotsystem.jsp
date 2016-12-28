@@ -151,6 +151,7 @@
    			</div>
    			
    			<p style="height:40px;font-size:16px;color:#4a4a4a;margin:0px 20px;line-height:40px;border-top:1px solid #eee;font-weight:500;"><b style="color:#009944">受众特征</b>(按照热点受众特征筛选)</p>
+
    			
    			<ul class="userDialog_tag" id="userDialog_tag">
 <!--    				<li><label>宅男腐女<input type="checkbox" data-id="1"></label></li> -->
@@ -161,6 +162,7 @@
 <!--    				<li><label>体育迷<input type="checkbox" data-id="6"></label></li> -->
 <!--    				<li><label>背包客<input type="checkbox" data-id="7"></label></li> -->
    			</ul>
+
    			<ul class="dialog_tab userDialogTab f14 corlor4a">
    				
    			</ul>
@@ -175,6 +177,7 @@
    					
    					<li id="inp_data_person1" class="hidecommon">
    						<p class="person_new_tag hidecommon" id="person_new_tag"></p>
+
    						<div class="person_sec pst hidecommon"><span></span></div>
    						<div class="person_education pst hidecommon"><span></span></div>
    						<div class="person_area pst hidecommon"><span></span></div>
