@@ -483,8 +483,11 @@ function labelList(){
                 $(".eventTab2").empty();
                 $(".userDialogTab").empty();
                 $(".personTab").empty();
+                $('#userDialog_tag').empty();
                 fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
                 fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
+                fillTagData($("#userDialog_tag"),returnData.Circle);
+             
                 fillDataBot($(".userDialogTab"),$(".personTab"),userData);
             }
             
@@ -499,75 +502,6 @@ function labelList(){
 $('#dialog_ser_text').keyup(function(event){
     if(event.keyCode == "13") {
         $('#dialog_ser_to').click();
-//      var val = $.trim($('#dialog_ser_text').val());
-//          if(val.match(/\d+/g)||val.search(/[a-zA-Z]+/)!==-1||/[\u4E00-\u9FA5]/g.test(val)){
-//              var dataObj = {
-//                      Even:[],
-//                      Area:[],
-//                      Age:[],
-//                      Education:[],
-//                      Gender:[],
-//                      UserClass:[]
-//              };
-//              if($('#inp_data_event').is('.hidecommon')){
-//              }else{
-//                  var list = $('#inp_data_event').find('i');
-//                  $(list).each(function(i,item){
-//                      var dataId = $(this).attr('data-id');
-//                      var dataText = $(this).text();
-//                      dataObj.Even.push({id:dataId,name:dataText})
-//                  });
-//              };
-//              if($('.person_sec').is('.hidecommon')){
-//              }else{
-//                  var list = $('.person_sec').find('i');
-//                  $(list).each(function(i,item){
-//                      var dataId = $(this).attr('data-id');
-//                      var dataText = $(this).text();
-//                      dataObj.Gender.push({id:dataId,name:dataText})
-//                  });
-//              };
-//              
-//              if($('.person_area').is('.hidecommon')){
-//              }else{
-//                  var list = $('.person_area').find('i');
-//                  $(list).each(function(i,item){
-//                      var dataId = $(this).attr('data-id');
-//                      var dataText = $(this).text();
-//                      dataObj.Area.push({id:dataId,name:dataText})
-//                  });
-//              };
-//              if($('.person_education').is('.hidecommon')){
-//              }else{
-//                  var list = $('.person_education').find('i');
-//                  $(list).each(function(i,item){
-//                      var dataId = $(this).attr('data-id');
-//                      var dataText = $(this).text();
-//                      dataObj.Education.push({id:dataId,name:dataText})
-//                  });
-//              };
-//              if($('.person_interest').is('.hidecommon')){
-//              }else{
-//                  var list = $('.person_interest').find('i');
-//                  $(list).each(function(i,item){
-//                      var dataId = $(this).attr('data-id');
-//                      var dataText = $(this).text();
-//                      dataObj.UserClass.push({id:dataId,name:dataText})
-//                  });
-//              };
-//              var ageVal1 = $('#hot_age1').val(),
-//                  ageVal2 = $('#hot_age2').val();
-//              if(ageVal1){
-//                  dataObj.Age.push(ageVal1)
-//              }
-//              if(ageVal2){
-//                  dataObj.Age.push(ageVal2)
-//              }
-//              var hash = JSON.stringify(dataObj);
-//              window.location.href='hotresult?clueWord='+escape(val)+'&pageSize=20&currentPage=1#'+hash;
-//          }else{
-//              return;
-//          };
     };  
 });
 
@@ -583,6 +517,7 @@ $('#dialog_ser_to').on('click',function(){
                     Gender:[],
                     UserClass:[]
             };
+            
             if($('#person_new_tag').is('.hidecommon')){
             }else{
                 var list = $('#person_new_tag').find('i');
@@ -591,6 +526,14 @@ $('#dialog_ser_to').on('click',function(){
                     var dataText = $(this).text();
                     dataObj.newtag.push({id:dataId,name:dataText})
                 });
+                var nextagtext = JSON.parse(JSON.parse($('#person_new_tag').find('div').text()));
+                dataObj.Gender = nextagtext.sex;
+                dataObj.Education = nextagtext.education;
+                dataObj.UserClass = nextagtext.interest;
+//                var ageVal3 = $('#hot_age1').val(),
+//                ageVal4 = $('#hot_age2').val();
+//                dataObj.Age.push(ageVal3);
+//                dataObj.Age.push(ageVal4);
             };
             
             if($('#inp_data_event').is('.hidecommon')){
@@ -653,7 +596,11 @@ $('#dialog_ser_to').on('click',function(){
             return;
         };
 });
-
+function  fillTagData(selectortag,data){
+	 $.each(data,function(index,item){
+		 selectortag.append('<li><label>'+item.name+'<input type="checkbox" data-id="'+item.id+'"></label><div style="display:none">'+JSON.stringify(item.rule)+'</div></li>');
+	 })
+}
 function fillData(selector,selector2,data){
     //selector.append('<li>年龄</li>');
     $.each(data,function(index,item){
@@ -700,18 +647,88 @@ function fillDataBot(selector,selector2,data){
 //受众新标签点击
 $('#userDialog_tag').delegate('li input','click',function(){
     var dataId = $(this).attr('data-id');
+    var distext = $(this).parent().next().text();
     if($(this).is(':checked')){
-        $(".dislog_inp_con").find('input').attr('disabled',true);
-        $(this).parent().parent().parent().find('input').prop('checked',false);
-        $(this).prop('checked',true);
+        
         $(this).parent().parent().parent().find('label').css('background-color','#c5c5c5');
         $(this).parent().css('background-color','#389b9f');
         $('.person_new_tag').html('');
-        $('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i>');
-        $('.person_new_tag').removeClass('hidecommon');
+        
+        $('#inp_data_event i').remove();
+        $('#inp_data_event').addClass('hidecommon');
+        $('.person_sec i').remove();
+        $('.person_sec').addClass('hidecommon');
+        $('.person_education i').remove();
+        $('.person_education').addClass('hidecommon');
+        $('.person_area i').remove();
+        $('.person_area').addClass('hidecommon');
+        $('.person_interest i').remove();
+        $('.person_interest').addClass('hidecommon');
+        var input1 = $('#ser_dialog').find('input');
+        var input2 = $('#userDialog_tag').find('input');
+        $(input1).not(input2).prop('checked',false);
+        $('.dialog_inp_num').text(0);
+        $('.dialog_inp_num').css('display','none');
+		$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>');
+		
+		var newText = JSON.parse(JSON.parse(distext));
+		var lensex = newText.sex.length;
+		if(lensex>0){
+			$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(lensex);
+			$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','block')
+		}
+		
+		$.each(newText.sex,function(i,item){
+			if(item == 208){
+				$('#dialog-bottom-new ul').eq(1).find('input').eq(0).prop('checked',true);
+			}else{
+				$('#dialog-bottom-new ul').eq(1).find('input').eq(1).prop('checked',true);
+			}
+		})
+		var leneducation = newText.education.length;
+		if(leneducation>0){
+			$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(leneducation);
+			$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','block');
+		};
+		var bot2 = $('#dialog-bottom-new ul').eq(2).find('input');
+		var _that = $(this);
+		$.each(newText.education,function(i,item){
+			$(bot2).each(function(){
+				if($(this).attr('data-id') == item){
+					$(this).prop('checked',true);
+				}
+			})
+		});
+		
+		var leninterest = newText.interest.length;
+		if(leninterest>0){
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(leninterest);
+			$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','block');
+		};
+		var bot4 = $('#dialog-bottom-new ul').eq(4).find('input');
+		$.each(newText.interest,function(i,item){
+			$(bot4).each(function(){
+				if($(this).attr('data-id') == item){
+					$(this).prop('checked',true);
+				}
+			})
+		});
+		$.each(newText.age,function(i,item){
+			
+		});
+		$('#hot_age1').val(newText.age[0]);
+		$('#hot_age2').val(newText.age[1]);
+		
+		$(".dislog_inp_con").find('input').attr('disabled',true);
+        $(this).parent().parent().parent().find('input').prop('checked',false);
+        $(this).prop('checked',true);
+		$('.person_new_tag').removeClass('hidecommon');
         $('#inp_data_person1').removeClass('hidecommon');
         $('.dialog_inp_c').removeClass('hidecommon');
     }else{
+    	$('#dialog-bottom-new').find('input').prop('checked',false);
+    	$('.dialog_inp_num').text(0);
+    	$('.dialog_inp_num').css('display','none');
         $(".dislog_inp_con").find('input').attr('disabled',false);
         var len = $('#person_new_tag').find('i').length;
         $(this).parent().css('background-color','#c5c5c5');
@@ -738,7 +755,13 @@ $('#userDialog_tag').delegate('li input','click',function(){
 });
 //删除受众新标签
 $('#person_new_tag').delegate('span','click',function(){
+	$('#dialog-bottom-new').find('input').prop('checked',false);
+	$('.dialog_inp_num').text(0);
+	$('.dialog_inp_num').css('display','none');
+	$('#hot_age1').val('');
+	$('#hot_age2').val('');
     $(".dislog_inp_con").find('input').attr('disabled',false);
+ 
     var dataId = $(this).parent().attr('data-id');
     $(this).parent().remove();
     $('#userDialog_tag li input').each(function(){
@@ -761,6 +784,7 @@ $('#person_new_tag').delegate('span','click',function(){
     if(len1<1&&len2<1){
         $('.dialog_inp_c').addClass('hidecommon');
     };
+    
     
 });
 

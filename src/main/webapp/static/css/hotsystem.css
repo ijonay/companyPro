@@ -426,25 +426,26 @@ input[type=checkbox]:checked::after {
 	margin-left:10px;
 }
 /*ui新需求高级探索开始。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
-.userDialog_tag {height:40px;padding-left:20px;}
+.userDialog_tag {height:75px;padding-left:20px;}
 
 .userDialog_tag li{float:left;
     margin-right: 10px;
+    margin-bottom:10px;
     }
 .userDialog_tag li label{
-    background: #c5c5c5;
+	background: #c5c5c5;
     padding: 3px 8px;
     font-size: 14px;
     border-radius: 2px;
-    color:#fff;
-    margin:0;
+	color:#fff;
+	margin:0;
 }    
 .userDialog_tag li input{display:none;}
 .person_new_tag i{
-    margin-right:10px;
-    background:#389b9f;
+	margin-right:10px;
+	background:#389b9f;
     border-radius: 2px;
-    margin-bottom: 4px;
+	margin-bottom: 4px;
     position: relative;
     float: left;
     padding: 1px 38px 1px 12px;
@@ -455,7 +456,8 @@ input[type=checkbox]:checked::after {
     font-size: 14px;
 }
 #inp_data_person1 .person_new_tag i span{
-    top: 10px;
+	top: 10px;
+
     background: url(../img/del_white.png) no-repeat;
     cursor: pointer;
     position: absolute;
@@ -465,7 +467,7 @@ input[type=checkbox]:checked::after {
     border-radius: 2px;
 }
 #inp_data_person1 .person_new_tag i span:hover{
-    background: url(../img/del_black.png) no-repeat;
+	background: url(../img/del_black.png) no-repeat;
 }
 /*ui新需求高级探索结束。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
