@@ -721,8 +721,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					$(".eventTab2").empty();
 					$(".userDialogTab").empty();
 					$(".personTab").empty();
+					$('#userDialog_tag').empty();
 					fillData($(".eventDialogTab"),$(".eventTab"),eventTemp);
 					fillData($(".eventDialogTab2"),$(".eventTab2"),eventTemp2);
+					fillTagData($("#userDialog_tag"),returnData.Circle);
 					fillDataBot($(".userDialogTab"),$(".personTab"),userData);
 					if(urlLabel){
 						var ageSelect = urlLabel.Age;
@@ -769,6 +771,12 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	};
 	
 	//高级探索弹窗搜索
+	
+	function  fillTagData(selectortag,data){
+		 $.each(data,function(index,item){
+			 selectortag.append('<li><label>'+item.name+'<input type="checkbox" data-id="'+item.id+'"></label><div style="display:none">'+JSON.stringify(item.rule)+'</div></li>');
+		 })
+	};
 	function fillData(selector,selector2,data){
 		$.each(data,function(index,item){
 			var childs = item.childs;
@@ -846,6 +854,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			//受众新标签点击
 			$('#userDialog_tag').delegate('li input','click',function(){
 				var dataId = $(this).attr('data-id');
+				var distext = $(this).parent().next().text();
 				if($(this).is(':checked')){
 					$(".dislog_inp_con").find('input').attr('disabled',true);
 					$(this).parent().parent().parent().find('input').prop('checked',false);
@@ -853,7 +862,9 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					$(this).parent().parent().parent().find('label').css('background-color','#c5c5c5');
 					$(this).parent().css('background-color','#389b9f');
 					$('.person_new_tag').html('');
-					$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i>');
+					$('#inp_data_event').html('');
+					$('#inp_data_person1').html('');
+					$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>')
 					$('.person_new_tag').removeClass('hidecommon');
 					$('#inp_data_person1').removeClass('hidecommon');
 					$('.dialog_inp_c').removeClass('hidecommon');
