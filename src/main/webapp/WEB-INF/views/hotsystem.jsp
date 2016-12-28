@@ -167,7 +167,7 @@
    				
    			</ul>
    			
-   			<div class="dislog_inp_con personTab dialog_tab_person">
+   			<div class="dislog_inp_con personTab dialog_tab_person" id="dialog-bottom-new">
    				
    			</div>
    			

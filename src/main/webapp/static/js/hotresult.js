@@ -2,7 +2,6 @@ var urlLabel = GetRequestLabel();//标签信息
 var word = GetRequest().clueWord;//关键词
 var nowPage = GetRequest().currentPage;//页码
 $('#nav_ser').val(word);
-console.log(urlLabel);
 
 function resSer() {
 	$('#result_evet_con').addClass('hidecommon');
@@ -34,8 +33,6 @@ function resSer() {
     }
 }
 $('.head-search').click(function() {//搜索按钮
-    //resSer();
-	
 	resSer() ;
 });
 $('#nav_ser').keyup(function(event) {//搜索框回车	
@@ -162,110 +159,112 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	resultDia();
 	function resultDia(){
 		if(urlLabel){
-		var evenSelect = urlLabel.Even;
-		$('#inp_data_event').find('i').remove();
-		if(evenSelect.length <=0 && evenSelect){
-			$('#inp_data_event').addClass('hidecommon');
-		}else{
-			var titleEven = '';
-			$.each(evenSelect,function(i,item){
-				titleEven += item.name;
-				$('#inp_data_event').attr('title',titleEven)
-		    	$('#inp_data_event').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('#inp_data_event').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};	
-		
-		var newtagSelect = urlLabel.newtag;
-		$('#person_new_tag').find('i').remove();
-		if(newtagSelect.length <=0 && newtagSelect){
-			$('#person_new_tag').addClass('hidecommon');
-		}else{
-			//var titleEven = '';
-			//$(".dislog_inp_con").find('input').attr('disabled',true);
-			$.each(newtagSelect,function(i,item){
-				//titleEven += item.name;
-				//$('#inp_data_event').attr('title',titleEven)
+			if(urlLabel.newtag.length>0){
 				
-		    	$('#person_new_tag').append('<i data-id="'+item.id+'">'+item.name+'<span></span></i>');
-		    	$('#userDialog_tag input').each(function(){
-		    		if($(this).attr('data-id') == item.id){
-		    			$(this).prop('checked',true);
-		    			$(this).parent().css('background-color','#389b9f');
-		    		}
-		    	})
-			});
-			$('#person_new_tag').removeClass('hidecommon');
-			$('#inp_data_person1').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};	
-		
-		var genderSelect = urlLabel.Gender;
-		$('.person_sec').find('i').remove();
-		if(genderSelect.length<=0){
-			$('.person_sec').addClass('hidecommon');
-		}else{
-			var titleGender = '';
-			$.each(genderSelect,function(i,item){
-				titleGender += item.name;
-				$('.person_sec').attr('title',titleGender)
-		    	$('.person_sec').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('.person_sec').removeClass('hidecommon');
-			$('#inp_data_person1').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};
-		
-		
-		var educationSelect = urlLabel.Education;
-		$('.person_education').find('i').remove();
-		if(educationSelect.length<=0){
-			$('.person_education').addClass('hidecommon');
-		}else{
-			var titleEducation = '';
-			$.each(educationSelect,function(i,item){
-				titleEducation += item.name;
-				$('.person_education').attr('title',titleEducation)
-		    	$('.person_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('.person_education').removeClass('hidecommon');
-			$('#inp_data_person1').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};
-		
-		var areaSelect = urlLabel.Area;
-		$('.person_area').find('i').remove();
-		if(areaSelect<=0){
-			$('.person_area').addClass('hidecommon');
-		}else{
-			var titleArea = '';
-			$.each(areaSelect,function(i,item){
-				titleArea += item.name;
-				$('.person_area').attr('title',titleArea)
-		    	$('.person_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('.person_area').removeClass('hidecommon');
-			$('#inp_data_person1').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};
-		
-		var UserClassSelect = urlLabel.UserClass;
-		$('.person_interest').find('i').remove();
-		if(UserClassSelect.length<=0){
-			$('.person_interest').addClass('hidecommon');
-		}else{
-			var titleuser = '';
-			$.each(UserClassSelect,function(i,item){
-				titleuser += item.name;
-				$('.person_interest').attr('title',titleuser)
-		    	$('.person_interest').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('.person_interest').removeClass('hidecommon');
-			$('#inp_data_person1').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};
-		
+			}else{
+				
+				var evenSelect = urlLabel.Even;
+				$('#inp_data_event').find('i').remove();
+				if(evenSelect.length <=0 && evenSelect){
+					$('#inp_data_event').addClass('hidecommon');
+				}else{
+					var titleEven = '';
+					$.each(evenSelect,function(i,item){
+						titleEven += item.name;
+						$('#inp_data_event').attr('title',titleEven)
+				    	$('#inp_data_event').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('#inp_data_event').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};	
+				
+				var newtagSelect = urlLabel.newtag;
+				$('#person_new_tag').find('i').remove();
+				if(newtagSelect.length <=0 && newtagSelect){
+					$('#person_new_tag').addClass('hidecommon');
+				}else{
+					$.each(newtagSelect,function(i,item){
+				    	$('#person_new_tag').append('<i data-id="'+item.id+'">'+item.name+'<span></span></i>');
+				    	$('#userDialog_tag input').each(function(){
+				    		if($(this).attr('data-id') == item.id){
+				    			$(this).prop('checked',true);
+				    			$(this).parent().css('background-color','#389b9f');
+				    		}
+				    	})
+					});
+					$('#person_new_tag').removeClass('hidecommon');
+					$('#inp_data_person1').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};	
+				
+				var genderSelect = urlLabel.Gender;
+				$('.person_sec').find('i').remove();
+				if(genderSelect.length<=0){
+					$('.person_sec').addClass('hidecommon');
+				}else{
+					var titleGender = '';
+					$.each(genderSelect,function(i,item){
+						titleGender += item.name;
+						$('.person_sec').attr('title',titleGender)
+				    	$('.person_sec').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('.person_sec').removeClass('hidecommon');
+					$('#inp_data_person1').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};
+				
+				
+				var educationSelect = urlLabel.Education;
+				$('.person_education').find('i').remove();
+				if(educationSelect.length<=0){
+					$('.person_education').addClass('hidecommon');
+				}else{
+					var titleEducation = '';
+					$.each(educationSelect,function(i,item){
+						titleEducation += item.name;
+						$('.person_education').attr('title',titleEducation)
+				    	$('.person_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('.person_education').removeClass('hidecommon');
+					$('#inp_data_person1').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};
+				
+				var areaSelect = urlLabel.Area;
+				$('.person_area').find('i').remove();
+				if(areaSelect<=0){
+					$('.person_area').addClass('hidecommon');
+				}else{
+					var titleArea = '';
+					$.each(areaSelect,function(i,item){
+						titleArea += item.name;
+						$('.person_area').attr('title',titleArea)
+				    	$('.person_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('.person_area').removeClass('hidecommon');
+					$('#inp_data_person1').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};
+				
+				var UserClassSelect = urlLabel.UserClass;
+				$('.person_interest').find('i').remove();
+				if(UserClassSelect.length<=0){
+					$('.person_interest').addClass('hidecommon');
+				}else{
+					var titleuser = '';
+					$.each(UserClassSelect,function(i,item){
+						titleuser += item.name;
+						$('.person_interest').attr('title',titleuser)
+				    	$('.person_interest').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('.person_interest').removeClass('hidecommon');
+					$('#inp_data_person1').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};
+				
+				
+			}
+			
 		}else{
 			$('#ser_dialog').find('input').prop('checked',false);
 			$('#ser_dialog').find('.dialog_inp_num').text('0');
@@ -275,118 +274,133 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			$('.dialog_inp_c_data').find('i').remove();
 			$('.dialog_inp_c').addClass('hidecommon');
 		};
-//		if($('#result_evet_persn').find('i').length<=0){
-//			$('#result_evet_persn').addClass('hidecommon');
-//		}else{
-//			$('#result_evet_persn').removeClass('hidecommon');
-//		};
 	
 	};
 	
 	function resultLabel(){
 		if(urlLabel){
-		var evenSelect = urlLabel.Even;
-		$('#result_label_even').find('i').remove();
-		if(evenSelect.length <=0 && evenSelect){
-			$('#result_evet_con').addClass('hidecommon');
-		}else{
-			var titleEven = '';
-			$.each(evenSelect,function(i,item){
-				titleEven += item.name;
-				$('#result_label_even').attr('title',titleEven)
-		    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('#result_evet_con').removeClass('hidecommon');
-			$('.dialog_inp_c').removeClass('hidecommon');
-		};
-		var newtagSelect = urlLabel.newtag;
-		$('#result_label_newtag').find('i').remove();
-		if(newtagSelect.length<=0){
-			$('#result_label_newtag').addClass('hidecommon');
-		}else{
-			//var titleGender = '';
-			$.each(newtagSelect,function(i,item){
-				//titleGender += item.name;
-				$('#result_label_newtag').attr('title',titleGender)
-		    	$('#result_label_newtag').append('<i data-id="'+item.id+'" title="'+item.name+'">'+item.name+'<span class="lable_c-d"></span></i>');
-			});
-			$('#result_label_newtag').removeClass('hidecommon');
-		};
-		
-		var genderSelect = urlLabel.Gender;
-		$('#result_label_gender').find('i').remove();
-		if(genderSelect.length<=0){
-			$('#result_label_gender').addClass('hidecommon');
-		}else{
-			var titleGender = '';
-			$.each(genderSelect,function(i,item){
-				titleGender += item.name;
-				$('#result_label_gender').attr('title',titleGender)
-		    	$('#result_label_gender').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('#result_label_gender').removeClass('hidecommon');
-		};
-		
-		var ageSelect = urlLabel.Age;
-		$('#result_label_age').find('i').remove();
-		if(ageSelect.length<=0){
-			$('#result_label_age').addClass('hidecommon');
-		}else{
-			if(ageSelect.length ==1){
-				$('#result_label_age').attr('title',ageSelect[0]+'岁');
-				$('#result_label_age').append('<i>'+ageSelect[0]+'岁</i>');
+			if(urlLabel.newtag.length>0){
+				var newtagSelect1 = urlLabel.newtag;
+				$('#result_label_newtag').find('i').remove();
+				if(newtagSelect1.length<=0){
+					$('#result_label_newtag').addClass('hidecommon');
+				}else{
+					$.each(newtagSelect1,function(i,item){
+						$('#result_label_newtag').attr('title',titleGender)
+				    	$('#result_label_newtag').append('<i data-id="'+item.id+'" title="'+item.name+'">'+item.name+'<span class="lable_c-d"></span></i>');
+					});
+					$('#result_label_newtag').removeClass('hidecommon');
+					$('#result_label_gender').addClass('hidecommon');
+					$('#result_label_age').addClass('hidecommon');
+					$('#result_label_education').addClass('hidecommon');
+					$('#result_label_area').addClass('hidecommon');
+					$('#result_label_userClass').addClass('hidecommon');
+				};
+			}else{
+				var evenSelect = urlLabel.Even;
+				$('#result_label_even').find('i').remove();
+				if(evenSelect.length <=0 && evenSelect){
+					$('#result_evet_con').addClass('hidecommon');
+				}else{
+					var titleEven = '';
+					$.each(evenSelect,function(i,item){
+						titleEven += item.name;
+						$('#result_label_even').attr('title',titleEven)
+				    	$('#result_label_even').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('#result_evet_con').removeClass('hidecommon');
+					$('.dialog_inp_c').removeClass('hidecommon');
+				};
+				var newtagSelect = urlLabel.newtag;
+				$('#result_label_newtag').find('i').remove();
+				if(newtagSelect.length<=0){
+					$('#result_label_newtag').addClass('hidecommon');
+				}else{
+					//var titleGender = '';
+					$.each(newtagSelect,function(i,item){
+						//titleGender += item.name;
+						$('#result_label_newtag').attr('title',titleGender)
+				    	$('#result_label_newtag').append('<i data-id="'+item.id+'" title="'+item.name+'">'+item.name+'<span class="lable_c-d"></span></i>');
+					});
+					$('#result_label_newtag').removeClass('hidecommon');
+				};
+				
+				var genderSelect = urlLabel.Gender;
+				$('#result_label_gender').find('i').remove();
+				if(genderSelect.length<=0){
+					$('#result_label_gender').addClass('hidecommon');
+				}else{
+					var titleGender = '';
+					$.each(genderSelect,function(i,item){
+						titleGender += item.name;
+						$('#result_label_gender').attr('title',titleGender)
+				    	$('#result_label_gender').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('#result_label_gender').removeClass('hidecommon');
+				};
+				
+				var ageSelect = urlLabel.Age;
+				$('#result_label_age').find('i').remove();
+				if(ageSelect.length<=0){
+					$('#result_label_age').addClass('hidecommon');
+				}else{
+					if(ageSelect.length ==1){
+						$('#result_label_age').attr('title',ageSelect[0]+'岁');
+						$('#result_label_age').append('<i>'+ageSelect[0]+'岁</i>');
+					}
+					if(ageSelect.length ==2){
+						$('#result_label_age').attr('title',ageSelect[0]+'岁-'+ageSelect[1]+'岁');
+						$('#result_label_age').append('<i>'+ageSelect[0]+'岁-</i>');
+						$('#result_label_age').append('<i>'+ageSelect[1]+'岁</i>');
+					}
+					$('#result_label_age').removeClass('hidecommon');
+				};
+				
+				var educationSelect = urlLabel.Education;
+				$('#result_label_education').find('i').remove();
+				if(educationSelect.length<=0){
+					$('#result_label_education').addClass('hidecommon');
+				}else{
+					var titleEducation = '';
+					$.each(educationSelect,function(i,item){
+						titleEducation += item.name;
+						$('#result_label_education').attr('title',titleEducation)
+				    	$('#result_label_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('#result_label_education').removeClass('hidecommon');
+					$('#inp_data_person1').removeClass('hidecommon');
+				};
+				
+				var areaSelect = urlLabel.Area;
+				$('#result_label_area').find('i').remove();
+				if(areaSelect.length<=0){
+					$('#result_label_area').addClass('hidecommon');
+				}else{
+					var titleArea = '';
+					$.each(areaSelect,function(i,item){
+						titleArea += item.name;
+						$('#result_label_area').attr('title',titleArea)
+				    	$('#result_label_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('#result_label_area').removeClass('hidecommon');
+				};
+				
+				var UserClassSelect = urlLabel.UserClass;
+				$('#result_label_userClass').find('i').remove();
+				if(UserClassSelect.length<=0){
+					$('#result_label_userClass').addClass('hidecommon');
+				}else{
+					var titleuser = '';
+					$.each(UserClassSelect,function(i,item){
+						titleuser += item.name;
+						$('#result_label_userClass').attr('title',titleuser)
+				    	$('#result_label_userClass').append('<i data-id="'+item.id+'">'+item.name+'</i>');
+					});
+					$('#result_label_userClass').removeClass('hidecommon');
+				};
+				
+				
 			}
-			if(ageSelect.length ==2){
-				$('#result_label_age').attr('title',ageSelect[0]+'岁-'+ageSelect[1]+'岁');
-				$('#result_label_age').append('<i>'+ageSelect[0]+'岁-</i>');
-				$('#result_label_age').append('<i>'+ageSelect[1]+'岁</i>');
-			}
-			$('#result_label_age').removeClass('hidecommon');
-		};
-		
-		var educationSelect = urlLabel.Education;
-		$('#result_label_education').find('i').remove();
-		if(educationSelect.length<=0){
-			$('#result_label_education').addClass('hidecommon');
-		}else{
-			var titleEducation = '';
-			$.each(educationSelect,function(i,item){
-				titleEducation += item.name;
-				$('#result_label_education').attr('title',titleEducation)
-		    	$('#result_label_education').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('#result_label_education').removeClass('hidecommon');
-			$('#inp_data_person1').removeClass('hidecommon');
-		};
-		
-		var areaSelect = urlLabel.Area;
-		$('#result_label_area').find('i').remove();
-		if(areaSelect.length<=0){
-			$('#result_label_area').addClass('hidecommon');
-		}else{
-			var titleArea = '';
-			$.each(areaSelect,function(i,item){
-				titleArea += item.name;
-				$('#result_label_area').attr('title',titleArea)
-		    	$('#result_label_area').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('#result_label_area').removeClass('hidecommon');
-		};
-		
-		var UserClassSelect = urlLabel.UserClass;
-		$('#result_label_userClass').find('i').remove();
-		if(UserClassSelect.length<=0){
-			$('#result_label_userClass').addClass('hidecommon');
-		}else{
-			var titleuser = '';
-			$.each(UserClassSelect,function(i,item){
-				titleuser += item.name;
-				$('#result_label_userClass').attr('title',titleuser)
-		    	$('#result_label_userClass').append('<i data-id="'+item.id+'">'+item.name+'</i>');
-			});
-			$('#result_label_userClass').removeClass('hidecommon');
-		};
-		
 		}else{
 			$('#result_t_r').find('i').remove();
 			$('#result_evet_persn').addClass('hidecommon');
@@ -415,9 +429,13 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		//alert()
 		var dataId = $(this).parent().attr('data-id');
 		console.log(dataId)
-		var tagNew = _.reject(urlLabel.newtag, function(num){ return num.id == dataId });
-		console.log(tagNew)
-		urlLabel.newtag = tagNew;
+		//var tagNew = _.reject(urlLabel.newtag, function(num){ return num.id == dataId });
+		//console.log(tagNew)
+		urlLabel.newtag = [];
+		urlLabel.Age = [];
+		urlLabel.Education = [];
+		urlLabel.Gender = [];
+		urlLabel.UserClass = [];
 		resNewSer();
 		resultLabel();
 		resultDia();
@@ -529,9 +547,7 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 	});
 	//弹窗确定按钮事件
 	$('#dislog_btn_sure').on('click',function(){
-	console.log(urlLabel)
 	if(urlLabel){
-		
 		urlLabel.Even=[];
 		urlLabel.newtag=[],
 		urlLabel.Area=[];
@@ -569,6 +585,10 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 				var dataText = $(this).text();
 				urlLabel.newtag.push({id:dataId,name:dataText})
 			});
+			var nextagtext = JSON.parse(JSON.parse($('#person_new_tag').find('div').text()));
+			urlLabel.Gender = nextagtext.sex;
+			urlLabel.Education = nextagtext.education;
+			urlLabel.UserClass = nextagtext.interest;
 		};
 		
 		if($('.person_sec').is('.hidecommon')){
@@ -727,17 +747,101 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					fillTagData($("#userDialog_tag"),returnData.Circle);
 					fillDataBot($(".userDialogTab"),$(".personTab"),userData);
 					if(urlLabel){
-						var ageSelect = urlLabel.Age;
-						$('#hot_dia_age').find('i').remove();
-						if(ageSelect.length<=0){
-							$('#hot_dia_age').addClass('hidecommon');
-						}else if(ageSelect==1){
-								$('#hot_age1').val(ageSelect[0]);
+						if(urlLabel.newtag.length>0){
+
+							var newtagSelect = urlLabel.newtag;
+							$('#person_new_tag').find('i').remove();
+							if(newtagSelect.length <=0 && newtagSelect){
+								$('#person_new_tag').addClass('hidecommon');
 							}else{
-								console.log(ageSelect[0])
-								$('#hot_age1').val(ageSelect[0]);
-								$('#hot_age2').val(ageSelect[1]);
+								$.each(newtagSelect,function(i,item){
+							    	$('#person_new_tag').append('<i data-id="'+item.id+'">'+item.name+'<span></span></i>');
+							    	$('#userDialog_tag input').each(function(){
+							    		if($(this).attr('data-id') == item.id){
+							    			$(this).prop('checked',true);
+							    			$(this).parent().css('background-color','#389b9f');
+							    		}
+							    	})
+								});
+								var ageSelect = urlLabel.Age;
+								$('#hot_dia_age').find('i').remove();
+								if(ageSelect.length<=0){
+									$('#hot_dia_age').addClass('hidecommon');
+								}else if(ageSelect==1){
+										$('#hot_age1').val(ageSelect[0]);
+									}else{
+										
+										$('#hot_age1').val(ageSelect[0]);
+										$('#hot_age2').val(ageSelect[1]);
+								};
+								
+								var sexSelect = urlLabel.Gender;
+								$('.person_sec').find('i').remove();
+								
+								var lensex = sexSelect.length;
+								if(lensex>0){
+									$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(lensex);
+									$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','block')
+								}
+								
+								$.each(sexSelect,function(i,item){
+									if(item == 208){
+										$('#dialog-bottom-new ul').eq(1).find('input').eq(0).prop('checked',true);
+									}else{
+										$('#dialog-bottom-new ul').eq(1).find('input').eq(1).prop('checked',true);
+									}
+								});
+								
+								var leneducation = urlLabel.Education.length;
+								if(leneducation>0){
+									$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(leneducation);
+									$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','block');
+								};
+								var bot2 = $('#dialog-bottom-new ul').eq(2).find('input');
+								$.each(urlLabel.Education,function(i,item){
+									$(bot2).each(function(){
+										if($(this).attr('data-id') == item){
+											$(this).prop('checked',true);
+										}
+									})
+								});
+								
+								var leninterest = urlLabel.UserClass.length;
+								if(leninterest>0){
+									$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(leninterest);
+									$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','block');
+								};
+								var bot4 = $('#dialog-bottom-new ul').eq(4).find('input');
+								$.each(urlLabel.UserClass,function(i,item){
+									$(bot4).each(function(){
+										if($(this).attr('data-id') == item){
+											$(this).prop('checked',true);
+										}
+									})
+								});
+								
+								
+								$('#person_new_tag').removeClass('hidecommon');
+								$('#inp_data_person1').removeClass('hidecommon');
+								$('.dialog_inp_c').removeClass('hidecommon');
+							};
+							
+							
+						
+						}else{
+							var ageSelect = urlLabel.Age;
+							$('#hot_dia_age').find('i').remove();
+							if(ageSelect.length<=0){
+								$('#hot_dia_age').addClass('hidecommon');
+							}else if(ageSelect==1){
+									$('#hot_age1').val(ageSelect[0]);
+								}else{
+									
+									$('#hot_age1').val(ageSelect[0]);
+									$('#hot_age2').val(ageSelect[1]);
+							}
 						}
+						
 					};
 					var  inpflag = 0;
 						$('.dialog_inp_num').each(function(index,item){
@@ -856,19 +960,88 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 				var dataId = $(this).attr('data-id');
 				var distext = $(this).parent().next().text();
 				if($(this).is(':checked')){
-					$(".dislog_inp_con").find('input').attr('disabled',true);
-					$(this).parent().parent().parent().find('input').prop('checked',false);
-					$(this).prop('checked',true);
+					
 					$(this).parent().parent().parent().find('label').css('background-color','#c5c5c5');
 					$(this).parent().css('background-color','#389b9f');
 					$('.person_new_tag').html('');
-					$('#inp_data_event').html('');
-					$('#inp_data_person1').html('');
-					$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>')
+					
+					 $('#inp_data_event i').remove();
+				        $('#inp_data_event').addClass('hidecommon');
+				        $('.person_sec i').remove();
+				        $('.person_sec').addClass('hidecommon');
+				        $('.person_education i').remove();
+				        $('.person_education').addClass('hidecommon');
+				        $('.person_area i').remove();
+				        $('.person_area').addClass('hidecommon');
+				        $('.person_interest i').remove();
+				        $('.person_interest').addClass('hidecommon');
+				        var input1 = $('#ser_dialog').find('input');
+				        var input2 = $('#userDialog_tag').find('input');
+				        $(input1).not(input2).prop('checked',false);
+				        $('.dialog_inp_num').text(0);
+				        $('.dialog_inp_num').css('display','none');
+						$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>');
+						
+						var newText = JSON.parse(JSON.parse(distext));
+						var lensex = newText.sex.length;
+						if(lensex>0){
+							$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(lensex);
+							$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','block')
+						}
+						
+						$.each(newText.sex,function(i,item){
+							if(item == 208){
+								$('#dialog-bottom-new ul').eq(1).find('input').eq(0).prop('checked',true);
+							}else{
+								$('#dialog-bottom-new ul').eq(1).find('input').eq(1).prop('checked',true);
+							}
+						})
+						var leneducation = newText.education.length;
+						if(leneducation>0){
+							$('.userDialogTab li').eq(2).find('.dialog_inp_num').text(leneducation);
+							$('.userDialogTab li').eq(2).find('.dialog_inp_num').css('display','block');
+						};
+						var bot2 = $('#dialog-bottom-new ul').eq(2).find('input');
+						var _that = $(this);
+						$.each(newText.education,function(i,item){
+							$(bot2).each(function(){
+								if($(this).attr('data-id') == item){
+									$(this).prop('checked',true);
+								}
+							})
+						});
+						
+						var leninterest = newText.interest.length;
+						if(leninterest>0){
+							$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(leninterest);
+							$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','block');
+						};
+						var bot4 = $('#dialog-bottom-new ul').eq(4).find('input');
+						$.each(newText.interest,function(i,item){
+							$(bot4).each(function(){
+								if($(this).attr('data-id') == item){
+									$(this).prop('checked',true);
+								}
+							})
+						});
+						$.each(newText.age,function(i,item){
+							
+						});
+						$('#hot_age1').val(newText.age[0]);
+						$('#hot_age2').val(newText.age[1]);
+						
+						$(".dislog_inp_con").find('input').attr('disabled',true);
+				        $(this).parent().parent().parent().find('input').prop('checked',false);
+				        $(this).prop('checked',true);
+					
+					//$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>')
 					$('.person_new_tag').removeClass('hidecommon');
 					$('#inp_data_person1').removeClass('hidecommon');
 					$('.dialog_inp_c').removeClass('hidecommon');
 				}else{
+					$('#dialog-bottom-new').find('input').prop('checked',false);
+			    	$('.dialog_inp_num').text(0);
+			    	$('.dialog_inp_num').css('display','none');
 					$(".dislog_inp_con").find('input').attr('disabled',false);
 					var len = $('#person_new_tag').find('i').length;
 					$(this).parent().css('background-color','#c5c5c5');
@@ -895,6 +1068,11 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 			});
 			//删除受众新标签
 			$('#person_new_tag').delegate('span','click',function(){
+				$('#dialog-bottom-new').find('input').prop('checked',false);
+				$('.dialog_inp_num').text(0);
+				$('.dialog_inp_num').css('display','none');
+				$('#hot_age1').val('');
+				$('#hot_age2').val('');
 				$(".dislog_inp_con").find('input').attr('disabled',false);
 				$(".dislog_inp_con").find('input').attr('disabled',false);
 				var dataId = $(this).parent().attr('data-id');
