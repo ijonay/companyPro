@@ -441,8 +441,8 @@
    		<div class="circleCon">   		
 		   		<div class="circleInfo"></div>
 		   		<ul class="all_hot_bar" id="all_hot_bar">
-		   				<li></li>
-		   				<li>圈层热点</li>
+		   				<li style="height:40px;"></li>
+		   				<li style="text-indent:-50px;">圈层热点</li>
 		   				<li>热度</li>
 						<li>热点来源</li> 
 		   				
