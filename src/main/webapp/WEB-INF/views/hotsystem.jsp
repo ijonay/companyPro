@@ -202,8 +202,8 @@
    <div class="allHot pointer" id="allHot">更多热点</div>	
    <div class="all_hot hidecommon" id="all_hot">
       <div class="circleChange">
-         <div class="all_hot_btn">全部热点</div>
-         <div class="circle_btn">圈层热点</div>
+         <div class="all_hot_btn all-circle-active">总和热度榜</div>
+         <div class="circle_btn">圈层热点榜</div>
          <span class="upPage"></span>
       </div>
    		<div class="all_hot_section" id="all_hot_section">
@@ -434,9 +434,9 @@
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
    		<ul class="circleTagCon">
-	   		<li>123456</li>
-	   		<li>123456</li>
-	   		<li>123456</li>
+	   		<li class="circletagactive">宅男腐女</li>
+	   		<li>职场新人</li>
+	   		<li>背包客</li>
    		</ul>
    		<div class="circleCon">   		
 		   		<div class="circleInfo"></div>
