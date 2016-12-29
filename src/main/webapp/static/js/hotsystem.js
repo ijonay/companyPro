@@ -639,8 +639,8 @@ function fillDataBot(selector,selector2,data){
         selector2.append(str);
     });
     selector2.prepend('<ul class="hot_dia_age hidecommon" id="hot_dia_age"><div class="age_dia_con">'+
-            '<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1"><b>岁</b><b>至</b>'+
-            '<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2"><b>岁</b>'+
+            '<input onkeyup="clearChat(this)" maxlength="3" id="hot_age1" type="text"><b>岁</b><b>至</b>'+
+            '<input  onkeyup="clearChat(this)" maxlength="3" id="hot_age2" type="text"><b>岁</b>'+
             '</div></ul>')
 };
 
@@ -726,6 +726,8 @@ $('#userDialog_tag').delegate('li input','click',function(){
         $('#inp_data_person1').removeClass('hidecommon');
         $('.dialog_inp_c').removeClass('hidecommon');
     }else{
+    	$('#hot_age1').val('');
+		$('#hot_age2').val('');
     	$('#dialog-bottom-new').find('input').prop('checked',false);
     	$('.dialog_inp_num').text(0);
     	$('.dialog_inp_num').css('display','none');
@@ -1146,6 +1148,8 @@ function dialogInit(){
     $('.dialog_tab').find('li').removeClass('hot_arrow_up');
     $('#dialog_ser_text').val('');
     $('#hot_dia_age').find('input').val('');
+    $('#person_new_tag').html('');
+    $('#person_new_tag').addClass('hidecommon');
 };
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
