@@ -547,33 +547,38 @@ public class TopicServiceImpl implements TopicService {
         return dao.syncInsertTopic(topic);
     }
 
-	
-	@Override
-	public ArrayList<TopicModel> getTopHotTopic(Map map) {
-		return dao.getTopHotTopic(map);
-	}
 
     @Override
-    public Topic getTopicByTitle(String title){
+    public ArrayList<TopicModel> getTopHotTopic(Map map) {
+        return dao.getTopHotTopic(map);
+    }
+
+    @Override
+    public Topic getTopicByTitle(String title) {
         return dao.getTopicByTitle(title);
     }
 
     @Override
-    public List<String> getChildrenTopicNames(@Param("topicName")  String topicName){
+    public List<String> getChildrenTopicNames(@Param("topicName") String topicName) {
         return dao.getChildrenTopicNames(topicName);
     }
 
     @Override
-    public List<String> getTopicRepeatedWordList(Topic topic,List<String> childrenTopicNames){
+    public List<String> getTopicRepeatedWordList(Topic topic, List<String> childrenTopicNames) {
         List<String> resultList = new ArrayList<String>();
         Set<String> childrenTopicNamesSet = new HashSet<String>(childrenTopicNames);
         String topicKeywordStr = topic.getKeywords();
         String[] tkwList = topicKeywordStr.split(",");
         Set<String> topicKwSet = new HashSet<String>(Arrays.asList(tkwList));
-        topicKwSet = topicKwSet.stream().map(String :: trim).collect(Collectors.toSet());
+        topicKwSet = topicKwSet.stream().map(String::trim).collect(Collectors.toSet());
         childrenTopicNamesSet.retainAll(topicKwSet);
         resultList.addAll(childrenTopicNamesSet);
         return resultList;
+    }
+
+    @Override
+    public List<Topic> getBySearchModel(SearchModel searchModel, Integer top) {
+        return dao.getBySearchModel(searchModel, top);
     }
 
 }
