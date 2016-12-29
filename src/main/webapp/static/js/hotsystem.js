@@ -2928,6 +2928,11 @@ function updateStateChange(){
     }
 }
 $(".circle_btn").on("click",function(){
+	$(this).css('background-image','url(img/hot-all-hover.png)');
+	$(this).css('background-color','#399b9f');
+	$('.all_hot_btn').removeClass('all-circle-active');
+//	$('.all_hot_btn').css('background-image','url(img/hot-all-icon.png)');
+//	$('.all_hot_btn').css('background-color','');
 	$("#all_hot_section").addClass('hidecommon');
 	$("#circle_hot_section").show();
 	var len=$(".circle_hot_list>li").length;
@@ -2936,6 +2941,11 @@ $(".circle_btn").on("click",function(){
 	}
 })
 $(".all_hot_btn").on("click",function(){
+	$(this).addClass('all-circle-active');
+//	$(this).css('background-image','url(img/hot-all-hover.png)');
+//	$(this).css('background-color','#399b9f');
+	$('.circle_btn').css('background-image','url(img/hot-all-icon.png)');
+	$('.circle_btn').css('background-color','');
 	$("#circle_hot_section").hide();
 	$("#all_hot_section").removeClass("hidecommon");
 })
