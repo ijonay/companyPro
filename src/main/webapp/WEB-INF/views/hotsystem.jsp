@@ -439,7 +439,15 @@
 	   		<li>背包客</li>
    		</ul>
    		<div class="circleCon">   		
-		   		<div class="circleInfo"></div>
+		   		<div class="circleInfo">
+		   			<div class="circleDes">
+		   				<span class="circleDesTitle">圈层描述</span>		   				
+		   			</div>
+		   			<div class="splitLine">&nbsp;</div>
+		   			<div class="circleTag">
+		   				<span class="circleTagTitle">圈层属性</span>
+		   			</div>
+		   		</div>
 		   		<ul class="all_hot_bar" id="all_hot_bar">
 		   				<li style="height:40px;"></li>
 		   				<li style="text-indent:-50px;">圈层热点</li>
