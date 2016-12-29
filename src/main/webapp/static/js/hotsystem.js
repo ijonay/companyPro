@@ -1148,6 +1148,8 @@ function dialogInit(){
     $('.dialog_tab').find('li').removeClass('hot_arrow_up');
     $('#dialog_ser_text').val('');
     $('#hot_dia_age').find('input').val('');
+    $('#person_new_tag').html('');
+    $('#person_new_tag').addClass('hidecommon');
 };
 
 //曲线。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
