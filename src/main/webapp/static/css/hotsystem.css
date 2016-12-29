@@ -1005,8 +1005,11 @@ to {background-position:0 -6px;}
     border:1px solid #eee;
     color:white;
 }
+.circle_hot_section{
+	display:none;
+}
 .circleInfo{
-	height:130px;
+	height:200px;
 	background-color:#fff;
 }
 .circleTagCon{
@@ -1015,8 +1018,43 @@ to {background-position:0 -6px;}
 	background-color:blue;
 }
 .circleTagCon li{
-	float:left;
-	margin-left:10px;
+	display:inline-block;
+	width:110px;
+	text-align:center;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	margin-left:3px;
 	border:1px solid #eee;
 	background-color:#fff;
+}
+.circleDes{
+	display:inline-block;
+	width:49.5%;
+	padding:8px 0 8px 34px;
+	height:100%;
+}
+.circleTag{
+	display:inline-block;
+	width:49.5%;
+	padding:8px 0 8px 34px;
+	height:100%;
+}
+.circleDesTitle{
+	font-size:16px;
+	font-family:'yahei';
+	color:#389b9f;
+	font-weight:bold;
+}
+.splitLine{
+	display:inline-block;
+	width:0px;
+	height:88.5%;
+	border-left:1px solid #aaa;
+}
+.circleTagTitle{
+	font-size:16px;
+	font-family:'yahei';
+	color:#389b9f;
+	font-weight:bold;
 }
