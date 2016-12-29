@@ -1422,7 +1422,8 @@ function nodeClick(e,t){
 //    		$("#comeback_hot").click()
 //    	}
 //    })
-$(document).on("click",".hot_relation,.infoConnect,.near_infoConnect",function(){
+$(document).on("click",".hot_relation,.infoConnect,.near_infoConnect",function(e){
+    e ? e.stopPropagation() : event.cancelBubble = true;
     var $this = $(this);
     var index = $this.attr("data-index");
 //    	if(index < 10){
@@ -1491,8 +1492,10 @@ $('#allHot').on('click',function(){
     $('#ser_section').css('min-height',0);
     $('#ser_section').css('opacity',0);
     canClick = false;
-    $(".hot_echart_list").addClass('hidecommon');
+    $(".all_hot_list .hot_echart_list").addClass('hidecommon');
     $('#allHot').addClass('hidecommon');
+    $("#circle_hot_section").hide();
+    $("#all_hot_section").removeClass("hidecommon");
     $('#all_hot').removeClass('hidecommon');
     $('#all_hot').animate({
         opacity:1
@@ -1500,11 +1503,11 @@ $('#allHot').on('click',function(){
     $('#ser_section').css("height",0);
     $('.notify-list').css('display',"none");
     $('.nav_ser').delay("fast").fadeIn();
-    $(".all_hot_list_bot").hide();
-    $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
-    $('.all_hot_list_top_source:first').find('em').css('color','#389b9f');
-    $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
-    if(hotsystem_flag) $('.all_hot_list_top_source:first').click();
+    $(".all_hot_list .all_hot_list_bot").hide();
+    $('.all_hot_list .all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
+    $('.all_hot_list .all_hot_list_top_source:first').find('em').css('color','#389b9f');
+    $('.all_hot_list .all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");;
+    if(hotsystem_flag) $('.all_hot_list .all_hot_list_top_source:first').click();
     $('.type-article').each(function(){
         var str = $(this).text();
         if(str.length>20){
@@ -1621,11 +1624,11 @@ var circleOption = {
     	// var recordList2 = $.templates(templates.design["tmplRecordList2"]);
     $(document).on('click','.all_hot_list_top_source',function(e){
     	e ? e.stopPropagation() : event.cancelBubble = true;
-    	$('.all_hot_list_top_look').css('color','#4a4a4a');
-    	$('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
+    	$(this).parent().parent().parent().find('.all_hot_list_top_look').css('color','#4a4a4a');
+    	$(this).parent().parent().parent().find('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
     	//$('.all_hot_list_top_look').find('em').css("color",'#389b9f');
-    	$('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
-    	$('.hot_echart_list').addClass('hidecommon');
+    	$(this).parent().parent().parent().find('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
+    	$(this).parent().parent().parent().find('.hot_echart_list').addClass('hidecommon');
     	if($(this).parent().next().css('display') == 'block'){
     		$(this).parent().next().hide();
     		$(this).find(".hot_img_arrow").css("transform","rotate(0deg)");
@@ -1817,12 +1820,12 @@ var circleOption = {
     	e ? e.stopPropagation() : event.cancelBubble = true;
     	var $this = $(this)
     	var index = $this.attr("data-id");
-    	$('.all_hot_list_bot').css('display','none');
-    	$('.hot_img_arrow').css("transform","rotate(0deg)");
-    	$('.all_hot_list_top_source').find('em').css('color','#4a4a4a');
-    	$('.all_hot_list_top_source').find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
+    	$(this).parent().parent().parent().find('.all_hot_list_bot').css('display','none');
+    	$(this).parent().parent().parent().find('.hot_img_arrow').css("transform","rotate(0deg)");
+    	$(this).parent().parent().parent().find('.all_hot_list_top_source').find('em').css('color','#4a4a4a');
+    	$(this).parent().parent().parent().find('.all_hot_list_top_source').find('.hot_look_detail').css('background-image','url(img/card-detail.png)');
     	if($(this).parent().next().next().is('.hidecommon')){
-    		$('.all_hot_list_top_look').find('em').css('color','#4a4a4a');
+    	    $(this).parent().parent().parent().find('.all_hot_list_top_look').find('em').css('color','#4a4a4a');
     		$(this).find('em').css('color','#389b9f');
 //    		$(this).parent().parent().parent().find('.all_hot_list_top_look em').text('查看画像');
 //    		$(this).find('em').text('收起画像');
@@ -1832,9 +1835,9 @@ var circleOption = {
         $(this).parent().next().next().removeClass('hidecommon');
         $(this).parent().parent().parent().find(".hot_look_arrow").css("transform","rotate(0deg)");
         $(this).find(".hot_look_arrow").css("transform","rotate(180deg)");
-        var rectTop = $("#ulBottom"+index).next().get(0).getBoundingClientRect();
+        var rectTop = $(this).parent().next().next().get(0).getBoundingClientRect();
         if(rectTop.top < 0){
-            var a = $("#ulBottom"+index).offset().top;
+            var a = $(this).parent().next().offset().top;
             a -= rectTop.top + 450;
             $("html,body").animate({scrollTop:a},"slow");
         }
@@ -1843,7 +1846,7 @@ var circleOption = {
         $(this).parent().next().next().addClass('hidecommon');
         $(this).parent().next().next().addClass('hidecommon');
         $(this).find(".hot_look_arrow").css("transform","rotate(0deg)");
-        $('.all_hot_list_top_look').find('em').css('color','#4a4a4a');
+        $(this).parent().parent().parent().find('.all_hot_list_top_look').find('em').css('color','#4a4a4a');
 //    		$(this).find('em').text('查看画像');
     		$(this).find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
     	};
@@ -2623,22 +2626,25 @@ var circleOption = {
     var tagArray={};
 //获取渲染全部热点
 var hotList2 = $.templates(templates.design["tmplAllHotList"]);
-function getAllHot(){
+function getAllHot(url,isCircle){
     $.ajax({
         type: "get",
         contentType: 'application/json',
         dataType: "json",
-        url: dataUrl.util.getHotTopic(100),
+        url: url,
         success: function(returnData) {
             if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0){
                 console.log("获取全部热点异常");
                 return
             }
-            $(".all_hot_list").html(hotList2.render(returnData));
+            if(isCircle){
+                $(".circle_hot_list").html(hotList2.render(returnData));
+            }else{
+                $(".all_hot_list").html(hotList2.render(returnData));
 
-            $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
-            $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
-//            	$('.all_hot_list_top_source:first').find('.em').css("color","url(img/card-detail-hover.png)");
+                $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
+                $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
+            }
         },
         error: function() {
             console.log('获取热点失败');
@@ -2654,7 +2660,7 @@ function getTenHot(){
         url: dataUrl.util.getTenHot(),
         success: function(returnData) {
             if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0) {
-                getAllHot();
+                getAllHot(dataUrl.util.getHotTopic(100),false);
                 console.log("获取曲线热点异常");
                 return;
             }
@@ -2699,7 +2705,7 @@ function getTenHot(){
                 }
             });
             loadSvg();
-            getAllHot();
+            getAllHot(dataUrl.util.getHotTopic(100),false);
         },
         error: function() {
             console.log('获取热点失败');
@@ -2784,11 +2790,11 @@ $(".hotInfo").on("click",function(e){
 //    	var index = $(".infoConnect").attr("data-index");
     var index = $(".infoConnect").attr("data-id");
     $("#allHot").click();
-    $(".all_hot_list_bot").hide();
-    $(".hot_echart_list").addClass('hidecommon');
-    $("#ulBottom"+index).prev().find('.all_hot_list_top_source').click();
+    $(".all_hot_list .all_hot_list_bot").hide();
+    $(".all_hot_list .hot_echart_list").addClass('hidecommon');
+    $(".all_hot_list .ulBottom"+index).prev().find('.all_hot_list_top_source').click();
     setTimeout(function(){
-        var a = $("#ulBottom"+index).offset().top;
+        var a = $(".all_hot_list .ulBottom"+index).offset().top;
         a -= 450;
         $("html,body").animate({scrollTop:a},"slow");
     },150)
@@ -2836,14 +2842,14 @@ $(".userProfile").on("click",function(){
     hotsystem_flag=false;
     var itemIndex = $(".infoConnect").attr("data-id");
     $("#allHot").click();
-    $(".all_hot_list_bot").hide();
-    $(".hot_echart_list").addClass('hidecommon');
-    $.each($(".all_hot_list_top_look"),function(index,item){
-        var a = $(item).parent().next().attr("id");
+    $(".all_hot_list .all_hot_list_bot").hide();
+    $(".all_hot_list .hot_echart_list").addClass('hidecommon');
+    $.each($(".all_hot_list .all_hot_list_top_look"),function(index,item){
+        var a = $(item).parent().next().data("id");
         if(a == ("ulBottom"+itemIndex)){
             $(item).click();
             setTimeout(function(){
-                var a = $("#ulBottom"+itemIndex).next().offset().top;
+                var a = $(".all_hot_list .ulBottom"+itemIndex).next().offset().top;
                 a -= 450;
                 $("html,body").animate({scrollTop:a},"slow");
             },250)
@@ -2929,7 +2935,10 @@ $(".circle_btn").on("click",function(){
 //	$('.all_hot_btn').css('background-color','');
 	$("#all_hot_section").addClass('hidecommon');
 	$("#circle_hot_section").show();
-	
+	var len=$(".circle_hot_list>li").length;
+	if(len<=0){
+	    getAllHot(dataUrl.util.getHotTopic(50),true);
+	}
 })
 $(".all_hot_btn").on("click",function(){
 	$(this).addClass('all-circle-active');
