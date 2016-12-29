@@ -2940,3 +2940,11 @@ $(".all_hot_btn").on("click",function(){
 	$("#circle_hot_section").hide();
 	$("#all_hot_section").removeClass("hidecommon");
 })
+$(document).on("click",".circleTagCon li",function(){
+	var $this = $(this)
+	if($this){
+		return;
+	}else{
+		
+	}
+})
