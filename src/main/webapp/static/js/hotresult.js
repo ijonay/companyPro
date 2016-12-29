@@ -754,14 +754,21 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 							if(newtagSelect.length <=0 && newtagSelect){
 								$('#person_new_tag').addClass('hidecommon');
 							}else{
+								var strtext = '';
+								$('#person_new_tag').html('');
 								$.each(newtagSelect,function(i,item){
-							    	$('#person_new_tag').append('<i data-id="'+item.id+'">'+item.name+'<span></span></i>');
+									console.log(item.length)
+									$('#person_new_tag').append('<i data-id="'+item.id+'">'+item.name+'<span></span></i>');
 							    	$('#userDialog_tag input').each(function(){
 							    		if($(this).attr('data-id') == item.id){
 							    			$(this).prop('checked',true);
 							    			$(this).parent().css('background-color','#389b9f');
+							    			strtext = $(this).parent().next().text();
+							    			console.log(strtext)
 							    		}
-							    	})
+							    	});
+							    	$('#person_new_tag').append('<div style="display:none">'+strtext+'</div>');
+							    	
 								});
 								var ageSelect = urlLabel.Age;
 								$('#hot_dia_age').find('i').remove();
@@ -1039,6 +1046,8 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 					$('#inp_data_person1').removeClass('hidecommon');
 					$('.dialog_inp_c').removeClass('hidecommon');
 				}else{
+					$('#hot_age1').val('');
+					$('#hot_age2').val('');
 					$('#dialog-bottom-new').find('input').prop('checked',false);
 			    	$('.dialog_inp_num').text(0);
 			    	$('.dialog_inp_num').css('display','none');
@@ -1464,6 +1473,17 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 		$('.dislog_inp_con ul').addClass('hidecommon');
 		$('.dialog_tab').find('li').removeClass('cor389b9f');
 		$('.dialog_tab').find('li').removeClass('hot_arrow_up');
+		$('#person_new_tag').html('');
+		$('#person_new_tag').addClass('hidecommon');
+		$('.person_sec i').html('');
+		$('.person_sec').addClass('hidecommon');
+		$('.person_education i').html('');
+		$('.person_education').addClass('hidecommon');
+		$('.person_area i').html('');
+		$('.person_area').addClass('hidecommon');
+		$('.person_interest i').html('');
+		$('.person_interest').addClass('hidecommon');
+		
 		$('#hot_age1').val('');
 		$('#hot_age2').val('');
 	};
