@@ -334,7 +334,7 @@
         };
         data = JSON.stringify(data);
 
-        console.log(data);
+        //console.log(data);
         $.ajax({
             url: monitorConf.sendUrl,
             data: data,

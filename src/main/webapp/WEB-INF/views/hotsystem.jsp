@@ -151,20 +151,33 @@
    			</div>
    			
    			<p style="height:40px;font-size:16px;color:#4a4a4a;margin:0px 20px;line-height:40px;border-top:1px solid #eee;font-weight:500;"><b style="color:#009944">受众特征</b>(按照热点受众特征筛选)</p>
+
    			
-   			
+   			<ul class="userDialog_tag" id="userDialog_tag">
+<!--    				<li><label>宅男腐女<input type="checkbox" data-id="1"></label></li> -->
+<!--    				<li><label>职场新人<input type="checkbox" data-id="2"></label></li> -->
+<!--    				<li><label>家庭主妇<input type="checkbox" data-id="3"></label></li> -->
+<!--    				<li><label>时尚达人<input type="checkbox" data-id="4"></label></li> -->
+<!--    				<li><label>互联网精英<input type="checkbox" data-id="5"></label></li> -->
+<!--    				<li><label>体育迷<input type="checkbox" data-id="6"></label></li> -->
+<!--    				<li><label>背包客<input type="checkbox" data-id="7"></label></li> -->
+   			</ul>
+
    			<ul class="dialog_tab userDialogTab f14 corlor4a">
    				
    			</ul>
    			
-   			<div class="dislog_inp_con personTab dialog_tab_person">
+   			<div class="dislog_inp_con personTab dialog_tab_person" id="dialog-bottom-new">
    				
    			</div>
    			
    			<div class="dialog_inp_c f12 hidecommon">
    				<ol class="fl dialog_inp_c_data">
    					<li id="inp_data_event" class="hidecommon"><span></span></li>
+   					
    					<li id="inp_data_person1" class="hidecommon">
+   						<p class="person_new_tag hidecommon" id="person_new_tag"></p>
+
    						<div class="person_sec pst hidecommon"><span></span></div>
    						<div class="person_education pst hidecommon"><span></span></div>
    						<div class="person_area pst hidecommon"><span></span></div>
@@ -183,13 +196,16 @@
    		
    		</div>
    </div>
-   <div style="width:100%;height:160px;bottom:0;">
+   <div style="width:100%;height:160px;bottom:0;position:relative">
        <div id="papersvg"></div>
    </div>
    <div class="allHot pointer" id="allHot">更多热点</div>	
-   
    <div class="all_hot hidecommon" id="all_hot">
-   <span class="upPage"></span>
+      <div class="circleChange">
+         <div class="all_hot_btn all-circle-active">总和热度榜</div>
+         <div class="circle_btn">圈层热点榜</div>
+         <span class="upPage"></span>
+      </div>
    		<div class="all_hot_section" id="all_hot_section">
    			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
@@ -415,6 +431,36 @@
    				</li>
    				-->
    			</ul>
+   		</div>
+   		<div class="circle_hot_section" id="circle_hot_section">
+   		<ul class="circleTagCon">
+	   		<li class="circletagactive">宅男腐女</li>
+	   		<li>职场新人</li>
+	   		<li>背包客</li>
+   		</ul>
+   		<div class="circleCon">   		
+		   		<div class="circleInfo">
+		   			<div class="circleDes">
+		   				<span class="circleDesTitle">圈层描述</span>		   				
+		   			</div>
+		   			<div class="splitLine">&nbsp;</div>
+		   			<div class="circleTag">
+		   				<span class="circleTagTitle">圈层属性</span>
+		   			</div>
+		   		</div>
+		   		<ul class="all_hot_bar" id="all_hot_bar">
+		   				<li style="height:40px;"></li>
+		   				<li style="text-indent:-50px;">圈层热点</li>
+		   				<li>热度</li>
+						<li>热点来源</li> 
+		   				
+		<!--    				<li>热点受众画像</li> -->
+		   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
+		   		</ul>
+	   			<ul class="circle_hot_list">
+	   				
+	   			</ul>
+   			</div>
    		</div>
    </div>
    <div class="alertCon">
