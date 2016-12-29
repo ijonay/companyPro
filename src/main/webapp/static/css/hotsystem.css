@@ -1013,7 +1013,7 @@ to {background-position:0 -6px;}
 	background-color:#399b9f;
 }
 .circleInfo{
-	height:130px;
+	height:200px;
 	background-color:#fff;
 }
 .circleTagCon{
@@ -1021,6 +1021,7 @@ to {background-position:0 -6px;}
 	padding:12px 0 9px 30px;
 }
 .circleTagCon li{
+	display:inline-block;
 	border-radius:5px;
 	width:110px;
 	height:32px;
@@ -1028,7 +1029,9 @@ to {background-position:0 -6px;}
 	font-size:14px;
 	color:#4a4a4a;
 	text-align:center;
-	float:left;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
 	margin-right:8px;
 	border:1px solid #eee;
 	background-color:#fff;
@@ -1067,3 +1070,4 @@ to {background-position:0 -6px;}
 	color:#389b9f;
 	font-weight:bold;
 }
+
