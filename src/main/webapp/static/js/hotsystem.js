@@ -2917,3 +2917,12 @@ function updateStateChange(){
         });
     }
 }
+$(".circle_btn").on("click",function(){
+	$("#all_hot_section").addClass('hidecommon');
+	$("#circle_hot_section").show();
+	
+})
+$(".all_hot_btn").on("click",function(){
+	$("#circle_hot_section").hide();
+	$("#all_hot_section").removeClass("hidecommon");
+})

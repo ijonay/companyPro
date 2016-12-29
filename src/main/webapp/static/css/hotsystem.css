@@ -672,7 +672,7 @@ body{
 
 .upPage{
 	position:absolute;
-	top:-30px;
+	top:-34px;
 	width:40px;
 	height:45px;
 	left:50%;
@@ -980,3 +980,43 @@ to {background-position:0 -6px;}
 .hot-user-tep6{width:357px;height:200px;background:url(../img/user-tep6.png) no-repeat;top:47px;right:6px;z-index:10001;display:none;}
 .hot-user-tep7{width:357px;height:202px;background:url(../img/user-tep7.png) no-repeat;top:47px;right:24px;z-index:10001;display:none;}
 /* 更新记录 结束 */
+.circleChange{
+    height:34px;
+    line-height: 34px;
+    font-size:16px;
+}
+.all_hot_btn{
+	width:100px;
+	display:inline-block;
+	text-align:center;
+	height:34px;
+    line-height: 34px;
+    font-size:16px;
+    border:1px solid #eee;
+    color:white;
+}
+.circle_btn{
+	width:100px;
+	text-align:center;
+	display:inline-block;
+	height:34px;
+    line-height: 34px;
+    font-size:16px;
+    border:1px solid #eee;
+    color:white;
+}
+.circleInfo{
+	height:130px;
+	background-color:#fff;
+}
+.circleTagCon{
+	height:30px;
+	line-height:30px;
+	background-color:blue;
+}
+.circleTagCon li{
+	float:left;
+	margin-left:10px;
+	border:1px solid #eee;
+	background-color:#fff;
+}

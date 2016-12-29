@@ -196,13 +196,16 @@
    		
    		</div>
    </div>
-   <div style="width:100%;height:160px;bottom:0;">
+   <div style="width:100%;height:160px;bottom:0;position:relative">
        <div id="papersvg"></div>
    </div>
    <div class="allHot pointer" id="allHot">更多热点</div>	
-   
    <div class="all_hot hidecommon" id="all_hot">
-   <span class="upPage"></span>
+      <div class="circleChange">
+         <div class="all_hot_btn">全部热点</div>
+         <div class="circle_btn">圈层热点</div>
+         <span class="upPage"></span>
+      </div>
    		<div class="all_hot_section" id="all_hot_section">
    			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
    			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
@@ -428,6 +431,28 @@
    				</li>
    				-->
    			</ul>
+   		</div>
+   		<div class="circle_hot_section" id="circle_hot_section">
+   		<ul class="circleTagCon">
+	   		<li>123456</li>
+	   		<li>123456</li>
+	   		<li>123456</li>
+   		</ul>
+   		<div class="circleCon">   		
+		   		<div class="circleInfo"></div>
+		   		<ul class="all_hot_bar" id="all_hot_bar">
+		   				<li></li>
+		   				<li>圈层热点</li>
+		   				<li>热度</li>
+						<li>热点来源</li> 
+		   				
+		<!--    				<li>热点受众画像</li> -->
+		   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
+		   		</ul>
+	   			<ul class="circle_hot_list">
+	   				
+	   			</ul>
+   			</div>
    		</div>
    </div>
    <div class="alertCon">
