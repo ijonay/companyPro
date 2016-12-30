@@ -1035,6 +1035,7 @@ to {background-position:0 -6px;}
 	margin-right:8px;
 	border:1px solid #eee;
 	background-color:#fff;
+	cursor:pointer;
 }
 .circleTagCon li.circletagactive{
 	background:#399b9f;

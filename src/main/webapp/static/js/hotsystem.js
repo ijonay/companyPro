@@ -1496,6 +1496,8 @@ $('#allHot').on('click',function(){
     $('#allHot').addClass('hidecommon');
     $("#circle_hot_section").hide();
     $("#all_hot_section").removeClass("hidecommon");
+    $(".all_hot_btn").addClass('all-circle-active');
+    $('.circle_btn').css({'background-image':'url(img/hot-all-icon.png)','background-color':''});
     $('#all_hot').removeClass('hidecommon');
     $('#all_hot').animate({
         opacity:1
@@ -2626,7 +2628,7 @@ var circleOption = {
     var tagArray={};
 //获取渲染全部热点
 var hotList2 = $.templates(templates.design["tmplAllHotList"]);
-function getAllHot(url,isCircle){
+function getAllHot(url,isCircle,$dom){
     $.ajax({
         type: "get",
         contentType: 'application/json',
@@ -2638,7 +2640,7 @@ function getAllHot(url,isCircle){
                 return
             }
             if(isCircle){
-                $(".circle_hot_list").html(hotList2.render(returnData));
+                $dom.html(hotList2.render(returnData));
             }else{
                 $(".all_hot_list").html(hotList2.render(returnData));
 
@@ -2808,10 +2810,16 @@ $(".hotInfo").on("click",function(e){
 //滚动的时候固定热点详情头部
 $(window).scroll(function(){
 
-    if($(window).scrollTop()>180){
+    if($(window).scrollTop()>222){
         $('#all_hot_bar').addClass('all_hot_bar_scroll');
     }else{
         $('#all_hot_bar').removeClass('all_hot_bar_scroll');
+    };
+    
+    if($(window).scrollTop()>480){
+        $('.circle_hot_bar').addClass('all_hot_bar_scroll');
+    }else{
+        $('.circle_hot_bar').removeClass('all_hot_bar_scroll');
     };
 
 
@@ -2937,7 +2945,7 @@ $(".circle_btn").on("click",function(){
 	$("#circle_hot_section").show();
 	var len=$(".circle_hot_list>li").length;
 	if(len<=0){
-	    getAllHot(dataUrl.util.getHotTopic(50),true);
+	    getAllHot(dataUrl.util.getHotTopic(50),true,$(".circle_hot_list"));
 	}
 })
 $(".all_hot_btn").on("click",function(){
@@ -2948,4 +2956,27 @@ $(".all_hot_btn").on("click",function(){
 	$('.circle_btn').css('background-color','');
 	$("#circle_hot_section").hide();
 	$("#all_hot_section").removeClass("hidecommon");
+})
+
+//切换圈层
+$(document).on("click",".circleTagCon li",function(){
+    var $this = $(this)
+    if($this.hasClass("circletagactive")){
+        return;
+    }else{
+        var id=$(this).data("id");
+        $this.siblings().removeClass("circletagactive");
+        $this.addClass("circletagactive");
+        $(".circleCon").hide();
+        var len=$(".circleCon[data-id='"+id+"']").length;
+        if(len<=0){
+           var $dom=$(".circleCon:first").clone();
+           $dom.attr("data-id",id);
+           getAllHot(dataUrl.util.getHotTopic(1),true,$dom.find(".circle_hot_list"));
+           $dom.appendTo("#circle_hot_section");
+           $dom.show();
+        }else{
+            $(".circleCon[data-id='"+id+"']").show();
+        }
+    }
 })

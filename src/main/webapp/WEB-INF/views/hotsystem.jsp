@@ -206,9 +206,10 @@
          <div class="circle_btn">圈层热点榜</div>
          <span class="upPage"></span>
       </div>
+      <div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
+            <div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
    		<div class="all_hot_section" id="all_hot_section">
-   			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
-   			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
+   			
    			<!-- <ul class="hot_ifo_title f18">
    			    <li class="hot_ifo_title_img fl"></li>
    				<li class="fl">全部热点</li>
@@ -434,11 +435,11 @@
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
    		<ul class="circleTagCon">
-	   		<li class="circletagactive">宅男腐女</li>
-	   		<li>职场新人</li>
-	   		<li>背包客</li>
+	   		<li class="circletagactive" data-id="1">宅男腐女</li>
+	   		<li data-id="2">职场新人</li>
+	   		<li data-id="3">背包客</li>
    		</ul>
-   		<div class="circleCon">   		
+   		<div class="circleCon" data-id="1">   		
 		   		<div class="circleInfo">
 		   			<div class="circleDes">
 		   				<span class="circleDesTitle">圈层描述</span>		   				
@@ -448,13 +449,11 @@
 		   				<span class="circleTagTitle">圈层属性</span>
 		   			</div>
 		   		</div>
-		   		<ul class="all_hot_bar" id="all_hot_bar">
+		   		<ul class="all_hot_bar circle_hot_bar">
 		   				<li style="height:40px;"></li>
 		   				<li style="text-indent:-50px;">圈层热点</li>
 		   				<li>热度</li>
 						<li>热点来源</li> 
-		   				
-		<!--    				<li>热点受众画像</li> -->
 		   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
 		   		</ul>
 	   			<ul class="circle_hot_list">
