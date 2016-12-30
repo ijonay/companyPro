@@ -75,7 +75,10 @@ dataUrl.util = {
     ,
     getUserInfo:"api/account/info",//获取用户信息
     getVersionsInfo:"api/proinfo/versions",//获取版本信息
-    updateStateChange:'api/proinfo/updatestate'
+    updateStateChange:'api/proinfo/updatestate',
+    getCircleHots:function(size){
+        return "api/topic/getBySearchModel?size="+size
+    }
 }
 
 var chartsAttr = chartsAttr || {};

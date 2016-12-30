@@ -435,11 +435,9 @@
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
    		<ul class="circleTagCon">
-	   		<li class="circletagactive" data-id="1">宅男腐女</li>
-	   		<li data-id="2">职场新人</li>
-	   		<li data-id="3">背包客</li>
+	   		
    		</ul>
-   		<div class="circleCon" data-id="1">   		
+   		<!-- <div class="circleCon" data-id="1">   		
 		   		<div class="circleInfo">
 		   			<div class="circleDes">
 		   				<span class="circleDesTitle">圈层描述</span>		   				
@@ -459,7 +457,7 @@
 	   			<ul class="circle_hot_list">
 	   				
 	   			</ul>
-   			</div>
+   			</div>-->
    		</div>
    </div>
    <div class="alertCon">
@@ -511,7 +509,25 @@
 	</div>
 	 <p class="title" style="font-size:14px;">受众画像加载中，请稍候……</p>
 </div>
-
+<div class="circleCon" style="display:none">         
+    <div class="circleInfo">
+        <div class="circleDes">
+            <span class="circleDesTitle">圈层描述</span>                        
+        </div>
+        <div class="splitLine">&nbsp;</div>
+        <div class="circleTag">
+            <span class="circleTagTitle">圈层属性</span>
+        </div>
+    </div>
+    <ul class="all_hot_bar circle_hot_bar">
+        <li style="height:40px;"></li>
+        <li style="text-indent:-50px;">圈层热点</li>
+        <li>热度</li>
+        <li>热点来源</li> 
+        <li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>                 
+    </ul>
+    <ul class="circle_hot_list"></ul>
+</div>
 <jsp:include page="foot.jsp" />
 <script src="js/raphael.js"></script>
 <script src="js/hotsystem.js"></script>
