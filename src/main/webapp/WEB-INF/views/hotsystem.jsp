@@ -456,8 +456,8 @@
 		   				<div class="circle_Tag_Info">
 		   					<div class="circle_Tag_Circle">
 		   						<span>职场新人</span>
-		   						<div class="circleTagLeft">123456</div>
-		   						<div class="circleTagRight">标签</div>
+		   						<div class="circleTagLeft"><span class="textCut"></span></div>
+		   						<div class="circleTagRight"><span class="textCut"></span></div>		   						
 		   					</div>
 		   				</div>
 		   			</div>
