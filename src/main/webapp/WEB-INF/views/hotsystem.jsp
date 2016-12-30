@@ -441,18 +441,32 @@
    		<div class="circleCon">   		
 		   		<div class="circleInfo">
 		   			<div class="circleDes">
-		   				<span class="circleDesTitle">圈层描述</span>		   				
+		   				<p class="circleDesTitle">圈层描述</p>
+		   				<div class="circle_Des_Info">
+		   					<div class="circle_Des_Icon"></div>
+		   					<div class="circleDesCon">
+		   						<p class="circleDesTitle">职场新人</p>
+		   						<p class="circleDesText">职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场</p>
+		   					</div>
+		   				</div>
 		   			</div>
-		   			<div class="splitLine">&nbsp;</div>
+		     <div class="splitLine">&nbsp;</div>
 		   			<div class="circleTag">
-		   				<span class="circleTagTitle">圈层属性</span>
+		   				<p class="circleTagTitle">圈层属性</p>
+		   				<div class="circle_Tag_Info">
+		   					<div class="circle_Tag_Circle">
+		   						<span>职场新人</span>
+		   						<div class="circleTagLeft">123456</div>
+		   						<div class="circleTagRight">标签</div>
+		   					</div>
+		   				</div>
 		   			</div>
 		   		</div>
 		   		<ul class="all_hot_bar" id="all_hot_bar">
 		   				<li style="height:40px;"></li>
 		   				<li style="text-indent:-50px;">圈层热点</li>
 		   				<li>热度</li>
-						<li>热点来源</li> 
+						<li>热点来源</li>
 		   				
 		<!--    				<li>热点受众画像</li> -->
 		   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				

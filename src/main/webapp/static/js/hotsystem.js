@@ -2949,3 +2949,39 @@ $(".all_hot_btn").on("click",function(){
 	$("#circle_hot_section").hide();
 	$("#all_hot_section").removeClass("hidecommon");
 })
+var circleTagArray = ["1234",'乐观','二货','深井冰','二货','深井冰'];
+var $circleTagCon = $(".circle_Tag_Circle");
+function createTag(circleTagCon,circleTagArray){
+	console.log(circleTagCon)
+	var len = circleTagArray.length;
+	var leftStart = 140;
+	var degTrans = Math.PI / 180;
+	var stepLeft = 80/(Math.ceil(len/2));
+	var stepRight = 80/(parseInt(len/2))
+	console.log(stepLeft,stepRight);
+	$.each(circleTagArray,function(index,item){
+		if(index%2 == 0){
+			var tempEle = $("<div class='circleTagLeft'></div>");
+			var angle = 140 + stepLeft*(parseInt(index/2)+0.5);
+			tempEle.html(item);
+			var left = 20*Math.random()+43+96*Math.cos(angle*degTrans);
+            var top = 43+96*Math.sin(angle*degTrans);
+			tempEle.css({left:left,top:top,display:'inline-block'});
+			console.log(tempEle);
+			circleTagCon.append(tempEle);
+		}else{
+			var tempEle = $("<div class='circleTagRight'></div>");
+			var angle = 320 + stepRight*(parseInt(index/2)+0.5);
+			if(angle>360){
+				angle -= 360
+			}
+			tempEle.html(item);
+			var left = -20*Math.random()+43+96*Math.cos(angle*degTrans);
+            var top = 43+96*Math.sin(angle*degTrans);
+			tempEle.css({left:left,top:top,display:'inline-block'});
+			console.log(tempEle);
+			circleTagCon.append(tempEle);
+		}
+	})
+}
+createTag($circleTagCon,circleTagArray);
