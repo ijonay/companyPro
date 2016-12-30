@@ -1141,9 +1141,7 @@ to {background-position:0 -6px;}
 	transform:translate(-50%,-50%);
 	/*display:inline-block;*/
 	padding:0 8px;
-	text-align:center;
-	min-width:60px;
-	max-width:86px;
+	
 	font-size:14px;
 	color:#4a4a4a;
 	height:24px;
@@ -1186,4 +1184,12 @@ to {background-position:0 -6px;}
     position:absolute;
     top:6px;
     left:-10px;
+}
+.textCut{
+	text-align:center;
+	min-width:60px;
+	max-width:86px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
