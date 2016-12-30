@@ -2952,6 +2952,7 @@ $(".circle_btn").on("click",function(){
 	            if(returnData == null||returnData.Circle==null){
 	                console.log('数据为空');
 	            }else{
+	                $(".circleTagCon").data("info",returnData);
 	                $.each(returnData.Circle,function(idx,item){
 	                    $("<li></li>").text(item.name).data("id",item.id).data('info',item).appendTo(".circleTagCon");
 	                });
@@ -2998,6 +2999,11 @@ $(document).on("click",".circleTagCon li",function(){
             };
            var $dom=$("body>.circleCon").clone();
            $dom.attr("data-id",id);
+           $dom.find(".circle_Des_Icon").css("background-image","url("+rule.img_url+")");
+           $dom.find(".circleDesText").text(info.description);
+           $dom.find(".circleDesTitle,.circle_Tag_Circle>span").text(info.name);
+           var tagData=formatTagData($(".circleTagCon").data("info"),rule);
+           createTag($dom.find(".circle_Tag_Circle"),tagData);
            $dom.appendTo("#circle_hot_section");
            $dom.show();
            $.ajax({
@@ -3022,3 +3028,69 @@ $(document).on("click",".circleTagCon li",function(){
         }
     }
 });
+
+//处理圈层标签数据
+function formatTagData(data,rule){
+    var Education=data.Education;
+    var Gender=data.Gender;
+    var UserClass=data.UserClass;
+    var Circle=data.Circle;
+    var data=[];
+    
+    $.each(rule.education,function(idx,item){//学历
+        data.push(_.findWhere(Education, {id:item}).name);
+    })
+    
+    $.each(rule.gender,function(idx,item){//性别
+        data.push(_.findWhere(Gender, {id:item}).name);
+    })
+    
+    $.each(rule.userClass,function(idx,item){//兴趣爱好
+        data.push(_.findWhere(UserClass, {id:item}).name);
+    })
+    
+    var ageLen=rule.age.length;
+    if(ageLen==1){
+        data.push(rule.age[0]+"");
+    }else if(ageLen==2){
+        data.push(rule.age[0]+" - "+rule.age[1]);
+    }
+    return data;
+}
+
+var circleTagArray = ["1234",'乐观','二货','深井冰','二货','深井冰'];
+var $circleTagCon = $(".circle_Tag_Circle");
+function createTag(circleTagCon,circleTagArray){
+	console.log(circleTagCon)
+	var len = circleTagArray.length;
+	var leftStart = 140;
+	var degTrans = Math.PI / 180;
+	var stepLeft = 80/(Math.ceil(len/2));
+	var stepRight = 80/(parseInt(len/2))
+	console.log(stepLeft,stepRight);
+	$.each(circleTagArray,function(index,item){
+		if(index%2 == 0){
+			var tempEle = $("<div class='circleTagLeft'></div>");
+			var angle = 140 + stepLeft*(parseInt(index/2)+0.5);
+			tempEle.html(item);
+			var left = 20*Math.random()+43+96*Math.cos(angle*degTrans);
+            var top = 43+96*Math.sin(angle*degTrans);
+			tempEle.css({left:left,top:top,display:'inline-block'});
+			console.log(tempEle);
+			circleTagCon.append(tempEle);
+		}else{
+			var tempEle = $("<div class='circleTagRight'></div>");
+			var angle = 320 + stepRight*(parseInt(index/2)+0.5);
+			if(angle>360){
+				angle -= 360
+			}
+			tempEle.html(item);
+			var left = -20*Math.random()+43+96*Math.cos(angle*degTrans);
+            var top = 43+96*Math.sin(angle*degTrans);
+			tempEle.css({left:left,top:top,display:'inline-block'});
+			console.log(tempEle);
+			circleTagCon.append(tempEle);
+		}
+	})
+}
+//createTag($circleTagCon,circleTagArray);

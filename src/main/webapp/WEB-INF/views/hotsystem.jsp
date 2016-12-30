@@ -434,30 +434,7 @@
    			</ul>
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
-   		<ul class="circleTagCon">
-	   		
-   		</ul>
-   		<!-- <div class="circleCon" data-id="1">   		
-		   		<div class="circleInfo">
-		   			<div class="circleDes">
-		   				<span class="circleDesTitle">圈层描述</span>		   				
-		   			</div>
-		   			<div class="splitLine">&nbsp;</div>
-		   			<div class="circleTag">
-		   				<span class="circleTagTitle">圈层属性</span>
-		   			</div>
-		   		</div>
-		   		<ul class="all_hot_bar circle_hot_bar">
-		   				<li style="height:40px;"></li>
-		   				<li style="text-indent:-50px;">圈层热点</li>
-		   				<li>热度</li>
-						<li>热点来源</li> 
-		   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
-		   		</ul>
-	   			<ul class="circle_hot_list">
-	   				
-	   			</ul>
-   			</div>-->
+   		 <ul class="circleTagCon"></ul>
    		</div>
    </div>
    <div class="alertCon">
@@ -512,12 +489,26 @@
 <div class="circleCon" style="display:none">         
     <div class="circleInfo">
         <div class="circleDes">
-            <span class="circleDesTitle">圈层描述</span>                        
+            <p class="circleDesTitle">圈层描述</p>
+            <div class="circle_Des_Info">
+                <div class="circle_Des_Icon"></div>
+                <div class="circleDesCon">
+                    <p class="circleDesTitle">职场新人</p>
+                    <p class="circleDesText">职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场</p>
+                </div>
+            </div>
         </div>
         <div class="splitLine">&nbsp;</div>
         <div class="circleTag">
-            <span class="circleTagTitle">圈层属性</span>
-        </div>
+            <p class="circleTagTitle">圈层属性</p>
+            <div class="circle_Tag_Info">
+                <div class="circle_Tag_Circle">
+                    <span>职场新人</span>
+                    <div class="circleTagLeft">123456</div>
+                    <div class="circleTagRight">标签</div>
+                 </div>
+             </div>
+         </div>
     </div>
     <ul class="all_hot_bar circle_hot_bar">
         <li style="height:40px;"></li>
