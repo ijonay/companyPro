@@ -489,7 +489,7 @@
 <div class="circleCon" style="display:none">         
     <div class="circleInfo">
         <div class="circleDes">
-            <p class="circleDesTitle">圈层描述</p>
+            <p class="circleDesTitleP">圈层描述</p>
             <div class="circle_Des_Info">
                 <div class="circle_Des_Icon"></div>
                 <div class="circleDesCon">

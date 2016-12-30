@@ -3058,9 +3058,16 @@ function formatTagData(data,rule){
     return data;
 }
 
-var circleTagArray = ["1234",'乐观','二货','深井冰','二货','深井冰'];
-var $circleTagCon = $(".circle_Tag_Circle");
 function createTag(circleTagCon,circleTagArray){
+	if(screen.availWidth>1400){
+		if(circleTagArray.length > 10){
+			circleTagArray.length = 10
+		}
+	}else{
+		if(circleTagArray.length > 6){
+			circleTagArray.length = 6
+		}
+	}
 	console.log(circleTagCon)
 	var len = circleTagArray.length;
 	var leftStart = 140;
@@ -3068,24 +3075,45 @@ function createTag(circleTagCon,circleTagArray){
 	var stepLeft = 80/(Math.ceil(len/2));
 	var stepRight = 80/(parseInt(len/2))
 	console.log(stepLeft,stepRight);
+	var leftAngle = [];
+	var rightAngle = [];
 	$.each(circleTagArray,function(index,item){
 		if(index%2 == 0){
-			var tempEle = $("<div class='circleTagLeft'></div>");
+			var tempEle = $("<div class='circleTagLeft'><span class='textCut'></span></div>");
 			var angle = 140 + stepLeft*(parseInt(index/2)+0.5);
-			tempEle.html(item);
-			var left = 20*Math.random()+43+96*Math.cos(angle*degTrans);
+			var tempLeft = 0;
+			if(index==6){
+				tempLeft = -108
+				angle=(leftAngle[0]+leftAngle[1])/2;
+			}
+			if(index==8){
+				tempLeft = -108
+				angle=(leftAngle[1]+leftAngle[2])/2
+			}
+			tempEle.find("span").html(item);
+			var left = tempLeft + 23+96*Math.cos(angle*degTrans);
             var top = 43+96*Math.sin(angle*degTrans);
 			tempEle.css({left:left,top:top,display:'inline-block'});
-			console.log(tempEle);
+			leftAngle.push(angle);
 			circleTagCon.append(tempEle);
 		}else{
-			var tempEle = $("<div class='circleTagRight'></div>");
+			var tempEle = $("<div class='circleTagRight'><span class='textCut'></span></div>");
+			rightAngle.push(angle);
 			var angle = 320 + stepRight*(parseInt(index/2)+0.5);
+			var tempRight = 0;
+			if(index == 7){
+				tempRight = 108;
+				angle=(rightAngle[0]+rightAngle[1])/2;
+			}
+			if(index == 9){
+				tempRight = 108;
+				angle=(rightAngle[1]+rightAngle[2])/2
+			}
 			if(angle>360){
 				angle -= 360
 			}
-			tempEle.html(item);
-			var left = -20*Math.random()+43+96*Math.cos(angle*degTrans);
+			tempEle.find("span").html(item);
+			var left = tempRight + 63+96*Math.cos(angle*degTrans);
             var top = 43+96*Math.sin(angle*degTrans);
 			tempEle.css({left:left,top:top,display:'inline-block'});
 			console.log(tempEle);
