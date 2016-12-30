@@ -1135,6 +1135,7 @@ to {background-position:0 -6px;}
 	height:108px;
 	border-radius:50%;
 	border:1px solid #399B9D;
+	opacity: 0.5;
 }
 .circle_Tag_Circle div{
 	display:none;
@@ -1150,6 +1151,7 @@ to {background-position:0 -6px;}
 	height:24px;
 	line-height:24px;
 	background-color:#e1e1e1;
+	border-radius:2px;
 }
 .circleTagLeft:after{
 	content:'';
