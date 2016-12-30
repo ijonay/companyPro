@@ -2141,7 +2141,7 @@ var circleOption = {
 	    	                    	fontWeight:'400'
 	    	                    }
 	    	        	    },
-	    	        	    color:color,
+	    	        	    color:['#1f81c5','#15a9e0','#3cbca0','#8eca6d','#54e6a0'],
 	    	        	    backgroundColor:"#fff",
 						    tooltip: {
 						        trigger: 'axis',
