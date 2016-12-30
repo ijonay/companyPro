@@ -71,15 +71,18 @@ public interface TopicService {
     Object getTopicPercentage(Integer topicId);
 
     boolean inactiveTopic(Integer id);
+
     boolean activeTopic(Integer id);
 
     /**
-     *  searching topics by keyword, keyword_title
+     * searching topics by keyword, keyword_title
+     *
      * @param keyword
      * @param keyword_title
      * @return
      */
-    List<TopicModel> getTopicsByKeyword(String keyword,String keywordTitle);
+    List<TopicModel> getTopicsByKeyword(String keyword, String keywordTitle);
+
     boolean update(Topic topic);
 
     boolean applyManual(Integer id);
@@ -88,15 +91,18 @@ public interface TopicService {
 
     int syncInsertTopic(Topic topic);
 
-	ArrayList<TopicModel> getTopHotTopic(Map map);
+    ArrayList<TopicModel> getTopHotTopic(Map map);
 
     Topic getTopicByTitle(String title);
 
-    List<String> getChildrenTopicNames(@Param("topicName")String topicName);
+    List<String> getChildrenTopicNames(String topicName);
 
     List<String> getRepeatedWordList(List<String> tkwList, List<String> childrenTopicNames);
 
     List<String> getSimilarWords(List<String> tkwList, List<String> childrenTopicNames);
+
+
+    List<Topic> getBySearchModel(SearchModel searchModel, Integer top);
 
     List<String> getTopicTitleKeywords(Integer topicId);
 

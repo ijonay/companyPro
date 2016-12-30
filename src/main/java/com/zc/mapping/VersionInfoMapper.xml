@@ -103,7 +103,7 @@
     <select id="getCollByPage" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from version_info
+        from version_info ORDER BY create_time DESC
     </select>
     <!--<delete id="delAll">-->
     <!--delete from version_info-->

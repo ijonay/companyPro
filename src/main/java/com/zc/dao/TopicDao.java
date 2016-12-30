@@ -9,6 +9,7 @@ package com.zc.dao;
 
 import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
+import com.zc.model.topicsearch.SearchModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public interface TopicDao {
     int inactiveTopic(@Param("id") Integer id);
 
     int activeTopic(@Param("id") Integer id);
-    
+
     List<TopicModel> getTopicsByKeyword(Map map);
 
     int applyManual(@Param("id") Integer id);
@@ -61,13 +62,15 @@ public interface TopicDao {
     int cancelManual(@Param("id") Integer id);
 
     int syncInsertTopic(Topic topic);
-    
-	ArrayList<TopicModel> getTopHotTopic(Map map);
 
-    Topic getTopicByTitle(@Param("title")String title);
+    ArrayList<TopicModel> getTopHotTopic(Map map);
 
-    List<String> getChildrenTopicNames(@Param("topicName")String topicName);
+    Topic getTopicByTitle(@Param("title") String title);
+
+    List<String> getChildrenTopicNames(@Param("topicName") String topicName);
 
     String getTopicTitleKeywords(@Param("topicId")Integer topicId);
+
+    List<Topic> getBySearchModel(@Param("searchModel") SearchModel searchModel, @Param("top") Integer top);
 
 }

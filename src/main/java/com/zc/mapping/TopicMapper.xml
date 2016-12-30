@@ -55,7 +55,8 @@
     <select id="getTopHotTopic" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        from view_topic where is_active = 1 AND id != #{id,jdbcType=INTEGER} and event_class != '其他' and event_class LIKE
+        from view_topic where is_active = 1 AND id != #{id,jdbcType=INTEGER} and event_class != '其他' and event_class
+        LIKE
         (select substring_index( CONCAT(event_class,','),',',1 ) from view_topic where id = #{id,jdbcType=INTEGER})
         order by prevailing_trend desc
         limit #{count,jdbcType=INTEGER}
@@ -413,6 +414,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+
     <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -678,6 +680,19 @@
     <select id="getChildrenTopicNames" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT child FROM zhihutopictree where parent = '${topicName}';
     </select>
+    <select id="getBySearchModel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from view_topic
+        where id IN (
+        <include refid="com.zc.dao.TopicFilterMapper.SearchModel_TopicId_List"/>
+        )
+        ORDER BY prevailing_trend DESC
+        <if test="top!=null">
+            limit #{top,jdbcType=INTEGER}
+        </if>
+    </select>
+
 
     <select id="getTopicTitleKeywords" parameterType="java.lang.Integer" resultType="java.lang.String">
         SELECT terms FROM TopicTitleTerms where id = ${topicId};
