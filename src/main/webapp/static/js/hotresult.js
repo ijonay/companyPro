@@ -586,9 +586,9 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 				urlLabel.newtag.push({id:dataId,name:dataText})
 			});
 			var nextagtext = JSON.parse(JSON.parse($('#person_new_tag').find('div').text()));
-			urlLabel.Gender = nextagtext.sex;
+			urlLabel.Gender = nextagtext.gender;
 			urlLabel.Education = nextagtext.education;
-			urlLabel.UserClass = nextagtext.interest;
+			urlLabel.UserClass = nextagtext.userClass;
 		};
 		
 		if($('.person_sec').is('.hidecommon')){
@@ -990,13 +990,13 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 						$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>');
 						
 						var newText = JSON.parse(JSON.parse(distext));
-						var lensex = newText.sex.length;
+						var lensex = newText.gender.length;
 						if(lensex>0){
 							$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(lensex);
 							$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','block')
 						}
 						
-						$.each(newText.sex,function(i,item){
+						$.each(newText.gender,function(i,item){
 							if(item == 208){
 								$('#dialog-bottom-new ul').eq(1).find('input').eq(0).prop('checked',true);
 							}else{
@@ -1018,13 +1018,13 @@ function getResult(clueWord, pageSize, currentPage,labeInfo) {
 							})
 						});
 						
-						var leninterest = newText.interest.length;
+						var leninterest = newText.userClass.length;
 						if(leninterest>0){
 							$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(leninterest);
 							$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','block');
 						};
 						var bot4 = $('#dialog-bottom-new ul').eq(4).find('input');
-						$.each(newText.interest,function(i,item){
+						$.each(newText.userClass,function(i,item){
 							$(bot4).each(function(){
 								if($(this).attr('data-id') == item){
 									$(this).prop('checked',true);

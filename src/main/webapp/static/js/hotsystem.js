@@ -527,9 +527,9 @@ $('#dialog_ser_to').on('click',function(){
                     dataObj.newtag.push({id:dataId,name:dataText})
                 });
                 var nextagtext = JSON.parse(JSON.parse($('#person_new_tag').find('div').text()));
-                dataObj.Gender = nextagtext.sex;
+                dataObj.Gender = nextagtext.gender;
                 dataObj.Education = nextagtext.education;
-                dataObj.UserClass = nextagtext.interest;
+                dataObj.UserClass = nextagtext.userClass;
 //                var ageVal3 = $('#hot_age1').val(),
 //                ageVal4 = $('#hot_age2').val();
 //                dataObj.Age.push(ageVal3);
@@ -672,13 +672,13 @@ $('#userDialog_tag').delegate('li input','click',function(){
 		$('.person_new_tag').append('<i data-id="'+dataId+'">'+$(this).parent().text()+'<span></span></i><div style="display:none;">'+distext+'</div>');
 		
 		var newText = JSON.parse(JSON.parse(distext));
-		var lensex = newText.sex.length;
+		var lensex = newText.gender.length;
 		if(lensex>0){
 			$('.userDialogTab li').eq(1).find('.dialog_inp_num').text(lensex);
 			$('.userDialogTab li').eq(1).find('.dialog_inp_num').css('display','block')
 		}
 		
-		$.each(newText.sex,function(i,item){
+		$.each(newText.gender,function(i,item){
 			if(item == 208){
 				$('#dialog-bottom-new ul').eq(1).find('input').eq(0).prop('checked',true);
 			}else{
@@ -700,13 +700,13 @@ $('#userDialog_tag').delegate('li input','click',function(){
 			})
 		});
 		
-		var leninterest = newText.interest.length;
+		var leninterest = newText.userClass.length;
 		if(leninterest>0){
 			$('.userDialogTab li').eq(4).find('.dialog_inp_num').text(leninterest);
 			$('.userDialogTab li').eq(4).find('.dialog_inp_num').css('display','block');
 		};
 		var bot4 = $('#dialog-bottom-new ul').eq(4).find('input');
-		$.each(newText.interest,function(i,item){
+		$.each(newText.userClass,function(i,item){
 			$(bot4).each(function(){
 				if($(this).attr('data-id') == item){
 					$(this).prop('checked',true);
@@ -1496,6 +1496,8 @@ $('#allHot').on('click',function(){
     $('#allHot').addClass('hidecommon');
     $("#circle_hot_section").hide();
     $("#all_hot_section").removeClass("hidecommon");
+    $(".all_hot_btn").addClass('all-circle-active');
+    $('.circle_btn').css({'background-image':'url(img/hot-all-icon.png)','background-color':''});
     $('#all_hot').removeClass('hidecommon');
     $('#all_hot').animate({
         opacity:1
@@ -2626,25 +2628,22 @@ var circleOption = {
     var tagArray={};
 //获取渲染全部热点
 var hotList2 = $.templates(templates.design["tmplAllHotList"]);
-function getAllHot(url,isCircle){
+function getAllHot(){
     $.ajax({
         type: "get",
         contentType: 'application/json',
         dataType: "json",
-        url: url,
+        url: dataUrl.util.getHotTopic(100),
         success: function(returnData) {
             if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0){
                 console.log("获取全部热点异常");
                 return
             }
-            if(isCircle){
-                $(".circle_hot_list").html(hotList2.render(returnData));
-            }else{
-                $(".all_hot_list").html(hotList2.render(returnData));
+            
+            $(".all_hot_list").html(hotList2.render(returnData));
 
-                $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
-                $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
-            }
+            $('.all_hot_list_top_source:first').find('.hot_img_arrow').css('transform','rotate(180deg)');
+            $('.all_hot_list_top_source:first').find('.hot_look_detail').css("background-image","url(img/card-detail-hover.png)");
         },
         error: function() {
             console.log('获取热点失败');
@@ -2660,7 +2659,7 @@ function getTenHot(){
         url: dataUrl.util.getTenHot(),
         success: function(returnData) {
             if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0) {
-                getAllHot(dataUrl.util.getHotTopic(100),false);
+                getAllHot();
                 console.log("获取曲线热点异常");
                 return;
             }
@@ -2705,7 +2704,7 @@ function getTenHot(){
                 }
             });
             loadSvg();
-            getAllHot(dataUrl.util.getHotTopic(100),false);
+            getAllHot();
         },
         error: function() {
             console.log('获取热点失败');
@@ -2808,10 +2807,16 @@ $(".hotInfo").on("click",function(e){
 //滚动的时候固定热点详情头部
 $(window).scroll(function(){
 
-    if($(window).scrollTop()>180){
+    if($(window).scrollTop()>222){
         $('#all_hot_bar').addClass('all_hot_bar_scroll');
     }else{
         $('#all_hot_bar').removeClass('all_hot_bar_scroll');
+    };
+    
+    if($(window).scrollTop()>480){
+        $('.circle_hot_bar').addClass('all_hot_bar_scroll');
+    }else{
+        $('.circle_hot_bar').removeClass('all_hot_bar_scroll');
     };
 
 
@@ -2935,9 +2940,31 @@ $(".circle_btn").on("click",function(){
 //	$('.all_hot_btn').css('background-color','');
 	$("#all_hot_section").addClass('hidecommon');
 	$("#circle_hot_section").show();
-	var len=$(".circle_hot_list>li").length;
+	var len=$(".circleTagCon>li").length;
 	if(len<=0){
-	    getAllHot(dataUrl.util.getHotTopic(50),true);
+	    $.ajax({
+	        type:"get",
+	        contentType: 'application/json',
+	        dataType:"json",
+	        url:dataUrl.util.getInpList(),
+	        success:function(returnData){
+	            returnData = returnData.data;
+	            if(returnData == null||returnData.Circle==null){
+	                console.log('数据为空');
+	            }else{
+	                $(".circleTagCon").data("info",returnData);
+	                $.each(returnData.Circle,function(idx,item){
+	                    $("<li></li>").text(item.name).data("id",item.id).data('info',item).appendTo(".circleTagCon");
+	                });
+	                $(".circleTagCon>li:first").trigger("click");
+	            } 
+	        },
+	        error:function(){
+	            console.log('获取标签列表失败');
+	        }
+	    });
+	}else{
+	    $(".circleTagCon>li:first").trigger("click");
 	}
 })
 $(".all_hot_btn").on("click",function(){
@@ -2949,8 +2976,88 @@ $(".all_hot_btn").on("click",function(){
 	$("#circle_hot_section").hide();
 	$("#all_hot_section").removeClass("hidecommon");
 })
-var circleTagArray = ["1234",'乐观多的','二货的的','深井冰多','二货多的','深井冰的'];
-var $circleTagCon = $(".circle_Tag_Circle");
+
+//切换圈层
+$(document).on("click",".circleTagCon li",function(){
+    var $this = $(this)
+    if($this.hasClass("circletagactive")){
+        return;
+    }else{
+        var id=$this.data("id");
+        $this.siblings().removeClass("circletagactive");
+        $this.addClass("circletagactive");
+        $(".circleCon").hide();
+        var len=$(".circleCon[data-id='"+id+"']").length;
+        if(len<=0){
+            var info=$this.data("info");
+            var rule=JSON.parse(info.rule);
+            var data={
+                    age:rule.age,
+                    gender:rule.gender,
+                    education:rule.education,
+                    userClass:rule.userClass
+            };
+           var $dom=$("body>.circleCon").clone();
+           $dom.attr("data-id",id);
+           $dom.find(".circle_Des_Icon").css("background-image","url("+rule.img_url+")");
+           $dom.find(".circleDesText").text(info.description);
+           $dom.find(".circleDesTitle,.circle_Tag_Circle>span").text(info.name);
+           var tagData=formatTagData($(".circleTagCon").data("info"),rule);
+           createTag($dom.find(".circle_Tag_Circle"),tagData);
+           $dom.appendTo("#circle_hot_section");
+           $dom.show();
+           $.ajax({
+               type: "post",
+               contentType: 'application/json',
+               dataType: "json",
+               url: dataUrl.util.getCircleHots(100),
+               data:JSON.stringify(data),
+               success: function(returnData) {
+                   if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0){
+                       console.log("获取圈层热点异常");
+                       return
+                   }
+                   $dom.find(".circle_hot_list").html(hotList2.render(returnData));
+               },
+               error: function() {
+                   console.log('获取圈层热点失败');
+               }
+           });
+        }else{
+            $(".circleCon[data-id='"+id+"']").show();
+        }
+    }
+});
+
+//处理圈层标签数据
+function formatTagData(data,rule){
+    var Education=data.Education;
+    var Gender=data.Gender;
+    var UserClass=data.UserClass;
+    var Circle=data.Circle;
+    var data=[];
+    
+    $.each(rule.education,function(idx,item){//学历
+        data.push(_.findWhere(Education, {id:item}).name);
+    })
+    
+    $.each(rule.gender,function(idx,item){//性别
+        data.push(_.findWhere(Gender, {id:item}).name);
+    })
+    
+    $.each(rule.userClass,function(idx,item){//兴趣爱好
+        data.push(_.findWhere(UserClass, {id:item}).name);
+    })
+    
+    var ageLen=rule.age.length;
+    if(ageLen==1){
+        data.push(rule.age[0]+"");
+    }else if(ageLen==2){
+        data.push(rule.age[0]+" - "+rule.age[1]);
+    }
+    return data;
+}
+
 function createTag(circleTagCon,circleTagArray){
 	if(screen.availWidth>1400){
 		if(circleTagArray.length > 10){
@@ -3014,4 +3121,4 @@ function createTag(circleTagCon,circleTagArray){
 		}
 	})
 }
-createTag($circleTagCon,circleTagArray);
+//createTag($circleTagCon,circleTagArray);

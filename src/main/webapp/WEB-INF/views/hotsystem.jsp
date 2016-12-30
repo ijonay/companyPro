@@ -206,9 +206,10 @@
          <div class="circle_btn">圈层热点榜</div>
          <span class="upPage"></span>
       </div>
+      <div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
+            <div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
    		<div class="all_hot_section" id="all_hot_section">
-   			<div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
-   			<div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
+   			
    			<!-- <ul class="hot_ifo_title f18">
    			    <li class="hot_ifo_title_img fl"></li>
    				<li class="fl">全部热点</li>
@@ -433,48 +434,7 @@
    			</ul>
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
-   		<ul class="circleTagCon">
-	   		<li class="circletagactive">宅男腐女</li>
-	   		<li>职场新人</li>
-	   		<li>背包客</li>
-   		</ul>
-   		<div class="circleCon">   		
-		   		<div class="circleInfo">
-		   			<div class="circleDes">
-		   				<p class="circleDesTitle">圈层描述</p>
-		   				<div class="circle_Des_Info">
-		   					<div class="circle_Des_Icon"></div>
-		   					<div class="circleDesCon">
-		   						<p class="circleDesTitle">职场新人</p>
-		   						<p class="circleDesText">职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场</p>
-		   					</div>
-		   				</div>
-		   			</div>
-		     <div class="splitLine">&nbsp;</div>
-		   			<div class="circleTag">
-		   				<p class="circleTagTitle">圈层属性</p>
-		   				<div class="circle_Tag_Info">
-		   					<div class="circle_Tag_Circle">
-		   						<span>职场新人</span>
-		   						<div class="circleTagLeft"><span class="textCut"></span></div>
-		   						<div class="circleTagRight"><span class="textCut"></span></div>		   						
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   		<ul class="all_hot_bar" id="all_hot_bar">
-		   				<li style="height:40px;"></li>
-		   				<li style="text-indent:-50px;">圈层热点</li>
-		   				<li>热度</li>
-						<li>热点来源</li>
-		   				
-		<!--    				<li>热点受众画像</li> -->
-		   				<li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>   				
-		   		</ul>
-	   			<ul class="circle_hot_list">
-	   				
-	   			</ul>
-   			</div>
+   		 <ul class="circleTagCon"></ul>
    		</div>
    </div>
    <div class="alertCon">
@@ -526,7 +486,39 @@
 	</div>
 	 <p class="title" style="font-size:14px;">受众画像加载中，请稍候……</p>
 </div>
-
+<div class="circleCon" style="display:none">         
+    <div class="circleInfo">
+        <div class="circleDes">
+            <p class="circleDesTitleP">圈层描述</p>
+            <div class="circle_Des_Info">
+                <div class="circle_Des_Icon"></div>
+                <div class="circleDesCon">
+                    <p class="circleDesTitle">职场新人</p>
+                    <p class="circleDesText">职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场职场</p>
+                </div>
+            </div>
+        </div>
+        <div class="splitLine">&nbsp;</div>
+        <div class="circleTag">
+            <p class="circleTagTitle">圈层属性</p>
+            <div class="circle_Tag_Info">
+                <div class="circle_Tag_Circle">
+                    <span>职场新人</span>
+                    <div class="circleTagLeft">123456</div>
+                    <div class="circleTagRight">标签</div>
+                 </div>
+             </div>
+         </div>
+    </div>
+    <ul class="all_hot_bar circle_hot_bar">
+        <li style="height:40px;"></li>
+        <li style="text-indent:-50px;">圈层热点</li>
+        <li>热度</li>
+        <li>热点来源</li> 
+        <li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>                 
+    </ul>
+    <ul class="circle_hot_list"></ul>
+</div>
 <jsp:include page="foot.jsp" />
 <script src="js/raphael.js"></script>
 <script src="js/hotsystem.js"></script>
