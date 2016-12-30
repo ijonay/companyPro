@@ -657,7 +657,7 @@ input[type=checkbox]:checked::after {
 /* #result_label_newtag i:hover{ */
 /* 	border-color:#389b9f; */
 /* } */
-.userDialog_tag {height:75px;padding-left:20px;}
+.userDialog_tag {height:36px;padding-left:20px;}
 
 
 .userDialog_tag li{float:left;
