@@ -7,35 +7,30 @@
  */
 package com.zc.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.zc.bean.Topic;
 import com.zc.model.TopicModel;
 import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
 import com.zc.utility.HttpClientHelper;
 import org.apache.commons.lang3.StringUtils;
-//import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+//import org.apache.http.util.EntityUtils;
 
 
 @Controller
@@ -355,40 +350,66 @@ public class AdminController {
 
         List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
 
-        List<String> childrenTopicNames = new ArrayList<String>();
+        List<String> childrenTopicNameList = new ArrayList<String>();
         if(!zhiHuTopicsList.isEmpty()){
-            model.addAttribute( "zhiHuTopicsList",zhiHuTopicsList.toString() );
+            model.addAttribute("zhiHuTopicsList", zhiHuTopicsList.toString());
             String theFirstTopic = zhiHuTopicsList.get(0);
             model.addAttribute( "zhiHuFirstTopic",  theFirstTopic);
-            childrenTopicNames = topicService.getChildrenTopicNames(theFirstTopic);
-            if(childrenTopicNames.isEmpty()){
+            childrenTopicNameList = topicService.getChildrenTopicNames(theFirstTopic);
+            if(childrenTopicNameList.isEmpty()){
+                childrenTopicNameList.add( theFirstTopic );
+            }
+/*          if(childrenTopicNames.isEmpty()){
                 childrenTopicNames.add( theFirstTopic );
                 model.addAttribute("childrenTopicNames", "无");
             }else{
                 model.addAttribute("childrenTopicNames", childrenTopicNames.toString());
+            }*/
+        }
+        if(!childrenTopicNameList.contains(keyword)){
+            childrenTopicNameList.add(keyword);
+        }
+        model.addAttribute("childrenTopicNames", childrenTopicNameList.toString());
+
+        if( !childrenTopicNameList.isEmpty() && Objects.nonNull(topic)  ){
+
+            childrenTopicNameList = childrenTopicNameList.stream().map(String :: trim).collect(Collectors.toList());
+
+            String topicKeywordStr = topic.getKeywords();
+            String[] tkwArray = topicKeywordStr.split(",");
+            List<String> tkwList = new ArrayList<String>(Arrays.asList(tkwArray));
+
+            List<String> contentRepeatedWordList = topicService.getRepeatedWordList(tkwList, childrenTopicNameList);
+
+            List<String> contentSimilarWordList = topicService.getSimilarWords(tkwList, childrenTopicNameList);
+
+            if( Objects.nonNull(contentSimilarWordList) && !contentSimilarWordList.isEmpty() ){
+                model.addAttribute("contentSimilarWordList", contentSimilarWordList.toString());
             }
+
+            if ( !contentRepeatedWordList.isEmpty() ) {
+                model.addAttribute("contentRepeatedWordList", contentRepeatedWordList.toString());
+            }
+
         }
 
-        if( !childrenTopicNames.isEmpty() && !Objects.isNull(topic)  ){
+        List<String> neighborWordsList = topicService.getTopicNeighborWords(topic, 20);
+        model.addAttribute("neighborWordsList", neighborWordsList.toString());
 
-            childrenTopicNames = childrenTopicNames.stream().map(String :: trim).collect(Collectors.toList());
+        List<String> neighborRepeatedWordList = topicService.getRepeatedWordList(neighborWordsList, childrenTopicNameList);
+        model.addAttribute("neighborRepeatedWordList", neighborRepeatedWordList.toString());
 
-            List<String> repeatedWordList = topicService.getTopicRepeatedWordList(topic, childrenTopicNames);
+        List<String> neighborSimilarWordList = topicService.getSimilarWords(neighborWordsList, childrenTopicNameList);
+        model.addAttribute("neighborSimilarWordList", neighborSimilarWordList.toString());
 
+        List<String> titleWordsList = topicService.getTopicTitleKeywords(topic.getId());
+        model.addAttribute("titleWordsList", titleWordsList.toString());
 
-            if ( repeatedWordList.isEmpty() ) {
-                model.addAttribute("success", "false");
-                model.addAttribute("repeatedWordList", "无");
-            }else{
-                model.addAttribute("success", "true");
-                model.addAttribute("repeatedWordList", repeatedWordList);
-            }
+        List<String> titleRepeatedWordList = topicService.getRepeatedWordList(titleWordsList, childrenTopicNameList);
+        model.addAttribute("titleRepeatedWordList", titleRepeatedWordList.toString());
 
-        }else{
-            model.addAttribute("success", "false");
-            model.addAttribute( "repeatedWordList","无" );
-            model.addAttribute( "zhihuTopics","无" );
-        }
+        List<String> titleSimilarWordList = topicService.getSimilarWords(titleWordsList, childrenTopicNameList);
+        model.addAttribute("titleSimilarWordList", titleSimilarWordList.toString());
 
         return "admin/zhihupath";
     }

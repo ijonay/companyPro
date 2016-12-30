@@ -68,4 +68,6 @@ public interface TopicDao {
 
     List<String> getChildrenTopicNames(@Param("topicName")String topicName);
 
+    String getTopicTitleKeywords(@Param("topicId")Integer topicId);
+
 }

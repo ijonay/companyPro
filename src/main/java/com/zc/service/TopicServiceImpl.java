@@ -18,9 +18,13 @@ import com.zc.model.KeyValueCollection;
 import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
-import com.zc.utility.*;
+import com.zc.utility.CommonHelper;
+import com.zc.utility.Constant;
+import com.zc.utility.PropertyHelper;
+import com.zc.utility.WordVectorHelper;
 import com.zc.utility.exception.ServiceException;
 import com.zc.utility.page.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -37,6 +41,9 @@ import java.util.stream.Collectors;
 @Service
 @Lazy(false)
 public class TopicServiceImpl implements TopicService {
+
+    private final float SIMILARITY_THRESHOLD =
+            Float.parseFloat(PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.SIMILARITY_THRESHOLD));
 
     @Autowired
     private TopicDao dao;
@@ -547,7 +554,6 @@ public class TopicServiceImpl implements TopicService {
         return dao.syncInsertTopic(topic);
     }
 
-	
 	@Override
 	public ArrayList<TopicModel> getTopHotTopic(Map map) {
 		return dao.getTopHotTopic(map);
@@ -564,15 +570,103 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<String> getTopicRepeatedWordList(Topic topic,List<String> childrenTopicNames){
+    public List<String> getRepeatedWordList(List<String> tkwList,List<String> childrenTopicNames){
         List<String> resultList = new ArrayList<String>();
+        if(tkwList.isEmpty()){
+            return resultList;
+        }
         Set<String> childrenTopicNamesSet = new HashSet<String>(childrenTopicNames);
-        String topicKeywordStr = topic.getKeywords();
+/*      String topicKeywordStr = topic.getKeywords();
         String[] tkwList = topicKeywordStr.split(",");
         Set<String> topicKwSet = new HashSet<String>(Arrays.asList(tkwList));
+*/
+        Set<String> topicKwSet = new HashSet<String>(tkwList);
+        //topic title keywords
+/*        String termsTitle = dao.getTopicTitleKeywords(topic.getId());
+        if(StringUtils.isNoneBlank(termsTitle)){
+            String[] terms = termsTitle.split(",");
+            Set<String> termsSet = new HashSet<>(Arrays.asList(terms));
+            topicKwSet.addAll(termsSet);
+        }*/
         topicKwSet = topicKwSet.stream().map(String :: trim).collect(Collectors.toSet());
         childrenTopicNamesSet.retainAll(topicKwSet);
         resultList.addAll(childrenTopicNamesSet);
+        return resultList;
+    }
+
+    @Override
+    public List<String> getSimilarWords(List<String> tkwList,List<String> childrenTopicNameList){
+        List<String> resultList = new ArrayList<String>();
+        if(tkwList.isEmpty()){
+            return resultList;
+        }
+/*
+        String topicKeywordStr = topic.getKeywords();
+        String[] tkwArray = topicKeywordStr.split(",");
+        List<String> tkwList = new ArrayList<String>(Arrays.asList(tkwArray));
+*/
+        //topic title keywords
+/*      String termsTitle = dao.getTopicTitleKeywords(topic.getId());
+        if(StringUtils.isNoneBlank(termsTitle)){
+            String[] terms = termsTitle.split(",");
+            tkwList.addAll(Arrays.asList(terms));
+        }*/
+        tkwList = tkwList.stream().map(String::trim).collect( Collectors.toList() );
+        Set<String> similarWords = new HashSet<String>();
+        if( !tkwList.isEmpty() && !childrenTopicNameList.isEmpty() ){
+            for(String kw : tkwList){
+                float[] kwCor = wordService.getWordVectorsByCache(kw);
+                for(String tn: childrenTopicNameList){
+                    System.out.println("(kw,tn)==========(" + kw + ","+ tn +") ");
+                    float[] tnCor = wordService.getWordVectorsByCache(tn);
+                    System.out.println("(kwCor,tnCor)==========(" + kwCor + ","+ tnCor +") ");
+                    System.out.println( "WordVectorHelper.getSimilarity(kwCor,tnCor)==========" + WordVectorHelper.getSimilarity(kwCor,tnCor) );
+                    System.out.println( "SIMILARITY_THRESHOLD===" + SIMILARITY_THRESHOLD);
+                    if( WordVectorHelper.getSimilarity(kwCor,tnCor) >= SIMILARITY_THRESHOLD ){
+                        String kwTnPath = tn + "-" + kw;
+                        if( !similarWords.contains(kwTnPath) ){
+                            similarWords.add(kwTnPath);
+                        }
+                    }
+                }
+            }
+        }
+        resultList.addAll(similarWords);
+        return resultList;
+    }
+
+    @Override
+    public List<String> getTopicTitleKeywords(Integer topicId){
+        String keywordsStr = dao.getTopicTitleKeywords(topicId);
+        if( StringUtils.isNotEmpty(keywordsStr) ){
+            return Arrays.asList(keywordsStr.split(",")).stream().map(String::trim).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getTopicNeighborWords(Topic topic,int count){
+        List<String> resultList = new ArrayList<String>();
+        float[] topicVector = CommonHelper.stringToFloatArray(topic.getCoordinate());
+        Map<String, float[]> modelMap = wordService.getModelMap();
+        Map<String,Float> resultMap = modelMap.entrySet().stream()
+                .filter(map -> WordVectorHelper.getSimilarity(topicVector, map.getValue()) >= SIMILARITY_THRESHOLD)
+                .collect(Collectors.toMap(map -> map.getKey(), map -> WordVectorHelper.getSimilarity(topicVector, map.getValue())));
+
+        //to delete
+        for(String key : resultMap.keySet()){
+            System.out.println("key==" + key +",value = " + resultMap.get(key));
+        }
+
+        resultList = resultMap.entrySet().stream().sorted((a,b)->b.getValue().compareTo(a.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        //to delete
+        System.out.println(resultList.toString());
+
+        if( !resultList.isEmpty() && resultList.size() >= count){
+            resultList = resultList.subList(0,count);
+        }
         return resultList;
     }
 
