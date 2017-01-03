@@ -2104,6 +2104,7 @@ var circleOption = {
 //						var interestCon = $("<div class='Personas' style='display:inline-block;width:25%;height:279px;background:#fff;'></div>");
 	    				var ele = $this.parent().parent().find(".hot_echart_list").find(".chartsRightCon").get(0);
 	    				$this.parent().parent().find(".hot_echart_list").find(".newPicCon").addClass('Personas');
+	    				$this.parent().parent().find(".hot_echart_list").find(".tgiInt").css("display","inline-block");
 	    				var interestCharts = echarts.init(ele);
 	    				var interestvals = [];
 	    	        	var interestnames = [];
@@ -2124,7 +2125,7 @@ var circleOption = {
 	    	        	});
 	    	        	$.each(interest,function(i,item){
 	    	        		yData.push(item.className);
-	    	        		persentData.push(item.percentage*100);
+	    	        		persentData.push((item.percentage*100).toFixed(2));
 	    	        		tgiData.push(item.tgi);
 	    	        		strongData.push(item.interestStrength);
 	    	        	});
@@ -2146,7 +2147,8 @@ var circleOption = {
 						    tooltip: {
 						        trigger: 'axis',
 						        axisPointer: {
-									type: 'shadow'
+									type: 'shadow',
+									animation:false
 								},
 						        textStyle:{
 	    	        	    		fontFamily:"微软雅黑"
@@ -2162,7 +2164,7 @@ var circleOption = {
 	    	        	    			if(index == 1){
 	    	        	    				str += item.seriesName+':'+item.data+' <br>'	
 	    	        	    			}
-	    	        	    			if(index == 1){
+	    	        	    			if(index == 2){
 	    	        	    				str += item.seriesName+':'+item.data	
 	    	        	    			}
 	    	        	    		})
@@ -2217,17 +2219,20 @@ var circleOption = {
 						            name:'占比',
 						            type:'bar',
 						            xAxisIndex: 1,
+						            animation:false,
 						            data:persentData
 						        },
 						        {
 						            name:'TGI',
 						            type:'line',
 						            smooth:true,
+						            animation:false,
 						            data:tgiData
 						        },
 						        {
 						            name:'强度',
 						            type:'line',
+						            animation:false,
 						            smooth:true,
 						            data:strongData
 						        }
@@ -3121,4 +3126,14 @@ function createTag(circleTagCon,circleTagArray){
 		}
 	})
 }
+$(document).on('mouseenter',".tgiInt",function(e){
+	console.log(e)
+	var left = e.pageX - 125;
+	var top = e.pageY - 100;
+	$(".tgiInfoDialog").css({left:left,top:top});
+	$(".tgiInfoDialog").show();
+})
+$(document).on('mouseleave',".tgiInt",function(){
+	$(".tgiInfoDialog").hide();
+})
 //createTag($circleTagCon,circleTagArray);

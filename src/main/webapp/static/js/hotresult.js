@@ -87,15 +87,27 @@ getResult(word, 20, nowPage,urlLabel);
 function getResult(clueWord, pageSize, currentPage,labeInfo) {
     var data={}
     if(labeInfo){
-        data={
-            age:labeInfo.Age?labeInfo.Age:[],
-            gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
-            education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
-            area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],
-            eventClass:labeInfo.Even?_.pluck(labeInfo.Even, 'id'):[],
-            userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
-        };
-    } 
+    	if(labeInfo.newtag.length>0){
+    		data={
+    	            age:labeInfo.Age?labeInfo.Age:[],
+    	            gender:labeInfo.Gender?labeInfo.Gender:[],
+    	            education:labeInfo.Education?labeInfo.Education:[],
+    	            area:labeInfo.Area?labeInfo.Area:[],
+    	            eventClass:labeInfo.Even?labeInfo.Even:[],
+    	            userClass:labeInfo.UserClass?labeInfo.UserClass:[]   
+    	        };
+    	}else{
+    		data={
+    	            age:labeInfo.Age?labeInfo.Age:[],
+    	            gender:labeInfo.Gender?_.pluck(labeInfo.Gender, 'id'):[],
+    	            education:labeInfo.Education?_.pluck(labeInfo.Education, 'id'):[],
+    	            area:labeInfo.Area?_.pluck(labeInfo.Area, 'id'):[],
+    	            eventClass:labeInfo.Even?_.pluck(labeInfo.Even, 'id'):[],
+    	            userClass:labeInfo.UserClass?_.pluck(labeInfo.UserClass, 'id'):[]   
+    	        };
+    	}
+        
+    }
     $(".result-loading").height($(document).height()).css("display","block");
     $.ajax({
         type: "post",
