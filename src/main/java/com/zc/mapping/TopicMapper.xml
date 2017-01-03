@@ -694,4 +694,8 @@
     </select>
 
 
+    <select id="getTopicTitleKeywords" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT terms FROM TopicTitleTerms where id = ${topicId};
+    </select>
+
 </mapper>

@@ -353,40 +353,62 @@ public class AdminController {
 
         List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
 
-        List<String> childrenTopicNames = new ArrayList<String>();
-        if (!zhiHuTopicsList.isEmpty()) {
+        List<String> childrenTopicNameList = new ArrayList<String>();
+        if(!zhiHuTopicsList.isEmpty()){
             model.addAttribute("zhiHuTopicsList", zhiHuTopicsList.toString());
             String theFirstTopic = zhiHuTopicsList.get(0);
-            model.addAttribute("zhiHuFirstTopic", theFirstTopic);
-            childrenTopicNames = topicService.getChildrenTopicNames(theFirstTopic);
-            if (childrenTopicNames.isEmpty()) {
-                childrenTopicNames.add(theFirstTopic);
-                model.addAttribute("childrenTopicNames", "无");
-            } else {
-                model.addAttribute("childrenTopicNames", childrenTopicNames.toString());
+            model.addAttribute( "zhiHuFirstTopic",  theFirstTopic);
+            childrenTopicNameList = topicService.getChildrenTopicNames(theFirstTopic);
+            if(childrenTopicNameList.isEmpty()){
+                childrenTopicNameList.add( theFirstTopic );
             }
         }
 
-        if (!childrenTopicNames.isEmpty() && !Objects.isNull(topic)) {
+        if(!childrenTopicNameList.contains(keyword)){
+            childrenTopicNameList.add(keyword);
+        }
+        model.addAttribute("childrenTopicNames", childrenTopicNameList.toString());
 
-            childrenTopicNames = childrenTopicNames.stream().map(String::trim).collect(Collectors.toList());
 
-            List<String> repeatedWordList = topicService.getTopicRepeatedWordList(topic, childrenTopicNames);
+        if( !childrenTopicNameList.isEmpty() && Objects.nonNull(topic)  ){
 
+            childrenTopicNameList = childrenTopicNameList.stream().map(String :: trim).collect(Collectors.toList());
 
-            if (repeatedWordList.isEmpty()) {
-                model.addAttribute("success", "false");
-                model.addAttribute("repeatedWordList", "无");
-            } else {
-                model.addAttribute("success", "true");
-                model.addAttribute("repeatedWordList", repeatedWordList);
+            String topicKeywordStr = topic.getKeywords();
+            String[] tkwArray = topicKeywordStr.split(",");
+            List<String> tkwList = new ArrayList<String>(Arrays.asList(tkwArray));
+
+            List<String> contentRepeatedWordList = topicService.getRepeatedWordList(tkwList, childrenTopicNameList);
+
+            List<String> contentSimilarWordList = topicService.getSimilarWords(tkwList, childrenTopicNameList);
+
+            if( Objects.nonNull(contentSimilarWordList) && !contentSimilarWordList.isEmpty() ){
+                model.addAttribute("contentSimilarWordList", contentSimilarWordList.toString());
             }
 
-        } else {
-            model.addAttribute("success", "false");
-            model.addAttribute("repeatedWordList", "无");
-            model.addAttribute("zhihuTopics", "无");
+            if ( !contentRepeatedWordList.isEmpty() ) {
+                model.addAttribute("contentRepeatedWordList", contentRepeatedWordList.toString());
+            }
+
         }
+
+        List<String> neighborWordsList = topicService.getTopicNeighborWords(topic, 20);
+        model.addAttribute("neighborWordsList", neighborWordsList.toString());
+
+        List<String> neighborRepeatedWordList = topicService.getRepeatedWordList(neighborWordsList, childrenTopicNameList);
+        model.addAttribute("neighborRepeatedWordList", neighborRepeatedWordList.toString());
+
+        List<String> neighborSimilarWordList = topicService.getSimilarWords(neighborWordsList, childrenTopicNameList);
+        model.addAttribute("neighborSimilarWordList", neighborSimilarWordList.toString());
+
+        List<String> titleWordsList = topicService.getTopicTitleKeywords(topic.getId());
+        model.addAttribute("titleWordsList", titleWordsList.toString());
+
+        List<String> titleRepeatedWordList = topicService.getRepeatedWordList(titleWordsList, childrenTopicNameList);
+        model.addAttribute("titleRepeatedWordList", titleRepeatedWordList.toString());
+
+        List<String> titleSimilarWordList = topicService.getSimilarWords(titleWordsList, childrenTopicNameList);
+        model.addAttribute("titleSimilarWordList", titleSimilarWordList.toString());
 
         return "admin/zhihupath";
     }
