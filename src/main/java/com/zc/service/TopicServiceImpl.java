@@ -624,7 +624,8 @@ public class TopicServiceImpl implements TopicService {
                     System.out.println("(kwCor,tnCor)==========(" + kwCor + "," + tnCor + ") ");
                     System.out.println("WordVectorHelper.getSimilarity(kwCor,tnCor)==========" + WordVectorHelper.getSimilarity(kwCor, tnCor));
                     System.out.println("SIMILARITY_THRESHOLD===" + SIMILARITY_THRESHOLD);
-                    if (WordVectorHelper.getSimilarity(kwCor, tnCor) >= SIMILARITY_THRESHOLD) {
+                    if ( !StringUtils.equals(tn, kw) &&
+                            WordVectorHelper.getSimilarity(kwCor, tnCor) >= SIMILARITY_THRESHOLD ) {
                         String kwTnPath = tn + "-" + kw;
                         if (!similarWords.contains(kwTnPath)) {
                             similarWords.add(kwTnPath);
