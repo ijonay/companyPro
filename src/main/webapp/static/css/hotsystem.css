@@ -1199,6 +1199,7 @@ to {background-position:0 -6px;}
 	overflow: hidden;
 	white-space: nowrap;
 }
+
 .tgiInt{
 	display:none;
 	position:absolute;
@@ -1227,6 +1228,7 @@ to {background-position:0 -6px;}
 	border-bottom:1px solid #fff;
 	margin-bottom:6px;
 }
+
 
 /* 搜索热点start */
 #all-hot-btn-ser {

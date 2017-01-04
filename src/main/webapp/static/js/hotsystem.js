@@ -1865,7 +1865,7 @@ var circleOption = {
     			var data = data.data;
     			var str = "";
     			if(data == null){
-    				str = "<p class='Personas' style='position:relative;font-size:16px;color:ccc;text-align:center;color:#000;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
+    				str = "<p class='Personas' style='position:relative;font-size:16px;color:#000;text-align:center;top:50%;left:50%;transform:translate(-50%,-50%)'>获取数据错误</p>";
     					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
@@ -1876,6 +1876,7 @@ var circleOption = {
     					$this.parent().parent().find(".hot_echart_list").append($(str));
     					return;
     				}
+    				$(".newPicCon").show();
     			//受众年龄画像
     			if(data && data.gender.length > 0){
     				var ele = $this.parent().parent().find(".hot_echart_list").find(".sexCon").get(0);
@@ -1940,20 +1941,7 @@ var circleOption = {
     				        }
     				    ],
     				    series : [
-//    				        {
-//    				            name:'男',
-//    				            type:'bar',
-//    				            stack: '总量',
-//    				            itemStyle : { normal: {label : {show: true, position: 'inside'}}},
-//    				            data:['67.5']
-//    				        },
-//    				        {
-//    				            name:'女',
-//    				            type:'bar',
-//    				            stack: '总量',
-//    				            itemStyle : { normal: {label : {show: true, position: 'inside'}}},
-//    				            data:['32.5']
-//    				        }
+
     				    ]
     				};
     				$.each(data.gender,function(index,item){
@@ -1965,68 +1953,9 @@ var circleOption = {
     						itemStyle : { normal: {label : {show: true, position: 'inside',formatter:function(obj){ var a = obj.value;return a+'%' }}}},
 				            data:[item.value.toFixed(2)]
     					}
-    					genderOption.series.push(tempObj)
-    					
-//                        genderOption.legend.data.push({name:item.name+" "+item.value.toFixed(2)+"%",icon:"circle"});
-//       					var tempItem = JSON.stringify(item);
-//                        tempItem = JSON.parse(tempItem);
-//                        tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
-//                        genderOption.series[0].data.push(tempItem);
-//                        if(max > item.value){                          
-//                        }else{
-//                            max = item.value;
-//                            currentIndex = index;
-//                        }  					
-       				})  
-    				
-//    				var genderCon = $("<div  class='Personas' style='display:inline-block;width:14%;height:279px;background:#fff;'></div>");    				
-//    				$this.parent().parent().find(".hot_echart_list").append(genderCon);    				
-//    				var genderCharts = echarts.init(genderCon.get(0));
-//    				
-//    				var genderOption = $.extend(true,{},circleOption);
-//    				genderOption.title.text = "受众性别分布";
-//    				genderOption.color = ['#6faef5','#5bcecd'];
-//    				var max = 0;
-//    				var currentIndex = 0;
-//       				$.each(data.gender,function(index,item){
-//                        genderOption.legend.data.push({name:item.name+" "+item.value.toFixed(2)+"%",icon:"circle"});
-//       					var tempItem = JSON.stringify(item);
-//                        tempItem = JSON.parse(tempItem);
-//                        tempItem.name = item.name+" "+item.value.toFixed(2)+"%";
-//                        genderOption.series[0].data.push(tempItem);
-//                        if(max > item.value){                          
-//                        }else{
-//                            max = item.value;
-//                            currentIndex = index;
-//                        }  					
-//       				})                    
-    				// genderOption.legend.data.push({name:data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%",icon:'circle'});
-    				// genderOption.legend.data.push({name:data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%",icon:'circle'});
-    				// genderOption.series[0].name = "性别";
-    				// var genderJson0 = JSON.stringify(data.gender[0]); 
-    				// genderOption.series[0].data.push(JSON.parse(genderJson0));
-    				// var genderJson1 = JSON.stringify(data.gender[1]); 
-    				// genderOption.series[0].data.push(JSON.parse(genderJson1));
-    				// genderOption.series[0].data[0].name = data.gender[0].name+" "+data.gender[0].value.toFixed(2)+"%";
-    				// genderOption.series[0].data[1].name = data.gender[1].name+" "+data.gender[1].value.toFixed(2)+"%";
-//    				var label =  {
-//                        normal: {
-//                            show: true,
-//                            position: 'center',
-//                            textStyle: {
-//                            	color:"#4a4a4a",
-//                                fontSize: '14',
-//                                fontWeight: '400',
-//                                fontFamily:'微软雅黑'
-//                            }
-//                        }
-//                    }
-//       				genderOption.series[0].data[currentIndex].label = label;
-    				// if(data.gender[0].value > data.gender[1].value){
-    				// 	genderOption.series[0].data[0].label = label;
-    				// }else{
-    				// 	genderOption.series[0].data[1].label = label;
-    				// }
+    					genderOption.series.push(tempObj)				
+       				})      				
+
     				genderCharts.setOption(genderOption);
     				window.onresize = genderCharts.resize;
     			}else{
@@ -2782,7 +2711,7 @@ var circleOption = {
                     mapCon.append($("<span style=position:absolute;display:inline-block;color:#000;top:50%;font-size:14px;width:56px;left:50%;transform:translate(-50%,-50%);>暂无数据</span>"))
 //        			$this.parent().parent().find(".hot_echart_list").append(mapCon);
     			}
-    	        $this.parent().parent().find(".hot_echart_list").find(".areaTGICon").hide()
+    	        $this.parent().parent().find(".hot_echart_list").find(".areaTGICon").hide();
     			
     		},
     		error:function(){
