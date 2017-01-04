@@ -3142,6 +3142,9 @@ $(".circle_btn").on("click",function(){
 $(".all_hot_btn").on("click",function(){
 	$('#all-hot-btn-div').show();
 	$(this).addClass('all-circle-active');
+	$('#allhot-change').removeClass('allhot-changeactive');
+	$(".all_hot_list").show();
+	$(".all_hot_list_ser").hide();
 //	$(this).css('background-image','url(img/hot-all-hover.png)');
 //	$(this).css('background-color','#399b9f');
 	$('.circle_btn').css('background-image','url(img/hot-all-icon.png)');
@@ -3324,30 +3327,55 @@ $(document).on("click",".defBtn",function(){
 
 ////* 搜索热点start */
 $('#allhot-change').on('click',function(){
-	var val = $.trim($('#all-hot-btn-ser').val());
-	if(val){
-		$(this).addClass('allhot-changeactive');
-		$.ajax({
-	        type:"post",
-	        url:dataUrl.util.cancleSerHistory(),
-	        data:data,
-	        success:function(returnData){
-	            if(returnData.error.code == 0){
-	                $this.parent().remove();
-	            }
-	        },
-	        error:function(){
-	            console.log('获取常用失败');
-	        }
-	    });
-		
+	if($(this).hasClass('allhot-changeactive')){
+		$(this).removeClass('allhot-changeactive');
+		$(".all_hot_list_ser").hide();
+    	$(".all_hot_list").show();
 	}else{
-		return;
+		var val = $.trim($('#all-hot-btn-ser').val());
+		if(val){
+			$(this).addClass('allhot-changeactive');
+			$.ajax({
+		        type:"get",
+		        url:dataUrl.util.getSerHotInfo(val),
+		        //data:data,
+		        success:function(returnData){
+		            //console.log(returnData);
+		            if(returnData.data.length>0){
+		            	$(".all_hot_list").hide();
+		            	$(".all_hot_list_ser").show();
+		            	$(".all_hot_list_ser").html('');
+		 	            $(".all_hot_list_ser").html(hotList2.render(returnData));
+		            }else{
+		            	$(".all_hot_list").hide();
+		            	$(".all_hot_list_ser").show();
+		            	$(".all_hot_list_ser").html('');
+		            	var addHeight = $(window).height();
+		            	$(".all_hot_list_ser").css('height',addHeight-302);
+		            	$(".all_hot_list_ser").append('<div style="color:#4a4a4a;width:300px;text-align:center;margin:0 auto;top: 50%;position: relative;">很抱歉，没有找到与“搜索关键词”相关的热点。</div>');
+		            }
+		           
+		        },
+		        error:function(){
+		            console.log('搜索热地失败');
+		        }
+		    });
+			
+		}else{
+			return;
+		}
 	}
-	
 });
 $('#all-hot-btn-ser').on('input',function(){
 	$('#allhot-change').removeClass('allhot-changeactive');
-})
+});
+
+$('#all-hot-btn-ser').keyup(function(event) {
+	if(event.keyCode == "13") {
+		$('#allhot-change').click();
+	}
+});
+
+
 
 ///* 搜索热点end */

@@ -437,6 +437,8 @@
    				</li>
    				-->
    			</ul>
+   			<ul class="all_hot_list_ser">
+   			</ul>
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
    		 <ul class="circleTagCon"></ul>
