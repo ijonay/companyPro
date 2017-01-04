@@ -57,6 +57,7 @@
                       <th>[<c:out value="${zhiHuFirstTopic}" default="知乎topics"/>]的子topics</th>
                       <th>话题keywords</th>
                       <th>相同keywords</th>
+                      <th>相似keywords</th>
                       <th>目标话题</th>
                   </tr>
               </thead>
@@ -64,17 +65,32 @@
                   <td>${keyword}</td>
                   <td><c:out value="${zhiHuTopicsList}" default="无"/></td>
                   <td><c:out value="${childrenTopicNames}" default="无"/></td>
-                  <td>${topicKeywords}</td>
-                  <td>${repeatedWordList} </td>
+                  <td><c:out value="${topicKeywords}" default="无"/></td>
+                  <td><c:out value="${contentRepeatedWordList}" default="无"/></td>
+                  <td><c:out value="${contentSimilarWordList}" default="无"/></td>
                   <td>${topicTitle}</td>
+              </tr>
+              <tr>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td><c:out value="${titleWordsList}" default="无"/></td>
+                  <td><c:out value="${titleRepeatedWordList}" default="无"/></td>
+                  <td><c:out value="${titleSimilarWordList}" default="无"/></td>
+                  <td>--</td>
+              </tr>
+              <tr>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td><c:out value="${neighborWordsList}" default="无"/></td>
+                  <td><c:out value="${neighborRepeatedWordList}" default="无"/></td>
+                  <td><c:out value="${neighborSimilarWordList}" default="无"/></td>
+                  <td>--</td>
               </tr>
               </tbody>
           </table>
       </div>
-
-
-
-
 
   </jsp:body>
 </t:template>

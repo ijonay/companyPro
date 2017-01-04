@@ -97,10 +97,15 @@ public interface TopicService {
 
     List<String> getChildrenTopicNames(String topicName);
 
-    List<String> getTopicRepeatedWordList(Topic topic, List<String> childrenTopicNames);
+    List<String> getRepeatedWordList(List<String> tkwList, List<String> childrenTopicNames);
+
+    List<String> getSimilarWords(List<String> tkwList, List<String> childrenTopicNames);
 
 
     List<Topic> getBySearchModel(SearchModel searchModel, Integer top);
 
+    List<String> getTopicTitleKeywords(Integer topicId);
+
+    List<String> getTopicNeighborWords(Topic topic,int count);
 
 }
