@@ -11,7 +11,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
-        BI后台管理
+        知几后台管理
         <jsp:invoke fragment="title"/>
     </title>
     <jsp:include page="../../views/admin/templates/resource.jsp"></jsp:include>

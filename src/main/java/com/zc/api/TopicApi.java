@@ -37,31 +37,55 @@ public class TopicApi extends BaseApi {
         return new ApiResultModel().data(topicService.getListExt(clueWord, searchModel, currentPage, pageSize));
 
     }
+
+    @RequestMapping(value = "getBySearchModel", method = RequestMethod.POST)
+    public ApiResultModel getBySearchModel(@RequestParam(value = "size", required = false, defaultValue = "100")
+                                                   int size,
+                                           @RequestBody(required = false) SearchModel
+                                                   searchModel) {
+
+
+        ApiResultModel result = new ApiResultModel();
+
+        result.data(topicService.getBySearchModel(searchModel, size > 100 ? 100 : size));
+
+        return result;
+    }
+
+
     /**
      * 获取相似热点推荐(默认3个)
+     *
      * @param id
      * @param count
      * @return
      */
     @RequestMapping(value = "getSimilarTopicList", method = RequestMethod.GET)
-    public List<TopicModel> getTopHotTopic( 
+    public List<TopicModel> getTopHotTopic(
             @RequestParam(value = "id") Integer id,
             @RequestParam(value = "count", required = false, defaultValue = "3") int count
-            ) {
-              Map<String,Object> map=new HashMap<String,Object>();
-              map.put("id", id);
-              map.put("count", count);
-        return  topicService.getTopHotTopic(map);
+    ) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("count", count);
+        return topicService.getTopHotTopic(map);
 
     }
 
-
-    @RequestMapping(value = "hottopic/{count}", method = RequestMethod.GET)
+    @RequestMapping(value = {"hottopic/{count}"}, method = RequestMethod.GET)
     public ApiResultModel getHotTopic(@PathVariable("count") Integer count) {
+        return getHotTopic(count, null);
+    }
+
+    @RequestMapping(value = {"hottopic/{count}/{title}"}, method = RequestMethod.GET)
+    public ApiResultModel getHotTopic(@PathVariable("count") Integer count, @PathVariable(value = "title") String
+            title) {
 
         try {
 
-            Objects.requireNonNull(count);
+//            Objects.requireNonNull(count);
+            if (Objects.isNull(count) || count > 100)
+                count = 100;
 
             List<Topic> list = null;
 
@@ -69,7 +93,7 @@ public class TopicApi extends BaseApi {
                 list = topicService.getRandomHotTopic(30, 10);
 
             } else {
-                list = topicService.getHotTopic(count);
+                list = topicService.getHotTopic(title, count);
             }
             List<TopicModel> result = new ArrayList<>();
 
@@ -142,18 +166,18 @@ public class TopicApi extends BaseApi {
 
     @RequestMapping(value = "applymanual")
     public ApiResultModel applyTopicManulStatus(@RequestParam("id")
-                                                 Integer id) {
+                                                        Integer id) {
         Objects.requireNonNull(id);
 
         ApiResultModel result = new ApiResultModel();
-        try{
-            if( topicService.applyManual(id) ){
-                result.setStatusCode( StatusCodeEnum.SUCCESS );
-            }else{
-                result.setStatusCode( StatusCodeEnum.FAILED );
+        try {
+            if (topicService.applyManual(id)) {
+                result.setStatusCode(StatusCodeEnum.SUCCESS);
+            } else {
+                result.setStatusCode(StatusCodeEnum.FAILED);
             }
-        }catch (Exception e){
-            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+        } catch (Exception e) {
+            result.setStatusCode(StatusCodeEnum.SERVER_ERROR);
             e.printStackTrace();
         }
         return result;
@@ -161,18 +185,18 @@ public class TopicApi extends BaseApi {
 
     @RequestMapping(value = "cancelmanual")
     public ApiResultModel cancelTopicManulStatus(@RequestParam("id")
-                                        Integer id) {
+                                                         Integer id) {
         Objects.requireNonNull(id);
 
         ApiResultModel result = new ApiResultModel();
-        try{
-            if( topicService.cancelManual(id) ){
-                result.setStatusCode( StatusCodeEnum.SUCCESS );
-            }else{
-                result.setStatusCode( StatusCodeEnum.FAILED );
+        try {
+            if (topicService.cancelManual(id)) {
+                result.setStatusCode(StatusCodeEnum.SUCCESS);
+            } else {
+                result.setStatusCode(StatusCodeEnum.FAILED);
             }
-        }catch (Exception e){
-            result.setStatusCode( StatusCodeEnum.SERVER_ERROR );
+        } catch (Exception e) {
+            result.setStatusCode(StatusCodeEnum.SERVER_ERROR);
             e.printStackTrace();
         }
         return result;

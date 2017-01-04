@@ -1,55 +1,65 @@
 package com.zc.bean;
 
 /**
- * 
+ * TopicClass
  */
 public class TopicClass {
 
-
+    
     /**
-     *  id ,所属表字段为TopicClass.id
+     * id id ,所属表字段为TopicClass.id
      */
     private Integer id;
-
+    
     /**
-     *  type ,所属表字段为TopicClass.type
+     * type type ,所属表字段为TopicClass.type
      */
     private Integer type;
-
+    
     /**
-     *  name ,所属表字段为TopicClass.name
+     * name name ,所属表字段为TopicClass.name
      */
     private String name;
-
+    
     /**
-     *  topicType ,所属表字段为TopicClass.topic_type
+     * topic_type topicType ,所属表字段为TopicClass.topic_type
      */
     private String topicType;
-
+    
     /**
-     *  parentId ,所属表字段为TopicClass.parent_id
+     * parent_id parentId ,所属表字段为TopicClass.parent_id
      */
     private Integer parentId;
-
+    
     /**
-     *  keywords ,所属表字段为TopicClass.keywords
+     * keywords keywords ,所属表字段为TopicClass.keywords
      */
     private String keywords;
-
+    
     /**
-     *  scale ,所属表字段为TopicClass.scale
+     * scale scale ,所属表字段为TopicClass.scale
      */
     private Integer scale;
-
+    
     /**
-     *  percentage ,所属表字段为TopicClass.percentage
+     * percentage percentage ,所属表字段为TopicClass.percentage
      */
     private Double percentage;
-
-
+    
     /**
-     * 设置 表的  id 字段值
-     *
+     * description description ,所属表字段为TopicClass.description
+     */
+    private String description;
+    
+    /**
+     * rule rule ,所属表字段为TopicClass.rule
+     */
+    private String rule;
+    
+    
+    /**
+     * 设置 TopicClass表的 id id 字段值
+     * 
      * @param id
      *            将值赋予 TopicClass.id
      */
@@ -58,17 +68,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  id 字段
-     *
+     * 获取  TopicClass表的 id id 字段
+     * 
      * @return TopicClass.id
      */
     public Integer getId() {
         return  id;
     }
-
+    
     /**
-     * 设置 表的  type 字段值
-     *
+     * 设置 TopicClass表的 type type 字段值
+     * 
      * @param type
      *            将值赋予 TopicClass.type
      */
@@ -77,17 +87,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  type 字段
-     *
+     * 获取  TopicClass表的 type type 字段
+     * 
      * @return TopicClass.type
      */
     public Integer getType() {
         return  type;
     }
-
+    
     /**
-     * 设置 表的  name 字段值
-     *
+     * 设置 TopicClass表的 name name 字段值
+     * 
      * @param name
      *            将值赋予 TopicClass.name
      */
@@ -96,17 +106,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  name 字段
-     *
+     * 获取  TopicClass表的 name name 字段
+     * 
      * @return TopicClass.name
      */
     public String getName() {
         return  name;
     }
-
+    
     /**
-     * 设置 表的  topicType 字段值
-     *
+     * 设置 TopicClass表的 topic_type topicType 字段值
+     * 
      * @param topicType
      *            将值赋予 TopicClass.topic_type
      */
@@ -115,17 +125,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  topicType 字段
-     *
+     * 获取  TopicClass表的 topic_type topicType 字段
+     * 
      * @return TopicClass.topic_type
      */
     public String getTopicType() {
         return  topicType;
     }
-
+    
     /**
-     * 设置 表的  parentId 字段值
-     *
+     * 设置 TopicClass表的 parent_id parentId 字段值
+     * 
      * @param parentId
      *            将值赋予 TopicClass.parent_id
      */
@@ -134,17 +144,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  parentId 字段
-     *
+     * 获取  TopicClass表的 parent_id parentId 字段
+     * 
      * @return TopicClass.parent_id
      */
     public Integer getParentId() {
         return  parentId;
     }
-
+    
     /**
-     * 设置 表的  keywords 字段值
-     *
+     * 设置 TopicClass表的 keywords keywords 字段值
+     * 
      * @param keywords
      *            将值赋予 TopicClass.keywords
      */
@@ -153,17 +163,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  keywords 字段
-     *
+     * 获取  TopicClass表的 keywords keywords 字段
+     * 
      * @return TopicClass.keywords
      */
     public String getKeywords() {
         return  keywords;
     }
-
+    
     /**
-     * 设置 表的  scale 字段值
-     *
+     * 设置 TopicClass表的 scale scale 字段值
+     * 
      * @param scale
      *            将值赋予 TopicClass.scale
      */
@@ -172,17 +182,17 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  scale 字段
-     *
+     * 获取  TopicClass表的 scale scale 字段
+     * 
      * @return TopicClass.scale
      */
     public Integer getScale() {
         return  scale;
     }
-
+    
     /**
-     * 设置 表的  percentage 字段值
-     *
+     * 设置 TopicClass表的 percentage percentage 字段值
+     * 
      * @param percentage
      *            将值赋予 TopicClass.percentage
      */
@@ -191,13 +201,51 @@ public class TopicClass {
     }
 
     /**
-     * 获取  表的  percentage 字段
-     *
+     * 获取  TopicClass表的 percentage percentage 字段
+     * 
      * @return TopicClass.percentage
      */
     public Double getPercentage() {
         return  percentage;
     }
+    
+    /**
+     * 设置 TopicClass表的 description description 字段值
+     * 
+     * @param description
+     *            将值赋予 TopicClass.description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    /**
+     * 获取  TopicClass表的 description description 字段
+     * 
+     * @return TopicClass.description
+     */
+    public String getDescription() {
+        return  description;
+    }
+    
+    /**
+     * 设置 TopicClass表的 rule rule 字段值
+     * 
+     * @param rule
+     *            将值赋予 TopicClass.rule
+     */
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
 
+    /**
+     * 获取  TopicClass表的 rule rule 字段
+     * 
+     * @return TopicClass.rule
+     */
+    public String getRule() {
+        return  rule;
+    }
+    
+    
 }

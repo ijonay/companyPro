@@ -16,6 +16,7 @@ public class SearchModel {
     private ArrayList<Integer> eventClass = new ArrayList();
     private ArrayList<Integer> userClass = new ArrayList();
 
+
     /**
      * 获取FilterId集合
      *
@@ -45,11 +46,7 @@ public class SearchModel {
     }
 
     public String getExistsSql(String tempSql, String defRule, String genderRule, String exists, String ageTempSql,
-                               String max,
-                               String
-                                       min,
-                               String
-                                       other) {
+                               String max, String min, String other) {
 
         String result = tempSql;
 

@@ -31,15 +31,15 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
     public boolean add(UserRecommendedTopics record) {
         return userRecommentedTopicsMapper.add(record) > 0;
     }
-    
+
     @Override
     public boolean del(Integer id) {
         return userRecommentedTopicsMapper.del(id) > 0;
     }
-    
+
     @Override
     public boolean update(UserRecommendedTopics record) {
-       return userRecommentedTopicsMapper.update(record) > 0;
+        return userRecommentedTopicsMapper.update(record) > 0;
     }
 
     @Override
@@ -48,30 +48,30 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
     }
 
     @Override
-    public  void updateUserRecommendedTopics(){
+    public void updateUserRecommendedTopics() {
         //get hot topic list
-        List<Topic> hotTopicList = topicService.getHotTopic(100);
+        List<Topic> hotTopicList = topicService.getHotTopic(null, 100);
         Set<Integer> hotTopicIdSet = new HashSet<Integer>();
-        hotTopicList.forEach(item -> hotTopicIdSet.add(item.getId()) );
+        hotTopicList.forEach(item -> hotTopicIdSet.add(item.getId()));
 
         //get users and theirs' keywords
-        List<UserFavoriteSearchItem>  allUserFavoriteKeywordList =
+        List<UserFavoriteSearchItem> allUserFavoriteKeywordList =
                 searchItemService.getAllUserFavoriteSearchItems();
 
-        Map<String,Set<Integer>> kwResultMap = new HashMap<String,Set<Integer>>();
+        Map<String, Set<Integer>> kwResultMap = new HashMap<String, Set<Integer>>();
 
-        for(int i=0;i<allUserFavoriteKeywordList.size();i++){
+        for (int i = 0; i < allUserFavoriteKeywordList.size(); i++) {
 
-            try{
+            try {
 
                 UserFavoriteSearchItem userFavoriteSearchItem = allUserFavoriteKeywordList.get(i);
                 String keyword = userFavoriteSearchItem.getWords();
                 Integer userId = userFavoriteSearchItem.getUserId();
 
-                if( ! kwResultMap.keySet().contains(keyword) ){// this keyword hasn't been searched
-                    Page page = topicService.getListExt(keyword,null,1,20);
+                if (!kwResultMap.keySet().contains(keyword)) {// this keyword hasn't been searched
+                    Page page = topicService.getListExt(keyword, null, 1, 20);
                     List<TopicModel> topicModels = (List<TopicModel>) page.getData();
-                    if(topicModels.size() > 0){
+                    if (topicModels.size() > 0) {
                         Set<Integer> topicIdSet = new HashSet<Integer>();
                         topicModels.forEach(item -> topicIdSet.add(item.getId()));
                         topicIdSet.retainAll(hotTopicIdSet);
@@ -80,8 +80,8 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
                 }
 
                 Set<Integer> topicIdSet = kwResultMap.get(keyword);
-                if(topicIdSet != null && topicIdSet.size() > 0){// has been searched
-                    for(Integer topicId : topicIdSet){
+                if (topicIdSet != null && topicIdSet.size() > 0) {// has been searched
+                    for (Integer topicId : topicIdSet) {
                         //insert into db
                         UserRecommendedTopics recommentedTopics = new UserRecommendedTopics();
                         recommentedTopics.setUserId(userId);
@@ -91,7 +91,7 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
                     }
                 }
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -99,31 +99,31 @@ public class UserRecommendedTopicsServiceImpl implements UserRecommendedTopicsSe
     }
 
     @Override
-    public List<UserRecommendedTopicModel> getUserHotTopicMessageList(Integer userId,Integer count){
+    public List<UserRecommendedTopicModel> getUserHotTopicMessageList(Integer userId, Integer count) {
 
         return userRecommentedTopicsMapper.getUserHotTopicMessageList(userId, count);
 
     }
 
     @Override
-    public TopicModel getTopicMessageDetail(Integer id){
-        UserRecommendedTopics  userRecommendedTopics = userRecommentedTopicsMapper.get(id);
-        if(userRecommendedTopics == null){
+    public TopicModel getTopicMessageDetail(Integer id) {
+        UserRecommendedTopics userRecommendedTopics = userRecommentedTopicsMapper.get(id);
+        if (userRecommendedTopics == null) {
             return null;
         }
         String keyword = userRecommendedTopics.getKeyword();
         float[] sourceVectors = wordService.getWordVectorsByCache(keyword);
         List<Integer> ids = new ArrayList<Integer>();
-        ids.add( userRecommendedTopics.getTopicId() );
+        ids.add(userRecommendedTopics.getTopicId());
         List<TopicModel> topicModels = topicService.getTopicByIdList(ids, sourceVectors);
-        if(topicModels.size() > 0){
+        if (topicModels.size() > 0) {
             return topicModels.get(0);
         }
         return null;
     }
 
     @Override
-    public boolean delAll(List<String> idList){
+    public boolean delAll(List<String> idList) {
         return userRecommentedTopicsMapper.delAll(idList) > 0;
     }
 }

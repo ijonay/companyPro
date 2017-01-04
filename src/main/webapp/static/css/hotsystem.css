@@ -425,6 +425,51 @@ input[type=checkbox]:checked::after {
 .age_dia_con b:nth-of-type(1){
 	margin-left:10px;
 }
+/*ui新需求高级探索开始。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
+.userDialog_tag {height:36px;padding-left:20px;}
+
+.userDialog_tag li{float:left;
+    margin-right: 10px;
+    margin-bottom:10px;
+    }
+.userDialog_tag li label{
+	background: #c5c5c5;
+    padding: 3px 8px;
+    font-size: 14px;
+    border-radius: 2px;
+	color:#fff;
+	margin:0;
+}    
+.userDialog_tag li input{display:none;}
+.person_new_tag i{
+	margin-right:10px;
+	background:#389b9f;
+    border-radius: 2px;
+	margin-bottom: 4px;
+    position: relative;
+    float: left;
+    padding: 1px 38px 1px 12px;
+    color: #fff;
+    margin-right: 10px;
+    min-height: 28px;
+    line-height: 28px;
+    font-size: 14px;
+}
+#inp_data_person1 .person_new_tag i span{
+	top: 10px;
+
+    background: url(../img/del_white.png) no-repeat;
+    cursor: pointer;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 12px;
+    border-radius: 2px;
+}
+#inp_data_person1 .person_new_tag i span:hover{
+	background: url(../img/del_black.png) no-repeat;
+}
+/*ui新需求高级探索结束。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 /*曲线图。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
 html,body{
 	margin:0;
@@ -627,7 +672,7 @@ body{
 
 .upPage{
 	position:absolute;
-	top:-30px;
+	top:-34px;
 	width:40px;
 	height:45px;
 	left:50%;
@@ -935,3 +980,250 @@ to {background-position:0 -6px;}
 .hot-user-tep6{width:357px;height:200px;background:url(../img/user-tep6.png) no-repeat;top:47px;right:6px;z-index:10001;display:none;}
 .hot-user-tep7{width:357px;height:202px;background:url(../img/user-tep7.png) no-repeat;top:47px;right:24px;z-index:10001;display:none;}
 /* 更新记录 结束 */
+.circleChange{
+    margin-bottom:6px;
+}
+.all_hot_btn{
+	font-size:14px;
+	padding:7px 16px 7px 39px;
+	background: url(../img/hot-circle-icon.png) no-repeat 20px center;
+	cursor:pointer;
+	display:inline-block;
+	text-align:center;
+    border:1px solid #eee;
+    color:white;
+    margin-right:12px;
+    border:1px solid #399b9f;
+    border-radius:50px;
+}
+.circle_btn{
+	font-size:14px;
+	padding:7px 16px 7px 39px;
+	cursor:pointer;
+	background: url(../img/hot-all-icon.png )no-repeat 20px center;
+	text-align:center;
+	display:inline-block;
+    border:1px solid #eee;
+    color:white;
+    border:1px solid #399b9f;
+    border-radius:50px;
+}
+.all-circle-active{
+	background:url(../img/hot-circle-hover.png) no-repeat 20px center;
+	background-color:#399b9f;
+}
+.circleInfo{
+	position:relative;
+	height:200px;
+	background-color:#fff;
+}
+.circleTagCon{
+	background-color:#fff;
+	padding:12px 0 9px 30px;
+}
+.circleTagCon li{
+	display:inline-block;
+	border-radius:5px;
+	width:110px;
+	height:32px;
+	line-height:32px;
+	font-size:14px;
+	color:#4a4a4a;
+	text-align:center;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	margin-right:8px;
+	border:1px solid #eee;
+	background-color:#fff;
+	cursor:pointer;
+}
+.circleTagCon li.circletagactive{
+	background:#399b9f;
+	color:#fff;
+}
+.circleDes{
+	display:absolute;
+	left:0;
+	display:inline-block;
+	width:49.5%;
+	padding:8px 0 8px 34px;
+	height:100%;
+}
+.circleTag{
+	position:absolute;
+	right:0;
+	display:inline-block;
+	width:49.5%;
+	padding:8px 0 8px 34px;
+	height:100%;
+}
+.circleDesTitleP{
+	font-size:18px;
+	color:#389b9f;
+}
+.splitLine{
+	position:absolute;
+	left:51%;
+	top:5%;
+	display:inline-block;
+	width:0px;
+	height:90%;
+	border-left:1px solid #aaa;
+}
+.circleTagTitle{
+	font-size:18px;
+	color:#389b9f;
+}
+.circle_Des_Info{
+	position:relative;
+	padding-top:17px;
+	height:calc(100% - 33px);
+}
+.circle_Des_Icon{
+	display:inline-block;
+	position:absolute;
+	width:60px;
+	height:60px;
+	background-repeat:no-repeat;
+	background-position:center top;
+	background-size:100%;
+}
+.circleDesTitle{
+	font-size:16px;
+}
+.circleDesText{
+	height:70px;
+	width:calc(100% - 10px);
+	overflow: hidden;
+    display: box;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    line-height: 17px;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    word-break: break-all;
+}
+.circleDesCon{
+	margin-left:70px;
+}
+.circle_Tag_Info{
+	height:calc(100% - 33px);
+}
+.circle_Tag_Circle{
+	position:relative;
+	margin:0 auto;
+	width:88px;
+	height:88px;
+	background-color:#399B9D;
+	border-radius:50%;
+	top:50%;
+	transform:translate(0,-50%);
+	line-height:88px;
+	font-size:14px;
+	text-align:center;
+	color:#fff;
+}
+.circle_Tag_Circle:before{
+	content:"";
+	display:inline-block;
+	position:absolute;
+	top:-10px;
+	left:-10px;
+	width:108px;
+	height:108px;
+	border-radius:50%;
+	border:1px solid #399B9D;
+	opacity: 0.5;
+}
+.circle_Tag_Circle div{
+	display:none;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	/*display:inline-block;*/
+	padding:0 8px;
+	
+	font-size:14px;
+	color:#4a4a4a;
+	height:24px;
+	line-height:24px;
+	background-color:#e1e1e1;
+	border-radius:2px;
+}
+.circleTagLeft:after{
+	content:'';
+	position:absolute;
+	display:inline-block;
+    width:0;
+    height:0;
+    border-width:6px 0 6px 10px;
+    border-style:solid;
+    border-color: transparent transparent transparent #e1e1e1;    
+    top:6px;
+    right:-10px;
+}
+/*.circleTagRight{
+	position:absolute;
+	display:inline-block;
+	padding:0 8px;
+	text-align:center;
+	min-width:60px;
+	max-width:86px;
+	font-size:14px;
+	color:#4a4a4a;
+	height:24px;
+	line-height:24px;
+	background-color:#e1e1e1;
+}*/
+.circleTagRight:before{
+	content:'';
+	display:inline-block;
+    width:0;
+    height:0;
+    border-width:6px 10px 6px 0;
+    border-style:solid;
+    border-color:transparent #e1e1e1 transparent transparent;
+    position:absolute;
+    top:6px;
+    left:-10px;
+}
+.textCut{
+	display:inline-block;
+	text-align:center;
+	min-width:60px;
+	max-width:86px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.tgiInt{
+	display:none;
+	position:absolute;
+	right:41px;
+	bottom:25px;
+	width:14px;
+	height:14px;
+	cursor:pointer;
+	/*background-image:url(../img/info.png);
+	background-repeat:no-repeat;
+	background-position:center center;*/
+}
+.tgiInfoDialog{
+	position:absolute;
+	padding:0 10px;
+	display:none;
+	color:#fff;
+	width:150px;
+	height:95px;
+	background-color:rgba(0,0,0,0.5);
+	border-radius:3px;
+}
+.tgiInfoDialog p{
+	font-size:14px;
+	line-height:30px;
+	border-bottom:1px solid #fff;
+	margin-bottom:6px;
+}
