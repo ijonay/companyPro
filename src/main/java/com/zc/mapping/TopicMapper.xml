@@ -423,11 +423,14 @@
     </select>
 
 
-    <select id="getHotTopic" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="getHotTopic" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from view_topic
         WHERE is_active = 1
+        <if test="title!=null">
+            AND title LIKE "%"#{title,jdbcType=VARCHAR}"%"
+        </if>
         ORDER BY
         prevailing_trend DESC
         limit #{count,jdbcType=INTEGER}

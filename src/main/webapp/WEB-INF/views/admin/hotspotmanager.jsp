@@ -263,7 +263,7 @@
                             var val = ("1" == $(this).attr("data-val")) ? 0 : 1;
                             Hotspot.updateState(id, val, initData);
                         })
-                        $("a.delByTypeAndTriggerId").click(function (e) {
+                        $("a.del").click(function (e) {
                             e.preventDefault();
                             var id = $(this).attr("data-id");
                             if (confirm("确定要删除吗？"))
