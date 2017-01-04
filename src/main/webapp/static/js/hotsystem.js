@@ -2938,6 +2938,7 @@ function updateStateChange(){
     }
 }
 $(".circle_btn").on("click",function(){
+	$('#all-hot-btn-div').hide();
 	$(this).css('background-image','url(img/hot-all-hover.png)');
 	$(this).css('background-color','#399b9f');
 	$('.all_hot_btn').removeClass('all-circle-active');
@@ -2973,6 +2974,7 @@ $(".circle_btn").on("click",function(){
 	}
 })
 $(".all_hot_btn").on("click",function(){
+	$('#all-hot-btn-div').show();
 	$(this).addClass('all-circle-active');
 //	$(this).css('background-image','url(img/hot-all-hover.png)');
 //	$(this).css('background-color','#399b9f');
@@ -3137,3 +3139,34 @@ $(document).on('mouseleave',".tgiInt",function(){
 	$(".tgiInfoDialog").hide();
 })
 //createTag($circleTagCon,circleTagArray);
+
+
+////* 搜索热点start */
+$('#allhot-change').on('click',function(){
+	var val = $.trim($('#all-hot-btn-ser').val());
+	if(val){
+		$(this).addClass('allhot-changeactive');
+		$.ajax({
+	        type:"post",
+	        url:dataUrl.util.cancleSerHistory(),
+	        data:data,
+	        success:function(returnData){
+	            if(returnData.error.code == 0){
+	                $this.parent().remove();
+	            }
+	        },
+	        error:function(){
+	            console.log('获取常用失败');
+	        }
+	    });
+		
+	}else{
+		return;
+	}
+	
+});
+$('#all-hot-btn-ser').on('input',function(){
+	$('#allhot-change').removeClass('allhot-changeactive');
+})
+
+///* 搜索热点end */

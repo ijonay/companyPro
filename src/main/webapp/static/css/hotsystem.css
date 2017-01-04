@@ -1227,3 +1227,25 @@ to {background-position:0 -6px;}
 	border-bottom:1px solid #fff;
 	margin-bottom:6px;
 }
+
+/* 搜索热点start */
+#all-hot-btn-ser {
+	width: 240px;
+    height: 32px;
+    border-radius: 50px;
+    border: 0;
+    padding-left: 20px;
+    background: rgba(255,255,255,.8);
+}
+.allhot-change{
+	width:16px;
+	height:16px;
+	background:url(../img/all-hot-btn-ser.png) no-repeat;
+	top:8px;
+	right:12px;
+}
+
+.allhot-changeactive{
+	background:url(../img/all-hot-btn-ser-back.png) no-repeat;
+}
+/* 搜索热点end */
