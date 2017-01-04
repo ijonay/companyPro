@@ -212,7 +212,7 @@ templates.design = {};
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
-    tmpl.push('<div class="newPicCon"><div class="chartsLeftCon"><div class="leftTopCon"><div class="sexCon"></div><div class="ageCon"></div></div><div class="leftBottomCon"><div class="eduCon"></div><div class="areaCon"></div></div></div><div class="chartsRightCon"></div></div>')
+    tmpl.push('<div class="newPicCon"><div class="chartsLeftCon"><div class="leftTopCon"><div class="sexCon"></div><div class="ageCon"></div></div><div class="leftBottomCon"><div class="eduCon"></div><div class="areaCon"></div><div class="areaTGICon"></div><div class="tgiSwitch"><div class="defBtn tgiSelect">占比</div><div class="defBtn">TGI</div></div></div></div><div class="chartsRightCon"></div></div>')
     tmpl.push('<img class="tgiInt" src="img/info.png" />')
     tmpl.push('     </div>');
     tmpl.push('</li>');

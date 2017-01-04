@@ -203,7 +203,7 @@
    <div class="allHot pointer" id="allHot">更多热点</div>	
    <div class="all_hot hidecommon" id="all_hot">
       <div class="circleChange">
-         <div class="all_hot_btn all-circle-active">总和热度榜</div>
+         <div class="all_hot_btn all-circle-active">综合热度榜</div>
          <div class="circle_btn">圈层热点榜</div>
          <span class="upPage"></span>
          <div class="all-hot-btn-div pst fr f16" id="all-hot-btn-div">
