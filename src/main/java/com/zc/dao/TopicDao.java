@@ -26,7 +26,7 @@ public interface TopicDao {
 
     Topic get(Integer id);
 
-    List<Topic> getHotTopic(Integer count);
+    List<Topic> getHotTopic(@Param("title") String title, @Param("count") Integer count);
 
     /**
      * 按热度进行排序后 从N条数据中随机抽选出M条
@@ -69,7 +69,7 @@ public interface TopicDao {
 
     List<String> getChildrenTopicNames(@Param("topicName") String topicName);
 
-    String getTopicTitleKeywords(@Param("topicId")Integer topicId);
+    String getTopicTitleKeywords(@Param("topicId") Integer topicId);
 
     List<Topic> getBySearchModel(@Param("searchModel") SearchModel searchModel, @Param("top") Integer top);
 

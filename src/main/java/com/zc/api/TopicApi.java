@@ -72,13 +72,20 @@ public class TopicApi extends BaseApi {
 
     }
 
-
-    @RequestMapping(value = "hottopic/{count}", method = RequestMethod.GET)
+    @RequestMapping(value = {"hottopic/{count}"}, method = RequestMethod.GET)
     public ApiResultModel getHotTopic(@PathVariable("count") Integer count) {
+        return getHotTopic(count, null);
+    }
+
+    @RequestMapping(value = {"hottopic/{count}/{title}"}, method = RequestMethod.GET)
+    public ApiResultModel getHotTopic(@PathVariable("count") Integer count, @PathVariable(value = "title") String
+            title) {
 
         try {
 
-            Objects.requireNonNull(count);
+//            Objects.requireNonNull(count);
+            if (Objects.isNull(count) || count > 100)
+                count = 100;
 
             List<Topic> list = null;
 
@@ -86,7 +93,7 @@ public class TopicApi extends BaseApi {
                 list = topicService.getRandomHotTopic(30, 10);
 
             } else {
-                list = topicService.getHotTopic(count);
+                list = topicService.getHotTopic(title, count);
             }
             List<TopicModel> result = new ArrayList<>();
 
