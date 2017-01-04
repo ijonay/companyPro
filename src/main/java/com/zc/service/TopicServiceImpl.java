@@ -197,8 +197,8 @@ public class TopicServiceImpl implements TopicService {
         idList.addAll(allCoordinates.keySet());
 
         Collections.sort(idList, (left, right) ->
-                        CommonHelper.compare(WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(right)),
-                                WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(left)))
+                CommonHelper.compare(WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(right)),
+                        WordVectorHelper.getSimilarity(sourceVectors, allCoordinates.get(left)))
         );
         long time5 = System.currentTimeMillis();
 
@@ -274,9 +274,9 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> getHotTopic(Integer count) {
+    public List<Topic> getHotTopic(String title, Integer count) {
         Objects.requireNonNull(count);
-        return dao.getHotTopic(count);
+        return dao.getHotTopic(title, count);
     }
 
     @Override
@@ -622,10 +622,11 @@ public class TopicServiceImpl implements TopicService {
                     System.out.println("(kw,tn)==========(" + kw + "," + tn + ") ");
                     float[] tnCor = wordService.getWordVectorsByCache(tn);
                     System.out.println("(kwCor,tnCor)==========(" + kwCor + "," + tnCor + ") ");
-                    System.out.println("WordVectorHelper.getSimilarity(kwCor,tnCor)==========" + WordVectorHelper.getSimilarity(kwCor, tnCor));
+                    System.out.println("WordVectorHelper.getSimilarity(kwCor,tnCor)==========" + WordVectorHelper
+                            .getSimilarity(kwCor, tnCor));
                     System.out.println("SIMILARITY_THRESHOLD===" + SIMILARITY_THRESHOLD);
-                    if ( !StringUtils.equals(tn, kw) &&
-                            WordVectorHelper.getSimilarity(kwCor, tnCor) >= SIMILARITY_THRESHOLD ) {
+                    if (!StringUtils.equals(tn, kw) &&
+                            WordVectorHelper.getSimilarity(kwCor, tnCor) >= SIMILARITY_THRESHOLD) {
                         String kwTnPath = tn + "-" + kw;
                         if (!similarWords.contains(kwTnPath)) {
                             similarWords.add(kwTnPath);
@@ -654,7 +655,8 @@ public class TopicServiceImpl implements TopicService {
         Map<String, float[]> modelMap = wordService.getModelMap();
         Map<String, Float> resultMap = modelMap.entrySet().stream()
                 .filter(map -> WordVectorHelper.getSimilarity(topicVector, map.getValue()) >= SIMILARITY_THRESHOLD)
-                .collect(Collectors.toMap(map -> map.getKey(), map -> WordVectorHelper.getSimilarity(topicVector, map.getValue())));
+                .collect(Collectors.toMap(map -> map.getKey(), map -> WordVectorHelper.getSimilarity(topicVector, map
+                        .getValue())));
 
         //to delete
         for (String key : resultMap.keySet()) {

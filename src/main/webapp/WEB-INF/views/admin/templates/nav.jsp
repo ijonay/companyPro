@@ -18,7 +18,7 @@
             <ul class="nav navbar-nav navbar-right" style="margin-right: 20px;">
                 <%--<li class="active"><a href="#">Home </a></li>--%>
                 <%--<li><a href="">Item 1</a></li>--%>
-                <li><a href="<%=path%>" target="_blank">Home</a></li>
+                <li><a href="/" target="_blank">Home</a></li>
             </ul>
         </div>
     </div>

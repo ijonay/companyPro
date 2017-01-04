@@ -36,7 +36,7 @@ public interface TopicService {
 
     Topic get(Integer topicId);
 
-    List<Topic> getHotTopic(Integer count);
+    List<Topic> getHotTopic(String title, Integer count);
 
     List<Topic> getRandomHotTopic(Integer allCount, Integer count);
 
@@ -106,6 +106,6 @@ public interface TopicService {
 
     List<String> getTopicTitleKeywords(Integer topicId);
 
-    List<String> getTopicNeighborWords(Topic topic,int count);
+    List<String> getTopicNeighborWords(Topic topic, int count);
 
 }
