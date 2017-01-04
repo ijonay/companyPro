@@ -206,6 +206,10 @@
          <div class="all_hot_btn all-circle-active">综合热度榜</div>
          <div class="circle_btn">圈层热点榜</div>
          <span class="upPage"></span>
+         <div class="all-hot-btn-div pst fr f16" id="all-hot-btn-div">
+         	<input type="text" placeholder="查找热点" id="all-hot-btn-ser" maxlength="38">
+         	<div class="pos allhot-change pointer" id="allhot-change"></div>
+         </div>
       </div>
       <div class="prf pointer hidecommon" id="comeback_hot_home"><span></span></div>
             <div class="prf comeback_hot pointer" id="comeback_hot">返回首页</div>
@@ -432,6 +436,8 @@
    					
    				</li>
    				-->
+   			</ul>
+   			<ul class="all_hot_list_ser">
    			</ul>
    		</div>
    		<div class="circle_hot_section" id="circle_hot_section">
