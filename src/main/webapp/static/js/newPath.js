@@ -701,3 +701,6 @@ window.onresize = function(){
 	},500)
 	
 }
+window.addEventListener('hashchange', function(e) {
+    getPath(false);
+}, false);

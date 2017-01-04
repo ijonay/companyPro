@@ -53,7 +53,41 @@ templates.design = {};
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplNotifyList'] = tmpl.join('\r\n');
-
+    
+    tmpl=[];
+    tmpl.push('{{for data}}');
+    tmpl.push('<div class="pnlNear hot_near_pnl">');
+    tmpl.push('    <div class="near_info">');
+    tmpl.push('         <div class="near_portrait" style="background-image: url({{if logoImgUrl}}{{>logoImgUrl}}{{else}}img/neardefault.png{{/if}});"></div>');
+    tmpl.push('         <div class="near_topRight">');
+    tmpl.push('             <div class="near_infoTop">');
+    tmpl.push('                 <div class="near_infoTitle">{{:title}}</div>');
+    tmpl.push('                 <div class="near_infoConnect" data-id="{{>id}}" data-topic="{{>title}}">关联此热点</div>');
+    tmpl.push('             </div>');
+    tmpl.push('             <div class="near_hotLabel">');
+    tmpl.push('             {{for eventClass}}');
+    tmpl.push('                 <div>{{:#data}}</div>');
+    tmpl.push('             {{/for}}')
+    tmpl.push('             </div>');
+    tmpl.push('         </div>');
+    tmpl.push('     </div>');
+    tmpl.push('     <div class="near_hotInfo">');
+    tmpl.push('         <div class="near_infoText">{{:introduction}}</div>');          
+    tmpl.push('     </div>');
+    tmpl.push('     <div class="near_infoBottom">');
+    tmpl.push('         <div class="near_hotIcon fl"></div>');
+    tmpl.push('         <div class="fl font14">热度:</div><div class="near_hotValue font14 fl">{{if prevailingTrend}}{{:prevailingTrend}}{{else}}0{{/if}}</div>');
+    tmpl.push('         <div class="near_iconCon fr">');
+    tmpl.push('             {{if topicUrl}}<a target=" _blank" class="weibo-link" href="{{>topicUrl}}" style="background-image:url(img/hot_weibo.png);"></a>{{/if}}');
+    tmpl.push('             {{if wechatUrl}}<a target=" _blank" class="weixin-link" href="{{>wechatUrl}}" style="background-image:url(img/hot_weixin.png);"></a>{{/if}}');
+    tmpl.push('             {{if zhihuUrl}}<a target=" _blank" class="zhihu-link" href="{{>zhihuUrl}}" style="background-image:url(img/hot_zhihu.png);"></a>{{/if}}');
+    tmpl.push('             {{if baiduUrl}}<a target=" _blank" class="baidu-link" href="{{>baiduUrl}}" style="background-image:url(img/hot_baidu.png);"></a>{{/if}}');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="font14 fr">来源:</div>');
+    tmpl.push('     </div>');
+    tmpl.push('</div>')
+    tmpl.push('{{/for}}');
+    templates.design['tmplHotNear'] = tmpl.join('\r\n');
 })();
 (function(){
 	tmpl = [];
@@ -104,7 +138,7 @@ templates.design = {};
     tmpl.push('       <li data-index={{:#index}} data-id={{:id}} data-topic={{:title}} class="hot_relation" style="float:right;margin-right:20px;"><span>关联此热点</span></li>');
 //    tmpl.push('       <li class="hot_arrow"></li>');
     tmpl.push('     </ul>');
-    tmpl.push('    <ul id="ulBottom{{:id}}" class="all_hot_list_bot" style="display:none">');
+    tmpl.push('    <ul class="all_hot_list_bot ulBottom{{:id}}" data-id="ulBottom{{:id}}" style="display:none">');
     tmpl.push('	   <div class="bot_left fl">');
     tmpl.push('       <li class="li-first">');
     tmpl.push('           <div class="type-img fl"><div class="logoImageCon" style="background-image:url({{if logoImgUrl}}{{:logoImgUrl}}{{else}}img/defaultIcon.png{{/if}})"></div></div>');
@@ -169,14 +203,17 @@ templates.design = {};
     tmpl.push('	   </div>');
     tmpl.push('	   <div class="clearfix"></div>');
     tmpl.push('     <div class="hot_near_list">');
-    tmpl.push('     	<div class="hot_near f16">相似热点推荐：</div>');
-    tmpl.push('    	    <div class="hot_near_con">');
-    
-    tmpl.push('     	</div>');
-    //tmpl.push('     	<div class="hot_near_all">查看全部<span>></span></div>');
+    tmpl.push('         <div class="hot_near_list_head f16">');
+    tmpl.push('     	   <div class="hot_near_title fl">相似热点推荐：</div>');
+    tmpl.push('            <div class="pnlNear near_error fl" style="display:none;">暂无数据</div>');
+    tmpl.push('     	   <div class="hot_near_refresh fr" style="display:none;"></div>');
+    tmpl.push('         </div>');
+    tmpl.push('         <div class="hot_near_con"></div>');
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
+    tmpl.push('<div class="newPicCon"><div class="chartsLeftCon"><div class="leftTopCon"><div class="sexCon"></div><div class="ageCon"></div></div><div class="leftBottomCon"><div class="eduCon"></div><div class="areaCon"></div></div></div><div class="chartsRightCon"></div></div>')
+    tmpl.push('<img class="tgiInt" src="img/info.png" />')
     tmpl.push('     </div>');
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
@@ -198,53 +235,3 @@ templates.design = {};
         }
     });
 })();
-
-//<ul class="all_hot_list_top">
-//<li>
-//	<span  class="hot_circle_num">{{:#index}}</span>
-//</li>
-//<li class="all_hot_top_topic">
-//	<p>热地名称热地名称</p>
-//	<div>执法</div>
-//	<div>刑事犯罪</div>
-//</li>
-//<li class="all_hot_list_top_source">
-//	<div></div><div></div><div></div><div></div>
-//</li>
-//<li>99</li>
-//<li class="hot_relation">关联此热点</li>
-//<li class="hot_arrow"></li>
-//</ul>
-//<ul class="all_hot_list_bot">
-//   <li class="li-first">
-//       <div class="type-img fl"><div style="width:48px;height:48px;background:#fff;margin-top:18px;"></div></div>
-//       <div class="type-content fl">
-//           <div style="line-height:18px;"><span class="content-article">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</span><span class="content-sum">阅读量：<b>30004万</b></span></div>
-//           <div class="content-desc">河北邢台-商贩捅伤3城管致1死，警方正全力追捕。</div>
-//       </div>
-//   </li>
-//	<li>
-//	   <div class="type-icon fl"></div>
-//	   <span class="type-title weixin-color fl">微信</span>
-//	   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
-//	   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
-//	</li>
-//	<li>
-//   <div class="type-icon fl" style="background-image:url(img/hot_baidu.png)"></div>
-//   <span class="type-title baidu-color fl">百度</span>
-//   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
-//   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
-//</li>
-//<li>
-//   <div class="type-icon fl" style="background-image:url(img/hot_zhihu.png)"></div>
-//   <span class="type-title zhihu-color fl">知乎</span>
-//   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
-//   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
-//</li>
-//<li>
-//   <div class="type-icon fl" style="background-image:url(img/hot_weibo.png)"></div>
-//   <span class="type-title weibo-color fl">微博</span>
-//   <span class="type-article fl">推荐文章：河北商贩与城管发生争执捅死三城管！</span>
-//   <span class="type-num fl">前10篇文章平均阅读量：<b>100000+</b></span>
-//</li>
-//</ul>

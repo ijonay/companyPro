@@ -12,6 +12,7 @@ import com.zc.model.TopicModel;
 import com.zc.model.TopicWordModel;
 import com.zc.model.topicsearch.SearchModel;
 import com.zc.utility.page.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public interface TopicService {
 
     Topic get(Integer topicId);
 
-    List<Topic> getHotTopic(Integer count);
+    List<Topic> getHotTopic(String title, Integer count);
 
     List<Topic> getRandomHotTopic(Integer allCount, Integer count);
 
@@ -70,15 +71,18 @@ public interface TopicService {
     Object getTopicPercentage(Integer topicId);
 
     boolean inactiveTopic(Integer id);
+
     boolean activeTopic(Integer id);
 
     /**
-     *  searching topics by keyword, keyword_title
+     * searching topics by keyword, keyword_title
+     *
      * @param keyword
      * @param keyword_title
      * @return
      */
-    List<TopicModel> getTopicsByKeyword(String keyword,String keywordTitle);
+    List<TopicModel> getTopicsByKeyword(String keyword, String keywordTitle);
+
     boolean update(Topic topic);
 
     boolean applyManual(Integer id);
@@ -87,11 +91,21 @@ public interface TopicService {
 
     int syncInsertTopic(Topic topic);
 
-	ArrayList<TopicModel> getTopHotTopic(Map map);
-	
-	
-	
-	
-	
+    ArrayList<TopicModel> getTopHotTopic(Map map);
+
+    Topic getTopicByTitle(String title);
+
+    List<String> getChildrenTopicNames(String topicName);
+
+    List<String> getRepeatedWordList(List<String> tkwList, List<String> childrenTopicNames);
+
+    List<String> getSimilarWords(List<String> tkwList, List<String> childrenTopicNames);
+
+
+    List<Topic> getBySearchModel(SearchModel searchModel, Integer top);
+
+    List<String> getTopicTitleKeywords(Integer topicId);
+
+    List<String> getTopicNeighborWords(Topic topic, int count);
 
 }
