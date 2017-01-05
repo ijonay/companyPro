@@ -525,6 +525,13 @@
         <li>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>                 
     </ul>
     <ul class="circle_hot_list"></ul>
+    <div class="circle_hot_error">
+        <div class="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 </div>
  <!-- TGI解释  -->
    		<div class="tgiInfoDialog">

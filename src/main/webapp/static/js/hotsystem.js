@@ -1788,19 +1788,19 @@ var circleOption = {
        	    });
     	 };
     	
-    	if(_this.parent().next().find(".hot_near_con .pnlNear").length <= 0){
+    	if(_this.parent().next().find(".pnlNear").length <= 0){
+    	    $load=$('<div class="ball-pulse"><div></div><div></div><div></div></div>');
+    	    _this.parent().next().find(".near_error").html($load);
     	    $.ajax({
                 type:"get",
                 url:dataUrl.util.getHotNearTrend(Dataids),
                 success:function(returndata){
                     if(returndata.length == 0){
                         _this.parent().next().find(".hot_near_con").css("display","none");
-                        _this.parent().next().find(".near_error").css("display","block");
-                        _this.parent().next().find(".hot_near_refresh").css("display","none");
+                        _this.parent().next().find(".near_error").addClass("pnlNear").html("暂无数据");
                     }else{
                         _this.parent().next().find(".hot_near_con").css("display","block");
                         _this.parent().next().find(".near_error").css("display","none");
-                        _this.parent().next().find(".hot_near_refresh").css("display","block");
                         $.each(returndata,function(idx,item){
                             var typeArr=[];
                             if(item.eventClass){
@@ -3101,6 +3101,8 @@ $(document).on("click",".circleTagCon li",function(){
            createTag($dom.find(".circle_Tag_Circle"),tagData);
            $dom.appendTo("#circle_hot_section");
            $dom.show();
+           var hei=$(window).height()-560;
+           $dom.find(".circle_hot_error").css({"height":hei,"line-height":hei+"px"})
            $.ajax({
                type: "post",
                contentType: 'application/json',
@@ -3109,9 +3111,10 @@ $(document).on("click",".circleTagCon li",function(){
                data:JSON.stringify(data),
                success: function(returnData) {
                    if(returnData.error.code != 0 || returnData.data == null || returnData.data.length == 0){
-                       console.log("获取圈层热点异常");
+                       $dom.find(".circle_hot_error").html("暂无数据");
                        return
                    }
+                   $dom.find(".circle_hot_error").hide();
                    $dom.find(".circle_hot_list").html(hotList2.render(returnData));
                },
                error: function() {
