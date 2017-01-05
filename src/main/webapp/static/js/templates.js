@@ -157,7 +157,7 @@ templates.design = {};
     tmpl.push('       <li>');
     tmpl.push('           <div class="type-icon fl"></div>');
     tmpl.push('            <span class="type-title weixin-color fl">微信</span>');
-    tmpl.push('           <span class="type-article fl word-ellipsis">推荐文章：<a target="_blank" href={{:wechatUrl}}>{{:wechatTitle}}</a></span>');
+    tmpl.push('           <span class="type-article fl word-ellipsis">推荐文章：<a target="_blank" href="http://weixin.sogou.com/weixin?type=2&query={{:wechatTitle}}">{{:wechatTitle}}</a></span>');
     tmpl.push('           {{if wechatAvgReadNum}}<span class="type-num fl">相关文章数：<b>{{:wechatAvgReadNum}}</b></span>{{/if}}');
     tmpl.push('       </li>');
     tmpl.push('   {{else}}');

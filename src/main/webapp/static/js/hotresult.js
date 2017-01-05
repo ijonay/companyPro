@@ -1982,12 +1982,11 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
                 }
                 var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
                 if(dataLen < 1){
-                	$this.parent().parent().find(".hot_echart_list").empty();
                     str = "<p class='Personas' style='position:absolute;font-size:16px;color:#000;text-align:center;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
                     $(".hot_echart_list").append($(str));
                     return;
                 }
-                $(".newPicCon").show();
+                $this.parent().parent().find(".hot_echart_list").find(".newPicCon").show();;
             //受众年龄画像
     			if(data && data.gender.length > 0){
     				var ele = $this.parent().parent().find(".hot_echart_list").find(".sexCon").get(0);
@@ -2193,7 +2192,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
 	    	        	    		return str;
 	    	        	    	}
 						    },
-						    dataZoom: [
+						   /* dataZoom: [
    	                            {
    	                                show: true,
    	                                realtime: true,
@@ -2208,7 +2207,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
    	                                 color: '#00b1c5'
    	                                }
    	                            }
-   	                        ],
+   	                        ],*/
 						    legend: {
 						        data:['占比','TGI','强度'],
 						        bottom:15,
@@ -2221,7 +2220,6 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
 						    xAxis: [
 						        {
 						            type: 'value',
-						            name: '比例',
 						            axisLabel: {
 						                formatter: '{value}'
 						            }
@@ -2240,6 +2238,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
 						            name:'占比',
 						            type:'bar',
 						            xAxisIndex: 1,
+						            barMaxWidth:50,
 						            animation:false,
 						            data:persentData
 						        },
@@ -2459,7 +2458,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	        	if(isNaN(obj.value)){
     	        	        		return obj.name + ":" + "0";
     	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "占比<br/>"+obj.name + ":" + a;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
@@ -2602,14 +2601,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	var a = "";
-    	        	        	if(obj.value){
-    	        	        		a += obj.value.toFixed(2) + "%";
-    	        	        	}
-    	        	        	if(isNaN(obj.value)){
-    	        	        		return obj.name + ":" + "0";
-    	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "TGI<br/>"+obj.name + ":" + obj.value;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
