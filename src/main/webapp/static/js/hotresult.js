@@ -2458,7 +2458,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	        	if(isNaN(obj.value)){
     	        	        		return obj.name + ":" + "0";
     	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "占比<br/>"+obj.name + ":" + a;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
@@ -2601,14 +2601,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	var a = "";
-    	        	        	if(obj.value){
-    	        	        		a += obj.value.toFixed(2) + "%";
-    	        	        	}
-    	        	        	if(isNaN(obj.value)){
-    	        	        		return obj.name + ":" + "0";
-    	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "TGI<br/>"+obj.name + ":" + obj.value;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"

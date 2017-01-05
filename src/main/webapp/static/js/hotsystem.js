@@ -2461,7 +2461,7 @@ var circleOption = {
     	        	        	if(isNaN(obj.value)){
     	        	        		return obj.name + ":" + "0";
     	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "占比<br/>"+obj.name + ":" + a;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
@@ -2622,14 +2622,7 @@ var circleOption = {
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	var a = "";
-    	        	        	if(obj.value){
-    	        	        		a += obj.value.toFixed(2) + "%";
-    	        	        	}
-    	        	        	if(isNaN(obj.value)){
-    	        	        		return obj.name + ":" + "0";
-    	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "TGI<br/>"+obj.name + ":" + obj.value;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
