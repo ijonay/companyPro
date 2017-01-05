@@ -1750,6 +1750,7 @@ $(".iconCon").on("click",function(){
     $(".all_hot_list_top_look").trigger("click");
 });
 $(document).on('click','.all_hot_list_top_source',function(){//点击详情中热点详情按钮
+    var _this=$(this);
     $('.all_hot_list_top_look').css('color','#4a4a4a');
     $('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
     $('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
@@ -1913,19 +1914,19 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
         });
     };
     
-    if($(".hot_near_con").find(".pnlNear").length <= 0){
+    if(_this.parent().next().find(".pnlNear").length <= 0){
+        $load=$('<div class="ball-pulse"><div></div><div></div><div></div></div>');
+        _this.parent().next().find(".near_error").html($load)
          $.ajax({
     	        type:"get",
     	        url:dataUrl.util.getHotNearTrend(Dataids),
     	        success:function(returndata){
     	        	if(returndata.length == 0){
-    	        	    $(".hot_near_con").css("display","none");
-    	        		$(".near_error").css("display","block");
-    	        		$(".hot_near_refresh").css("display","none");
+    	        	    _this.parent().next().find(".hot_near_con").css("display","none");
+                        _this.parent().next().find(".near_error").addClass("pnlNear").html("暂无数据");
     	        	}else{
-    	        	    $(".hot_near_con").css("display","block");
-    	        	    $(".near_error").css("display","none");
-                        $(".hot_near_refresh").css("display","block");
+    	        	    _this.parent().next().find(".hot_near_con").css("display","block");
+                        _this.parent().next().find(".near_error").css("display","none");
     	        	    $.each(returndata,function(idx,item){
     	        	        var typeArr=[];
     	        	        if(item.eventClass){

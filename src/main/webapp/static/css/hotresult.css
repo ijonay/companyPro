@@ -1135,3 +1135,6 @@ input[type=checkbox]:checked::after {
     background:url(../img/hotIcon.png) no-repeat left 20.5px;
     padding-left:17px;
 }
+.hot_echart_list:before {
+    left: calc(82% - 30px)!important;
+}
