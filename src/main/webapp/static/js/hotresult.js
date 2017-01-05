@@ -2600,7 +2600,11 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	if(obj.value){
+    	        	        		return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	}else{
+    	        	        		return "TGI<br/>"+obj.name + ":" + 0;
+    	        	        	}
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
