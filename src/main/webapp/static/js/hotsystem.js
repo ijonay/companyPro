@@ -3271,7 +3271,7 @@ $('#allhot-change').on('click',function(){
 		            	$(".all_hot_list_ser").html('');
 		            	var addHeight = $(window).height();
 		            	$(".all_hot_list_ser").css('height',addHeight-302);
-		            	$(".all_hot_list_ser").append('<div style="color:#4a4a4a;width:300px;text-align:center;margin:0 auto;top: 50%;position: relative;">很抱歉，没有找到与“搜索关键词”相关的热点。</div>');
+		            	$(".all_hot_list_ser").append('<div style="font-size:16px;color:#4a4a4a;width:auto;text-align:center;margin:0 auto;top: 50%;position: relative;">很抱歉，没有找到与“'+val+'”相关的热点。</div>');
 		            }
 		           
 		        },
