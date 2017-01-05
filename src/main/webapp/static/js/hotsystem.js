@@ -2147,20 +2147,17 @@ var circleOption = {
 						            type:'bar',
 						            barMaxWidth:50,
 						            xAxisIndex: 1,
-						            animation:false,
 						            data:persentData
 						        },
 						        {
 						            name:'TGI',
 						            type:'line',
 						            smooth:true,
-						            animation:false,
 						            data:tgiData
 						        },
 						        {
 						            name:'强度',
 						            type:'line',
-						            animation:false,
 						            smooth:true,
 						            data:strongData
 						        }
