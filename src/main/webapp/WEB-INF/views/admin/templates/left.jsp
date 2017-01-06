@@ -16,6 +16,7 @@
         <li name="version"><a href="admin/version" class="hasUrl">版本管理</a></li>
         <li name="UserActionLog"><a href="admin/UserActionLog" class="hasUrl">行为跟踪</a></li>
         <li name="redisset"><a href="admin/redisset" class="hasUrl">redis配置</a></li>
+        <li name="bosonNLP"><a href="admin/bosonNLP" class="hasUrl">bosonNLP语义联想</a></li>
 
         <%--<li><a href="#">Reports</a></li>--%>
         <%--<li><a href="#">Analytics</a></li>--%>

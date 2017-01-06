@@ -79,7 +79,7 @@ templates.design = {};
     tmpl.push('         <div class="fl font14">热度:</div><div class="near_hotValue font14 fl">{{if prevailingTrend}}{{:prevailingTrend}}{{else}}0{{/if}}</div>');
     tmpl.push('         <div class="near_iconCon fr">');
     tmpl.push('             {{if topicUrl}}<a target=" _blank" class="weibo-link" href="{{>topicUrl}}" style="background-image:url(img/hot_weibo.png);"></a>{{/if}}');
-    tmpl.push('             {{if wechatUrl}}<a target=" _blank" class="weixin-link" href="{{>wechatUrl}}" style="background-image:url(img/hot_weixin.png);"></a>{{/if}}');
+    tmpl.push('             {{if wechatUrl}}<a target=" _blank" class="weixin-link" href="http://weixin.sogou.com/weixin?type=2&query={{>wechatTitle}}" style="background-image:url(img/hot_weixin.png);"></a>{{/if}}');
     tmpl.push('             {{if zhihuUrl}}<a target=" _blank" class="zhihu-link" href="{{>zhihuUrl}}" style="background-image:url(img/hot_zhihu.png);"></a>{{/if}}');
     tmpl.push('             {{if baiduUrl}}<a target=" _blank" class="baidu-link" href="{{>baiduUrl}}" style="background-image:url(img/hot_baidu.png);"></a>{{/if}}');
     tmpl.push('         </div>');
@@ -131,7 +131,7 @@ templates.design = {};
     tmpl.push('       <li class="all_hot_top_topic"><p title={{:title}}>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
 
     tmpl.push('       <li class="hot_trend">{{:prevailingTrend}}</li>');
-    tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatUrl}}<a target="_blank" href={{:wechatUrl}}><div class="weixinIcon"></div></a>{{/if}}{{if baiduUrl}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuUrl}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
+    tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatUrl}}<a target="_blank" href="http://weixin.sogou.com/weixin?type=2&query={{:wechatTitle}}"><div class="weixinIcon"></div></a>{{/if}}{{if baiduUrl}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuUrl}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
     tmpl.push('       <li class="all_hot_list_top_source" data-id={{:id}}><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
 
     tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>受众画像</em><span class="hot_look_arrow"></span></li>');
