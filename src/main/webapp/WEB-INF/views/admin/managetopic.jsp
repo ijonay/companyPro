@@ -5,7 +5,7 @@
 
 <script type="text/javascript">
 
-    function updateTopicStatus(id) {
+         function updateTopicStatus(id) {
         var status = $.trim($("#deleteLink_" + id).html());
         var url = "<%=request.getContextPath()%>";
         if ($.trim(status) == '取消删除') {
@@ -59,7 +59,7 @@
                 }
             }
         })
-    }
+    } 
 
 </script>
 <t:template>

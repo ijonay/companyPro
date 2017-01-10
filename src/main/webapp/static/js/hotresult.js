@@ -1750,6 +1750,7 @@ $(".iconCon").on("click",function(){
     $(".all_hot_list_top_look").trigger("click");
 });
 $(document).on('click','.all_hot_list_top_source',function(){//点击详情中热点详情按钮
+    var _this=$(this);
     $('.all_hot_list_top_look').css('color','#4a4a4a');
     $('.all_hot_list_top_look').find('.hot_look_arrow').css("transform","rotate(0deg)");
     $('.all_hot_list_top_look').find('.hot_look_eye').css('background-image','url(img/card-chart.png)');
@@ -1913,19 +1914,19 @@ $(document).on('click','.all_hot_list_top_source',function(){//点击详情中�
         });
     };
     
-    if($(".hot_near_con").find(".pnlNear").length <= 0){
+    if(_this.parent().next().find(".pnlNear").length <= 0){
+        $load=$('<div class="ball-pulse"><div></div><div></div><div></div></div>');
+        _this.parent().next().find(".near_error").html($load)
          $.ajax({
     	        type:"get",
     	        url:dataUrl.util.getHotNearTrend(Dataids),
     	        success:function(returndata){
     	        	if(returndata.length == 0){
-    	        	    $(".hot_near_con").css("display","none");
-    	        		$(".near_error").css("display","block");
-    	        		$(".hot_near_refresh").css("display","none");
+    	        	    _this.parent().next().find(".hot_near_con").css("display","none");
+                        _this.parent().next().find(".near_error").addClass("pnlNear").html("暂无数据");
     	        	}else{
-    	        	    $(".hot_near_con").css("display","block");
-    	        	    $(".near_error").css("display","none");
-                        $(".hot_near_refresh").css("display","block");
+    	        	    _this.parent().next().find(".hot_near_con").css("display","block");
+                        _this.parent().next().find(".near_error").css("display","none");
     	        	    $.each(returndata,function(idx,item){
     	        	        var typeArr=[];
     	        	        if(item.eventClass){
@@ -1981,12 +1982,11 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
                 }
                 var dataLen = data.gender.length + data.interest.length + data.education.length + data.area.length + data.age.length;
                 if(dataLen < 1){
-                	$this.parent().parent().find(".hot_echart_list").empty();
                     str = "<p class='Personas' style='position:absolute;font-size:16px;color:#000;text-align:center;top:50%;left:50%;transform:translate(-50%,-50%)'>暂无热点受众画像</p>";
                     $(".hot_echart_list").append($(str));
                     return;
                 }
-                $(".newPicCon").show();
+                $this.parent().parent().find(".hot_echart_list").find(".newPicCon").show();;
             //受众年龄画像
     			if(data && data.gender.length > 0){
     				var ele = $this.parent().parent().find(".hot_echart_list").find(".sexCon").get(0);
@@ -2192,7 +2192,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
 	    	        	    		return str;
 	    	        	    	}
 						    },
-						    dataZoom: [
+						   /* dataZoom: [
    	                            {
    	                                show: true,
    	                                realtime: true,
@@ -2207,7 +2207,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
    	                                 color: '#00b1c5'
    	                                }
    	                            }
-   	                        ],
+   	                        ],*/
 						    legend: {
 						        data:['占比','TGI','强度'],
 						        bottom:15,
@@ -2220,7 +2220,6 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
 						    xAxis: [
 						        {
 						            type: 'value',
-						            name: '比例',
 						            axisLabel: {
 						                formatter: '{value}'
 						            }
@@ -2239,6 +2238,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
 						            name:'占比',
 						            type:'bar',
 						            xAxisIndex: 1,
+						            barMaxWidth:50,
 						            animation:false,
 						            data:persentData
 						        },
@@ -2458,7 +2458,7 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	        	if(isNaN(obj.value)){
     	        	        		return obj.name + ":" + "0";
     	        	        	}
-    	        	        	return obj.name + ":" + a;
+    	        	        	return "占比<br/>"+obj.name + ":" + a;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
@@ -2601,14 +2601,11 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	var a = "";
     	        	        	if(obj.value){
-    	        	        		a += obj.value.toFixed(2) + "%";
+    	        	        		return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	}else{
+    	        	        		return "TGI<br/>"+obj.name + ":" + 0;
     	        	        	}
-    	        	        	if(isNaN(obj.value)){
-    	        	        		return obj.name + ":" + "0";
-    	        	        	}
-    	        	        	return obj.name + ":" + a;
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"
