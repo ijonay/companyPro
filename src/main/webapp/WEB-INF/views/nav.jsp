@@ -42,9 +42,9 @@
 <div class="right-bar"><!-- right-bar start -->
     <div class="bar-content"><!-- bar-content start -->
         <ul class="bar-tabs"><!-- bar-tabs start -->
-            <li class="pred-tab active">热点预告</li>
-            <li class="notify-tab">探索通知<span class="notify-count">6</span></li>
-            <li class="right-bar-close">收起</li>
+            <li class="pred-tab active"><span>热点预告</span></li>
+            <li class="notify-tab"><span>探索通知<span class="notify-count">0</span></span></li>
+            <li class="right-bar-close" style="display:none;">收起</li>
         </ul><!-- bar-tabs end -->
         <div class="pnl-pred-tab"><!-- pnl-pred-tab start -->
             <div class="pnl-calendar"></div>

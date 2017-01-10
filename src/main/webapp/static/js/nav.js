@@ -3,7 +3,7 @@ getHotPred(getNowDate(new Date()));
 //热点预测日历
 $(".pnl-calendar").calendar({
     width: 272,
-    height: 322,
+    height: 304,
     data: [],
     onSelected: function(view, date, data) {
         var day=parseInt($(this).data("index"));
@@ -95,7 +95,6 @@ $(".bar-tabs>li").on("click",function(){
         $(".notify-operate").css("display","none");
         $(".bar-content").css("max-height","100%");
         $(".pnl-pred-tab").css("display","block");
-        $(".right-bar").css("background","#fff");
         $('.bar-content').perfectScrollbar({suppressScrollX: true},"destroy");
         $('.bar-content').perfectScrollbar({suppressScrollX: true});
     }else{//探索通知tab
@@ -104,7 +103,6 @@ $(".bar-tabs>li").on("click",function(){
         if($(".notify-tab-list>li").length>0) {$(".notify-operate").css("display","block")};
         $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
-        $(".right-bar").css("background","#e8ebed");
         $('.bar-content').perfectScrollbar({suppressScrollX: true},"destroy");
         $('.bar-content').perfectScrollbar({suppressScrollX: true});
     }
@@ -117,7 +115,7 @@ $(".header-right>li").on("click",function(e){
         $(".notify-operate").css("display","none");
         $(".bar-content").css("max-height","100%");
         $(".pnl-pred-tab").css("display","block");
-        $(".right-bar").animate({"right":"0px"},500).css("background","#fff");
+        $(".right-bar").animate({"right":"0px"},500);
         $('.bar-content').perfectScrollbar({suppressScrollX: true},"destroy");
         $('.bar-content').perfectScrollbar({suppressScrollX: true});
     }else if($(this).hasClass("head-notify")){//探索通知
@@ -126,7 +124,7 @@ $(".header-right>li").on("click",function(e){
         if($(".notify-tab-list>li").length>0) {$(".notify-operate").css("display","block")};
         $(".bar-content").css("max-height",$(window).height()-70);
         $(".pnl-pred-tab").css("display","none");
-        $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
+        $(".right-bar").animate({"right":"0px"},500);
         $('.bar-content').perfectScrollbar({suppressScrollX: true},"destroy");
         $('.bar-content').perfectScrollbar({suppressScrollX: true});
     }else if($(this).hasClass("head-userinfo")){//用户信息
@@ -237,7 +235,7 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
     $(".notify-operate").css("display","block");
     $(".bar-content").css("max-height",$(window).height()-70);
     $(".pnl-pred-tab").css("display","none");
-    $(".right-bar").animate({"right":"0px"},500).css("background","#e8ebed");
+    $(".right-bar").animate({"right":"0px"},500);
     $(".notify-tab-list").find("li[data-id="+id+"]").trigger("click");
     $('.bar-content').perfectScrollbar({suppressScrollX: true},"destroy");
     $('.bar-content').perfectScrollbar({suppressScrollX: true});
@@ -264,9 +262,9 @@ $(document).delegate(".notify-list>li .notify-close","click",function(e){
                 if(count<=1){
                     $(".notify-count").data("count",0).text("").css("display","none");
                 }else if(count<=10){
-                    $(".notify-count").data("count",count-1).text(count-1).css("display","block");
+                    $(".notify-count").data("count",count-1).text(count-1).css("display","inline-block");
                 }else{
-                    $(".notify-count").data("count",count-1).text("···").css("display","block");
+                    $(".notify-count").data("count",count-1).text("···").css("display","inline-block");
                 }
             }
         },
@@ -444,11 +442,20 @@ function dispList(data,date,type){
                 $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span></span></a>").data("info",item);
                 $container.find("li[data-index='"+currDate+"']").append($a);
             }else{
-                $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
-                $("<li data-index="+currDate+"></li>").append($a).appendTo($container);
+                if($container.find("li").length==0){
+                    if(type=="all"){
+                        $a=$("<a target='_blank' href="+urlLink+"><span class='content' style='background:#434343'><span class='flag'>本月<span></span></span><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
+                    }else{
+                        $a=$("<a target='_blank' href="+urlLink+"><span class='content' style='background:#434343'><span class='flag'>全天<span></span></span><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
+                    }
+                }else{
+                    $a=$("<a target='_blank' href="+urlLink+"><span class='content'><span class='flag'></span><span class='title'>"+item.name+"</span><span class='date'>"+currDate+"</span></span></a>").data("info",item);
+                }
+                $("<li data-index="+currDate+"><div></div></li>").append($a).appendTo($container);
             }
         });
-    if($container.find("li").length<1)$container.html("<li class='error'>暂无热点预告</li>");
+        $err=$("<li class='error'>暂无热点预告</li>").css({"height":$(window).height()-500,"line-height":($(window).height()-500)+"px"})
+    if($container.find("li").length<1)$container.html($err);
 }
 
 //检查划线位置及是否划线
@@ -504,12 +511,11 @@ $.ajax({
     dataType: "json",
     url: dataUrl.util.getNotify(15),
     success: function(returnData) {
-        if(returnData.error.code == 0&&returnData.data) {
+        if(returnData.error.code == 0&&returnData.data&&returnData.data.length>0) {
             $(".notify-list").html("");
             var res=returnData.data
             var count=res.length;
-            if(count>0){
-                $(".notify-count").attr("data-count",count).text(count>9?"···":count).css("display","block");
+                $(".notify-count").attr("data-count",count).text(count>9?"···":count).css("display","inline-block");
                 $.each(res,function(idx,item){
                     item.createDate=GetDateDiff(item.createDate);
                     if(idx<3){
@@ -523,14 +529,13 @@ $.ajax({
                     $(".notify-list").css("display","block");
                 }
                 $(".notify-tab-list").html($.templates(templates.design["tmplNotifyList"]).render(returnData));
-            }else{
-                $(".notify-count").attr("data-count",0).text("").css("display","none");
-                $('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
-                $(".notify-operate").css("display","none");
-            }
+            
         }else{
-        	$('.notify-tab-list').append('<p style="padding:200px 110px;">暂无通知</p>');
+            $(".notify-count").attr("data-count",0).text("").css("display","none");
+
             $(".notify-operate").css("display","none");
+            $err=$('<div style="color:#fff;font-size:12px;text-align:center;">暂无通知</div>').css({"height":$(window).height()-132,"line-height":($(window).height()-132)+"px"})
+            $('.notify-tab-list').html($err);
         }
     },
     error: function() {

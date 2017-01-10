@@ -20,7 +20,7 @@ templates.design = {};
     tmpl.push('<li data-topicId={{:topicId}} data-id={{:id}}>');
     tmpl.push('     <a>');
     tmpl.push('         <span class="dot-icon"></span>');
-    tmpl.push('         <span class="pnl"><span class="hot-word">{{>keyword}}</span>－');
+    tmpl.push('         <span class="pnl"><span class="hot-word">{{>keyword}}－</span>');
     tmpl.push('         <span class="hot-spot">{{:title}}</span></span>');
     tmpl.push('         <span class="time fr">{{>createDate}}</span>');
     tmpl.push('         <span class="notify-close fr" style="display:none;"><img style="vertical-align:top;margin-top:11px;" src="img/del-notify.png"></span>');
