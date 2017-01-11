@@ -5,7 +5,9 @@ html,body{
 	height:100%;
 	font-family:"Microsoft YaHei";
 }
-
+@media screen and (max-width:1200px ) {
+    body{min-width: 1200px;min-height:540px!important;overflow-x: auto!important;overflow-y: scroll!important;}
+} 
 body{
 	background-image: url(../img/bag_fodder.png);
     background-repeat: no-repeat;
