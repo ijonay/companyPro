@@ -4,18 +4,180 @@ html,body{
 	padding:0;
 	height:100%;
 	background:#f1f1f1;
+	font-family:"Microsoft YaHei";
+}
+
+body{
+	background-image: url(../img/bag_fodder.png);
+    background-repeat: no-repeat;
+    background-size: cover!important;
+    background-attachment: fixed;
 }
 
 /*搜索框*/
-
+.section-search{
+	 height:40px;
+	 width:642px;
+	 margin:156px auto 0;
+	 position:relative;
+}
+.section-search .txt-search{
+     height:100%;
+     width:100%;
+     border:1px solid #389b9f;
+     background-color:rgba(0,0,0,0.2);
+     border-radius:50px;
+     color:#389b9f;
+     line-height:38px;
+     padding-left:20px;
+     padding-right:40px;
+     font-size:14px;
+     text-align:center;
+}
+.section-search .txt-search:focus{border:1px solid #2ad3da;}
+.section-search .txt-search::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #389b9f; 
+} 
+.section-search .txt-search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color: #389b9f; 
+} 
+.section-search .txt-search::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #389b9f; 
+} 
+.section-search .txt-search:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: #389b9f; 
+}
+.section-search .btn-search{
+	width:20px;
+	height:11px;
+	background:url(../img/fodder_search.png) no-repeat center;
+	position:absolute;
+	top:14.5px;
+	right:16px;
+	cursor:pointer;
+}
 
 /*热门文章区域*/
-
+.section-filter{
+	margin-top:80px;
+	width:100%;
+}
 
 /*筛选热门文章*/
-        
-
-
+.section-filter .filter-label{
+	text-align:center;
+	width:100%;
+	margin-bottom:60px;
+}      
+.section-filter .filter-label .tip-title{
+	font-size:14px;
+	color:rgba(255,255,255,0.4);
+	margin-bottom:25px;
+}
+.section-filter .filter-label .tip-icon{
+	width:21px;
+	height:11px;
+	margin:0 auto;
+	background:url(../img/fodder_down_arrow.png) no-repeat center;
+}
+.section-filter .filter-label .filter-list{
+	width:644px;
+	height:32px;
+	margin:56px auto 0;
+}
+.section-filter .filter-label .filter-list li{
+	width:116px;
+	height:32px;
+	border:1px solid #389b9f;
+	border-radius:50px;
+	line-height:30px;
+	padding-right:10px;
+	padding-left:35px;
+	color:rgba(255,255,255,0.8);
+	font-size:14px;
+	margin-right:16px;
+	float:left;
+	cursor:pointer;
+	position:relative;
+	text-align:left;
+}
+.section-filter .filter-label .filter-list li:after{
+	content:"";
+	position:absolute;
+	right:12px;
+	top:11px;
+	width:6px;
+	height:10px;
+	background:url(../img/fodder_right_arrow.png) no-repeat center;
+}
+.section-filter .filter-label .filter-list li.attention:before{
+    content:"";
+    position:absolute;
+    left:12px;
+    top:8px;
+    width:15px;
+    height:14px;
+    background:url(../img/fodder_attention.png) no-repeat center;
+}
+.section-filter .filter-label .filter-list li.area:before{
+    content:"";
+    position:absolute;
+    left:12px;
+    top:8px;
+    width:14px;
+    height:14px;
+    background:url(../img/fodder_area.png) no-repeat center;
+}
+.section-filter .filter-label .filter-list li.type:before{
+    content:"";
+    position:absolute;
+    left:12px;
+    top:9px;
+    width:12px;
+    height:13px;
+    background:url(../img/fodder_type.png) no-repeat center;
+}
+.section-filter .filter-label .filter-list li.time:before{
+    content:"";
+    position:absolute;
+    left:12px;
+    top:8px;
+    width:14px;
+    height:14px;
+    background:url(../img/fodder_time.png) no-repeat center;
+}
+.section-filter .filter-label .filter-list li.ser{margin-right:0px;padding-left:12px;cursor:default;}
+.section-filter .filter-label .filter-list li.ser:after{
+    content:"";
+    width:0;
+}
+.section-filter .filter-label .filter-list li.ser .btn-search{
+    position:absolute;
+    right:12px;
+    top:8px;
+    width:14px;
+    height:14px;
+    background:url(../img/fodder_ser.png) no-repeat center;
+    cursor:pointer;
+}
+.section-filter .filter-label .filter-list li.ser input{
+	width:75px;
+	height:100%;
+	background:none;
+	border:none;
+}
+.section-filter .filter-label .filter-list li.ser input::-webkit-input-placeholder { /* WebKit browsers */ 
+    color:rgba(255,255,255,0.8); 
+} 
+.section-filter .filter-label .filter-list li.ser input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color:rgba(255,255,255,0.8); 
+} 
+.section-filter .filter-label .filter-list li.ser input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color:rgba(255,255,255,0.8); 
+} 
+.section-filter .filter-label .filter-list li.ser input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color:rgba(255,255,255,0.8); 
+}
 /*热门文章列表*/
 .filter-list{	
 	margin: 0 47px;

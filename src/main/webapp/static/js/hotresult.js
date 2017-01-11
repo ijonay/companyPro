@@ -1,3 +1,6 @@
+/*顶部导航*/
+$(".header-left li:first a").css("color","#fff");
+
 var urlLabel = GetRequestLabel();//标签信息
 var word = GetRequest().clueWord;//关键词
 var nowPage = GetRequest().currentPage;//页码

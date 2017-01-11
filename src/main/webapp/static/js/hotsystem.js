@@ -1,3 +1,6 @@
+/*顶部导航*/
+$(".header-left li:first a").css("color","#fff").attr("href","javascript:;");
+
 //头部。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 var hotsystem_flag=true;
 $('#nav-head-search').on('click',function(){
