@@ -3,7 +3,6 @@ html,body{
 	margin:0;
 	padding:0;
 	height:100%;
-	background:#f1f1f1;
 	font-family:"Microsoft YaHei";
 }
 
@@ -34,7 +33,7 @@ body{
      font-size:14px;
      text-align:center;
 }
-.section-search .txt-search:focus{border:1px solid #2ad3da;}
+.section-search .txt-search:hover{border:1px solid #2ad3da;}
 .section-search .txt-search::-webkit-input-placeholder { /* WebKit browsers */ 
     color: #389b9f; 
 } 
@@ -165,6 +164,7 @@ body{
 	height:100%;
 	background:none;
 	border:none;
+	line-height:30px;
 }
 .section-filter .filter-label .filter-list li.ser input::-webkit-input-placeholder { /* WebKit browsers */ 
     color:rgba(255,255,255,0.8); 

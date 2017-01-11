@@ -3,8 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>素材探索</title>
+<link rel="icon" href="img/zhiji.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="img/zhiji.ico" type="image/x-icon"/>
 <link  rel="stylesheet" href="css/bootstrap.min.css">
 <link  rel="stylesheet" href="css/common.css">
 <link  rel="stylesheet" href="css/foddernav.css">
