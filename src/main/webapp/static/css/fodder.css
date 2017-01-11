@@ -3,10 +3,11 @@ html,body{
 	margin:0;
 	padding:0;
 	height:100%;
-	background:#f1f1f1;
 	font-family:"Microsoft YaHei";
 }
-
+@media screen and (max-width:1200px ) {
+    body{min-width: 1200px;min-height:540px!important;overflow-x: auto!important;overflow-y: scroll!important;}
+} 
 body{
 	background-image: url(../img/bag_fodder.png);
     background-repeat: no-repeat;
@@ -384,4 +385,42 @@ body{
 	background-color:#c9c9c9;
 	color:#fff;
 }
+    
+
 /*搜索结果区域*/
+.section-filter-ser{
+	width:100%;padding:0 50px;color:#fff;
+}
+.tile-suggest{width:100px;margin:0 auto; position: relative;margin-bottom:24px;margin-top:132px; }
+.tile-suggest:before{
+	content: '';
+    width: 80px;
+    height: 1px;
+    background: #f00;
+    top: 8px;
+    left: -80px;
+    position: absolute;
+}
+.tile-suggest:after{
+	content: '';
+    width: 80px;
+    height: 1px;
+    background: #f00;
+    top: 8px;
+    right: -80px;
+    position: absolute;
+}
+.tile-suggest-n{width:350px;margin:0 auto;margin-bottom:44px;}
+.ser-back-home{width:150px;margin:0 auto;background:#f00;margin-top:70px;}
+.jiegou-con{	
+width:-o-calc((100% - 28px)/3);
+width:calc-moz-((100% - 28px)/3);
+width:calc-ms-((100% - 28px)/3);
+width:-webkit-calc((100% - 28px)/3);
+width:calc((100% - 28px)/3);
+height:400px;
+background:#fff;
+}
+.jiegou-con-mar{margin:0 14px;}
+
+
