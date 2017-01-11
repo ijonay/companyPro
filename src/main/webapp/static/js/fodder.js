@@ -1,3 +1,6 @@
+/*顶部导航*/
+$(".header-left li:last a").css("color","#fff").attr("href","javascript:;");
+
 /*搜索框*/
 
 
