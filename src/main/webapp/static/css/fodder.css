@@ -17,6 +17,137 @@ html,body{
 
 
 /*热门文章列表*/
-    
-
+.filter-list{	
+	margin: 0 47px;
+}
+.list-header{
+	background-color:#d5d5d5;
+	height:50px;
+	line-height:50px;
+	border-top-left-radius:4px;
+	border-top-right-radius:4px;
+	font-size:0px;
+	color:#6d6d6d;
+}
+.list-header span{
+	display:inline-block;
+	font-size:16px;
+}
+.list-header span:nth-child(1){
+	text-indent:45px;
+	width:calc(15% + 16px);
+}
+.list-header span:nth-child(2){
+	width:15%;
+}
+.list-header span:nth-child(3){
+	width:10.5%;
+}
+.list-header span:nth-child(4){
+	width:17.8%;
+}
+.list-header span:nth-child(5){
+	width:11%;
+}
+.list-header span:nth-child(6){
+	width:6%;
+}
+.list-header span:nth-child(7){
+	width:7.6%;
+}
+.list-header span:nth-child(8){
+	width:7.6%;
+}
+.list-header span:nth-child(9){
+	width:7.6%;
+}
+.listCon{
+	font-size:0px;
+}
+.listCon li{
+	font-size:0px;
+}
+.listCon li:nth-child(even){
+	background-color:#f6f6f6;	
+}
+.listCon li div{
+	display:inline-block;
+	line-height:60px;
+}
+.listCon li div:nth-child(1){
+	width:calc(15% + 16px);
+	font-size:16px;
+}
+.listCon li div:nth-child(2){
+	width:15%;
+	font-size:14px;
+}
+.listCon li div:nth-child(3){
+	width:10.5%;
+	font-size:12px;
+}
+.listCon li div:nth-child(4){
+	width:17.8%;
+	font-size:14px;
+}
+.listCon li div:nth-child(5){
+	width:11%;
+	font-size:14px;
+}
+.listCon li div:nth-child(6){
+	width:6%;
+	font-size:14px;
+}
+.listCon li div:nth-child(7){
+	width:7.6%;
+	font-size:14px;
+}
+.listCon li div:nth-child(8){
+	width:7.6%;
+	font-size:14px;
+}
+.listCon li div:nth-child(9){
+	width:7.6%;
+	font-size:14px;
+}
+.listCon li div span{
+	display:inline-block;
+}
+.topicNum{
+	display:inline-block;
+	width:45px;
+	text-align:center;
+}
+.currentTitle{
+	color:#2ad3da;
+}
+.titleStruct{
+	height:24px;
+	line-height:24px;
+	border-radius:2px;
+	padding:0 10px;
+	color:#fff;
+}
+.colorOrg{
+	background-color:#f99045;
+}
+.contentKeyWord{
+	font-size:14px;
+	color:#4a4a4a;
+}
+.correlatedTopic{
+	font-size:14px;
+	color:#2ad3da;
+}
+.colorGray{
+	font-size:14px;
+	color:#8999a9;
+}
+.processBar{
+	display:inline-block;
+	width:86px;
+	height:4px;
+	background-color:#dedede;
+	border-radius:2px;
+}
 /*搜索结果区域*/
