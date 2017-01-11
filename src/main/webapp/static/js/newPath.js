@@ -1,3 +1,6 @@
+/*顶部导航*/
+$(".header-left li:first a").css("color","#fff");
+
 $('#search-btn').click(function(){
 	//$('#load-con').removeClass('hidecommon');
 	pathSer();
