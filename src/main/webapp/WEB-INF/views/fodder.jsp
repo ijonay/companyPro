@@ -40,7 +40,46 @@
         </div>
         
         <!-- 热门列表 -->
-        <div class="filter-list" style="height:204px;background:green;"></div>
+        <div class="filter-list" style="background:#fff;border-top-left-radius:4px;border-top-right-radius:4px;">
+            <div class="list-header">
+	        	<span>推送名称</span><span>所属自媒体</span><span>标题结构</span><span>内容关键词</span><span>相关话题</span><span>领域</span><span>推送时间</span><span>阅读量</span><span>综合评价</span>
+	        </div>
+	        <ul class="listCon">
+	        	<li>
+	        		<div class="topicTitle"><span class="topicNum">1</span><span class="currentTitle">文章名称</span></div>
+	        		<div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+	        		<div><span class="titleStruct colorOrg">强吸引型</span></div>
+	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+	        		<div><span class="correlatedTopic">#春运一票难求#</span></div>
+	        		<div><span class="colorGray">旅行</span></div>
+	        		<div><span class="colorGray">2小时前</span></div>
+	        		<div><span class="colorGray">247万</span></div>
+	        		<div><p class="processBar"><span class="processBarInner"> </span></p></div>
+	        	</li>
+	        	<li>
+	        		<div class="topicTitle"><span class="topicNum">2</span><span class="currentTitle">文章名称</span></div>
+	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess">+ 关注</span></div>
+	        		<div><span class="titleStruct colorGreen">强吸引型</span></div>
+	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+	        		<div><span class="correlatedTopic">#春运一票难求#</span></div>
+	        		<div><span class="colorGray">旅行</span></div>
+	        		<div><span class="colorGray">2小时前</span></div>
+	        		<div><span class="colorGray">247万</span></div>
+	        		<div><p class="processBar"><span class="processBarInner"> </span></p></div>
+	        	</li>
+	        	<li>
+	        		<div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+	        		<div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+	        		<div><span class="titleStruct colorBlue">强吸引型</span></div>
+	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+	        		<div><span class="correlatedTopic">#春运一票难求#</span></div>
+	        		<div><span class="colorGray">旅行</span></div>
+	        		<div><span class="colorGray">2小时前</span></div>
+	        		<div><span class="colorGray">247万</span></div>
+	        		<div><p class="processBar"><span class="processBarInner"> </span></p></div>
+	        	</li>
+	        </ul>
+        </div>
     </div>
     
     <!-- 搜索结果区域 -->
