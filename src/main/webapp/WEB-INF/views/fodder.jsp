@@ -20,6 +20,22 @@
         <input type="text" class="txt-search" placeholder="请输入运营需求关键词，多个词用顿号隔开">
         <div class="btn-search"></div>
     </div>
+    <!-- 搜索文章区域 -->
+    <div class="section-filter-ser" >
+    	<p class="tile-suggest ac">标题结构建议</p>
+    	<p class="tile-suggest-n ac">最符合运营需求的“结构化标题类型推荐”及“文章参考”</p>
+    	<div style="width:100%;overflow:hidden;">
+    		<div class="fl jiegou-con"></div>
+    		<div class="fl jiegou-con jiegou-con-mar"></div>
+    		<div class="fl jiegou-con"></div>
+    	</div>
+    	<p class="tile-suggest ac">相关热点推荐</p>
+    	<p class="tile-suggest-n ac">与“运营需求相关关键词”相匹配的“热点话题”推荐</p>
+    	<div style="width:100%;height:200px;background:#0f0;"></div>
+    	<div class="ser-back-home ac">首页</div>
+    </div>
+    <!-- 搜索文章区域end -->
+    
     
     <!-- 热门文章区域 -->
     <div class="section-filter" >
