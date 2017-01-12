@@ -9,6 +9,7 @@
 <link rel="icon" href="img/zhiji.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="img/zhiji.ico" type="image/x-icon"/>
 <link  rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/hotresult.css">
 <link  rel="stylesheet" href="css/common.css">
 <link  rel="stylesheet" href="css/foddernav.css">
 <link  rel="stylesheet" href="css/fodder.css">
@@ -34,7 +35,45 @@
     	</div>
     	<p class="tile-suggest ac">相关热点推荐</p>
     	<p class="tile-suggest-n ac">与“运营需求相关关键词”相匹配的“热点话题”推荐</p>
-    	<div style="width:100%;height:200px;background:#0f0;"></div>
+    	<div style="width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    		<div  id="canvas" style="display:inline-block;height:320px;width:1076px;background-image:url(./img/metrailBackground.png);background-position:center center;background-repeat:no-repeat;background-size:cover">
+    		     <div class="alertCon" style="color:#000;text-align:left">
+                    <div class="portrait"></div>
+                    <div class="info">
+                        <div class="infoTop">
+                            <div class="infoTitle"></div>
+                            <div class="hotLeft" style="float:right;line-height:24px;">  
+                                <div class="hotIcon fl"></div>
+                                <div class="font14 fl">热度:</div>
+                                <div class="hotValue fl"></div>
+                                <div class="hotTrend fl"></div>
+                            </div>
+                        </div>
+                        <div class="hotLabel">
+                            
+                        </div>
+                        <div class="hotInfo">
+                            <div class="infoText"></div>            
+                        </div>
+                        <div class="infoBottom">
+                            <!-- <div class="hotLeft fl">  
+                                <div class="hotIcon fl"></div>
+                                <div class="font14 fl">热度:</div>
+                                <div class="hotValue fl"></div>
+                                <div class="hotTrend fl"></div>
+                            </div> -->
+                            <div class="font14 fl">来源： </div>
+                            <div class="font14 fl">
+	                            <a target="_blank" href=""><div class="weiboIcon"></div></a>
+	                            <a target="_blank" href=""><div class="weixinIcon"></div></a>
+	                            <a target="_blank" href=""><div class="baiduinIcon"></div></a>
+	                            <a target="_blank" href=""><div class="zhihuIcon"></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- 弹窗end -->
+    		</div>
+    	</div>
     	<div class="ser-back-home ac">首页</div>
     </div>
     <!-- 搜索文章区域end -->

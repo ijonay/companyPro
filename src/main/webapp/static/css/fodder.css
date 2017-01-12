@@ -425,3 +425,26 @@ background:#fff;
 .jiegou-con-mar{margin:0 14px;}
 
 
+/*
+相关热点推荐
+*/
+.font14 a{
+	height:24px;
+	line-height:24px;
+}
+.font14 a div{
+	display:inline-block;
+	padding-top:5px;
+}
+.weixinIcon{
+	background:url(../img/hot_weixin.png) no-repeat;width:18px;height:18px;
+}
+.weiboIcon{
+	background:url(../img/hot_weibo.png) no-repeat;width:18px;height:18px;
+}
+.zhihuIcon{
+	background:url(../img/hot_zhihu.png) no-repeat;width:18px;height:18px;
+}
+.baiduinIcon{
+	background:url(../img/hot_baidu.png) no-repeat;width:18px;height:18px;
+}
