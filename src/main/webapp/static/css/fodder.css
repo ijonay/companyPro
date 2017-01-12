@@ -411,7 +411,8 @@ body{
     position: absolute;
 }
 .tile-suggest-n{width:350px;margin:0 auto;margin-bottom:44px;}
-.ser-back-home{width:150px;margin:0 auto;background:#f00;margin-top:70px;}
+.ser-back-home{font-size:14px;color:rgba(255,255,255,.4);width:144px;margin:0 auto;background:url(../img/sucaiback.png) no-repeat 10px center;margin-top:70px;height:36px;line-height:36px;border:1px solid #389b9f;border-radius:40px;padding-left:20px;}
+.ser-back-home:hover{color:rgba(255,255,255,.8);}
 .jiegou-con{	
 width:-o-calc((100% - 28px)/3);
 width:calc-moz-((100% - 28px)/3);
@@ -444,7 +445,7 @@ border-radius:4px;
 }
 .title-top-div{height:93px;padding:14px 0 0 14px;background:#eee;}  
 .title-top-div p:first-child em{font-size:20px;color:#000;font-style: normal;}
-.title-top-div p:first-child span{font-size:18px;color:#fff;background:#e78036;padding: 3px 8px;margin-right:10px;}
+.title-top-div p:first-child span{border-radius:2px;font-size:18px;color:#fff;background:#e78036;padding: 3px 8px;margin-right:10px;}
 .title-top-div p:first-child i img{
 	vertical-align: sub;
 }
@@ -457,7 +458,7 @@ border-radius:4px;
     border-radius: 19px;
     margin-right: 14px;
 }
-.article-ul-con{overflow-y:auto;height:260px;}
+.article-ul-con{overflow-y:auto;height:255px;}
 .article-ul-con::-webkit-scrollbar-track {background-color: #f1f1f1;border-radius: 5px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);}
 .article-ul-con::-webkit-scrollbar-thumb {background-color: #787878;border-radius: 5px;}
 .article-ul-con::-webkit-scrollbar-button {background-color: #7c2929;display: none;}
@@ -474,7 +475,8 @@ border-radius:4px;
     white-space: nowrap;}
 .article-ul-con-li-div em{color:#4a4a4a;font-style: normal;}
 .article-ul-con-arr{border-top:1px solid #eee;transition:all 0.3s;}
-.article-ul-con-arr:hover{-webkit-transform: scale(1.1,1.1);background:#fff;z-index:99;position:absolute;}
+.article-ul-con-arr:first-child{margin-top:0;}
+.article-ul-con-arr:hover{background:#ccc;}
 .article-ul-con-arr ul{overflow:hidden;}
 .article-ul-con-arr ul li{float:left;}
 .article-ul-con-arr ul li:first-child{
@@ -497,7 +499,7 @@ border-radius:4px;
 	margin-right:6px;
 	padding:5px 8px;
 	display:inline-block;
-	margin-bottom:10px;
+	margin-bottom:5px;
 	
 }
 .article-ul-con-arr ul li:last-child{
@@ -505,10 +507,33 @@ border-radius:4px;
 }
 
 .ul-con-arr-div span{color:#4a4a4a;}
-.ul-con-arr-div{}
+.ul-con-arr-div{margin-top:5px;}
 
 
 
 
 
 
+/*
+相关热点推荐
+*/
+.font14 a{
+	height:24px;
+	line-height:24px;
+}
+.font14 a div{
+	display:inline-block;
+	padding-top:5px;
+}
+.weixinIcon{
+	background:url(../img/hot_weixin.png) no-repeat;width:18px;height:18px;
+}
+.weiboIcon{
+	background:url(../img/hot_weibo.png) no-repeat;width:18px;height:18px;
+}
+.zhihuIcon{
+	background:url(../img/hot_zhihu.png) no-repeat;width:18px;height:18px;
+}
+.baiduinIcon{
+	background:url(../img/hot_baidu.png) no-repeat;width:18px;height:18px;
+}
