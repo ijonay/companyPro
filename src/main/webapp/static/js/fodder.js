@@ -2,7 +2,16 @@
 $(".header-left li:last a").css("color","#fff").attr("href","javascript:;");
 
 /*搜索框*/
-
+$('#btn-search').click(function(){
+	$('.section-search,.section-filter').hide();
+	$('.section-filter-ser,.head-search').show();
+	
+})
+//回到热门文章
+$('#ser-back-home').click(function(){
+	$('.section-filter-ser,.head-search').hide();
+	$('.section-search,.section-filter').show();
+})
 
 /*热门文章区域*/
 
