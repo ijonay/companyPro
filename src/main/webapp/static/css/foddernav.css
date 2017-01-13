@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 /*头部header*******************************************************************************************/
-.header{height:60px;padding:0 48px;color:#fff;position:relative;}
+.header{height:60px;padding:0 48px;color:#fff;position:relative;background:none;}
 .header .header-logo{width:283px;height:100%;background:url(../img/head-logo.png) no-repeat left center;cursor:pointer;background-size: 85%;}
 
 /*左侧列表*/
