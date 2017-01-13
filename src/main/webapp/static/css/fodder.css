@@ -427,6 +427,17 @@ background:#fff;
 /*
 相关热点推荐
 */
+#wordCon{
+	position:absolute;
+	display:inline-block;
+	width:108px;
+    height:108px;
+    border-radius:54px;
+    top:calc(50% - 5px);
+    left:calc(50% - 8px);
+    z-index:100;
+    transform:translate(-50%,-50%);
+}
 .font14 a{
 	height:24px;
 	line-height:24px;

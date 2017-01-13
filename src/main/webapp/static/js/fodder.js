@@ -209,3 +209,57 @@ $(document).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
 }).delegate(".all_hot_list", "click", function(e) {//弹窗内部防止冒泡
     e ? e.stopPropagation() : event.cancelBubble = true;
 });
+//相似热点
+function similarHot(data){
+	var chart = echarts.init(document.getElementById('wordCon'));
+    option = {
+		backgroundColor: '#309295',
+		series: [{
+		    name: '相似热点',
+		    type: 'wordCloud',
+		    // size: ['9%', '99%'],
+		    sizeRange: [14, 18],
+		    // textRotation: [0, 45, 90, -45],
+		    rotationRange: [-90, 0],
+		    rotationStep: 90,
+		    textPadding: 0,
+		    autoSize: {
+		        enable: true,
+		        minSize: 6
+		    },
+		    textStyle: {
+		        normal: {
+		            color: ["#fff"]
+		        },
+		        emphasis: {
+		            shadowBlur: 10,
+		            shadowColor: '#333'
+		        }
+		    },
+		    data: []
+		}]
+		};
+		
+		var JosnList = [];
+		
+		JosnList.push({
+			name: "春节",
+			value: 450
+			}, {
+			name: "团聚",
+			value: "500"
+			}, {
+			name: "回家过年",
+			value: "400"
+			}, {
+			name: "过年",
+			value: "350"
+			}, {
+			name: "车票",
+			value: "300"
+			});
+		
+	option.series[0].data = JosnList;
+	chart.setOption(option)
+}
+similarHot();

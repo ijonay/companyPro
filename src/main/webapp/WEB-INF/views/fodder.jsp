@@ -32,7 +32,8 @@
     	</div>
     	<p class="tile-suggest ac">相关热点推荐</p>
     	<p class="tile-suggest-n ac">与“运营需求相关关键词”相匹配的“热点话题”推荐</p>
-    	<div style="width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    	<div style="position:relative;width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    		<div id="wordCon"></div>
     		<div  id="canvas" style="display:inline-block;height:320px;width:1076px;background-image:url(./img/metrailBackground.png);background-position:center center;background-repeat:no-repeat;background-size:cover">
     		     <div class="alertCon" style="color:#000;text-align:left">
                     <div class="portrait"></div>
@@ -142,10 +143,12 @@
     </div>
     
     <script src="lib/jquery-1.12.0.min.js"></script>
+    <script src="lib/echarts.js"></script>
+    <script src="lib/echarts-wordcloud.min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/dialog.js"></script>
     <script src="js/foddernav.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/fodder.js"></script>
+    <script src="js/fodder.js"></script>    
 </body>
 </html>
