@@ -8,9 +8,178 @@ $(".header-left li:last a").css("color","#fff").attr("href","javascript:;");
 
 
 /*筛选热门文章*/
-        
-
-
+/*区域弹窗*/
+$(".filter-list>li.area").click(function(){
+    var result=$(this).data("selected");
+    var _this=$(this);
+    var labArr=["时事","民生","美体","百科","健康","财富","科技","创业","时尚","美食","乐活","教育",
+                "楼市","职场","体娱","幽默","情感","企业","学术","政务","文摘","汽车","旅行","文化","其他"]
+    var $content=$("<ul class='areaList'></ul>");
+    $.each(labArr,function(idx,item){
+        var id=idx+1;
+        $item=$("<li data-id='"+id+"'>"+item+"</li>");
+        if(result&&result.length>0&&_.indexOf(result, id)!=-1){
+            $item.addClass("active");
+        }
+        $content.append($item);
+    })
+    var $head=$("<div style='background:url(img/headArea.png) no-repeat left center;'>所属领域筛选<div>");
+    var pop = new PopFodder({
+        width:"706px",
+        header:$head,
+        content:$content,
+        buttons:[{
+            type:"fodderCancle",
+            text:"取消"
+        },{
+            type:"fodderOk",
+            text:"确定",
+            callback:function(){
+                var $activeItem=$(".areaList>li.active");
+                var selected=[];
+                if($activeItem.length>0){
+                    _this.addClass("active").find(".selCount").text($activeItem.length).css("display","inline-block");
+                }else{
+                    _this.removeClass("active").find(".selCount").text(0).css("display","none");
+                }
+                $activeItem.each(function(){
+                    selected.push(parseInt($(this).data("id")))
+                });
+                _this.data("selected",selected);
+                $(".fodderMask").remove();
+            }
+        }]
+    })
+});     
+/*文章类型弹窗*/
+$(".filter-list>li.type").click(function(){
+    var result=$(this).data("selected");
+    var _this=$(this);
+    var labArr=["互动类","视频类","音频类","图文类"];
+    var $content=$("<ul class='typeList'></ul>");
+    $.each(labArr,function(idx,item){
+        var id=idx+1;
+        if(item==="互动类"){
+            className="hd";
+        }else if(item==="视频类"){
+            className="sp";
+        }else if(item==="音频类"){
+            className="yp";
+        }else{
+            className="tw";
+        }
+        $item=$("<li class='"+className+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
+        if(result&&result.length>0&&_.indexOf(result, id)!=-1){
+            $item.addClass("active");
+        }
+        $content.append($item);
+    })
+    var $head=$("<div style='background:url(img/wenzhang.png) no-repeat left center;'>文章类型筛选<div>");
+    var pop = new PopFodder({
+        width:"706px",
+        height:"234px",
+        header:$head,
+        content:$content,
+        buttons:[{
+            type:"fodderCancle",
+            text:"取消"
+        },{
+            type:"fodderOk",
+            text:"确定",
+            callback:function(){
+                var $activeItem=$(".typeList>li.active");
+                var selected=[];
+                if($activeItem.length>0){
+                    _this.addClass("active").find(".selCount").text($activeItem.length).css("display","inline-block");
+                }else{
+                    _this.removeClass("active").find(".selCount").text(0).css("display","none");
+                }
+                $activeItem.each(function(){
+                    selected.push(parseInt($(this).data("id")))
+                });
+                _this.data("selected",selected);
+                $(".fodderMask").remove();
+            }
+        }]
+    })
+});
+/*推送时间弹窗*/
+$(".filter-list>li.time").click(function(){
+    var result=$(this).data("selected");
+    var _this=$(this);
+    var labArr=["今日","近7天","近30天"]
+    var $content=$("<ul class='timeList'></ul>");
+    $.each(labArr,function(idx,item){
+        var id=idx+1;
+        if(item==="今日"){
+            className="jr";
+        }else if(item==="近7天"){
+            className="j7t";
+        }else{
+            className="j30t";
+        }
+        $item=$("<li class='"+className+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
+        if(result&&result.length>0&&_.indexOf(result, id)!=-1){
+            $item.addClass("active");
+        }
+        $content.append($item);
+    })
+    var $head=$("<div style='background:url(img/shijian.png) no-repeat left center;'>推送时间筛选<div>");
+    var pop = new PopFodder({
+        width:"706px",
+        height:"234px",
+        header:$head,
+        content:$content,
+        buttons:[{
+            type:"fodderCancle",
+            text:"取消"
+        },{
+            type:"fodderOk",
+            text:"确定",
+            callback:function(){
+                var $activeItem=$(".timeList>li.active");
+                var selected=[];
+                if($activeItem.length>0){
+                    _this.addClass("active").find(".selCount").text($activeItem.length).css("display","inline-block");
+                }else{
+                    _this.removeClass("active").find(".selCount").text(0).css("display","none");
+                }
+                $activeItem.each(function(){
+                    selected.push(parseInt($(this).data("id")))
+                });
+                _this.data("selected",selected);
+                $(".fodderMask").remove();
+            }
+        }]
+    })
+});
+$(document).delegate(".areaList>li,.typeList>li,.timeList>li","click",function(e){
+    if($(this).hasClass("active")){
+        $(this).removeClass("active");
+        $selAll=$(this).parents(".fodderWin").find(".selAll");
+        if($selAll.hasClass("active")){
+            $selAll.removeClass("active");
+        }
+    }else{
+        $(this).addClass("active");
+        var allLen=$(this).parents("ul").find("li").length;
+        var activeLen=$(this).parents("ul").find("li.active").length;
+        if(allLen==activeLen){
+            $selAll=$(this).parents(".fodderWin").find(".selAll");
+            if(!$selAll.hasClass("active")){
+                $selAll.addClass("active");
+            }
+        } 
+    }
+}).delegate(".selAll","click",function(e){
+    if($(this).hasClass("active")){
+        $(this).removeClass("active");
+        $(this).parents(".fodderWin").find("li.active").removeClass("active");
+    }else{
+        $(this).addClass("active");
+        $(this).parents(".fodderWin").find("li").addClass("active");
+    }
+})
 /*热门文章列表*/
     
 

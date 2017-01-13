@@ -14,6 +14,7 @@
 <link  rel="stylesheet" href="css/foddernav.css">
 <link  rel="stylesheet" href="css/fodder.css">
 <link  rel="stylesheet" href="css/pop.css">
+<link  rel="stylesheet" href="css/popfodder.css">
 </head>
 <body>
     <!-- 顶部导航 -->
@@ -25,7 +26,7 @@
         <div class="btn-search"></div>
     </div>
     <!-- 搜索文章区域 -->
-    <div class="section-filter-ser" >
+    <div class="section-filter-ser" style="display:none;">
     	<p class="tile-suggest ac">标题结构建议</p>
     	<p class="tile-suggest-n ac">最符合运营需求的“结构化标题类型推荐”及“文章参考”</p>
     	<div style="width:100%;overflow:hidden;">
@@ -87,9 +88,9 @@
             <div class="tip-icon"></div>
             <ul class="filter-list">
                 <li class="attention">竞品关注</li>
-                <li class="area">所属领域</li>
-                <li class="type">文章类型</li>
-                <li class="time">推送时间</li>
+                <li class="area">所属领域<span class="selCount">6</span></li>
+                <li class="type">文章类型<span class="selCount"></span></li>
+                <li class="time">推送时间<span class="selCount"></span></li>
                 <li class="ser">
                     <input type="text" placeholder="搜索文章">
                     <div class="btn-search"></div>
@@ -145,8 +146,10 @@
     </div>
     
     <script src="lib/jquery-1.12.0.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/dialog.js"></script>
+    <script src="js/dialogfodder.js"></script>
     <script src="js/foddernav.js"></script>
     <script src="js/common.js"></script>
     <script src="js/fodder.js"></script>
