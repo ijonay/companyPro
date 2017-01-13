@@ -19,7 +19,7 @@
 	left:50%;
     width:706px;
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
     overflow: hidden;
     transform:translate(-50%,-50%)!important;
     box-shadow:1px 1px 1px 1px rgba(0,0,0,0.4);
@@ -42,13 +42,13 @@
 }
 .fodderClose{
     position: absolute;
-    font-size:26px;
-    top:15px;
+    font-size:20px;
+    top:17px;
     right:25px;
     cursor: pointer;
-    width:20px;
-    height:20px;
-    line-height:20px;
+    width:16px;
+    height:16px;
+    line-height:16px;
     background-color:#fff;
     color:#339c9f;
     border-radius:50%;
