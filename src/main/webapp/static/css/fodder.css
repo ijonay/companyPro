@@ -405,29 +405,30 @@ body{
 
 /*搜索结果区域*/
 .section-filter-ser{
-	width:100%;padding:0 50px;color:#fff;
+	width:100%;padding:0 50px;color:rgba(255,255,255,.8);
 }
 .tile-suggest{width:100px;margin:0 auto; position: relative;margin-bottom:24px;margin-top:132px; }
 .tile-suggest:before{
 	content: '';
-    width: 80px;
+    width: 120px;
     height: 1px;
-    background: #f00;
-    top: 8px;
-    left: -80px;
+    background: rgba(255,255,255,.8);
+    top: 11px;
+    left: -130px;
     position: absolute;
 }
 .tile-suggest:after{
 	content: '';
-    width: 80px;
+    width: 120px;
     height: 1px;
-    background: #f00;
-    top: 8px;
-    right: -80px;
+    background: rgba(255,255,255,.8);
+    top: 11px;
+    right: -130px;
     position: absolute;
 }
 .tile-suggest-n{width:350px;margin:0 auto;margin-bottom:44px;}
-.ser-back-home{width:150px;margin:0 auto;background:#f00;margin-top:70px;}
+.ser-back-home{font-size:14px;color:rgba(255,255,255,.4);width:144px;margin:0 auto;background:url(../img/sucaiback.png) no-repeat 10px center;margin-top:70px;height:36px;line-height:36px;border:1px solid #389b9f;border-radius:40px;padding-left:20px;}
+.ser-back-home:hover{color:rgba(255,255,255,.8);}
 .jiegou-con{	
 width:-o-calc((100% - 28px)/3);
 width:calc-moz-((100% - 28px)/3);
@@ -436,8 +437,97 @@ width:-webkit-calc((100% - 28px)/3);
 width:calc((100% - 28px)/3);
 height:400px;
 background:#fff;
+border-radius:4px;
 }
 .jiegou-con-mar{margin:0 14px;}
+.title-number-pos{
+	top:-20px;
+	width:32px;
+	height:42px;
+	line-height: 33px;
+    font-size: 24px;
+	right:20px;
+	background:#389b9f;
+}
+.title-number-pos span{
+	display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 12px solid #eee;
+}
+.title-top-div{height:93px;padding:14px 0 0 14px;background:#eee;}  
+.title-top-div p:first-child em{font-size:20px;color:#000;font-style: normal;}
+.title-top-div p:first-child span{border-radius:2px;font-size:18px;color:#fff;background:#e78036;padding: 3px 8px;margin-right:10px;}
+.title-top-div p:first-child i img{
+	vertical-align: sub;
+}
+.title-top-div p:last-child{font-size:14px;color:rgba(74,74,74,.8);margin-top:4px;padding-right:14px;text-align:left;}
+.cancel-flat{height:48px;line-height:48px;color:#4a4a4a;font-style:normal;padding-left:14px;text-align:right;}
+.cancel-flat em{font-style:normal;float:left;}
+.cancel-flat span{
+	border: 1px solid #389b9f;
+    padding: 6px 10px;
+    border-radius: 19px;
+    margin-right: 14px;
+}
+.article-ul-con{overflow-y:auto;height:255px;}
+.article-ul-con::-webkit-scrollbar-track {background-color: #f1f1f1;border-radius: 5px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);}
+.article-ul-con::-webkit-scrollbar-thumb {background-color: #787878;border-radius: 5px;}
+.article-ul-con::-webkit-scrollbar-button {background-color: #7c2929;display: none;}
+.article-ul-con::-webkit-scrollbar-corner {background-color: black;}
+.article-ul-con::-webkit-scrollbar {width: 3px;color: blue;height:5px;}
+
+.article-ul-con >li{border-top:1px solid #ccc;}
+.article-ul-con-li-div{height:48px;line-height:48px;padding:0 14px;text-align:right;font-size:14px;}
+.article-ul-con-li-div:hover{background:#ccc;}
+.article-ul-con-li-div i{color:#4a4a4a;margin-right:10px;float:left;font-style: normal;}
+.article-ul-con-li-div span{color:#389b9f;float:left;    width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;}
+.article-ul-con-li-div em{color:#4a4a4a;font-style: normal;}
+.article-ul-con-arr{border-top:1px solid #eee;transition:all 0.3s;}
+.article-ul-con-arr:first-child{margin-top:0;}
+.article-ul-con-arr:hover{background:#ccc;}
+.article-ul-con-arr ul{overflow:hidden;}
+.article-ul-con-arr ul li{float:left;}
+.article-ul-con-arr ul li:first-child{
+	margin-right: 10px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: #389b9f;
+    text-align: center;
+    line-height: 20px;
+    font-size:14px;
+    margin-top: 3px;
+}
+.article-ul-con-arr{padding:12px 14px;}
+.article-ul-con-arr ul li:last-child span{
+	color:#389b9f;
+	font-size:14px;
+	border-radius:2px;
+	background:#efefef;
+	margin-right:6px;
+	padding:5px 8px;
+	display:inline-block;
+	margin-bottom:5px;
+	
+}
+.article-ul-con-arr ul li:last-child{
+	width:calc(100% - 50px);
+}
+
+.ul-con-arr-div span{color:#4a4a4a;}
+.ul-con-arr-div{margin-top:5px;}
+
+
+
+
 
 
 /*

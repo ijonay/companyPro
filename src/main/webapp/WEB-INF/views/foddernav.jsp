@@ -13,6 +13,7 @@
     </ul>
     <ul class="header-right fr">
         <li class="head-usericon"><a></a></li>
+        
         <li class="head-userinfo">
             <shiro:authenticated>
                 <div class="userName">
