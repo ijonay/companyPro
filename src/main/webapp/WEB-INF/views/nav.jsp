@@ -8,7 +8,7 @@
     <div class="header-logo fl"></div>
     <ul class="header-left fl">
         <li><a href="hotsystem">热点探索</a></li>
-        <li><a href="javascript:;">账号分析</a></li>
+        <li style="display:none;"><a href="javascript:;">账号分析</a></li>
         <li><a href="fodder">素材探索</a></li>
     </ul>
     <ul class="header-right fr">
