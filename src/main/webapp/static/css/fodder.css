@@ -16,14 +16,32 @@ body{
 }
 
 /*返回顶部*/
-#comeback_body_top{
+.sidebar>div{
 	width: 40px;
     height: 40px;
     border-radius: 2px;
     background: rgba(0,0,0,.5);
-    bottom: 24px;
     right: 48px;
     z-index: 9;
+    font-size:14px;
+    color:transparent;
+    text-align:center;
+}
+.sidebar>div#filterarea{
+	background:rgba(0,0,0,.5) url(../img/sidearea.png) no-repeat center;
+	bottom: 174px;
+}
+.sidebar>div#filtertype{
+    background:rgba(0,0,0,.5) url(../img/sidetype.png) no-repeat center;
+    bottom: 124px;
+}
+.sidebar>div#filtertime{
+    background:rgba(0,0,0,.5) url(../img/sidetime.png) no-repeat center;
+    bottom: 74px;
+}
+#comeback_body_top{
+    bottom: 24px;
+    text-align:left;
 }
 #comeback_body_top span{
 	display: inline-block;
@@ -36,8 +54,9 @@ body{
     margin-top: 17px;
     margin-left: 10px;
 }
-#comeback_body_top:hover{
-	background:rgba(0,0,0,.6);
+.sidebar>div:hover{
+	background:#389b9f!important;
+	color:#fff;
 }
 .list_header_scroll{
 	box-shadow: 0px 0px 18px rgba(0,0,0,.6);

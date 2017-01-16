@@ -11,15 +11,23 @@ $(window).scroll(function(){
     };
 
     if($(window).scrollTop()>610){
-        $('#comeback_body_top').removeClass('hidecommon');
+        $('.sidebar').removeClass('hidecommon');
     }else{
-        $('#comeback_body_top').addClass('hidecommon');
+        $('.sidebar').addClass('hidecommon');
     }
 });
 $('#comeback_body_top').on('click',function(){
     $('body').animate({scrollTop:"0px"},500)
 });
-
+$("#filterarea").on('click',function(){
+    $(".filter-list>li.area").trigger("click");
+});
+$("#filtertype").on('click',function(){
+    $(".filter-list>li.type").trigger("click");
+});
+$("#filtertime").on('click',function(){
+    $(".filter-list>li.time").trigger("click");
+});
 /*搜索框*/
 $('#btn-search').click(function(){
 	$('.section-filter').hide();

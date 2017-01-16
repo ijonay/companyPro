@@ -751,7 +751,13 @@
     </div>
     
     <!-- 返回顶部 -->
-    <div class="prf pointer hidecommon" id="comeback_body_top"><span></span></div>
+    <div class="sidebar hidecommon">
+        <div class="prf pointer" id="filterarea">所属领域</div>
+        <div class="prf pointer" id="filtertype">文章类型</div>
+        <div class="prf pointer" id="filtertime">推送时间</div>
+        <div class="prf pointer" id="comeback_body_top"><span></span></div>
+    </div>
+    
     
     <script src="lib/jquery-1.12.0.min.js"></script>
     <script src="lib/underscore-min.js"></script>
