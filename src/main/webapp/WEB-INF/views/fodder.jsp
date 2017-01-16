@@ -590,13 +590,12 @@
     		
     		<div class="clearfix"></div>
     	</div>
-
     	<p class="tile-suggest ac f16">相关热点推荐</p>
     	<p class="tile-suggest-n ac f14">与“运营需求相关关键词”相匹配的“热点话题”推荐</p>
-    	
-    	<div style="width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    	<div style="position:relative;width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    		<div id="wordCon"></div>
     		<div  id="canvas" style="display:inline-block;height:320px;width:1076px;background-image:url(./img/metrailBackground.png);background-position:center center;background-repeat:no-repeat;background-size:cover">
-    		     <div class="alertCon" style="color:#000;text-align:left">
+    		     <div class="alertCon" style="color:#000;text-align:left;">
                     <div class="portrait"></div>
                     <div class="info">
                         <div class="infoTop">
@@ -645,7 +644,7 @@
             <div class="tip-title">没有灵感？看看热门文章聚合榜</div>
             <div class="tip-icon"></div>
             <ul class="filter-list">
-                <li class="attention">竞品关注</li>
+                <li class="attention" style="display:none;">竞品关注</li>
                 <li class="area">所属领域<span class="selCount">6</span></li>
                 <li class="type">文章类型<span class="selCount"></span></li>
                 <li class="time">推送时间<span class="selCount"></span></li>
@@ -654,6 +653,7 @@
                     <div class="btn-search"></div>
                 </li>
             </ul>
+            <div class="clearFilter">清空筛选条件</div>
         </div>
         
         <!-- 热门列表 -->
@@ -675,7 +675,7 @@
 	        	</li>
 	        	<li>
 	        		<div class="topicTitle"><span class="topicNum">2</span><span class="currentTitle">文章名称</span></div>
-	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess">+ 关注</span></div>
+	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess"><span class="iconPlus">+</span> 关注</span></div>
 	        		<div><span class="titleStruct colorGreen">强吸引型</span></div>
 	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
 	        		<div><span class="correlatedTopic">#春运一票难求#</span></div>
@@ -695,19 +695,173 @@
 	        		<div><span class="colorGray">247万</span></div>
 	        		<div><p class="processBar"><span class="processBarInner"> </span></p></div>
 	        	</li>
+	        	<li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
+                <li>
+                    <div class="topicTitle"><span class="topicNum">3</span><span class="currentTitle">文章名称</span></div>
+                    <div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
+                    <div><span class="titleStruct colorBlue">强吸引型</span></div>
+                    <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
+                    <div><span class="correlatedTopic">#春运一票难求#</span></div>
+                    <div><span class="colorGray">旅行</span></div>
+                    <div><span class="colorGray">2小时前</span></div>
+                    <div><span class="colorGray">247万</span></div>
+                    <div><p class="processBar"><span class="processBarInner"> </span></p></div>
+                </li>
 	        </ul>
         </div>
     </div>
     
-   
+    <!-- 返回顶部 -->
+    <div class="sidebar hidecommon">
+        <div class="prf pointer" id="filterarea">所属领域</div>
+        <div class="prf pointer" id="filtertype">文章类型</div>
+        <div class="prf pointer" id="filtertime">推送时间</div>
+        <div class="prf pointer" id="comeback_body_top"><span></span></div>
+    </div>
+    
     
     <script src="lib/jquery-1.12.0.min.js"></script>
+    <script src="lib/jsrender.min.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="lib/echarts.js"></script>
+    <script src="lib/echarts-wordcloud.min.js"></script>
     <script src="lib/underscore-min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/dialog.js"></script>
     <script src="js/dialogfodder.js"></script>
     <script src="js/foddernav.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/fodder.js"></script>
+    <script src="js/fodder.js"></script>    
 </body>
 </html>
