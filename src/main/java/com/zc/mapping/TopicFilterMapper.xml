@@ -95,16 +95,17 @@
     <!--," AND topic_id in(#other)  ")}-->
     <!--</sql>-->
 
+    <!--IN语句-->
     <sql id="SearchModel_TopicId_List">
-        ${searchModel.getExistsSql("SELECT topic_id  from TopicFilter t#i  INNER JOIN TopicClass tc ON t#i.filter_id = tc.id  where   filter_id in(#fids) #where  #exists "
-                            ," And (t#i.percentage/tc.percentage)>1 "
-                            ," And t#i.percentage > tc.percentage "
-                            ," AND topic_id in (#tempSql) "
-                            ," SELECT topic_id FROM ( SELECT topic_id, SUM(percentage) curPercentage FROM TopicAgeStatistics ta WHERE 1=1 #dateWhere GROUP BY topic_id ) a
-INNER  JOIN ( SELECT SUM(percentage) allPercentage FROM UserAgeStatictics ua WHERE 1=1 #dateWhere ) b ON 1 = 1 WHERE ( curPercentage / allPercentage ) &gt;= 1  #where"
-                            ," AND year_of_birth &gt;=(YEAR(CURDATE()) - #max) "
-                            ," AND year_of_birth &lt;=(YEAR(CURDATE()) - #min) "
-                            ," AND topic_id in(#other)  ")}
+    ${searchModel.getExistsSql("SELECT topic_id  from TopicFilter t#i  INNER JOIN TopicClass tc ON t#i.filter_id = tc.id  where   filter_id in(#fids) #where  #exists "
+    ," And (t#i.percentage/tc.percentage)>1 "
+    ," And t#i.percentage > tc.percentage "
+    ," AND topic_id in (#tempSql) "
+    ," SELECT topic_id FROM ( SELECT topic_id, SUM(percentage) curPercentage FROM TopicAgeStatistics ta WHERE 1=1 #dateWhere GROUP BY topic_id ) a
+    INNER  JOIN ( SELECT SUM(percentage) allPercentage FROM UserAgeStatictics ua WHERE 1=1 #dateWhere ) b ON 1 = 1 WHERE ( curPercentage / allPercentage ) &gt;= 1  #where"
+    ," AND year_of_birth &gt;=(YEAR(CURDATE()) - #max) "
+    ," AND year_of_birth &lt;=(YEAR(CURDATE()) - #min) "
+    ," AND topic_id in(#other)  ")}
     </sql>
 
     <select id="getTopicIds" resultType="Integer">

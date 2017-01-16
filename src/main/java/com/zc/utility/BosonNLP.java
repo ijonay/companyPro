@@ -2,14 +2,13 @@ package com.zc.utility;
 
 import com.alibaba.fastjson.JSON;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.zc.model.BosonNLPModel;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,16 +19,33 @@ public class BosonNLP {
     private final static Logger logger = LoggerFactory.getLogger(BosonNLP.class);
 
 
-    public List<BosonNLPModel> suggestAnalysis(String keyword) throws UnirestException, IOException {
+    public List<BosonNLPModel> suggestAnalysis(String keyword) throws Exception {
+
         String SENTIMENT_URL = "http://api.bosonnlp.com/suggest/analysis";
+
+//        JSONArray objects = new JSONArray();
+//        objects.add(keyword);
+
         String body = new JSONArray(new String[]{keyword}).toString();
+
+//        String body = objects.toJSONString();
+
         body = body.substring(1, body.length() - 1);
-        HttpResponse<com.mashape.unirest.http.JsonNode> jsonResponse = Unirest.post(SENTIMENT_URL)
+
+//        String keyStr = Request.Post(SENTIMENT_URL)
+//                .addHeader("Accept", "application/json")
+//                .addHeader("X-Token", "dQV9NL2m.11364.qlyiwcqi8S9P")
+//                .bodyString(body, ContentType.DEFAULT_TEXT)
+//                .execute().returnContent().asString();
+
+
+        HttpResponse<JsonNode> jsonResponse = Unirest.post(SENTIMENT_URL)
                 .header("Accept", "application/json")
                 .header("X-Token", "dQV9NL2m.11364.qlyiwcqi8S9P")
                 .body(body)
                 .asJson();
         String keyStr = jsonResponse.getBody().toString();
+
 
         com.alibaba.fastjson.JSONArray jsonArray = JSON.parseArray(keyStr);
 
