@@ -21,7 +21,7 @@ body{
     height: 40px;
     border-radius: 2px;
     background: rgba(0,0,0,.5);
-    right: 48px;
+    right: 47px;
     z-index: 9;
     font-size:14px;
     color:transparent;
@@ -141,7 +141,7 @@ body{
 	background:url(../img/fodder_down_arrow.png) no-repeat center;
 }
 .section-filter .filter-label .filter-list{
-	width:614px;
+	width:488px;
 	height:32px;
 	margin:56px auto 0;
 }

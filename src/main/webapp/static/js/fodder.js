@@ -209,7 +209,7 @@ $(".filter-list>li.ser .btn-search").click(function(){
 $(".filter-list>li.ser input").click(function(e){
     e ? e.stopPropagation() : event.cancelBubble = true;
     $(this).parents("li").css("width","220px");
-    $(this).parents("ul").css("width","724px");
+    $(this).parents("ul").css("width","598px");
 }).change(function(e){
     e ? e.stopPropagation() : event.cancelBubble = true;
     if($(".clearFilter").css("display","none")){
@@ -218,7 +218,7 @@ $(".filter-list>li.ser input").click(function(e){
 });
 $(document).click(function(){
     $("ul.filter-list>li.ser").css("width","110px");
-    $("ul.filter-list").css("width","614px");
+    $("ul.filter-list").css("width","488px");
 })
 /*清空筛选条件*/
 $(".clearFilter").click(function(){

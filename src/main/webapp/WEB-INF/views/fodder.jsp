@@ -552,7 +552,7 @@
             <div class="tip-title">没有灵感？看看热门文章聚合榜</div>
             <div class="tip-icon"></div>
             <ul class="filter-list">
-                <li class="attention">竞品关注</li>
+                <li class="attention" style="display:none;">竞品关注</li>
                 <li class="area">所属领域<span class="selCount">6</span></li>
                 <li class="type">文章类型<span class="selCount"></span></li>
                 <li class="time">推送时间<span class="selCount"></span></li>
