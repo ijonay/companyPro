@@ -57,6 +57,12 @@
     								<span>过年过年</span>
     								<span>过年过年</span>
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -64,6 +70,8 @@
     							<span class="fr">阅读量：100万</span>
     						</div>
     					</div>
+    				</li>
+    				<li>
     					<div class="article-ul-con-arr">
     						<ul>
     							<li>1</li>
@@ -72,6 +80,12 @@
     								<span>过年过年</span>
     								
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -79,6 +93,9 @@
     							<span class="fr">阅读量：100万</span>
     						</div>
     					</div>
+    				</li>
+    				
+    				<li>
     					<div class="article-ul-con-arr">
     						<ul>
     							<li>1</li>
@@ -92,12 +109,13 @@
     								<span>过年过年</span>
     								<span>过年过年</span>
     								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								
-    								
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -106,97 +124,109 @@
     						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
     			</ul>
     		</div>
     		<div class="fl jiegou-con jiegou-con-mar pst">
     			<div class="title-number-pos pos ac f16">
-    				2
+    				1
     				<span></span>
     			</div>
     			<div class="title-top-div">
-    				<p><em>建议结构2:&nbsp;</em><span>强调吸引型</span><i><img src="img/wenhao-icon.png"></i></p>
+    				<p><em>建议结构1:&nbsp;</em><span>疑问式</span><i><img src="img/wenhao-icon.png"></i></p>
     				<p>与您的需求关键词相关的文章中，选择“XXXX式”标题结构的文章综合指数较高</p>
     			</div>
     			
     			<div class="cancel-flat">
-    				<em class="f14">"强调吸引"标题参考文章推荐：</em>
+    				<em class="f14">"疑问式"标题参考文章推荐：</em>
     				<span class="f12 pointer">取消标题结构化</span>
     			</div>
     			
@@ -212,6 +242,12 @@
     								<span>过年过年</span>
     								<span>过年过年</span>
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -219,6 +255,8 @@
     							<span class="fr">阅读量：100万</span>
     						</div>
     					</div>
+    				</li>
+    				<li>
     					<div class="article-ul-con-arr">
     						<ul>
     							<li>1</li>
@@ -227,6 +265,12 @@
     								<span>过年过年</span>
     								
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -234,6 +278,9 @@
     							<span class="fr">阅读量：100万</span>
     						</div>
     					</div>
+    				</li>
+    				
+    				<li>
     					<div class="article-ul-con-arr">
     						<ul>
     							<li>1</li>
@@ -247,12 +294,13 @@
     								<span>过年过年</span>
     								<span>过年过年</span>
     								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								
-    								
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -261,97 +309,110 @@
     						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
     			</ul>
     		</div>
+    		
     		<div class="fl jiegou-con pst">
     			<div class="title-number-pos pos ac f16">
-    				3
+    				1
     				<span></span>
     			</div>
     			<div class="title-top-div">
-    				<p><em>建议结构3:&nbsp;</em><span>福利型</span><i><img src="img/wenhao-icon.png"></i></p>
+    				<p><em>建议结构1:&nbsp;</em><span>疑问式</span><i><img src="img/wenhao-icon.png"></i></p>
     				<p>与您的需求关键词相关的文章中，选择“XXXX式”标题结构的文章综合指数较高</p>
     			</div>
     			
     			<div class="cancel-flat">
-    				<em class="f14">"福利型"标题参考文章推荐：</em>
+    				<em class="f14">"疑问式"标题参考文章推荐：</em>
     				<span class="f12 pointer">取消标题结构化</span>
     			</div>
     			
@@ -367,6 +428,12 @@
     								<span>过年过年</span>
     								<span>过年过年</span>
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -374,6 +441,8 @@
     							<span class="fr">阅读量：100万</span>
     						</div>
     					</div>
+    				</li>
+    				<li>
     					<div class="article-ul-con-arr">
     						<ul>
     							<li>1</li>
@@ -382,6 +451,12 @@
     								<span>过年过年</span>
     								
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -389,6 +464,9 @@
     							<span class="fr">阅读量：100万</span>
     						</div>
     					</div>
+    				</li>
+    				
+    				<li>
     					<div class="article-ul-con-arr">
     						<ul>
     							<li>1</li>
@@ -402,12 +480,13 @@
     								<span>过年过年</span>
     								<span>过年过年</span>
     								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								
-    								
     							</li>
+    							
+    								<div class="article-ul-con-li-div hidecommon">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
     						</ul>
     						
     						<div class="ul-con-arr-div f14">
@@ -416,85 +495,99 @@
     						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    							
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
+    				
     				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
-    					</div>
-    				</li>
-    				<li>
-    					<div class="article-ul-con-li-div">
-    						<i>4</i>
-    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-    						<em>阅读量：1000万</em>
+    					<div class="article-ul-con-arr">
+    						<ul>
+    							<li>1</li>
+    							<li class="hidecommon">
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    								<span>过年过年</span>
+    							</li>
+    							
+    								<div class="article-ul-con-li-div">
+			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
+			    						<em>阅读量：1000万</em>
+			    					</div>
+    						</ul>
+    						
+    						<div class="ul-con-arr-div f14 hidecommon">
+    							<span>来源：中国南方航空</span>
+    							<span class="fr">阅读量：100万</span>
+    						</div>
     					</div>
     				</li>
     			</ul>
     		</div>
+    		
+    		
     		<div class="clearfix"></div>
     	</div>
 
