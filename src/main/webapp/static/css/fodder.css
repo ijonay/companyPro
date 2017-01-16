@@ -517,19 +517,19 @@ width:calc-moz-((100% - 28px)/3);
 width:calc-ms-((100% - 28px)/3);
 width:-webkit-calc((100% - 28px)/3);
 width:calc((100% - 28px)/3);
-height:400px;
 background:#fff;
 border-radius:4px;
 }
 .jiegou-con-mar{margin:0 14px;}
 .title-number-pos{
-	top:-20px;
+	top:-8px;
 	width:32px;
 	height:42px;
 	line-height: 33px;
     font-size: 24px;
-	right:20px;
+	right:10px;
 	background:#389b9f;
+	border-radius: 4px;
 }
 .title-number-pos span{
 	display: block;
@@ -541,18 +541,18 @@ border-radius:4px;
     border-right: 16px solid transparent;
     border-bottom: 12px solid #eee;
 }
-.title-top-div{height:93px;padding:14px 0 0 14px;background:#eee;}  
+.title-top-div{height:93px;padding:14px 0 0 14px;background:#eee;    border-radius: 4px;}  
 .title-top-div p:first-child em{font-size:20px;color:#000;font-style: normal;}
-.title-top-div p:first-child span{border-radius:2px;font-size:18px;color:#fff;background:#e78036;padding: 3px 8px;margin-right:10px;}
+.title-top-div p:first-child span{border-radius:2px;font-size:18px;color:#fff;background:#e78036;padding: 2px 8px;margin-right:10px;}
 .title-top-div p:first-child i img{
 	vertical-align: sub;
 }
-.title-top-div p:last-child{font-size:14px;color:rgba(74,74,74,.8);margin-top:4px;padding-right:14px;text-align:left;}
+.title-top-div p:last-child{ line-height: 17px;font-size:14px;color:rgba(74,74,74,.8);margin-top:4px;padding-right:14px;text-align:left;}
 .cancel-flat{height:48px;line-height:48px;color:#4a4a4a;font-style:normal;padding-left:14px;text-align:right;}
 .cancel-flat em{font-style:normal;float:left;}
 .cancel-flat span{
 	border: 1px solid #389b9f;
-    padding: 6px 10px;
+    padding: 4px 10px;
     border-radius: 19px;
     margin-right: 14px;
 }
@@ -563,18 +563,30 @@ border-radius:4px;
 .article-ul-con::-webkit-scrollbar-corner {background-color: black;}
 .article-ul-con::-webkit-scrollbar {width: 3px;color: blue;height:5px;}
 
-.article-ul-con >li{border-top:1px solid #ccc;}
-.article-ul-con-li-div{height:48px;line-height:48px;padding:0 14px;text-align:right;font-size:14px;}
-.article-ul-con-li-div:hover{background:#ccc;}
+.article-ul-con >li{border-top:1px solid #dcdcdc;}
+.article-ul-con-li-div{
+	width:calc(100% - 30px);
+	width:-webkit-calc(100% - 30px);
+	width:-moz-calc(100% - 30px);
+	width:-o-calc(100% - 30px);
+	width:-ms-calc(100% - 30px);
+	float: left;
+	text-align:right;font-size:14px;}
+.article-ul-con-li-div:hover{background:#f6f6f6;}
 .article-ul-con-li-div i{color:#4a4a4a;margin-right:10px;float:left;font-style: normal;}
-.article-ul-con-li-div span{color:#389b9f;float:left;    width: 200px;
+.article-ul-con-li-div span{color:#389b9f;float:left;   
+	width:calc(100% - 110px);
+	width:-webkit-calc(100% - 110px);
+	width:-moz-calc(100% - 110px);
+	width:-o-calc(100% - 110px);
+	width:-ms-calc(100% - 110px);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;}
-.article-ul-con-li-div em{color:#4a4a4a;font-style: normal;}
-.article-ul-con-arr{border-top:1px solid #eee;transition:all 0.3s;}
+.article-ul-con-li-div em{color:#8999a9;font-style: normal;}
+.article-ul-con-arr{border-top:1px solid #dcdcdc;transition:all 0.3s;}
 .article-ul-con-arr:first-child{margin-top:0;}
-.article-ul-con-arr:hover{background:#ccc;}
+.article-ul-con-arr:hover{background:#f6f6f6;}
 .article-ul-con-arr ul{overflow:hidden;}
 .article-ul-con-arr ul li{float:left;}
 .article-ul-con-arr ul li:first-child{
@@ -586,10 +598,9 @@ border-radius:4px;
     text-align: center;
     line-height: 20px;
     font-size:14px;
-    margin-top: 3px;
 }
 .article-ul-con-arr{padding:12px 14px;}
-.article-ul-con-arr ul li:last-child span{
+.article-ul-con-arr ul li:nth-child(2) span{
 	color:#389b9f;
 	font-size:14px;
 	border-radius:2px;
@@ -600,11 +611,15 @@ border-radius:4px;
 	margin-bottom:5px;
 	
 }
-.article-ul-con-arr ul li:last-child{
+.article-ul-con-arr ul li:nth-child(2){
 	width:calc(100% - 50px);
+	width:-webkit-calc(100% - 50px);
+	width:-moz-calc(100% - 50px);
+	width:-o-calc(100% - 50px);
+	width:-ms-calc(100% - 50px);
 }
 
-.ul-con-arr-div span{color:#4a4a4a;}
+.ul-con-arr-div span{color:#8999a9;}
 .ul-con-arr-div{margin-top:5px;}
 
 
