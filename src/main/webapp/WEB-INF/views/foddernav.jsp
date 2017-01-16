@@ -12,9 +12,6 @@
         <li><a href="fodder">素材探索</a></li>
     </ul>
     <ul class="header-right fr">
-    	<li class="head-search hidecommon" id="head-search">
-        	<input type="text" >
-        </li>
         <li class="head-usericon"><a></a></li>
         
         <li class="head-userinfo">

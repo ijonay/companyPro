@@ -3,14 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>素材探索</title>
+<link rel="icon" href="img/zhiji.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="img/zhiji.ico" type="image/x-icon"/>
 <link  rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/hotresult.css">
 <link  rel="stylesheet" href="css/common.css">
 <link  rel="stylesheet" href="css/foddernav.css">
 <link  rel="stylesheet" href="css/fodder.css">
 <link  rel="stylesheet" href="css/pop.css">
+<link  rel="stylesheet" href="css/popfodder.css">
 </head>
 <body>
     <!-- 顶部导航 -->
@@ -498,7 +502,7 @@
     	<div style="position:relative;width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
     		<div id="wordCon"></div>
     		<div  id="canvas" style="display:inline-block;height:320px;width:1076px;background-image:url(./img/metrailBackground.png);background-position:center center;background-repeat:no-repeat;background-size:cover">
-    		     <div class="alertCon" style="color:#000;text-align:left">
+    		     <div class="alertCon" style="color:#000;text-align:left;">
                     <div class="portrait"></div>
                     <div class="info">
                         <div class="infoTop">
@@ -548,9 +552,9 @@
             <div class="tip-icon"></div>
             <ul class="filter-list">
                 <li class="attention">竞品关注</li>
-                <li class="area">所属领域</li>
-                <li class="type">文章类型</li>
-                <li class="time">推送时间</li>
+                <li class="area">所属领域<span class="selCount">6</span></li>
+                <li class="type">文章类型<span class="selCount"></span></li>
+                <li class="time">推送时间<span class="selCount"></span></li>
                 <li class="ser">
                     <input type="text" placeholder="搜索文章">
                     <div class="btn-search"></div>
@@ -577,7 +581,7 @@
 	        	</li>
 	        	<li>
 	        		<div class="topicTitle"><span class="topicNum">2</span><span class="currentTitle">文章名称</span></div>
-	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess">+ 关注</span></div>
+	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess"><span class="iconPlus">+</span> 关注</span></div>
 	        		<div><span class="titleStruct colorGreen">强吸引型</span></div>
 	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
 	        		<div><span class="correlatedTopic">#春运一票难求#</span></div>
@@ -604,10 +608,14 @@
    
     
     <script src="lib/jquery-1.12.0.min.js"></script>
+    <script src="lib/jsrender.min.js"></script>
+    <script src="js/templates.js"></script>
     <script src="lib/echarts.js"></script>
     <script src="lib/echarts-wordcloud.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/dialog.js"></script>
+    <script src="js/dialogfodder.js"></script>
     <script src="js/foddernav.js"></script>
     <script src="js/common.js"></script>
     <script src="js/fodder.js"></script>    
