@@ -478,9 +478,12 @@ body{
 .iconPlus{
 	line-height:9px;
 	vertical-align:middle;
-	transform:scale(1.7)
+	font-size:22px;
+	height:22px;
+	padding-top:5px;
 }
-    
+.all_hot_bar_scroll{box-shadow: 0px 0px 18px rgba(0,0,0,.3);-o-box-shadow: 0px 0px 18px rgba(0,0,0,.3);-ms-box-shadow: 0px 0px 18px rgba(0,0,0,.3);-webkit-box-shadow: 0px 0px 18px rgba(0,0,0,.3);
+	z-index:10;position:fixed;top:0;width: -webkit-calc(100% - 96px);  width: -ms-calc(100% - 96px);width: -moz-calc(100% - 96px); width:-o- calc(100% - 96px);   width: calc(100% - 96px);min-width:1104px;}
 
 /*搜索结果区域*/
 .section-filter-ser{

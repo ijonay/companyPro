@@ -43,7 +43,7 @@ $('#ser-back-home').click(function(){
 /*热门文章区域*/
 var metrialList = $.templates(templates.design["tmplMetrialList"]);
 var returnData = {
-		data:[{},{},{}]
+		data:[{},{},{},{},{},{},{},{},{},{},{},{}]
 }
 $(".listCon").append(metrialList.render(returnData))
 
@@ -257,6 +257,7 @@ $(document).delegate(".areaList>li,.typeList>li,.timeList>li","click",function(e
         $(this).parents(".fodderWin").find("li").addClass("active");
     }
 })
+
 /*热门文章列表*/
     
 
