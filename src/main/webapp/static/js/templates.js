@@ -234,3 +234,41 @@ templates.design = {};
         }
     });
 })();
+
+(function () {
+    tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('<li>');
+    tmpl.push('  <div class="topicTitle">');
+    tmpl.push('    <span class="topicNum">1</span><span class="currentTitle">文章名称</span>');
+    tmpl.push('  </div>');
+    tmpl.push('  <div>');
+    tmpl.push('    <span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span><span class="careLess"><span class="iconPlus">+</span> 关注</span>');
+    tmpl.push('  </div>');
+    tmpl.push('  <div><span class="titleStruct colorOrg">强吸引型</span></div>');
+    tmpl.push('  <div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>');
+    tmpl.push('  <div><span class="correlatedTopic">#春运一票难求#</span></div>');
+    tmpl.push('  <div><span class="colorGray">旅行</span></div>');
+    tmpl.push('  <div><span class="colorGray">2小时前</span></div>');
+    tmpl.push('  <div><span class="colorGray">247万</span></div>');
+    tmpl.push('  <div><p class="processBar"><span class="processBarInner"> </span></p></div>');
+    tmpl.push('</li>');
+    tmpl.push('{{/for}}');
+    templates.design['tmplMetrialList'] = tmpl.join('\r\n');
+    $.views.helpers({
+        "addTag": function (eventClass) {
+            if (eventClass) {
+                var tagArray = eventClass.split(",");
+                var str = "";
+                $.each(tagArray, function (index, item) {
+                    str += '<div title="' + item + '">' + item + '</div>'
+                })
+                return str;
+            } else {
+                return "";
+            }
+        },
+        "circleReset": function (index) {
+        }
+    });
+})();

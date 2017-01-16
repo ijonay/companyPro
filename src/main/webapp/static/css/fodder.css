@@ -401,6 +401,11 @@ body{
 	background-color:#c9c9c9;
 	color:#fff;
 }
+.iconPlus{
+	line-height:9px;
+	vertical-align:middle;
+	transform:scale(1.7)
+}
     
 
 /*搜索结果区域*/
@@ -533,6 +538,17 @@ border-radius:4px;
 /*
 相关热点推荐
 */
+#wordCon{
+	position:absolute;
+	display:inline-block;
+	width:108px;
+    height:108px;
+    border-radius:54px;
+    top:calc(50% - 5px);
+    left:calc(50% - 8px);
+    z-index:100;
+    transform:translate(-50%,-50%);
+}
 .font14 a{
 	height:24px;
 	line-height:24px;

@@ -497,13 +497,12 @@
     		</div>
     		<div class="clearfix"></div>
     	</div>
-
     	<p class="tile-suggest ac f16">相关热点推荐</p>
     	<p class="tile-suggest-n ac f14">与“运营需求相关关键词”相匹配的“热点话题”推荐</p>
-    	
-    	<div style="width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    	<div style="position:relative;width:100%;height:320px;background:#fff;text-align:center;border-radius:4px;-moz-box-shadow:0px 2px 5px #383838; -webkit-box-shadow:0px 2px 5px #383838; box-shadow:0px 2px 5px #383838;">
+    		<div id="wordCon"></div>
     		<div  id="canvas" style="display:inline-block;height:320px;width:1076px;background-image:url(./img/metrailBackground.png);background-position:center center;background-repeat:no-repeat;background-size:cover">
-    		     <div class="alertCon" style="color:#000;text-align:left">
+    		     <div class="alertCon" style="color:#000;text-align:left;">
                     <div class="portrait"></div>
                     <div class="info">
                         <div class="infoTop">
@@ -582,7 +581,7 @@
 	        	</li>
 	        	<li>
 	        		<div class="topicTitle"><span class="topicNum">2</span><span class="currentTitle">文章名称</span></div>
-	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess">+ 关注</span></div>
+	        		<div><span class="mediaOrg">中国南方航空</span><span class="careLess"><span class="iconPlus">+</span> 关注</span></div>
 	        		<div><span class="titleStruct colorGreen">强吸引型</span></div>
 	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
 	        		<div><span class="correlatedTopic">#春运一票难求#</span></div>
@@ -609,12 +608,16 @@
    
     
     <script src="lib/jquery-1.12.0.min.js"></script>
+    <script src="lib/jsrender.min.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="lib/echarts.js"></script>
+    <script src="lib/echarts-wordcloud.min.js"></script>
     <script src="lib/underscore-min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/dialog.js"></script>
     <script src="js/dialogfodder.js"></script>
     <script src="js/foddernav.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/fodder.js"></script>
+    <script src="js/fodder.js"></script>    
 </body>
 </html>
