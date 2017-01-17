@@ -240,7 +240,7 @@ templates.design = {};
     tmpl.push('{{for data}}');
     tmpl.push('<li>');
     tmpl.push('  <div class="topicTitle">');
-    tmpl.push('    <span class="topicNum">1</span><span class="currentTitle">文章名称</span>');
+    tmpl.push('    <span class="topicNum">1</span><span class="currentTitle"><a href="http://www.baidu.com">文章名称</a></span>');
     tmpl.push('  </div>');
     tmpl.push('  <div>');
     tmpl.push('    <span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span><span class="careLess"><span class="iconPlus">+</span> 关注</span>');
