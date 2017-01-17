@@ -632,7 +632,7 @@
                 </div><!-- 弹窗end -->
     		</div>
     	</div>
-    	<div class="ser-back-home ac pointer" id="ser-back-home">热门文章聚合榜</div>
+    	<div class="ser-back-home ac pointer" id="ser-back-home"><span class="">热门文章聚合榜</span></div>
     </div>
     <!-- 搜索文章区域end -->
     
@@ -663,7 +663,7 @@
 	        </div>
 	        <ul class="listCon">
 	        	<li>
-	        		<div class="topicTitle"><span class="topicNum">1</span><span class="currentTitle">文章名称</span></div>
+	        		<div class="topicTitle"><span class="topicNum">1</span><span class="currentTitle"><a href="http://heptax.com">文章名称</a></span></div>
 	        		<div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
 	        		<div><span class="titleStruct colorOrg">强吸引型</span></div>
 	        		<div><span class="contentKeyWord">春节、回家、机票、春运、亲情</span></div>
@@ -850,7 +850,12 @@
         <div class="prf pointer" id="comeback_body_top"><span></span></div>
     </div>
     
-    
+    <div class="alertMask">
+    	<div class="iframeCon">
+    	   <iframe src="http://www.baidu.com" width="100%" height="100%"></iframe>
+    	   <span class="closeBtn">+</span>
+    	</div>
+    </div>
     <script src="lib/jquery-1.12.0.min.js"></script>
     <script src="lib/jsrender.min.js"></script>
     <script src="js/templates.js"></script>
