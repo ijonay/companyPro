@@ -161,7 +161,7 @@
         ],
         inPage: true,
         uniqueId: "test-user",
-        sendUrl: "/hotspot/api/userActionLog/"
+        sendUrl: "../api/userActionLog/"
     };
     zhu.containerPath = function (item) {
         var pathName = location.pathname.toLowerCase();

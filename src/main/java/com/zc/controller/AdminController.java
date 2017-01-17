@@ -10,7 +10,6 @@ package com.zc.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.zc.bean.Topic;
 import com.zc.model.BosonNLPModel;
 import com.zc.model.TopicModel;
@@ -18,8 +17,6 @@ import com.zc.service.TopicService;
 import com.zc.service.VersionInfoService;
 import com.zc.utility.BosonNLP;
 import com.zc.utility.HttpClientHelper;
-import com.zc.utility.response.ApiResultModel;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -35,7 +32,6 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,29 +57,32 @@ public class AdminController {
     public String index() {
         return "admin/index";
     }
+
     @RequestMapping("/bosonNLP")
     public String retuBoson() {
 
         return "admin/bosonNLP";
     }
+
     @RequestMapping(value = "/bosonNlpKeyWord")
     public String getAssociateKey(@RequestParam(value = "bosonkeyword")
-    String bosonkeyword,Model model) throws UnirestException, IOException {
+                                          String bosonkeyword, Model model) throws Exception {
 //        System.out.println("bosonkeyword========" + bosonkeyword);
         if ("".equals(bosonkeyword)) {
             return "";
         }
-        List<BosonNLPModel> suggestKeys=null;
-             BosonNLP boson=new BosonNLP();
-         
-                suggestKeys = boson.suggestAnalysis(bosonkeyword);
-            
+        List<BosonNLPModel> suggestKeys = null;
+        BosonNLP boson = new BosonNLP();
+
+        suggestKeys = boson.suggestAnalysis(bosonkeyword);
+
         model.addAttribute("suggestKeys", suggestKeys);
 
         return "admin/bosonNLP";
 
 
     }
+
     @RequestMapping("/redisset")
     public String redisset(ModelMap model) {
 
@@ -125,6 +124,7 @@ public class AdminController {
         String labels_url = String.format("https://www.zhihu.com/r/search?q=%s&type=topic", keyword);
 
         String s = Request.Get(labels_url).execute().returnContent().asString();
+
 
         JSONObject jsonObject = JSON.parseObject(s);
         JSONArray htmls = jsonObject.getJSONArray("htmls");
@@ -382,25 +382,25 @@ public class AdminController {
         List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
 
         List<String> childrenTopicNameList = new ArrayList<String>();
-        if(!zhiHuTopicsList.isEmpty()){
+        if (!zhiHuTopicsList.isEmpty()) {
             model.addAttribute("zhiHuTopicsList", zhiHuTopicsList.toString());
             String theFirstTopic = zhiHuTopicsList.get(0);
-            model.addAttribute( "zhiHuFirstTopic",  theFirstTopic);
+            model.addAttribute("zhiHuFirstTopic", theFirstTopic);
             childrenTopicNameList = topicService.getChildrenTopicNames(theFirstTopic);
-            if(childrenTopicNameList.isEmpty()){
-                childrenTopicNameList.add( theFirstTopic );
+            if (childrenTopicNameList.isEmpty()) {
+                childrenTopicNameList.add(theFirstTopic);
             }
         }
 
-        if(!childrenTopicNameList.contains(keyword)){
+        if (!childrenTopicNameList.contains(keyword)) {
             childrenTopicNameList.add(keyword);
         }
         model.addAttribute("childrenTopicNames", childrenTopicNameList.toString());
 
 
-        if( !childrenTopicNameList.isEmpty() && Objects.nonNull(topic)  ){
+        if (!childrenTopicNameList.isEmpty() && Objects.nonNull(topic)) {
 
-            childrenTopicNameList = childrenTopicNameList.stream().map(String :: trim).collect(Collectors.toList());
+            childrenTopicNameList = childrenTopicNameList.stream().map(String::trim).collect(Collectors.toList());
 
             String topicKeywordStr = topic.getKeywords();
             String[] tkwArray = topicKeywordStr.split(",");
@@ -410,11 +410,11 @@ public class AdminController {
 
             List<String> contentSimilarWordList = topicService.getSimilarWords(tkwList, childrenTopicNameList);
 
-            if( Objects.nonNull(contentSimilarWordList) && !contentSimilarWordList.isEmpty() ){
+            if (Objects.nonNull(contentSimilarWordList) && !contentSimilarWordList.isEmpty()) {
                 model.addAttribute("contentSimilarWordList", contentSimilarWordList.toString());
             }
 
-            if ( !contentRepeatedWordList.isEmpty() ) {
+            if (!contentRepeatedWordList.isEmpty()) {
                 model.addAttribute("contentRepeatedWordList", contentRepeatedWordList.toString());
             }
 
@@ -423,7 +423,8 @@ public class AdminController {
         List<String> neighborWordsList = topicService.getTopicNeighborWords(topic, 20);
         model.addAttribute("neighborWordsList", neighborWordsList.toString());
 
-        List<String> neighborRepeatedWordList = topicService.getRepeatedWordList(neighborWordsList, childrenTopicNameList);
+        List<String> neighborRepeatedWordList = topicService.getRepeatedWordList(neighborWordsList,
+                childrenTopicNameList);
         model.addAttribute("neighborRepeatedWordList", neighborRepeatedWordList.toString());
 
         List<String> neighborSimilarWordList = topicService.getSimilarWords(neighborWordsList, childrenTopicNameList);
