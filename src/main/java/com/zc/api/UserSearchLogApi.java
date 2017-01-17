@@ -1,16 +1,13 @@
 package com.zc.api;
 
-import com.zc.bean.UserFavoriteSearchItem;
 import com.zc.bean.UserSearchLog;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.UserSearchLogModel;
-import com.zc.service.SearchItemService;
 import com.zc.service.UserSearchLogService;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
