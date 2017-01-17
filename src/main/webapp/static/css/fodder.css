@@ -541,7 +541,7 @@ border-radius:4px;
     border-right: 16px solid transparent;
     border-bottom: 12px solid #eee;
 }
-.title-top-div{height:93px;padding:14px 0 0 14px;background:#eee;    border-radius: 4px;}  
+.title-top-div{height:93px;padding:14px 0 0 14px;background:#eee;  border-top-left-radius: 4px;border-top-right-radius: 4px}  
 .title-top-div p:first-child em{font-size:20px;color:#000;font-style: normal;}
 .title-top-div p:first-child span{border-radius:2px;font-size:18px;color:#fff;background:#e78036;padding: 2px 8px;margin-right:10px;}
 .title-top-div p:first-child i img{
