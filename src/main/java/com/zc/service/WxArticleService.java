@@ -1,7 +1,6 @@
 package com.zc.service;
 
-import com.zc.model.WxArticleInfoModel;
-
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -9,5 +8,8 @@ import java.util.List;
  */
 public interface WxArticleService {
 
-    List<WxArticleInfoModel> getWxWxArticleInfoList();
+//    List<WxArticleInfoModel> getWxWxArticleInfoList();
+
+
+    List<LinkedHashMap<String, Object>> getStructSearch(List<String> keys);
 }
