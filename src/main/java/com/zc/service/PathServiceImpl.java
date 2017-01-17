@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.BinaryRequestWriter;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,7 +96,7 @@ public class PathServiceImpl implements PathService {
     public NodeRelations getRelations(String startNode, String endNode) {
         NodeRelations result = new NodeRelations();
         String url = PropertyHelper.getValue(Constant.CONFIG_PROPERTIES, Constant.SOLR_URL);
-        HttpSolrServer server = new HttpSolrServer(url);
+        HttpSolrClient server = new HttpSolrClient(url);
         server.setRequestWriter(new BinaryRequestWriter());
         SolrQuery query = new SolrQuery();
         query.setQuery(String.format("weibo_content:\"%s\" OR weibo_content:\"%s\"", startNode, endNode))
@@ -115,7 +115,7 @@ public class PathServiceImpl implements PathService {
                 weiboItemModels.add(weiboItemModel);
             }
             result.setWeiboItemModels(weiboItemModels);
-        } catch (SolrServerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -304,13 +304,13 @@ public class PathServiceImpl implements PathService {
             this.pathList.add(tempPath);
             if (isFirst) {
                 isFirst = false;
-                if( path.size() < MAX_PATHLENGTH ){
+                if (path.size() < MAX_PATHLENGTH) {
                     runRecursion(start.getName(), this.targetVector);
                 }
 
             }
         } else {
-            if ( path.size() < MAX_PATHLENGTH ) {
+            if (path.size() < MAX_PATHLENGTH) {
                 runRecursion(start.getName(), this.targetVector);
             }
         }
@@ -407,12 +407,12 @@ public class PathServiceImpl implements PathService {
     //endregion
 
     //this function is similar to funcation getAllPath
-    private List<PathModel> getAllPathZhiHu(Topic topic,  String keyword){
+    private List<PathModel> getAllPathZhiHu(Topic topic, String keyword) {
 
         String topicKeywordStr = topic.getKeywords();
         String[] tkwArray = topicKeywordStr.split(",");
         List<String> tkwList = new ArrayList<String>(Arrays.asList(tkwArray));
-        tkwList = tkwList.stream().map(String :: trim).collect(Collectors.toList());
+        tkwList = tkwList.stream().map(String::trim).collect(Collectors.toList());
 
         List<PathModel> pathModelList = new ArrayList<>();
         List<String> childrenTopicNameList = Collections.emptyList();
@@ -422,77 +422,86 @@ public class PathServiceImpl implements PathService {
         tkwList.addAll(neighborWordsList);
         tkwList.addAll(titleWordsList);
         tempUniqueSet.addAll(tkwList);
-        List<String> topicKeywordList  = new ArrayList<String>(tempUniqueSet);
-        try{
+        List<String> topicKeywordList = new ArrayList<String>(tempUniqueSet);
+        try {
             List<String> zhiHuTopicsList = HttpClientHelper.searchZhiHuTopics(keyword);
-            if( !zhiHuTopicsList.isEmpty() ){// there is a sub topic ot the keyword at least
+            if (!zhiHuTopicsList.isEmpty()) {// there is a sub topic ot the keyword at least
 
                 String theFirstTopic = zhiHuTopicsList.get(0);
-                if( StringUtils.equals(theFirstTopic,keyword) ){ // the keyword equals the first topic
+                if (StringUtils.equals(theFirstTopic, keyword)) { // the keyword equals the first topic
                     childrenTopicNameList = topicService.getChildrenTopicNames(theFirstTopic);
-                    if( childrenTopicNameList.isEmpty() ){  // there is no sub topics of the theFirstTopic
+                    if (childrenTopicNameList.isEmpty()) {  // there is no sub topics of the theFirstTopic
                         // keyword -> topic keywords -> title
                         //matching the topic keywords directly
                         childrenTopicNameList.add(keyword);
 
                         // repeated words list
-                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList, childrenTopicNameList);
+                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList,
+                                childrenTopicNameList);
                         updateRepeatedWordPathModelList(keyword, repeatedWordList, pathModelList);
 
                         // similar words list
-                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList, childrenTopicNameList);
+                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList,
+                                childrenTopicNameList);
                         updateSimilarWordPathModelList(similarWordList, pathModelList);
 
-                    }else{  // there are sub topics of the theFirstTopic
+                    } else {  // there are sub topics of the theFirstTopic
 
-                        if(!childrenTopicNameList.contains(keyword)){
+                        if (!childrenTopicNameList.contains(keyword)) {
                             childrenTopicNameList.add(keyword);
                         }
                         // repeated words list
-                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList, childrenTopicNameList);
+                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList,
+                                childrenTopicNameList);
                         updateRepeatedWordPathModelList(keyword, repeatedWordList, pathModelList);
 
                         // similar words list
-                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList, childrenTopicNameList);
+                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList,
+                                childrenTopicNameList);
                         updateSimilarWordPathModelList3(keyword, similarWordList, pathModelList);
 
                     }
 
-                }else{ // the keyword doesn't equals the first topic
+                } else { // the keyword doesn't equals the first topic
                     // the first node is the keyword
                     childrenTopicNameList = topicService.getChildrenTopicNames(theFirstTopic);
-                    if( childrenTopicNameList.isEmpty() ){  // match the theFirstTopic with topic keywords
-                        childrenTopicNameList.add( theFirstTopic );
-                        childrenTopicNameList.add( keyword );
+                    if (childrenTopicNameList.isEmpty()) {  // match the theFirstTopic with topic keywords
+                        childrenTopicNameList.add(theFirstTopic);
+                        childrenTopicNameList.add(keyword);
 
                         // repeated words list
-                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList, childrenTopicNameList);
+                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList,
+                                childrenTopicNameList);
                         updateRepeatedWordPathModelList(keyword, repeatedWordList, pathModelList);
 
                         // similar words list
-                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList, childrenTopicNameList);
+                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList,
+                                childrenTopicNameList);
                         updateSimilarWordPathModelList3(keyword, similarWordList, pathModelList);
 
-                    }else { // match the the FirstTopic's sub topics with topic keywords
+                    } else { // match the the FirstTopic's sub topics with topic keywords
                         // keyword -> firstTopic -> sub topics -> topic keywords -> topic
                         // repeated words list
-                        if(!childrenTopicNameList.contains(keyword)){
+                        if (!childrenTopicNameList.contains(keyword)) {
                             childrenTopicNameList.add(keyword);
                         }
-                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList, childrenTopicNameList);
+                        List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList,
+                                childrenTopicNameList);
                         updateRepeatedWordPathModelList3(keyword, theFirstTopic, repeatedWordList, pathModelList);
 
                         // similar words list
-                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList, childrenTopicNameList);
+                        List<String> similarWordList = topicService.getSimilarWords(topicKeywordList,
+                                childrenTopicNameList);
                         updateSimilarWordPathModelList4(keyword, theFirstTopic, similarWordList, pathModelList);
                     }
                 }
 
-            }else{// didn't get zhiHuTopics
+            } else {// didn't get zhiHuTopics
                 //keyword -> topic keywords(content,title,similar) -> topic
                 childrenTopicNameList.add(keyword);
                 // repeated words list
-                List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList, childrenTopicNameList);
+                List<String> repeatedWordList = topicService.getRepeatedWordList(topicKeywordList,
+                        childrenTopicNameList);
                 updateRepeatedWordPathModelList(keyword, repeatedWordList, pathModelList);
                 // similar words list
                 List<String> similarWordList = topicService.getSimilarWords(topicKeywordList, childrenTopicNameList);
@@ -500,90 +509,90 @@ public class PathServiceImpl implements PathService {
 
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return pathModelList;
     }
 
 
-    private void updateRepeatedWordPathModelList(String start,List<String> wordList,List<PathModel> pathModelList){
+    private void updateRepeatedWordPathModelList(String start, List<String> wordList, List<PathModel> pathModelList) {
 
-        wordList.forEach( p -> {
+        wordList.forEach(p -> {
 
-            if(StringUtils.equals(start, p)){
+            if (StringUtils.equals(start, p)) {
                 return;
             }
 
             LinkedList<Node> nodes = new LinkedList<>();
-            nodes.add( new Node(start) );
-            nodes.add( new Node(p) );
+            nodes.add(new Node(start));
+            nodes.add(new Node(p));
 
-            Set<Edge> edges = new HashSet<>() ;
+            Set<Edge> edges = new HashSet<>();
 
             edges.add(new Edge(start, p, WordVectorHelper.getSimilarity(
                     wordService.getWordVectorsByCache(p),
-                    wordService.getWordVectorsByCache(start) )));
+                    wordService.getWordVectorsByCache(start))));
 
-            PathModel model = new PathModel(nodes, edges) ;
+            PathModel model = new PathModel(nodes, edges);
 
-            pathModelList.add( model );
+            pathModelList.add(model);
 
         });
     }
 
 
-    private void updateSimilarWordPathModelList(List<String> wordList,List<PathModel> pathModelList){
+    private void updateSimilarWordPathModelList(List<String> wordList, List<PathModel> pathModelList) {
 
-        wordList.forEach( p -> {
+        wordList.forEach(p -> {
 
             String[] keywords = p.split("-");
 
             LinkedList<Node> nodes = new LinkedList<>();
-            nodes.add( new Node(keywords[0]) );
-            nodes.add( new Node(keywords[1]) );
+            nodes.add(new Node(keywords[0]));
+            nodes.add(new Node(keywords[1]));
 
-            Set<Edge> edges = new HashSet<>() ;
+            Set<Edge> edges = new HashSet<>();
 
             edges.add(new Edge(keywords[0], keywords[1], WordVectorHelper.getSimilarity(
                     wordService.getWordVectorsByCache(keywords[0]),
-                    wordService.getWordVectorsByCache(keywords[1]) )));
+                    wordService.getWordVectorsByCache(keywords[1]))));
 
-            PathModel model = new PathModel(nodes, edges) ;
+            PathModel model = new PathModel(nodes, edges);
 
-            pathModelList.add( model );
+            pathModelList.add(model);
 
         });
 
     }
 
-    private void updateSimilarWordPathModelList3(String start,List<String> wordList,List<PathModel> pathModelList){
+    private void updateSimilarWordPathModelList3(String start, List<String> wordList, List<PathModel> pathModelList) {
         wordList.forEach(words -> {
 
             String[] keywords = words.split("-");
 
-            if( StringUtils.equals(start, keywords[0]) ){
+            if (StringUtils.equals(start, keywords[0])) {
                 LinkedList<Node> nodes = new LinkedList<>();
-                nodes.add( new Node(keywords[0]) );
-                nodes.add( new Node(keywords[1]) );
-                Set<Edge> edges = new HashSet<>() ;
+                nodes.add(new Node(keywords[0]));
+                nodes.add(new Node(keywords[1]));
+                Set<Edge> edges = new HashSet<>();
                 edges.add(new Edge(keywords[0], keywords[1], WordVectorHelper.getSimilarity(
                         wordService.getWordVectorsByCache(keywords[0]),
-                        wordService.getWordVectorsByCache(keywords[1]) )));
-                PathModel model = new PathModel(nodes, edges) ;
-                pathModelList.add( model );
+                        wordService.getWordVectorsByCache(keywords[1]))));
+                PathModel model = new PathModel(nodes, edges);
+                pathModelList.add(model);
                 return;
-            }else if(StringUtils.equals(start, keywords[1])){
+            } else if (StringUtils.equals(start, keywords[1])) {
                 return;
             }
 
             LinkedList<Node> nodes = new LinkedList<>();
 
-            nodes.add( new Node(start) ) ;
-            nodes.add( new Node(keywords[0]) );
-            nodes.add( new Node(keywords[1]) );
+            nodes.add(new Node(start));
+            nodes.add(new Node(keywords[0]));
+            nodes.add(new Node(keywords[1]));
 
-            Set<Edge> edges = new HashSet<>() ;
+            Set<Edge> edges = new HashSet<>();
 
             edges.add(new Edge(start, keywords[0], WordVectorHelper.getSimilarity(
                     wordService.getWordVectorsByCache(keywords[0]),
@@ -591,11 +600,11 @@ public class PathServiceImpl implements PathService {
 
             edges.add(new Edge(keywords[0], keywords[1], WordVectorHelper.getSimilarity(
                     wordService.getWordVectorsByCache(keywords[0]),
-                    wordService.getWordVectorsByCache(keywords[1]) )));
+                    wordService.getWordVectorsByCache(keywords[1]))));
 
-            PathModel model = new PathModel(nodes, edges) ;
+            PathModel model = new PathModel(nodes, edges);
 
-            pathModelList.add( model );
+            pathModelList.add(model);
 
         });
 
@@ -606,7 +615,7 @@ public class PathServiceImpl implements PathService {
                                                   List<PathModel> pathModelList) {
         wordList.forEach(p -> {
 
-            if( StringUtils.equals(firstTopic,p) ){
+            if (StringUtils.equals(firstTopic, p)) {
                 LinkedList<Node> nodes = new LinkedList<>();
                 nodes.add(new Node(start));
                 nodes.add(new Node(firstTopic));
@@ -617,7 +626,7 @@ public class PathServiceImpl implements PathService {
                 PathModel model = new PathModel(nodes, edges);
                 pathModelList.add(model);
                 return;
-            }else if(StringUtils.equals(start,p)){
+            } else if (StringUtils.equals(start, p)) {
                 return;
             }
 
@@ -646,67 +655,67 @@ public class PathServiceImpl implements PathService {
 
     private void updateSimilarWordPathModelList4(String start, String firstTopic,
                                                  List<String> wordList,
-                                                 List<PathModel> pathModelList){
+                                                 List<PathModel> pathModelList) {
         wordList.forEach(words -> {
             String[] keywords = words.split("-");
-            if(StringUtils.equals(start, keywords[0])){
+            if (StringUtils.equals(start, keywords[0])) {
                 LinkedList<Node> nodes = new LinkedList<>();
-                nodes.add( new Node(start) ) ;
-                nodes.add( new Node(keywords[1]) );
-                Set<Edge> edges = new HashSet<>() ;
+                nodes.add(new Node(start));
+                nodes.add(new Node(keywords[1]));
+                Set<Edge> edges = new HashSet<>();
                 edges.add(new Edge(start, keywords[1], WordVectorHelper.getSimilarity(
                         wordService.getWordVectorsByCache(start),
                         wordService.getWordVectorsByCache(keywords[1]))));
-                PathModel model = new PathModel(nodes, edges) ;
-                pathModelList.add( model );
+                PathModel model = new PathModel(nodes, edges);
+                pathModelList.add(model);
                 return;
             }
-            if(StringUtils.equals(start, keywords[1])){
+            if (StringUtils.equals(start, keywords[1])) {
                 return;
             }
-            if(StringUtils.equals(firstTopic, keywords[0])){
+            if (StringUtils.equals(firstTopic, keywords[0])) {
                 LinkedList<Node> nodes = new LinkedList<>();
-                nodes.add( new Node(start) ) ;
-                nodes.add( new Node(firstTopic) ) ;
-                nodes.add( new Node(keywords[1]) ) ;
+                nodes.add(new Node(start));
+                nodes.add(new Node(firstTopic));
+                nodes.add(new Node(keywords[1]));
 
-                Set<Edge> edges = new HashSet<>() ;
+                Set<Edge> edges = new HashSet<>();
 
                 edges.add(new Edge(start, firstTopic, WordVectorHelper.getSimilarity(
-                        wordService.getWordVectorsByCache( start ),
-                        wordService.getWordVectorsByCache( firstTopic ))));
+                        wordService.getWordVectorsByCache(start),
+                        wordService.getWordVectorsByCache(firstTopic))));
 
                 edges.add(new Edge(firstTopic, keywords[1], WordVectorHelper.getSimilarity(
                         wordService.getWordVectorsByCache(firstTopic),
                         wordService.getWordVectorsByCache(keywords[1]))));
 
-                PathModel model = new PathModel(nodes, edges) ;
-                pathModelList.add( model );
+                PathModel model = new PathModel(nodes, edges);
+                pathModelList.add(model);
                 return;
             }
-            if( StringUtils.equals(firstTopic, keywords[1]) ){
+            if (StringUtils.equals(firstTopic, keywords[1])) {
                 LinkedList<Node> nodes = new LinkedList<>();
-                nodes.add( new Node(start) ) ;
-                nodes.add( new Node(firstTopic) ) ;
+                nodes.add(new Node(start));
+                nodes.add(new Node(firstTopic));
 
-                Set<Edge> edges = new HashSet<>() ;
+                Set<Edge> edges = new HashSet<>();
                 edges.add(new Edge(start, firstTopic, WordVectorHelper.getSimilarity(
                         wordService.getWordVectorsByCache(start),
                         wordService.getWordVectorsByCache(firstTopic))));
-                PathModel model = new PathModel(nodes, edges) ;
+                PathModel model = new PathModel(nodes, edges);
 
-                pathModelList.add( model );
+                pathModelList.add(model);
 
                 return;
             }
 
             LinkedList<Node> nodes = new LinkedList<>();
-            nodes.add( new Node(start) ) ;
-            nodes.add( new Node(firstTopic) ) ;
-            nodes.add( new Node(keywords[0]) );
-            nodes.add( new Node(keywords[1]) );
+            nodes.add(new Node(start));
+            nodes.add(new Node(firstTopic));
+            nodes.add(new Node(keywords[0]));
+            nodes.add(new Node(keywords[1]));
 
-            Set<Edge> edges = new HashSet<>() ;
+            Set<Edge> edges = new HashSet<>();
 
             edges.add(new Edge(start, firstTopic, WordVectorHelper.getSimilarity(
                     wordService.getWordVectorsByCache(start),
@@ -718,11 +727,11 @@ public class PathServiceImpl implements PathService {
 
             edges.add(new Edge(keywords[0], keywords[1], WordVectorHelper.getSimilarity(
                     wordService.getWordVectorsByCache(keywords[0]),
-                    wordService.getWordVectorsByCache(keywords[1]) )));
+                    wordService.getWordVectorsByCache(keywords[1]))));
 
-            PathModel model = new PathModel(nodes, edges) ;
+            PathModel model = new PathModel(nodes, edges);
 
-            pathModelList.add( model );
+            pathModelList.add(model);
 
         });
     }
