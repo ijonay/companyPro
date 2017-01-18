@@ -585,7 +585,10 @@ border-radius:4px;
 }
 .title-top-div p:last-child{ line-height: 17px;font-size:14px;color:rgba(74,74,74,.8);margin-top:4px;padding-right:14px;text-align:left;}
 .cancel-flat{height:48px;line-height:48px;color:#4a4a4a;font-style:normal;padding-left:14px;text-align:right;}
-.cancel-flat em{font-style:normal;float:left;}
+.cancel-flat em{font-style:normal;float:left;    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 180px;}
 .cancel-flat span{
 	border: 1px solid #389b9f;
     padding: 4px 10px;
