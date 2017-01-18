@@ -1,9 +1,15 @@
 package com.zc.service;
 
+import com.zc.dao.WxArticleFieldMapper;
+import com.zc.dao.WxArticleInfoMapper;
+import com.zc.model.WxArticleField;
+import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleModel;
 import com.zc.utility.SolrSearchHelper;
 import org.ansj.splitWord.analysis.ToAnalysis;
+import org.apache.ibatis.annotations.Param;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,11 +21,15 @@ import java.util.stream.Collectors;
 @Service
 public class WxArticleServiceImpl implements WxArticleService {
 
+    @Autowired
+    public WxArticleInfoMapper wxArticleInfoMapper;
 
-//    @Override
-//    public List<WxArticleInfoModel> getWxWxArticleInfoList(){
-//
-//    }
+    @Override
+    public List<WxArticleInfoModel> getWxArticleInfoList(
+            @Param("pageSize") Integer pageSize,
+            @Param("rowStart") Integer rowStart) {
+        return wxArticleInfoMapper.getWxArticleList(pageSize, rowStart);
+    }
 
 
     @Override
@@ -103,6 +113,20 @@ public class WxArticleServiceImpl implements WxArticleService {
 
         }
         return result;
+    }
+
+    @Override
+    public List<ArticleModel> getBySearch() {
+
+        return null;
+    }
+
+    @Autowired
+    public WxArticleFieldMapper wxArticleFieldMapper;
+
+    @Override
+    public List<WxArticleField> getWxArticleFields() {
+        return wxArticleFieldMapper.getWxArticleFields();
     }
 
 

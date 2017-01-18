@@ -10,6 +10,7 @@ import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,40 @@ public class TestSolr extends BaseTest {
 
     }
 
+    @Test
+    public void testSearch() {
+
+        List<String> keys = new ArrayList<>();
+        keys.add("春节");
+        keys.add("过年");
+
+        String searchKeys = "title_mmseg:" + String.join(" or title_mmseg:", keys);
+
+
+        SolrQuery solrQuery = new SolrQuery();
+
+        solrQuery
+                .setQuery(searchKeys)
+                .setStart(0)
+                .setRows(1000)
+                .setSort("product(relative_score,query($q))", SolrQuery.ORDER.desc)
+                .set("fl", "id,title_mmseg,title,titleStruct,account_id,account_name,read_num,articleTags,articleType" +
+                        ",structure_type,relative_score,keywords," +
+                        //"content,raw_content," +
+                        "publish_time,articleTags,score");
+
+        Date date = new Date(System.currentTimeMillis() - (1000 * 60 * 60 * 24));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ");
+
+        //fq=publish_time:[2017-01-15T00:00:00Z TO 2017-01-17T00:00:00Z]
+
+        solrQuery.set("fq", "publish_time:" + simpleDateFormat.format(date));
+
+        List<ArticleModel> articles = SolrSearchHelper.query(solrQuery, new ArticleModel());
+
+        return;
+    }
 
     @Test
     public void testSearchByKeys() {
