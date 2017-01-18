@@ -4,10 +4,14 @@ package zc.test;/**
 
 import com.alibaba.fastjson.JSON;
 import com.zc.BaseTest;
+import com.zc.enumeration.PublishDateEnum;
 import com.zc.model.solrmodel.ArticleModel;
+import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.utility.SolrSearchHelper;
+import com.zc.utility.page.Page;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.common.SolrDocumentList;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -44,36 +48,75 @@ public class TestSolr extends BaseTest {
     }
 
     @Test
-    public void testSearch() {
+    public void testSearch() throws Exception {
 
-        List<String> keys = new ArrayList<>();
-        keys.add("春节");
-        keys.add("过年");
 
-        String searchKeys = "title_mmseg:" + String.join(" or title_mmseg:", keys);
+        ArticleSearchModel searchModel = new ArticleSearchModel();
 
+        searchModel.setKeywords("春节 回家 过年");
+        searchModel.setPublishDate(PublishDateEnum.INSEVENDAYS);
+        //searchModel.setStructTypes(Arrays.asList("互动类,视频类".split(",")));
+        searchModel.setTags(Arrays.asList("时事,民生,美体".split((","))));
+
+        Objects.requireNonNull(searchModel.getKeywords());
+
+
+        String searchKeys = "(title:" + String.join(" OR title:", searchModel.getKeywords().split(" " +
+                "")) + ")";
+
+
+        if (Objects.nonNull(searchModel.getTags()) && searchModel.getTags().size() > 0) {
+
+            searchKeys += "AND (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")";
+        }
+
+        if (Objects.nonNull(searchModel.getStructTypes()) && searchModel.getStructTypes().size() > 0) {
+
+            searchKeys += "AND (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
+                    ")";
+        }
 
         SolrQuery solrQuery = new SolrQuery();
 
         solrQuery
                 .setQuery(searchKeys)
-                .setStart(0)
-                .setRows(1000)
-                .setSort("product(relative_score,query($q))", SolrQuery.ORDER.desc)
+                .setStart(searchModel.getStartIndex())
+                .setRows(searchModel.getPageSize())
                 .set("fl", "id,title_mmseg,title,titleStruct,account_id,account_name,read_num,articleTags,articleType" +
                         ",structure_type,relative_score,keywords," +
                         //"content,raw_content," +
                         "publish_time,articleTags,score");
 
-        Date date = new Date(System.currentTimeMillis() - (1000 * 60 * 60 * 24));
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ");
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00'Z'");
 
-        //fq=publish_time:[2017-01-15T00:00:00Z TO 2017-01-17T00:00:00Z]
+        String dateStr1 = null;
+        String dateStr2 = "NOW";
 
-        solrQuery.set("fq", "publish_time:" + simpleDateFormat.format(date));
+        switch (searchModel.getPublishDate()) {
+            case TODAY:
+                dateStr1 = simpleDateFormat.format(new Date(System.currentTimeMillis() - (1 * 1000 * 60 * 60 * 24)));
+                break;
+            case INSEVENDAYS:
+                dateStr1 = simpleDateFormat.format(new Date(System.currentTimeMillis() - (7 * 1000 * 60 * 60 * 24)));
+                break;
+            case INTHIRTYDAYS:
+                dateStr1 = simpleDateFormat.format(new Date(System.currentTimeMillis() - (30 * 1000 * 60 * 60 * 24)));
+                break;
+        }
 
-        List<ArticleModel> articles = SolrSearchHelper.query(solrQuery, new ArticleModel());
+        solrQuery.set("fq", "publish_time:[" + dateStr1 + " TO " + dateStr2 + " ]");
+
+        SolrDocumentList query = SolrSearchHelper.query(solrQuery);
+
+        List<ArticleModel> articleModels = SolrSearchHelper.ConvertModelList(query, new ArticleModel());
+
+        Page page = new Page();
+        page.setPageSize(searchModel.getPageSize());
+        page.setTotalCount(Integer.parseInt(query.getNumFound() + ""));
+        page.setPageNumber(searchModel.getPageNumber());
+        page.data(articleModels);
 
         return;
     }

@@ -3,13 +3,12 @@ package com.zc.api;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
+import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.service.WxArticleService;
+import com.zc.utility.ParamHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,11 +55,14 @@ public class WechatExploreApi {
 
     }
 
-    @RequestMapping(value = "/searchArticle", method = RequestMethod.GET)
-    public ApiResultModel searchArticle() {
+    @RequestMapping(value = "/searchArticle", method = RequestMethod.POST)
+    public ApiResultModel searchArticle(@RequestBody ArticleSearchModel searchModel) throws Exception {
+
+        ParamHelper.lllegalStr(searchModel.getKeywords(), "关键词");
 
         ApiResultModel result = new ApiResultModel();
 
+        result.data(wxArticleService.getBySearch(searchModel));
 
         return result;
     }
@@ -69,18 +71,18 @@ public class WechatExploreApi {
     public ApiResultModel getWxArticleInfoList(
             @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
             @RequestParam(value = "pageSize", required = false, defaultValue = "100") int pageSize
-    ){
+    ) {
         ApiResultModel result = new ApiResultModel();
-        try{
+        try {
             int rowStart = (currentPage - 1) * pageSize;
-            List<WxArticleInfoModel> list = wxArticleService.getWxArticleInfoList(pageSize,rowStart);
-            if(!list.isEmpty()){
+            List<WxArticleInfoModel> list = wxArticleService.getWxArticleInfoList(pageSize, rowStart);
+            if (!list.isEmpty()) {
                 result.setStatusCode(StatusCodeEnum.SUCCESS);
                 result.setData(list);
-            }else{
+            } else {
                 result.setStatusCode(StatusCodeEnum.NOCONTENT);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             result.setStatusCode(StatusCodeEnum.FAILED);
             e.printStackTrace();
         }
