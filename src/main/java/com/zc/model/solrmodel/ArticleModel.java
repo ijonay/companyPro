@@ -10,6 +10,7 @@ public class ArticleModel {
 
     private String id;
     private String title;
+    private String article_url;
     private List<String> title_participle;
     private String articleTags;
     private String titleStruct;
@@ -153,5 +154,13 @@ public class ArticleModel {
 
     public void setTitle_participle(List<String> title_participle) {
         this.title_participle = title_participle;
+    }
+
+    public String getArticle_url() {
+        return article_url;
+    }
+
+    public void setArticle_url(String article_url) {
+        this.article_url = article_url;
     }
 }
