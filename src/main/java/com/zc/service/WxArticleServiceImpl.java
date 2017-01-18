@@ -26,11 +26,10 @@ public class WxArticleServiceImpl implements WxArticleService {
 
     @Override
     public List<WxArticleInfoModel> getWxArticleInfoList(
-            @Param("pageSize")Integer pageSize,
-            @Param("rowStart")Integer rowStart ){
-            return wxArticleInfoMapper.getWxArticleList(pageSize, rowStart);
+            @Param("pageSize") Integer pageSize,
+            @Param("rowStart") Integer rowStart) {
+        return wxArticleInfoMapper.getWxArticleList(pageSize, rowStart);
     }
-
 
 
     @Override
@@ -116,11 +115,17 @@ public class WxArticleServiceImpl implements WxArticleService {
         return result;
     }
 
+    @Override
+    public List<ArticleModel> getBySearch() {
+
+        return null;
+    }
+
     @Autowired
     public WxArticleFieldMapper wxArticleFieldMapper;
 
     @Override
-    public List<WxArticleField> getWxArticleFields(){
+    public List<WxArticleField> getWxArticleFields() {
         return wxArticleFieldMapper.getWxArticleFields();
     }
 
