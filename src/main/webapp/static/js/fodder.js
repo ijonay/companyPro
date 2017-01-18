@@ -46,15 +46,34 @@ $('#ser-back-home').click(function(){
 })
 
 /*热门文章区域*/
-var metrialList = $.templates(templates.design["tmplMetrialList"]);
-var returnData = {
-		data:[{},{},{},{},{},{},{},{},{},{},{},{}]
+var currentPage = 0;
+var pageSize = 100;
+$(document).ready(function(){
+	loadDefaultList();
+})
+function loadDefaultList(){
+	$.ajax({
+        type:"get",
+        contentType: 'application/json',
+        dataType:"json",
+        url:dataUrl.util.getArticalList(),
+        success:function(returnData){
+        	console.log("*****************")
+        	console.log(returnData);
+        	$(".listCon").empty();
+        	var metrialList = $.templates(templates.design["tmplMetrialList"]);
+        	$(".listCon").append(metrialList.render(returnData));
+        },
+        error:function(){
+            console.log('获取标签列表失败');
+        }
+    });
 }
-$(".listCon").append(metrialList.render(returnData))
+
 $(document).on("click",".currentTitle a",function(e){
 	e.preventDefault();
 	var src = $(this).attr("href");
-	console.log(src);
+	$("#htmlCon").attr("src",src);
 	$(".alertMask").show();
 })
 $(".closeBtn").on("click",function(){
@@ -94,6 +113,7 @@ $(".filter-list>li.area").click(function(){
     var pop = new PopFodder({
         width:"706px",
         header:$head,
+        allSelect:true,
         content:$content,
         buttons:[{
             type:"fodderCancle",
@@ -148,6 +168,7 @@ $(".filter-list>li.type").click(function(){
     var pop = new PopFodder({
         width:"706px",
         height:"234px",
+        allSelect:true,
         header:$head,
         content:$content,
         buttons:[{
@@ -201,6 +222,7 @@ $(".filter-list>li.time").click(function(){
     var pop = new PopFodder({
         width:"706px",
         height:"234px",
+        allSelect:false,
         header:$head,
         content:$content,
         buttons:[{
@@ -257,7 +279,7 @@ $(".clearFilter").click(function(){
     $(".filter-list>li.ser input").val("");
     $(this).css("display","none");
 });
-$(document).delegate(".areaList>li,.typeList>li,.timeList>li","click",function(e){
+$(document).delegate(".areaList>li,.typeList>li","click",function(e){
     if($(this).hasClass("active")){
         $(this).removeClass("active");
         $selAll=$(this).parents(".fodderWin").find(".selAll");
@@ -282,6 +304,25 @@ $(document).delegate(".areaList>li,.typeList>li,.timeList>li","click",function(e
     }else{
         $(this).addClass("active");
         $(this).parents(".fodderWin").find("li").addClass("active");
+    }
+}).delegate(".timeList>li","click",function(e){
+    if($(this).hasClass("active")){
+//        $(this).removeClass("active");
+//        $selAll=$(this).parents(".fodderWin").find(".selAll");
+//        if($selAll.hasClass("active")){
+//            $selAll.removeClass("active");
+//        }
+    }else{
+        $(this).addClass("active");
+        $(this).siblings().removeClass("active");
+//        var allLen=$(this).parents("ul").find("li").length;
+//        var activeLen=$(this).parents("ul").find("li.active").length;
+//        if(allLen==activeLen){
+//            $selAll=$(this).parents(".fodderWin").find(".selAll");
+//            if(!$selAll.hasClass("active")){
+//                $selAll.addClass("active");
+//            }
+//        } 
     }
 })
 
@@ -506,8 +547,7 @@ function similarHot(data){
 		            color: ["#fff"]
 		        },
 		        emphasis: {
-		            shadowBlur: 10,
-		            shadowColor: '#333'
+		            shadowColor: '#fff'
 		        }
 		    },
 		    data: []

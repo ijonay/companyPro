@@ -84,6 +84,9 @@ dataUrl.util = {
     },
     getArticalFileds:function(){
     	return "api/wechat/wxArticleFields"
+    },
+    getArticalList:function(){
+    	return "api/wechat/wxArticleList"
     }
 }
 
