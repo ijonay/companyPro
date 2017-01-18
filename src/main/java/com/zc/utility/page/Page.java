@@ -42,6 +42,17 @@ public class Page {
     }
 
     /**
+     * 获取开始项
+     *
+     * @return
+     */
+    public int getStartIndex() {
+
+        return (this.getPageNumber() - 1)
+                * this.getPageSize();
+    }
+
+    /**
      * @return the pageSize
      */
     public Integer getPageSize() {
@@ -160,7 +171,7 @@ public class Page {
     }
 
     private Integer pageNumber = 1;
-    private Integer pageSize = 10;
+    private Integer pageSize = 100;
     private Integer pageCount;
     private Integer totalCount = 0;
 

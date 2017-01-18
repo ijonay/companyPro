@@ -12,7 +12,6 @@ import java.util.Arrays;
 public class ParamHelper {
 
 
-
     /**
      * 检查非法Integer参数 有非法值就返回true
      *
@@ -57,7 +56,7 @@ public class ParamHelper {
      * @param checkStrs
      * @创建人 xyzhuzhou @创建时间 2016年7月14日 下午6:47:48
      */
-    public static void lllegalStr(String errorMsg, String checkStrs) {
+    public static void lllegalStr(String checkStrs, String errorMsg) {
 
         if (isInValidStr(checkStrs)) {
 
