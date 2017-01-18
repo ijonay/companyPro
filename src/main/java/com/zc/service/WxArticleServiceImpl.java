@@ -48,7 +48,8 @@ public class WxArticleServiceImpl implements WxArticleService {
                 .setStart(0)
                 .setRows(1000)
                 .setSort("product(relative_score,query($q))", SolrQuery.ORDER.desc)
-                .set("fl", "id,title_mmseg,title,titleStruct,account_id,account_name,read_num,articleTags,articleType" +
+                .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
+                        "articleTags,articleType" +
                         ",structure_type,relative_score,keywords," +
                         //"content,raw_content," +
                         "publish_time,articleTags,score");
@@ -172,7 +173,9 @@ public class WxArticleServiceImpl implements WxArticleService {
                 .setQuery(searchKeys)
                 .setStart(searchModel.getStartIndex())
                 .setRows(searchModel.getPageSize())
-                .set("fl", "id,title_mmseg,title,titleStruct,account_id,account_name,read_num,articleTags,articleType" +
+                .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
+                        "articleTags," +
+                        "articleType" +
                         ",structure_type,relative_score,keywords," +
                         //"content,raw_content," +
                         "publish_time,articleTags,score");
