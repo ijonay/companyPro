@@ -1,6 +1,9 @@
 package com.zc.service;
 
+import com.zc.model.WxArticleField;
+import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleModel;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,8 +13,11 @@ import java.util.List;
  */
 public interface WxArticleService {
 
-//    List<WxArticleInfoModel> getWxWxArticleInfoList();
+    List<WxArticleInfoModel> getWxArticleInfoList(
+            @Param("pageSize") Integer pageSize,
+            @Param("rowStart") Integer rowStart);
 
+    List<WxArticleField> getWxArticleFields();
 
     List<LinkedHashMap<String, Object>> getStructSearch(List<String> keys);
 
