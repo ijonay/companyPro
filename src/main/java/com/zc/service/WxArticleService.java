@@ -1,5 +1,7 @@
 package com.zc.service;
 
+import com.zc.model.solrmodel.ArticleModel;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -12,4 +14,8 @@ public interface WxArticleService {
 
 
     List<LinkedHashMap<String, Object>> getStructSearch(List<String> keys);
+
+
+    List<ArticleModel> getBySearch();
+
 }

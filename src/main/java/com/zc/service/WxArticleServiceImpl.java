@@ -105,5 +105,10 @@ public class WxArticleServiceImpl implements WxArticleService {
         return result;
     }
 
+    @Override
+    public List<ArticleModel> getBySearch() {
+        return null;
+    }
+
 
 }
