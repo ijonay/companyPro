@@ -61,6 +61,24 @@ $('#btn-search').click(function(){
 	}
 	
 })
+//取消结构
+$(document).delegate('.canceljiegou','click',function(){
+	var text = $(this).text();
+	if(text === '取消标题结构化'){
+		$(this).text('查看标题结构化');
+		$(this).parent().next().find('.jiegoufengci').hide();
+		$(this).parent().next().find('.ul-con-arr-div3').hide();
+		$(this).parent().next().find('.article-ul-con-li-div3').show();
+	}
+	if(text === '查看标题结构化'){
+		$(this).text('取消标题结构化');
+		$(this).parent().next().find('.article-ul-con-li-div3').hide();
+		$(this).parent().next().find('.jiegoufengci').show();
+		$(this).parent().next().find('.ul-con-arr-div3').show();
+		
+	}
+	
+})
 //回到热门文章
 $('#ser-back-home').click(function(){
 	filterSta = true;
