@@ -2,6 +2,8 @@ package com.zc.model;
 
 public class WxArticleInfoModel {
 
+    private String id;
+
     private String title;
 
     private String structureType;
@@ -130,5 +132,13 @@ public class WxArticleInfoModel {
 
     public void setTopicTitle(String topicTitle) {
         this.topicTitle = topicTitle;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
