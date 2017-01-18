@@ -271,4 +271,71 @@ templates.design = {};
         "circleReset": function (index) {
         }
     });
+})
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('{{if #index == 1}}<div class="fl jiegou-con jiegou-con-mar pst">{{else}}<div class="fl jiegou-con pst">{{/if}}');
+    tmpl.push('<div class="title-number-pos pos ac f16">{{:#index}}');
+    tmpl.push('<span></span>');
+    tmpl.push('</div>');
+    tmpl.push('<div class="title-top-div">');
+    tmpl.push('<p><em>建议结构1:&nbsp;</em><span>{{:name}}</span><i><img src="img/wenhao-icon.png"></i></p>');
+    tmpl.push('<p>与您的需求关键词相关的文章中，选择“XXXX式”标题结构的文章综合指数较高</p>');
+    tmpl.push('</div>');
+	
+    tmpl.push('<div class="cancel-flat">');
+    tmpl.push('<em class="f14">"{{:name}}"标题参考文章推荐：</em>');
+    tmpl.push('<span class="f12 pointer">取消标题结构化</span>');
+    tmpl.push('</div>');
+	
+    tmpl.push('<ul class="article-ul-con">');
+    tmpl.push('<li>');
+    tmpl.push('<div class="article-ul-con-arr">');
+    tmpl.push('<ul>');
+    tmpl.push('<li>1</li>');
+    tmpl.push('<li>');
+    tmpl.push('{{for data}}');
+    tmpl.push('<span>{{:title_participle}}</span>');
+    tmpl.push('{{/for}}');
+    tmpl.push('</li>');
+    tmpl.push('<div class="article-ul-con-li-div hidecommon">');
+    tmpl.push('<span>{{:title}}</span>');
+    tmpl.push('<em>阅读量：{{:read_num}}</em>');
+    tmpl.push('</div>');
+	tmpl.push('</ul>');
+				
+	tmpl.push('<div class="ul-con-arr-div f14">');
+	tmpl.push('<span>来源：{{:account_name}}</span>');
+	tmpl.push('<span class="fr">阅读量：{{:read_num}}</span>');
+	tmpl.push('</div>');
+	tmpl.push('</div>');
+	tmpl.push('</li>');
+//		
+//	tmpl.push('<li>');
+//	tmpl.push('<div class="article-ul-con-arr">');
+//	tmpl.push('<ul>');
+//	tmpl.push('<li>1</li>');
+//	tmpl.push('<li class="hidecommon">');
+//	tmpl.push('<span>过年过年</span>');
+//	tmpl.push('<span>过年过年</span>');
+//	tmpl.push('<span>过年过年</span>');
+//						
+//	tmpl.push('</li>');
+//	tmpl.push('<div class="article-ul-con-li-div">');
+//	tmpl.push('<span>文章名称文章名称文章名称文章名称文章名称</span>');
+//	tmpl.push('<em>阅读量：1000万</em>');
+//    tmpl.push('</div>');
+//	tmpl.push('</ul>');
+//				
+//	tmpl.push('<div class="ul-con-arr-div f14 hidecommon">');
+//	tmpl.push('<span>来源：中国南方航空</span>');
+//	tmpl.push('<span class="fr">阅读量：100万</span>');
+//	tmpl.push('</div>');
+//	tmpl.push('</div>');
+//	tmpl.push('</li>');
+//	tmpl.push('</ul>');
+	tmpl.push('</div>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplserarticle'] = tmpl.join('\r\n');
 })();

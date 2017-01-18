@@ -32,10 +32,33 @@ $("#filtertime").on('click',function(){
     $(".filter-list>li.time").trigger("click");
 });
 /*搜索框*/
+var serarticlelist = $.templates(templates.design["tmplserarticle"]);
 $('#btn-search').click(function(){
 	filterSta = false;
 	$('.section-filter').hide();
 	$('.section-filter-ser').show();
+	val = $('#txt-search').val;
+	if(val){
+		$.ajax({
+	        type:"get",
+	        contentType: 'application/json',
+	        dataType:"json",
+	        url:'api/wechat/structSearch?kw=北京',
+	        success:function(returnData){
+	        	if(returnData.error.code == 0 && returnData.data.length>0){
+	        		console.log(returnData);
+	        		$('#jiegou-con-div').html('');
+	        		$('#jiegou-con-div').append(serarticlelist.render(returnData))
+	        	}
+	        	
+	        },
+	        error:function(){
+	            console.log('获取标签列表失败');
+	        }
+	    });
+	}else{
+		return;
+	}
 	
 })
 //回到热门文章

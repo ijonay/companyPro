@@ -29,7 +29,7 @@
     <div class="section-filter-ser hidecommon" >
     	<p class="tile-suggest ac f16">标题结构建议</p>
     	<p class="tile-suggest-n ac f14">最符合运营需求的“结构化标题类型推荐”及“文章参考”</p>
-    	<div style="width:100%;">
+    	<div style="width:100%;" id="jiegou-con-div">
     		<div class="fl jiegou-con pst">
     			<div class="title-number-pos pos ac f16">
     				1
@@ -71,59 +71,8 @@
     						</div>
     					</div>
     				</li>
-    				<li>
-    					<div class="article-ul-con-arr">
-    						<ul>
-    							<li>1</li>
-    							<li>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								
-    							</li>
-    							
-    								<div class="article-ul-con-li-div hidecommon">
-			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-			    						<em>阅读量：1000万</em>
-			    					</div>
-    							
-    						</ul>
-    						
-    						<div class="ul-con-arr-div f14">
-    							<span>来源：中国南方航空</span>
-    							<span class="fr">阅读量：100万</span>
-    						</div>
-    					</div>
-    				</li>
     				
-    				<li>
-    					<div class="article-ul-con-arr">
-    						<ul>
-    							<li>1</li>
-    							<li>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    							</li>
-    							
-    								<div class="article-ul-con-li-div hidecommon">
-			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-			    						<em>阅读量：1000万</em>
-			    					</div>
-    							
-    						</ul>
-    						
-    						<div class="ul-con-arr-div f14">
-    							<span>来源：中国南方航空</span>
-    							<span class="fr">阅读量：100万</span>
-    						</div>
-    					</div>
-    				</li>
+    				
     				
     				<li>
     					<div class="article-ul-con-arr">
@@ -155,64 +104,9 @@
     					</div>
     				</li>
     				
-    				<li>
-    					<div class="article-ul-con-arr">
-    						<ul>
-    							<li>1</li>
-    							<li class="hidecommon">
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    							</li>
-    							
-    								<div class="article-ul-con-li-div">
-			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-			    						<em>阅读量：1000万</em>
-			    					</div>
-    							
-    						</ul>
-    						
-    						<div class="ul-con-arr-div f14 hidecommon">
-    							<span>来源：中国南方航空</span>
-    							<span class="fr">阅读量：100万</span>
-    						</div>
-    					</div>
-    				</li>
     				
-    				<li>
-    					<div class="article-ul-con-arr">
-    						<ul>
-    							<li>1</li>
-    							<li class="hidecommon">
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    								<span>过年过年</span>
-    							</li>
-    							
-    								<div class="article-ul-con-li-div">
-			    						<span>文章名称文章名称文章名称文章名称文章名称</span>
-			    						<em>阅读量：1000万</em>
-			    					</div>
-    						</ul>
-    						
-    						<div class="ul-con-arr-div f14 hidecommon">
-    							<span>来源：中国南方航空</span>
-    							<span class="fr">阅读量：100万</span>
-    						</div>
-    					</div>
-    				</li>
+    				
+    				
     			</ul>
     		</div>
     		<div class="fl jiegou-con jiegou-con-mar pst">
