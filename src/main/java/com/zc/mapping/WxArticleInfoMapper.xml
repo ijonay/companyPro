@@ -25,7 +25,7 @@
   </sql>
 
   <select id="getWxArticleList" resultMap="BaseResultMap" >
-	select daily.title, daily.account_id, daily.account_name,
+	select daily.id, daily.title, daily.account_id, daily.account_name,
 	article.structure_type, daily.article_tags, daily.publish_time,
 	daily.read_num,daily.relative_score,article.keywords,article.article_url
 	from wxarticlerankdaily daily
