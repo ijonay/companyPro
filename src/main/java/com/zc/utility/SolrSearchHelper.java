@@ -20,18 +20,23 @@ import java.util.Objects;
 public class SolrSearchHelper {
 
 
-    public static <T> List<T> query(SolrQuery query, T t) {
-
+    public static SolrDocumentList query(SolrQuery query) throws Exception {
 
         HttpSolrClient solrClient = new HttpSolrClient(getServerUrl());
 
         solrClient.setRequestWriter(new BinaryRequestWriter());
 
+        QueryResponse response = solrClient.query(query);
+
+        return response.getResults();
+
+    }
+
+    public static <T> List<T> query(SolrQuery query, T t) {
+
         try {
 
-            QueryResponse response = solrClient.query(query);
-
-            SolrDocumentList results = response.getResults();
+            SolrDocumentList results = query(query);
 
             List<T> result = ConvertModelList(results, t);
 
@@ -44,15 +49,15 @@ public class SolrSearchHelper {
         return null;
     }
 
-    private static <T> List<T> ConvertModelList(SolrDocumentList docs, T t) {
+    public static <T> List<T> ConvertModelList(SolrDocumentList docs, T t) {
 
         List<T> result = new ArrayList<>();
 
-        docs.forEach(p -> {
+        for (int i = 0; i < docs.size(); i++) {
+            SolrDocument p = docs.get(i);
             T model = ConvertModel(p, t);
             if (Objects.nonNull(model)) result.add(model);
-        });
-
+        }
         return result;
     }
 

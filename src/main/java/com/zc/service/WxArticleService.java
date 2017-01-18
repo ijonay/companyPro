@@ -2,7 +2,8 @@ package com.zc.service;
 
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
-import com.zc.model.solrmodel.ArticleModel;
+import com.zc.model.solrmodel.ArticleSearchModel;
+import com.zc.utility.page.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.LinkedHashMap;
@@ -21,7 +22,6 @@ public interface WxArticleService {
 
     List<LinkedHashMap<String, Object>> getStructSearch(List<String> keys);
 
-
-    List<ArticleModel> getBySearch();
+    Page getBySearch(ArticleSearchModel searchModel) throws Exception;
 
 }

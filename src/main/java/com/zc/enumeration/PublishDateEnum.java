@@ -12,16 +12,15 @@ public enum PublishDateEnum {
     /**
      * 今日
      */
-    TODAY(1),
+    TODAY(0),
     /**
      * 近七天
      */
-    INSEVENDAYS(2),
+    INSEVENDAYS(1),
     /**
      * 近三十天
-     * 近三十天
      */
-    INTHIRTYDAYS(3);
+    INTHIRTYDAYS(2);
 
     private final int value;
 
