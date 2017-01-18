@@ -136,60 +136,61 @@
                         })
                     });
 
-                    $(".addUser").click(function () {
-
-                        if (curObj != null)
-                        {
-                            $("input[data-role='val']").val("");
-                            $("#password").val("1234567")
-                        }
-
-                        curObj = null;
-
-                        $('#myModal').modal();
-                    });
-
-
-                    $(".save").click(function () {
-                        var vailData = [
-                            {objId: "userName", defSubject: "用户名"}
-                        ];
-                        if (curObj == null) {
-                            vailData.push({objId: "password", defSubject: "密码", minLength: 8, maxLength: 25});
-                            var flag = KD.Form.validateField(vailData, KD.ShowDialog.showWarning);
-                            if (flag) {
-                                var jsonData = KD.Form.getParams();
-                                jsonData = $.extend({}, curObj, jsonData);
-                                jsonData["confirmPassword"] = jsonData.password;
-                                User.addUser(KD.Json.getString(jsonData), function (data) {
-                                    if (data.error.code == 0) {
-                                        initData();
-                                        KD.showWarning("操作成功！");
-                                        $('#myModal').modal("hide");
-                                    } else {
-                                        KD.showWarning(data.error.message);
-                                    }
-                                })
-                            }
-                        } else {
-                            var flag = KD.Form.validateField(vailData, KD.ShowDialog.showWarning);
-                            if (flag) {
-                                var jsonData = KD.Form.getParams();
-                                jsonData = $.extend({}, curObj, jsonData);
-                                User.updateUser(curObj.id, KD.Json.getString(jsonData), function (data) {
-                                    if (data.error.code == 0) {
-                                        initData();
-                                        KD.showWarning("操作成功！");
-                                        $('#myModal').modal("hide");
-                                    } else {
-                                        KD.showWarning(data.error.message);
-                                    }
-                                })
-                            }
-                        }
-                    });
 
                 }
+
+                $(".addUser").click(function () {
+
+                    if (curObj != null) {
+                        $("input[data-role='val']").val("");
+                        $("#password").val("1234567")
+                    }
+
+                    curObj = null;
+
+                    $('#myModal').modal();
+                });
+
+
+                $(".save").click(function () {
+                    var vailData = [
+                        {objId: "userName", defSubject: "用户名"}
+                    ];
+                    if (curObj == null) {
+                        vailData.push({objId: "password", defSubject: "密码", minLength: 8, maxLength: 25});
+                        var flag = KD.Form.validateField(vailData, KD.ShowDialog.showWarning);
+                        if (flag) {
+                            var jsonData = KD.Form.getParams();
+                            jsonData = $.extend({}, curObj, jsonData);
+                            jsonData["confirmPassword"] = jsonData.password;
+                            User.addUser(KD.Json.getString(jsonData), function (data) {
+                                if (data.error.code == 0) {
+                                    initData();
+                                    KD.showWarning("操作成功！");
+                                    $('#myModal').modal("hide");
+                                } else {
+                                    KD.showWarning(data.error.message);
+                                }
+                            })
+                        }
+                    } else {
+                        var flag = KD.Form.validateField(vailData, KD.ShowDialog.showWarning);
+                        if (flag) {
+                            var jsonData = KD.Form.getParams();
+                            jsonData = $.extend({}, curObj, jsonData);
+                            User.updateUser(curObj.id, KD.Json.getString(jsonData), function (data) {
+                                if (data.error.code == 0) {
+                                    initData();
+                                    KD.showWarning("操作成功！");
+                                    $('#myModal').modal("hide");
+                                } else {
+                                    KD.showWarning(data.error.message);
+                                }
+                            })
+                        }
+                    }
+                });
+
 
                 initData();
 

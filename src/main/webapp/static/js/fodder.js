@@ -2,6 +2,7 @@
 $(".header-left li:last a").css("color","#fff").attr("href","javascript:;");
 
 /*返回顶部*/
+filterSta = true;
 $(window).scroll(function(){
 
     if($(window).scrollTop()>540){
@@ -9,12 +10,14 @@ $(window).scroll(function(){
     }else{
         $('.list-header').removeClass('list_header_scroll');
     };
-
-    if($(window).scrollTop()>610){
-        $('.sidebar').removeClass('hidecommon');
-    }else{
-        $('.sidebar').addClass('hidecommon');
+    if(filterSta){
+    	if($(window).scrollTop()>610){
+            $('.sidebar').removeClass('hidecommon');
+        }else{
+            $('.sidebar').addClass('hidecommon');
+        }
     }
+    
 });
 $('#comeback_body_top').on('click',function(){
     $('body').animate({scrollTop:"0px"},500)
@@ -30,12 +33,14 @@ $("#filtertime").on('click',function(){
 });
 /*搜索框*/
 $('#btn-search').click(function(){
+	filterSta = false;
 	$('.section-filter').hide();
 	$('.section-filter-ser').show();
 	
 })
 //回到热门文章
 $('#ser-back-home').click(function(){
+	filterSta = true;
 	$('.section-filter-ser').hide();
 	$('.section-filter').show();
 })
@@ -46,23 +51,45 @@ var returnData = {
 		data:[{},{},{},{},{},{},{},{},{},{},{},{}]
 }
 $(".listCon").append(metrialList.render(returnData))
-
+$(document).on("click",".currentTitle a",function(e){
+	e.preventDefault();
+	var src = $(this).attr("href");
+	console.log(src);
+	$(".alertMask").show();
+})
+$(".closeBtn").on("click",function(){
+	$(this).parent().parent().hide();
+})
 /*筛选热门文章*/
 /*区域弹窗*/
 $(".filter-list>li.area").click(function(){
-    var result=$(this).data("selected");
+	var result=$(this).data("selected");
     var _this=$(this);
-    var labArr=["时事","民生","美体","百科","健康","财富","科技","创业","时尚","美食","乐活","教育",
-                "楼市","职场","体娱","幽默","情感","企业","学术","政务","文摘","汽车","旅行","文化","其他"]
     var $content=$("<ul class='areaList'></ul>");
-    $.each(labArr,function(idx,item){
-        var id=idx+1;
-        $item=$("<li data-id='"+id+"'>"+item+"</li>");
-        if(result&&result.length>0&&_.indexOf(result, id)!=-1){
-            $item.addClass("active");
+	$.ajax({
+        type:"get",
+        contentType: 'application/json',
+        dataType:"json",
+        url:dataUrl.util.getArticalFileds(),
+        success:function(returnData){
+        	if(returnData.error.code == 0 && returnData.data.length>0){
+        		
+        		$.each(returnData.data,function(idx,item){
+                    var id=item.id;
+                    $item=$("<li data-id='"+id+"'>"+item.name+"</li>");
+                    if(result&&result.length>0&&_.indexOf(result, id)!=-1){
+                        $item.addClass("active");
+                    }
+                    $content.append($item);
+                })
+        	}
+        	
+        },
+        error:function(){
+            console.log('获取标签列表失败');
         }
-        $content.append($item);
-    })
+    });
+    
     var $head=$("<div style='background:url(img/headArea.png) no-repeat left center;'>所属领域筛选<div>");
     var pop = new PopFodder({
         width:"706px",

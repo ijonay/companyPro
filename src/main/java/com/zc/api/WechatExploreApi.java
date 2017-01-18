@@ -7,10 +7,13 @@ import com.zc.service.WxArticleService;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by zhangchengli on 2017/1/17.
@@ -23,7 +26,7 @@ public class WechatExploreApi {
     public WxArticleService wxArticleService;
 
     @RequestMapping("/wxArticleFields")
-    public ApiResultModel getWxArticleFiledList(){
+    public ApiResultModel getWxArticleFiledList() {
         ApiResultModel result = new ApiResultModel();
         try {
             List<WxArticleField> fieldList = wxArticleService.getWxArticleFields();
@@ -40,6 +43,28 @@ public class WechatExploreApi {
         return result;
     }
 
+    @RequestMapping(value = "/structSearch", method = RequestMethod.GET)
+    public ApiResultModel getWxArticleTtitleStructSearch(@RequestParam("kw") String keywords) {
+
+        Objects.requireNonNull(keywords);
+
+        ApiResultModel result = new ApiResultModel();
+
+        result.data(wxArticleService.getStructSearch(Arrays.asList(keywords.split(" "))));
+
+        return result;
+
+    }
+
+    @RequestMapping(value = "/searchArticle", method = RequestMethod.GET)
+    public ApiResultModel searchArticle() {
+
+        ApiResultModel result = new ApiResultModel();
+
+
+        return result;
+    }
+
     @RequestMapping("/wxArticleList")
     public ApiResultModel getWxArticleInfoList(
             @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -48,7 +73,7 @@ public class WechatExploreApi {
         ApiResultModel result = new ApiResultModel();
         try{
             int rowStart = (currentPage - 1) * pageSize;
-            List<WxArticleInfoModel> list = wxArticleService.getWxWxArticleInfoList(pageSize,rowStart);
+            List<WxArticleInfoModel> list = wxArticleService.getWxArticleInfoList(pageSize,rowStart);
             if(!list.isEmpty()){
                 result.setStatusCode(StatusCodeEnum.SUCCESS);
                 result.setData(list);
@@ -59,6 +84,7 @@ public class WechatExploreApi {
             result.setStatusCode(StatusCodeEnum.FAILED);
             e.printStackTrace();
         }
+
         return result;
     }
 

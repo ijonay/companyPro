@@ -1,6 +1,7 @@
 package com.zc.model.solrmodel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * ArticleModel
@@ -9,7 +10,12 @@ public class ArticleModel {
 
     private String id;
     private String title;
+    private List<String> title_participle;
     private String articleTags;
+    private String titleStruct;
+    private String account_id;
+    private String account_name;
+    private Integer read_num;
     private String articleType;
     private String structure_type;
     private Date publish_time;
@@ -17,6 +23,7 @@ public class ArticleModel {
     private String keywords;
     private String content;
     private String raw_content;
+    private Float score;
 
 
     public String getId() {
@@ -98,5 +105,53 @@ public class ArticleModel {
 
     public void setRelative_score(Float relative_score) {
         this.relative_score = relative_score;
+    }
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
+    public String getTitleStruct() {
+        return titleStruct;
+    }
+
+    public void setTitleStruct(String titleStruct) {
+        this.titleStruct = titleStruct;
+    }
+
+    public String getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
+    }
+
+    public String getAccount_name() {
+        return account_name;
+    }
+
+    public void setAccount_name(String account_name) {
+        this.account_name = account_name;
+    }
+
+    public Integer getRead_num() {
+        return read_num;
+    }
+
+    public void setRead_num(Integer read_num) {
+        this.read_num = read_num;
+    }
+
+    public List<String> getTitle_participle() {
+        return title_participle;
+    }
+
+    public void setTitle_participle(List<String> title_participle) {
+        this.title_participle = title_participle;
     }
 }
