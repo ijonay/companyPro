@@ -1,5 +1,6 @@
 package com.zc.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zc.enumeration.StatusCodeEnum;
 import com.zc.model.TopicModel;
 import com.zc.model.WxArticleField;
@@ -101,8 +102,11 @@ public class WechatExploreApi {
             List<String> termList = SolrSearchHelper.getSolrTerms(kw);
             List<TopicModel> topicList = wxArticleService.getSimilarTopicList(termList, count);
             if(!topicList.isEmpty()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("topicList", topicList);
+                jsonObject.put("termList",termList);
                 result.setStatusCode(StatusCodeEnum.SUCCESS);
-                result.setData(topicList);
+                result.setData(jsonObject);
             }else{
                 result.setStatusCode(StatusCodeEnum.NOCONTENT);
             }
