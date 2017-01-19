@@ -245,11 +245,11 @@ templates.design = {};
     tmpl.push('  <div>');
     tmpl.push('    <span class="mediaOrg" title="{{:accountName}}" data-accountid="{{:accountId}}">{{:accountName}}</span><span class="cared">已关注</span><span class="careLess"><span class="iconPlus">+</span> 关注</span>');
     tmpl.push('  </div>');
-    tmpl.push('  <div>{{if titleStruct}}<span class="titleStruct colorOrg">{{:titleStruct}}</span>{{/if}}</div>');
+    tmpl.push('  <div>{{if structureType}}<span class="titleStruct colorOrg" title="{{:structureType}}">{{:structureType}}</span>{{/if}}</div>');
     tmpl.push('  <div><span class="contentKeyWord" title="{{:keywords}}">{{:keywords}}</span></div>');
-    tmpl.push('  <div><span class="correlatedTopic" data-topicid="{{:topicId}}">{{:topicTitle}}</span></div>');
+    tmpl.push('  <div><span class="correlatedTopic" title="{{:topicTitle}}" data-topicid="{{:topicId}}">{{:topicTitle}}</span></div>');
     tmpl.push('  <div><span class="colorGray">{{:articleTags}}</span></div>');
-    tmpl.push('  <div><span class="colorGray">{{:~timeTrans(publish_time)}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:~timeTrans(publishTime)}}</span></div>');
     tmpl.push('  <div><span class="colorGray">{{:readNum}}</span></div>');
     tmpl.push('  <div><p class="processBar"><span class="processBarInner" style="width:{{:relativeScore}}%"> </span></p></div>');
     tmpl.push('</li>');
@@ -260,6 +260,7 @@ templates.design = {};
         	var timeStamp = Date.parse(new Date());
         	var oldTime = publishTime - 0;
         	var timeDiff =  timeStamp - oldTime;
+        	console.log(timeDiff);
         	if(timeDiff >= 2592000000){
         		return "30天前"
         	}else if(timeDiff >= 604800000){
@@ -285,19 +286,20 @@ templates.design = {};
     tmpl.push('  </div>');
     tmpl.push('  <div>{{if titleStruct}}<span class="titleStruct colorOrg" title="{{:titleStruct}}">{{:titleStruct}}</span>{{/if}}</div>');
     tmpl.push('  <div><span class="contentKeyWord" title="{{:keywords}}">{{:keywords}}</span></div>');
-    tmpl.push('  <div><span class="correlatedTopic" data-topicid="{{:topicId}}">{{:topicTitle}}</span></div>');
+    tmpl.push('  <div><span class="correlatedTopic" title="{{:topicTitle}}" data-topicid="{{:topicId}}">{{:topicTitle}}</span></div>');
     tmpl.push('  <div><span class="colorGray" title="{{:articleTags}}">{{:articleTags}}</span></div>');
-    tmpl.push('  <div><span class="colorGray">{{:~timeTrans(publish_time)}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:~timeTrans2(publish_time)}}</span></div>');
     tmpl.push('  <div><span class="colorGray">{{:read_num}}</span></div>');
     tmpl.push('  <div><p class="processBar"><span class="processBarInner" style="width:{{:score}}%"> </span></p></div>');
     tmpl.push('</li>');
     tmpl.push('{{/for}}');
     templates.design['tmplMetrialSearch'] = tmpl.join('\r\n');
     $.views.helpers({
-        "timeTrans": function (publishTime) {
+        "timeTrans2": function (publishTime) {
         	var timeStamp = Date.parse(new Date());
         	var oldTime = publishTime - 0;
         	var timeDiff =  timeStamp - oldTime;
+        	console.log(timeDiff);
         	if(timeDiff >= 2592000000){
         		return "30天前"
         	}else if(timeDiff >= 604800000){
@@ -306,6 +308,7 @@ templates.design = {};
         		var a = Math.floor(timeDiff/3600000);
         		return a + "小时前"
         	}else{
+        		console.log(timeDiff)
         		return "7天内"
         	}
         }

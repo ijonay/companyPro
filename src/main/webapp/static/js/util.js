@@ -90,6 +90,12 @@ dataUrl.util = {
     },
     getArticlesearch:function(){
     	return "api/wechat/searchArticle"
+    },
+    getSimilarTopic:function(){
+    	return "api/wechat/wxTopicList"
+    },
+    getStructSearch:function(val){
+    	return "api/wechat/structSearch?kw="+val
     }
 }
 

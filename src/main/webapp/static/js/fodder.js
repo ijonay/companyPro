@@ -34,23 +34,22 @@ $("#filtertime").on('click',function(){
 /*搜索框*/
 var serarticlelist = $.templates(templates.design["tmplserarticle"]);
 $('#btn-search').click(function(){
-	filterSta = false;
-	$('.section-filter').hide();
-	$('.section-filter-ser').show();
-	val = $('#txt-search').val;
+	filterSta = false;	
+	var val = $.trim($('#txt-search').val());
 	if(val){
 		$.ajax({
 	        type:"get",
 	        contentType: 'application/json',
 	        dataType:"json",
-	        url:'api/wechat/structSearch?kw=北京',
+	        url:dataUrl.util.getStructSearch(val),
 	        success:function(returnData){
 	        	if(returnData.error.code == 0 && returnData.data.length>0){
-	        		console.log(returnData);
 	        		$('#jiegou-con-div').html('');
 	        		$('#jiegou-con-div').append(serarticlelist.render(returnData))
-	        	}
-	        	
+	        		$('.section-filter').hide();
+	        		$('.section-filter-ser').show();
+	        		getSimilarTopic(val);
+	        	}	        	
 	        },
 	        error:function(){
 	            console.log('获取标签列表失败');
@@ -61,6 +60,32 @@ $('#btn-search').click(function(){
 	}
 	
 })
+function getSimilarTopic(kw){
+	var data = {
+		count:10,
+		kw:kw
+	}
+	$.ajax({
+        type:"get",
+        contentType: 'application/json',
+        dataType:"json",
+        data:data,
+        url:dataUrl.util.getSimilarTopic(),
+        success:function(returnData){
+        	if(returnData.error.code == 0){
+        		drawWord(returnData.data.topicList);
+        		var similayData = returnData.data.termList;
+        		if(similayData.length > 10){
+        			similayData.length = 10;
+        		}
+        		similarHot(similayData);
+        	}
+        },
+        error:function(){
+            console.log('获取相似热点列表失败');
+        }
+    });
+}
 //取消结构
 $(document).delegate('.canceljiegou','click',function(){
 	var text = $(this).text();
@@ -133,6 +158,7 @@ function getSearchList(){
 			  pageSize:100,
 			}
 		currentPage = 1;
+		currentSelect = {};
 	}
 	
 	$.ajax({
@@ -142,7 +168,10 @@ function getSearchList(){
         url: dataUrl.util.getArticlesearch(),
         data:JSON.stringify(data),
         success: function(returnData) {
-        	if(returnData.error.code == 0 && returnData.data.length>0){        		
+        	console.log("***********");
+        	console.log(returnData);
+        	if(returnData.error.code == 0 && returnData.data.data.length>0){
+        		console.log()
 	        	$(".listCon").empty();
 	        	var metrialList = $.templates(templates.design["tmplMetrialSearch"]);
 	        	$(".listCon").append(metrialList.render(returnData.data));
@@ -379,6 +408,7 @@ $(".clearFilter").click(function(){
     $(".filter-list>li").removeClass("active").data("selected","").find(".selCount").text("0").css("display","none");
     $(".filter-list>li.ser input").val("");
     $(this).css("display","none");
+    currentSelect = {};
 });
 $(document).delegate(".areaList>li,.typeList>li","click",function(e){
     if($(this).hasClass("active")){
@@ -438,7 +468,7 @@ var Hotdata = "[{\"id\":5298,\"title\":\"我是证人\",\"score\":0.27028504,\"c
 var data = JSON.parse(Hotdata);
 data.length = 10;
 console.log(data)
-drawWord(data)
+
 /*显示热点图*/
 function drawWord(data) {
     var pointArr = [];
@@ -578,21 +608,21 @@ $(document).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
 //    $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
     $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
     $(".alertCon").find(".hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
-    $(".alertCon").find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
+    $(".alertCon").find(".weiboIcon").parent().attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"");
     if(hotInfo.wechatUrl){
-        $(".alertCon").find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","inline-block");
+        $(".alertCon").find(".weixinIcon").parent().attr("href","http://weixin.sogou.com/weixin?type=2&query="+hotInfo.wechatTitle).css("display","inline-block");
     }else{
-        $(".alertCon").find(".weixin-link").css("display","none");
+        $(".alertCon").find(".weixinIcon").css("display","none");
     }
     if(hotInfo.zhihuUrl){
-        $(".alertCon").find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","inline-block");
+        $(".alertCon").find(".zhihuIcon").parent().attr("href",hotInfo.zhihuUrl).css("display","inline-block");
     }else{
-        $(".alertCon").find(".zhihu-link").css("display","none");
+        $(".alertCon").find(".zhihuIcon").css("display","none");
     }
     if(hotInfo.baiduUrl){
-        $(".alertCon").find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","inline-block");
+        $(".alertCon").find(".baiduinIcon").parent().attr("href",hotInfo.baiduUrl).css("display","inline-block");
     }else{
-        $(".alertCon").find(".baidu-link").css("display","none");
+        $(".alertCon").find(".baiduinIcon").css("display","none");
     }
     if(hotInfo.logoImgUrl){
         $(".alertCon").find(".portrait").css("background-image","url("+hotInfo.logoImgUrl+")");
@@ -656,25 +686,14 @@ function similarHot(data){
 		};
 		
 		var JosnList = [];
+		var valueArray = [500,450,400,350,300,300];
+		$.each(data,function(index,item){
+			JosnList.push({
+				name:item,
+				value:valueArray[Math.floor(Math.random()*6)]
+			})
+		})		
 		
-		JosnList.push({
-			name: "春节",
-			value: 450
-			}, {
-			name: "团聚",
-			value: "500"
-			}, {
-			name: "回家过年",
-			value: "400"
-			}, {
-			name: "过年",
-			value: "350"
-			}, {
-			name: "车票",
-			value: "300"
-			});
-		
-	option.series[0].data = JosnList;
-	chart.setOption(option)
+		option.series[0].data = JosnList;
+		chart.setOption(option)
 }
-similarHot();
