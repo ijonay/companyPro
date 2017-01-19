@@ -8,11 +8,10 @@ import com.zc.model.TopicModel;
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleModel;
+import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.SolrSearchHelper;
 import com.zc.utility.WordVectorHelper;
-import com.zc.model.solrmodel.ArticleSearchModel;
-import com.zc.utility.SolrSearchHelper;
 import com.zc.utility.page.Page;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.ibatis.annotations.Param;
@@ -251,7 +250,7 @@ public class WxArticleServiceImpl implements WxArticleService {
         Map<Integer,String> idKwMap = new HashMap<Integer,String>();
         int counter = 0;
         boolean running = true;
-        while( running ){
+        while( running && !wordqueueMap.isEmpty() ){
             for(String key : wordqueueMap.keySet()){
                 if(counter < count) {
                     Integer topicId =  (Integer)wordqueueMap.get(key).poll();
@@ -271,7 +270,7 @@ public class WxArticleServiceImpl implements WxArticleService {
             TopicModel item = t.getModel();
             item.setScore(WordVectorHelper
                     .getSimilarity(
-                            wordService.getWordVectorsByCache( idKwMap.get(item.getId()) ),
+                            wordService.getWordVectorsByCache(idKwMap.get(item.getId()) ),
                             CommonHelper.stringToFloatArray( t.getCoordinate() ) ) );
             return item;
         }).collect(Collectors.toList());
