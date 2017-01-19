@@ -15,6 +15,7 @@ public interface Constant {
     String TOPIC_LOAD_TO_REDIS="topic_load_to_redis";
 
     String SOLR_SEARCH_LENGTH_KEY = "solr_search_length";
+    String SOLR_TERM_URL = "solr_term_url";
     /**
      * 更新词周边25个点（词）向量前缀
      */
