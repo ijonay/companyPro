@@ -22,9 +22,11 @@ public class ArticleModel {
     private Date publish_time;
     private Float relative_score;
     private String keywords;
-    private String content;
-    private String raw_content;
+    //    private String content;
+    //    private String raw_content;
     private Float score;
+    private Integer topicId;
+    private String topicTitle;
 
 
     public String getId() {
@@ -76,21 +78,21 @@ public class ArticleModel {
         this.keywords = keywords;
     }
 
-    public String getContent() {
-        return content;
-    }
+//    public String getContent() {
+//        return content;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getRaw_content() {
-        return raw_content;
-    }
-
-    public void setRaw_content(String raw_content) {
-        this.raw_content = raw_content;
-    }
+//    public String getRaw_content() {
+//        return raw_content;
+//    }
+//
+//    public void setRaw_content(String raw_content) {
+//        this.raw_content = raw_content;
+//    }
 
     public Date getPublish_time() {
         return publish_time;
@@ -162,5 +164,21 @@ public class ArticleModel {
 
     public void setArticle_url(String article_url) {
         this.article_url = article_url;
+    }
+
+    public Integer getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(Integer topicId) {
+        this.topicId = topicId;
+    }
+
+    public String getTopicTitle() {
+        return topicTitle;
+    }
+
+    public void setTopicTitle(String topicTitle) {
+        this.topicTitle = topicTitle;
     }
 }

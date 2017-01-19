@@ -5,7 +5,6 @@ import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.service.WxArticleService;
-import com.zc.utility.ParamHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class WechatExploreApi {
     @RequestMapping(value = "/searchArticle", method = RequestMethod.POST)
     public ApiResultModel searchArticle(@RequestBody ArticleSearchModel searchModel) throws Exception {
 
-        ParamHelper.lllegalStr(searchModel.getKeywords(), "关键词");
+//        ParamHelper.lllegalStr(searchModel.getKeywords(), "关键词");
 
         ApiResultModel result = new ApiResultModel();
 
