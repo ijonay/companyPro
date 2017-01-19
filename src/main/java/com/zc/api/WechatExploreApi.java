@@ -1,10 +1,13 @@
 package com.zc.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zc.enumeration.StatusCodeEnum;
+import com.zc.model.TopicModel;
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.service.WxArticleService;
+import com.zc.utility.SolrSearchHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhangchengli on 2017/1/17.
@@ -86,6 +90,35 @@ public class WechatExploreApi {
             e.printStackTrace();
         }
 
+        return result;
+    }
+
+    @RequestMapping("/wxTopicList")
+    public ApiResultModel getKeywordsRelatedTopics(
+            @RequestParam(value = "kw", required = true) String kw,
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+        ApiResultModel result = new ApiResultModel();
+        try {
+            List<String> termList = SolrSearchHelper.getSolrTerms(kw);
+            if (Objects.isNull(termList) || termList.isEmpty()) {
+                result.setStatusCode(StatusCodeEnum.FAILED);
+                return result;
+            }
+            termList = termList.stream().filter(term -> term.length() > 1).collect(Collectors.toList());
+            List<TopicModel> topicList = wxArticleService.getSimilarTopicList(termList, count);
+            if (!topicList.isEmpty()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("topicList", topicList);
+                jsonObject.put("termList", termList);
+                result.setStatusCode(StatusCodeEnum.SUCCESS);
+                result.setData(jsonObject);
+            } else {
+                result.setStatusCode(StatusCodeEnum.NOCONTENT);
+            }
+        } catch (Exception e) {
+            result.setStatusCode(StatusCodeEnum.FAILED);
+            e.printStackTrace();
+        }
         return result;
     }
 
