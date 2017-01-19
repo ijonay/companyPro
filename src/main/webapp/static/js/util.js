@@ -84,6 +84,18 @@ dataUrl.util = {
     },
     getArticalFileds:function(){
     	return "api/wechat/wxArticleFields"
+    },
+    getArticalList:function(){
+    	return "api/wechat/wxArticleList"
+    },
+    getArticlesearch:function(){
+    	return "api/wechat/searchArticle"
+    },
+    getSimilarTopic:function(){
+    	return "api/wechat/wxTopicList"
+    },
+    getStructSearch:function(val){
+    	return "api/wechat/structSearch?kw="+val
     }
 }
 
