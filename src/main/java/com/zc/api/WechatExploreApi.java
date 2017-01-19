@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhangchengli on 2017/1/17.
@@ -100,6 +101,11 @@ public class WechatExploreApi {
         ApiResultModel result = new ApiResultModel();
         try{
             List<String> termList = SolrSearchHelper.getSolrTerms(kw);
+            if(Objects.isNull( termList ) || termList.isEmpty()){
+                result.setStatusCode(StatusCodeEnum.FAILED);
+                return result;
+            }
+            termList = termList.stream().filter(term -> term.length() > 1).collect(Collectors.toList());
             List<TopicModel> topicList = wxArticleService.getSimilarTopicList(termList, count);
             if(!topicList.isEmpty()){
                 JSONObject jsonObject = new JSONObject();
