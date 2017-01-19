@@ -30,6 +30,8 @@ public class WxArticleInfoModel {
 
     private String topicTitle;
 
+    private String topicUrl;
+
     public String getTitle() {
         return title;
     }
@@ -140,5 +142,13 @@ public class WxArticleInfoModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTopicUrl() {
+        return topicUrl;
+    }
+
+    public void setTopicUrl(String topicUrl) {
+        this.topicUrl = topicUrl;
     }
 }
