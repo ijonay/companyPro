@@ -8,6 +8,10 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.params.AnalysisParams;
+import org.apache.solr.common.params.CommonParams;
+import org.apache.solr.common.util.NamedList;
+import org.apache.solr.common.util.SimpleOrderedMap;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -88,5 +92,27 @@ public class SolrSearchHelper {
 
     }
 
+    public static List<String> getSolrTerms(String queryTerm){
+        try{
+            List<String> termList = new ArrayList<String>();
+            String url = getServerUrl();
+            HttpSolrClient solrClient = new HttpSolrClient(url);
+            SolrQuery query = new SolrQuery();
+            query.add(CommonParams.QT, "/analysis/field");
+            query.add(AnalysisParams.FIELD_VALUE, queryTerm);
+            query.add(AnalysisParams.FIELD_NAME, "title_ik");
+            QueryResponse response = solrClient.query(query);
+            NamedList<Object> analysis =  (NamedList<Object>) response.getResponse().get("analysis");
+            NamedList<Object> field_names =  (NamedList<Object>) analysis.get("field_names");
+            NamedList<Object> title_ik = (NamedList<Object>) field_names.get("title_ik");
+            NamedList<Object> index = (NamedList<Object>) title_ik.get("index");
+            List<SimpleOrderedMap<String>> list =  (ArrayList<SimpleOrderedMap<String>>) index.get("org.wltea.analyzer.lucene.IKTokenizer");
+            list.forEach( obj ->  termList.add( obj.get("text") ) );
+            return termList;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -1,11 +1,16 @@
 package com.zc.service;
 
+import com.zc.bean.Topic;
+import com.zc.dao.TopicDao;
 import com.zc.dao.WxArticleFieldMapper;
 import com.zc.dao.WxArticleInfoMapper;
+import com.zc.model.TopicModel;
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleModel;
+import com.zc.utility.CommonHelper;
 import com.zc.utility.SolrSearchHelper;
+import com.zc.utility.WordVectorHelper;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.ibatis.annotations.Param;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -23,6 +28,15 @@ public class WxArticleServiceImpl implements WxArticleService {
 
     @Autowired
     public WxArticleInfoMapper wxArticleInfoMapper;
+
+    @Autowired
+    public TopicService topicService;
+
+    @Autowired
+    public WordService wordService;
+
+    @Autowired
+    private TopicDao topicDao;
 
     @Override
     public List<WxArticleInfoModel> getWxArticleInfoList(
@@ -124,5 +138,66 @@ public class WxArticleServiceImpl implements WxArticleService {
         return wxArticleFieldMapper.getWxArticleFields();
     }
 
+    @Override
+    public List<TopicModel> getSimilarTopicList(List<String> kwList,Integer count){
+        /**
+         * algorithm: construct each word's topic similarity queue, then pop in turn to get enough topics
+         */
+        if(Objects.isNull(kwList) || kwList.isEmpty() || count < 1){
+            return null;
+        }
+
+        float word_topic_similarity_threshold = 0.4f;
+        Map<String, LinkedList> wordqueueMap = new HashMap<String, LinkedList>();
+        kwList.stream().forEach(kw -> {
+            float[] wordVector = wordService.getWordVectorsByCache(kw);
+            if (Objects.nonNull(wordVector)) {
+                //computing similarity
+                Map<Integer, Float> result = topicService.getCoordinatesByCache().entrySet()
+                        .stream()
+                        .collect(Collectors.toMap(p -> p.getKey(), p -> WordVectorHelper.getSimilarity(wordVector, p.getValue())));
+                //filtering
+                Map<Integer, Float> filteredResult = result.entrySet().parallelStream()
+                        .filter(entry -> entry.getValue() >= word_topic_similarity_threshold)
+                        .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+                //sorting
+                LinkedList queue = filteredResult.entrySet().stream().sorted((a, b) -> b.getValue().compareTo(a.getValue()))
+                        .map(Map.Entry::getKey).collect(Collectors.toCollection(LinkedList::new));
+                //saving
+                wordqueueMap.put(kw, queue);
+            }
+        });
+        
+        List<Integer> idList = new ArrayList<Integer>();
+        Map<Integer,String> idKwMap = new HashMap<Integer,String>();
+        int counter = 0;
+        boolean running = true;
+        while( running ){
+            for(String key : wordqueueMap.keySet()){
+                if(counter < count) {
+                    Integer topicId =  (Integer)wordqueueMap.get(key).poll();
+                    idList.add(topicId);
+                    idKwMap.put(topicId, key);
+                    counter++;
+                }else{
+                    running = false;
+                    break;
+                }
+            }
+        }
+
+        List<Topic> topicList = topicDao.getByIdList(idList);
+
+        List<TopicModel> result = topicList.stream().map(t -> {
+            TopicModel item = t.getModel();
+            item.setScore(WordVectorHelper
+                    .getSimilarity(
+                            wordService.getWordVectorsByCache( idKwMap.get(item.getId()) ),
+                            CommonHelper.stringToFloatArray( t.getCoordinate() ) ) );
+            return item;
+        }).collect(Collectors.toList());
+        
+        return result;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.zc.service;
 
+import com.zc.model.TopicModel;
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +20,6 @@ public interface WxArticleService {
     List<WxArticleField> getWxArticleFields();
 
     List<LinkedHashMap<String, Object>> getStructSearch(List<String> keys);
+
+    List<TopicModel> getSimilarTopicList(List<String> kwList,Integer count);
 }
