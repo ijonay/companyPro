@@ -16,6 +16,7 @@
     <result column="read_num" jdbcType="INTEGER" property="readNum" />
     <result column="relative_score" jdbcType="REAL" property="relativeScore" />
     <result column="article_url" jdbcType="VARCHAR" property="articleUrl" />
+    <result column="topicUrl" jdbcType="VARCHAR" property="topicUrl" />
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -27,7 +28,8 @@
   <select id="getWxArticleList" resultMap="BaseResultMap" >
       select daily.id, daily.title, daily.account_id, daily.account_name,
       arti_title_type.structure_type, daily.article_tags, daily.publish_time,
-      daily.read_num,daily.relative_score,article.keywords,article.article_url
+      daily.read_num,daily.relative_score,article.keywords,article.article_url,
+      topic.topicId, topic.topicTitle, topic.topicUrl
       from wxarticlerankdaily daily
       inner join wxarticleinfo article on article.article_id = daily.article_id
       inner join (
@@ -35,7 +37,7 @@
       INNER join WxTitleClass title_cls on arti_cls.class_id = title_cls.id GROUP BY arti_cls.articleinfo_id
       ) arti_title_type on arti_title_type.articleinfo_id = article.id
       left join WxArticleRelatedTopic arti_topic on arti_topic.article_id = article.id
-      left join ( select id as topicId,title as topicTitle from view_topic ) topic on topic.topicId = arti_topic.topic_id
+      left join ( select id as topicId,title as topicTitle, topicUrl from view_topic ) topic on topic.topicId = arti_topic.topic_id
       where daily.is_latest = 1 and arti_title_type.structure_type &lt;&gt; '其他'
       order by daily.relative_score DESC
       LIMIT
