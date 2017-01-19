@@ -55,7 +55,8 @@ public class WxArticleServiceImpl implements WxArticleService {
 
         Objects.requireNonNull(keys);
 
-        String searchKeys = "title_mmseg:" + String.join(" or title_mmseg:", keys);
+        String searchKeys = "articleContet:" + String.join(" or articleContet:", keys);
+
         SolrQuery solrQuery = new SolrQuery();
         solrQuery
                 .setQuery(searchKeys)
@@ -65,7 +66,8 @@ public class WxArticleServiceImpl implements WxArticleService {
                 .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
                         "articleTags,articleType" +
                         ",structure_type,relative_score,keywords," +
-                        //"content,raw_content," +
+                        "topicId,topicTitle," +
+                        //"content,raw_content,articleContet," +
                         "publish_time,articleTags,score");
 
         List<ArticleModel> articles = SolrSearchHelper.query(solrQuery, new ArticleModel());
@@ -142,23 +144,25 @@ public class WxArticleServiceImpl implements WxArticleService {
 //        //searchModel.setStructTypes(Arrays.asList("互动类,视频类".split(",")));
 //        searchModel.setTags(Arrays.asList("时事,民生,美体".split((","))));
 
-        Objects.requireNonNull(searchModel.getKeywords());
+        List<String> searchList = new ArrayList<>();
 
-
-        String searchKeys = "(title:" + String.join(" OR title:", searchModel.getKeywords().split(" " +
-                "")) + ")";
-
+        if (Objects.nonNull(searchModel.getKeywords())) {
+            searchList.add("(articleContet:" + String.join(" OR articleContet:", searchModel.getKeywords().split(" " +
+                    "")) + ")");
+        }
 
         if (Objects.nonNull(searchModel.getTags()) && searchModel.getTags().size() > 0) {
 
-            searchKeys += "AND (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")";
+            searchList.add(" (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")");
         }
 
         if (Objects.nonNull(searchModel.getStructTypes()) && searchModel.getStructTypes().size() > 0) {
 
-            searchKeys += "AND (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
-                    ")";
+            searchList.add(" (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
+                    ")");
         }
+
+        String searchKeys = String.join(" AND ", searchList);
 
         SolrQuery solrQuery = new SolrQuery();
 
@@ -183,15 +187,20 @@ public class WxArticleServiceImpl implements WxArticleService {
             solrQuery.set("fq", "publish_time:[" + simpleDateFormat.format(calendar.getTime()) + " TO NOW ]");
         }
 
+        if (Objects.nonNull(searchKeys)) {
+            solrQuery.setQuery(searchKeys);
+        }
+
         solrQuery
-                .setQuery(searchKeys)
+                .setStart(searchModel.getStartIndex())
                 .setStart(searchModel.getStartIndex())
                 .setRows(searchModel.getPageSize())
                 .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
                         "articleTags," +
                         "articleType" +
                         ",structure_type,relative_score,keywords," +
-                        //"content,raw_content," +
+                        "topicId,topicTitle," +
+                        //"content,raw_content,articleContet," +
                         "publish_time,articleTags,score");
 
 
@@ -217,11 +226,11 @@ public class WxArticleServiceImpl implements WxArticleService {
     }
 
     @Override
-    public List<TopicModel> getSimilarTopicList(List<String> kwList,Integer count){
+    public List<TopicModel> getSimilarTopicList(List<String> kwList, Integer count) {
         /**
          * algorithm: construct each word's topic similarity queue, then pop in turn to get enough topics
          */
-        if(Objects.isNull(kwList) || kwList.isEmpty() || count < 1){
+        if (Objects.isNull(kwList) || kwList.isEmpty() || count < 1) {
             return null;
         }
 
@@ -233,31 +242,33 @@ public class WxArticleServiceImpl implements WxArticleService {
                 //computing similarity
                 Map<Integer, Float> result = topicService.getCoordinatesByCache().entrySet()
                         .stream()
-                        .collect(Collectors.toMap(p -> p.getKey(), p -> WordVectorHelper.getSimilarity(wordVector, p.getValue())));
+                        .collect(Collectors.toMap(p -> p.getKey(), p -> WordVectorHelper.getSimilarity(wordVector, p
+                                .getValue())));
                 //filtering
                 Map<Integer, Float> filteredResult = result.entrySet().parallelStream()
                         .filter(entry -> entry.getValue() >= word_topic_similarity_threshold)
                         .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
                 //sorting
-                LinkedList queue = filteredResult.entrySet().stream().sorted((a, b) -> b.getValue().compareTo(a.getValue()))
+                LinkedList queue = filteredResult.entrySet().stream().sorted((a, b) -> b.getValue().compareTo(a
+                        .getValue()))
                         .map(Map.Entry::getKey).collect(Collectors.toCollection(LinkedList::new));
                 //saving
                 wordqueueMap.put(kw, queue);
             }
         });
-        
+
         List<Integer> idList = new ArrayList<Integer>();
-        Map<Integer,String> idKwMap = new HashMap<Integer,String>();
+        Map<Integer, String> idKwMap = new HashMap<Integer, String>();
         int counter = 0;
         boolean running = true;
-        while( running && !wordqueueMap.isEmpty() ){
-            for(String key : wordqueueMap.keySet()){
-                if(counter < count) {
-                    Integer topicId =  (Integer)wordqueueMap.get(key).poll();
+        while (running && !wordqueueMap.isEmpty()) {
+            for (String key : wordqueueMap.keySet()) {
+                if (counter < count) {
+                    Integer topicId = (Integer) wordqueueMap.get(key).poll();
                     idList.add(topicId);
                     idKwMap.put(topicId, key);
                     counter++;
-                }else{
+                } else {
                     running = false;
                     break;
                 }
@@ -270,11 +281,11 @@ public class WxArticleServiceImpl implements WxArticleService {
             TopicModel item = t.getModel();
             item.setScore(WordVectorHelper
                     .getSimilarity(
-                            wordService.getWordVectorsByCache(idKwMap.get(item.getId()) ),
-                            CommonHelper.stringToFloatArray( t.getCoordinate() ) ) );
+                            wordService.getWordVectorsByCache(idKwMap.get(item.getId())),
+                            CommonHelper.stringToFloatArray(t.getCoordinate())));
             return item;
         }).collect(Collectors.toList());
-        
+
         return result;
     }
 
