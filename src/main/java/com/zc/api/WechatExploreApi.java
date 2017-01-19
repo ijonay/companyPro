@@ -8,7 +8,6 @@ import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.service.WxArticleService;
 import com.zc.utility.SolrSearchHelper;
-import com.zc.utility.ParamHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhangchengli on 2017/1/17.
@@ -61,7 +61,7 @@ public class WechatExploreApi {
     @RequestMapping(value = "/searchArticle", method = RequestMethod.POST)
     public ApiResultModel searchArticle(@RequestBody ArticleSearchModel searchModel) throws Exception {
 
-        ParamHelper.lllegalStr(searchModel.getKeywords(), "关键词");
+//        ParamHelper.lllegalStr(searchModel.getKeywords(), "关键词");
 
         ApiResultModel result = new ApiResultModel();
 
@@ -96,21 +96,26 @@ public class WechatExploreApi {
     @RequestMapping("/wxTopicList")
     public ApiResultModel getKeywordsRelatedTopics(
             @RequestParam(value = "kw", required = true) String kw,
-            @RequestParam(value = "count",required = false,defaultValue = "10") Integer count ){
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
         ApiResultModel result = new ApiResultModel();
-        try{
+        try {
             List<String> termList = SolrSearchHelper.getSolrTerms(kw);
+            if (Objects.isNull(termList) || termList.isEmpty()) {
+                result.setStatusCode(StatusCodeEnum.FAILED);
+                return result;
+            }
+            termList = termList.stream().filter(term -> term.length() > 1).collect(Collectors.toList());
             List<TopicModel> topicList = wxArticleService.getSimilarTopicList(termList, count);
-            if(!topicList.isEmpty()){
+            if (!topicList.isEmpty()) {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("topicList", topicList);
-                jsonObject.put("termList",termList);
+                jsonObject.put("termList", termList);
                 result.setStatusCode(StatusCodeEnum.SUCCESS);
                 result.setData(jsonObject);
-            }else{
+            } else {
                 result.setStatusCode(StatusCodeEnum.NOCONTENT);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             result.setStatusCode(StatusCodeEnum.FAILED);
             e.printStackTrace();
         }

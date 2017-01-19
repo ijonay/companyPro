@@ -56,6 +56,7 @@ public class WxArticleServiceImpl implements WxArticleService {
         Objects.requireNonNull(keys);
 
         String searchKeys = "title_mmseg:" + String.join(" or title_mmseg:", keys);
+
         SolrQuery solrQuery = new SolrQuery();
         solrQuery
                 .setQuery(searchKeys)
@@ -65,6 +66,7 @@ public class WxArticleServiceImpl implements WxArticleService {
                 .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
                         "articleTags,articleType" +
                         ",structure_type,relative_score,keywords," +
+                        "topicId,topicTitle," +
                         //"content,raw_content," +
                         "publish_time,articleTags,score");
 
@@ -142,23 +144,25 @@ public class WxArticleServiceImpl implements WxArticleService {
 //        //searchModel.setStructTypes(Arrays.asList("互动类,视频类".split(",")));
 //        searchModel.setTags(Arrays.asList("时事,民生,美体".split((","))));
 
-        Objects.requireNonNull(searchModel.getKeywords());
+        List<String> searchList = new ArrayList<>();
 
-
-        String searchKeys = "(title:" + String.join(" OR title:", searchModel.getKeywords().split(" " +
-                "")) + ")";
-
+        if (Objects.nonNull(searchModel.getKeywords())) {
+            searchList.add("(title:" + String.join(" OR title:", searchModel.getKeywords().split(" " +
+                    "")) + ")");
+        }
 
         if (Objects.nonNull(searchModel.getTags()) && searchModel.getTags().size() > 0) {
 
-            searchKeys += "AND (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")";
+            searchList.add(" (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")");
         }
 
         if (Objects.nonNull(searchModel.getStructTypes()) && searchModel.getStructTypes().size() > 0) {
 
-            searchKeys += "AND (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
-                    ")";
+            searchList.add(" (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
+                    ")");
         }
+
+        String searchKeys = String.join(" AND ", searchList);
 
         SolrQuery solrQuery = new SolrQuery();
 
@@ -183,14 +187,19 @@ public class WxArticleServiceImpl implements WxArticleService {
             solrQuery.set("fq", "publish_time:[" + simpleDateFormat.format(calendar.getTime()) + " TO NOW ]");
         }
 
+        if (Objects.nonNull(searchKeys)) {
+            solrQuery.setQuery(searchKeys);
+        }
+
         solrQuery
-                .setQuery(searchKeys)
+                .setStart(searchModel.getStartIndex())
                 .setStart(searchModel.getStartIndex())
                 .setRows(searchModel.getPageSize())
                 .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
                         "articleTags," +
                         "articleType" +
                         ",structure_type,relative_score,keywords," +
+                        "topicId,topicTitle," +
                         //"content,raw_content," +
                         "publish_time,articleTags,score");
 
