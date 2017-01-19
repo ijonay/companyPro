@@ -587,8 +587,14 @@ border-radius:4px;
 .cancel-flat{height:48px;line-height:48px;color:#4a4a4a;font-style:normal;padding-left:14px;text-align:right;}
 .cancel-flat em{font-style:normal;float:left;    text-overflow: ellipsis;
     overflow: hidden;
+    text-align:left;
     white-space: nowrap;
-    width: 180px;}
+    width: calc(100% - 121px);
+    width: -webkit-calc(100% - 121px);
+    width: -o-calc(100% - 121px);
+    width: -ms-calc(100% - 121px);
+    width: -moz-calc(100% - 121px);
+    }
 .cancel-flat span{
 	border: 1px solid #389b9f;
     padding: 4px 10px;
