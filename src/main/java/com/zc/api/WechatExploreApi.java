@@ -1,10 +1,13 @@
 package com.zc.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zc.enumeration.StatusCodeEnum;
+import com.zc.model.TopicModel;
 import com.zc.model.WxArticleField;
 import com.zc.model.WxArticleInfoModel;
 import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.service.WxArticleService;
+import com.zc.utility.SolrSearchHelper;
 import com.zc.utility.ParamHelper;
 import com.zc.utility.response.ApiResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,30 @@ public class WechatExploreApi {
             e.printStackTrace();
         }
 
+        return result;
+    }
+
+    @RequestMapping("/wxTopicList")
+    public ApiResultModel getKeywordsRelatedTopics(
+            @RequestParam(value = "kw", required = true) String kw,
+            @RequestParam(value = "count",required = false,defaultValue = "10") Integer count ){
+        ApiResultModel result = new ApiResultModel();
+        try{
+            List<String> termList = SolrSearchHelper.getSolrTerms(kw);
+            List<TopicModel> topicList = wxArticleService.getSimilarTopicList(termList, count);
+            if(!topicList.isEmpty()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("topicList", topicList);
+                jsonObject.put("termList",termList);
+                result.setStatusCode(StatusCodeEnum.SUCCESS);
+                result.setData(jsonObject);
+            }else{
+                result.setStatusCode(StatusCodeEnum.NOCONTENT);
+            }
+        }catch (Exception e){
+            result.setStatusCode(StatusCodeEnum.FAILED);
+            e.printStackTrace();
+        }
         return result;
     }
 
