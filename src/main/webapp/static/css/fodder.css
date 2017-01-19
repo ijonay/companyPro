@@ -391,6 +391,7 @@ body{
 }
 .titleStruct{
 	height:24px;
+	max-width:100px;
 	vertical-align:middle;
 	overflow:hidden;
 	line-height:24px;

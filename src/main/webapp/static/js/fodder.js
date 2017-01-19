@@ -87,30 +87,75 @@ $('#ser-back-home').click(function(){
 })
 
 /*热门文章区域*/
-var currentPage = 0;
+var currentPage = 1;
 var pageSize = 100;
+var currentSelect = {};
 $(document).ready(function(){
 	loadDefaultList();
 })
 function loadDefaultList(){
+	var data = {
+		currentPage:currentPage,
+		pageSize:pageSize
+	}
 	$.ajax({
         type:"get",
         contentType: 'application/json',
         dataType:"json",
+        data:data,
         url:dataUrl.util.getArticalList(),
         success:function(returnData){
-        	console.log("*****************")
-        	console.log(returnData);
-        	$(".listCon").empty();
-        	var metrialList = $.templates(templates.design["tmplMetrialList"]);
-        	$(".listCon").append(metrialList.render(returnData));
+        	if(returnData.error.code == 0 && returnData.data.length>0){        	
+	        	$(".listCon").empty();
+	        	var metrialList = $.templates(templates.design["tmplMetrialList"]);
+	        	$(".listCon").append(metrialList.render(returnData));
+        	}
         },
         error:function(){
-            console.log('获取标签列表失败');
+            console.log('获取素材文章列表失败');
         }
     });
 }
-
+function getSearchList(){
+	if(arguments.length>0){
+		var data = {
+			keywords:$(".filter-list .ser input").val(),
+			pageNumber:currentPage,
+			pageSize:pageSize,
+			publishDate:arguments[0].publishDate,
+			tags:arguments[0].tags,
+			structTypes:arguments[0].structTypes
+		}
+	}else{
+		var data = {
+			  keywords:$(".filter-list .ser input").val(),
+			  pageNumber:1,
+			  pageSize:100,
+			}
+		currentPage = 1;
+	}
+	
+	$.ajax({
+        type:"post",
+        contentType: 'application/json',
+        dataType: "json",
+        url: dataUrl.util.getArticlesearch(),
+        data:JSON.stringify(data),
+        success: function(returnData) {
+        	if(returnData.error.code == 0 && returnData.data.length>0){        		
+	        	$(".listCon").empty();
+	        	var metrialList = $.templates(templates.design["tmplMetrialSearch"]);
+	        	$(".listCon").append(metrialList.render(returnData.data));
+	        	if(arguments[1]){
+	        		currentPage = 1;
+	        	}
+        	}
+        },
+        error: function() {
+            console.log('查找文章失败');
+        }
+    });
+}
 $(document).on("click",".currentTitle a",function(e){
 	e.preventDefault();
 	var src = $(this).attr("href");
@@ -136,7 +181,7 @@ $(".filter-list>li.area").click(function(){
         		
         		$.each(returnData.data,function(idx,item){
                     var id=item.id;
-                    $item=$("<li data-id='"+id+"'>"+item.name+"</li>");
+                    $item=$("<li data-id='"+id+"' data-name='"+item.name+"'>"+item.name+"</li>");
                     if(result&&result.length>0&&_.indexOf(result, id)!=-1){
                         $item.addClass("active");
                     }
@@ -174,9 +219,11 @@ $(".filter-list>li.area").click(function(){
                     _this.removeClass("active").find(".selCount").text(0).css("display","none");
                 }
                 $activeItem.each(function(){
-                    selected.push(parseInt($(this).data("id")))
+                    selected.push(parseInt($(this).data("name")))
                 });
                 _this.data("selected",selected);
+                currentSelect.tags = selected;
+                getSearchList(currentSelect,1);
                 $(".fodderMask").remove();
             }
         }]
@@ -199,7 +246,7 @@ $(".filter-list>li.type").click(function(){
         }else{
             className="tw";
         }
-        $item=$("<li class='"+className+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
+        $item=$("<li class='"+className+"' data-name='"+item+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
         if(result&&result.length>0&&_.indexOf(result, id)!=-1){
             $item.addClass("active");
         }
@@ -230,9 +277,12 @@ $(".filter-list>li.type").click(function(){
                     _this.removeClass("active").find(".selCount").text(0).css("display","none");
                 }
                 $activeItem.each(function(){
-                    selected.push(parseInt($(this).data("id")))
+                    selected.push(parseInt($(this).data("name")))
                 });
                 _this.data("selected",selected);
+//                currentSelect.structTypes = selected;
+                currentSelect.structTypes = ['互动型'];
+                getSearchList(currentSelect,1);
                 $(".fodderMask").remove();
             }
         }]
@@ -287,6 +337,8 @@ $(".filter-list>li.time").click(function(){
                     selected.push(parseInt($(this).data("id")))
                 });
                 _this.data("selected",selected);
+                currentSelect.publishDate = selected[0];
+                getSearchList(currentSelect,1);
                 $(".fodderMask").remove();
             }
         }]
@@ -297,6 +349,8 @@ $(".filter-list>li.ser .btn-search").click(function(){
     var txt=$.trim($(this).siblings("input").val());
     if(txt!=""){
         $(".filter-list>li").removeClass("active").data("selected","").find(".selCount").text("0").css("display","none");
+        currentSelect = {};
+        getSearchList();
     }
 });
 /*搜索框*/
@@ -309,7 +363,13 @@ $(".filter-list>li.ser input").click(function(e){
     if($(".clearFilter").css("display","none")){
         $(".clearFilter").css("display","block");
     }
-});
+}).keypress(function (e) {
+	var $this = $(this);
+	var key = e.which || e.keyCode;
+	if (key == 13) { 
+		$this.next().click();
+	} 
+}); ;
 $(document).click(function(){
     $("ul.filter-list>li.ser").css("width","110px");
     $("ul.filter-list").css("width","488px");
