@@ -11,12 +11,17 @@ import com.zc.model.solrmodel.ArticleModel;
 import com.zc.utility.CommonHelper;
 import com.zc.utility.SolrSearchHelper;
 import com.zc.utility.WordVectorHelper;
+import com.zc.model.solrmodel.ArticleSearchModel;
+import com.zc.utility.SolrSearchHelper;
+import com.zc.utility.page.Page;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.ibatis.annotations.Param;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,11 +45,10 @@ public class WxArticleServiceImpl implements WxArticleService {
 
     @Override
     public List<WxArticleInfoModel> getWxArticleInfoList(
-            @Param("pageSize")Integer pageSize,
-            @Param("rowStart")Integer rowStart ){
-            return wxArticleInfoMapper.getWxArticleList(pageSize, rowStart);
+            @Param("pageSize") Integer pageSize,
+            @Param("rowStart") Integer rowStart) {
+        return wxArticleInfoMapper.getWxArticleList(pageSize, rowStart);
     }
-
 
 
     @Override
@@ -59,7 +63,8 @@ public class WxArticleServiceImpl implements WxArticleService {
                 .setStart(0)
                 .setRows(1000)
                 .setSort("product(relative_score,query($q))", SolrQuery.ORDER.desc)
-                .set("fl", "id,title_mmseg,title,titleStruct,account_id,account_name,read_num,articleTags,articleType" +
+                .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
+                        "articleTags,articleType" +
                         ",structure_type,relative_score,keywords," +
                         //"content,raw_content," +
                         "publish_time,articleTags,score");
@@ -130,11 +135,85 @@ public class WxArticleServiceImpl implements WxArticleService {
         return result;
     }
 
+    @Override
+    public Page getBySearch(ArticleSearchModel searchModel) throws Exception {
+
+//        searchModel.setKeywords("春节 回家 过年");
+//        searchModel.setPublishDate(PublishDateEnum.INSEVENDAYS);
+//        //searchModel.setStructTypes(Arrays.asList("互动类,视频类".split(",")));
+//        searchModel.setTags(Arrays.asList("时事,民生,美体".split((","))));
+
+        Objects.requireNonNull(searchModel.getKeywords());
+
+
+        String searchKeys = "(title:" + String.join(" OR title:", searchModel.getKeywords().split(" " +
+                "")) + ")";
+
+
+        if (Objects.nonNull(searchModel.getTags()) && searchModel.getTags().size() > 0) {
+
+            searchKeys += "AND (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")";
+        }
+
+        if (Objects.nonNull(searchModel.getStructTypes()) && searchModel.getStructTypes().size() > 0) {
+
+            searchKeys += "AND (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
+                    ")";
+        }
+
+        SolrQuery solrQuery = new SolrQuery();
+
+
+        if (Objects.nonNull(searchModel.getPublishDate())) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00'Z'");
+
+            Calendar calendar = Calendar.getInstance();
+
+            switch (searchModel.getPublishDate()) {
+                case TODAY:
+
+                    break;
+                case INSEVENDAYS:
+                    calendar.add(Calendar.DATE, -7);
+                    break;
+                case INTHIRTYDAYS:
+                    calendar.add(Calendar.DATE, -30);
+                    break;
+            }
+
+            solrQuery.set("fq", "publish_time:[" + simpleDateFormat.format(calendar.getTime()) + " TO NOW ]");
+        }
+
+        solrQuery
+                .setQuery(searchKeys)
+                .setStart(searchModel.getStartIndex())
+                .setRows(searchModel.getPageSize())
+                .set("fl", "id,title_mmseg,title,article_url,titleStruct,account_id,account_name,read_num," +
+                        "articleTags," +
+                        "articleType" +
+                        ",structure_type,relative_score,keywords," +
+                        //"content,raw_content," +
+                        "publish_time,articleTags,score");
+
+
+        SolrDocumentList query = SolrSearchHelper.query(solrQuery);
+
+        List<ArticleModel> articleModels = SolrSearchHelper.ConvertModelList(query, new ArticleModel());
+
+        Page page = new Page();
+        page.setPageSize(searchModel.getPageSize());
+        page.setTotalCount(Integer.parseInt(query.getNumFound() + ""));
+        page.setPageNumber(searchModel.getPageNumber());
+        page.data(articleModels);
+
+        return page;
+    }
+
     @Autowired
     public WxArticleFieldMapper wxArticleFieldMapper;
 
     @Override
-    public List<WxArticleField> getWxArticleFields(){
+    public List<WxArticleField> getWxArticleFields() {
         return wxArticleFieldMapper.getWxArticleFields();
     }
 

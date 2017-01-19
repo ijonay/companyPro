@@ -4,12 +4,17 @@ package zc.test;/**
 
 import com.alibaba.fastjson.JSON;
 import com.zc.BaseTest;
+import com.zc.enumeration.PublishDateEnum;
 import com.zc.model.solrmodel.ArticleModel;
+import com.zc.model.solrmodel.ArticleSearchModel;
 import com.zc.utility.SolrSearchHelper;
+import com.zc.utility.page.Page;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.common.SolrDocumentList;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,6 +47,79 @@ public class TestSolr extends BaseTest {
 
     }
 
+    @Test
+    public void testSearch() throws Exception {
+
+
+        ArticleSearchModel searchModel = new ArticleSearchModel();
+
+        searchModel.setKeywords("春节 回家 过年");
+        searchModel.setPublishDate(PublishDateEnum.INSEVENDAYS);
+        //searchModel.setStructTypes(Arrays.asList("互动类,视频类".split(",")));
+        searchModel.setTags(Arrays.asList("时事,民生,美体".split((","))));
+
+        Objects.requireNonNull(searchModel.getKeywords());
+
+
+        String searchKeys = "(title:" + String.join(" OR title:", searchModel.getKeywords().split(" " +
+                "")) + ")";
+
+
+        if (Objects.nonNull(searchModel.getTags()) && searchModel.getTags().size() > 0) {
+
+            searchKeys += "AND (articleTags:" + String.join(" OR articleTags:", searchModel.getTags()) + ")";
+        }
+
+        if (Objects.nonNull(searchModel.getStructTypes()) && searchModel.getStructTypes().size() > 0) {
+
+            searchKeys += "AND (structure_type:" + String.join(" OR structure_type:", searchModel.getStructTypes()) +
+                    ")";
+        }
+
+        SolrQuery solrQuery = new SolrQuery();
+
+        solrQuery
+                .setQuery(searchKeys)
+                .setStart(searchModel.getStartIndex())
+                .setRows(searchModel.getPageSize())
+                .set("fl", "id,title_mmseg,title,titleStruct,account_id,account_name,read_num,articleTags,articleType" +
+                        ",structure_type,relative_score,keywords," +
+                        //"content,raw_content," +
+                        "publish_time,articleTags,score");
+
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00'Z'");
+
+        String dateStr1 = null;
+        String dateStr2 = "NOW";
+
+        switch (searchModel.getPublishDate()) {
+            case TODAY:
+                dateStr1 = simpleDateFormat.format(new Date(System.currentTimeMillis() - (1 * 1000 * 60 * 60 * 24)));
+                break;
+            case INSEVENDAYS:
+                dateStr1 = simpleDateFormat.format(new Date(System.currentTimeMillis() - (7 * 1000 * 60 * 60 * 24)));
+                break;
+            case INTHIRTYDAYS:
+                dateStr1 = simpleDateFormat.format(new Date(System.currentTimeMillis() - (30 * 1000 * 60 * 60 * 24)));
+                break;
+        }
+
+        solrQuery.set("fq", "publish_time:[" + dateStr1 + " TO " + dateStr2 + " ]");
+
+        SolrDocumentList query = SolrSearchHelper.query(solrQuery);
+
+        List<ArticleModel> articleModels = SolrSearchHelper.ConvertModelList(query, new ArticleModel());
+
+        Page page = new Page();
+        page.setPageSize(searchModel.getPageSize());
+        page.setTotalCount(Integer.parseInt(query.getNumFound() + ""));
+        page.setPageNumber(searchModel.getPageNumber());
+        page.data(articleModels);
+
+        return;
+    }
 
     @Test
     public void testSearchByKeys() {

@@ -32,10 +32,51 @@ $("#filtertime").on('click',function(){
     $(".filter-list>li.time").trigger("click");
 });
 /*搜索框*/
+var serarticlelist = $.templates(templates.design["tmplserarticle"]);
 $('#btn-search').click(function(){
 	filterSta = false;
 	$('.section-filter').hide();
 	$('.section-filter-ser').show();
+	val = $('#txt-search').val;
+	if(val){
+		$.ajax({
+	        type:"get",
+	        contentType: 'application/json',
+	        dataType:"json",
+	        url:'api/wechat/structSearch?kw=北京',
+	        success:function(returnData){
+	        	if(returnData.error.code == 0 && returnData.data.length>0){
+	        		console.log(returnData);
+	        		$('#jiegou-con-div').html('');
+	        		$('#jiegou-con-div').append(serarticlelist.render(returnData))
+	        	}
+	        	
+	        },
+	        error:function(){
+	            console.log('获取标签列表失败');
+	        }
+	    });
+	}else{
+		return;
+	}
+	
+})
+//取消结构
+$(document).delegate('.canceljiegou','click',function(){
+	var text = $(this).text();
+	if(text === '取消标题结构化'){
+		$(this).text('查看标题结构化');
+		$(this).parent().next().find('.jiegoufengci').hide();
+		$(this).parent().next().find('.ul-con-arr-div3').hide();
+		$(this).parent().next().find('.article-ul-con-li-div3').show();
+	}
+	if(text === '查看标题结构化'){
+		$(this).text('取消标题结构化');
+		$(this).parent().next().find('.article-ul-con-li-div3').hide();
+		$(this).parent().next().find('.jiegoufengci').show();
+		$(this).parent().next().find('.ul-con-arr-div3').show();
+		
+	}
 	
 })
 //回到热门文章
