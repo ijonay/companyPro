@@ -42,15 +42,14 @@
 }
 .fodderClose{
     position: absolute;
-    font-size:20px;
+    font-size:25px;
     top:17px;
-    right:25px;
+    right:22px;
     cursor: pointer;
     width:16px;
     height:16px;
     line-height:16px;
-    background-color:#fff;
-    color:#339c9f;
+    color:#fff;
     border-radius:50%;
 }
 .fodderContent{

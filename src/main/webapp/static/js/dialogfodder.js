@@ -7,6 +7,7 @@
             height:"232px",
             header:"",
             content:"",
+            allSelect:true,
             buttons:null,
             footCustom:null,
         };
@@ -23,7 +24,12 @@
         this.content = $('<div class="fodderContent"></div>');
         this.footer = $('<div class="fodderFooter"></div>');
         this.nav = $('<div class="fodderNav"></div>');
-        this.navBtn = $('<div class="navBtn"><div class="selAll">全选</div></div>');
+        if(this.config.allSelect){
+        	this.navBtn = $('<div class="navBtn"><div class="selAll">全选</div></div>');
+        }else{
+        	this.navBtn = $('<div class="navBtn" style="visibility:hidden"><div class="selAll">全选</div></div>');
+        }
+        
         this.create();        
     };
     PopFodder.prototype = {

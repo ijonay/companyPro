@@ -22,7 +22,7 @@
     
     <!-- 搜索框 -->
     <div class="section-search">
-        <input type="text" class="txt-search" placeholder="请输入运营需求关键词，多个词用顿号隔开" id="txt-search">
+        <input type="text" class="txt-search" placeholder="请输入运营需求关键词，多个词用空格隔开" id="txt-search">
         <div class="btn-search" id="btn-search"></div>
     </div>
     <!-- 搜索文章区域 -->
@@ -382,7 +382,7 @@
     
     <div class="alertMask">
     	<div class="iframeCon">
-    	   <iframe src="http://www.baidu.com" width="100%" height="100%"></iframe>
+    	   <iframe id="htmlCon" src="" width="100%" height="100%"></iframe>
     	   <span class="closeBtn">+</span>
     	</div>
     </div>

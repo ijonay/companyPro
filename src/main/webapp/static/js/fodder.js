@@ -34,23 +34,22 @@ $("#filtertime").on('click',function(){
 /*搜索框*/
 var serarticlelist = $.templates(templates.design["tmplserarticle"]);
 $('#btn-search').click(function(){
-	filterSta = false;
-	$('.section-filter').hide();
-	$('.section-filter-ser').show();
-	val = $('#txt-search').val;
+	filterSta = false;	
+	var val = $.trim($('#txt-search').val());
 	if(val){
 		$.ajax({
 	        type:"get",
 	        contentType: 'application/json',
 	        dataType:"json",
-	        url:'api/wechat/structSearch?kw=北京',
+	        url:dataUrl.util.getStructSearch(val),
 	        success:function(returnData){
 	        	if(returnData.error.code == 0 && returnData.data.length>0){
-	        		console.log(returnData);
 	        		$('#jiegou-con-div').html('');
 	        		$('#jiegou-con-div').append(serarticlelist.render(returnData))
-	        	}
-	        	
+	        		$('.section-filter').hide();
+	        		$('.section-filter-ser').show();
+	        		getSimilarTopic(val);
+	        	}	        	
 	        },
 	        error:function(){
 	            console.log('获取标签列表失败');
@@ -61,6 +60,32 @@ $('#btn-search').click(function(){
 	}
 	
 })
+function getSimilarTopic(kw){
+	var data = {
+		count:10,
+		kw:kw
+	}
+	$.ajax({
+        type:"get",
+        contentType: 'application/json',
+        dataType:"json",
+        data:data,
+        url:dataUrl.util.getSimilarTopic(),
+        success:function(returnData){
+        	if(returnData.error.code == 0){
+        		drawWord(returnData.data.topicList);
+        		var similayData = returnData.data.termList;
+        		if(similayData.length > 10){
+        			similayData.length = 10;
+        		}
+        		similarHot(similayData);
+        	}
+        },
+        error:function(){
+            console.log('获取相似热点列表失败');
+        }
+    });
+}
 //取消结构
 $(document).delegate('.canceljiegou','click',function(){
 	var text = $(this).text();
@@ -87,15 +112,83 @@ $('#ser-back-home').click(function(){
 })
 
 /*热门文章区域*/
-var metrialList = $.templates(templates.design["tmplMetrialList"]);
-var returnData = {
-		data:[{},{},{},{},{},{},{},{},{},{},{},{}]
+var currentPage = 1;
+var pageSize = 100;
+var currentSelect = {};
+$(document).ready(function(){
+	loadDefaultList();
+})
+function loadDefaultList(){
+	var data = {
+		currentPage:currentPage,
+		pageSize:pageSize
+	}
+	$.ajax({
+        type:"get",
+        contentType: 'application/json',
+        dataType:"json",
+        data:data,
+        url:dataUrl.util.getArticalList(),
+        success:function(returnData){
+        	if(returnData.error.code == 0 && returnData.data.length>0){        	
+	        	$(".listCon").empty();
+	        	var metrialList = $.templates(templates.design["tmplMetrialList"]);
+	        	$(".listCon").append(metrialList.render(returnData));
+        	}
+        },
+        error:function(){
+            console.log('获取素材文章列表失败');
+        }
+    });
 }
-$(".listCon").append(metrialList.render(returnData))
+function getSearchList(){
+	if(arguments.length>0){
+		var data = {
+			keywords:$(".filter-list .ser input").val(),
+			pageNumber:currentPage,
+			pageSize:pageSize,
+			publishDate:arguments[0].publishDate,
+			tags:arguments[0].tags,
+			structTypes:arguments[0].structTypes
+		}
+	}else{
+		var data = {
+			  keywords:$(".filter-list .ser input").val(),
+			  pageNumber:1,
+			  pageSize:100,
+			}
+		currentPage = 1;
+		currentSelect = {};
+	}
+	
+	$.ajax({
+        type:"post",
+        contentType: 'application/json',
+        dataType: "json",
+        url: dataUrl.util.getArticlesearch(),
+        data:JSON.stringify(data),
+        success: function(returnData) {
+        	console.log("***********");
+        	console.log(returnData);
+        	if(returnData.error.code == 0 && returnData.data.data.length>0){
+        		console.log()
+	        	$(".listCon").empty();
+	        	var metrialList = $.templates(templates.design["tmplMetrialSearch"]);
+	        	$(".listCon").append(metrialList.render(returnData.data));
+	        	if(arguments[1]){
+	        		currentPage = 1;
+	        	}
+        	}
+        },
+        error: function() {
+            console.log('查找文章失败');
+        }
+    });
+}
 $(document).on("click",".currentTitle a",function(e){
 	e.preventDefault();
 	var src = $(this).attr("href");
-	console.log(src);
+	$("#htmlCon").attr("src",src);
 	$(".alertMask").show();
 })
 $(".closeBtn").on("click",function(){
@@ -117,7 +210,7 @@ $(".filter-list>li.area").click(function(){
         		
         		$.each(returnData.data,function(idx,item){
                     var id=item.id;
-                    $item=$("<li data-id='"+id+"'>"+item.name+"</li>");
+                    $item=$("<li data-id='"+id+"' data-name='"+item.name+"'>"+item.name+"</li>");
                     if(result&&result.length>0&&_.indexOf(result, id)!=-1){
                         $item.addClass("active");
                     }
@@ -135,6 +228,7 @@ $(".filter-list>li.area").click(function(){
     var pop = new PopFodder({
         width:"706px",
         header:$head,
+        allSelect:true,
         content:$content,
         buttons:[{
             type:"fodderCancle",
@@ -154,9 +248,11 @@ $(".filter-list>li.area").click(function(){
                     _this.removeClass("active").find(".selCount").text(0).css("display","none");
                 }
                 $activeItem.each(function(){
-                    selected.push(parseInt($(this).data("id")))
+                    selected.push(parseInt($(this).data("name")))
                 });
                 _this.data("selected",selected);
+                currentSelect.tags = selected;
+                getSearchList(currentSelect,1);
                 $(".fodderMask").remove();
             }
         }]
@@ -179,7 +275,7 @@ $(".filter-list>li.type").click(function(){
         }else{
             className="tw";
         }
-        $item=$("<li class='"+className+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
+        $item=$("<li class='"+className+"' data-name='"+item+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
         if(result&&result.length>0&&_.indexOf(result, id)!=-1){
             $item.addClass("active");
         }
@@ -189,6 +285,7 @@ $(".filter-list>li.type").click(function(){
     var pop = new PopFodder({
         width:"706px",
         height:"234px",
+        allSelect:true,
         header:$head,
         content:$content,
         buttons:[{
@@ -209,9 +306,12 @@ $(".filter-list>li.type").click(function(){
                     _this.removeClass("active").find(".selCount").text(0).css("display","none");
                 }
                 $activeItem.each(function(){
-                    selected.push(parseInt($(this).data("id")))
+                    selected.push(parseInt($(this).data("name")))
                 });
                 _this.data("selected",selected);
+//                currentSelect.structTypes = selected;
+                currentSelect.structTypes = ['互动型'];
+                getSearchList(currentSelect,1);
                 $(".fodderMask").remove();
             }
         }]
@@ -242,6 +342,7 @@ $(".filter-list>li.time").click(function(){
     var pop = new PopFodder({
         width:"706px",
         height:"234px",
+        allSelect:false,
         header:$head,
         content:$content,
         buttons:[{
@@ -265,6 +366,8 @@ $(".filter-list>li.time").click(function(){
                     selected.push(parseInt($(this).data("id")))
                 });
                 _this.data("selected",selected);
+                currentSelect.publishDate = selected[0];
+                getSearchList(currentSelect,1);
                 $(".fodderMask").remove();
             }
         }]
@@ -275,6 +378,8 @@ $(".filter-list>li.ser .btn-search").click(function(){
     var txt=$.trim($(this).siblings("input").val());
     if(txt!=""){
         $(".filter-list>li").removeClass("active").data("selected","").find(".selCount").text("0").css("display","none");
+        currentSelect = {};
+        getSearchList();
     }
 });
 /*搜索框*/
@@ -287,7 +392,13 @@ $(".filter-list>li.ser input").click(function(e){
     if($(".clearFilter").css("display","none")){
         $(".clearFilter").css("display","block");
     }
-});
+}).keypress(function (e) {
+	var $this = $(this);
+	var key = e.which || e.keyCode;
+	if (key == 13) { 
+		$this.next().click();
+	} 
+}); ;
 $(document).click(function(){
     $("ul.filter-list>li.ser").css("width","110px");
     $("ul.filter-list").css("width","488px");
@@ -297,8 +408,9 @@ $(".clearFilter").click(function(){
     $(".filter-list>li").removeClass("active").data("selected","").find(".selCount").text("0").css("display","none");
     $(".filter-list>li.ser input").val("");
     $(this).css("display","none");
+    currentSelect = {};
 });
-$(document).delegate(".areaList>li,.typeList>li,.timeList>li","click",function(e){
+$(document).delegate(".areaList>li,.typeList>li","click",function(e){
     if($(this).hasClass("active")){
         $(this).removeClass("active");
         $selAll=$(this).parents(".fodderWin").find(".selAll");
@@ -324,6 +436,25 @@ $(document).delegate(".areaList>li,.typeList>li,.timeList>li","click",function(e
         $(this).addClass("active");
         $(this).parents(".fodderWin").find("li").addClass("active");
     }
+}).delegate(".timeList>li","click",function(e){
+    if($(this).hasClass("active")){
+//        $(this).removeClass("active");
+//        $selAll=$(this).parents(".fodderWin").find(".selAll");
+//        if($selAll.hasClass("active")){
+//            $selAll.removeClass("active");
+//        }
+    }else{
+        $(this).addClass("active");
+        $(this).siblings().removeClass("active");
+//        var allLen=$(this).parents("ul").find("li").length;
+//        var activeLen=$(this).parents("ul").find("li.active").length;
+//        if(allLen==activeLen){
+//            $selAll=$(this).parents(".fodderWin").find(".selAll");
+//            if(!$selAll.hasClass("active")){
+//                $selAll.addClass("active");
+//            }
+//        } 
+    }
 })
 
 /*热门文章列表*/
@@ -337,7 +468,7 @@ var Hotdata = "[{\"id\":5298,\"title\":\"我是证人\",\"score\":0.27028504,\"c
 var data = JSON.parse(Hotdata);
 data.length = 10;
 console.log(data)
-drawWord(data)
+
 /*显示热点图*/
 function drawWord(data) {
     var pointArr = [];
@@ -477,21 +608,21 @@ $(document).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
 //    $(".alertCon").find(".infoConnect").attr("data-id",hotInfo.id?hotInfo.id:"");
     $(".alertCon").find(".infoText").text(hotInfo.introduction?hotInfo.introduction:"").attr("title",hotInfo.introduction?hotInfo.introduction:"");
     $(".alertCon").find(".hotValue").text(hotInfo.prevailingTrend?hotInfo.prevailingTrend:0);
-    $(".alertCon").find(".weibo-link").attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"#");
+    $(".alertCon").find(".weiboIcon").parent().attr("href",hotInfo.topicUrl?hotInfo.topicUrl:"");
     if(hotInfo.wechatUrl){
-        $(".alertCon").find(".weixin-link").attr("href",hotInfo.wechatUrl).css("display","inline-block");
+        $(".alertCon").find(".weixinIcon").parent().attr("href","http://weixin.sogou.com/weixin?type=2&query="+hotInfo.wechatTitle).css("display","inline-block");
     }else{
-        $(".alertCon").find(".weixin-link").css("display","none");
+        $(".alertCon").find(".weixinIcon").css("display","none");
     }
     if(hotInfo.zhihuUrl){
-        $(".alertCon").find(".zhihu-link").attr("href",hotInfo.zhihuUrl).css("display","inline-block");
+        $(".alertCon").find(".zhihuIcon").parent().attr("href",hotInfo.zhihuUrl).css("display","inline-block");
     }else{
-        $(".alertCon").find(".zhihu-link").css("display","none");
+        $(".alertCon").find(".zhihuIcon").css("display","none");
     }
     if(hotInfo.baiduUrl){
-        $(".alertCon").find(".baidu-link").attr("href",hotInfo.baiduUrl).css("display","inline-block");
+        $(".alertCon").find(".baiduinIcon").parent().attr("href",hotInfo.baiduUrl).css("display","inline-block");
     }else{
-        $(".alertCon").find(".baidu-link").css("display","none");
+        $(".alertCon").find(".baiduinIcon").css("display","none");
     }
     if(hotInfo.logoImgUrl){
         $(".alertCon").find(".portrait").css("background-image","url("+hotInfo.logoImgUrl+")");
@@ -547,8 +678,7 @@ function similarHot(data){
 		            color: ["#fff"]
 		        },
 		        emphasis: {
-		            shadowBlur: 10,
-		            shadowColor: '#333'
+		            shadowColor: '#fff'
 		        }
 		    },
 		    data: []
@@ -556,25 +686,14 @@ function similarHot(data){
 		};
 		
 		var JosnList = [];
+		var valueArray = [500,450,400,350,300,300];
+		$.each(data,function(index,item){
+			JosnList.push({
+				name:item,
+				value:valueArray[Math.floor(Math.random()*6)]
+			})
+		})		
 		
-		JosnList.push({
-			name: "春节",
-			value: 450
-			}, {
-			name: "团聚",
-			value: "500"
-			}, {
-			name: "回家过年",
-			value: "400"
-			}, {
-			name: "过年",
-			value: "350"
-			}, {
-			name: "车票",
-			value: "300"
-			});
-		
-	option.series[0].data = JosnList;
-	chart.setOption(option)
+		option.series[0].data = JosnList;
+		chart.setOption(option)
 }
-similarHot();
