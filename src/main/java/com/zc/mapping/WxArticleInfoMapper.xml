@@ -25,17 +25,21 @@
   </sql>
 
   <select id="getWxArticleList" resultMap="BaseResultMap" >
-	select daily.id, daily.title, daily.account_id, daily.account_name,
-	article.structure_type, daily.article_tags, daily.publish_time,
-	daily.read_num,daily.relative_score,article.keywords,article.article_url
-	from wxarticlerankdaily daily
-	inner join wxarticleinfo article on article.article_id = daily.article_id
-    left join WxArticleRelatedTopic arti_topic on arti_topic.article_id = article.id
-    left join ( select id as topicId,title as topicTitle from view_topic ) topic on topic.topicId = arti_topic.topic_id
-	where daily.is_latest = 1
-    order by daily.relative_score DESC
-    LIMIT
-    #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      select daily.id, daily.title, daily.account_id, daily.account_name,
+      arti_title_type.structure_type, daily.article_tags, daily.publish_time,
+      daily.read_num,daily.relative_score,article.keywords,article.article_url
+      from wxarticlerankdaily daily
+      inner join wxarticleinfo article on article.article_id = daily.article_id
+      inner join (
+      SELECT articleinfo_id, GROUP_CONCAT(class_name SEPARATOR ',') structure_type from WxArticleClass arti_cls
+      INNER join WxTitleClass title_cls on arti_cls.class_id = title_cls.id GROUP BY arti_cls.articleinfo_id
+      ) arti_title_type on arti_title_type.articleinfo_id = article.id
+      left join WxArticleRelatedTopic arti_topic on arti_topic.article_id = article.id
+      left join ( select id as topicId,title as topicTitle from view_topic ) topic on topic.topicId = arti_topic.topic_id
+      where daily.is_latest = 1 and arti_title_type.structure_type &lt;&gt; '其他'
+      order by daily.relative_score DESC
+      LIMIT
+      #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
 
 </mapper>
