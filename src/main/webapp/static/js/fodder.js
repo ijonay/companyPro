@@ -4,7 +4,6 @@ $(".header-left li:last a").css("color","#fff").attr("href","javascript:;");
 /*返回顶部*/
 filterSta = true;
 $(window).scroll(function(){
-
     if($(window).scrollTop()>540){
         $('.list-header').addClass('list_header_scroll');
     }else{
@@ -16,6 +15,17 @@ $(window).scroll(function(){
         }else{
             $('.sidebar').addClass('hidecommon');
         }
+    }
+    if(defaultList){
+    	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
+    		loadDefaultList();
+    	}
+    }else{
+    	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
+    		var data = jQuery.extend(true, {}, currentSelect);
+    		data.pageNumber = (($(".listCon").attr("data-search")-0)+1);
+    		getSearchList(data)
+    	}
     }
     
 });
@@ -36,12 +46,17 @@ var serarticlelist = $.templates(templates.design["tmplserarticle"]);
 $('#btn-search').click(function(){
 	filterSta = false;	
 	var val = $.trim($('#txt-search').val());
+	var data = {
+			count:10,
+			kw:val
+	}
 	if(val){
 		$.ajax({
 	        type:"get",
 	        contentType: 'application/json',
 	        dataType:"json",
-	        url:dataUrl.util.getStructSearch(val),
+	        data:data,
+	        url:dataUrl.util.getStructSearch(),
 	        success:function(returnData){
 	        	if(returnData.error.code == 0 && returnData.data.length>0){
 	        		$('#jiegou-con-div').html('');
@@ -74,15 +89,24 @@ function getSimilarTopic(kw){
         success:function(returnData){
         	if(returnData.error.code == 0){
         		drawWord(returnData.data.topicList);
-        		var similayData = returnData.data.termList;
-        		if(similayData.length > 10){
-        			similayData.length = 10;
-        		}
+        		if(returnData.data.termList.length>0){
+        			var similayData = returnData.data.termList;
+            		if(similayData.length > 10){
+            			similayData.length = 10;
+            		}
+        		}else{
+        			var similayData =['暂无数据'];
+        		}        		
+        		similarHot(similayData);
+        	}else{
+        		var similayData = [returnData.error.message];
         		similarHot(similayData);
         	}
         },
         error:function(){
             console.log('获取相似热点列表失败');
+            var similayData = ['获取相似热点列表失败'];
+    		similarHot(similayData);
         }
     });
 }
@@ -115,14 +139,16 @@ $('#ser-back-home').click(function(){
 var currentPage = 1;
 var pageSize = 100;
 var currentSelect = {};
+var defaultList = true;
 $(document).ready(function(){
 	loadDefaultList();
 })
 function loadDefaultList(){
 	var data = {
-		currentPage:currentPage,
+		currentPage:($(".listCon").attr("data-default")-0)+1,
 		pageSize:pageSize
 	}
+	console.log(data)
 	$.ajax({
         type:"get",
         contentType: 'application/json',
@@ -130,7 +156,8 @@ function loadDefaultList(){
         data:data,
         url:dataUrl.util.getArticalList(),
         success:function(returnData){
-        	if(returnData.error.code == 0 && returnData.data.length>0){        	
+        	if(returnData.error.code == 0 && returnData.data.length>0){
+        		$(".listCon").attr("data-default",($(".listCon").attr("data-default") - 0)+1)
 	        	$(".listCon").empty();
 	        	var metrialList = $.templates(templates.design["tmplMetrialList"]);
 	        	$(".listCon").append(metrialList.render(returnData));
@@ -142,10 +169,11 @@ function loadDefaultList(){
     });
 }
 function getSearchList(){
+	defaultList = false;
 	if(arguments.length>0){
 		var data = {
 			keywords:$(".filter-list .ser input").val(),
-			pageNumber:currentPage,
+			pageNumber:(($(".listCon").attr("data-search")-0)+1),
 			pageSize:pageSize,
 			publishDate:arguments[0].publishDate,
 			tags:arguments[0].tags,
@@ -157,7 +185,8 @@ function getSearchList(){
 			  pageNumber:1,
 			  pageSize:100,
 			}
-		currentPage = 1;
+		$(".listCon").attr("data-search",0); 
+//		currentPage = 1;
 		currentSelect = {};
 	}
 	
@@ -171,13 +200,16 @@ function getSearchList(){
         	console.log("***********");
         	console.log(returnData);
         	if(returnData.error.code == 0 && returnData.data.data.length>0){
-        		console.log()
-	        	$(".listCon").empty();
+        		$(".listCon").attr("data-search",($(".listCon").attr("data-search")-0)+1);
+	        	
+	        	if(arguments[1]){
+//	        		currentPage = 1;
+	        		$(".listCon").empty();
+	        		$(".listCon").attr("data-search",1)
+	        	}
 	        	var metrialList = $.templates(templates.design["tmplMetrialSearch"]);
 	        	$(".listCon").append(metrialList.render(returnData.data));
-	        	if(arguments[1]){
-	        		currentPage = 1;
-	        	}
+	        	
         	}
         },
         error: function() {
@@ -332,7 +364,7 @@ $(".filter-list>li.time").click(function(){
         }else{
             className="j30t";
         }
-        $item=$("<li class='"+className+"' data-id='"+id+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
+        $item=$("<li class='"+className+"' data-id='"+idx+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
         if(result&&result.length>0&&_.indexOf(result, id)!=-1){
             $item.addClass("active");
         }
@@ -471,6 +503,7 @@ console.log(data)
 
 /*显示热点图*/
 function drawWord(data) {
+	$("#canvas").find(".topic").remove();
     var pointArr = [];
     $.each(data, function(idx, item) {
         if(idx%2!=0){
@@ -580,6 +613,7 @@ $(document).delegate('.topic','mouseover',function(){
     }
 });
 $(document).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
+	$(".alertCon").find(".infoBottom a div").show();
     e ? e.stopPropagation() : event.cancelBubble = true;
     var $activeItem=$(this).siblings("div.active");
     if($activeItem.length>0){
@@ -658,6 +692,12 @@ $(document).delegate(".topic", "click", function(e) {/*点击显示弹窗*/
 //相似热点
 function similarHot(data){
 	var chart = echarts.init(document.getElementById('wordCon'));
+	if(data.length <= 3){
+		var rotateArray = [0,0];
+	}else{
+		var rotateArray = [-90,0];
+	}
+	var rotationArray
     option = {
 		backgroundColor: '#309295',
 		series: [{
@@ -666,7 +706,7 @@ function similarHot(data){
 		    // size: ['9%', '99%'],
 		    sizeRange: [14, 18],
 		    // textRotation: [0, 45, 90, -45],
-		    rotationRange: [-90, 0],
+		    rotationRange: rotateArray,
 		    rotationStep: 90,
 		    textPadding: 0,
 		    autoSize: {

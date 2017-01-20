@@ -191,7 +191,7 @@
             <div class="list-header">
 	        	<span>推送名称</span><span>所属自媒体</span><span>标题结构</span><span>内容关键词</span><span>相关话题</span><span>领域</span><span>推送时间</span><span>阅读量</span><span>综合评价</span>
 	        </div>
-	        <ul class="listCon">
+	        <ul class="listCon" data-default=0 data-search="0">
 	        	<li>
 	        		<div class="topicTitle"><span class="topicNum">1</span><span class="currentTitle"><a href="http://heptax.com">文章名称</a></span></div>
 	        		<div><span class="mediaOrg">中国南方航空</span><span class="cared">已关注</span></div>
