@@ -18,13 +18,18 @@ $(window).scroll(function(){
     }
     if(defaultList){
     	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
-    		loadDefaultList();
+    		if(!dataLoading){
+    			loadDefaultList();
+    		}
     	}
     }else{
     	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
     		var data = jQuery.extend(true, {}, currentSelect);
     		data.pageNumber = (($(".listCon").attr("data-search")-0)+1);
     		getSearchList(data)
+    		if(!dataLoading){
+    			getSearchList(data)
+    		}
     	}
     }
     
@@ -153,6 +158,7 @@ var currentPage = 1;
 var pageSize = 100;
 var currentSelect = {};
 var defaultList = true;
+var dataLoading = false;
 $(document).ready(function(){
 	loadDefaultList();
 })
@@ -161,7 +167,10 @@ function loadDefaultList(){
 		currentPage:($(".listCon").attr("data-default")-0)+1,
 		pageSize:pageSize
 	}
-	console.log(data)
+	if(dataLoading){
+		return
+	}
+	dataLoading = true;
 	$.ajax({
         type:"get",
         contentType: 'application/json',
@@ -169,6 +178,7 @@ function loadDefaultList(){
         data:data,
         url:dataUrl.util.getArticalList(),
         success:function(returnData){
+        	dataLoading = false;
         	if(returnData.error.code == 0 && returnData.data.length>0){
         		$(".listCon").attr("data-default",($(".listCon").attr("data-default") - 0)+1)
 	        	$(".listCon").empty();
@@ -177,6 +187,7 @@ function loadDefaultList(){
         	}
         },
         error:function(){
+        	dataLoading = false;
             console.log('获取素材文章列表失败');
         }
     });
@@ -202,7 +213,11 @@ function getSearchList(){
 //		currentPage = 1;
 		currentSelect = {};
 	}
-	
+	if(dataLoading){
+		return
+	}
+	dataLoading = true;
+	var tempArgument = arguments[1];
 	$.ajax({
         type:"post",
         contentType: 'application/json',
@@ -212,10 +227,11 @@ function getSearchList(){
         success: function(returnData) {
         	console.log("***********");
         	console.log(returnData);
+        	dataLoading = false;
         	if(returnData.error.code == 0 && returnData.data.data.length>0){
         		$(".listCon").attr("data-search",($(".listCon").attr("data-search")-0)+1);
-	        	
-	        	if(arguments[1]){
+	        	if(tempArgument){
+	        		console.log(arguments[1])
 //	        		currentPage = 1;
 	        		$(".listCon").empty();
 	        		$(".listCon").attr("data-search",1)
@@ -226,6 +242,7 @@ function getSearchList(){
         	}
         },
         error: function() {
+        	dataLoading = false;
             console.log('查找文章失败');
         }
     });
@@ -425,6 +442,7 @@ $(".filter-list>li.ser .btn-search").click(function(){
         $(".filter-list>li").removeClass("active").data("selected","").find(".selCount").text("0").css("display","none");
         currentSelect = {};
         getSearchList();
+        $(".listCon").empty();
     }
 });
 /*搜索框*/
