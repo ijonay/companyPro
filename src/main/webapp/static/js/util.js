@@ -94,8 +94,8 @@ dataUrl.util = {
     getSimilarTopic:function(){
     	return "api/wechat/wxTopicList"
     },
-    getStructSearch:function(val){
-    	return "api/wechat/structSearch?kw="+val
+    getStructSearch:function(){
+    	return "api/wechat/structSearch"
     }
 }
 

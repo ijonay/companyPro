@@ -279,7 +279,7 @@ templates.design = {};
     tmpl.push('{{for data}}');
     tmpl.push('<li data-id="{{:id}}">');
     tmpl.push('  <div class="topicTitle">');
-    tmpl.push('    <span class="topicNum">{{:#index+1}}</span><span class="currentTitle"><a href="{{:article_url}}" title="{{:title}}">{{:title}}</a></span>');
+    tmpl.push('    <span class="topicNum">{{:#index+1 }}</span><span class="currentTitle"><a href="{{:article_url}}" title="{{:title}}">{{:title}}</a></span>');
     tmpl.push('  </div>');
     tmpl.push('  <div>');
     tmpl.push('    <span class="mediaOrg" title="{{:account_name}}" data-accountid="{{:account_id}}">{{:account_name}}</span><span class="cared">已关注</span><span class="careLess"><span class="iconPlus">+</span> 关注</span>');
