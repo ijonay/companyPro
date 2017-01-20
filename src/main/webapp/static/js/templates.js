@@ -323,7 +323,7 @@ templates.design = {};
     tmpl.push('</div>');
     tmpl.push('<div class="title-top-div">');
     tmpl.push('<p><em>建议结构{{:#index+1}}:&nbsp;</em><span>{{:name}}</span><i><img src="img/wenhao-icon.png"></i></p>');
-    tmpl.push('<p>与您的需求关键词相关的文章中，选择“{{:name}}式”标题结构的文章综合指数较高</p>');
+    tmpl.push('<p>根据您输入的关键词，向您推荐标题结构为“{{:name}}”的文章</p>');
     tmpl.push('</div>');
 	
     tmpl.push('<div class="cancel-flat">');

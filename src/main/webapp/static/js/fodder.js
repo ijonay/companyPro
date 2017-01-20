@@ -43,6 +43,12 @@ $("#filtertime").on('click',function(){
 });
 /*搜索框*/
 var serarticlelist = $.templates(templates.design["tmplserarticle"]);
+$('#txt-search').keyup(function(event){
+	if(event.keyCode == '13'){
+		$('#btn-search').click();
+	}
+});
+
 $('#btn-search').click(function(){
 	filterSta = false;	
 	var val = $.trim($('#txt-search').val());
@@ -58,18 +64,25 @@ $('#btn-search').click(function(){
 	        data:data,
 	        url:dataUrl.util.getStructSearch(),
 	        success:function(returnData){
-	        	if(returnData.error.code == 0 && returnData.data.length>0){
+	        	console.log(returnData)
+	        	console.log(returnData.data.length)
+	        	if(returnData.error.code == 0){
 	        		$('#jiegou-con-div').html('');
-	        		$('#jiegou-con-div').append(serarticlelist.render(returnData))
 	        		$('.section-filter').hide();
 	        		$('.section-filter-ser').show();
-	        		getSimilarTopic(val);
+	        		if(returnData.data.length>0){
+	        			$('#jiegou-con-div').append(serarticlelist.render(returnData));
+	        			
+	        		}else{
+	        			$('#jiegou-con-div').append('<p style="width:100%;height:396px;background:#fff;text-align:center;line-height:396px;border-radius:4px;font-size:16px;color:#389b9f;">很抱歉，没有找到与“'+val+'”相关的文章</p>')
+	        		};
 	        	}	        	
 	        },
 	        error:function(){
 	            console.log('获取标签列表失败');
 	        }
 	    });
+		getSimilarTopic(val);
 	}else{
 		return;
 	}

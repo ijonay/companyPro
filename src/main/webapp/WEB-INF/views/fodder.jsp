@@ -29,7 +29,7 @@
     <div class="section-filter-ser hidecommon" >
     	<p class="tile-suggest ac f16">标题结构建议</p>
     	<p class="tile-suggest-n ac f14">最符合运营需求的“结构化标题类型推荐”及“文章参考”</p>
-    	<div style="width:100%;overflow:hidden;" id="jiegou-con-div">
+    	<div style="width:100%;height:396px;      display: -ms-flex;display:-webkit-flex;display: -moz-flex; display: flex;justify-content: center;" id="jiegou-con-div">
     		<div class="fl jiegou-con pst">
     			<div class="title-number-pos pos ac f16">
     				1
@@ -116,8 +116,6 @@
     		<div class="fl jiegou-con pst">
     			
     		</div>
-    		
-    		
     		<div class="clearfix"></div>
     	</div>
     	<p class="tile-suggest ac f16">相关热点推荐</p>
