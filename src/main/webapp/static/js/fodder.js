@@ -15,22 +15,24 @@ $(window).scroll(function(){
         }else{
             $('.sidebar').addClass('hidecommon');
         }
-    }
-    if(defaultList){
-    	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
-    		if(!dataLoading){
-    			loadDefaultList();
-    		}
-    	}
-    }else{
-    	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
-    		var data = jQuery.extend(true, {}, currentSelect);
-    		data.pageNumber = (($(".listCon").attr("data-search")-0)+1);
-    		getSearchList(data)
-    		if(!dataLoading){
-    			getSearchList(data)
-    		}
-    	}
+    	if(defaultList){
+	    	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
+	    		if(!dataLoading){
+	    			loadDefaultList();
+	    		}
+	    	}
+	    }else{
+	    	if(document.body.clientHeight > $(".listCon").get(0).getBoundingClientRect().bottom - 130){
+	    		var data = jQuery.extend(true, {}, currentSelect);
+	    		data.pageNumber = (($(".listCon").attr("data-search")-0)+1);
+	    		getSearchList(data)
+	    		if(!dataLoading){
+	    			getSearchList(data)
+	    		}
+	    	}
+	    }
+    }else {
+    	
     }
     
 });
@@ -106,24 +108,27 @@ function getSimilarTopic(kw){
         url:dataUrl.util.getSimilarTopic(),
         success:function(returnData){
         	if(returnData.error.code == 0){
+        		$("#canvas").find(".topic").remove();
         		drawWord(returnData.data.topicList);
         		if(returnData.data.termList.length>0){
         			var similayData = returnData.data.termList;
-            		if(similayData.length > 10){
-            			similayData.length = 10;
-            		}
+//            		if(similayData.length > 10){
+//            			similayData.length = 10;
+//            		}
         		}else{
         			var similayData =['暂无数据'];
         		}        		
         		similarHot(similayData);
         	}else{
         		var similayData = [returnData.error.message];
+            	$("#canvas").find(".topic").remove();
         		similarHot(similayData);
         	}
         },
         error:function(){
             console.log('获取相似热点列表失败');
             var similayData = ['获取相似热点列表失败'];
+        	$("#canvas").find(".topic").remove();
     		similarHot(similayData);
         }
     });
@@ -310,7 +315,7 @@ $(".filter-list>li.area").click(function(){
                     _this.removeClass("active").find(".selCount").text(0).css("display","none");
                 }
                 $activeItem.each(function(){
-                    selected.push(parseInt($(this).data("name")))
+                    selected.push($(this).data("name"))
                 });
                 _this.data("selected",selected);
                 currentSelect.tags = selected;
@@ -395,7 +400,7 @@ $(".filter-list>li.time").click(function(){
             className="j30t";
         }
         $item=$("<li class='"+className+"' data-id='"+idx+"'><div class='typeIcon'><div class='typeSel'></div></div><div class='typeTitle'>"+item+"</div></li>");
-        if(result&&result.length>0&&_.indexOf(result, id)!=-1){
+        if(result&&result.length>0&&_.indexOf(result, idx)!=-1){
             $item.addClass("active");
         }
         $content.append($item);
