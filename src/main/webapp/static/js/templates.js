@@ -157,7 +157,7 @@ templates.design = {};
     tmpl.push('       <li>');
     tmpl.push('           <div class="type-icon fl"></div>');
     tmpl.push('            <span class="type-title weixin-color fl">微信</span>');
-    tmpl.push('           <span class="type-article fl word-ellipsis">推荐文章：<a target="_blank" href={{:wechatUrl}}>{{:wechatTitle}}</a></span>');
+    tmpl.push('           <span class="type-article fl word-ellipsis">推荐文章：<a target="_blank" href="http://weixin.sogou.com/weixin?type=2&query={{:wechatTitle}}">{{:wechatTitle}}</a></span>');
     tmpl.push('           {{if wechatAvgReadNum}}<span class="type-num fl">相关文章数：<b>{{:wechatAvgReadNum}}</b></span>{{/if}}');
     tmpl.push('       </li>');
     tmpl.push('   {{else}}');
@@ -205,14 +205,13 @@ templates.design = {};
     tmpl.push('     <div class="hot_near_list">');
     tmpl.push('         <div class="hot_near_list_head f16">');
     tmpl.push('     	   <div class="hot_near_title fl">相似热点推荐：</div>');
-    tmpl.push('            <div class="pnlNear near_error fl" style="display:none;">暂无数据</div>');
-    tmpl.push('     	   <div class="hot_near_refresh fr" style="display:none;"></div>');
+    tmpl.push('            <div class="near_error fl"></div>');
     tmpl.push('         </div>');
     tmpl.push('         <div class="hot_near_con"></div>');
     tmpl.push('     </div>');
     tmpl.push('     </ul>');
     tmpl.push('     <div class="hot_echart_list hidecommon">');
-    tmpl.push('<div class="newPicCon"><div class="chartsLeftCon"><div class="leftTopCon"><div class="sexCon"></div><div class="ageCon"></div></div><div class="leftBottomCon"><div class="eduCon"></div><div class="areaCon"></div></div></div><div class="chartsRightCon"></div></div>')
+    tmpl.push('<div class="newPicCon"><div class="chartsLeftCon"><div class="leftTopCon"><div class="sexCon"></div><div class="ageCon"></div></div><div class="leftBottomCon"><div class="eduCon"></div><div class="areaCon"></div><div class="areaTGICon"></div><div class="tgiSwitch"><div class="defBtn tgiSelect">占比</div><div class="defBtn">TGI</div></div></div></div><div class="chartsRightCon"></div></div>')
     tmpl.push('<img class="tgiInt" src="img/info.png" />')
     tmpl.push('     </div>');
     tmpl.push('</li>');

@@ -180,6 +180,12 @@
 	
 </div>
 	<ul class="all_hot_list"></ul>
+	 <!-- TGI解释  -->
+   		<div class="tgiInfoDialog">
+   			<p>兴趣TGI</p>
+   			<span>(该热点受众中某兴趣的人群占比÷全网中该兴趣的人群占比)×100</span>
+   		</div>
+   <!-- TGI解释 end  -->
 	<jsp:include page="foot.jsp" />
 	<script src="js/dialog.js"></script>
     <script src="js/hotresult.js"></script>
