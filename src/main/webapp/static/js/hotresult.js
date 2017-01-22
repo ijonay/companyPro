@@ -1,3 +1,6 @@
+/*顶部导航*/
+$(".header-left li:first a").css("color","#fff");
+
 var urlLabel = GetRequestLabel();//标签信息
 var word = GetRequest().clueWord;//关键词
 var nowPage = GetRequest().currentPage;//页码
@@ -2601,7 +2604,11 @@ $(document).on('click','.all_hot_list_top_look',function(){//点击详情中受�
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	if(obj.value){
+    	        	        		return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	}else{
+    	        	        		return "TGI<br/>"+obj.name + ":" + 0;
+    	        	        	}
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"

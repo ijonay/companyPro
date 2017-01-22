@@ -1,3 +1,6 @@
+/*顶部导航*/
+$(".header-left li:first a").css("color","#fff").attr("href","javascript:;");
+
 //头部。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 var hotsystem_flag=true;
 $('#nav-head-search').on('click',function(){
@@ -2619,7 +2622,11 @@ var circleOption = {
     	        	    tooltip : {
     	        	        trigger: 'item',
     	        	        formatter:function(obj){
-    	        	        	return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	if(obj.value){
+    	        	        		return "TGI<br/>"+obj.name + ":" + obj.value;
+    	        	        	}else{
+    	        	        		return "TGI<br/>"+obj.name + ":" + 0;
+    	        	        	}
     	        	        },
     	        	        textStyle:{
     	        	        	fontFamily:"微软雅黑"

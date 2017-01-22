@@ -81,6 +81,21 @@ dataUrl.util = {
     updateStateChange:'api/proinfo/updatestate',
     getCircleHots:function(size){
         return "api/topic/getBySearchModel?size="+size
+    },
+    getArticalFileds:function(){
+    	return "api/wechat/wxArticleFields"
+    },
+    getArticalList:function(){
+    	return "api/wechat/wxArticleList"
+    },
+    getArticlesearch:function(){
+    	return "api/wechat/searchArticle"
+    },
+    getSimilarTopic:function(){
+    	return "api/wechat/wxTopicList"
+    },
+    getStructSearch:function(){
+    	return "api/wechat/structSearch"
     }
 }
 

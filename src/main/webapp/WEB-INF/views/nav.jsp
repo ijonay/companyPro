@@ -6,6 +6,11 @@
 <%@ include file="taglibs.jsp" %>
 <div class="header"><!-- head start -->
     <div class="header-logo fl"></div>
+    <ul class="header-left fl">
+        <li><a href="hotsystem">热点探索</a></li>
+        <li style="display:none;"><a href="javascript:;">账号分析</a></li>
+        <li><a href="fodder">素材探索</a></li>
+    </ul>
     <ul class="header-right fr">
     	<li class="nav_ser hidecommon">
     		<input type="text" placeholder="请输入探索关键字" maxlength="10" class="f16" id="nav_ser">
@@ -42,9 +47,9 @@
 <div class="right-bar"><!-- right-bar start -->
     <div class="bar-content"><!-- bar-content start -->
         <ul class="bar-tabs"><!-- bar-tabs start -->
-            <li class="pred-tab active">热点预告</li>
-            <li class="notify-tab">探索通知<span class="notify-count">6</span></li>
-            <li class="right-bar-close">收起</li>
+            <li class="pred-tab active"><span>热点预告</span></li>
+            <li class="notify-tab"><span>探索通知<span class="notify-count">0</span></span></li>
+            <li class="right-bar-close" style="display:none;">收起</li>
         </ul><!-- bar-tabs end -->
         <div class="pnl-pred-tab"><!-- pnl-pred-tab start -->
             <div class="pnl-calendar"></div>

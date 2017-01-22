@@ -51,7 +51,15 @@
         manual_introduction, manual_topic_url, manual_baidu_url,  manual_zhihu_url, manual_wechat_url,
         manual_title, manual_logo_img_url
     </sql>
-
+    <sql id="Part_Column_List">
+        id,  title,  readnum,  topicurl,   logourl,   readnumtrendgrowth,
+        relationdesc,  topictype,  event_class,  introduction,  topic_region,  labels,
+        logo_img_url,  logo_img_url_local,  prevailing_trend,  wechat_url,  wechat_title,  wechat_avg_read_num,
+        baidu_title,  baidu_url,  baidu_hit_num,  zhihu_title,  zhihu_url,  zhihu_avg_answer_number,
+        manual_prevailing_trend,  manual_event_class, manual_is_applied,
+        manual_introduction, manual_topic_url, manual_baidu_url,  manual_zhihu_url, manual_wechat_url,
+        manual_title, manual_logo_img_url
+    </sql>
     <select id="getTopHotTopic" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
@@ -685,7 +693,7 @@
     </select>
     <select id="getBySearchModel" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Part_Column_List"/>
         from view_topic
         where id IN (
         <include refid="com.zc.dao.TopicFilterMapper.SearchModel_TopicId_List"/>

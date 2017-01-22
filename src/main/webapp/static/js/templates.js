@@ -20,7 +20,7 @@ templates.design = {};
     tmpl.push('<li data-topicId={{:topicId}} data-id={{:id}}>');
     tmpl.push('     <a>');
     tmpl.push('         <span class="dot-icon"></span>');
-    tmpl.push('         <span class="pnl"><span class="hot-word">{{>keyword}}</span>－');
+    tmpl.push('         <span class="pnl"><span class="hot-word">{{>keyword}}－</span>');
     tmpl.push('         <span class="hot-spot">{{:title}}</span></span>');
     tmpl.push('         <span class="time fr">{{>createDate}}</span>');
     tmpl.push('         <span class="notify-close fr" style="display:none;"><img style="vertical-align:top;margin-top:11px;" src="img/del-notify.png"></span>');
@@ -79,7 +79,7 @@ templates.design = {};
     tmpl.push('         <div class="fl font14">热度:</div><div class="near_hotValue font14 fl">{{if prevailingTrend}}{{:prevailingTrend}}{{else}}0{{/if}}</div>');
     tmpl.push('         <div class="near_iconCon fr">');
     tmpl.push('             {{if topicUrl}}<a target=" _blank" class="weibo-link" href="{{>topicUrl}}" style="background-image:url(img/hot_weibo.png);"></a>{{/if}}');
-    tmpl.push('             {{if wechatUrl}}<a target=" _blank" class="weixin-link" href="{{>wechatUrl}}" style="background-image:url(img/hot_weixin.png);"></a>{{/if}}');
+    tmpl.push('             {{if wechatUrl}}<a target=" _blank" class="weixin-link" href="http://weixin.sogou.com/weixin?type=2&query={{>wechatTitle}}" style="background-image:url(img/hot_weixin.png);"></a>{{/if}}');
     tmpl.push('             {{if zhihuUrl}}<a target=" _blank" class="zhihu-link" href="{{>zhihuUrl}}" style="background-image:url(img/hot_zhihu.png);"></a>{{/if}}');
     tmpl.push('             {{if baiduUrl}}<a target=" _blank" class="baidu-link" href="{{>baiduUrl}}" style="background-image:url(img/hot_baidu.png);"></a>{{/if}}');
     tmpl.push('         </div>');
@@ -131,7 +131,7 @@ templates.design = {};
     tmpl.push('       <li class="all_hot_top_topic"><p title={{:title}}>{{:title}}</p>{{:~addTag(eventClass)}}</li>');
 
     tmpl.push('       <li class="hot_trend">{{:prevailingTrend}}</li>');
-    tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatUrl}}<a target="_blank" href={{:wechatUrl}}><div class="weixinIcon"></div></a>{{/if}}{{if baiduUrl}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuUrl}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
+    tmpl.push('       <li class="all_hot_list_top_source1"><a target="_blank" href={{:topicUrl}}><div class="weiboIcon"></div></a>{{if wechatUrl}}<a target="_blank" href="http://weixin.sogou.com/weixin?type=2&query={{:wechatTitle}}"><div class="weixinIcon"></div></a>{{/if}}{{if baiduUrl}}<a target="_blank" href={{:baiduUrl}}><div class="baiduinIcon"></div></a>{{/if}}{{if zhihuUrl}}<a target="_blank" href={{:zhihuUrl}}><div class="zhihuIcon"></div></a>{{/if}}<div class="hot_img_arrow"></div></li>');
     tmpl.push('       <li class="all_hot_list_top_source" data-id={{:id}}><span class="hot_look_detail"></span><em>热点详情</em><span class="hot_img_arrow"></span></li>');
 
     tmpl.push('       <li class="all_hot_list_top_look" data-id={{:id}}><span class="hot_look_eye"></span><em>受众画像</em><span class="hot_look_arrow"></span></li>');
@@ -233,4 +233,154 @@ templates.design = {};
         "circleReset": function (index) {
         }
     });
+})();
+
+(function () {
+    tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('<li data-id="{{:id}}">');
+    tmpl.push('  <div class="topicTitle">');
+    tmpl.push('    <span class="topicNum">{{:#index+1}}</span><span class="currentTitle"><a href="{{:articleUrl}}" title="{{:title}}">{{:title}}</a></span>');
+    tmpl.push('  </div>');
+    tmpl.push('  <div>');
+    tmpl.push('    <span class="mediaOrg" title="{{:accountName}}" data-accountid="{{:accountId}}">{{:accountName}}</span><span class="cared">已关注</span><span class="careLess"><span class="iconPlus">+</span> 关注</span>');
+    tmpl.push('  </div>');
+    tmpl.push('  <div>{{if structureType}}<span class="titleStruct colorOrg" title="{{:structureType}}">{{:structureType}}</span>{{/if}}</div>');
+    tmpl.push('  <div><span class="contentKeyWord" title="{{:keywords}}">{{:keywords}}</span></div>');
+    tmpl.push('  <div><span class="correlatedTopic" title="{{:topicTitle}}" data-topicid="{{:topicId}}">{{:topicTitle}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:articleTags}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:~timeTrans(publishTime)}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:readNum}}</span></div>');
+    tmpl.push('  <div><p class="processBar"><span class="processBarInner" style="width:{{:relativeScore}}%"> </span></p></div>');
+    tmpl.push('</li>');
+    tmpl.push('{{/for}}');
+    templates.design['tmplMetrialList'] = tmpl.join('\r\n');
+    $.views.helpers({
+        "timeTrans": function (publishTime) {
+        	var timeStamp = Date.parse(new Date());
+        	var oldTime = publishTime - 0;
+        	var timeDiff =  timeStamp - oldTime;
+        	console.log(timeDiff);
+        	if(timeDiff >= 2592000000){
+        		return "30天前"
+        	}else if(timeDiff >= 604800000){
+        		return "近30天"
+        	}else if(timeDiff<=86400000){
+        		var a = Math.floor(timeDiff/3600000);
+        		return a + "小时前"
+        	}else{
+        		return "7天内"
+        	}
+        }
+    });
+})();
+(function () {
+    tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('<li data-id="{{:id}}">');
+    tmpl.push('  <div class="topicTitle">');
+    tmpl.push('    <span class="topicNum">{{:#index + 1 + #parent.parent.data.startIndex}}</span><span class="currentTitle"><a href="{{:article_url}}" title="{{:title}}">{{:title}}</a></span>');
+    tmpl.push('  </div>');
+    tmpl.push('  <div>');
+    tmpl.push('    <span class="mediaOrg" title="{{:account_name}}" data-accountid="{{:account_id}}">{{:account_name}}</span><span class="cared">已关注</span><span class="careLess"><span class="iconPlus">+</span> 关注</span>');
+    tmpl.push('  </div>');
+    tmpl.push('  <div>{{if titleStruct}}<span class="titleStruct colorOrg" title="{{:titleStruct}}">{{:titleStruct}}</span>{{/if}}</div>');
+    tmpl.push('  <div><span class="contentKeyWord" title="{{:keywords}}">{{:keywords}}</span></div>');
+    tmpl.push('  <div><span class="correlatedTopic" title="{{:topicTitle}}" data-topicid="{{:topicId}}">{{:topicTitle}}</span></div>');
+    tmpl.push('  <div><span class="colorGray" title="{{:articleTags}}">{{:articleTags}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:~timeTrans2(publish_time)}}</span></div>');
+    tmpl.push('  <div><span class="colorGray">{{:read_num}}</span></div>');
+    tmpl.push('  <div><p class="processBar"><span class="processBarInner" style="width:{{:score}}%"> </span></p></div>');
+    tmpl.push('</li>');
+    tmpl.push('{{/for}}');
+    templates.design['tmplMetrialSearch'] = tmpl.join('\r\n');
+    $.views.helpers({
+        "timeTrans2": function (publishTime) {
+        	var timeStamp = Date.parse(new Date());
+        	var oldTime = publishTime - 0;
+        	var timeDiff =  timeStamp - oldTime;
+        	console.log(timeDiff);
+        	if(timeDiff >= 2592000000){
+        		return "30天前"
+        	}else if(timeDiff >= 604800000){
+        		return "近30天"
+        	}else if(timeDiff<=86400000){
+        		var a = Math.floor(timeDiff/3600000);
+        		return a + "小时前"
+        	}else{
+        		console.log(timeDiff)
+        		return "7天内"
+        	}
+        }
+    });
+})();
+(function(){
+	tmpl = [];
+    tmpl.push('{{for data}}');
+    tmpl.push('{{if #index == 1}}<div class="fl jiegou-con jiegou-con-mar pst">{{else}}<div class="fl jiegou-con pst">{{/if}}');
+    tmpl.push('<div class="title-number-pos pos ac f16">{{:#index+1}}');
+    tmpl.push('<span></span>');
+    tmpl.push('</div>');
+    tmpl.push('<div class="title-top-div">');
+    tmpl.push('<p><em>建议结构{{:#index+1}}:&nbsp;</em><span>{{:name}}</span><i><img src="img/wenhao-icon.png"></i></p>');
+    tmpl.push('<p>根据您输入的关键词，向您推荐标题结构为“{{:name}}”的文章</p>');
+    tmpl.push('</div>');
+	
+    tmpl.push('<div class="cancel-flat">');
+    tmpl.push('<em class="f14">"{{:name}}"标题参考文章推荐：</em>');
+    tmpl.push('<span class="f12 pointer canceljiegou">取消标题结构化</span>');
+    tmpl.push('</div>');
+	
+    tmpl.push('<ul class="article-ul-con">');
+    tmpl.push('{{for data}}');
+    tmpl.push('<li>');
+    tmpl.push('<div class="article-ul-con-arr">');
+    tmpl.push('<ul>');
+    tmpl.push('<li>{{:#index+1}}</li>');
+    
+    tmpl.push('<li {{if #index > 2 }}class="hidecommon"{{else}}class="jiegoufengci"{{/if}}>');
+    tmpl.push('{{for title_participle}}');
+    tmpl.push('<span>{{:#data}}</span>');
+    tmpl.push('{{/for}}');
+    tmpl.push('</li>');
+    tmpl.push('<div {{if #index <3 }}class="article-ul-con-li-div article-ul-con-li-div3 hidecommon">{{else}}class="article-ul-con-li-div">{{/if}}');
+    tmpl.push('<span title="{{:title}}">{{:title}}</span>');
+    tmpl.push('<em>阅读量：{{:read_num}}</em>');
+    tmpl.push('</div>');
+	tmpl.push('</ul>');
+				
+	tmpl.push('<div {{if #index <3 }}class="ul-con-arr-div ul-con-arr-div3 f14">{{else}}class="ul-con-arr-div f14 hidecommon">{{/if}}');
+	tmpl.push('<span>来源：{{:account_name}}</span>');
+	tmpl.push('<span class="fr">阅读量：{{:read_num}}</span>');
+	tmpl.push('</div>');
+	tmpl.push('</div>');
+	tmpl.push('</li>');
+	tmpl.push('{{/for}}');
+//		
+//	tmpl.push('<li>');
+//	tmpl.push('<div class="article-ul-con-arr">');
+//	tmpl.push('<ul>');
+//	tmpl.push('<li>1</li>');
+//	tmpl.push('<li class="hidecommon">');
+//	tmpl.push('<span>过年过年</span>');
+//	tmpl.push('<span>过年过年</span>');
+//	tmpl.push('<span>过年过年</span>');
+//						
+//	tmpl.push('</li>');
+//	tmpl.push('<div class="article-ul-con-li-div">');
+//	tmpl.push('<span>文章名称文章名称文章名称文章名称文章名称</span>');
+//	tmpl.push('<em>阅读量：1000万</em>');
+//    tmpl.push('</div>');
+//	tmpl.push('</ul>');
+//				
+//	tmpl.push('<div class="ul-con-arr-div f14 hidecommon">');
+//	tmpl.push('<span>来源：中国南方航空</span>');
+//	tmpl.push('<span class="fr">阅读量：100万</span>');
+//	tmpl.push('</div>');
+//	tmpl.push('</div>');
+//	tmpl.push('</li>');
+//	tmpl.push('</ul>');
+	tmpl.push('</div>');
+	tmpl.push('{{/for}}');
+	templates.design['tmplserarticle'] = tmpl.join('\r\n');
 })();

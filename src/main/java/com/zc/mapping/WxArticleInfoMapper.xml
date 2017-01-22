@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.WxArticleInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.zc.model.WxArticleInfoModel">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="structure_type" jdbcType="VARCHAR" property="structureType" />
+    <result column="keywords" jdbcType="LONGVARCHAR" property="keywords" />
+    <result column="topicTitle" jdbcType="VARCHAR" property="topicTitle" />
+    <result column="topicId" jdbcType="VARCHAR" property="topicId" />
+    <result column="article_tags" jdbcType="VARCHAR" property="articleTags" />
+    <result column="publish_time" jdbcType="LONGVARCHAR" property="publishTime" />
+    <result column="read_num" jdbcType="INTEGER" property="readNum" />
+    <result column="relative_score" jdbcType="REAL" property="relativeScore" />
+    <result column="article_url" jdbcType="VARCHAR" property="articleUrl" />
+    <result column="topicUrl" jdbcType="VARCHAR" property="topicUrl" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, title, article_url, account_id, account_name, structure_type, keywords,
+    topicTitle, topicId, article_tags, publish_time, read_num,
+    relative_score, article_url
+  </sql>
+
+  <select id="getWxArticleList" resultMap="BaseResultMap" >
+      select daily.id, daily.title, daily.account_id, daily.account_name,
+      arti_title_type.structure_type, daily.article_tags, daily.publish_time,
+      daily.read_num,daily.relative_score,article.keywords,article.article_url,
+      topic.topicId, topic.topicTitle, topic.topicUrl
+      from wxarticlerankdaily daily
+      inner join wxarticleinfo article on article.article_id = daily.article_id
+      inner join (
+      SELECT articleinfo_id, GROUP_CONCAT(class_name SEPARATOR ',') structure_type from WxArticleClass arti_cls
+      INNER join WxTitleClass title_cls on arti_cls.class_id = title_cls.id GROUP BY arti_cls.articleinfo_id
+      ) arti_title_type on arti_title_type.articleinfo_id = article.id
+      left join WxArticleRelatedTopic arti_topic on arti_topic.article_id = article.id
+      left join ( select id as topicId,title as topicTitle, topicUrl from view_topic ) topic on topic.topicId = arti_topic.topic_id
+      where daily.is_latest = 1 and arti_title_type.structure_type &lt;&gt; '其他'
+      order by daily.relative_score DESC
+      LIMIT
+      #{rowStart,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+</mapper>

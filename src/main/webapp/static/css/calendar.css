@@ -53,25 +53,33 @@
     overflow: hidden;
     color:#000;
     font-size:12px;
-    background:#e8ebed;
+    background:#202020;
 }
 .calendar-views {
     width: 100%;
 }
 .calendar .view,
-.calendar-arrow-left,
 .calendar .date-items li {
     float: left;
 }
+.calendar-arrow-left{
+	position:absolute;
+	right:28px;
+	top:17px;
+	line-height:5px;
+}
 .calendar-arrow-right{
-    float: right;
+    position:absolute;
+    right:28px;
+    bottom:17px;
+    line-height:5px;
 }
 .calendar-hd {
-    padding: 0px 32px;
-    height: 56px;
-    line-height: 56px;
-    background:#e8ebed;
-    text-align: center;
+    padding: 0px 28px;
+    height: 64px;
+    line-height: 64px;
+    background:#202020;
+    position:relative;
 }
 .calendar-display {
     font-size: 28px;
@@ -98,7 +106,7 @@
 }
 .calendar-views .days .old,
 .calendar-views .days .new{
-	color:rgba(0,0,0,0.3);
+	color:#757576;
 }
 .calendar-arrow span,
 .calendar-views .days li,
@@ -111,7 +119,8 @@
     height:28px;
     margin-left:2.5px;
     line-height:28px;
-    font-size:16px;
+    font-size:18px;
+    color:#fff;
 }
 .calendar-views .view-month li a{
     display:block;
@@ -128,8 +137,8 @@
 }
 
 .calendar-arrow span {
-    height: 56px;
-    width:5px;
+    height: 5px;
+    width:9px;
     display: inline-block;
     background-position:center;
     background-repeat:no-repeat;
@@ -145,21 +154,13 @@
     text-align: center;
 }
 .calendar .week li{
-	padding-bottom:6px;
-	line-height:14px!important;
+	font-size:16px;
+	color:#fff;
 }
 .calendar-views .week{
 	position:relative;
 }
-.calendar-views .week:before{
-	position: absolute;
-    top: 19px;
-    left: 11px;
-    width: 212px;
-    height: 1px;
-    border-bottom: 1px solid #ddd;
-    content: "";
-}
+
 .calendar .week li,
 .calendar .days li {
     width: 40px;
@@ -177,10 +178,10 @@
     line-height: 70px;
 }
 .calendar .calendar-views .now {
-    background: #c5c5c5!important;  
+    border: 1px solid #389a9c;  
 }
 .calendar .calendar-views .selected {
-    color: #2ad5d8!important;
+    background: #389a9c!important;
 }
 .calendar .calendar-views .dot {
     position: absolute;
@@ -238,7 +239,7 @@
 .calendar .days li div {
     position:absolute;
     height:1px;
-    border-bottom:2px solid #ccc;
+    border-bottom:2px solid #389a9c;
 } 
 .calendar .days li div.active {
     border-bottom:2px solid #2ad5d8;
