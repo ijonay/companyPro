@@ -19,10 +19,9 @@
         </form>
 
         <br/>
-       <%--  <c:if test="${empty param.suggestKeys}">
-
-           <label id="weibolabel" Style="color:red;font-size:20px;" >很抱歉，导入失败</label>
-        </c:if> --%>
+     <c:if test="${empty suggestKeys}">
+           <label id="weibolabel" Style="font-size:20px;" >很抱歉，没有查到相关联想词汇！</label>
+        </c:if> 
         <c:if test="${not empty suggestKeys}">
 <style>
 textarea

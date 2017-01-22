@@ -135,7 +135,7 @@ public class SearchModel {
 
         if (Objects.nonNull(userClass) && userClass.size() > 0)
             result.add(userClass);
-
+         
         return result;
     }
 

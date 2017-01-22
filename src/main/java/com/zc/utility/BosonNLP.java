@@ -35,6 +35,10 @@ public class BosonNLP {
                 .asJson();
          String keyStr = jsonResponse.getBody().toString();
          keyStr=keyStr.substring(1, keyStr.length()-1);
+         if ("".equals(keyStr)||keyStr==null) {
+             
+             return null;
+         }
          String[] split = keyStr.split("],");
          List<BosonNLPModel> listboson=new ArrayList();
          for (int i = 0; i < split.length; i++) {

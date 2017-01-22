@@ -67,16 +67,19 @@ public class AdminController {
         return "admin/bosonNLP";
     }
     @RequestMapping(value = "/bosonNlpKeyWord")
-    public String getAssociateKey(@RequestParam(value = "bosonkeyword")
+    public String getAssociateKey(@RequestParam(value = "bosonkeyword",required=false)
     String bosonkeyword,Model model) throws UnirestException, IOException {
 //        System.out.println("bosonkeyword========" + bosonkeyword);
-        if ("".equals(bosonkeyword)) {
+        if ("".equals(bosonkeyword)||bosonkeyword==null) {
             return "";
         }
         List<BosonNLPModel> suggestKeys=null;
              BosonNLP boson=new BosonNLP();
-         
-                suggestKeys = boson.suggestAnalysis(bosonkeyword);
+                try {
+                    suggestKeys = boson.suggestAnalysis(bosonkeyword);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             
         model.addAttribute("suggestKeys", suggestKeys);
 
