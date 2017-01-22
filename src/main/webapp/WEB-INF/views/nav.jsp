@@ -8,7 +8,7 @@
     <div class="header-logo fl"></div>
     <ul class="header-right fr">
     	<li class="nav_ser hidecommon">
-    		<input type="text" placeholder="请输入搜索关键字" maxlength="10" class="f16" id="nav_ser">
+    		<input type="text" placeholder="请输入探索关键字" maxlength="10" class="f16" id="nav_ser">
     		<div class="head-search" id="nav-head-search"></div>
     	</li>
         <li class="head-usericon"><a></a></li>

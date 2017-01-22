@@ -1199,6 +1199,7 @@ to {background-position:0 -6px;}
 	overflow: hidden;
 	white-space: nowrap;
 }
+
 .tgiInt{
 	display:none;
 	position:absolute;
@@ -1227,3 +1228,34 @@ to {background-position:0 -6px;}
 	border-bottom:1px solid #fff;
 	margin-bottom:6px;
 }
+.circle_hot_error{
+	text-align:center;
+	width:100%;
+	font-size:16px;
+	color:#4a4a4a;
+	background:#fff;
+}
+/* 搜索热点start */
+#all-hot-btn-ser {
+	width: 240px;
+    height: 32px;
+    line-height:32px;
+    border-radius: 50px;
+    border: 0;
+    padding-left: 15px;
+    background: rgba(255,255,255,.8);
+    padding-right:35px;
+}
+.all-hot-btn-div{margin-top:4px;}
+.allhot-change{
+	width:16px;
+	height:16px;
+	background:url(../img/all-hot-btn-ser.png) no-repeat;
+	top:8px;
+	right:12px;
+}
+
+.allhot-changeactive{
+	background:url(../img/all-hot-btn-ser-back.png) no-repeat;
+}
+/* 搜索热点end */
