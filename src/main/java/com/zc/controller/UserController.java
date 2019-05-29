@@ -36,8 +36,7 @@ public class UserController {
     public String registUserInfo(String username, String password, Model model) {
         logger.info("regist : start , username : " + username + " password : "
                 + password);
-        logger.info("regist : start , username : " + username + " password : "
-                + password);
+
         String view = "welcome";
 
         if (StringUtils.isEmpty(username)) {
